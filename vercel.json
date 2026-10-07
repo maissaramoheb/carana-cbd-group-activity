@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/CARANA_CBD_Group_Activity.html"
+    }
+  ]
+}

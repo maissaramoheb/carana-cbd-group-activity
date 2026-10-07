@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>CARANA CBD Group Activity</title>
+  <style>
+    :root{--un:#009edb;--navy:#12304a;--ink:#243746;--muted:#607586;--paper:#fff;--wash:#eef6fa;--line:#cddde6;--gold:#c99a3d;--ok:#16785b;--warn:#8a5a10;--radius:12px;--shadow:0 16px 42px rgba(18,48,74,.10)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:#eaf2f6;color:var(--ink);font:16px/1.55 Arial,"Helvetica Neue",sans-serif}
+    button,input,textarea,select{font:inherit} button{cursor:pointer}
+    .shell{max-width:1180px;margin:auto;padding:24px}
+    .mast{position:relative;overflow:hidden;background:var(--navy);color:white;border-radius:16px;padding:28px 30px;box-shadow:var(--shadow)}
+    .mast:after{content:"CARANA";position:absolute;right:-16px;bottom:-38px;color:rgba(255,255,255,.055);font:900 110px/1 Arial;letter-spacing:-7px}
+    .eyebrow,.kicker{font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .eyebrow{color:#83dbff}.mast h1{max-width:760px;margin:7px 0 8px;font:700 clamp(1.8rem,4vw,3rem)/1.05 Georgia,serif}
+    .mast p{max-width:790px;margin:0;color:#d8edf6}.credit{position:relative;z-index:1;margin-top:18px;color:#ffd889;font-weight:700}
+    .safeguard{margin:14px 0 0;border-left:4px solid var(--gold);background:#fff9e9;color:#553d0e;padding:12px 15px;border-radius:4px 10px 10px 4px;font-size:.9rem}
+    .progress{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:18px 0}
+    .step{min-height:60px;border:1px solid var(--line);border-radius:10px;background:#f8fbfd;color:var(--muted);padding:9px 8px;text-align:left;font-size:.78rem;font-weight:700}
+    .step span{display:block;color:var(--un);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}.step.active{background:var(--navy);color:#fff;border-color:var(--navy)}.step.done{border-color:#7bc5ad;color:var(--ok);background:#f1fbf7}
+    .panel{display:none;background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.panel.active{display:block}
+    .panel-head{padding:24px 26px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#fff,#f2f8fb);border-radius:16px 16px 0 0}
+    .kicker{color:var(--un)}.panel h2{margin:4px 0 5px;color:var(--navy);font:700 1.65rem/1.15 Georgia,serif}.panel-head p{margin:0;color:var(--muted)}
+    .body{padding:26px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.full{grid-column:1/-1}
+    .field label,.label{display:block;margin-bottom:6px;color:var(--navy);font-weight:800}.hint{display:block;color:var(--muted);font-size:.84rem;font-weight:400;margin-top:2px}
+    input,textarea,select{width:100%;border:1px solid #afc5d1;border-radius:9px;background:#fcfeff;color:var(--ink);padding:11px 12px;outline:none}textarea{min-height:112px;resize:vertical}input:focus,textarea:focus,select:focus,button:focus-visible{border-color:var(--un);box-shadow:0 0 0 3px rgba(0,158,219,.18);outline:none}
+    .source-card{background:var(--wash);border:1px solid #c4dde9;border-radius:12px;padding:16px 18px}.source-card h3{margin:0 0 7px;color:var(--navy)}.source-card p,.source-card ul{margin:7px 0}.source-card li{margin:5px 0}
+    details{border:1px solid var(--line);border-radius:10px;padding:11px 14px;background:#fbfdfe}summary{cursor:pointer;color:var(--navy);font-weight:800}
+    .actions{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:18px 26px;border-top:1px solid var(--line);background:#f8fbfd;border-radius:0 0 16px 16px}.actions-right{display:flex;gap:9px;flex-wrap:wrap}.btn{border:1px solid #9eb6c4;border-radius:9px;background:white;color:var(--navy);padding:10px 15px;font-weight:800}.btn.primary{background:var(--un);border-color:var(--un);color:white}.btn.dark{background:var(--navy);border-color:var(--navy);color:white}.btn.ghost{background:transparent}.btn:disabled{opacity:.45;cursor:not-allowed}
+    .stake-row{display:grid;grid-template-columns:1.15fr .8fr .8fr 1.2fr auto;gap:9px;align-items:end;padding:13px 0;border-bottom:1px solid #e1eaef}.stake-row:last-child{border-bottom:0}.stake-row label{font-size:.78rem;color:var(--muted);font-weight:700}.remove{width:38px;height:42px;border:1px solid #e4b7b7;background:#fff6f6;color:#8d3030;border-radius:8px;font-weight:900}
+    .matrix-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}.matrix{display:grid;grid-template-columns:190px repeat(4,minmax(135px,1fr));min-width:760px}.matrix>*{min-height:72px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:9px}.matrix-head{background:var(--navy);color:white;font-size:.78rem;font-weight:800}.row-head{background:#e9f5fa;color:var(--navy);font-weight:800}.cell{background:white;border-width:0 1px 1px 0;color:var(--muted);font-size:.77rem;text-align:left}.cell:hover{background:#eef9fd}.cell.selected{background:#d8f3ff;color:var(--navy);box-shadow:inset 0 0 0 2px var(--un)}
+    .selection{margin-top:12px;padding:12px 14px;background:#f2f8fb;border-radius:9px;color:var(--navy);font-weight:700}.pill{display:inline-block;background:#d8f3ff;color:#075278;border-radius:99px;padding:4px 9px;font-size:.77rem;font-weight:800;margin:3px}
+    .review-section{border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden}.review-title{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#eef6fa;padding:11px 14px;color:var(--navy);font-weight:800}.review-content{padding:14px}.review-content dl{margin:0;display:grid;grid-template-columns:210px 1fr;gap:7px 14px}.review-content dt{font-weight:800;color:var(--muted)}.review-content dd{margin:0;white-space:pre-wrap}.edit{border:0;background:transparent;color:#006e9e;font-weight:800}.empty{color:#9a4d26;font-style:italic}
+    .confirm{display:flex;gap:10px;align-items:flex-start;background:#fff9e9;border:1px solid #ead49c;border-radius:10px;padding:13px}.confirm input{width:auto;margin-top:5px}
+    .reset-activity{position:fixed;right:24px;bottom:24px;z-index:10;border:1px solid #e4b7b7;border-radius:9px;background:#fff6f6;color:#8d3030;padding:10px 15px;font-weight:800;box-shadow:0 8px 24px rgba(18,48,74,.16)}.reset-activity:hover{background:#fdeaea}
+    .status{min-height:24px;color:var(--ok);font-weight:700}.print-report{display:none}.footer{padding:18px 2px;color:var(--muted);font-size:.8rem;text-align:center}
+    @media(max-width:760px){.shell{padding:12px;padding-bottom:76px}.mast{padding:22px 20px}.progress{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.full{grid-column:auto}.stake-row{grid-template-columns:1fr 1fr}.stake-row .strategy{grid-column:1/-1}.panel-head,.body{padding:20px}.actions{padding:15px 20px;align-items:stretch;flex-direction:column}.review-content dl{grid-template-columns:1fr}.review-content dt{margin-top:7px}.reset-activity{right:12px;bottom:12px}}
+    @media print{body{background:white;font-size:10pt}.shell{display:none}.print-report{display:block;color:#172b3a;padding:0 12mm}.print-cover{min-height:245mm;display:flex;flex-direction:column;justify-content:center;border-top:9mm solid #12304a;border-bottom:3mm solid #009edb;padding:20mm 12mm}.print-cover h1{font:700 30pt/1.1 Georgia,serif;color:#12304a;margin:8mm 0 4mm}.print-cover .credit{color:#8a641d}.print-page{break-before:page;padding:10mm 4mm}.print-page h2{color:#12304a;border-bottom:2px solid #009edb;padding-bottom:3mm}.print-block{break-inside:avoid;margin:0 0 5mm}.print-label{font-weight:800;color:#526d7e;font-size:8pt;text-transform:uppercase;letter-spacing:.06em}.print-value{white-space:pre-wrap;margin-top:1mm}.print-table{width:100%;border-collapse:collapse;font-size:8.5pt}.print-table th,.print-table td{border:1px solid #b8cbd6;padding:2.5mm;vertical-align:top}.print-table th{background:#e9f5fa;text-align:left}.print-foot{margin-top:8mm;border-top:1px solid #b8cbd6;padding-top:3mm;font-size:8pt;color:#536978}@page{size:A4;margin:12mm}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="mast">
+      <div class="eyebrow">UNPOL learning activity · 60 minutes · offline</div>
+      <h1>From evidence to a practical CBD response</h1>
+      <p>A guided group discussion using the fictional CARANA setting and the Galasi Criminal Investigations Services case.</p>
+      <div class="credit">Prepared by Lt Col Maissara</div>
+    </header>
+    <div class="safeguard"><strong>Training safeguard.</strong> CARANA and UNAC are fictional training settings. This participant tool is an exercise adaptation based on supplied UN training material; it is not an official UN assessment, doctrine, operational plan, endorsement, or recommendation. Group outputs record participants' learning discussion only.</div>
+    <nav class="progress" id="progress" aria-label="Activity stages"></nav>
+
+    <section class="panel active" data-panel="start">
+      <div class="panel-head"><div class="kicker">Stage 1 · 5 minutes</div><h2>Start / Team details</h2><p>Identify your group, read the case, and agree on a note-taker.</p></div>
+      <div class="body grid">
+        <div class="field"><label for="teamName">Team name or number</label><input id="teamName" data-bind="team.name" placeholder="e.g. Team 3"></div>
+        <div class="field"><label for="participants">Participants</label><input id="participants" data-bind="team.participants" placeholder="Names or initials, separated by commas"></div>
+        <div class="field"><label for="noteTaker">Note-taker</label><input id="noteTaker" data-bind="team.noteTaker" placeholder="Name"></div>
+        <div class="field"><label for="sessionDate">Session date</label><input id="sessionDate" type="date" data-bind="team.date"></div>
+        <div class="source-card full">
+          <h3>CARANA scenario reference</h3>
+          <p>You are UNPOL CBD advisers supporting the <strong>Galasi Criminal Investigations Services (CIS)</strong> within the Carana National Police (CNP). The CNP faces shortages of qualified personnel, logistics, finance and training; corruption and weak public trust are serious concerns. The Galasi CIS case also identifies fragmented records, weak complaint follow-up, limited forensic capability, gaps in police-community information flow, and inconsistent policies and procedures.</p>
+          <p><strong>Your task:</strong> discuss the evidence, identify the actors who matter, and propose a focused CBD response across individual, organisational and enabling-environment levels.</p>
+          <details><summary>Source and adaptation note</summary><p>Scenario facts are drawn from the supplied <em>Carana Activity Workbook - Participant</em>, especially the UNAC and police context (pp. 2, 5-6) and Activity 4, Galasi CIS (pp. 14-18). The six-stage digital workflow, shortened prompts, time allocations, review screen and export format are exercise-specific adaptations created for this session.</p></details>
+        </div>
+      </div>
+      <div class="actions"><span class="status" id="saveStatus">Saved locally on this laptop</span><div class="actions-right"><button class="btn primary" data-next="situation">Begin situational analysis</button></div></div>
+    </section>
+
+    <section class="panel" data-panel="situation">
+      <div class="panel-head"><div class="kicker">Stage 2 · 12 minutes</div><h2>Situational analysis</h2><p>Keep it light: agree on the main problem, the evidence, and what still needs checking.</p></div>
+      <div class="body grid">
+        <div class="field full"><label>Main policing or capacity problem <span class="hint">Write one clear problem statement. Avoid starting with a solution such as “deliver training.”</span></label><textarea data-bind="situation.problem" placeholder="The main problem is..."></textarea></div>
+        <div class="field"><label>Evidence from the CARANA case <span class="hint">Which facts support your problem statement?</span></label><textarea data-bind="situation.evidence" placeholder="The case tells us..."></textarea></div>
+        <div class="field"><label>Questions or assumptions <span class="hint">What would your team verify before acting?</span></label><textarea data-bind="situation.assumptions" placeholder="We still need to know..."></textarea></div>
+        <div class="field full"><label>Why this matters for people and policing <span class="hint">Consider trust, rights, access, effectiveness and protection.</span></label><textarea data-bind="situation.significance" placeholder="If this gap continues..."></textarea></div>
+      </div>
+      <div class="actions"><button class="btn" data-back="start">Back</button><div class="actions-right"><button class="btn primary" data-next="stakeholders">Continue to stakeholder mapping</button></div></div>
+    </section>
+
+    <section class="panel" data-panel="stakeholders">
+      <div class="panel-head"><div class="kicker">Stage 3 · 15 minutes</div><h2>Stakeholder matrix & mapping</h2><p>Name the few actors who can own, enable, influence or challenge the response.</p></div>
+      <div class="body">
+        <div class="source-card"><strong>CARANA actors to consider:</strong> CNP/CIS leadership, Galasi Police Directorate, uniformed police, Ministry of Interior/provincial administration, communities and groups at risk, journalists/civil society, justice and oversight actors, UNAC, and international partners. Choose only those relevant to your proposed response.</div>
+        <div id="stakeholderRows"></div>
+        <button class="btn ghost" id="addStakeholder">+ Add stakeholder</button>
+        <div class="field" style="margin-top:17px"><label>Mapping conclusion <span class="hint">Who should own the response, and whose support is essential?</span></label><textarea data-bind="stakeholders.conclusion" placeholder="Primary owner... Essential support..."></textarea></div>
+      </div>
+      <div class="actions"><button class="btn" data-back="situation">Back</button><div class="actions-right"><button class="btn primary" data-next="cbd">Continue to CBD matrix</button></div></div>
+    </section>
+
+    <section class="panel" data-panel="cbd">
+      <div class="panel-head"><div class="kicker">Stage 4 · 18 minutes</div><h2>CBD matrix</h2><p>Select up to three useful intersections, then shape one realistic response.</p></div>
+      <div class="body">
+        <div class="matrix-wrap"><div class="matrix" id="matrix"></div></div>
+        <div class="selection" id="selectionText">No matrix intersections selected yet.</div>
+        <div class="grid" style="margin-top:18px">
+          <div class="field full"><label>Proposed CBD response <span class="hint">Describe a connected package, not a list of unrelated activities.</span></label><textarea data-bind="cbd.intervention" placeholder="We propose..."></textarea></div>
+          <div class="field"><label>Individual level <span class="hint">Knowledge, skills, conduct or leadership practice.</span></label><textarea data-bind="cbd.individual" placeholder="At individual level..."></textarea></div>
+          <div class="field"><label>Organisational level <span class="hint">Systems, supervision, procedures, resources or coordination.</span></label><textarea data-bind="cbd.organizational" placeholder="At organisational level..."></textarea></div>
+          <div class="field"><label>Enabling environment <span class="hint">Law, policy, oversight, authority, political or resource conditions.</span></label><textarea data-bind="cbd.environment" placeholder="In the enabling environment..."></textarea></div>
+          <div class="field"><label>Expected result and simple indicator</label><textarea data-bind="cbd.result" placeholder="We expect... We would look for..."></textarea></div>
+          <div class="field full"><label>Key risks or safeguards <span class="hint">Include human rights, inclusion, ownership and unintended effects.</span></label><textarea data-bind="cbd.safeguards" placeholder="To avoid harm or weak ownership, we will..."></textarea></div>
+        </div>
+      </div>
+      <div class="actions"><button class="btn" data-back="stakeholders">Back</button><div class="actions-right"><button class="btn primary" data-next="review">Review all inputs</button></div></div>
+    </section>
+
+    <section class="panel" data-panel="review">
+      <div class="panel-head"><div class="kicker">Stage 5 · 7 minutes</div><h2>Review & confirm</h2><p>Read the complete group response. Use Edit to return to any section before confirming.</p></div>
+      <div class="body"><div id="reviewContent"></div><label class="confirm"><input type="checkbox" id="confirmBox"><span>Our group has reviewed this summary. We understand that it is a participant learning output, not an official UN assessment or operational recommendation.</span></label></div>
+      <div class="actions"><button class="btn" data-back="cbd">Back</button><div class="actions-right"><button class="btn" id="downloadJson">Download structured response</button><button class="btn primary" id="toExport" disabled>Confirm and continue</button></div></div>
+    </section>
+
+    <section class="panel" data-panel="export">
+      <div class="panel-head"><div class="kicker">Stage 6 · 3 minutes</div><h2>Generate PDF</h2><p>Create the final group-work report locally. No response is uploaded or sent anywhere.</p></div>
+      <div class="body grid">
+        <div class="source-card full"><h3>Ready for local export</h3><p>The report includes team details, CARANA scenario reference, all group responses, selected matrix intersections, conclusions, the training safeguard and preparer credit.</p><p>Choose <strong>Generate PDF</strong>, then select <strong>Save as PDF</strong> in your browser's print window. Suggested filename: <span id="filenameHint"></span></p></div>
+      </div>
+      <div class="actions"><button class="btn" data-back="review">Return to review</button><div class="actions-right"><button class="btn dark" id="printBtn">Generate PDF</button></div></div>
+    </section>
+    <footer class="footer">CARANA CBD Group Activity · Offline participant workbook · Prepared by Lt Col Maissara</footer>
+    <button class="reset-activity" id="resetActivity" type="button">Reset Activity</button>
+  </main>
+  <article class="print-report" id="printReport"></article>
+
+  <script>
+    (()=>{
+      'use strict';
+      const STORAGE_KEY='carana_cbd_group_activity_v1';
+      const stages=[['start','Start / Team details'],['situation','Situational analysis'],['stakeholders','Stakeholder mapping'],['cbd','CBD matrix'],['review','Review & confirm'],['export','Generate PDF']];
+      const areas=['Police professionalism & integrity','Administrative systems','Legal & policy framework','Accountability mechanisms','Stakeholder engagement'];
+      const dimensions=['Policing practice','Environmental sustainability','Conflict prevention','Human rights'];
+      const defaults={version:'1.0',activity:'CARANA CBD Group Activity',scenario:'Galasi Criminal Investigations Services, Carana National Police',source:'Carana Activity Workbook - Participant, pp. 2, 5-6 and 14-18',adaptationNotice:'Digital workflow, prompts, timing, review and export are exercise-specific adaptations.',team:{name:'',participants:'',noteTaker:'',date:localDate()},situation:{problem:'',evidence:'',assumptions:'',significance:''},stakeholders:{items:[blankStakeholder(),blankStakeholder(),blankStakeholder()],conclusion:''},cbd:{selectedCells:[],intervention:'',individual:'',organizational:'',environment:'',result:'',safeguards:''},meta:{lastSaved:'',confirmed:false}};
+      let data=load();let current='start';
+      function blankStakeholder(){return{name:'',role:'Owner',influence:'Medium',strategy:''}}
+      function localDate(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+      function load(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));return saved?merge(defaults,saved):JSON.parse(JSON.stringify(defaults))}catch(e){return JSON.parse(JSON.stringify(defaults))}}
+      function merge(base,saved){const out=JSON.parse(JSON.stringify(base));Object.keys(saved||{}).forEach(k=>{if(saved[k]&&typeof saved[k]==='object'&&!Array.isArray(saved[k])&&out[k])out[k]={...out[k],...saved[k]};else out[k]=saved[k]});return out}
+      function save(){data.meta.lastSaved=new Date().toISOString();localStorage.setItem(STORAGE_KEY,JSON.stringify(data));const s=document.getElementById('saveStatus');if(s){s.textContent='Saved locally at '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});setTimeout(()=>s.textContent='Saved locally on this laptop',1800)}}
+      function get(path){return path.split('.').reduce((o,k)=>o?.[k],data)??''}
+      function set(path,value){const keys=path.split('.');let o=data;keys.slice(0,-1).forEach(k=>o=o[k]);o[keys.at(-1)]=value;data.meta.confirmed=false;document.getElementById('confirmBox').checked=false;save()}
+      function esc(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+      function slug(v){return(String(v||'Group').trim().replace(/[^a-z0-9]+/gi,'_').replace(/^_|_$/g,'')||'Group')}
+      function bindFields(){document.querySelectorAll('[data-bind]').forEach(el=>{el.value=get(el.dataset.bind);el.addEventListener('input',()=>set(el.dataset.bind,el.value))})}
+      function renderProgress(){document.getElementById('progress').innerHTML=stages.map(([id,label],i)=>`<button class="step ${id===current?'active':''}" data-jump="${id}"><span>${String(i+1).padStart(2,'0')}</span>${label}</button>`).join('');document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>go(b.dataset.jump))}
+      function go(id){current=id;document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===id));if(id==='review')renderReview();if(id==='export')preparePrint();renderProgress();window.scrollTo({top:0,behavior:'smooth'})}
+      function renderStakeholders(){const host=document.getElementById('stakeholderRows');host.innerHTML=data.stakeholders.items.map((s,i)=>`<div class="stake-row"><div><label>Stakeholder</label><input data-si="${i}" data-sk="name" value="${esc(s.name)}" placeholder="Actor or group"></div><div><label>Role</label><select data-si="${i}" data-sk="role">${['Owner','Enabler','Affected group','Influencer','Potential blocker'].map(x=>`<option ${x===s.role?'selected':''}>${x}</option>`).join('')}</select></div><div><label>Influence</label><select data-si="${i}" data-sk="influence">${['High','Medium','Low'].map(x=>`<option ${x===s.influence?'selected':''}>${x}</option>`).join('')}</select></div><div class="strategy"><label>Engagement approach</label><input data-si="${i}" data-sk="strategy" value="${esc(s.strategy)}" placeholder="How will you involve them?"></div><button class="remove" data-remove="${i}" aria-label="Remove stakeholder">×</button></div>`).join('');host.querySelectorAll('[data-si]').forEach(el=>el.oninput=()=>{data.stakeholders.items[+el.dataset.si][el.dataset.sk]=el.value;save()});host.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{if(data.stakeholders.items.length>1){data.stakeholders.items.splice(+b.dataset.remove,1);save();renderStakeholders()}})}
+      function renderMatrix(){const host=document.getElementById('matrix');let html='<div class="matrix-head">CBD areas ↓ / Dimensions →</div>'+dimensions.map(d=>`<div class="matrix-head">${d}</div>`).join('');areas.forEach(a=>{html+=`<div class="row-head">${a}</div>`;dimensions.forEach(d=>{const key=a+'|'+d;const on=data.cbd.selectedCells.includes(key);html+=`<button class="cell ${on?'selected':''}" data-cell="${esc(key)}" type="button">${on?'Selected':'Select intersection'}</button>`})});host.innerHTML=html;host.querySelectorAll('[data-cell]').forEach(b=>b.onclick=()=>{const k=b.dataset.cell;const i=data.cbd.selectedCells.indexOf(k);if(i>=0)data.cbd.selectedCells.splice(i,1);else if(data.cbd.selectedCells.length<3)data.cbd.selectedCells.push(k);else{alert('Choose up to three intersections. Deselect one before adding another.');return}save();renderMatrix();renderSelection()});renderSelection()}
+      function renderSelection(){document.getElementById('selectionText').innerHTML=data.cbd.selectedCells.length?'Selected: '+data.cbd.selectedCells.map(x=>`<span class="pill">${esc(x.replace('|',' × '))}</span>`).join(''):'No matrix intersections selected yet.'}
+      function reviewBlock(title,stage,rows){return`<section class="review-section"><div class="review-title"><span>${title}</span><button class="edit" data-edit="${stage}">Edit</button></div><div class="review-content"><dl>${rows.map(([k,v])=>`<dt>${k}</dt><dd class="${v?'':'empty'}">${esc(v||'Not entered')}</dd>`).join('')}</dl></div></section>`}
+      function renderReview(){const stakeholders=data.stakeholders.items.filter(x=>x.name).map(x=>`${x.name} — ${x.role}; ${x.influence} influence; ${x.strategy||'engagement not entered'}`).join('\n');document.getElementById('reviewContent').innerHTML=reviewBlock('Team details','start',[['Team',data.team.name],['Participants',data.team.participants],['Note-taker',data.team.noteTaker],['Date',data.team.date]])+reviewBlock('Situational analysis','situation',[['Main problem',data.situation.problem],['Evidence',data.situation.evidence],['Questions / assumptions',data.situation.assumptions],['Why it matters',data.situation.significance]])+reviewBlock('Stakeholder matrix & mapping','stakeholders',[['Stakeholders',stakeholders],['Mapping conclusion',data.stakeholders.conclusion]])+reviewBlock('CBD matrix','cbd',[['Selected intersections',data.cbd.selectedCells.map(x=>x.replace('|',' × ')).join('\n')],['Proposed response',data.cbd.intervention],['Individual level',data.cbd.individual],['Organisational level',data.cbd.organizational],['Enabling environment',data.cbd.environment],['Expected result / indicator',data.cbd.result],['Risks / safeguards',data.cbd.safeguards]]);document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>go(b.dataset.edit))}
+      function reportBlock(label,value){return`<div class="print-block"><div class="print-label">${esc(label)}</div><div class="print-value">${esc(value||'Not entered')}</div></div>`}
+      function preparePrint(){const team=esc(data.team.name||'Group');const rows=data.stakeholders.items.filter(x=>x.name).map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.role)}</td><td>${esc(x.influence)}</td><td>${esc(x.strategy)}</td></tr>`).join('')||'<tr><td colspan="4">No stakeholders entered</td></tr>';document.getElementById('filenameHint').textContent=`CARANA_CBD_${slug(data.team.name)}.pdf`;document.getElementById('printReport').innerHTML=`<section class="print-cover"><div class="kicker">CARANA · CBD group learning activity</div><h1>Group-work report</h1><p><strong>${team}</strong></p><p>Galasi Criminal Investigations Services · Carana National Police</p><p class="credit">Prepared by Lt Col Maissara</p><div class="print-foot"><strong>Training safeguard:</strong> CARANA and UNAC are fictional training settings. This is a participant learning output, not an official UN assessment, doctrine, operational plan, endorsement or recommendation. Scenario facts derive from the supplied Carana Activity Workbook - Participant; the digital workflow is an exercise adaptation.</div></section><section class="print-page"><h2>1. Team and scenario</h2>${reportBlock('Team',data.team.name)}${reportBlock('Participants',data.team.participants)}${reportBlock('Note-taker',data.team.noteTaker)}${reportBlock('Session date',data.team.date)}${reportBlock('Scenario reference',data.scenario)}${reportBlock('Source reference',data.source)}<h2>2. Situational analysis</h2>${reportBlock('Main policing or capacity problem',data.situation.problem)}${reportBlock('Evidence from the CARANA case',data.situation.evidence)}${reportBlock('Questions or assumptions',data.situation.assumptions)}${reportBlock('Why this matters for people and policing',data.situation.significance)}</section><section class="print-page"><h2>3. Stakeholder matrix & mapping</h2><table class="print-table"><thead><tr><th>Stakeholder</th><th>Role</th><th>Influence</th><th>Engagement approach</th></tr></thead><tbody>${rows}</tbody></table>${reportBlock('Mapping conclusion',data.stakeholders.conclusion)}<h2>4. CBD matrix</h2>${reportBlock('Selected intersections',data.cbd.selectedCells.map(x=>x.replace('|',' × ')).join('\n'))}${reportBlock('Proposed CBD response',data.cbd.intervention)}${reportBlock('Individual level',data.cbd.individual)}${reportBlock('Organisational level',data.cbd.organizational)}${reportBlock('Enabling environment',data.cbd.environment)}${reportBlock('Expected result and simple indicator',data.cbd.result)}${reportBlock('Key risks or safeguards',data.cbd.safeguards)}<div class="print-foot">Prepared by Lt Col Maissara · Generated locally from the group's reviewed inputs · ${esc(new Date().toLocaleString())}</div></section>`}
+      function downloadJson(){const exportData={...data,meta:{...data.meta,exportedAt:new Date().toISOString(),purpose:'Future facilitator comparison; no competitive scoring applied in this participant tool'}};const blob=new Blob([JSON.stringify(exportData,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`CARANA_CBD_${slug(data.team.name)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+      function resetActivity(){if(!confirm('Reset this activity? All participant-entered data saved on this device will be permanently cleared. Export anything you need before continuing.'))return;localStorage.removeItem(STORAGE_KEY);sessionStorage.removeItem(STORAGE_KEY);data=JSON.parse(JSON.stringify(defaults));document.querySelectorAll('[data-bind]').forEach(el=>el.value=get(el.dataset.bind));renderStakeholders();renderMatrix();document.getElementById('confirmBox').checked=false;document.getElementById('toExport').disabled=true;document.getElementById('reviewContent').innerHTML='';document.getElementById('printReport').innerHTML='';document.title='CARANA CBD Group Activity';document.getElementById('saveStatus').textContent='Ready for a new group';go('start')}
+      document.getElementById('addStakeholder').onclick=()=>{data.stakeholders.items.push(blankStakeholder());save();renderStakeholders()};
+      document.getElementById('confirmBox').onchange=e=>{data.meta.confirmed=e.target.checked;document.getElementById('toExport').disabled=!e.target.checked;save()};
+      document.getElementById('toExport').onclick=()=>{if(data.meta.confirmed)go('export')};
+      document.getElementById('downloadJson').onclick=downloadJson;
+      document.getElementById('printBtn').onclick=()=>{preparePrint();document.title=`CARANA_CBD_${slug(data.team.name)}`;window.print();setTimeout(()=>document.title='CARANA CBD Group Activity',500)};
+      document.getElementById('resetActivity').onclick=resetActivity;
+      document.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>go(b.dataset.next));document.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>go(b.dataset.back));
+      bindFields();renderStakeholders();renderMatrix();renderProgress();document.getElementById('confirmBox').checked=!!data.meta.confirmed;document.getElementById('toExport').disabled=!data.meta.confirmed;
+    })();
+  </script>
+</body>
+</html>
