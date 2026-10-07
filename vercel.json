@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/CARANA_CBD_Group_Activity.html"
+      "destination": "/CARANA_CBD_Group_Activity"
     }
   ]
 }
