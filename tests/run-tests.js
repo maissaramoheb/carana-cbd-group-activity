@@ -425,6 +425,78 @@ runTest('Portal Hub index.html activates and links Module 5', () => {
   assert(content.includes('Phase 5 · Working'), 'Module 5 badge must be active in index.html');
 });
 
+// 10. MODULE 6 SUITE
+console.log('\nGroup 10: Module 6 Transition & Handover Logic');
+
+runTest('Module 6 schema is properly initialized and structured', () => {
+  const m6 = storage.getDefaultState().module6;
+  assert(m6.transitionStrategy, 'Transition strategy missing');
+  assert(m6.transitionStrategy.primaryTrigger && m6.transitionStrategy.succeedingEntity, 'Triggers/entities missing');
+  assert(m6.fourPrinciplesFramework, 'Four principles framework missing');
+  assert(Array.isArray(m6.transitionRoadmap) && m6.transitionRoadmap.length >= 3, 'Transition roadmap phases missing');
+  assert(m6.institutionalizingPractice, 'Institutionalizing practice missing');
+  assert(Array.isArray(m6.challengesRemedies) && m6.challengesRemedies.length >= 2, 'Challenges and remedies missing');
+  assert(m6.handoverNotice, 'Handover notice missing');
+  assert(m6.reflection, 'Reflection missing');
+});
+
+runTest('The Four Key Principles of Transition conform to UNPOL Lesson 6 Slide 8', () => {
+  const m6 = storage.getDefaultState().module6;
+  const fw = m6.fourPrinciplesFramework;
+  assert(fw.earlyPlanning && fw.earlyPlanning.length > 10, 'Early planning missing');
+  assert(fw.unIntegration && fw.unIntegration.length > 10, 'UN integration missing');
+  assert(fw.localOwnership && fw.localOwnership.length > 10, 'Local ownership missing');
+  assert(fw.communicationProtocol && fw.communicationProtocol.length > 10, 'Communication protocol missing');
+});
+
+runTest('Phased Handover Roadmap models gradual drawdown of UNPOL engagement', () => {
+  const m6 = storage.getDefaultState().module6;
+  const validStatuses = ['Completed', 'In Progress', 'Scheduled'];
+  m6.transitionRoadmap.forEach(st => {
+    assert(st.phase && st.phase.length > 5, 'Phase description missing');
+    assert(st.milestone && st.milestone.length > 10, 'Milestone missing');
+    assert(st.handoverCriteria && st.handoverCriteria.length > 10, 'Handover criteria missing');
+    assert(validStatuses.includes(st.status), `Invalid status: ${st.status}`);
+  });
+});
+
+runTest('Institutionalising Sustainable Policing Practice incorporates doctrine and gender budgeting', () => {
+  const m6 = storage.getDefaultState().module6;
+  const inst = m6.institutionalizingPractice;
+  assert(inst.doctrineCodification && inst.doctrineCodification.length > 10, 'Doctrine codification missing');
+  assert(inst.academyIntegration && inst.academyIntegration.length > 10, 'Academy integration missing');
+  assert(inst.genderResponsiveBudget && inst.genderResponsiveBudget.length > 10, 'Gender-responsive budgeting missing');
+  assert(inst.oversightHandover && inst.oversightHandover.length > 10, 'Oversight handover missing');
+});
+
+runTest('Formal Handover Protocol Instrument contains necessary signatories', () => {
+  const m6 = storage.getDefaultState().module6;
+  const hn = m6.handoverNotice;
+  assert(hn.handoverDate, 'Handover date missing');
+  assert(hn.unpolSignatory && hn.counterpartSignatory, 'Primary signatories missing');
+  assert(hn.residualObligations && hn.residualObligations.length > 15, 'Residual obligations missing');
+});
+
+runTest('module6.html exists and contains all 6 interactive stages', () => {
+  const m6Path = path.join(ROOT_DIR, 'module6.html');
+  assert(fs.existsSync(m6Path), 'module6.html does not exist');
+  const content = fs.readFileSync(m6Path, 'utf8');
+  assert(content.includes('id="stage-principles"'), 'Stage 1 missing');
+  assert(content.includes('id="stage-assessment"'), 'Stage 2 missing');
+  assert(content.includes('id="stage-roadmap"'), 'Stage 3 missing');
+  assert(content.includes('id="stage-practice"'), 'Stage 4 missing');
+  assert(content.includes('id="stage-challenges"'), 'Stage 5 missing');
+  assert(content.includes('id="stage-handover"'), 'Stage 6 missing');
+  assert(content.includes('id="scenarioDrawer"'), 'Scenario drawer missing');
+  assert(content.includes('id="glossaryModalBackdrop"'), 'Glossary modal missing');
+});
+
+runTest('Portal Hub index.html activates and links Module 6', () => {
+  const content = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  assert(content.includes('href="module6.html"'), 'index.html must link to module6.html');
+  assert(content.includes('Phase 6 · Working'), 'Module 6 badge must be active in index.html');
+});
+
 console.log('\n======================================================');
 console.log(`TEST RESULTS: ${testsPassed} passed, ${testsFailed} failed`);
 console.log('======================================================\n');
