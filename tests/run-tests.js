@@ -294,6 +294,72 @@ runTest('module3.html contains all 6 interactive stages and 3x3 risk grid', () =
   assert(content.includes('class="risk-grid-3x3"'), '3x3 grid container missing');
 });
 
+// 8. MODULE 4 SUITE
+console.log('\nGroup 8: Module 4 Implementation, MMA & Problem-Solving Logic');
+
+runTest('Module 4 schema is properly initialized and structured', () => {
+  const m4 = storage.getDefaultState().module4;
+  assert(m4.mmaStrategy, 'MMA strategy object missing');
+  assert(m4.mmaStrategy.monitoringMechanisms && m4.mmaStrategy.advisingPriorities && m4.mmaStrategy.mentoringCoachingPlan, 'MMA triad elements missing');
+  assert(Array.isArray(m4.roleReversal) && m4.roleReversal.length >= 3, 'Must have at least 3 counterpart role reversal profiles');
+  assert(m4.changeManagement, 'Change management object missing');
+  assert(m4.changeManagement.unfreezingTactics && m4.changeManagement.coalitionChampions && m4.changeManagement.quickWins && m4.changeManagement.sustainingMomentum, 'Change management 4-stage model incomplete');
+  assert(Array.isArray(m4.fieldSetbacks) && m4.fieldSetbacks.length >= 3, 'Must have at least 3 field setback simulations');
+  assert(Array.isArray(m4.activityTracker) && m4.activityTracker.length >= 2, 'Activity tracker missing initial records');
+  assert(m4.reflection, 'Reflection object missing');
+});
+
+runTest('Interactive Role Reversal models authentic counterpart perspectives', () => {
+  const m4 = storage.getDefaultState().module4;
+  m4.roleReversal.forEach(r => {
+    assert(r.counterpart && r.counterpart.length > 5, 'Counterpart designation missing');
+    assert(r.perceivedThreats && r.perceivedThreats.length > 10, 'Perceived threats/vulnerabilities missing');
+    assert(r.unspokenIncentives && r.unspokenIncentives.length > 10, 'Unspoken motivations missing');
+    assert(r.respectfulEngagementStrategy && r.respectfulEngagementStrategy.length > 10, 'Engagement strategy missing');
+  });
+});
+
+runTest('Dynamic Problem-Solving addresses field setbacks with 5 Whys and interest-based mediation', () => {
+  const m4 = storage.getDefaultState().module4;
+  const validStatuses = ['Scheduled', 'In Progress', 'Resolved'];
+  m4.fieldSetbacks.forEach(sb => {
+    assert(sb.title && sb.scenario, 'Setback title or scenario missing');
+    assert(sb.rootCause && sb.rootCause.length > 10, 'Root cause analysis missing');
+    assert(sb.negotiationStrategy && sb.negotiationStrategy.length > 10, 'Negotiation strategy missing');
+    assert(sb.resolutionAction && sb.resolutionAction.length > 10, 'Resolution action missing');
+    assert(validStatuses.includes(sb.status), `Invalid status: ${sb.status}`);
+  });
+});
+
+runTest('Implementation Activity Tracker interfaces with Module 3 Logframe', () => {
+  const m4 = storage.getDefaultState().module4;
+  m4.activityTracker.forEach(tr => {
+    assert(tr.activityTitle, 'Activity title missing');
+    assert(typeof tr.progressPercent === 'number' && tr.progressPercent >= 0 && tr.progressPercent <= 100, 'Invalid progress percentage');
+    assert(tr.fieldAdvisoryNote, 'Advisory observation note missing');
+  });
+});
+
+runTest('module4.html exists and contains all 6 interactive stages', () => {
+  const m4Path = path.join(ROOT_DIR, 'module4.html');
+  assert(fs.existsSync(m4Path), 'module4.html does not exist');
+  const content = fs.readFileSync(m4Path, 'utf8');
+  assert(content.includes('id="stage-mma"'), 'Stage 1 missing');
+  assert(content.includes('id="stage-rolereversal"'), 'Stage 2 missing');
+  assert(content.includes('id="stage-changemgmt"'), 'Stage 3 missing');
+  assert(content.includes('id="stage-setbacks"'), 'Stage 4 missing');
+  assert(content.includes('id="stage-tracker"'), 'Stage 5 missing');
+  assert(content.includes('id="stage-summary"'), 'Stage 6 missing');
+  assert(content.includes('id="scenarioDrawer"'), 'Scenario drawer missing');
+  assert(content.includes('id="glossaryModalBackdrop"'), 'Glossary modal missing');
+});
+
+runTest('Portal Hub index.html activates and links Module 4', () => {
+  const content = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  assert(content.includes('href="module4.html"'), 'index.html must link to module4.html');
+  assert(content.includes('Phase 4 · Working'), 'Module 4 badge must be active in index.html');
+});
+
 console.log('\n======================================================');
 console.log(`TEST RESULTS: ${testsPassed} passed, ${testsFailed} failed`);
 console.log('======================================================\n');

@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Module 4: Implementation · CARANA CBD Learning Lab</title>
+  <link rel="stylesheet" href="css/design-system.css">
+</head>
+<body>
+  <div class="lab-container">
+    <!-- Top Nav Utility Bar -->
+    <nav style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.88rem;" aria-label="Breadcrumb and quick links">
+      <div>
+        <a href="index.html" style="font-weight: 700; text-decoration: none;">← CARANA CBD Learning Lab Hub</a>
+        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <a href="module1.html" style="color: var(--ink-light); text-decoration: none;">Phase 1</a>
+        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <a href="module2.html" style="color: var(--ink-light); text-decoration: none;">Phase 2</a>
+        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <a href="module3.html" style="color: var(--ink-light); text-decoration: none;">Phase 3</a>
+        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <span style="color: var(--ink); font-weight: 700;">Phase 4: Implementation</span>
+      </div>
+      <div style="display: flex; gap: 14px; align-items: center;">
+        <a href="CARANA_CBD_Group_Activity.html" style="color: var(--muted); text-decoration: none;" target="_blank">
+          ⏱ 60-Minute Fast Track Activity ↗
+        </a>
+      </div>
+    </nav>
+
+    <!-- Lab Header -->
+    <header class="lab-header">
+      <div class="lab-brand">
+        <span class="lab-emblem">UN Peacekeeping</span>
+        <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 4</span>
+      </div>
+      <h1 class="lab-title">Module 4: Implementation</h1>
+      <p class="lab-subtitle">
+        Monitoring, Mentoring and Advising (MMA) in practice, interactive role reversal, host-State counterpart perspectives, 
+        change management, and dynamic problem-solving.
+      </p>
+
+      <div class="lab-meta-bar">
+        <div class="lab-meta-left">
+          <div class="lab-meta-item">Focus: <strong>MMA Execution & Change Resilience</strong></div>
+          <div class="lab-meta-item">Authority: <strong>UNPOL MMA Manual (2017.14) & JST Lesson 4</strong></div>
+          <div class="lab-meta-item">Status: <span id="saveIndicator">Loaded</span></div>
+        </div>
+        <div class="lab-controls-bar">
+          <button class="btn btn-sm btn-dark" id="openScenarioDrawerBtn" type="button">
+            📖 Scenario (57 Paras)
+          </button>
+          <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
+            📚 CBD Glossary
+          </button>
+          <button class="btn btn-sm btn-primary" id="manualSaveBtn" type="button">
+            💾 Save Work
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Training Safeguard Alert -->
+    <aside class="training-safeguard">
+      <div style="font-size: 1.3rem; line-height: 1;">⚠️</div>
+      <div>
+        <strong>Official Training Safeguard.</strong> CARANA and UNAC are fictional training scenarios developed by the United Nations Department of Peace Operations (DPO). This learning lab operationalizes the official UNPOL Job-Specific Training (JST) material.
+      </div>
+    </aside>
+
+    <!-- Six-Phase Curriculum Track -->
+    <nav class="curriculum-track" aria-label="Curriculum Modules">
+      <div class="curriculum-track-header">
+        <span>UNPOL Capacity-Building & Development Process Cycle</span>
+        <span>Phases 1–6</span>
+      </div>
+      <div class="curriculum-track-grid">
+        <a href="module1.html" class="track-step completed">
+          <span class="track-num">Phase 01 · Done</span>
+          <span class="track-title">Situational Analysis</span>
+          <span class="track-desc">"As is" baseline & conflict scan</span>
+        </a>
+        <a href="module2.html" class="track-step completed">
+          <span class="track-num">Phase 02 · Done</span>
+          <span class="track-title">Objective Setting</span>
+          <span class="track-desc">"To be" SMART & Prioritisation</span>
+        </a>
+        <a href="module3.html" class="track-step completed">
+          <span class="track-num">Phase 03 · Done</span>
+          <span class="track-title">Planning Activities</span>
+          <span class="track-desc">"What to" Logframe & RBB</span>
+        </a>
+        <a href="module4.html" class="track-step active">
+          <span class="track-num">Phase 04 · Active</span>
+          <span class="track-title">Implementation</span>
+          <span class="track-desc">"How to" MMA execution</span>
+        </a>
+        <div class="track-step locked">
+          <span class="track-num">Phase 05</span>
+          <span class="track-title">Evaluation & Adjust.</span>
+          <span class="track-desc">"Did we" Impact measurement</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 06</span>
+          <span class="track-title">Transition & Handover</span>
+          <span class="track-desc">"Sustain" Exit & local ownership</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Stage Navigation Tabs for Module 4 -->
+    <nav class="stage-nav" id="stageNav" aria-label="Module 4 Stages"></nav>
+
+    <!-- ================= STAGE 1: MMA OPERATIONAL TRIAD ================= -->
+    <section class="stage-panel active" id="stage-mma">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 1 · BOPPPS Bridge-In & Methodology</span>
+            <h2 style="margin-top: 4px;">Monitoring, Mentoring & Advising (MMA) Operational Strategy</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 30 minutes</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="margin-bottom: 24px;">
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">Implementation Realities & Resilience</h3>
+              <p style="margin: 0 0 10px; font-size: 0.92rem; color: var(--ink);">
+                Per Lesson 4 of the UNPOL JST curriculum, <em>"The implementation of any plan will face obstacles and unintended setbacks. 
+                CBD actors must integrate an attitude of resilience into their work and develop problem-solving mechanisms to overcome these situations."</em>
+              </p>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--muted);">
+                <li>Co-location is essential: MMA is most effective when advisers share daily working spaces with counterparts.</li>
+                <li>Avoid doing the work yourself: Substitution erodes local ownership and creates dependency.</li>
+                <li>Patience and emotional intelligence: Sustainable reform takes time in post-conflict transitions.</li>
+              </ul>
+            </div>
+
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">The MMA Triad (UNPOL MMA Manual 2017.14)</h3>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--ink); line-height: 1.55;">
+                <li><strong>Monitoring:</strong> Observing daily police performance, data intake, and human rights compliance to retain a clear operational picture without interfering.</li>
+                <li><strong>Advising:</strong> Providing situational assistance, technical analysis, and strategic guidance to senior command on organizational and policy matters.</li>
+                <li><strong>Mentoring:</strong> Guiding individual professional development, coaching personal problem-solving skills, and inspiring ethical conduct through role modeling.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- MMA Strategy Form -->
+          <div style="background: var(--wash-subtle); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 12px;">Syndicate MMA Implementation Plan for Galasi CIS</h3>
+
+            <div class="grid-3">
+              <div class="form-group">
+                <label class="form-label" for="mmaMonitoring">
+                  1. Monitoring Mechanisms
+                  <span class="form-hint">How will UNPOL observe compliance, detention, and casework?</span>
+                </label>
+                <textarea class="form-textarea" id="mmaMonitoring" placeholder="Daily observation logs, joint register inspection, detention checks..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="mmaAdvising">
+                  2. Advising Priorities
+                  <span class="form-hint">What technical advice will be provided to CIS command?</span>
+                </label>
+                <textarea class="form-textarea" id="mmaAdvising" placeholder="SOP drafting support, prosecution liaison protocols, caseload distribution..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="mmaMentoring">
+                  3. Mentoring & Coaching
+                  <span class="form-hint">How will individual investigators be personally coached?</span>
+                </label>
+                <textarea class="form-textarea" id="mmaMentoring" placeholder="One-on-one coaching for SGBV investigators, female officer accompaniment..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: var(--muted); font-size: 0.85rem;">Establish advisory boundaries before stepping into the field.</span>
+          <button class="btn btn-primary" data-goto-stage="stage-rolereversal" type="button">Continue to Role Reversal & Empathy →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 2: ROLE REVERSAL & EMPATHY ================= -->
+    <section class="stage-panel" id="stage-rolereversal">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 2 · Counterpart Perspectives</span>
+            <h2 style="margin-top: 4px;">Interactive Role Reversal: Walking in the Counterpart's Shoes</h2>
+          </div>
+          <button class="btn btn-sm btn-dark" id="addRoleBtn" type="button">+ Add Role</button>
+        </div>
+        <div class="card-body">
+          <div style="background: var(--gold-bg); border-left: 4px solid var(--gold); padding: 12px 16px; border-radius: 4px; font-size: 0.9rem; color: var(--gold-dark); margin-bottom: 20px;">
+            <strong>Core Instructional Concept:</strong> Reform failure frequently occurs not because counterparts lack intelligence, 
+            but because international advisers fail to understand the <em>unstated fears, informal power relationships, and legitimate professional risks</em> 
+            that local counterparts navigate every day. Step into their shoes before evaluating their actions.
+          </div>
+
+          <div id="roleReversalHost">
+            <!-- Dynamically populated role reversal cards -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-mma" type="button">← Back to MMA Triad</button>
+          <button class="btn btn-primary" data-goto-stage="stage-changemgmt" type="button">Continue to Change Management →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3: CHANGE MANAGEMENT ================= -->
+    <section class="stage-panel" id="stage-changemgmt">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 3 · Organizational Dynamics</span>
+            <h2 style="margin-top: 4px;">Change Management & Coalition Building in Mission Settings</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Managing institutional transition</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            Police organizations are conservative institutions steeped in tradition and hierarchy. 
+            To implement new policing practice sustainably, advisers must manage change proactively:
+          </p>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="cmUnfreezing">
+                1. Unfreezing Institutional Inertia
+                <span class="form-hint">How will you demonstrate that the current status quo (high dismissal rate, public fear) is unsustainable?</span>
+              </label>
+              <textarea class="form-textarea" id="cmUnfreezing" placeholder="Share objective court dismissal data, facilitate peer discussions..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cmChampions">
+                2. Identifying Local Coalition Champions
+                <span class="form-hint">Who within the CNP and local society will actively champion this reform from within?</span>
+              </label>
+              <textarea class="form-textarea" id="cmChampions" placeholder="Progressive mid-level detectives, respected Falin elders, women leaders..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cmQuickWins">
+                3. Delivering Early "Quick Wins"
+                <span class="form-hint">What visible, non-threatening accomplishment can build early confidence (e.g. QIP, facility refurbishment)?</span>
+              </label>
+              <textarea class="form-textarea" id="cmQuickWins" placeholder="Refurbish interview room within 30 days, certificate presentation ceremony..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cmMomentum">
+                4. Sustaining & Institutionalising Momentum
+                <span class="form-hint">How will change be codified into standard operating procedures and permanent budgets?</span>
+              </label>
+              <textarea class="form-textarea" id="cmMomentum" placeholder="Incorporate SOPs into basic academy curriculum, permanent budget lines..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-rolereversal" type="button">← Back to Role Reversal</button>
+          <button class="btn btn-primary" data-goto-stage="stage-setbacks" type="button">Continue to Setback Problem-Solving →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 4: SETBACK PROBLEM-SOLVING ================= -->
+    <section class="stage-panel" id="stage-setbacks">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 4 · Problem-Solving & Mediation</span>
+            <h2 style="margin-top: 4px;">Dynamic Problem-Solving: Resolving Field Implementation Setbacks</h2>
+          </div>
+          <button class="btn btn-sm btn-dark" id="addSetbackBtn" type="button">+ Add Custom Setback</button>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            The following scenarios represent real-world obstacles encountered when deploying the planned CBD activities in Galasi. 
+            Apply root-cause analysis (5 Whys), interest-based negotiation, and adaptive mediation to resolve each roadblock:
+          </p>
+
+          <div id="fieldSetbacksHost">
+            <!-- Dynamically populated setback cards -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-changemgmt" type="button">← Back to Change Management</button>
+          <button class="btn btn-primary" data-goto-stage="stage-tracker" type="button">Continue to Activity Tracker →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 5: IMPLEMENTATION TRACKER ================= -->
+    <section class="stage-panel" id="stage-tracker">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 5 · Monitoring & Field Logs</span>
+            <h2 style="margin-top: 4px;">Implementation Activity Tracker & Advisory Notes</h2>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-sm btn-primary" id="importFromM3Btn" type="button">🔄 Import from Module 3 Logframe</button>
+            <button class="btn btn-sm btn-dark" id="addTrackerBtn" type="button">+ Add Activity Log</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 18px;">
+            Track progress of planned CBD activities in real-time. Record daily MMA co-location advisory observations 
+            to ensure activities remain aligned with the Logframe and intended outputs.
+          </p>
+
+          <div style="overflow-x: auto;">
+            <table class="baseline-table">
+              <thead>
+                <tr>
+                  <th style="width: 260px;">Activity Description</th>
+                  <th style="width: 140px;">Implementation Status</th>
+                  <th style="width: 100px;">Progress</th>
+                  <th>Advisory Observation / Field Monitoring Note</th>
+                  <th style="width: 140px;">Last Date</th>
+                  <th style="width: 40px;"></th>
+                </tr>
+              </thead>
+              <tbody id="activityTrackerBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-setbacks" type="button">← Back to Setback Problem-Solving</button>
+          <button class="btn btn-primary" data-goto-stage="stage-summary" type="button">Continue to Review & Handoff →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 6: REVIEW & REFLECTION ================= -->
+    <section class="stage-panel" id="stage-summary">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 6 · Syndicate Reflection</span>
+            <h2 style="margin-top: 4px;">Syndicate Reflection, Operational Readiness & Batch Review</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--ok); font-weight: 700;">Module 4 Completion</span>
+        </div>
+        <div class="card-body">
+          <!-- Learning Reflection Activity -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 4px;">Curriculum Learning Reflection Activity (Curriculum Outline p. 14)</h3>
+            <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 16px;">
+              Reflect on interpersonal dynamics, mediation skills, and personal resilience:
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionExperience">
+                1. What did your syndicate learn about the difference between managing a project and advising a foreign counterpart?
+              </label>
+              <textarea class="form-textarea" id="reflectionExperience" placeholder="Reflect on the nature of advising without executive command authority..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionEmpathy">
+                2. How did the role reversal exercise alter your understanding of why local officers resist change?
+              </label>
+              <textarea class="form-textarea" id="reflectionEmpathy" placeholder="Explain how recognizing unstated fears builds genuine partnership..."></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="reflectionResilience">
+                3. What personal strategies will keep you resilient when unexpected setbacks or political resistance occur in mission?
+              </label>
+              <textarea class="form-textarea" id="reflectionResilience" placeholder="Reflect on self-management, patience, and ethical grounding..."></textarea>
+            </div>
+          </div>
+
+          <!-- Validation Checkbox -->
+          <div style="background: var(--gold-bg); border: 1px solid #e2cb91; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
+            <input type="checkbox" id="confirmModule4" style="width: auto; margin-top: 5px;">
+            <label for="confirmModule4" style="font-size: 0.92rem; color: #583c03;">
+              <strong>Syndicate Validation:</strong> Our group has completed the implementation framework, role reversal analysis, and setback resolution protocols. Modules 1 through 4 are complete and structured for operational review.
+            </label>
+          </div>
+
+          <!-- Actions -->
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-dark" id="printPdfBtn" type="button">📄 Generate Briefing PDF</button>
+              <button class="btn btn-primary" id="exportJsonBtn" type="button">💾 Export Full Lab State (.json)</button>
+            </div>
+            <a href="index.html" class="btn btn-dark" style="text-decoration: none;">Return to Lab Portal Hub ↗</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-tracker" type="button">← Back to Implementation Tracker</button>
+          <span style="font-size: 0.85rem; color: var(--ok); font-weight: 700;">Phases 1–4 Operational · Ready for Review</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <span>CARANA CBD Learning Lab · UN Peacekeeping Training Material</span>
+      <span>Module 4: Implementation & Problem Solving</span>
+    </footer>
+  </div>
+
+  <!-- Off-Canvas Scenario Reference Drawer -->
+  <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
+  <aside class="scenario-drawer" id="scenarioDrawer" aria-label="Carana Scenario Reference">
+    <div class="drawer-header">
+      <h3>Carana Scenario Explorer (57 Paras)</h3>
+      <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-search">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number...">
+      </div>
+      <div id="scenarioDrawerList"></div>
+    </div>
+  </aside>
+
+  <!-- Glossary Modal Dialog -->
+  <div class="modal-backdrop" id="glossaryModalBackdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button">×</button>
+      </div>
+      <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. MMA, Mentoring, Change)...">
+      </div>
+      <div class="modal-body" id="glossaryList"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data/carana-scenario.js"></script>
+  <script src="js/data/curriculum-glossary.js"></script>
+  <script src="js/storage/lab-storage.js"></script>
+  <script src="js/modules/module4.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Module4App.init();
+    });
+  </script>
+</body>
+</html>

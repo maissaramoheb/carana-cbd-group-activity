@@ -416,8 +416,114 @@
         confirmed: false
       },
       module4: {
-        status: 'not_started',
-        description: 'Implementation and Monitoring'
+        status: 'not_started', // 'not_started' | 'in_progress' | 'completed'
+        description: 'Implementation, MMA Execution and Problem-Solving',
+        // Monitoring, Mentoring & Advising (MMA) Strategy
+        mmaStrategy: {
+          monitoringMechanisms: 'Daily co-location observation logs, case file intake tracking, compliance check against human rights standards.',
+          advisingPriorities: 'Technical guidance to CIS Leadership on SOP drafting, file quality assurance, and inter-agency coordination with prosecution.',
+          mentoringCoachingPlan: 'One-on-one coaching for newly assigned SGBV investigators, confidence-building for female officers, reflective case debriefings.'
+        },
+        // Interactive Role Reversal (Counterpart's Perspective)
+        roleReversal: [
+          {
+            id: 'role-1',
+            counterpart: 'Head of Galasi CIS (Col. Tariq)',
+            perceivedThreats: 'Fears appearing weak before subordinates; anxious about being held personally liable if politically sensitive cases surface; wary of international advisers taking credit for successes.',
+            unspokenIncentives: 'Desire for career advancement, prestige within CNP hierarchy, retaining operational discretion, protecting loyal officers.',
+            respectfulEngagementStrategy: 'Always brief him in private before plenary meetings; present all draft SOPs as co-authored under his leadership; publicly credit his department for all breakthroughs.'
+          },
+          {
+            id: 'role-2',
+            counterpart: 'Senior Male Homicide Investigator',
+            perceivedThreats: 'Perceives specialized SGBV work as "social work" or low-status crime; fears loss of informal fee collection and disruption of established habits.',
+            unspokenIncentives: 'Respect from peers, modern specialized investigation equipment, professional training certificates with donor prestige.',
+            respectfulEngagementStrategy: 'Frame advanced SGBV interviewing as high-level investigative methodology; showcase sophisticated forensic and psychological interviewing tools (UNODC/Interpol curricula).'
+          },
+          {
+            id: 'role-3',
+            counterpart: 'Female Uniformed Officer Considering Transfer',
+            perceivedThreats: 'Fears professional isolation in an exclusively male unit, harassment, and retaliation from superiors if she advocates for victims.',
+            unspokenIncentives: 'Meaningful service to community, professional development, escaping static guard duties.',
+            respectfulEngagementStrategy: 'Provide dedicated UNPOL female mentor accompaniment; advocate for cohort recruitment (transfer in pairs or groups of 3+ rather than solo); ensure safe separate sanitation facilities.'
+          }
+        ],
+        // Change Management Framework
+        changeManagement: {
+          unfreezingTactics: 'Joint workshop reviewing high prosecution dismissal rates (>80%) to build shared recognition that the current status quo harms CIS prestige.',
+          coalitionChampions: 'Partner with respected Galasi elders, the progressive Deputy Head of CIS, and the regional head of the Women Lawyers Association.',
+          quickWins: 'Refurbish the confidential interview bungalow within 30 days and deliver the first cohort of certified victim-intake training.',
+          sustainingMomentum: 'Establish monthly joint police-prosecutor case clinics and publish quarterly performance bulletins celebrating successful prosecutions.'
+        },
+        // Dynamic Problem-Solving: Field Setback Simulations
+        fieldSetbacks: [
+          {
+            id: 'setback-1',
+            title: 'Setback A: Leadership Resistance to Off-Site Facility',
+            scenario: 'Galasi PD Chief of Staff insists that all CIS interviews must take place inside the central fortified station, refusing to authorize the off-site bungalow lease (citing security and territorial authority).',
+            rootCause: 'Territorial control anxiety and fear of lost command visibility over off-site personnel.',
+            negotiationStrategy: 'Interest-based negotiation: Offer dedicated security patrols and radio comms linking the bungalow directly to Central Dispatch, satisfying his security mandate while protecting victim confidentiality.',
+            resolutionAction: 'Sign joint security protocol with Galasi PD uniformed branch guaranteeing perimeter guard for the facility without armed officers entering interview rooms.',
+            status: 'Resolved'
+          },
+          {
+            id: 'setback-2',
+            title: 'Setback B: Prosecution File Rejection Crisis',
+            scenario: 'Public prosecutor summarily rejects first three SGBV case files submitted by the new unit, claiming "unqualified interviewing and procedural defects" (Para 11).',
+            rootCause: 'Historic "us against them" institutional rivalry and lack of shared evidentiary threshold definitions.',
+            negotiationStrategy: 'Invite Chief Prosecutor to co-chair a joint case-review clinic where prosecutors define the exact admissibility checklist.',
+            resolutionAction: 'Institute mandatory pre-submission case checklist signed by both lead detective and duty prosecutor.',
+            status: 'In Progress'
+          },
+          {
+            id: 'setback-3',
+            title: 'Setback C: Retention and Reassignment Threat',
+            scenario: 'Dominant political party influences CNP headquarters to transfer 4 of the newly trained SGBV investigators to static border checkpoint duties (Para 8, 23).',
+            rootCause: 'Partisan patronage and absence of codified police specialization tenure regulations.',
+            negotiationStrategy: 'Engage Head of Police Component (HOPC) and Police Commissioner to invoke the bilateral donor training conditionality clause protecting trained personnel.',
+            resolutionAction: 'Draft and sign Ministerial directive establishing a mandatory 2-year minimum tenure for certified specialized investigators.',
+            status: 'Scheduled'
+          }
+        ],
+        // Implementation Activity Tracker (Linked to Module 3 Logframe)
+        activityTracker: [
+          {
+            id: 'track-1',
+            activityId: 'act-1',
+            activityTitle: 'Draft and gazette administrative terms of reference establishing the Galasi CIS SGBV unit',
+            outputRef: 'Output 1.1',
+            status: 'Completed',
+            progressPercent: 100,
+            fieldAdvisoryNote: 'TOR signed by Head of CIS on Day 20. Unit integrated into official org chart.',
+            lastUpdated: '2026-10-08'
+          },
+          {
+            id: 'track-2',
+            activityId: 'act-2',
+            activityTitle: 'Conduct specialized SGBV interview & evidence management training (Interpol/UNODC)',
+            outputRef: 'Output 1.2',
+            status: 'In Progress',
+            progressPercent: 65,
+            fieldAdvisoryNote: 'Cohort 1 (10 officers) currently in Week 2. Strong engagement from female officers.',
+            lastUpdated: '2026-10-08'
+          },
+          {
+            id: 'track-3',
+            activityId: 'act-3',
+            activityTitle: 'Secure and equip off-site confidential interview room with NGO partnership',
+            outputRef: 'Output 1.3',
+            status: 'In Progress',
+            progressPercent: 40,
+            fieldAdvisoryNote: 'Lease finalized under QIP funding. Furniture and recording equipment pending delivery.',
+            lastUpdated: '2026-10-08'
+          }
+        ],
+        reflection: {
+          q1Experience: '',
+          q2EmpathyAndResistance: '',
+          q3ResilienceInTheField: ''
+        },
+        confirmed: false
       },
       module5: {
         status: 'not_started',
