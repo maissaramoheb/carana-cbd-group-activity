@@ -292,10 +292,9 @@
       const need = (+s.need || 1) * 1.00;
       const risk = (+s.risk || 1) * 1.00; // Inverse scale: 3=low risk, 1=high risk
       const impl = (+s.implementability || 1) * 1.00;
-      const comp = (+s.complementarity || 1) * 0.50; // Weighting factor 0.50
-      const donor = (+s.donorInterest || 1) * 1.00;
-
-      const overall = weightedStrat + need + risk + impl + comp + donor;
+      // Per UNPOL CBD Lesson 2 (p. 22 & 24): "Ignore the risk category at this point as 'Risk' is taught later in the course (Lesson 3)"
+      // The Risk column is recorded for completeness, but excluded from the prioritization sum to match the official scoring outcomes (e.g. SGBV=12.5, Digitalising=9.5)
+      const overall = weightedStrat + need + impl + comp + donor;
 
       obj.rawStrategicScore = Math.round(rawStrat * 100) / 100;
       obj.weightedStrategicScore = Math.round(weightedStrat * 100) / 100;
@@ -325,7 +324,7 @@
             <th colspan="6" style="background: var(--navy-light);">6 Strategic Assessment Categories (Weight: 2.00)</th>
             <th rowspan="2" title="Average of 6 strategic categories (1-3)">Raw Strat</th>
             <th rowspan="2" title="Beneficiary Assessment (Weight 1.00)">Need (1.0)</th>
-            <th rowspan="2" title="Inverse Risk: 3=Low Risk, 1=High Risk (Weight 1.00)">Risk (1.0)</th>
+            <th rowspan="2" title="Per Lesson 2 p. 22/24: Recorded for completeness, but excluded from sum; formally analysed in Lesson 3">Risk<br><span style="font-size:0.68rem; opacity:0.85;">(M3 Risk)</span></th>
             <th rowspan="2" title="Implementability (Weight 1.00)">Impl (1.0)</th>
             <th rowspan="2" title="Complementarity (Weight 0.50)">Comp (0.5)</th>
             <th rowspan="2" title="Donor Interest (Weight 1.00)">Donor (1.0)</th>

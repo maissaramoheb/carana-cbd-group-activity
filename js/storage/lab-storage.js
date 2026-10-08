@@ -526,12 +526,202 @@
         confirmed: false
       },
       module5: {
-        status: 'not_started',
-        description: 'Evaluation and Adjustment'
+        status: 'not_started', // 'not_started' | 'in_progress' | 'completed'
+        description: 'Evaluation and Adjustment (UNPOL CBD JST Lesson 5)',
+        // Evaluation Framework & Deming PDCA Cycle
+        evaluationFramework: {
+          demingPhase: 'Check & Act',
+          evalActors: 'Mission Evaluation Unit (under Mission CoS), OIOS, and SPC Support',
+          principles: 'SGF compliance, human rights-sensitive, gender-sensitive, impartial and transparent',
+          dataCollectionStrategy: 'Triangulation of police intake registers, court dismissal audits, and confidential civil society interviews'
+        },
+        // 8-Month Situational Assessment (Le Galasien & Cable from Section Chief Yaa)
+        crisisAnalysis: {
+          leadershipShiftImpact: 'Col. Tariq transferred; inexperienced Tatsi deputy appointed for UN diversity requirements lacks criminal investigations background; succession candidate questioned over past human rights record.',
+          absorptionCapacityAssessment: 'Galasi CIS overwhelmed by proposed changes in time allotted; daily caseload pressure conflicts with training abstractions.',
+          dataLossAssessment: 'Total loss of digitized performance measurement data due to IT crash; urgent need for resilient low-tech data ledgers.',
+          interAgencyFriction: 'Jurisdiction struggle: Ministry of Justice claims competence over CNP policy drafting, delaying formal gazetting of SOPs.',
+          publicPerceptionGap: 'Citizens, especially women and Tatsi minorities, express profound skepticism; ombudsman mechanism remains completely unused.',
+          budgetCliffRisk: 'Lagging 6 weeks behind; funds cannot carry over past fiscal year; risk of losing allocations unless urgently reprogrammed.'
+        },
+        // KPI & Activity Variance Evaluations (Lesson 5 Activity 5.1 Task A)
+        kpiEvaluations: [
+          {
+            id: 'eval-kpi-1',
+            kpiTitle: 'Number of trained and certified SGBV criminal investigators',
+            baselineValue: '0 certified investigators in Galasi CIS',
+            targetValue: '15 investigators certified (at least 6 female officers)',
+            actualValue: '10 investigators completed classroom module; 0 formally certified due to delayed vetting and test deferral',
+            varianceStatus: 'Delayed', // 'On Track' | 'Delayed' | 'Critical Variance' | 'Exceeded'
+            varianceAnalysis: 'Vetting bottlenecks and CNP headquarters attempting to reassign trained officers to static border posts. High absorption strain.',
+            correctiveAction: 'Deploy UNPOL mobile mentor team to administer in-situ field competency tests; invoke bilateral donor protection clause against premature transfers.'
+          },
+          {
+            id: 'eval-kpi-2',
+            kpiTitle: 'Percentage of SGBV case files meeting prosecution procedural standards',
+            baselineValue: 'Under 15% accepted by Galasi Prosecution Office',
+            targetValue: 'At least 75% accepted without procedural dismissal',
+            actualValue: 'Estimated ~20%; accurate rate unknown due to total loss of IT database records',
+            varianceStatus: 'Critical Variance',
+            varianceAnalysis: 'IT server failure erased quantitative case intake records; ongoing institutional rivalry with Falin Ministry of Justice prosecutors.',
+            correctiveAction: 'Reinstate paper-based emergency logbook; convene emergency joint UNPOL-CIS-Prosecution case file clinics to co-sign admissibility checklists.'
+          },
+          {
+            id: 'eval-kpi-3',
+            kpiTitle: 'Public complaint mechanism utilisation & misconduct review',
+            baselineValue: '0 formal external complaints recorded',
+            targetValue: '100% of received complaints logged and reviewed within 14 days',
+            actualValue: '0 complaints lodged through new ombudsman office in 8 months',
+            varianceStatus: 'Critical Variance',
+            varianceAnalysis: 'Citizens, especially vulnerable women and minority groups, unaware or terrified of retaliation; ombudsman office lacks outreach and safe intake channels.',
+            correctiveAction: 'Launch community radio sensitization campaign with local women civil society leaders; co-locate complaint dropboxes in neutral civil society facilities.'
+          }
+        ],
+        // 3-Tier Adjustment Recommendations (Lesson 5 Activity 5.1 Task B)
+        adjustments: [
+          {
+            id: 'adj-1',
+            recommendationTitle: '1. Leadership Engagement & Executive Mentoring for Interim CIS Command',
+            reaction: 'Fully Accept', // 'Fully Accept' | 'Partially Accept' | 'Reject'
+            justification: 'The transfer of Col. Tariq and elevation of an inexperienced Tatsi deputy creates acute leadership vulnerability that will stall reform without immediate mentoring.',
+            actionPlan: 'Provide daily co-located executive advising to the new deputy; develop a 90-day transitional command roadmap; advise mission leadership against appointing succession candidates with human rights allegations.',
+            stakeholderOwner: 'UNPOL Senior Police Adviser & Head of Galasi Police Directorate'
+          },
+          {
+            id: 'adj-2',
+            recommendationTitle: '2. Inter-Agency MOJ vs CNP Competence Conflict Resolution',
+            reaction: 'Fully Accept',
+            justification: 'Jurisdiction dispute between Ministry of Justice and CNP over policy drafting is beyond tactical police component authority and paralyzes SOP legalization.',
+            actionPlan: 'Elevate dispute to the DSRSG/RoL and UNAC Mission Leadership to facilitate a formal tripartite MOU between Ministry of Interior, Ministry of Justice, and CNP.',
+            stakeholderOwner: 'UNAC DSRSG/Rule of Law, UNPOL Police Commissioner & Falin MOJ'
+          },
+          {
+            id: 'adj-3',
+            recommendationTitle: '3. Emergency Budgetary Cliff Mitigation & Absorption Pacing',
+            reaction: 'Partially Accept',
+            justification: 'While Section Chief Yaa warned funds cannot carry over, repeating the full 4-month approval process would kill momentum. Reprogramming within the current cycle is essential.',
+            actionPlan: 'Submit urgent programmatic reallocation request to fast-track remaining capital expenditures (interview room refurbishment, offline ledger procurement) before financial year-end.',
+            stakeholderOwner: 'UNPOL Program Management Unit & Mission Support Finance'
+          },
+          {
+            id: 'adj-4',
+            recommendationTitle: '4. Public Trust Restoration & Ombudsman Outreach',
+            reaction: 'Fully Accept',
+            justification: 'The Le Galasien finding that vulnerable groups remain skeptical and the ombudsman is unused proves that institutional reform without community trust is futile.',
+            actionPlan: 'Partner with local women’s associations and minority elders to re-introduce the complaint mechanism with anonymous intake protocols and visible witness protection.',
+            stakeholderOwner: 'Galasi Ombudsman, UNPOL Community Policing Team, Local CSOs'
+          }
+        ],
+        // Impact on Initial Planning (Lesson 5 Activity 5.1 Task C)
+        impactAssessment: {
+          timelineImpact: 'Overall milestone completion shifted back by 12 weeks to accommodate leadership transition, paper ledger reinstatement, and SOP gazetting.',
+          resourceImpact: 'Immediate reallocation of $35,000 to emergency paper registers, mobile training clinics, and civil society outreach before budget year-end.',
+          qualityImpact: 'Initial cohort certification deferred until field competency is verified, preserving high investigative standards over rushed outputs.',
+          counterpartWillingness: 'Cautious receptivity from interim Tatsi deputy; heightened political scrutiny from central CNP HQ.'
+        },
+        // Syndicate Reflection (Lesson 5 Activity 5.1 Task D)
+        reflection: {
+          q1EvaluationRelevance: '',
+          q2FacingInconvenientTruths: '',
+          q3PersonalResilienceInFailure: ''
+        },
+        confirmed: false
       },
       module6: {
-        status: 'not_started',
-        description: 'Transition and Handover'
+        status: 'not_started', // 'not_started' | 'in_progress' | 'completed'
+        description: 'Transition and Handover (UNPOL CBD JST Lesson 6)',
+        // Transition Strategy & Mandate Triggers (Lesson 6 Slides 6-9)
+        transitionStrategy: {
+          hopcInitiationDate: 'Month 18 of Mission Mandate',
+          primaryTrigger: 'Substantial achievement of core CBD objectives verified by Lesson 5 Evaluation',
+          succeedingEntity: 'Galasi Police Directorate (CIS) with continuing UN Country Team (UNDP/UNODC) programmatic support',
+          localOwnerDesignation: 'Director of Galasi Criminal Investigations Service & Galasi Police Academy Commandant'
+        },
+        // The Four Principles of Transition (Lesson 6 Slide 8)
+        fourPrinciplesFramework: {
+          earlyPlanning: 'Phased 6-month drawdown schedule initiated at Month 12; status determined across human rights, gender, strategic, political, and financial dimensions.',
+          unIntegration: 'Integrated transition compact signed with UNCT (UNDP Rule of Law project, UNODC, UN Women) ensuring long-term technical and material assistance.',
+          localOwnership: 'National counterpart co-leads all training modules and assumes direct budget responsibility under the Galasi Police Directorate annual appropriation.',
+          communicationProtocol: 'Bimonthly transition bulletins to Galasi civil society, joint press releases by HOPC and CNP Commissioner, transparent milestone briefings.'
+        },
+        // Phased Handover Roadmap (Lesson 6 Activity 6.1 Task 1)
+        transitionRoadmap: [
+          {
+            id: 'trans-step-1',
+            phase: 'Phase A: Co-Management (Months 1–2)',
+            milestone: 'Joint operation of SGBV Unit and Code of Conduct complaint register; 50/50 division of supervisory responsibilities.',
+            leadResponsible: 'UNPOL CBD Lead Adviser & Galasi CIS Deputy',
+            handoverCriteria: '100% of case reviews conducted jointly; zero unaddressed human rights violations.',
+            status: 'Completed'
+          },
+          {
+            id: 'trans-step-2',
+            phase: 'Phase B: Shadow Advisory (Months 3–4)',
+            milestone: 'National detectives assume 100% casework leadership; UNPOL shifts from daily co-location to scheduled mentoring visits and QA checks.',
+            leadResponsible: 'Galasi CIS Unit Chief & UNPOL Shadow Mentor',
+            handoverCriteria: 'National investigators independently resolve 25+ casework dockets with >80% prosecution acceptance rate.',
+            status: 'In Progress'
+          },
+          {
+            id: 'trans-step-3',
+            phase: 'Phase C: Institutionalization (Months 5–6)',
+            milestone: 'Curriculum codified into national Police Academy; operational budget line established in Galasi PD annual budget.',
+            leadResponsible: 'Director of Police Academy & Ministry of Interior Budget Officer',
+            handoverCriteria: 'Formal gazetting of SGBV investigation manual; ministerial decree protecting specialized detective tenure.',
+            status: 'Scheduled'
+          },
+          {
+            id: 'trans-step-4',
+            phase: 'Phase D: Full Handover & UNCT Handoff (Month 6+)',
+            milestone: 'Execution of formal Transition Instrument / Handover Protocol; transition of residual donor support to UNDP/UNODC.',
+            leadResponsible: 'HOPC, UNPOL Police Commissioner, Head of CNP, UNDP Resident Representative',
+            handoverCriteria: 'Formal signing ceremony and transition protocol archivation; exit of tactical UNPOL advisers.',
+            status: 'Scheduled'
+          }
+        ],
+        // Institutionalizing Sustainable Policing Practice (Lesson 6 Slide 10 & Activity 6.1 Task 2)
+        institutionalizingPractice: {
+          doctrineCodification: 'SGBV investigation SOPs and Human Rights Code of Conduct formally gazetted as standard CNP national operating directives.',
+          academyIntegration: 'Mandatory 40-hour victim-centered interviewing curriculum integrated into basic police recruit and detective promotional courses at Galasi Police Academy.',
+          genderResponsiveBudget: 'Dedicated 12% operational budget allocation within Galasi PD budget specifically earmarked for confidential interview facilities and victim assistance logistics.',
+          oversightHandover: 'Permanent oversight transferred to the Regional Police Inspectorate and the independent Galasi Civilian Oversight Board.'
+        },
+        // Challenges & Remedies Register (Lesson 6 Activity 6.1 Task 4)
+        challengesRemedies: [
+          {
+            id: 'cr-1',
+            challenge: 'Post-handover relapse into coercive interrogation techniques once UNPOL advisers depart',
+            riskLevel: 'High',
+            remedy: 'Establish mandatory judicial admissibility rules rejecting unrecorded confessions; integrate random quarterly case file inspections by the Civilian Oversight Board.'
+          },
+          {
+            id: 'cr-2',
+            challenge: 'Budget exhaustion leading to closure of the off-site confidential interview bungalow',
+            riskLevel: 'High',
+            remedy: 'Secure bilateral donor endowment with local women’s health NGO under UNDP management to subsidize lease for 3 years post-mission.'
+          },
+          {
+            id: 'cr-3',
+            challenge: 'Political reassignment of trained detectives to non-specialized static duties',
+            riskLevel: 'Medium',
+            remedy: 'National Ministerial directive codifying 3-year minimum tenure for certified specialized investigators with promotion incentives for retention.'
+          }
+        ],
+        // Handover Notice / Transition Agreement Protocol (Lesson 6 Slide 14)
+        handoverNotice: {
+          handoverDate: '2027-04-15',
+          unpolSignatory: 'Senior UNPOL Capacity-Building & Development Adviser, UNAC',
+          counterpartSignatory: 'Chief of Criminal Investigations Service, Galasi Police Directorate',
+          witnessSignatory: 'Head of Police Component (HOPC) & UNDP Resident Representative',
+          residualObligations: 'UNDP will provide quarterly programmatic monitoring; CNP Directorate will submit semiannual human rights adherence reports to the Minister of Interior.'
+        },
+        // Final Syndicate Reflection on the 6-Phase CBD Cycle (Lesson 6 Activity 6.1 Task 5)
+        reflection: {
+          q1TransitionMindset: '',
+          q2SustainingOwnership: '',
+          q3OverallCBDJourney: ''
+        },
+        confirmed: false
       },
       facilitator: {
         notes: '',

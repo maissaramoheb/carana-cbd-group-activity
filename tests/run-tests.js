@@ -360,6 +360,71 @@ runTest('Portal Hub index.html activates and links Module 4', () => {
   assert(content.includes('Phase 4 · Working'), 'Module 4 badge must be active in index.html');
 });
 
+// 9. MODULE 5 SUITE
+console.log('\nGroup 9: Module 5 Evaluation & Adjustment Logic');
+
+runTest('Module 5 schema is properly initialized and structured', () => {
+  const m5 = storage.getDefaultState().module5;
+  assert(m5.evaluationFramework, 'Evaluation framework missing');
+  assert(m5.evaluationFramework.demingPhase && m5.evaluationFramework.evalActors, 'Deming phase or actors missing');
+  assert(m5.crisisAnalysis, 'Crisis analysis missing');
+  assert(Array.isArray(m5.kpiEvaluations) && m5.kpiEvaluations.length >= 2, 'KPI evaluations missing');
+  assert(Array.isArray(m5.adjustments) && m5.adjustments.length >= 3, 'Adjustment recommendations missing');
+  assert(m5.impactAssessment, 'Impact assessment missing');
+  assert(m5.reflection, 'Reflection missing');
+});
+
+runTest('8-Month Crisis Diagnostics model authentic curriculum bottlenecks', () => {
+  const m5 = storage.getDefaultState().module5;
+  const ca = m5.crisisAnalysis;
+  assert(ca.leadershipShiftImpact.length > 10, 'Leadership shift diagnostics missing');
+  assert(ca.absorptionCapacityAssessment.length > 10, 'Absorption capacity diagnostics missing');
+  assert(ca.dataLossAssessment.length > 10, 'Data loss diagnostics missing');
+  assert(ca.interAgencyFriction.length > 10, 'Inter-agency friction diagnostics missing');
+  assert(ca.budgetCliffRisk.length > 10, 'Budget cliff risk diagnostics missing');
+});
+
+runTest('3-Tier Adjustment Decision Matrix conforms to UNPOL Lesson 5 Slide 10', () => {
+  const m5 = storage.getDefaultState().module5;
+  const validReactions = ['Fully Accept', 'Partially Accept', 'Reject'];
+  m5.adjustments.forEach(adj => {
+    assert(adj.recommendationTitle, 'Recommendation title missing');
+    assert(validReactions.includes(adj.reaction), `Invalid reaction: ${adj.reaction}`);
+    assert(adj.justification && adj.justification.length > 15, 'Justification missing');
+    assert(adj.actionPlan && adj.actionPlan.length > 15, 'Action plan missing');
+    assert(adj.stakeholderOwner, 'Stakeholder owner missing');
+  });
+});
+
+runTest('Planning Recalibration models the 4 curriculum impact dimensions (Lesson 5 p. 11)', () => {
+  const m5 = storage.getDefaultState().module5;
+  const imp = m5.impactAssessment;
+  assert(imp.timelineImpact && imp.timelineImpact.length > 10, 'Timeline impact missing');
+  assert(imp.resourceImpact && imp.resourceImpact.length > 10, 'Resource impact missing');
+  assert(imp.qualityImpact && imp.qualityImpact.length > 10, 'Quality impact missing');
+  assert(imp.counterpartWillingness && imp.counterpartWillingness.length > 10, 'Counterpart willingness impact missing');
+});
+
+runTest('module5.html exists and contains all 6 interactive stages', () => {
+  const m5Path = path.join(ROOT_DIR, 'module5.html');
+  assert(fs.existsSync(m5Path), 'module5.html does not exist');
+  const content = fs.readFileSync(m5Path, 'utf8');
+  assert(content.includes('id="stage-methodology"'), 'Stage 1 missing');
+  assert(content.includes('id="stage-scenario"'), 'Stage 2 missing');
+  assert(content.includes('id="stage-kpis"'), 'Stage 3 missing');
+  assert(content.includes('id="stage-adjustments"'), 'Stage 4 missing');
+  assert(content.includes('id="stage-impact"'), 'Stage 5 missing');
+  assert(content.includes('id="stage-summary"'), 'Stage 6 missing');
+  assert(content.includes('id="scenarioDrawer"'), 'Scenario drawer missing');
+  assert(content.includes('id="glossaryModalBackdrop"'), 'Glossary modal missing');
+});
+
+runTest('Portal Hub index.html activates and links Module 5', () => {
+  const content = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  assert(content.includes('href="module5.html"'), 'index.html must link to module5.html');
+  assert(content.includes('Phase 5 · Working'), 'Module 5 badge must be active in index.html');
+});
+
 console.log('\n======================================================');
 console.log(`TEST RESULTS: ${testsPassed} passed, ${testsFailed} failed`);
 console.log('======================================================\n');
