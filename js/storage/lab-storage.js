@@ -132,8 +132,147 @@
         confirmed: false
       },
       module2: {
-        status: 'not_started',
-        description: 'Objective Setting, Prioritisation and Performance Frameworks'
+        status: 'not_started', // 'not_started' | 'in_progress' | 'completed'
+        description: 'Objective Setting, Prioritisation and Performance Frameworks',
+        // Candidates pool (imported from Module 1 or added)
+        objectives: [
+          {
+            id: 'obj-1',
+            title: "Improving CIS's SGBV Investigation Capability",
+            description: 'Establish a specialized unit with trained investigators to address high rates of sexual and gender-based violence and protect vulnerable victims.',
+            source: 'Module 1 SWOT Opportunity & Baseline 1',
+            scores: {
+              policingPractice: 3,
+              environmental: 1,
+              conflictPrevention: 3,
+              humanRights: 3,
+              gender: 3,
+              cpoc: 2,
+              need: 1,
+              risk: 2,
+              implementability: 2,
+              complementarity: 3, // 1.5 weighted (3 * 0.5)
+              donorInterest: 3
+            },
+            rawStrategicScore: 2.5,
+            weightedStrategicScore: 5.0,
+            overallScore: 12.5,
+            rank: 1
+          },
+          {
+            id: 'obj-2',
+            title: "Digitalising CIS's Work Processes & Case Files",
+            description: 'Transition from pen-and-paper registers to centralized database to improve case management and transparency.',
+            source: 'Module 1 SWOT Opportunity',
+            scores: {
+              policingPractice: 1,
+              environmental: 1,
+              conflictPrevention: 1,
+              humanRights: 1,
+              gender: 1,
+              cpoc: 1,
+              need: 3,
+              risk: 3,
+              implementability: 3,
+              complementarity: 1, // 0.5 weighted (1 * 0.5)
+              donorInterest: 1
+            },
+            rawStrategicScore: 1.0,
+            weightedStrategicScore: 2.0,
+            overallScore: 9.5,
+            rank: 2
+          },
+          {
+            id: 'obj-3',
+            title: 'Reinstating Code of Conduct & Oversight Mechanisms',
+            description: 'Draft updated Code of Conduct SOPs, train officers, and establish accessible complaint intake to restore public trust.',
+            source: 'Module 1 Baseline 2',
+            scores: {
+              policingPractice: 3,
+              environmental: 1,
+              conflictPrevention: 2,
+              humanRights: 3,
+              gender: 2,
+              cpoc: 2,
+              need: 2,
+              risk: 2,
+              implementability: 2,
+              complementarity: 2,
+              donorInterest: 2
+            },
+            rawStrategicScore: 2.17,
+            weightedStrategicScore: 4.33,
+            overallScore: 11.33,
+            rank: 3
+          }
+        ],
+        // S.M.A.R.T. formulation for the two highest ranked objectives
+        smartObjectives: [
+          {
+            id: 'smart-1',
+            objectiveId: 'obj-1',
+            title: "Establish and Operationalise Galasi CIS SGBV Investigation Unit",
+            specific: 'Establish a dedicated SGBV unit within Galasi CIS with 15 certified male and female investigators, standard operating procedures, and a secure confidential interview facility.',
+            measurable: '15 investigators certified in victim-centered interviewing; 100% of reported SGBV cases investigated according to formal SOPs within 12 months.',
+            achievable: 'Feasible through partnership with UNODC, Interpol project support, and local women’s civil society organisations.',
+            relevant: 'Directly addresses widespread SGBV victimisation and extreme under-reporting in Galasi under UNSCR 2151 and SDG 16.',
+            timeBound: 'Full operational status achieved within 12 months of project inception.',
+            fullStatement: 'By Month 12, Galasi CIS will establish and operationalise a specialised SGBV Investigation Unit comprising 15 certified investigators operating under formal human-rights compliant SOPs with a dedicated confidential interview facility.'
+          },
+          {
+            id: 'smart-2',
+            objectiveId: 'obj-3',
+            title: "Reactivate and Institutionalise Galasi PD Professional Conduct SOPs",
+            specific: 'Update and re-issue the suspended CNP Code of Conduct for Galasi CIS and establish a transparent internal complaint intake logbook.',
+            measurable: '250 CIS officers briefed and signed adherence pledges; 100% of received complaints logged and reviewed within 14 days.',
+            achievable: 'Leverages Interpol "Police Support for Galasi" human rights workshop outputs and command support.',
+            relevant: 'Restores public trust and addresses impunity regarding police misconduct towards minority communities.',
+            timeBound: 'Achieved within 6 months of rollout.',
+            fullStatement: 'Within 6 months, Galasi CIS leadership will re-issue the revised Code of Conduct, train all 250 personnel, and establish an active complaint intake register with monthly reporting to Galasi Police Directorate.'
+          }
+        ],
+        // Performance Indicators Framework (PIs / KPIs)
+        kpis: [
+          {
+            id: 'kpi-1',
+            smartId: 'smart-1',
+            name: 'Number of trained and certified SGBV criminal investigators',
+            type: 'Quantitative (#)',
+            baselineValue: '0 certified investigators in Galasi CIS',
+            targetValue: '15 investigators certified (at least 6 female officers)',
+            source: 'CIS Training & Roster Records',
+            frequency: 'Quarterly',
+            responsible: 'UNPOL CBD Training Lead & Head of CIS'
+          },
+          {
+            id: 'kpi-2',
+            smartId: 'smart-1',
+            name: 'Percentage of SGBV case files meeting prosecution procedural standards',
+            type: 'Quantitative (%)',
+            baselineValue: 'Estimated < 20% (frequent dismissal due to procedural defects)',
+            targetValue: '≥ 75% of submitted files accepted without dismissal',
+            source: 'Public Prosecution Office Case Logs',
+            frequency: 'Bi-annually',
+            responsible: 'Joint Police-Prosecutor Liaison Committee'
+          },
+          {
+            id: 'kpi-3',
+            smartId: 'smart-2',
+            name: 'Operational Code of Conduct and Disciplinary Intake SOP',
+            type: 'Qualitative condition',
+            baselineValue: 'Code of conduct suspended; no complaint intake desk',
+            targetValue: 'Formal SOP approved, published, and intake registry active',
+            source: 'Galasi PD Directive Bulletin & Ombudsman Inspection',
+            frequency: 'Semi-annually',
+            responsible: 'Galasi PD Internal Affairs & UNPOL CBD Adviser'
+          }
+        ],
+        reflection: {
+          q1Experience: '',
+          q2StrategicPrioritisation: '',
+          q3LocalOwnership: ''
+        },
+        confirmed: false
       },
       module3: {
         status: 'not_started',

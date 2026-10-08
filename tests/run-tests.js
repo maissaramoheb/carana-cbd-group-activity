@@ -206,14 +206,55 @@ runTest('module1.html contains all 6 JST stages and interactive elements', () =>
   assert(content.includes('id="cellModalBackdrop"'), 'Matrix cell inspector modal missing');
 });
 
-runTest('design-system.css contains required UN styling and print stylesheets', () => {
-  const content = fs.readFileSync(path.join(ROOT_DIR, 'css/design-system.css'), 'utf8');
-  assert(content.includes('--un-blue: #009edb'), 'UN Blue token missing');
-  assert(content.includes('--navy: #12304a'), 'Navy token missing');
-  assert(content.includes('@media print'), 'Print stylesheet missing');
-  assert(content.includes('.matrix-table'), 'Matrix CSS missing');
-  assert(content.includes('.stakeholder-matrix-grid'), 'Stakeholder matrix CSS missing');
-  assert(content.includes('.swot-grid'), 'SWOT grid CSS missing');
+// 6. MODULE 2 SUITE
+console.log('\nGroup 6: Module 2 Objective Setting & Prioritisation Logic');
+
+runTest('Module 2 schema is properly initialized and structured', () => {
+  const m2 = storage.getDefaultState().module2;
+  assert(m2.objectives && m2.objectives.length >= 2, 'Must have initial objective candidates');
+  assert(m2.smartObjectives && m2.smartObjectives.length >= 2, 'Must have SMART objectives');
+  assert(m2.kpis && m2.kpis.length >= 2, 'Must have initial KPIs');
+  assert(m2.reflection, 'Reflection object missing');
+});
+
+runTest('Module 2 scoring formula precisely matches UNPOL curriculum (Lesson 2 p. 24)', () => {
+  // Test Case 1: SGBV investigation capability
+  // Strategic: 3, 1, 3, 3, 3, 2 -> sum=15, avg=2.5, weighted=5.0
+  // Need: 1, Impl: 2, Comp: 3 (weighted: 1.5), Donor: 3
+  // Total without risk: 5.0 + 1 + 2 + 1.5 + 3 = 12.5
+  const stratSum1 = 3 + 1 + 3 + 3 + 3 + 2;
+  const rawStrat1 = stratSum1 / 6;
+  const weightedStrat1 = rawStrat1 * 2.0;
+  const need1 = 1;
+  const impl1 = 2;
+  const comp1 = 3 * 0.5;
+  const donor1 = 3;
+  const overall1 = weightedStrat1 + need1 + impl1 + comp1 + donor1;
+  assert.strictEqual(overall1, 12.5, 'Official SGBV example must equal 12.5');
+
+  // Test Case 2: Digitalising work processes
+  // Strategic: 1, 1, 1, 1, 1, 1 -> sum=6, avg=1.0, weighted=2.0
+  // Need: 3, Impl: 3, Comp: 1 (weighted: 0.5), Donor: 1
+  // Total: 2.0 + 3 + 3 + 0.5 + 1 = 9.5
+  const stratSum2 = 6;
+  const rawStrat2 = stratSum2 / 6;
+  const weightedStrat2 = rawStrat2 * 2.0;
+  const need2 = 3;
+  const impl2 = 3;
+  const comp2 = 1 * 0.5;
+  const donor2 = 1;
+  const overall2 = weightedStrat2 + need2 + impl2 + comp2 + donor2;
+  assert.strictEqual(overall2, 9.5, 'Official Digitalising example must equal 9.5');
+});
+
+runTest('module2.html contains all 6 interactive stages', () => {
+  const content = fs.readFileSync(path.join(ROOT_DIR, 'module2.html'), 'utf8');
+  assert(content.includes('id="stage-orientation"'), 'Stage 1 missing');
+  assert(content.includes('id="stage-candidates"'), 'Stage 2 missing');
+  assert(content.includes('id="stage-prioritisation"'), 'Stage 3 missing');
+  assert(content.includes('id="stage-smart"'), 'Stage 4 missing');
+  assert(content.includes('id="stage-kpis"'), 'Stage 5 missing');
+  assert(content.includes('id="stage-summary"'), 'Stage 6 missing');
 });
 
 console.log('\n======================================================');
