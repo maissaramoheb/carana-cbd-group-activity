@@ -92,15 +92,8 @@ runTest('6 cross-cutting dimensions are correctly defined', () => {
   assert.deepStrictEqual(actualDimIds, expectedDimIds, 'Dimensions match official curriculum');
 });
 
-runTest('Annex D expected mapping references valid paragraphs', () => {
-  const keys = Object.keys(scenario.OFFICIAL_EXPECTED_MAPPING);
-  assert(keys.length > 20, 'Should have expected mappings for official cells');
-  keys.forEach(k => {
-    const paras = scenario.OFFICIAL_EXPECTED_MAPPING[k];
-    paras.forEach(num => {
-      assert(num >= 1 && num <= 57, `Invalid paragraph number ${num} in expected mapping for cell ${k}`);
-    });
-  });
+runTest('Facilitator-only expected answers are not exposed in frontend scenario data', () => {
+  assert.strictEqual(scenario.OFFICIAL_EXPECTED_MAPPING, undefined, 'OFFICIAL_EXPECTED_MAPPING must not be exposed to participants in frontend files');
 });
 
 runTest('Glossary contains all core UNPOL CBD definitions', () => {

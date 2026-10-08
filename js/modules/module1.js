@@ -367,11 +367,9 @@
           const cellKey = `${sub.id}|${dim.id}`;
           const cellData = state.module1.matrixCells[cellKey] || { paragraphs: [], notes: '' };
           const count = (cellData.paragraphs || []).length;
-          const expected = Scenario.OFFICIAL_EXPECTED_MAPPING[cellKey] || [];
-          const isExpectedCell = expected.length > 0;
 
           html += `
-            <td class="matrix-cell ${count > 0 ? 'has-content' : ''} ${showExpectedOverlay && isExpectedCell ? 'highlight-expected' : ''}" 
+            <td class="matrix-cell ${count > 0 ? 'has-content' : ''}" 
                 data-cellkey="${cellKey}" tabindex="0" role="button" aria-label="${sub.name} in ${dim.name}">
               <div style="font-size: 0.75rem; color: var(--muted); margin-bottom: 4px;">
                 ${count > 0 ? `<span class="cell-badge">${count} issue${count > 1 ? 's' : ''}</span>` : '<span style="opacity:0.4;">—</span>'}
@@ -379,11 +377,6 @@
               <div style="max-height: 48px; overflow: hidden; text-overflow: ellipsis; font-size: 0.72rem; color: var(--ink);">
                 ${cellData.notes ? escapeHtml(cellData.notes.slice(0, 40)) + '...' : ''}
               </div>
-              ${showExpectedOverlay && isExpectedCell ? `
-                <div style="margin-top: 4px;">
-                  <span class="cell-expected-badge" title="Official Annex D expected paragraphs: ${expected.join(', ')}">Ref: [${expected.join(',')}]</span>
-                </div>
-              ` : ''}
             </td>
           `;
         });
@@ -457,23 +450,7 @@
       };
     });
 
-    // Facilitator Annex D Expected mapping reference
-    const expHost = document.getElementById('modalCellExpectedRef');
-    const expected = Scenario.OFFICIAL_EXPECTED_MAPPING[cellKey] || [];
-    if (expected.length > 0) {
-      expHost.style.display = 'block';
-      expHost.innerHTML = `
-        <strong>Curriculum Expected Outcome (Annex D):</strong> 
-        Paragraphs: <strong>${expected.join(', ')}</strong><br>
-        <span style="font-size: 0.8rem; color: var(--muted);">
-          ${expected.map(num => `[Para ${num}: ${escapeHtml((Scenario.getParagraph(num) || {}).text || '').slice(0, 70)}...]`).join('<br>')}
-        </span>
-      `;
-    } else {
-      expHost.style.display = 'none';
-      expHost.innerHTML = '';
-    }
-
+    // Focus note input
     document.getElementById('cellModalBackdrop').classList.add('open');
   }
 

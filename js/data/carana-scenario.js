@@ -305,76 +305,13 @@
     }
   ];
 
-  // Official Expected Outcomes from UNPOL JST Lesson 1, Annex D (p. 32 & 47)
-  const OFFICIAL_EXPECTED_MAPPING = {
-    'knowledge_skills|policing_practice': [9, 24, 29, 35, 39, 42, 49],
-    'knowledge_skills|conflict_prevention': [32],
-    'knowledge_skills|human_rights': [24, 33, 38, 50, 56],
-    'knowledge_skills|gender': [4, 42],
-    'knowledge_skills|cpoc': [38, 56],
-
-    'command_control|policing_practice': [8, 29],
-    'command_control|environmental_sustainability': [4, 48],
-    'command_control|conflict_prevention': [36],
-    'command_control|human_rights': [54],
-    'command_control|gender': [4, 54],
-    'command_control|cpoc': [36, 38],
-
-    'human_resources|policing_practice': [10, 37, 45],
-    'human_resources|conflict_prevention': [3],
-    'human_resources|human_rights': [47, 52, 57],
-    'human_resources|gender': [10, 16, 19, 47],
-
-    'budgeting|policing_practice': [6, 26],
-
-    'logistics|policing_practice': [13, 34, 48],
-    'logistics|environmental_sustainability': [13, 20, 48, 55],
-    'logistics|gender': [48],
-
-    'police_law_act|human_rights': [7, 54],
-    'police_law_act|gender': [54],
-
-    'police_policy|policing_practice': [4, 14, 18, 23, 24, 40],
-    'police_policy|environmental_sustainability': [20],
-    'police_policy|gender': [41],
-    'police_policy|cpoc': [15],
-
-    'internal_oversight|policing_practice': [12, 49, 54],
-    'internal_oversight|environmental_sustainability': [48],
-    'internal_oversight|human_rights': [33, 50],
-    'internal_oversight|cpoc': [56],
-
-    'external_oversight|policing_practice': [21],
-    'external_oversight|human_rights': [14, 31, 44, 51],
-
-    'code_conduct_discipline|policing_practice': [14, 18, 22, 27, 29, 40, 49],
-    'code_conduct_discipline|conflict_prevention': [53],
-    'code_conduct_discipline|human_rights': [51],
-    'code_conduct_discipline|gender': [53],
-
-    'engagement|policing_practice': [11, 17, 25, 34, 43, 53],
-    'engagement|environmental_sustainability': [55],
-    'engagement|conflict_prevention': [32],
-    'engagement|human_rights': [16, 25, 30, 53],
-    'engagement|gender': [16, 32],
-    'engagement|cpoc': [17],
-
-    'coordination|policing_practice': [17, 23],
-    'coordination|conflict_prevention': [36],
-    'coordination|human_rights': [44],
-    'coordination|cpoc': [36],
-
-    'donor_management|policing_practice': [28, 35, 39, 45, 54],
-    'donor_management|gender': [46]
-  };
-
   const DEFAULT_STAKEHOLDERS = [
     {
       name: 'Galasi CIS Leadership (Head of CIS)',
       role: 'Owner',
       influence: 'High',
       interest: 'High',
-      needs: 'Prestige, institutional survival, career advancement, donor support while navigating political ties.',
+      needs: 'Prestige, institutional standing, career advancement, donor support.',
       strategy: 'Engage closely & influence actively: Build consultative partnership, involve in all assessments, align CBD with his priorities.'
     },
     {
@@ -382,7 +319,7 @@
       role: 'Influencer',
       influence: 'High',
       interest: 'Medium',
-      needs: 'Territorial authority, media control, avoiding public embarrassment from police misconduct.',
+      needs: 'Authority, media relations control, avoiding public embarrassment from police misconduct.',
       strategy: 'Keep satisfied: Maintain regular briefings, clarify CIS advisory boundaries, avoid institutional conflict.'
     },
     {
@@ -430,7 +367,7 @@
       role: 'Potential blocker',
       influence: 'High',
       interest: 'Low',
-      needs: 'Maintain political control, protect partisan allies in police leadership.',
+      needs: 'Maintain political influence, protect partisan allies in police leadership.',
       strategy: 'Keep satisfied & monitor: Sensitize on long-term benefits of professional non-partisan policing under RoL.'
     }
   ];
@@ -440,7 +377,6 @@
     DIMENSIONS,
     BACKGROUND,
     PARAGRAPHS,
-    OFFICIAL_EXPECTED_MAPPING,
     DEFAULT_STAKEHOLDERS,
     getParagraph: function (id) {
       return PARAGRAPHS.find(p => p.id === id) || BACKGROUND.find(p => p.id === id);
