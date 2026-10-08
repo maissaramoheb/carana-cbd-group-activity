@@ -275,8 +275,145 @@
         confirmed: false
       },
       module3: {
-        status: 'not_started',
-        description: 'Planning Activities, Logframe and RBB'
+        status: 'not_started', // 'not_started' | 'in_progress' | 'completed'
+        description: 'Planning Activities, Logframe and RBB',
+        // Theory of Change
+        theoryOfChange: {
+          driver: 'High prevalence of violent crime, SGBV, and public mistrust in Galasi.',
+          criticalConditions: 'Victims feel safe to report; investigators possess professional competence; leadership enforces human rights SOPs; prosecutors accept case files.',
+          rationale: 'If we establish a dedicated, trained SGBV investigation unit operating from a secure facility under strict confidentiality SOPs, then reporting of SGBV will increase and cases will withstand prosecution scrutiny, because victim stigmatization and procedural errors in court will be systematically mitigated.'
+        },
+        // Logical Framework Matrix (Logframe)
+        logframe: {
+          impact: {
+            narrative: 'Galasi CIS professionally addresses SGBV-related cases in a manner that does no harm to victims and witnesses, in turn fostering community trust.',
+            indicators: 'Short-term increase in reported SGBV cases followed by long-term decrease in recidivism; improved % trust in Galasi CIS.',
+            verification: 'Galasi PD annual crime statistics; joint UNPOL-civil society community perception survey.',
+            assumptions: 'Sustained political stability and absence of major armed conflict resurgence.'
+          },
+          outcomes: [
+            {
+              id: 'out-1',
+              narrative: 'Effective investigation and delivery of actionable results (prosecutable cases).',
+              indicators: '≥ 75% of SGBV case files submitted to prosecution result in formal charges.',
+              verification: 'Public Prosecutor liaison registry; court trial records.',
+              assumptions: 'Public prosecutors maintain constructive cooperation and avoid adversarial obstruction.'
+            },
+            {
+              id: 'out-2',
+              narrative: 'Victims of SGBV-related crimes are protected from repercussions and social ostracism.',
+              indicators: '100% of interviewed victims report feeling secure during CIS intake and investigation.',
+              verification: 'Confidential victim service feedback survey; NGO partner monitoring logs.',
+              assumptions: 'Local community leaders and elders support victim reporting and discourage retaliation.'
+            }
+          ],
+          outputs: [
+            {
+              id: 'outp-1',
+              outcomeId: 'out-1',
+              narrative: 'A specialised SGBV investigation unit is formally established and integrated into CIS structure.',
+              indicators: 'Unit formal charter signed by Galasi PD Chief of Staff; 15 investigators assigned (at least 6 female).',
+              verification: 'Galasi PD organizational chart; personnel assignment roster.'
+            },
+            {
+              id: 'outp-2',
+              outcomeId: 'out-1',
+              narrative: 'Personnel trained in victim-centred interviewing, evidence handling, and legal protocol.',
+              indicators: '15 investigators complete certified 4-week advanced SGBV curriculum.',
+              verification: 'Training attendance sheets; post-course certification records.'
+            },
+            {
+              id: 'outp-3',
+              outcomeId: 'out-2',
+              narrative: 'Confidential victim intake protocol and secure interview facility established.',
+              indicators: 'Separate confidential facility operational; data protection SOP issued.',
+              verification: 'Facility inspection report; SOP bulletin.'
+            }
+          ],
+          activities: [
+            {
+              id: 'act-1',
+              outputId: 'outp-1',
+              narrative: 'Draft and gazette administrative terms of reference establishing the Galasi CIS SGBV unit.',
+              inputs: 'Labor: 40 hours UNPOL advisory support + 20 hours CIS leadership drafting.',
+              verification: 'Signed Terms of Reference document.'
+            },
+            {
+              id: 'act-2',
+              outputId: 'outp-2',
+              narrative: 'Conduct specialized SGBV interview & evidence management training in coordination with UNODC & Interpol.',
+              inputs: 'Capital: $15,000 training logistics (Trust Fund). Labor: 2 international trainers for 20 training days.',
+              verification: 'Course completion report; training log.'
+            },
+            {
+              id: 'act-3',
+              outputId: 'outp-3',
+              narrative: 'Secure, furnish, and equip off-site confidential interview room with victim protection NGO partnership.',
+              inputs: 'Capital: $25,000 Quick Impact Project (QIP) allocation. Labor: Facilities management team.',
+              verification: 'QIP project completion voucher; Memorandum of Understanding with local NGO.'
+            }
+          ]
+        },
+        // 3x3 Risk Analysis & Register
+        risks: [
+          {
+            id: 'risk-1',
+            title: 'Lack of officers willing to join the specialised SGBV unit',
+            description: 'Male officers may perceive SGBV as low-status crime; female officers may hesitate due to prevailing male-dominated institutional culture.',
+            likelihood: 2, // Medium
+            impact: 3,     // High
+            magnitude: 6,
+            zone: 'red',
+            mitigationStrategy: 'Introduce prestige incentives, accelerated career advancement points, and targeted leadership backing from Head of CIS.',
+            contingencyPlan: 'Temporarily co-locate experienced UNPOL female advisers to mentor incoming candidates and build peer support.'
+          },
+          {
+            id: 'risk-2',
+            title: 'Lack of dedicated off-site facility leading to victim stigmatisation',
+            description: 'Victims avoid approaching main police building for fear of public exposure and harassment by armed officers.',
+            likelihood: 3, // High
+            impact: 3,     // High
+            magnitude: 9,
+            zone: 'red',
+            mitigationStrategy: 'Fast-track Quick Impact Project (QIP) funding to lease and secure an off-site confidential interview bungalow.',
+            contingencyPlan: 'Partner with local accredited women’s health NGO to utilize a private consulting room for police interviews.'
+          },
+          {
+            id: 'risk-3',
+            title: 'Resistance from public prosecutors to accept initial CIS files',
+            description: 'Existing "us against them" institutional friction causes prosecutors to dismiss cases citing alleged technical errors.',
+            likelihood: 2, // Medium
+            impact: 2,     // Medium
+            magnitude: 4,
+            zone: 'yellow',
+            mitigationStrategy: 'Establish monthly joint police-prosecutor case file clinics to co-design evidence submission checklists.',
+            contingencyPlan: 'Elevate recurring procedural disagreements to the Joint Rule of Law Working Group co-chaired by UNAC.'
+          },
+          {
+            id: 'risk-4',
+            title: 'Lack of IT and database equipment for case records',
+            description: 'Central procurement delays electronic records management software and hardware.',
+            likelihood: 1, // Low
+            impact: 1,     // Low
+            magnitude: 1,
+            zone: 'green',
+            mitigationStrategy: 'Implement standardized hard-copy secure ledgers and locked filing cabinets in the interim.',
+            contingencyPlan: 'Continue analogue casework with strict physical access control until donor IT packages arrive.'
+          }
+        ],
+        // Contingency Planning (Lesson 3 Slide 18)
+        contingency: {
+          trigger: 'Sudden political reorganization or civil unrest causing suspension of regular CIS operations.',
+          backupPlan: 'Preserve secured case files off-site; designate interim senior female investigator as acting focal point; redirect pending victim support through UN partner network.',
+          stakeholderCommunication: 'Notify Head of CIS, UNPOL Police Commissioner, and local NGO partners within 24 hours.',
+          continuityPersonnel: 'Deputy Head of CIS, Lead SGBV Investigator, UNPOL Mentor.'
+        },
+        reflection: {
+          q1Experience: '',
+          q2PlanningHierarchy: '',
+          q3RiskPreparedness: ''
+        },
+        confirmed: false
       },
       module4: {
         status: 'not_started',

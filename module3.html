@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Module 3: Planning Activities · CARANA CBD Learning Lab</title>
+  <link rel="stylesheet" href="css/design-system.css">
+  <style>
+    .risk-grid-3x3 {
+      display: grid;
+      grid-template-columns: 80px repeat(3, 1fr);
+      grid-template-rows: repeat(3, 120px) 40px;
+      gap: 6px;
+      margin-top: 16px;
+      max-width: 800px;
+    }
+    .rg-label-y {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--navy);
+      background: var(--wash);
+      border-radius: var(--radius-sm);
+    }
+    .rg-label-x {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--navy);
+      background: var(--wash);
+      border-radius: var(--radius-sm);
+    }
+    .rg-cell {
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      border: 1px solid rgba(0,0,0,0.1);
+      overflow-y: auto;
+      font-size: 0.78rem;
+    }
+    .rg-green { background: #dcf2e6; border-color: #a5deb9; }
+    .rg-yellow { background: #fff2c4; border-color: #eed074; }
+    .rg-red { background: #ffd4d4; border-color: #f19898; }
+  </style>
+</head>
+<body>
+  <div class="lab-container">
+    <!-- Top Nav Utility Bar -->
+    <nav style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.88rem;" aria-label="Breadcrumb and quick links">
+      <div>
+        <a href="index.html" style="font-weight: 700; text-decoration: none;">← CARANA CBD Learning Lab Hub</a>
+        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <a href="module1.html" style="color: var(--ink-light); text-decoration: none;">Phase 1</a>
+        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <a href="module2.html" style="color: var(--ink-light); text-decoration: none;">Phase 2</a>
+        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <span style="color: var(--ink); font-weight: 700;">Phase 3: Planning Activities</span>
+      </div>
+      <div style="display: flex; gap: 14px; align-items: center;">
+        <a href="CARANA_CBD_Group_Activity.html" style="color: var(--muted); text-decoration: none;" target="_blank">
+          ⏱ 60-Minute Fast Track Activity ↗
+        </a>
+      </div>
+    </nav>
+
+    <!-- Lab Header -->
+    <header class="lab-header">
+      <div class="lab-brand">
+        <span class="lab-emblem">UN Peacekeeping</span>
+        <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 3</span>
+      </div>
+      <h1 class="lab-title">Module 3: Planning Activities</h1>
+      <p class="lab-subtitle">
+        Theory of Change causal pathways, Logical Framework Matrix (Logframe), Results-Based Budgeting (RBB), 
+        3×3 risk matrices, and contingency planning.
+      </p>
+
+      <div class="lab-meta-bar">
+        <div class="lab-meta-left">
+          <div class="lab-meta-item">Focus: <strong>Operational Logframe & Risk Management</strong></div>
+          <div class="lab-meta-item">Authority: <strong>UN Planning Toolkit & JST Lesson 3</strong></div>
+          <div class="lab-meta-item">Status: <span id="saveIndicator">Loaded</span></div>
+        </div>
+        <div class="lab-controls-bar">
+          <button class="btn btn-sm btn-dark" id="openScenarioDrawerBtn" type="button">
+            📖 Scenario (57 Paras)
+          </button>
+          <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
+            📚 CBD Glossary
+          </button>
+          <button class="btn btn-sm btn-primary" id="manualSaveBtn" type="button">
+            💾 Save Work
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Training Safeguard Alert -->
+    <aside class="training-safeguard">
+      <div style="font-size: 1.3rem; line-height: 1;">⚠️</div>
+      <div>
+        <strong>Official Training Safeguard.</strong> CARANA and UNAC are fictional training scenarios developed by the United Nations Department of Peace Operations (DPO). This learning lab operationalizes the official UNPOL Job-Specific Training (JST) material.
+      </div>
+    </aside>
+
+    <!-- Six-Phase Curriculum Track -->
+    <nav class="curriculum-track" aria-label="Curriculum Modules">
+      <div class="curriculum-track-header">
+        <span>UNPOL Capacity-Building & Development Process Cycle</span>
+        <span>Phases 1–6</span>
+      </div>
+      <div class="curriculum-track-grid">
+        <a href="module1.html" class="track-step completed">
+          <span class="track-num">Phase 01 · Done</span>
+          <span class="track-title">Situational Analysis</span>
+          <span class="track-desc">"As is" baseline & conflict scan</span>
+        </a>
+        <a href="module2.html" class="track-step completed">
+          <span class="track-num">Phase 02 · Done</span>
+          <span class="track-title">Objective Setting</span>
+          <span class="track-desc">"To be" SMART & Prioritisation</span>
+        </a>
+        <a href="module3.html" class="track-step active">
+          <span class="track-num">Phase 03 · Active</span>
+          <span class="track-title">Planning Activities</span>
+          <span class="track-desc">"What to" Logframe & RBB</span>
+        </a>
+        <div class="track-step locked">
+          <span class="track-num">Phase 04</span>
+          <span class="track-title">Implementation</span>
+          <span class="track-desc">"How to" MMA execution</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 05</span>
+          <span class="track-title">Evaluation & Adjust.</span>
+          <span class="track-desc">"Did we" Impact measurement</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 06</span>
+          <span class="track-title">Transition & Handover</span>
+          <span class="track-desc">"Sustain" Exit & local ownership</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Stage Navigation Tabs for Module 3 -->
+    <nav class="stage-nav" id="stageNav" aria-label="Module 3 Stages"></nav>
+
+    <!-- ================= STAGE 1: THEORY OF CHANGE & TOOLS ================= -->
+    <section class="stage-panel active" id="stage-toc">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 1 · BOPPPS Bridge-In & Foundations</span>
+            <h2 style="margin-top: 4px;">Theory of Change & UNPOL CBD Operational Tools</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 30 minutes</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="margin-bottom: 24px;">
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">The 6 Ps of Police Planning</h3>
+              <p style="margin: 0 0 10px; font-size: 0.95rem; font-weight: 700; color: var(--un-blue-dark);">
+                "Prior Preparation and Planning reduces the Possibility of Poor Performance!"
+              </p>
+              <p style="margin: 0 0 10px; font-size: 0.9rem; color: var(--ink);">
+                Planning is an essential managerial responsibility. In CBD, starting from activities (bottom-up) risks dictating goals 
+                by what is comfortable or familiar. In contrast, <strong>results-oriented planning must be top-down</strong>: 
+                Goals determine outcomes, outcomes dictate required outputs, and outputs define specific activities.
+              </p>
+            </div>
+
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">The 4 CBD Operational Tools (Lesson 3 Slide 11)</h3>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--ink); line-height: 1.55;">
+                <li><strong>Census & Vetting:</strong> Identifying and defining the body of personnel; excluding human rights violators.</li>
+                <li><strong>Training:</strong> Closing competence gaps, tailored to adult learning and host-nation culture.</li>
+                <li><strong>Monitoring, Mentoring & Advising (MMA):</strong> Gaining situational picture, providing technical advice, guiding personal professional growth.</li>
+                <li><strong>Policy Development:</strong> Establishing legal standard operating procedures (SOPs) and normative frameworks.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Theory of Change Form -->
+          <div style="background: var(--wash-subtle); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 6px;">Theory of Change: Mapping the "Missing Middle" (Slide 9 & 10)</h3>
+            <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 16px;">
+              Explain the causal chain: <em>"If we do X, then Y will result, because Z..."</em>
+            </p>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="tocDriver">
+                  Contextual Problem Driver
+                  <span class="form-hint">The underlying issue identified in Module 1</span>
+                </label>
+                <textarea class="form-textarea" id="tocDriver" placeholder="e.g. Widespread SGBV and complete absence of female/victim protection..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="tocConditions">
+                  Critical Enabling Conditions
+                  <span class="form-hint">What prerequisites must be in place for change to happen?</span>
+                </label>
+                <textarea class="form-textarea" id="tocConditions" placeholder="e.g. Confidential space, certified female investigators, prosecution cooperation..."></textarea>
+              </div>
+
+              <div class="form-group col-full">
+                <label class="form-label" for="tocRationale">
+                  Causal Rationale ("If..., then..., because...")
+                  <span class="form-hint">Articulate the logic linking planned interventions to transformative end-states</span>
+                </label>
+                <textarea class="form-textarea" id="tocRationale" style="min-height: 80px;" placeholder="If we establish an accredited SGBV unit and standard evidence SOPs, then convictions will increase, because..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: var(--muted); font-size: 0.85rem;">Ensure causal rationale is clear before developing the logframe.</span>
+          <button class="btn btn-primary" data-goto-stage="stage-logframe" type="button">Continue to Logical Framework Matrix →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 2: LOGICAL FRAMEWORK (LOGFRAME) ================= -->
+    <section class="stage-panel" id="stage-logframe">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 2 · Activity 3.1 Step 1</span>
+            <h2 style="margin-top: 4px;">Logical Framework Matrix (Logframe) & Results-Based Budgeting</h2>
+          </div>
+          <button class="btn btn-primary btn-sm" id="importFromM2Btn" type="button">
+            🔄 Import from Module 2 (SMART Outcomes)
+          </button>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 18px;">
+            In accordance with UNPOL JST Lesson 3 (Annex A p. 24 & 38), structure your programmatic plan from top to bottom. 
+            Ensure each output is produced by multiple coordinated activities, and results are accompanied by verifiable indicators and RBB inputs.
+          </p>
+
+          <!-- 1. Developmental Impact (Goal) -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin-bottom: 24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+              <strong style="color: var(--navy); font-size: 1.05rem;">1. Developmental Impact (Long-Term Mission Goal)</strong>
+              <span class="badge" style="background: var(--navy); color: #fff; padding: 2px 7px; border-radius: 4px; font-size: 0.72rem;">Top-Level Intent</span>
+            </div>
+            <div class="grid-2">
+              <div class="form-group col-full">
+                <label class="form-label" for="logframeImpactNarrative">Narrative Summary of Impact</label>
+                <textarea class="form-textarea" id="logframeImpactNarrative" style="min-height: 70px;" placeholder="Galasi CIS professionally addresses SGBV-related cases in a manner that does no harm..."></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="logframeImpactIndicators">Objectively Verifiable Indicators</label>
+                <textarea class="form-textarea" id="logframeImpactIndicators" style="min-height: 60px;" placeholder="Quantitative metrics / trends over multi-year horizon..."></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="logframeImpactVerification">Sources of Verification</label>
+                <textarea class="form-textarea" id="logframeImpactVerification" style="min-height: 60px;" placeholder="Crime statistics, independent community perception surveys..."></textarea>
+              </div>
+              <div class="form-group col-full" style="margin-bottom: 0;">
+                <label class="form-label" for="logframeImpactAssumptions">Assumptions & External Factors</label>
+                <input class="form-input" id="logframeImpactAssumptions" placeholder="e.g. Political stability maintained, non-recurrence of armed conflict">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Developmental Outcomes -->
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h3 style="color: var(--navy); margin: 0; font-size: 1.1rem;">2. Developmental Outcomes (Derived from Module 2 SMART Objectives)</h3>
+              <button class="btn btn-sm btn-dark" id="addOutcomeBtn" type="button">+ Add Outcome</button>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="baseline-table">
+                <thead>
+                  <tr>
+                    <th style="width: 120px;">Outcome</th>
+                    <th>Narrative Summary (Accomplishment)</th>
+                    <th>Indicators of Achievement</th>
+                    <th style="width: 180px;">Means of Verification</th>
+                    <th style="width: 180px;">Assumptions</th>
+                    <th style="width: 40px;"></th>
+                  </tr>
+                </thead>
+                <tbody id="logframeOutcomesBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 3. Outputs -->
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h3 style="color: var(--navy); margin: 0; font-size: 1.1rem;">3. Outputs (Tangible Deliverables Produced by Activities)</h3>
+              <button class="btn btn-sm btn-dark" id="addOutputBtn" type="button">+ Add Output</button>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="baseline-table">
+                <thead>
+                  <tr>
+                    <th style="width: 120px;">Output</th>
+                    <th>Narrative Summary (Deliverable)</th>
+                    <th>Objectively Verifiable Indicators</th>
+                    <th style="width: 220px;">Means of Verification</th>
+                    <th style="width: 40px;"></th>
+                  </tr>
+                </thead>
+                <tbody id="logframeOutputsBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4. Activities & Inputs (RBB) -->
+          <div style="margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h3 style="color: var(--navy); margin: 0; font-size: 1.1rem;">4. Activities & Inputs (Results-Based Budgeting / RBB)</h3>
+              <button class="btn btn-sm btn-dark" id="addActivityBtn" type="button">+ Add Activity</button>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="baseline-table">
+                <thead>
+                  <tr>
+                    <th style="width: 120px;">Activity</th>
+                    <th>Planned Activity Description</th>
+                    <th>Resource Inputs (Capital $, Labor Hours, Knowledge/IT)</th>
+                    <th style="width: 220px;">Verification / Monitoring</th>
+                    <th style="width: 40px;"></th>
+                  </tr>
+                </thead>
+                <tbody id="logframeActivitiesBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-toc" type="button">← Back to Theory of Change</button>
+          <button class="btn btn-primary" data-goto-stage="stage-risks" type="button">Continue to Risk Analysis →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3: RISK ANALYSIS REGISTER ================= -->
+    <section class="stage-panel" id="stage-risks">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 3 · Activity 3.1 Step 2</span>
+            <h2 style="margin-top: 4px;">Risk Analysis Register & Mitigation Strategies</h2>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary btn-sm" id="importThreatsBtn" type="button">🔄 Import Threats from Module 1</button>
+            <button class="btn btn-dark btn-sm" id="addRiskBtn" type="button">+ Add Risk</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 18px;">
+            Per UNPOL CBD Lesson 3 (Slide 17 & 19), <strong>Risk is defined as the likelihood of a threat occurring</strong>. 
+            Assign scores for Likelihood (1=Low, 2=Med, 3=High) and Potential Impact (1=Low, 2=Med, 3=High). 
+            Formulate proactive mitigation strategies to reduce likelihood and contingency plans to decrease impact.
+          </p>
+
+          <div style="overflow-x: auto;">
+            <table class="baseline-table">
+              <thead>
+                <tr>
+                  <th style="width: 220px;">Risk Description / Event</th>
+                  <th style="width: 110px;">Likelihood</th>
+                  <th style="width: 110px;">Impact</th>
+                  <th style="width: 110px; text-align: center;">Zone & Score</th>
+                  <th>Mitigation Strategy (Preventive Action)</th>
+                  <th>Contingency Plan (If Risk Occurs)</th>
+                  <th style="width: 40px;"></th>
+                </tr>
+              </thead>
+              <tbody id="risksTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-logframe" type="button">← Back to Logframe</button>
+          <button class="btn btn-primary" data-goto-stage="stage-risk-matrix" type="button">View 3×3 Risk Matrix Grid →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 4: 3x3 RISK MATRIX GRID ================= -->
+    <section class="stage-panel" id="stage-risk-matrix">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 4 · Visual Matrix</span>
+            <h2 style="margin-top: 4px;">Official 3 × 3 Risk Matrix (Lesson 3 Slide 17 & 40)</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Dynamic visualization of risk severity</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 16px;">
+            Risks in the <strong style="color: var(--danger);">RED zone</strong> require serious and immediate risk management plans before activity launch. 
+            Risks in the <strong style="color: var(--warn);">YELLOW zone</strong> require targeted mitigation. 
+            Risks in the <strong style="color: var(--ok);">GREEN zone</strong> represent acceptable operational uncertainty.
+          </p>
+
+          <div class="risk-grid-3x3">
+            <!-- Row 3: Likelihood High (3) -->
+            <div class="rg-label-y">L: 3 (High)</div>
+            <div class="rg-cell rg-yellow" id="rc_3_1"></div>
+            <div class="rg-cell rg-red" id="rc_3_2"></div>
+            <div class="rg-cell rg-red" id="rc_3_3"></div>
+
+            <!-- Row 2: Likelihood Med (2) -->
+            <div class="rg-label-y">L: 2 (Med)</div>
+            <div class="rg-cell rg-green" id="rc_2_1"></div>
+            <div class="rg-cell rg-yellow" id="rc_2_2"></div>
+            <div class="rg-cell rg-red" id="rc_2_3"></div>
+
+            <!-- Row 1: Likelihood Low (1) -->
+            <div class="rg-label-y">L: 1 (Low)</div>
+            <div class="rg-cell rg-green" id="rc_1_1"></div>
+            <div class="rg-cell rg-green" id="rc_1_2"></div>
+            <div class="rg-cell rg-yellow" id="rc_1_3"></div>
+
+            <!-- X-axis Labels -->
+            <div></div>
+            <div class="rg-label-x">Impact 1 (Low)</div>
+            <div class="rg-label-x">Impact 2 (Med)</div>
+            <div class="rg-label-x">Impact 3 (High)</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-risks" type="button">← Back to Risk Register</button>
+          <button class="btn btn-primary" data-goto-stage="stage-contingency" type="button">Continue to Contingency Planning →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 5: CONTINGENCY PLANNING ================= -->
+    <section class="stage-panel" id="stage-contingency">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 5 · Business Continuity</span>
+            <h2 style="margin-top: 4px;">Contingency Planning (Lesson 3 Slide 18 & 20)</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Preparing for exceptional crisis events</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            A contingency plan is developed to deal with an outcome other than what is expected. 
+            It protects resources, minimises stakeholder disruption, and identifies key personnel with assigned responsibilities.
+          </p>
+
+          <div class="grid-2">
+            <div class="form-group col-full">
+              <label class="form-label" for="contingencyTrigger">
+                Critical Crisis Trigger / Event Scenario
+                <span class="form-hint">e.g. Armed unrest, political leadership upheaval, sudden destruction of police facilities</span>
+              </label>
+              <textarea class="form-textarea" id="contingencyTrigger" placeholder="What scenario triggers this contingency plan?"></textarea>
+            </div>
+
+            <div class="form-group col-full">
+              <label class="form-label" for="contingencyBackupPlan">
+                Contingency Action & Recovery Plan
+                <span class="form-hint">How does the project maintain business continuity and protect sensitive assets?</span>
+              </label>
+              <textarea class="form-textarea" id="contingencyBackupPlan" style="min-height: 90px;" placeholder="Specific actions taken to safeguard records, personnel, and victims..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contingencyPersonnel">
+                Key Continuity Personnel & Focal Points
+                <span class="form-hint">Assigned individuals responsible for decision-making during crisis</span>
+              </label>
+              <input class="form-input" id="contingencyPersonnel" placeholder="e.g. Deputy Head CIS, UNPOL Sector Commander">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contingencyCommunication">
+                Stakeholder Communication & Protocol
+                <span class="form-hint">How will instructions be disseminated within 24 hours?</span>
+              </label>
+              <input class="form-input" id="contingencyCommunication" placeholder="e.g. Emergency radio net, secure messaging tree">
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-risk-matrix" type="button">← Back to 3×3 Risk Matrix</button>
+          <button class="btn btn-primary" data-goto-stage="stage-summary" type="button">Continue to Review & Reflection →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 6: REVIEW & REFLECTION ================= -->
+    <section class="stage-panel" id="stage-summary">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 6 · Review & Learning Transfer</span>
+            <h2 style="margin-top: 4px;">Syndicate Reflection, Validation & Bridge to Module 4</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Completion & Operational Readiness</span>
+        </div>
+        <div class="card-body">
+          <!-- Learning Reflection Activity -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 4px;">Curriculum Learning Reflection Activity (Lesson 3 Outline p. 31)</h3>
+            <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 16px;">
+              Reflect on the structured planning process and risk management:
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionExperience">
+                1. What was your syndicate's primary learning experience working through the Logframe hierarchy?
+              </label>
+              <textarea class="form-textarea" id="reflectionExperience" placeholder="Reflect on the relationship between activities, outputs, and outcomes..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionHierarchy">
+                2. Why is top-down planning critical to avoiding the trap of activity-driven reform?
+              </label>
+              <textarea class="form-textarea" id="reflectionHierarchy" placeholder="Explain how goals dictate activities, not vice versa..."></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="reflectionRisk">
+                3. How does putting a framework around uncertainty (Risk Log & Matrix) protect UNPOL credibility in mission?
+              </label>
+              <textarea class="form-textarea" id="reflectionRisk" placeholder="Reflect on risk mitigation and contingency planning..."></textarea>
+            </div>
+          </div>
+
+          <!-- Validation Checkbox -->
+          <div style="background: var(--gold-bg); border: 1px solid #e2cb91; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
+            <input type="checkbox" id="confirmModule3" style="width: auto; margin-top: 5px;">
+            <label for="confirmModule3" style="font-size: 0.92rem; color: #583c03;">
+              <strong>Syndicate Validation:</strong> Our group has agreed upon this operational Logframe, Results-Based Budgeting allocation, and Risk Management plan. This plan is validated for execution in <strong>Module 4: Implementation (MMA Execution & Problem-Solving)</strong>.
+            </label>
+          </div>
+
+          <!-- Actions -->
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-dark" id="printPdfBtn" type="button">📄 Generate Briefing PDF</button>
+              <button class="btn btn-primary" id="exportJsonBtn" type="button">💾 Export Lab State (.json)</button>
+            </div>
+            <a href="index.html" class="btn btn-dark" style="text-decoration: none;">Return to Lab Portal Hub ↗</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-contingency" type="button">← Back to Contingency Planning</button>
+          <span style="font-size: 0.85rem; color: var(--ok); font-weight: 700;">Phase 3 Complete · Ready for Module 4</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <span>CARANA CBD Learning Lab · UN Peacekeeping Training Material</span>
+      <span>Module 3: Planning Activities</span>
+    </footer>
+  </div>
+
+  <!-- Off-Canvas Scenario Reference Drawer -->
+  <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
+  <aside class="scenario-drawer" id="scenarioDrawer" aria-label="Carana Scenario Reference">
+    <div class="drawer-header">
+      <h3>Carana Scenario Explorer (57 Paras)</h3>
+      <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-search">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number...">
+      </div>
+      <div id="scenarioDrawerList"></div>
+    </div>
+  </aside>
+
+  <!-- Glossary Modal Dialog -->
+  <div class="modal-backdrop" id="glossaryModalBackdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button">×</button>
+      </div>
+      <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Logframe, RBB, Risk)...">
+      </div>
+      <div class="modal-body" id="glossaryList"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data/carana-scenario.js"></script>
+  <script src="js/data/curriculum-glossary.js"></script>
+  <script src="js/storage/lab-storage.js"></script>
+  <script src="js/modules/module3.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Module3App.init();
+    });
+  </script>
+</body>
+</html>

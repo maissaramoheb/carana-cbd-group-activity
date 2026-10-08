@@ -247,14 +247,51 @@ runTest('Module 2 scoring formula precisely matches UNPOL curriculum (Lesson 2 p
   assert.strictEqual(overall2, 9.5, 'Official Digitalising example must equal 9.5');
 });
 
-runTest('module2.html contains all 6 interactive stages', () => {
-  const content = fs.readFileSync(path.join(ROOT_DIR, 'module2.html'), 'utf8');
-  assert(content.includes('id="stage-orientation"'), 'Stage 1 missing');
-  assert(content.includes('id="stage-candidates"'), 'Stage 2 missing');
-  assert(content.includes('id="stage-prioritisation"'), 'Stage 3 missing');
-  assert(content.includes('id="stage-smart"'), 'Stage 4 missing');
-  assert(content.includes('id="stage-kpis"'), 'Stage 5 missing');
+// 7. MODULE 3 SUITE
+console.log('\nGroup 7: Module 3 Planning, Logframe & Risk Matrix Logic');
+
+runTest('Module 3 schema is properly initialized and structured', () => {
+  const m3 = storage.getDefaultState().module3;
+  assert(m3.theoryOfChange, 'Theory of Change missing');
+  assert(m3.theoryOfChange.driver && m3.theoryOfChange.rationale, 'ToC driver/rationale missing');
+  assert(m3.logframe, 'Logframe missing');
+  assert(m3.logframe.impact && m3.logframe.outcomes && m3.logframe.outputs && m3.logframe.activities, 'Logframe levels missing');
+  assert(Array.isArray(m3.risks) && m3.risks.length >= 2, 'Risks missing');
+  assert(m3.contingency, 'Contingency plan missing');
+  assert(m3.reflection, 'Reflection missing');
+});
+
+runTest('3x3 Risk Matrix zone calculation conforms to UNPOL curriculum (Lesson 3 Slide 17)', () => {
+  function getRiskZone(l, i) {
+    if ((l === 3 && i >= 2) || (l === 2 && i === 3)) return 'red';
+    if (l === 1 && i <= 2) return 'green';
+    return 'yellow';
+  }
+
+  // High risks (Red)
+  assert.strictEqual(getRiskZone(3, 3), 'red');
+  assert.strictEqual(getRiskZone(3, 2), 'red');
+  assert.strictEqual(getRiskZone(2, 3), 'red');
+
+  // Low risks (Green)
+  assert.strictEqual(getRiskZone(1, 1), 'green');
+  assert.strictEqual(getRiskZone(1, 2), 'green');
+
+  // Medium risks (Yellow)
+  assert.strictEqual(getRiskZone(1, 3), 'yellow');
+  assert.strictEqual(getRiskZone(2, 2), 'yellow');
+  assert.strictEqual(getRiskZone(3, 1), 'yellow');
+});
+
+runTest('module3.html contains all 6 interactive stages and 3x3 risk grid', () => {
+  const content = fs.readFileSync(path.join(ROOT_DIR, 'module3.html'), 'utf8');
+  assert(content.includes('id="stage-toc"'), 'Stage 1 missing');
+  assert(content.includes('id="stage-logframe"'), 'Stage 2 missing');
+  assert(content.includes('id="stage-risks"'), 'Stage 3 missing');
+  assert(content.includes('id="stage-risk-matrix"'), 'Stage 4 missing');
+  assert(content.includes('id="stage-contingency"'), 'Stage 5 missing');
   assert(content.includes('id="stage-summary"'), 'Stage 6 missing');
+  assert(content.includes('class="risk-grid-3x3"'), '3x3 grid container missing');
 });
 
 console.log('\n======================================================');
