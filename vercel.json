@@ -2,8 +2,12 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/",
+      "source": "/quick-exercise",
       "destination": "/CARANA_CBD_Group_Activity"
+    },
+    {
+      "source": "/module1",
+      "destination": "/module1"
     }
   ]
 }
