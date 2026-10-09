@@ -792,6 +792,10 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
+  function isSafeId(id) {
+    return typeof id === 'string' && id.length > 0 && id.length <= 128 && /^[a-zA-Z0-9_\-:.]{1,128}$/.test(id);
+  }
+
   function validateImportedData(data) {
     if (!data || typeof data !== 'object' || Array.isArray(data)) {
       return { valid: false, error: 'Uploaded file is not a valid JSON object.' };
@@ -809,6 +813,11 @@
       if (data.session === null || typeof data.session !== 'object' || Array.isArray(data.session)) {
         return { valid: false, error: 'Invalid session structure in imported JSON.' };
       }
+      for (const f of ['teamName', 'participants', 'noteTaker', 'date']) {
+        if (data.session[f] !== undefined && typeof data.session[f] !== 'string') {
+          return { valid: false, error: `Session ${f} must be a string.` };
+        }
+      }
       if (data.session.role !== undefined && data.session.role !== 'participant' && data.session.role !== 'facilitator') {
         return { valid: false, error: 'Invalid session role in imported JSON (must be participant or facilitator).' };
       }
@@ -822,10 +831,30 @@
       if (!Array.isArray(data.module1.stakeholders) || data.module1.stakeholders.some(s => !s || typeof s !== 'object' || Array.isArray(s))) {
         return { valid: false, error: 'Module 1 stakeholders must be an array of non-null objects.' };
       }
+      for (const sh of data.module1.stakeholders) {
+        if (sh.id !== undefined && !isSafeId(sh.id)) {
+          return { valid: false, error: `Invalid stakeholder ID "${sh.id}". IDs must be safe alphanumeric strings.` };
+        }
+        for (const f of ['name', 'category', 'role', 'influence', 'interest', 'needs', 'strategy', 'engagementStrategy']) {
+          if (sh[f] !== undefined && typeof sh[f] !== 'string') {
+            return { valid: false, error: `Stakeholder ${f} must be a string.` };
+          }
+        }
+      }
     }
     if (data.module1.baseline !== undefined) {
       if (!Array.isArray(data.module1.baseline) || data.module1.baseline.some(b => !b || typeof b !== 'object' || Array.isArray(b))) {
         return { valid: false, error: 'Module 1 baseline must be an array of non-null objects.' };
+      }
+      for (const b of data.module1.baseline) {
+        if (b.id !== undefined && !isSafeId(b.id)) {
+          return { valid: false, error: `Invalid baseline ID "${b.id}".` };
+        }
+        for (const f of ['area', 'asIsEvidence', 'baselineMetric', 'tobeTarget', 'verificationSource', 'currentCapacity', 'gapAnalysis', 'entryPoint']) {
+          if (b[f] !== undefined && typeof b[f] !== 'string') {
+            return { valid: false, error: `Baseline ${f} must be a string.` };
+          }
+        }
       }
     }
     if (data.module1.matrixCells !== undefined) {
@@ -843,10 +872,39 @@
         if (cell.paragraphs !== undefined && (!Array.isArray(cell.paragraphs) || cell.paragraphs.some(p => typeof p !== 'number' || isNaN(p)))) {
           return { valid: false, error: `Matrix cell paragraphs at "${k}" must be an array of numbers.` };
         }
+        if (cell.notes !== undefined && typeof cell.notes !== 'string') {
+          return { valid: false, error: `Matrix cell notes at "${k}" must be a string.` };
+        }
       }
     }
-    if (data.module1.swot !== undefined && (data.module1.swot === null || typeof data.module1.swot !== 'object' || Array.isArray(data.module1.swot))) {
-      return { valid: false, error: 'Module 1 SWOT must be an object.' };
+    if (data.module1.swot !== undefined) {
+      if (data.module1.swot === null || typeof data.module1.swot !== 'object' || Array.isArray(data.module1.swot)) {
+        return { valid: false, error: 'Module 1 SWOT must be an object.' };
+      }
+      for (const cat of ['strengths', 'weaknesses', 'opportunities', 'threats']) {
+        if (data.module1.swot[cat] !== undefined) {
+          if (!Array.isArray(data.module1.swot[cat])) {
+            return { valid: false, error: `Module 1 SWOT ${cat} must be an array of strings.` };
+          }
+          for (const item of data.module1.swot[cat]) {
+            if (typeof item === 'string') continue;
+            if (item && typeof item === 'object' && typeof item.text === 'string') continue;
+            return { valid: false, error: `Module 1 SWOT ${cat} items must be strings or valid entry objects.` };
+          }
+        }
+      }
+    }
+    for (const objKey of ['perspectives', 'responseAnalysis', 'pestel', 'summary', 'reflection']) {
+      if (data.module1[objKey] !== undefined) {
+        if (!data.module1[objKey] || typeof data.module1[objKey] !== 'object' || Array.isArray(data.module1[objKey])) {
+          return { valid: false, error: `Module 1 ${objKey} must be an object.` };
+        }
+        for (const [k, v] of Object.entries(data.module1[objKey])) {
+          if (typeof v !== 'string') {
+            return { valid: false, error: `Module 1 ${objKey}.${k} must be a string.` };
+          }
+        }
+      }
     }
 
     // Module 2 validation
@@ -859,6 +917,18 @@
           return { valid: false, error: 'Module 2 objectives must be an array of non-null objects.' };
         }
         for (const obj of data.module2.objectives) {
+          if (!isSafeId(obj.id)) {
+            return { valid: false, error: `Invalid objective ID "${obj.id}". IDs must be safe alphanumeric strings.` };
+          }
+          if (typeof obj.title !== 'string') {
+            return { valid: false, error: 'Module 2 objective title must be a string.' };
+          }
+          if (obj.description !== undefined && typeof obj.description !== 'string') {
+            return { valid: false, error: 'Module 2 objective description must be a string.' };
+          }
+          if (obj.rank !== undefined && (typeof obj.rank !== 'number' || isNaN(obj.rank))) {
+            return { valid: false, error: 'Module 2 objective rank must be a number.' };
+          }
           if (obj.scores && typeof obj.scores === 'object') {
             for (const [cat, sc] of Object.entries(obj.scores)) {
               if (typeof sc !== 'number' || sc < 1 || sc > 3) {
@@ -872,10 +942,38 @@
         if (!Array.isArray(data.module2.smartObjectives) || data.module2.smartObjectives.some(s => !s || typeof s !== 'object' || Array.isArray(s))) {
           return { valid: false, error: 'Module 2 smartObjectives must be an array of non-null objects.' };
         }
+        for (const s of data.module2.smartObjectives) {
+          if (s.id !== undefined && !isSafeId(s.id)) {
+            return { valid: false, error: `Invalid SMART objective ID "${s.id}".` };
+          }
+          if (s.objectiveId !== undefined && !isSafeId(s.objectiveId)) {
+            return { valid: false, error: `Invalid SMART objectiveId "${s.objectiveId}".` };
+          }
+          for (const f of ['title', 'specific', 'measurable', 'achievable', 'relevant', 'timeBound', 'fullStatement']) {
+            if (s[f] !== undefined && typeof s[f] !== 'string') {
+              return { valid: false, error: `SMART objective ${f} must be a string.` };
+            }
+          }
+        }
       }
       if (data.module2.kpis !== undefined) {
         if (!Array.isArray(data.module2.kpis) || data.module2.kpis.some(k => !k || typeof k !== 'object' || Array.isArray(k))) {
           return { valid: false, error: 'Module 2 kpis must be an array of non-null objects.' };
+        }
+        for (const k of data.module2.kpis) {
+          for (const f of ['name', 'type', 'baselineValue', 'targetValue', 'source', 'frequency', 'responsible']) {
+            if (k[f] !== undefined && typeof k[f] !== 'string') {
+              return { valid: false, error: `KPI ${f} must be a string.` };
+            }
+          }
+        }
+      }
+      if (data.module2.reflection !== undefined) {
+        if (!data.module2.reflection || typeof data.module2.reflection !== 'object' || Array.isArray(data.module2.reflection)) {
+          return { valid: false, error: 'Module 2 reflection must be an object.' };
+        }
+        for (const [k, v] of Object.entries(data.module2.reflection)) {
+          if (typeof v !== 'string') return { valid: false, error: `Module 2 reflection.${k} must be a string.` };
         }
       }
     }
@@ -890,6 +988,14 @@
           return { valid: false, error: 'Module 3 risks must be an array of non-null objects.' };
         }
         for (const r of data.module3.risks) {
+          if (r.id !== undefined && !isSafeId(r.id)) {
+            return { valid: false, error: `Invalid risk ID "${r.id}".` };
+          }
+          for (const f of ['title', 'mitigationStrategy', 'contingencyPlan']) {
+            if (r[f] !== undefined && typeof r[f] !== 'string') {
+              return { valid: false, error: `Risk ${f} must be a string.` };
+            }
+          }
           if (r.likelihood !== undefined && ![1, 2, 3].includes(r.likelihood)) {
             return { valid: false, error: 'Risk likelihood must be 1, 2, or 3.' };
           }
@@ -910,6 +1016,26 @@
             if (!Array.isArray(data.module3.logframe[listKey]) || data.module3.logframe[listKey].some(item => !item || typeof item !== 'object' || Array.isArray(item))) {
               return { valid: false, error: `Module 3 logframe ${listKey} must be an array of non-null objects.` };
             }
+            for (const item of data.module3.logframe[listKey]) {
+              if (item.id !== undefined && !isSafeId(String(item.id))) {
+                return { valid: false, error: `Invalid ID in logframe ${listKey}: "${item.id}".` };
+              }
+              for (const f of ['narrative', 'indicators', 'verification', 'assumptions', 'inputs']) {
+                if (item[f] !== undefined && typeof item[f] !== 'string') {
+                  return { valid: false, error: `Logframe ${listKey} ${f} must be a string.` };
+                }
+              }
+            }
+          }
+        }
+      }
+      for (const objKey of ['theoryOfChange', 'contingency', 'reflection']) {
+        if (data.module3[objKey] !== undefined) {
+          if (!data.module3[objKey] || typeof data.module3[objKey] !== 'object' || Array.isArray(data.module3[objKey])) {
+            return { valid: false, error: `Module 3 ${objKey} must be an object.` };
+          }
+          for (const [k, v] of Object.entries(data.module3[objKey])) {
+            if (typeof v !== 'string') return { valid: false, error: `Module 3 ${objKey}.${k} must be a string.` };
           }
         }
       }
@@ -925,9 +1051,35 @@
           return { valid: false, error: 'Module 4 activityTracker must be an array of non-null objects.' };
         }
         for (const tr of data.module4.activityTracker) {
+          if (tr.id !== undefined && !isSafeId(tr.id)) {
+            return { valid: false, error: `Invalid activity tracker ID "${tr.id}".` };
+          }
+          if (tr.activityId !== undefined && !isSafeId(tr.activityId)) {
+            return { valid: false, error: `Invalid activityId in tracker: "${tr.activityId}".` };
+          }
+          for (const f of ['activityTitle', 'outputRef', 'status', 'fieldAdvisoryNote', 'lastUpdated']) {
+            if (tr[f] !== undefined && typeof tr[f] !== 'string') {
+              return { valid: false, error: `Activity tracker ${f} must be a string.` };
+            }
+          }
           if (tr.progressPercent !== undefined) {
             if (typeof tr.progressPercent !== 'number' || isNaN(tr.progressPercent) || tr.progressPercent < 0 || tr.progressPercent > 100) {
               return { valid: false, error: 'Activity tracker progressPercent must be a number between 0 and 100.' };
+            }
+          }
+        }
+      }
+      if (data.module4.roleReversal !== undefined) {
+        if (!Array.isArray(data.module4.roleReversal) || data.module4.roleReversal.some(rr => !rr || typeof rr !== 'object' || Array.isArray(rr))) {
+          return { valid: false, error: 'Module 4 roleReversal must be an array of non-null objects.' };
+        }
+        for (const rr of data.module4.roleReversal) {
+          if (rr.id !== undefined && !isSafeId(rr.id)) {
+            return { valid: false, error: `Invalid roleReversal ID "${rr.id}".` };
+          }
+          for (const f of ['counterpart', 'roleName', 'incumbentTitle', 'counterpartProfile', 'primaryInterests', 'perceivedThreats', 'unspokenIncentives', 'respectfulEngagementStrategy']) {
+            if (rr[f] !== undefined && typeof rr[f] !== 'string') {
+              return { valid: false, error: `Role reversal ${f} must be a string.` };
             }
           }
         }
@@ -937,8 +1089,26 @@
           return { valid: false, error: 'Module 4 fieldSetbacks must be an array of non-null objects.' };
         }
         for (const sb of data.module4.fieldSetbacks) {
+          if (sb.id !== undefined && !isSafeId(sb.id)) {
+            return { valid: false, error: `Invalid setback ID "${sb.id}".` };
+          }
+          for (const f of ['title', 'scenario', 'rootCause', 'negotiationStrategy', 'resolutionAction']) {
+            if (sb[f] !== undefined && typeof sb[f] !== 'string') {
+              return { valid: false, error: `Setback ${f} must be a string.` };
+            }
+          }
           if (sb.status !== undefined && !['Scheduled', 'In Progress', 'Resolved'].includes(sb.status)) {
             return { valid: false, error: `Invalid setback status "${sb.status}".` };
+          }
+        }
+      }
+      for (const objKey of ['mmaStrategy', 'reflection']) {
+        if (data.module4[objKey] !== undefined) {
+          if (!data.module4[objKey] || typeof data.module4[objKey] !== 'object' || Array.isArray(data.module4[objKey])) {
+            return { valid: false, error: `Module 4 ${objKey} must be an object.` };
+          }
+          for (const [k, v] of Object.entries(data.module4[objKey])) {
+            if (typeof v !== 'string') return { valid: false, error: `Module 4 ${objKey}.${k} must be a string.` };
           }
         }
       }
@@ -954,7 +1124,15 @@
           return { valid: false, error: 'Module 5 kpiEvaluations must be an array of non-null objects.' };
         }
         for (const ev of data.module5.kpiEvaluations) {
-          if (ev.varianceStatus !== undefined && !['On Track', 'Delayed', 'Critical Variance', 'Pending Verification', 'Pending Evaluation'].includes(ev.varianceStatus)) {
+          if (ev.id !== undefined && !isSafeId(ev.id)) {
+            return { valid: false, error: `Invalid evaluation ID "${ev.id}".` };
+          }
+          for (const f of ['kpiTitle', 'kpiId', 'baselineValue', 'targetValue', 'actualValue', 'varianceAnalysis', 'correctiveAction']) {
+            if (ev[f] !== undefined && typeof ev[f] !== 'string') {
+              return { valid: false, error: `Evaluation ${f} must be a string.` };
+            }
+          }
+          if (ev.varianceStatus !== undefined && !['On Track', 'Delayed', 'Critical Variance', 'Exceeded', 'Pending Verification', 'Pending Evaluation', 'Pending'].includes(ev.varianceStatus)) {
             return { valid: false, error: `Invalid varianceStatus in Module 5: "${ev.varianceStatus}".` };
           }
         }
@@ -964,8 +1142,26 @@
           return { valid: false, error: 'Module 5 adjustments must be an array of non-null objects.' };
         }
         for (const adj of data.module5.adjustments) {
+          if (adj.id !== undefined && !isSafeId(adj.id)) {
+            return { valid: false, error: `Invalid adjustment ID "${adj.id}".` };
+          }
+          for (const f of ['recommendationTitle', 'justification', 'actionPlan', 'stakeholderOwner']) {
+            if (adj[f] !== undefined && typeof adj[f] !== 'string') {
+              return { valid: false, error: `Adjustment ${f} must be a string.` };
+            }
+          }
           if (adj.reaction !== undefined && adj.reaction !== '' && !['Fully Accept', 'Partially Accept', 'Reject'].includes(adj.reaction)) {
             return { valid: false, error: `Invalid reaction in Module 5 adjustments: "${adj.reaction}".` };
+          }
+        }
+      }
+      for (const objKey of ['crisisAnalysis', 'impactAssessment', 'reflection']) {
+        if (data.module5[objKey] !== undefined) {
+          if (!data.module5[objKey] || typeof data.module5[objKey] !== 'object' || Array.isArray(data.module5[objKey])) {
+            return { valid: false, error: `Module 5 ${objKey} must be an object.` };
+          }
+          for (const [k, v] of Object.entries(data.module5[objKey])) {
+            if (typeof v !== 'string') return { valid: false, error: `Module 5 ${objKey}.${k} must be a string.` };
           }
         }
       }
@@ -980,14 +1176,42 @@
         if (!Array.isArray(data.module6.transitionRoadmap) || data.module6.transitionRoadmap.some(r => !r || typeof r !== 'object' || Array.isArray(r))) {
           return { valid: false, error: 'Module 6 transitionRoadmap must be an array of non-null objects.' };
         }
+        for (const r of data.module6.transitionRoadmap) {
+          if (r.id !== undefined && !isSafeId(r.id)) {
+            return { valid: false, error: `Invalid roadmap ID "${r.id}".` };
+          }
+          for (const f of ['phase', 'milestone', 'leadResponsible', 'lead', 'handoverCriteria', 'exitCriteria', 'status']) {
+            if (r[f] !== undefined && typeof r[f] !== 'string') {
+              return { valid: false, error: `Roadmap step ${f} must be a string.` };
+            }
+          }
+        }
       }
       if (data.module6.challengesRemedies !== undefined) {
         if (!Array.isArray(data.module6.challengesRemedies) || data.module6.challengesRemedies.some(cr => !cr || typeof cr !== 'object' || Array.isArray(cr))) {
           return { valid: false, error: 'Module 6 challengesRemedies must be an array of non-null objects.' };
         }
         for (const cr of data.module6.challengesRemedies) {
+          if (cr.id !== undefined && !isSafeId(cr.id)) {
+            return { valid: false, error: `Invalid challenge ID "${cr.id}".` };
+          }
+          for (const f of ['challenge', 'remedy', 'preventiveAction', 'remedyOwner']) {
+            if (cr[f] !== undefined && typeof cr[f] !== 'string') {
+              return { valid: false, error: `Challenge item ${f} must be a string.` };
+            }
+          }
           if (cr.riskLevel !== undefined && !['Low', 'Medium', 'High'].includes(cr.riskLevel)) {
             return { valid: false, error: `Invalid riskLevel in Module 6 challenges: "${cr.riskLevel}".` };
+          }
+        }
+      }
+      for (const objKey of ['fourPrinciplesFramework', 'transitionStrategy', 'institutionalizingPractice', 'handoverNotice', 'reflection']) {
+        if (data.module6[objKey] !== undefined) {
+          if (!data.module6[objKey] || typeof data.module6[objKey] !== 'object' || Array.isArray(data.module6[objKey])) {
+            return { valid: false, error: `Module 6 ${objKey} must be an object.` };
+          }
+          for (const [k, v] of Object.entries(data.module6[objKey])) {
+            if (typeof v !== 'string') return { valid: false, error: `Module 6 ${objKey}.${k} must be a string.` };
           }
         }
       }
@@ -1112,18 +1336,22 @@
       clone.className = 'printable-clone printable-textarea-clone';
       clone.textContent = ta.value || '—';
       ta.parentNode.insertBefore(clone, ta);
+      ta.classList.add('printable-clone-hidden');
     });
     document.querySelectorAll('input[type="text"], input[type="number"], input:not([type])').forEach(inp => {
+      if (inp.type === 'hidden' || inp.type === 'button' || inp.type === 'submit') return;
       const clone = document.createElement('div');
       clone.className = 'printable-clone printable-input-clone';
       clone.textContent = inp.value || '—';
       inp.parentNode.insertBefore(clone, inp);
+      inp.classList.add('printable-clone-hidden');
     });
   }
 
   function cleanupPrintableContent() {
     if (typeof document === 'undefined') return;
     document.querySelectorAll('.printable-clone').forEach(el => el.remove());
+    document.querySelectorAll('.printable-clone-hidden').forEach(el => el.classList.remove('printable-clone-hidden'));
   }
 
   if (typeof window !== 'undefined') {

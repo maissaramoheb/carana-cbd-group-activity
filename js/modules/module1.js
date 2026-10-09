@@ -50,8 +50,71 @@
     setupLifecycleListeners();
   }
 
+  const dirtyFields = new Set();
+
   function save(statusMsg) {
     collectFormFields();
+    const latest = Storage.loadLabState();
+    if (latest) {
+      for (let i = 2; i <= 6; i++) {
+        const modKey = 'module' + i;
+        if (latest[modKey]) state[modKey] = latest[modKey];
+      }
+      if (latest.module1) {
+        if (latest.module1.pestel) {
+          for (const key of ['political', 'economic', 'social', 'technological', 'environmental', 'legal', 'security']) {
+            const inputId = 'pestel' + key.charAt(0).toUpperCase() + key.slice(1);
+            if (!dirtyFields.has(inputId) && latest.module1.pestel[key] !== undefined) {
+              state.module1.pestel[key] = latest.module1.pestel[key];
+              setValue(inputId, latest.module1.pestel[key]);
+            }
+          }
+        }
+        if (latest.module1.responseAnalysis) {
+          const mapping = {
+            responseActors: 'externalActors',
+            responseSynergies: 'synergiesOpportunities',
+            responseRisks: 'risksDuplication'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module1.responseAnalysis[f] !== undefined) {
+              state.module1.responseAnalysis[f] = latest.module1.responseAnalysis[f];
+              setValue(id, latest.module1.responseAnalysis[f]);
+            }
+          }
+        }
+        if (latest.module1.perspectives) {
+          const mapping = {
+            perspectiveEnabling: 'enablingEnvironment',
+            perspectiveOrganisational: 'organisationalLevel',
+            perspectiveIndividual: 'individualLevel'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module1.perspectives[f] !== undefined) {
+              state.module1.perspectives[f] = latest.module1.perspectives[f];
+              setValue(id, latest.module1.perspectives[f]);
+            }
+          }
+        }
+        if (!dirtyFields.has('stakeholdersConclusion') && latest.module1.stakeholdersConclusion !== undefined) {
+          state.module1.stakeholdersConclusion = latest.module1.stakeholdersConclusion;
+          setValue('stakeholdersConclusion', latest.module1.stakeholdersConclusion);
+        }
+        if (latest.module1.reflection) {
+          const mapping = {
+            reflectionExperience: 'q1Experience',
+            reflectionCounterpart: 'q2CounterpartPerspective',
+            reflectionPersonal: 'q3PersonalGrowth'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module1.reflection[f] !== undefined) {
+              state.module1.reflection[f] = latest.module1.reflection[f];
+              setValue(id, latest.module1.reflection[f]);
+            }
+          }
+        }
+      }
+    }
     const ok = Storage.saveLabState(state);
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
@@ -72,8 +135,16 @@
 
   function setupAutosaveListener() {
     document.addEventListener('input', e => {
+      if (e.target && e.target.id) {
+        dirtyFields.add(e.target.id);
+      }
       if (e.target && e.target.id !== 'confirmModule1' && e.target.id !== 'selfConfirmCheck') {
         invalidateConfirmation();
+      }
+    });
+    document.addEventListener('change', e => {
+      if (e.target && e.target.id) {
+        dirtyFields.add(e.target.id);
       }
     });
     document.addEventListener('input', debounce(() => {
@@ -109,22 +180,83 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        collectFormFields();
         const incoming = Storage.loadLabState();
         if (!incoming) return;
-        for (let i = 1; i <= 6; i++) {
+        for (let i = 2; i <= 6; i++) {
           const modKey = 'module' + i;
-          if (modKey !== 'module1' && incoming[modKey]) {
+          if (incoming[modKey]) {
             state[modKey] = incoming[modKey];
           }
         }
         if (incoming.session) {
-          const activeId = document.activeElement ? document.activeElement.id : '';
-          if (!['teamNameInput', 'participantsInput', 'noteTakerInput'].includes(activeId)) {
-            state.session = incoming.session;
+          const sessionFields = ['teamName', 'participants', 'noteTaker', 'sessionDate'];
+          for (const fId of sessionFields) {
+            const activeId = document.activeElement ? document.activeElement.id : '';
+            if (activeId !== fId && !dirtyFields.has(fId)) {
+              const val = fId === 'sessionDate' ? incoming.session.date : incoming.session[fId];
+              if (val !== undefined) {
+                setValue(fId, val);
+                if (fId === 'sessionDate') state.session.date = val;
+                else state.session[fId] = val;
+              }
+            }
           }
         }
-        Storage.saveLabState(state);
+        if (incoming.module1) {
+          const activeId = document.activeElement ? document.activeElement.id : '';
+          if (incoming.module1.pestel) {
+            for (const key of ['political', 'economic', 'social', 'technological', 'environmental', 'legal', 'security']) {
+              const inputId = 'pestel' + key.charAt(0).toUpperCase() + key.slice(1);
+              if (activeId !== inputId && !dirtyFields.has(inputId) && incoming.module1.pestel[key] !== undefined) {
+                state.module1.pestel[key] = incoming.module1.pestel[key];
+                setValue(inputId, incoming.module1.pestel[key]);
+              }
+            }
+          }
+          if (incoming.module1.responseAnalysis) {
+            const mapping = {
+              responseActors: 'externalActors',
+              responseSynergies: 'synergiesOpportunities',
+              responseRisks: 'risksDuplication'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module1.responseAnalysis[f] !== undefined) {
+                state.module1.responseAnalysis[f] = incoming.module1.responseAnalysis[f];
+                setValue(id, incoming.module1.responseAnalysis[f]);
+              }
+            }
+          }
+          if (incoming.module1.perspectives) {
+            const mapping = {
+              perspectiveEnabling: 'enablingEnvironment',
+              perspectiveOrganisational: 'organisationalLevel',
+              perspectiveIndividual: 'individualLevel'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module1.perspectives[f] !== undefined) {
+                state.module1.perspectives[f] = incoming.module1.perspectives[f];
+                setValue(id, incoming.module1.perspectives[f]);
+              }
+            }
+          }
+          if (activeId !== 'stakeholdersConclusion' && !dirtyFields.has('stakeholdersConclusion') && incoming.module1.stakeholdersConclusion !== undefined) {
+            state.module1.stakeholdersConclusion = incoming.module1.stakeholdersConclusion;
+            setValue('stakeholdersConclusion', incoming.module1.stakeholdersConclusion);
+          }
+          if (incoming.module1.reflection) {
+            const mapping = {
+              reflectionExperience: 'q1Experience',
+              reflectionCounterpart: 'q2CounterpartPerspective',
+              reflectionPersonal: 'q3PersonalGrowth'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module1.reflection[f] !== undefined) {
+                state.module1.reflection[f] = incoming.module1.reflection[f];
+                setValue(id, incoming.module1.reflection[f]);
+              }
+            }
+          }
+        }
         Storage.renderCurriculumTrack(1);
         updateSaveIndicator('Synced from another tab');
       }

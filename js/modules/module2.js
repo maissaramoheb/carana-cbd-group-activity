@@ -51,8 +51,35 @@
     setupLifecycleListeners();
   }
 
+  const dirtyFields = new Set();
+
   function save(statusMsg) {
     collectFormFields();
+    const latest = Storage.loadLabState();
+    if (latest) {
+      for (let i = 1; i <= 6; i++) {
+        if (i !== 2) {
+          const modKey = 'module' + i;
+          if (latest[modKey]) state[modKey] = latest[modKey];
+        }
+      }
+      if (latest.session) state.session = latest.session;
+      if (latest.module2) {
+        if (latest.module2.reflection) {
+          const mapping = {
+            reflectionExperience: 'q1Experience',
+            reflectionPrioritisation: 'q2StrategicPrioritisation',
+            reflectionOwnership: 'q3LocalOwnership'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module2.reflection[f] !== undefined) {
+              state.module2.reflection[f] = latest.module2.reflection[f];
+              setValue(id, latest.module2.reflection[f]);
+            }
+          }
+        }
+      }
+    }
     const ok = Storage.saveLabState(state);
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
@@ -73,9 +100,13 @@
 
   function setupAutosaveListener() {
     document.addEventListener('input', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
       if (e.target && e.target.id !== 'confirmModule2' && e.target.id !== 'selfConfirmCheck') {
         invalidateConfirmation();
       }
+    });
+    document.addEventListener('change', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
@@ -108,22 +139,35 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        collectFormFields();
         const incoming = Storage.loadLabState();
         if (!incoming) return;
         for (let i = 1; i <= 6; i++) {
-          const modKey = 'module' + i;
-          if (modKey !== 'module2' && incoming[modKey]) {
-            state[modKey] = incoming[modKey];
+          if (i !== 2) {
+            const modKey = 'module' + i;
+            if (incoming[modKey]) {
+              state[modKey] = incoming[modKey];
+            }
           }
         }
         if (incoming.session) {
+          state.session = incoming.session;
+        }
+        if (incoming.module2) {
           const activeId = document.activeElement ? document.activeElement.id : '';
-          if (!['teamNameInput', 'participantsInput', 'noteTakerInput'].includes(activeId)) {
-            state.session = incoming.session;
+          if (incoming.module2.reflection) {
+            const mapping = {
+              reflectionExperience: 'q1Experience',
+              reflectionPrioritisation: 'q2StrategicPrioritisation',
+              reflectionOwnership: 'q3LocalOwnership'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module2.reflection[f] !== undefined) {
+                state.module2.reflection[f] = incoming.module2.reflection[f];
+                setValue(id, incoming.module2.reflection[f]);
+              }
+            }
           }
         }
-        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(2);
         updateSaveIndicator('Synced from another tab');
       }
@@ -471,10 +515,12 @@
 
   function renderScoreSelect(objId, catKey, currentVal, titleNote) {
     const val = currentVal !== undefined ? currentVal : 2;
+    const safeObjId = escapeHtml(objId);
+    const safeCatKey = escapeHtml(catKey);
     return `
       <td style="padding: 4px; text-align: center;">
-        <select class="score-selector" data-obj-id="${objId}" data-cat="${catKey}" title="${titleNote || 'Scale: 1=Low, 2=Medium, 3=High'}" 
-                aria-label="Score ${catKey} for objective ${objId}"
+        <select class="score-selector" data-obj-id="${safeObjId}" data-cat="${safeCatKey}" title="${titleNote || 'Scale: 1=Low, 2=Medium, 3=High'}" 
+                aria-label="Score ${safeCatKey} for objective ${safeObjId}"
                 style="width: 44px; padding: 4px 2px; text-align: center; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--line);">
           <option value="1" ${val === 1 ? 'selected' : ''}>1</option>
           <option value="2" ${val === 2 ? 'selected' : ''}>2</option>
@@ -521,6 +567,7 @@
     const top2 = sorted.slice(0, 2);
 
     host.innerHTML = top2.map((obj, idx) => {
+      const safeObjId = escapeHtml(obj.id);
       const smart = state.module2.smartObjectives.find(s => s.objectiveId === obj.id) || {
         objectiveId: obj.id,
         title: obj.title,
@@ -550,42 +597,42 @@
                 (S) Specific
                 <span class="form-hint">Related directly to mandate and clear operational scope</span>
               </label>
-              <textarea id="smart-${idx}-specific" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="specific" aria-label="Priority #${idx + 1} Specific">${escapeHtml(smart.specific || '')}</textarea>
+              <textarea id="smart-${idx}-specific" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="specific" aria-label="Priority #${idx + 1} Specific">${escapeHtml(smart.specific || '')}</textarea>
             </div>
             <div class="form-group">
               <label class="form-label" for="smart-${idx}-measurable">
                 (M) Measurable
                 <span class="form-hint">Quantifiable indicators of success (# or %)</span>
               </label>
-              <textarea id="smart-${idx}-measurable" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="measurable" aria-label="Priority #${idx + 1} Measurable">${escapeHtml(smart.measurable || '')}</textarea>
+              <textarea id="smart-${idx}-measurable" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="measurable" aria-label="Priority #${idx + 1} Measurable">${escapeHtml(smart.measurable || '')}</textarea>
             </div>
             <div class="form-group">
               <label class="form-label" for="smart-${idx}-achievable">
                 (A) Achievable
                 <span class="form-hint">Feasible within available mission resources and partnerships</span>
               </label>
-              <textarea id="smart-${idx}-achievable" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="achievable" aria-label="Priority #${idx + 1} Achievable">${escapeHtml(smart.achievable || '')}</textarea>
+              <textarea id="smart-${idx}-achievable" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="achievable" aria-label="Priority #${idx + 1} Achievable">${escapeHtml(smart.achievable || '')}</textarea>
             </div>
             <div class="form-group">
               <label class="form-label" for="smart-${idx}-relevant">
                 (R) Realistic & Relevant
                 <span class="form-hint">Falls within authorized mandate tasks and political reality</span>
               </label>
-              <textarea id="smart-${idx}-relevant" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="relevant" aria-label="Priority #${idx + 1} Realistic & Relevant">${escapeHtml(smart.relevant || '')}</textarea>
+              <textarea id="smart-${idx}-relevant" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="relevant" aria-label="Priority #${idx + 1} Realistic & Relevant">${escapeHtml(smart.relevant || '')}</textarea>
             </div>
             <div class="form-group col-full">
               <label class="form-label" for="smart-${idx}-timeBound">
                 (T) Time-Bound
                 <span class="form-hint">Clear implementation horizon (e.g. Month 6, Month 12)</span>
               </label>
-              <input id="smart-${idx}-timeBound" class="form-input smart-field" data-obj-id="${obj.id}" data-field="timeBound" value="${escapeHtml(smart.timeBound || '')}" placeholder="e.g. Completed within 12 months" aria-label="Priority #${idx + 1} Time-Bound">
+              <input id="smart-${idx}-timeBound" class="form-input smart-field" data-obj-id="${safeObjId}" data-field="timeBound" value="${escapeHtml(smart.timeBound || '')}" placeholder="e.g. Completed within 12 months" aria-label="Priority #${idx + 1} Time-Bound">
             </div>
             <div class="form-group col-full" style="background: var(--wash-subtle); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--line);">
               <label class="form-label" for="smart-${idx}-fullStatement" style="color: var(--navy);">
                 Consolidated SMART Objective Statement
                 <span class="form-hint">Combined formal wording to be transferred into Module 3 Logframe</span>
               </label>
-              <textarea id="smart-${idx}-fullStatement" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="fullStatement" style="min-height: 80px; font-weight: 600;" aria-label="Priority #${idx + 1} Consolidated SMART Statement">${escapeHtml(smart.fullStatement || '')}</textarea>
+              <textarea id="smart-${idx}-fullStatement" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="fullStatement" style="min-height: 80px; font-weight: 600;" aria-label="Priority #${idx + 1} Consolidated SMART Statement">${escapeHtml(smart.fullStatement || '')}</textarea>
             </div>
           </div>
         </div>

@@ -836,6 +836,137 @@ runTest('P1-07: Reporting — Dossier includes all 6 phases and maps authentic s
   assert(dossierHtml.includes('Codifying standard operating procedures into Galasi police doctrine'), 'M6 Institutionalizing practice rendered');
 });
 
+runTest('Blocker 1: Security — Strict nested ID validation and Exceeded variance status acceptance', () => {
+  const validState = storage.getDefaultState();
+
+  // Test malicious objective ID rejection
+  const badIdState = JSON.parse(JSON.stringify(validState));
+  badIdState.module2.objectives = [{
+    id: 'x"><img src="data:image/png;base64,AA==" onerror="window.__auditIDExecuted=1"><span data-x="',
+    title: 'Candidate with injected ID attribute',
+    rank: 1,
+    scores: { overall: 80 }
+  }];
+  const resBadId = storage.validateImportedData(badIdState);
+  assert.strictEqual(resBadId.valid, false, 'Import with malicious objective ID must be rejected');
+  assert(resBadId.error.includes('ID'), 'Error message must cite ID failure');
+
+  // Test legitimate Module 5 Exceeded varianceStatus acceptance
+  const exceededState = JSON.parse(JSON.stringify(validState));
+  exceededState.module5.kpiEvaluations = [{
+    kpiId: 'kpi-1',
+    indicatorName: 'Training completion rate',
+    baselineValue: '10%',
+    targetValue: '50%',
+    actualValue: '65%',
+    varianceStatus: 'Exceeded',
+    varianceAnalysis: 'Surpassed target due to accelerated syndicate participation',
+    correctiveAction: 'Maintain current cadence'
+  }];
+  const resExceeded = storage.validateImportedData(exceededState);
+  assert.strictEqual(resExceeded.valid, true, 'Import with legitimate "Exceeded" varianceStatus must be accepted');
+});
+
+runTest('Blocker 2: Concurrency — Elimination of storage-event feedback loop across all modules', () => {
+  for (let i = 1; i <= 6; i++) {
+    const modContent = fs.readFileSync(path.join(ROOT_DIR, `js/modules/module${i}.js`), 'utf8');
+    assert(modContent.includes("window.addEventListener('storage'"), `module${i}.js must contain a storage event listener`);
+    const storageIdx = modContent.indexOf("window.addEventListener('storage'");
+    const slice = modContent.slice(storageIdx, storageIdx + 1500);
+    assert(!slice.includes('Storage.saveLabState('), `module${i}.js must NOT call Storage.saveLabState inside storage listener (prevents infinite ping-pong loop)`);
+    assert(modContent.includes('dirtyFields = new Set()'), `module${i}.js must track dirtyFields for non-destructive multi-tab reconciliation`);
+  }
+});
+
+runTest('Blocker 3: Dossier Completeness — All 43 schema fields mapped without fallback hallucinations', () => {
+  const fixtureState = storage.getDefaultState();
+  fixtureState.session.teamName = 'Syndicate 1';
+  fixtureState.session.participants = 'Officer Alpha, Officer Bravo';
+  fixtureState.session.noteTaker = 'Officer Charlie';
+  fixtureState.module1.perspectives = {
+    enablingEnvironment: 'Strategic legal framework in place',
+    organisationalLevel: 'Police infrastructure needs maintenance',
+    individualLevel: 'Officers lack investigative equipment'
+  };
+  fixtureState.module1.responseAnalysis = {
+    externalActors: 'External donor agencies and regional police partners',
+    synergiesOpportunities: 'Shift from lecture training to on-the-job mentoring',
+    risksDuplication: 'Stop uncoordinated bilateral donor donations'
+  };
+  fixtureState.module1.stakeholdersConclusion = 'Key traditional leaders are essential partners';
+  fixtureState.module1.baseline = [{
+    id: 'base-1',
+    area: '1. Strategic Planning & Administration',
+    asIsEvidence: 'Para 12 shows 4% budget execution',
+    baselineMetric: '4% execution',
+    tobeTarget: '85% execution',
+    verificationSource: 'Quarterly financial audit',
+    currentCapacity: 'Low',
+    gapAnalysis: 'Substantial shortfall',
+    entryPoint: 'Administrative advisory'
+  }];
+  fixtureState.module1.reflection = {
+    q1Experience: 'M1 Reflection Q1 experience text',
+    q2CounterpartPerspective: 'M1 Reflection Q2 perspective text',
+    q3PersonalGrowth: 'M1 Reflection Q3 growth text'
+  };
+  fixtureState.module2.reflection = {
+    q1Experience: 'M2 Reflection Q1 text',
+    q2StrategicPrioritisation: 'M2 Reflection Q2 text',
+    q3LocalOwnership: 'M2 Reflection Q3 text'
+  };
+  fixtureState.module3.logframe.activities[0].verification = 'Bi-weekly attendance log';
+  fixtureState.module3.reflection = {
+    q1Experience: 'M3 Reflection Q1 text',
+    q2PlanningHierarchy: 'M3 Reflection Q2 text',
+    q3RiskPreparedness: 'M3 Reflection Q3 text'
+  };
+  fixtureState.module4.roleReversal[0].counterpart = 'Chief Superintendent of Galasi CIS';
+  fixtureState.module4.reflection = {
+    q1Experience: 'M4 Reflection Q1 text',
+    q2EmpathyAndResistance: 'M4 Reflection Q2 text',
+    q3ResilienceInTheField: 'M4 Reflection Q3 text'
+  };
+  fixtureState.module5.kpiEvaluations[0].varianceAnalysis = 'Procurement delay shifted schedule';
+  fixtureState.module5.reflection = {
+    q1EvaluationRelevance: 'M5 Reflection Q1 text',
+    q2FacingInconvenientTruths: 'M5 Reflection Q2 text',
+    q3PersonalResilienceInFailure: 'M5 Reflection Q3 text'
+  };
+  fixtureState.module6.reflection = {
+    q1TransitionMindset: 'M6 Reflection Q1 text',
+    q2SustainingOwnership: 'M6 Reflection Q2 text',
+    q3OverallCBDJourney: 'M6 Reflection Q3 text'
+  };
+
+  const dossierHtml = module6.generateFullMissionDossier(null, fixtureState);
+
+  // Check all specific mapped fields appear in dossierHtml
+  assert(dossierHtml.includes('Strategic legal framework in place'), 'M1 enablingEnvironment missing');
+  assert(dossierHtml.includes('Police infrastructure needs maintenance'), 'M1 organisationalLevel missing');
+  assert(dossierHtml.includes('Officers lack investigative equipment'), 'M1 individualLevel missing');
+  assert(dossierHtml.includes('External donor agencies and regional police partners'), 'M1 externalActors missing');
+  assert(dossierHtml.includes('Shift from lecture training to on-the-job mentoring'), 'M1 synergiesOpportunities missing');
+  assert(dossierHtml.includes('Stop uncoordinated bilateral donor donations'), 'M1 risksDuplication missing');
+  assert(dossierHtml.includes('Key traditional leaders are essential partners'), 'M1 stakeholdersConclusion missing');
+  assert(dossierHtml.includes('Para 12 shows 4% budget execution'), 'M1 asIsEvidence missing');
+  assert(dossierHtml.includes('Quarterly financial audit'), 'M1 verificationSource missing');
+  assert(dossierHtml.includes('M1 Reflection Q1 experience text'), 'M1 reflection missing');
+  assert(dossierHtml.includes('M2 Reflection Q2 text'), 'M2 reflection missing');
+  assert(dossierHtml.includes('Bi-weekly attendance log'), 'M3 activity verification missing');
+  assert(dossierHtml.includes('M3 Reflection Q3 text'), 'M3 reflection missing');
+  assert(dossierHtml.includes('Chief Superintendent of Galasi CIS'), 'M4 roleReversal counterpart missing');
+  assert(dossierHtml.includes('M4 Reflection Q2 text'), 'M4 reflection missing');
+  assert(dossierHtml.includes('Procurement delay shifted schedule'), 'M5 varianceAnalysis missing');
+  assert(dossierHtml.includes('M5 Reflection Q1 text'), 'M5 reflection missing');
+  assert(dossierHtml.includes('M6 Reflection Q1 text'), 'M6 transitionMindset reflection missing');
+  assert(dossierHtml.includes('M6 Reflection Q3 text'), 'M6 overallCBDJourney reflection missing');
+
+  // Verify no invented fallback strings appear
+  assert(!dossierHtml.includes('Month 18'), 'Invented fallback "Month 18" must not exist');
+  assert(!dossierHtml.includes('Full national ownership established.'), 'Invented fallback "Full national ownership established." must not exist');
+});
+
 runTest('P2-02 & P2-03: Accessibility & Dynamic Logframe Hierarchical Numbering', () => {
   // Check module2.html contains smartWizardsHost container
   const m2Html = fs.readFileSync(path.join(ROOT_DIR, 'module2.html'), 'utf8');

@@ -51,8 +51,62 @@
     setupLifecycleListeners();
   }
 
+  const dirtyFields = new Set();
+
   function save(statusMsg) {
     collectFormFields();
+    const latest = Storage.loadLabState();
+    if (latest) {
+      for (let i = 1; i <= 6; i++) {
+        if (i !== 4) {
+          const modKey = 'module' + i;
+          if (latest[modKey]) state[modKey] = latest[modKey];
+        }
+      }
+      if (latest.session) state.session = latest.session;
+      if (latest.module4) {
+        if (latest.module4.mmaStrategy) {
+          const mapping = {
+            mmaMonitoring: 'monitoringMechanisms',
+            mmaAdvising: 'advisingPriorities',
+            mmaMentoring: 'mentoringCoachingPlan'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module4.mmaStrategy[f] !== undefined) {
+              state.module4.mmaStrategy[f] = latest.module4.mmaStrategy[f];
+              setValue(id, latest.module4.mmaStrategy[f]);
+            }
+          }
+        }
+        if (latest.module4.changeManagement) {
+          const mapping = {
+            cmUnfreezing: 'unfreezingTactics',
+            cmChampions: 'coalitionChampions',
+            cmQuickWins: 'quickWins',
+            cmMomentum: 'sustainingMomentum'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module4.changeManagement[f] !== undefined) {
+              state.module4.changeManagement[f] = latest.module4.changeManagement[f];
+              setValue(id, latest.module4.changeManagement[f]);
+            }
+          }
+        }
+        if (latest.module4.reflection) {
+          const mapping = {
+            reflectionExperience: 'q1Experience',
+            reflectionEmpathy: 'q2EmpathyAndResistance',
+            reflectionResilience: 'q3ResilienceInTheField'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module4.reflection[f] !== undefined) {
+              state.module4.reflection[f] = latest.module4.reflection[f];
+              setValue(id, latest.module4.reflection[f]);
+            }
+          }
+        }
+      }
+    }
     const ok = Storage.saveLabState(state);
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
@@ -73,9 +127,13 @@
 
   function setupAutosaveListener() {
     document.addEventListener('input', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
       if (e.target && e.target.id !== 'confirmModule4' && e.target.id !== 'selfConfirmCheck') {
         invalidateConfirmation();
       }
+    });
+    document.addEventListener('change', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
@@ -108,22 +166,62 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        collectFormFields();
         const incoming = Storage.loadLabState();
         if (!incoming) return;
         for (let i = 1; i <= 6; i++) {
-          const modKey = 'module' + i;
-          if (modKey !== 'module4' && incoming[modKey]) {
-            state[modKey] = incoming[modKey];
+          if (i !== 4) {
+            const modKey = 'module' + i;
+            if (incoming[modKey]) {
+              state[modKey] = incoming[modKey];
+            }
           }
         }
         if (incoming.session) {
+          state.session = incoming.session;
+        }
+        if (incoming.module4) {
           const activeId = document.activeElement ? document.activeElement.id : '';
-          if (!['teamNameInput', 'participantsInput', 'noteTakerInput', 'teamName'].includes(activeId)) {
-            state.session = incoming.session;
+          if (incoming.module4.mmaStrategy) {
+            const mapping = {
+              mmaMonitoring: 'monitoringMechanisms',
+              mmaAdvising: 'advisingPriorities',
+              mmaMentoring: 'mentoringCoachingPlan'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module4.mmaStrategy[f] !== undefined) {
+                state.module4.mmaStrategy[f] = incoming.module4.mmaStrategy[f];
+                setValue(id, incoming.module4.mmaStrategy[f]);
+              }
+            }
+          }
+          if (incoming.module4.changeManagement) {
+            const mapping = {
+              cmUnfreezing: 'unfreezingTactics',
+              cmChampions: 'coalitionChampions',
+              cmQuickWins: 'quickWins',
+              cmMomentum: 'sustainingMomentum'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module4.changeManagement[f] !== undefined) {
+                state.module4.changeManagement[f] = incoming.module4.changeManagement[f];
+                setValue(id, incoming.module4.changeManagement[f]);
+              }
+            }
+          }
+          if (incoming.module4.reflection) {
+            const mapping = {
+              reflectionExperience: 'q1Experience',
+              reflectionEmpathy: 'q2EmpathyAndResistance',
+              reflectionResilience: 'q3ResilienceInTheField'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module4.reflection[f] !== undefined) {
+                state.module4.reflection[f] = incoming.module4.reflection[f];
+                setValue(id, incoming.module4.reflection[f]);
+              }
+            }
           }
         }
-        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(4);
         updateSaveIndicator('Synced from another tab');
       }
@@ -593,13 +691,21 @@
 
   function toggleGlossaryModal(open) {
     const backdrop = document.getElementById('glossaryModalBackdrop');
+    if (!backdrop) return;
     const shouldOpen = open !== undefined ? open : !backdrop.classList.contains('open');
     if (shouldOpen) {
       lastActiveElement = document.activeElement;
     }
     backdrop.classList.toggle('open', shouldOpen);
+    backdrop.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
     if (shouldOpen) {
-      setTimeout(() => document.getElementById('glossarySearchInput')?.focus(), 50);
+      const searchInput = document.getElementById('glossarySearchInput');
+      if (searchInput) {
+        searchInput.focus();
+      } else {
+        const focusable = backdrop.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length > 0) focusable[0].focus();
+      }
     } else if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
       lastActiveElement.focus();
     }

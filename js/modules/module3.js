@@ -52,8 +52,72 @@
     setupLifecycleListeners();
   }
 
+  const dirtyFields = new Set();
+
   function save(statusMsg) {
     collectFormFields();
+    const latest = Storage.loadLabState();
+    if (latest) {
+      for (let i = 1; i <= 6; i++) {
+        if (i !== 3) {
+          const modKey = 'module' + i;
+          if (latest[modKey]) state[modKey] = latest[modKey];
+        }
+      }
+      if (latest.session) state.session = latest.session;
+      if (latest.module3) {
+        if (latest.module3.theoryOfChange) {
+          const mapping = { tocDriver: 'driver', tocConditions: 'criticalConditions', tocRationale: 'rationale' };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module3.theoryOfChange[f] !== undefined) {
+              state.module3.theoryOfChange[f] = latest.module3.theoryOfChange[f];
+              setValue(id, latest.module3.theoryOfChange[f]);
+            }
+          }
+        }
+        if (latest.module3.logframe && latest.module3.logframe.impact) {
+          const mapping = {
+            logframeImpactNarrative: 'narrative',
+            logframeImpactIndicators: 'indicators',
+            logframeImpactVerification: 'verification',
+            logframeImpactAssumptions: 'assumptions'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module3.logframe.impact[f] !== undefined) {
+              state.module3.logframe.impact[f] = latest.module3.logframe.impact[f];
+              setValue(id, latest.module3.logframe.impact[f]);
+            }
+          }
+        }
+        if (latest.module3.contingency) {
+          const mapping = {
+            contingencyTrigger: 'trigger',
+            contingencyBackupPlan: 'backupPlan',
+            contingencyPersonnel: 'continuityPersonnel',
+            contingencyCommunication: 'stakeholderCommunication'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module3.contingency[f] !== undefined) {
+              state.module3.contingency[f] = latest.module3.contingency[f];
+              setValue(id, latest.module3.contingency[f]);
+            }
+          }
+        }
+        if (latest.module3.reflection) {
+          const mapping = {
+            reflectionExperience: 'q1Experience',
+            reflectionHierarchy: 'q2PlanningHierarchy',
+            reflectionRisk: 'q3RiskPreparedness'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module3.reflection[f] !== undefined) {
+              state.module3.reflection[f] = latest.module3.reflection[f];
+              setValue(id, latest.module3.reflection[f]);
+            }
+          }
+        }
+      }
+    }
     const ok = Storage.saveLabState(state);
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
@@ -74,9 +138,13 @@
 
   function setupAutosaveListener() {
     document.addEventListener('input', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
       if (e.target && e.target.id !== 'confirmModule3' && e.target.id !== 'selfConfirmCheck') {
         invalidateConfirmation();
       }
+    });
+    document.addEventListener('change', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
@@ -110,22 +178,72 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        collectFormFields();
         const incoming = Storage.loadLabState();
         if (!incoming) return;
         for (let i = 1; i <= 6; i++) {
-          const modKey = 'module' + i;
-          if (modKey !== 'module3' && incoming[modKey]) {
-            state[modKey] = incoming[modKey];
+          if (i !== 3) {
+            const modKey = 'module' + i;
+            if (incoming[modKey]) {
+              state[modKey] = incoming[modKey];
+            }
           }
         }
         if (incoming.session) {
+          state.session = incoming.session;
+        }
+        if (incoming.module3) {
           const activeId = document.activeElement ? document.activeElement.id : '';
-          if (!['teamNameInput', 'participantsInput', 'noteTakerInput'].includes(activeId)) {
-            state.session = incoming.session;
+          if (incoming.module3.theoryOfChange) {
+            const mapping = { tocDriver: 'driver', tocConditions: 'criticalConditions', tocRationale: 'rationale' };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module3.theoryOfChange[f] !== undefined) {
+                state.module3.theoryOfChange[f] = incoming.module3.theoryOfChange[f];
+                setValue(id, incoming.module3.theoryOfChange[f]);
+              }
+            }
+          }
+          if (incoming.module3.logframe && incoming.module3.logframe.impact) {
+            const mapping = {
+              logframeImpactNarrative: 'narrative',
+              logframeImpactIndicators: 'indicators',
+              logframeImpactVerification: 'verification',
+              logframeImpactAssumptions: 'assumptions'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module3.logframe.impact[f] !== undefined) {
+                state.module3.logframe.impact[f] = incoming.module3.logframe.impact[f];
+                setValue(id, incoming.module3.logframe.impact[f]);
+              }
+            }
+          }
+          if (incoming.module3.contingency) {
+            const mapping = {
+              contingencyTrigger: 'trigger',
+              contingencyBackupPlan: 'backupPlan',
+              contingencyPersonnel: 'continuityPersonnel',
+              contingencyCommunication: 'stakeholderCommunication'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module3.contingency[f] !== undefined) {
+                state.module3.contingency[f] = incoming.module3.contingency[f];
+                setValue(id, incoming.module3.contingency[f]);
+              }
+            }
+          }
+          if (incoming.module3.reflection) {
+            const mapping = {
+              reflectionExperience: 'q1Experience',
+              reflectionHierarchy: 'q2PlanningHierarchy',
+              reflectionRisk: 'q3RiskPreparedness'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module3.reflection[f] !== undefined) {
+                state.module3.reflection[f] = incoming.module3.reflection[f];
+                setValue(id, incoming.module3.reflection[f]);
+              }
+            }
           }
         }
-        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(3);
         updateSaveIndicator('Synced from another tab');
       }

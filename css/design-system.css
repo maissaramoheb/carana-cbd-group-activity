@@ -1004,14 +1004,21 @@ a:hover {
   .printable-clone {
     display: block !important;
     white-space: pre-wrap !important;
-    word-break: break-word !important;
+    word-break: normal !important;
     overflow-wrap: break-word !important;
     border: 1px solid #ccc !important;
-    padding: 6px 8px !important;
+    padding: 4px 6px !important;
     background: #fafafa !important;
     font-size: 8.5pt !important;
     color: #111 !important;
-    min-height: 24px !important;
+    min-height: 20px !important;
+  }
+
+  table td .printable-clone {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    min-height: 0 !important;
   }
 
   .printable-clone-hidden {
@@ -1021,7 +1028,7 @@ a:hover {
   th, td {
     border: 1px solid #bbb !important;
     padding: 4px 6px !important;
-    word-break: break-word !important;
+    word-break: normal !important;
     overflow-wrap: break-word !important;
   }
 

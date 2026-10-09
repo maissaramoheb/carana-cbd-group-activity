@@ -51,8 +51,79 @@
     setupLifecycleListeners();
   }
 
+  const dirtyFields = new Set();
+
   function save(statusMsg) {
     collectFormFields();
+    const latest = Storage.loadLabState();
+    if (latest) {
+      for (let i = 1; i <= 6; i++) {
+        if (i !== 5) {
+          const modKey = 'module' + i;
+          if (latest[modKey]) state[modKey] = latest[modKey];
+        }
+      }
+      if (latest.session) state.session = latest.session;
+      if (latest.module5) {
+        if (latest.module5.evaluationFramework) {
+          const mapping = {
+            evalDemingPhase: 'demingPhase',
+            evalActors: 'evalActors',
+            evalPrinciples: 'principles',
+            evalDataStrategy: 'dataCollectionStrategy'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module5.evaluationFramework[f] !== undefined) {
+              state.module5.evaluationFramework[f] = latest.module5.evaluationFramework[f];
+              setValue(id, latest.module5.evaluationFramework[f]);
+            }
+          }
+        }
+        if (latest.module5.crisisAnalysis) {
+          const mapping = {
+            diagLeadership: 'leadershipShiftImpact',
+            diagAbsorption: 'absorptionCapacityAssessment',
+            diagDataLoss: 'dataLossAssessment',
+            diagInterAgency: 'interAgencyFriction',
+            diagPublicPerception: 'publicPerceptionGap',
+            diagBudgetCliff: 'budgetCliffRisk'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module5.crisisAnalysis[f] !== undefined) {
+              state.module5.crisisAnalysis[f] = latest.module5.crisisAnalysis[f];
+              setValue(id, latest.module5.crisisAnalysis[f]);
+            }
+          }
+        }
+        if (latest.module5.impactAssessment) {
+          const mapping = {
+            impactTimeline: 'timelineImpact',
+            impactResource: 'resourceImpact',
+            impactQuality: 'qualityImpact',
+            impactCounterpart: 'counterpartWillingness'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module5.impactAssessment[f] !== undefined) {
+              state.module5.impactAssessment[f] = latest.module5.impactAssessment[f];
+              setValue(id, latest.module5.impactAssessment[f]);
+            }
+          }
+        }
+        if (latest.module5.reflection) {
+          const mapping = {
+            reflectionEvalRelevance: 'q1EvaluationRelevance',
+            reflectionFacingTruths: 'q2FacingInconvenientTruths',
+            reflectionResilienceFailure: 'q3PersonalResilienceInFailure'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module5.reflection[f] !== undefined) {
+              state.module5.reflection[f] = latest.module5.reflection[f];
+              setValue(id, latest.module5.reflection[f]);
+            }
+          }
+        }
+      }
+    }
     const ok = Storage.saveLabState(state);
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
@@ -73,9 +144,13 @@
 
   function setupAutosaveListener() {
     document.addEventListener('input', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
       if (e.target && e.target.id !== 'confirmModule5' && e.target.id !== 'selfConfirmCheck') {
         invalidateConfirmation();
       }
+    });
+    document.addEventListener('change', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
@@ -108,22 +183,79 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        collectFormFields();
         const incoming = Storage.loadLabState();
         if (!incoming) return;
         for (let i = 1; i <= 6; i++) {
-          const modKey = 'module' + i;
-          if (modKey !== 'module5' && incoming[modKey]) {
-            state[modKey] = incoming[modKey];
+          if (i !== 5) {
+            const modKey = 'module' + i;
+            if (incoming[modKey]) {
+              state[modKey] = incoming[modKey];
+            }
           }
         }
         if (incoming.session) {
+          state.session = incoming.session;
+        }
+        if (incoming.module5) {
           const activeId = document.activeElement ? document.activeElement.id : '';
-          if (!['teamNameInput', 'participantsInput', 'noteTakerInput', 'teamName'].includes(activeId)) {
-            state.session = incoming.session;
+          if (incoming.module5.evaluationFramework) {
+            const mapping = {
+              evalDemingPhase: 'demingPhase',
+              evalActors: 'evalActors',
+              evalPrinciples: 'principles',
+              evalDataStrategy: 'dataCollectionStrategy'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module5.evaluationFramework[f] !== undefined) {
+                state.module5.evaluationFramework[f] = incoming.module5.evaluationFramework[f];
+                setValue(id, incoming.module5.evaluationFramework[f]);
+              }
+            }
+          }
+          if (incoming.module5.crisisAnalysis) {
+            const mapping = {
+              diagLeadership: 'leadershipShiftImpact',
+              diagAbsorption: 'absorptionCapacityAssessment',
+              diagDataLoss: 'dataLossAssessment',
+              diagInterAgency: 'interAgencyFriction',
+              diagPublicPerception: 'publicPerceptionGap',
+              diagBudgetCliff: 'budgetCliffRisk'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module5.crisisAnalysis[f] !== undefined) {
+                state.module5.crisisAnalysis[f] = incoming.module5.crisisAnalysis[f];
+                setValue(id, incoming.module5.crisisAnalysis[f]);
+              }
+            }
+          }
+          if (incoming.module5.impactAssessment) {
+            const mapping = {
+              impactTimeline: 'timelineImpact',
+              impactResource: 'resourceImpact',
+              impactQuality: 'qualityImpact',
+              impactCounterpart: 'counterpartWillingness'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module5.impactAssessment[f] !== undefined) {
+                state.module5.impactAssessment[f] = incoming.module5.impactAssessment[f];
+                setValue(id, incoming.module5.impactAssessment[f]);
+              }
+            }
+          }
+          if (incoming.module5.reflection) {
+            const mapping = {
+              reflectionEvalRelevance: 'q1EvaluationRelevance',
+              reflectionFacingTruths: 'q2FacingInconvenientTruths',
+              reflectionResilienceFailure: 'q3PersonalResilienceInFailure'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module5.reflection[f] !== undefined) {
+                state.module5.reflection[f] = incoming.module5.reflection[f];
+                setValue(id, incoming.module5.reflection[f]);
+              }
+            }
           }
         }
-        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(5);
         updateSaveIndicator('Synced from another tab');
       }
@@ -599,13 +731,21 @@
 
   function toggleGlossaryModal(open) {
     const backdrop = document.getElementById('glossaryModalBackdrop');
+    if (!backdrop) return;
     const shouldOpen = open !== undefined ? open : !backdrop.classList.contains('open');
     if (shouldOpen) {
       lastActiveElement = document.activeElement;
     }
     backdrop.classList.toggle('open', shouldOpen);
+    backdrop.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
     if (shouldOpen) {
-      setTimeout(() => document.getElementById('glossarySearchInput')?.focus(), 50);
+      const searchInput = document.getElementById('glossarySearchInput');
+      if (searchInput) {
+        searchInput.focus();
+      } else {
+        const focusable = backdrop.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length > 0) focusable[0].focus();
+      }
     } else if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
       lastActiveElement.focus();
     }

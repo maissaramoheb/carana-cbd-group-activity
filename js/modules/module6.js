@@ -53,8 +53,92 @@
     setupLifecycleListeners();
   }
 
+  const dirtyFields = new Set();
+
   function save(statusMsg) {
     collectFormFields();
+    const latest = Storage.loadLabState();
+    if (latest) {
+      for (let i = 1; i <= 6; i++) {
+        if (i !== 6) {
+          const modKey = 'module' + i;
+          if (latest[modKey]) state[modKey] = latest[modKey];
+        }
+      }
+      if (latest.session) state.session = latest.session;
+      if (latest.module6) {
+        if (latest.module6.transitionStrategy) {
+          const mapping = {
+            transHopcDate: 'hopcInitiationDate',
+            transPrimaryTrigger: 'primaryTrigger',
+            transSucceedingEntity: 'succeedingEntity',
+            transLocalOwner: 'localOwnerDesignation'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module6.transitionStrategy[f] !== undefined) {
+              state.module6.transitionStrategy[f] = latest.module6.transitionStrategy[f];
+              setValue(id, latest.module6.transitionStrategy[f]);
+            }
+          }
+        }
+        if (latest.module6.fourPrinciplesFramework) {
+          const mapping = {
+            principleEarlyPlanning: 'earlyPlanning',
+            principleUnIntegration: 'unIntegration',
+            principleLocalOwnership: 'localOwnership',
+            principleCommunication: 'communicationProtocol'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module6.fourPrinciplesFramework[f] !== undefined) {
+              state.module6.fourPrinciplesFramework[f] = latest.module6.fourPrinciplesFramework[f];
+              setValue(id, latest.module6.fourPrinciplesFramework[f]);
+            }
+          }
+        }
+        if (latest.module6.institutionalizingPractice) {
+          const mapping = {
+            instDoctrine: 'doctrineCodification',
+            instAcademy: 'academyIntegration',
+            instGenderBudget: 'genderResponsiveBudget',
+            instOversight: 'oversightHandover'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module6.institutionalizingPractice[f] !== undefined) {
+              state.module6.institutionalizingPractice[f] = latest.module6.institutionalizingPractice[f];
+              setValue(id, latest.module6.institutionalizingPractice[f]);
+            }
+          }
+        }
+        if (latest.module6.handoverNotice) {
+          const mapping = {
+            hnDate: 'handoverDate',
+            hnUnpolSignatory: 'unpolSignatory',
+            hnCounterpartSignatory: 'counterpartSignatory',
+            hnWitnessSignatory: 'witnessSignatory',
+            hnResidual: 'residualObligations'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module6.handoverNotice[f] !== undefined) {
+              state.module6.handoverNotice[f] = latest.module6.handoverNotice[f];
+              setValue(id, latest.module6.handoverNotice[f]);
+            }
+          }
+        }
+        if (latest.module6.reflection) {
+          const mapping = {
+            reflectionTransitionMindset: 'q1TransitionMindset',
+            reflectionSustainingOwnership: 'q2SustainingOwnership',
+            reflectionOverallCBDJourney: 'q3OverallCBDJourney'
+          };
+          for (const [id, f] of Object.entries(mapping)) {
+            if (!dirtyFields.has(id) && latest.module6.reflection[f] !== undefined) {
+              state.module6.reflection[f] = latest.module6.reflection[f];
+              setValue(id, latest.module6.reflection[f]);
+            }
+          }
+        }
+      }
+    }
     const ok = Storage.saveLabState(state);
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
@@ -76,9 +160,13 @@
 
   function setupAutosaveListener() {
     document.addEventListener('input', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
       if (e.target && e.target.id !== 'confirmModule6' && e.target.id !== 'selfConfirmCheck') {
         invalidateConfirmation();
       }
+    });
+    document.addEventListener('change', e => {
+      if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
@@ -96,13 +184,26 @@
 
   function updateCompletionBadge() {
     const badge = document.getElementById('stageCompleteFooterBadge');
-    if (!badge) return;
-    if (state.module6 && state.module6.confirmed) {
-      badge.textContent = '✓ Phase 6 Self-Confirmed · Full Six-Phase Cycle Complete';
-      badge.style.color = 'var(--ok)';
-    } else {
-      badge.textContent = 'Phase 6 In Progress · Pending Self-Confirmation';
-      badge.style.color = 'var(--navy)';
+    if (badge) {
+      if (state.module6 && state.module6.confirmed) {
+        badge.textContent = '✓ Phase 6 Self-Confirmed · Full Six-Phase Cycle Complete';
+        badge.style.color = 'var(--ok)';
+      } else {
+        badge.textContent = 'Phase 6 In Progress · Pending Self-Confirmation';
+        badge.style.color = 'var(--navy)';
+      }
+    }
+    const finalSpan = document.getElementById('finalCycleStatusText');
+    if (finalSpan) {
+      if (state.module6 && state.module6.confirmed) {
+        finalSpan.textContent = 'Full 6-Phase Learning Lab Completed · Ready for Final Review';
+        finalSpan.style.color = 'var(--ok)';
+        finalSpan.style.fontWeight = '700';
+      } else {
+        finalSpan.textContent = 'Phase 6 In Progress · Pending Self-Confirmation';
+        finalSpan.style.color = 'var(--navy)';
+        finalSpan.style.fontWeight = '600';
+      }
     }
   }
 
@@ -111,22 +212,92 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        collectFormFields();
         const incoming = Storage.loadLabState();
         if (!incoming) return;
         for (let i = 1; i <= 6; i++) {
-          const modKey = 'module' + i;
-          if (modKey !== 'module6' && incoming[modKey]) {
-            state[modKey] = incoming[modKey];
+          if (i !== 6) {
+            const modKey = 'module' + i;
+            if (incoming[modKey]) {
+              state[modKey] = incoming[modKey];
+            }
           }
         }
         if (incoming.session) {
+          state.session = incoming.session;
+        }
+        if (incoming.module6) {
           const activeId = document.activeElement ? document.activeElement.id : '';
-          if (!['teamNameInput', 'participantsInput', 'noteTakerInput', 'teamName'].includes(activeId)) {
-            state.session = incoming.session;
+          if (incoming.module6.transitionStrategy) {
+            const mapping = {
+              transHopcDate: 'hopcInitiationDate',
+              transPrimaryTrigger: 'primaryTrigger',
+              transSucceedingEntity: 'succeedingEntity',
+              transLocalOwner: 'localOwnerDesignation'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module6.transitionStrategy[f] !== undefined) {
+                state.module6.transitionStrategy[f] = incoming.module6.transitionStrategy[f];
+                setValue(id, incoming.module6.transitionStrategy[f]);
+              }
+            }
+          }
+          if (incoming.module6.fourPrinciplesFramework) {
+            const mapping = {
+              principleEarlyPlanning: 'earlyPlanning',
+              principleUnIntegration: 'unIntegration',
+              principleLocalOwnership: 'localOwnership',
+              principleCommunication: 'communicationProtocol'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module6.fourPrinciplesFramework[f] !== undefined) {
+                state.module6.fourPrinciplesFramework[f] = incoming.module6.fourPrinciplesFramework[f];
+                setValue(id, incoming.module6.fourPrinciplesFramework[f]);
+              }
+            }
+          }
+          if (incoming.module6.institutionalizingPractice) {
+            const mapping = {
+              instDoctrine: 'doctrineCodification',
+              instAcademy: 'academyIntegration',
+              instGenderBudget: 'genderResponsiveBudget',
+              instOversight: 'oversightHandover'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module6.institutionalizingPractice[f] !== undefined) {
+                state.module6.institutionalizingPractice[f] = incoming.module6.institutionalizingPractice[f];
+                setValue(id, incoming.module6.institutionalizingPractice[f]);
+              }
+            }
+          }
+          if (incoming.module6.handoverNotice) {
+            const mapping = {
+              hnDate: 'handoverDate',
+              hnUnpolSignatory: 'unpolSignatory',
+              hnCounterpartSignatory: 'counterpartSignatory',
+              hnWitnessSignatory: 'witnessSignatory',
+              hnResidual: 'residualObligations'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module6.handoverNotice[f] !== undefined) {
+                state.module6.handoverNotice[f] = incoming.module6.handoverNotice[f];
+                setValue(id, incoming.module6.handoverNotice[f]);
+              }
+            }
+          }
+          if (incoming.module6.reflection) {
+            const mapping = {
+              reflectionTransitionMindset: 'q1TransitionMindset',
+              reflectionSustainingOwnership: 'q2SustainingOwnership',
+              reflectionOverallCBDJourney: 'q3OverallCBDJourney'
+            };
+            for (const [id, f] of Object.entries(mapping)) {
+              if (activeId !== id && !dirtyFields.has(id) && incoming.module6.reflection[f] !== undefined) {
+                state.module6.reflection[f] = incoming.module6.reflection[f];
+                setValue(id, incoming.module6.reflection[f]);
+              }
+            }
           }
         }
-        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(6);
         renderSyndicateValidationChecklist();
         updateSaveIndicator('Synced from another tab');
@@ -550,6 +721,8 @@
       });
     }
 
+    const isAllConfirmed = [1, 2, 3, 4, 5, 6].every(num => !!s['module' + num]?.confirmed);
+
     let html = `
       <div style="padding: 10mm 5mm; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #111; line-height: 1.45;">
         <!-- COVER / TITLE BLOCK -->
@@ -558,9 +731,23 @@
           <h1 style="margin: 6px 0 4px; font-size: 20pt; color: #001f3f;">Comprehensive Mission Handover Dossier</h1>
           <div style="font-size: 11pt; color: #333; font-weight: 600;">Full Six-Phase Cycle: Situational Analysis → Transition Protocol</div>
           
-          <div style="display: flex; justify-content: space-between; margin-top: 12px; padding-top: 8px; border-top: 1px solid #ddd; font-size: 9pt;">
+          <div style="margin-top: 8px;">
+            ${isAllConfirmed ? `
+              <span style="display: inline-block; padding: 4px 10px; background: #e6f4ea; border: 1.5px solid #137333; color: #137333; font-weight: 800; font-size: 8.5pt; border-radius: 4px;">
+                ✓ STATUS: CONFIRMED FINAL MISSION DOSSIER (All 6 Phases Validated by Syndicate)
+              </span>
+            ` : `
+              <span style="display: inline-block; padding: 4px 10px; background: #fef7e0; border: 1.5px solid #b06000; color: #b06000; font-weight: 800; font-size: 8.5pt; border-radius: 4px;">
+                ⚠️ STATUS: UNCONFIRMED DRAFT DOSSIER (Pending Syndicate Self-Confirmation)
+              </span>
+            `}
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding-top: 8px; border-top: 1px solid #ddd; font-size: 9pt;">
             <div><strong>Syndicate Team:</strong> ${escapeHtml(session.teamName || 'Syndicate Team')}</div>
             <div><strong>Session Date:</strong> ${escapeHtml(session.date || new Date().toISOString().slice(0, 10))}</div>
+            <div><strong>Participants:</strong> ${escapeHtml(session.participants || 'Not provided')}</div>
+            <div><strong>Appointed Note-Taker:</strong> ${escapeHtml(session.noteTaker || 'Not provided')}</div>
             <div><strong>Target Mandate:</strong> UNAC / CARANA (Galasi CIS)</div>
             <div><strong>Curriculum Authority:</strong> Official UNPOL CBD JST Lessons 1–6</div>
           </div>
@@ -568,7 +755,7 @@
 
         <!-- TRAINING SAFEGUARD & INSTRUCTIONAL PREMISE -->
         <div style="background: #fdf8eb; border: 1px solid #d4a72c; padding: 10px 14px; font-size: 8.5pt; color: #583c03; margin-bottom: 20px; border-radius: 4px;">
-          <strong>Official Training Safeguard & Curriculum Premise:</strong> CARANA and UNAC are fictional training scenarios developed by the United Nations Department of Peace Operations (DPO). This dossier documents the cumulative operational outputs of UNPOL CBD Job-Specific Training (JST) Lessons 1 through 6. In accordance with JST Lesson 6 Activity 6.1, transition planning assumes earlier mission outputs were implemented and evaluated under curriculum premises.
+          <strong>Official Training Safeguard & Curriculum Premise:</strong> CARANA and UNAC are fictional training scenarios developed by the United Nations Department of Peace Operations (DPO). This dossier documents the cumulative operational outputs of UNPOL CBD Job-Specific Training (JST) Lessons 1 through 6. In accordance with JST Lesson 6 (Slide 8 & Activity 6.1), transition planning specifically addresses the programmatic handover and sustainability of the bilateral Capacity-Building and Development (CBD) activity to host-state authorities and development partners, rather than the political withdrawal or overall liquidation of the wider UN peacekeeping mission.
         </div>
 
         <!-- ========================================== -->
@@ -579,36 +766,47 @@
             Phase 1: Situational Analysis (JST Lesson 1)
           </h2>
 
-          <!-- Strategic Perspectives -->
+          <!-- Strategic Perspectives (3 CBD Levels) -->
           <div style="margin-bottom: 14px;">
-            <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">1. Strategic Mandate Perspectives</h3>
+            <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">1. Strategic Mandate Perspectives (3 CBD Levels)</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
               <tr>
-                <th style="width: 25%; text-align: left; background: #f0f4f8; padding: 6px; border: 1px solid #ccc;">Peacekeeping Perspective</th>
-                <td style="padding: 6px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.perspectives?.peacekeeping || 'N/A')}</td>
+                <th style="width: 25%; text-align: left; background: #f0f4f8; padding: 6px; border: 1px solid #ccc;">Enabling Environment</th>
+                <td style="padding: 6px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.perspectives?.enablingEnvironment || 'Not provided')}</td>
               </tr>
               <tr>
-                <th style="text-align: left; background: #f0f4f8; padding: 6px; border: 1px solid #ccc;">Development Perspective</th>
-                <td style="padding: 6px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.perspectives?.development || 'N/A')}</td>
+                <th style="text-align: left; background: #f0f4f8; padding: 6px; border: 1px solid #ccc;">Organisational Level</th>
+                <td style="padding: 6px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.perspectives?.organisationalLevel || 'Not provided')}</td>
               </tr>
               <tr>
-                <th style="text-align: left; background: #f0f4f8; padding: 6px; border: 1px solid #ccc;">Synergy & Sequencing Rationale</th>
-                <td style="padding: 6px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.perspectives?.synergyRationale || 'N/A')}</td>
+                <th style="text-align: left; background: #f0f4f8; padding: 6px; border: 1px solid #ccc;">Individual Level</th>
+                <td style="padding: 6px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.perspectives?.individualLevel || 'Not provided')}</td>
               </tr>
             </table>
           </div>
 
-          <!-- PESTEL Scanning -->
+          <!-- PESTEL-S Scanning -->
           <div style="margin-bottom: 14px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">2. Environmental Scanning (PESTEL-S Analysis)</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Political Context</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.political || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Economic & Budgetary Factors</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.economic || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Social, Ethnic & Cultural Realities</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.social || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Technological & Infrastructure Realities</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.technological || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Environmental & Geographic Factors</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.environmental || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Legal & Institutional Framework</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.legal || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc; font-weight: 700;">Synthesis & Strategic Implications</th><td style="padding: 5px; border: 1px solid #ccc; font-weight: 600; white-space: pre-wrap;">${escapeHtml(m1.pestel?.synthesis || 'N/A')}</td></tr>
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Political Context</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.political || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Economic & Budgetary Factors</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.economic || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Social, Ethnic & Cultural Realities</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.social || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Technological & Infrastructure Realities</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.technological || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Environmental & Geographic Factors</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.environmental || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Legal & Institutional Framework</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.legal || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Security Environment Factors</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.pestel?.security || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc; font-weight: 700;">Synthesis & Strategic Implications</th><td style="padding: 5px; border: 1px solid #ccc; font-weight: 600; white-space: pre-wrap;">${escapeHtml(m1.pestel?.synthesis || 'Not provided')}</td></tr>
+            </table>
+          </div>
+
+          <!-- Response Analysis & External Coordination -->
+          <div style="margin-bottom: 14px;">
+            <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">Response Analysis & External Coordination</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">External Actors & Ongoing Interventions</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.responseAnalysis?.externalActors || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Potential Synergies & Opportunities</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.responseAnalysis?.synergiesOpportunities || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Risks of Duplication & Mitigation</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.responseAnalysis?.risksDuplication || 'Not provided')}</td></tr>
             </table>
           </div>
 
@@ -639,6 +837,9 @@
                 `).join('')}
               </tbody>
             </table>
+            <div style="margin-top: 6px; font-size: 8.5pt; background: #fafafa; border: 1px solid #ccc; padding: 6px 8px;">
+              <strong>Stakeholder Engagement Conclusion:</strong> ${escapeHtml(m1.stakeholdersConclusion || 'Not provided')}
+            </div>
           </div>
 
           <!-- Matrix Evidence Register -->
@@ -672,34 +873,34 @@
           <div style="margin-bottom: 14px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">5. SWOT Analysis</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 8pt; margin-bottom: 8px;">
-              <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Strengths:</strong> ${(m1.swot?.strengths || []).map(s => escapeHtml(s.text)).join('; ') || 'None recorded'}</div>
-              <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Weaknesses:</strong> ${(m1.swot?.weaknesses || []).map(s => escapeHtml(s.text)).join('; ') || 'None recorded'}</div>
-              <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Opportunities:</strong> ${(m1.swot?.opportunities || []).map(s => escapeHtml(s.text)).join('; ') || 'None recorded'}</div>
-              <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Threats:</strong> ${(m1.swot?.threats || []).map(s => escapeHtml(s.text)).join('; ') || 'None recorded'}</div>
+              <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Strengths:</strong> ${(m1.swot?.strengths || []).map(s => escapeHtml(typeof s === 'string' ? s : s.text)).join('; ') || 'None recorded'}</div>
+              <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Weaknesses:</strong> ${(m1.swot?.weaknesses || []).map(s => escapeHtml(typeof s === 'string' ? s : s.text)).join('; ') || 'None recorded'}</div>
+              <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Opportunities:</strong> ${(m1.swot?.opportunities || []).map(s => escapeHtml(typeof s === 'string' ? s : s.text)).join('; ') || 'None recorded'}</div>
+              <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Threats:</strong> ${(m1.swot?.threats || []).map(s => escapeHtml(typeof s === 'string' ? s : s.text)).join('; ') || 'None recorded'}</div>
             </div>
           </div>
 
-          <!-- Programmatic Baseline -->
+          <!-- Programmatic Baseline Register -->
           <div style="margin-bottom: 14px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">6. Programmatic Baseline Register</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 8px;">
               <thead>
                 <tr style="background: #f0f4f8;">
-                  <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 22%;">UNPOL Area</th>
-                  <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 20%;">Subcategory</th>
-                  <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 20%;">Current Capacity</th>
-                  <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 20%;">Gap Analysis</th>
-                  <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 18%;">Entry Point</th>
+                  <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 20%;">Functional Area / Baseline</th>
+                  <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 30%;">As-Is Evidence (Current State)</th>
+                  <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 15%;">Baseline Metric</th>
+                  <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 15%;">To-Be Target</th>
+                  <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 20%;">Means of Verification</th>
                 </tr>
               </thead>
               <tbody>
                 ${(m1.baseline || []).map(b => `
                   <tr>
-                    <td style="border: 1px solid #ccc; padding: 4px; font-weight: 600;">${escapeHtml(b.area)}</td>
-                    <td style="border: 1px solid #ccc; padding: 4px;">${escapeHtml(b.subarea)}</td>
-                    <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(b.currentCapacity)}</td>
-                    <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(b.gapAnalysis)}</td>
-                    <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(b.entryPoint)}</td>
+                    <td style="border: 1px solid #ccc; padding: 4px; font-weight: 600;">${escapeHtml(b.area || b.functionalArea || '')}<br><span style="color:#555; font-weight: normal;">${escapeHtml(b.subarea || '')}</span></td>
+                    <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(b.asIsEvidence || b.currentCapacity || 'Not provided')}</td>
+                    <td style="border: 1px solid #ccc; padding: 4px; text-align: center;">${escapeHtml(b.baselineMetric || '—')}</td>
+                    <td style="border: 1px solid #ccc; padding: 4px; text-align: center;">${escapeHtml(b.tobeTarget || '—')}</td>
+                    <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(b.verificationSource || b.entryPoint || 'Not provided')}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -710,19 +911,19 @@
           <div style="margin-bottom: 14px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">7. Situational Diagnostic Summary</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Core Challenge / Problem</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.summary?.mainProblem || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Evidence & Fact Pattern</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.summary?.evidenceText || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Primary CBD Intervention</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.summary?.primaryIntervention || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Operational Safeguards</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.summary?.safeguards || 'N/A')}</td></tr>
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Core Challenge / Problem</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.summary?.mainProblem || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Evidence & Fact Pattern</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.summary?.evidenceText || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Primary CBD Intervention</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.summary?.primaryIntervention || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Operational Safeguards</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m1.summary?.safeguards || 'Not provided')}</td></tr>
             </table>
           </div>
 
           <!-- Phase 1 Reflection -->
           <div style="background: #fafafa; border: 1px solid #ddd; padding: 8px 12px; font-size: 8pt; margin-bottom: 8px;">
             <strong>Phase 1 Syndicate Reflection:</strong>
-            <div style="margin-top: 4px;"><strong>Mandate Understanding:</strong> ${escapeHtml(m1.reflection?.q1MandateUnderstanding || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Cross-Cutting Themes:</strong> ${escapeHtml(m1.reflection?.q2CrossCuttingThemes || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Personal Resilience & Growth:</strong> ${escapeHtml(m1.reflection?.q3PersonalGrowth || 'N/A')}</div>
+            <div style="margin-top: 4px;"><strong>Mandate & Field Experience:</strong> ${escapeHtml(m1.reflection?.q1Experience || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Counterpart Perspective:</strong> ${escapeHtml(m1.reflection?.q2CounterpartPerspective || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Personal Resilience & Growth:</strong> ${escapeHtml(m1.reflection?.q3PersonalGrowth || 'Not provided')}</div>
           </div>
         </section>
 
@@ -775,11 +976,11 @@
             <div style="background: #f9fbfd; border: 1px solid #bce1f8; padding: 8px 12px; margin-bottom: 10px; font-size: 8.5pt; border-radius: 4px;">
               <div style="font-weight: 700; color: #001f3f; margin-bottom: 4px;">SMART Objective #${idx + 1}: ${escapeHtml(so.title)}</div>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 8pt; margin-bottom: 6px;">
-                <div><strong>Specific (S):</strong> ${escapeHtml(so.specific || 'N/A')}</div>
-                <div><strong>Measurable (M):</strong> ${escapeHtml(so.measurable || 'N/A')}</div>
-                <div><strong>Achievable (A):</strong> ${escapeHtml(so.achievable || 'N/A')}</div>
-                <div><strong>Relevant (R):</strong> ${escapeHtml(so.relevant || 'N/A')}</div>
-                <div style="grid-column: span 2;"><strong>Time-Bound (T):</strong> ${escapeHtml(so.timeBound || 'N/A')}</div>
+                <div><strong>Specific (S):</strong> ${escapeHtml(so.specific || 'Not provided')}</div>
+                <div><strong>Measurable (M):</strong> ${escapeHtml(so.measurable || 'Not provided')}</div>
+                <div><strong>Achievable (A):</strong> ${escapeHtml(so.achievable || 'Not provided')}</div>
+                <div><strong>Relevant (R):</strong> ${escapeHtml(so.relevant || 'Not provided')}</div>
+                <div style="grid-column: span 2;"><strong>Time-Bound (T):</strong> ${escapeHtml(so.timeBound || 'Not provided')}</div>
               </div>
               <div style="background: #fff; padding: 6px; border: 1px solid #ddd; font-weight: 600; color: #001f3f;">
                 Statement: "${escapeHtml(so.fullStatement || 'Formulation in progress')}"
@@ -819,9 +1020,9 @@
           <!-- Phase 2 Reflection -->
           <div style="background: #fafafa; border: 1px solid #ddd; padding: 8px 12px; font-size: 8pt; margin-bottom: 8px;">
             <strong>Phase 2 Syndicate Reflection:</strong>
-            <div style="margin-top: 4px;"><strong>Strategic Alignment:</strong> ${escapeHtml(m2.reflection?.q1StrategicAlignment || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Prioritisation Challenges:</strong> ${escapeHtml(m2.reflection?.q2PrioritisationChallenges || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Actionable Objectives:</strong> ${escapeHtml(m2.reflection?.q3ActionableObjectives || 'N/A')}</div>
+            <div style="margin-top: 4px;"><strong>SMART Formulation Experience:</strong> ${escapeHtml(m2.reflection?.q1Experience || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Strategic Prioritisation Challenges:</strong> ${escapeHtml(m2.reflection?.q2StrategicPrioritisation || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Local Ownership & Sustainability:</strong> ${escapeHtml(m2.reflection?.q3LocalOwnership || 'Not provided')}</div>
           </div>
         </section>
 
@@ -837,9 +1038,9 @@
           <div style="margin-bottom: 12px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">1. Theory of Change</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Key Driver of Change</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.theoryOfChange?.driver || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Critical Conditions Required</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.theoryOfChange?.criticalConditions || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Core Causal Rationale (If-Then)</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.theoryOfChange?.rationale || 'N/A')}</td></tr>
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Key Driver of Change</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.theoryOfChange?.driver || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Critical Conditions Required</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.theoryOfChange?.criticalConditions || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Core Causal Rationale (If-Then)</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.theoryOfChange?.rationale || 'Not provided')}</td></tr>
             </table>
           </div>
 
@@ -858,14 +1059,14 @@
               <tr style="background: #edf4fa;">
                 <td style="border: 1px solid #ccc; padding: 4px; font-weight: 700;">Impact</td>
                 <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(m3.logframe?.impact?.narrative || '')}</td>
-                <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">Ind: ${escapeHtml(m3.logframe?.impact?.indicators || 'N/A')}<br>Verif: ${escapeHtml(m3.logframe?.impact?.verification || 'N/A')}</td>
+                <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">Ind: ${escapeHtml(m3.logframe?.impact?.indicators || 'Not provided')}<br>Verif: ${escapeHtml(m3.logframe?.impact?.verification || 'Not provided')}</td>
                 <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(m3.logframe?.impact?.assumptions || '')}</td>
               </tr>
               ${(m3.logframe?.outcomes || []).map(o => `
                 <tr style="background: #fbfbfb;">
                   <td style="border: 1px solid #ccc; padding: 4px; font-weight: 700;">Outcome ${escapeHtml(String(o.id))}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(o.narrative)}</td>
-                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">Ind: ${escapeHtml(o.indicators || 'N/A')}<br>Verif: ${escapeHtml(o.verification || 'N/A')}</td>
+                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">Ind: ${escapeHtml(o.indicators || 'Not provided')}<br>Verif: ${escapeHtml(o.verification || 'Not provided')}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(o.assumptions || '')}</td>
                 </tr>
               `).join('')}
@@ -873,7 +1074,7 @@
                 <tr>
                   <td style="border: 1px solid #ccc; padding: 4px; font-weight: 600;">Output ${escapeHtml(String(outp.id))}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(outp.narrative)}</td>
-                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">Target: ${escapeHtml(outp.indicators || 'N/A')}<br>Verif: ${escapeHtml(outp.verification || 'N/A')}</td>
+                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">Target: ${escapeHtml(outp.indicators || 'Not provided')}<br>Verif: ${escapeHtml(outp.verification || 'Not provided')}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(outp.assumptions || '')}</td>
                 </tr>
               `).join('')}
@@ -881,7 +1082,7 @@
                 <tr style="font-size: 7.5pt;">
                   <td style="border: 1px solid #ccc; padding: 3px;">Activity ${escapeHtml(String(act.id))}</td>
                   <td style="border: 1px solid #ccc; padding: 3px; white-space: pre-wrap;">${escapeHtml(act.narrative)}</td>
-                  <td style="border: 1px solid #ccc; padding: 3px; white-space: pre-wrap;">Inputs: ${escapeHtml(act.inputs || 'N/A')}</td>
+                  <td style="border: 1px solid #ccc; padding: 3px; white-space: pre-wrap;">Inputs: ${escapeHtml(act.inputs || 'Not provided')}<br>Verif: ${escapeHtml(act.verification || 'Not provided')}</td>
                   <td style="border: 1px solid #ccc; padding: 3px; white-space: pre-wrap;">${escapeHtml(act.assumptions || '')}</td>
                 </tr>
               `).join('')}
@@ -909,7 +1110,7 @@
                   <td style="border: 1px solid #ccc; padding: 4px; text-align: center;">${escapeHtml(String(r.impact))}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; text-align: center; font-weight: 700; text-transform: uppercase;">${escapeHtml(r.zone)}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(r.mitigationStrategy || r.mitigation || '')}</td>
-                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(r.contingencyPlan || r.contingencyTrigger || 'N/A')}</td>
+                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(r.contingencyPlan || r.contingencyTrigger || 'Not provided')}</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -918,17 +1119,18 @@
           <!-- Contingency Continuity Plan -->
           <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">4. Operational Contingency & Continuity Plan</h3>
           <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-            <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Contingency Activation Trigger</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.contingency?.trigger || 'N/A')}</td></tr>
-            <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Backup Plan & Redundancy</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.contingency?.backupPlan || 'N/A')}</td></tr>
-            <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Continuity Personnel</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.contingency?.continuityPersonnel || 'N/A')}</td></tr>
-            <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Stakeholder Communications</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.contingency?.stakeholderCommunication || 'N/A')}</td></tr>
+            <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Contingency Activation Trigger</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.contingency?.trigger || 'Not provided')}</td></tr>
+            <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Backup Plan & Redundancy</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.contingency?.backupPlan || 'Not provided')}</td></tr>
+            <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Continuity Personnel</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.contingency?.continuityPersonnel || 'Not provided')}</td></tr>
+            <tr><th style="text-align: left; background: #f0f4f8; padding: 5px; border: 1px solid #ccc;">Stakeholder Communications</th><td style="padding: 5px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m3.contingency?.stakeholderCommunication || 'Not provided')}</td></tr>
           </table>
 
           <!-- Phase 3 Reflection -->
           <div style="background: #fafafa; border: 1px solid #ddd; padding: 8px 12px; font-size: 8pt; margin-bottom: 8px;">
             <strong>Phase 3 Syndicate Reflection:</strong>
-            <div style="margin-top: 4px;"><strong>Planning Hierarchy:</strong> ${escapeHtml(m3.reflection?.q2PlanningHierarchy || m3.reflection?.q1Experience || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Risk Preparedness:</strong> ${escapeHtml(m3.reflection?.q3RiskPreparedness || 'N/A')}</div>
+            <div style="margin-top: 4px;"><strong>Logframe Planning Experience:</strong> ${escapeHtml(m3.reflection?.q1Experience || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Planning Hierarchy:</strong> ${escapeHtml(m3.reflection?.q2PlanningHierarchy || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Risk Preparedness:</strong> ${escapeHtml(m3.reflection?.q3RiskPreparedness || 'Not provided')}</div>
           </div>
         </section>
 
@@ -942,20 +1144,20 @@
 
           <!-- MMA Strategy -->
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; font-size: 8pt; margin-bottom: 12px;">
-            <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Monitoring:</strong> ${escapeHtml(m4.mmaStrategy?.monitoringMechanisms || 'N/A')}</div>
-            <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Mentoring:</strong> ${escapeHtml(m4.mmaStrategy?.mentoringCoachingPlan || 'N/A')}</div>
-            <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Advising:</strong> ${escapeHtml(m4.mmaStrategy?.advisingPriorities || 'N/A')}</div>
+            <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Monitoring:</strong> ${escapeHtml(m4.mmaStrategy?.monitoringMechanisms || 'Not provided')}</div>
+            <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Mentoring:</strong> ${escapeHtml(m4.mmaStrategy?.mentoringCoachingPlan || 'Not provided')}</div>
+            <div style="border: 1px solid #ccc; padding: 6px; background: #fafafa;"><strong>Advising:</strong> ${escapeHtml(m4.mmaStrategy?.advisingPriorities || 'Not provided')}</div>
           </div>
 
           <!-- Role Reversal -->
           <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">1. Counterpart Perspective & Role Reversal Analysis</h3>
           ${(m4.roleReversal || []).map(rr => `
             <div style="background: #fdfdfe; border: 1px solid #ddd; padding: 8px 10px; margin-bottom: 8px; font-size: 8pt; border-radius: 4px;">
-              <strong style="color: #001f3f;">${escapeHtml(rr.roleName)} (${escapeHtml(rr.incumbentTitle || 'Counterpart')})</strong>
-              <div style="margin-top: 4px; color: #333;"><strong>Operational Realities:</strong> ${escapeHtml(rr.counterpartProfile || 'N/A')}</div>
-              <div style="margin-top: 2px;"><strong>Primary Interests:</strong> ${escapeHtml(rr.primaryInterests || 'N/A')} | <strong style="color:#a62727;">Fears/Threats:</strong> ${escapeHtml(rr.perceivedThreats || 'N/A')}</div>
-              <div style="margin-top: 2px;"><strong>Unspoken Incentives:</strong> ${escapeHtml(rr.unspokenIncentives || 'N/A')}</div>
-              <div style="margin-top: 4px; background: #f0f4f8; padding: 4px; font-weight: 600;">Trust-Building Strategy: ${escapeHtml(rr.respectfulEngagementStrategy || 'N/A')}</div>
+              <strong style="color: #001f3f;">${escapeHtml(rr.counterpart ? rr.counterpart + ' — ' : '')}${escapeHtml(rr.roleName)} (${escapeHtml(rr.incumbentTitle || 'Counterpart')})</strong>
+              <div style="margin-top: 4px; color: #333;"><strong>Operational Realities:</strong> ${escapeHtml(rr.counterpartProfile || 'Not provided')}</div>
+              <div style="margin-top: 2px;"><strong>Primary Interests:</strong> ${escapeHtml(rr.primaryInterests || 'Not provided')} | <strong style="color:#a62727;">Fears/Threats:</strong> ${escapeHtml(rr.perceivedThreats || 'Not provided')}</div>
+              <div style="margin-top: 2px;"><strong>Unspoken Incentives:</strong> ${escapeHtml(rr.unspokenIncentives || 'Not provided')}</div>
+              <div style="margin-top: 4px; background: #f0f4f8; padding: 4px; font-weight: 600;">Trust-Building Strategy: ${escapeHtml(rr.respectfulEngagementStrategy || 'Not provided')}</div>
             </div>
           `).join('')}
 
@@ -978,10 +1180,10 @@
           <div style="margin-bottom: 12px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 6px 0 4px;">3. Change Management Strategy</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Unfreezing Tactics</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m4.changeManagement?.unfreezingTactics || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Guiding Coalition Champions</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m4.changeManagement?.coalitionChampions || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Short-Term Quick Wins</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m4.changeManagement?.quickWins || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Sustaining Momentum</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m4.changeManagement?.sustainingMomentum || 'N/A')}</td></tr>
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Unfreezing Tactics</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m4.changeManagement?.unfreezingTactics || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Guiding Coalition Champions</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m4.changeManagement?.coalitionChampions || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Short-Term Quick Wins</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m4.changeManagement?.quickWins || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Sustaining Momentum</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m4.changeManagement?.sustainingMomentum || 'Not provided')}</td></tr>
             </table>
           </div>
 
@@ -1011,8 +1213,9 @@
           <!-- Phase 4 Reflection -->
           <div style="background: #fafafa; border: 1px solid #ddd; padding: 8px 12px; font-size: 8pt; margin-bottom: 8px;">
             <strong>Phase 4 Syndicate Reflection:</strong>
-            <div style="margin-top: 4px;"><strong>Counterpart Empathy & Resistance:</strong> ${escapeHtml(m4.reflection?.q2EmpathyAndResistance || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Resilience in the Field:</strong> ${escapeHtml(m4.reflection?.q3ResilienceInTheField || 'N/A')}</div>
+            <div style="margin-top: 4px;"><strong>Implementation & Advising Experience:</strong> ${escapeHtml(m4.reflection?.q1Experience || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Counterpart Empathy & Resistance:</strong> ${escapeHtml(m4.reflection?.q2EmpathyAndResistance || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Resilience in the Field:</strong> ${escapeHtml(m4.reflection?.q3ResilienceInTheField || 'Not provided')}</div>
           </div>
         </section>
 
@@ -1029,9 +1232,9 @@
             <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">1. Evaluation Framework (Deming PDCA Cycle)</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
               <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Deming Cycle Phase</th><td style="padding: 4px; border: 1px solid #ccc;">${escapeHtml(m5.evaluationFramework?.demingPhase || 'CHECK / ADJUST')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Key Evaluation Actors</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.evaluationFramework?.evalActors || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Core Evaluation Principles</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.evaluationFramework?.principles || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Data Collection Strategy</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.evaluationFramework?.dataCollectionStrategy || 'N/A')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Key Evaluation Actors</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.evaluationFramework?.evalActors || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Core Evaluation Principles</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.evaluationFramework?.principles || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Data Collection Strategy</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.evaluationFramework?.dataCollectionStrategy || 'Not provided')}</td></tr>
             </table>
           </div>
 
@@ -1039,12 +1242,12 @@
           <div style="margin-bottom: 12px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">2. Mid-Term Crisis Diagnostics & Bottleneck Realities</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Political & Leadership Shift</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.leadershipShiftImpact || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Absorption Capacity Assessment</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.absorptionCapacityAssessment || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Data Loss & Paper Vulnerability</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.dataLossAssessment || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Inter-Agency Dynamics & Friction</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.interAgencyFriction || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Public Perception Gap</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.publicPerceptionGap || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Budget Cliff & Donor Fatigue</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.budgetCliffRisk || 'N/A')}</td></tr>
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Political & Leadership Shift</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.leadershipShiftImpact || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Absorption Capacity Assessment</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.absorptionCapacityAssessment || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Data Loss & Paper Vulnerability</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.dataLossAssessment || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Inter-Agency Dynamics & Friction</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.interAgencyFriction || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Public Perception Gap</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.publicPerceptionGap || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Budget Cliff & Donor Fatigue</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.crisisAnalysis?.budgetCliffRisk || 'Not provided')}</td></tr>
             </table>
           </div>
 
@@ -1053,12 +1256,12 @@
           <table style="width: 100%; border-collapse: collapse; font-size: 8pt; margin-bottom: 12px;">
             <thead>
               <tr style="background: #f0f4f8;">
-                <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 22%;">Indicator</th>
-                <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 10%;">Baseline</th>
-                <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 10%;">Target</th>
-                <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 10%;">Month 8 Actual</th>
-                <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 12%;">Variance Status</th>
-                <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 36%;">Corrective Action</th>
+                <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 20%;">Indicator</th>
+                <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 9%;">Baseline</th>
+                <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 9%;">Target</th>
+                <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 9%;">Month 8 Actual</th>
+                <th style="border: 1px solid #ccc; padding: 4px; text-align: center; width: 11%;">Variance Status</th>
+                <th style="border: 1px solid #ccc; padding: 4px; text-align: left; width: 42%;">Variance Analysis & Corrective Action</th>
               </tr>
             </thead>
             <tbody>
@@ -1069,7 +1272,10 @@
                   <td style="border: 1px solid #ccc; padding: 4px; text-align: center;">${escapeHtml(ev.targetValue)}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; text-align: center;">${escapeHtml(ev.actualValue)}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; text-align: center; font-weight: 700;">${escapeHtml(ev.varianceStatus)}</td>
-                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(ev.correctiveAction || '')}</td>
+                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">
+                    ${ev.varianceAnalysis ? `<div style="margin-bottom: 2px;"><strong>Variance Analysis:</strong> ${escapeHtml(ev.varianceAnalysis)}</div>` : ''}
+                    <div><strong>Corrective Action:</strong> ${escapeHtml(ev.correctiveAction || 'Not provided')}</div>
+                  </td>
                 </tr>
               `).join('')}
             </tbody>
@@ -1102,18 +1308,19 @@
           <div style="margin-bottom: 12px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">5. Planning Recalibration Impact Assessment (Lesson 5 p. 11)</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Timeline Recalibration</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.impactAssessment?.timelineImpact || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Resource & Budget Realignment</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.impactAssessment?.resourceImpact || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Quality & Standard Standards</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.impactAssessment?.qualityImpact || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Counterpart Ownership & Will</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.impactAssessment?.counterpartWillingness || 'N/A')}</td></tr>
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Timeline Recalibration</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.impactAssessment?.timelineImpact || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Resource & Budget Realignment</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.impactAssessment?.resourceImpact || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Quality & Standard Standards</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.impactAssessment?.qualityImpact || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Counterpart Ownership & Will</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m5.impactAssessment?.counterpartWillingness || 'Not provided')}</td></tr>
             </table>
           </div>
 
           <!-- Phase 5 Reflection -->
           <div style="background: #fafafa; border: 1px solid #ddd; padding: 8px 12px; font-size: 8pt; margin-bottom: 8px;">
             <strong>Phase 5 Syndicate Reflection:</strong>
-            <div style="margin-top: 4px;"><strong>Facing Inconvenient Truths:</strong> ${escapeHtml(m5.reflection?.q2FacingInconvenientTruths || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Personal Resilience in Failure:</strong> ${escapeHtml(m5.reflection?.q3PersonalResilienceInFailure || 'N/A')}</div>
+            <div style="margin-top: 4px;"><strong>Evaluation Relevance:</strong> ${escapeHtml(m5.reflection?.q1EvaluationRelevance || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Facing Inconvenient Truths:</strong> ${escapeHtml(m5.reflection?.q2FacingInconvenientTruths || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Personal Resilience in Failure:</strong> ${escapeHtml(m5.reflection?.q3PersonalResilienceInFailure || 'Not provided')}</div>
           </div>
         </section>
 
@@ -1125,12 +1332,25 @@
             Phase 6: Transition & Handover Protocol (JST Lesson 6)
           </h2>
 
-          <div style="margin-bottom: 12px; font-size: 8.5pt;">
+          <!-- The Four Key Principles of Transition (Lesson 6 Slide 8) -->
+          <div style="margin-bottom: 14px;">
+            <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">The Four Key Principles of Transition (Lesson 6 Slide 8)</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">HOPC Initiation Horizon</th><td style="padding: 4px; border: 1px solid #ccc;">${escapeHtml(m6.transitionStrategy?.hopcInitiationDate || 'Month 18')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Primary Transition Trigger</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.transitionStrategy?.primaryTrigger || 'Verified benchmark achievement')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Succeeding Entity</th><td style="padding: 4px; border: 1px solid #ccc;">${escapeHtml(m6.transitionStrategy?.succeedingEntity || 'National Police Directorate & UNDP')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Local Institutional Owner</th><td style="padding: 4px; border: 1px solid #ccc;">${escapeHtml(m6.transitionStrategy?.localOwnerDesignation || 'Director of CIS')}</td></tr>
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">1. Early Planning Framework</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.fourPrinciplesFramework?.earlyPlanning || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">2. UN Integration & Coordination</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.fourPrinciplesFramework?.unIntegration || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">3. Local Institutional Ownership</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.fourPrinciplesFramework?.localOwnership || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">4. Communication Protocol</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.fourPrinciplesFramework?.communicationProtocol || 'Not provided')}</td></tr>
+            </table>
+          </div>
+
+          <!-- Transition Initiation Charter -->
+          <div style="margin-bottom: 12px; font-size: 8.5pt;">
+            <h3 style="font-size: 10pt; color: #001f3f; margin: 4px 0 6px;">Transition Initiation Charter</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">HOPC Initiation Horizon</th><td style="padding: 4px; border: 1px solid #ccc;">${escapeHtml(m6.transitionStrategy?.hopcInitiationDate || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Primary Transition Trigger</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.transitionStrategy?.primaryTrigger || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Succeeding Entity</th><td style="padding: 4px; border: 1px solid #ccc;">${escapeHtml(m6.transitionStrategy?.succeedingEntity || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Local Institutional Owner</th><td style="padding: 4px; border: 1px solid #ccc;">${escapeHtml(m6.transitionStrategy?.localOwnerDesignation || 'Not provided')}</td></tr>
             </table>
           </div>
 
@@ -1151,8 +1371,8 @@
                 <tr>
                   <td style="border: 1px solid #ccc; padding: 4px; font-weight: 700;">${escapeHtml(r.phase)}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(r.milestone)}</td>
-                  <td style="border: 1px solid #ccc; padding: 4px;">${escapeHtml(r.leadResponsible || '')}</td>
-                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(r.handoverCriteria || '')}</td>
+                  <td style="border: 1px solid #ccc; padding: 4px;">${escapeHtml(r.leadResponsible || r.lead || '')}</td>
+                  <td style="border: 1px solid #ccc; padding: 4px; white-space: pre-wrap;">${escapeHtml(r.handoverCriteria || r.exitCriteria || '')}</td>
                   <td style="border: 1px solid #ccc; padding: 4px; text-align: center;">${escapeHtml(r.status)}</td>
                 </tr>
               `).join('')}
@@ -1163,10 +1383,10 @@
           <div style="margin-bottom: 12px;">
             <h3 style="font-size: 10pt; color: #001f3f; margin: 6px 0 4px;">2. Institutionalising Sustainable Policing Practice</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 8px;">
-              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">National Doctrine Codification</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.institutionalizingPractice?.doctrineCodification || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Police Academy Curriculum</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.institutionalizingPractice?.academyIntegration || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Gender-Responsive Budgeting</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.institutionalizingPractice?.genderResponsiveBudget || 'N/A')}</td></tr>
-              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Democratic Oversight Handover</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.institutionalizingPractice?.oversightHandover || 'N/A')}</td></tr>
+              <tr><th style="width: 25%; text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">National Doctrine Codification</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.institutionalizingPractice?.doctrineCodification || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Police Academy Curriculum</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.institutionalizingPractice?.academyIntegration || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Gender-Responsive Budgeting</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.institutionalizingPractice?.genderResponsiveBudget || 'Not provided')}</td></tr>
+              <tr><th style="text-align: left; background: #f0f4f8; padding: 4px; border: 1px solid #ccc;">Democratic Oversight Handover</th><td style="padding: 4px; border: 1px solid #ccc; white-space: pre-wrap;">${escapeHtml(m6.institutionalizingPractice?.oversightHandover || 'Not provided')}</td></tr>
             </table>
           </div>
 
@@ -1195,20 +1415,20 @@
           <h3 style="font-size: 10pt; color: #001f3f; margin: 6px 0 4px;">4. Formal Handover Protocol Instrument</h3>
           <div style="border: 1.5px solid #001f3f; padding: 12px; font-size: 8.5pt; background: #fafafa; margin-bottom: 12px; border-radius: 4px;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px;">
-              <div><strong>Effective Handover Date:</strong> ${escapeHtml(m6.handoverNotice?.handoverDate || 'Month 18')}</div>
-              <div><strong>UNPOL Lead Signatory:</strong> ${escapeHtml(m6.handoverNotice?.unpolSignatory || '')}</div>
-              <div><strong>Host Counterpart Signatory:</strong> ${escapeHtml(m6.handoverNotice?.counterpartSignatory || '')}</div>
-              <div><strong>Witness Signatory:</strong> ${escapeHtml(m6.handoverNotice?.witnessSignatory || '')}</div>
+              <div><strong>Effective Handover Date:</strong> ${escapeHtml(m6.handoverNotice?.handoverDate || 'Not provided')}</div>
+              <div><strong>UNPOL Lead Signatory:</strong> ${escapeHtml(m6.handoverNotice?.unpolSignatory || 'Not provided')}</div>
+              <div><strong>Host Counterpart Signatory:</strong> ${escapeHtml(m6.handoverNotice?.counterpartSignatory || 'Not provided')}</div>
+              <div><strong>Witness Signatory:</strong> ${escapeHtml(m6.handoverNotice?.witnessSignatory || 'Not provided')}</div>
             </div>
-            <div><strong>Residual Programmatic Obligations:</strong> ${escapeHtml(m6.handoverNotice?.residualObligations || 'Full national ownership established.')}</div>
+            <div><strong>Residual Programmatic Obligations:</strong> ${escapeHtml(m6.handoverNotice?.residualObligations || 'Not provided')}</div>
           </div>
 
           <!-- Phase 6 Reflection -->
           <div style="background: #fafafa; border: 1px solid #ddd; padding: 8px 12px; font-size: 8pt; margin-bottom: 8px;">
             <strong>Phase 6 Syndicate Reflection:</strong>
-            <div style="margin-top: 4px;"><strong>Transition Mindset:</strong> ${escapeHtml(m6.reflection?.q1TransitionMindset || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Sustaining National Ownership:</strong> ${escapeHtml(m6.reflection?.q2SustainingOwnership || 'N/A')}</div>
-            <div style="margin-top: 4px;"><strong>Overall CBD Learning Journey:</strong> ${escapeHtml(m6.reflection?.q3OverallCBDJourney || 'N/A')}</div>
+            <div style="margin-top: 4px;"><strong>Transition Mindset:</strong> ${escapeHtml(m6.reflection?.q1TransitionMindset || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Sustaining National Ownership:</strong> ${escapeHtml(m6.reflection?.q2SustainingOwnership || 'Not provided')}</div>
+            <div style="margin-top: 4px;"><strong>Overall CBD Learning Journey:</strong> ${escapeHtml(m6.reflection?.q3OverallCBDJourney || 'Not provided')}</div>
           </div>
         </section>
       </div>
@@ -1280,13 +1500,21 @@
 
   function toggleGlossaryModal(open) {
     const backdrop = document.getElementById('glossaryModalBackdrop');
+    if (!backdrop) return;
     const shouldOpen = open !== undefined ? open : !backdrop.classList.contains('open');
     if (shouldOpen) {
       lastActiveElement = document.activeElement;
     }
     backdrop.classList.toggle('open', shouldOpen);
+    backdrop.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
     if (shouldOpen) {
-      setTimeout(() => document.getElementById('glossarySearchInput')?.focus(), 50);
+      const searchInput = document.getElementById('glossarySearchInput');
+      if (searchInput) {
+        searchInput.focus();
+      } else {
+        const focusable = backdrop.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length > 0) focusable[0].focus();
+      }
     } else if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
       lastActiveElement.focus();
     }
