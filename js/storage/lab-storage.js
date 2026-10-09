@@ -1362,7 +1362,123 @@
     }).join('');
   }
 
+  const RESET_EVENT_KEY = 'carana_cbd_lab_reset_token';
+
+  function showToast(message, type = 'info') {
+    if (typeof document === 'undefined') return;
+    let container = document.getElementById('labToastContainer');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'labToastContainer';
+      container.className = 'toast-container';
+      document.body.appendChild(container);
+    }
+    const toast = document.createElement('div');
+    toast.className = `toast-message toast-${type}`;
+    const icon = type === 'success' ? '✓' : type === 'warning' ? '⚠️' : type === 'error' ? '✕' : 'ℹ';
+    toast.innerHTML = `<span style="font-size:1.15rem; line-height:1;">${icon}</span><span>${message}</span>`;
+    container.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('toast-visible'));
+    setTimeout(() => {
+      toast.classList.remove('toast-visible');
+      setTimeout(() => toast.remove(), 300);
+    }, 3500);
+  }
+
+  function promptResetModal() {
+    if (typeof document === 'undefined') return;
+    let backdrop = document.getElementById('labResetModalBackdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'labResetModalBackdrop';
+      backdrop.className = 'reset-modal-backdrop';
+      backdrop.setAttribute('role', 'dialog');
+      backdrop.setAttribute('aria-modal', 'true');
+      backdrop.setAttribute('aria-labelledby', 'resetModalTitle');
+      backdrop.innerHTML = `
+        <div class="reset-modal-box">
+          <div class="reset-modal-header">
+            <span style="font-size: 1.5rem; line-height: 1;">⚠️</span>
+            <h3 id="resetModalTitle">Start New Session · Reset Learning Lab</h3>
+          </div>
+          <div class="reset-modal-body">
+            <p><strong>Are you sure you want to reset the Learning Lab?</strong></p>
+            <p>
+              This will clear participant inputs, scores, SWOT items, logframe data, and progress across all <strong>six modules</strong> and restore a clean participant training workspace.
+            </p>
+            <div class="reset-safeguard-box">
+              <strong>Data Safety Notice:</strong>
+              <ul style="margin: 6px 0 0; padding-left: 18px;">
+                <li>Existing participant work will be lost unless exported.</li>
+                <li>The standalone <strong>60-Minute Fast Track Quick Exercise</strong> data is independent and will <strong>not</strong> be affected.</li>
+                <li>Official curriculum references and scenario facts remain intact.</li>
+              </ul>
+            </div>
+            <div style="margin-top: 14px;">
+              <button type="button" class="btn btn-sm btn-dark" id="resetModalExportBtn" style="width: 100%;">
+                💾 Download Complete State Backup (.json) First
+              </button>
+              <div id="resetModalExportFeedback" style="display:none; font-size: 0.82rem; color: var(--ok); font-weight: 700; margin-top: 6px; text-align: center;">
+                ✓ Lab backup exported successfully!
+              </div>
+            </div>
+          </div>
+          <div class="reset-modal-footer">
+            <button type="button" class="btn btn-ghost" id="resetModalCancelBtn">
+              Cancel (Keep Work)
+            </button>
+            <button type="button" class="btn btn-danger" id="resetModalConfirmBtn">
+              Confirm & Start New Session
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      const cancelBtn = backdrop.querySelector('#resetModalCancelBtn');
+      const confirmBtn = backdrop.querySelector('#resetModalConfirmBtn');
+      const exportBtn = backdrop.querySelector('#resetModalExportBtn');
+      const feedback = backdrop.querySelector('#resetModalExportFeedback');
+
+      function closeModal() {
+        backdrop.classList.remove('open');
+        if (feedback) feedback.style.display = 'none';
+      }
+
+      cancelBtn.onclick = closeModal;
+      backdrop.onclick = e => { if (e.target === backdrop) closeModal(); };
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal();
+      });
+
+      exportBtn.onclick = () => {
+        exportLabAsJson();
+        if (feedback) feedback.style.display = 'block';
+        showToast('Complete Lab backup exported to JSON.', 'success');
+      };
+
+      confirmBtn.onclick = () => {
+        closeModal();
+        resetLabState();
+        showToast('Learning Lab has been reset to a clean session.', 'success');
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      };
+    }
+
+    backdrop.classList.add('open');
+  }
+
   function resetLabState() {
+    if (typeof window !== 'undefined') {
+      window.__labIsResetting = true;
+      try {
+        window.dispatchEvent(new CustomEvent('carana_cbd_lab_reset'));
+      } catch (e) {
+        // ignore
+      }
+    }
     try {
       localStorage.removeItem(STORAGE_KEY);
       sessionStorage.removeItem(STORAGE_KEY);
@@ -1371,6 +1487,12 @@
     }
     const fresh = getDefaultState();
     saveLabState(fresh);
+    try {
+      // Broadcast reset token so other tabs immediately synchronize without ghost-writing
+      localStorage.setItem(RESET_EVENT_KEY, Date.now().toString());
+    } catch (e) {
+      // ignore
+    }
     return fresh;
   }
 
@@ -1403,10 +1525,21 @@
   if (typeof window !== 'undefined') {
     window.addEventListener('beforeprint', preparePrintableContent);
     window.addEventListener('afterprint', cleanupPrintableContent);
+
+    // Auto-bind reset buttons
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('[data-action="reset-lab"], #resetLabBtn, .reset-lab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          promptResetModal();
+        });
+      });
+    });
   }
 
   return {
     STORAGE_KEY,
+    RESET_EVENT_KEY,
     SCHEMA_VERSION,
     getDefaultState,
     loadLabState,
@@ -1414,6 +1547,8 @@
     exportLabAsJson,
     importLabFromJson,
     resetLabState,
+    promptResetModal,
+    showToast,
     validateImportedData,
     renderCurriculumTrack,
     getModuleProgressStatus,

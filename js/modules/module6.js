@@ -57,6 +57,7 @@
   const dirtyFields = new Set();
 
   function save(statusMsg) {
+    if (typeof window !== 'undefined' && window.__labIsResetting) return false;
     collectFormFields();
     const latest = Storage.loadLabState();
     if (latest) {
@@ -239,12 +240,23 @@
 
   function setupLifecycleListeners() {
     window.addEventListener('beforeunload', () => {
+      if (typeof window !== 'undefined' && window.__labIsResetting) return;
       if (dirtyFields.size > 0) save();
     });
     window.addEventListener('pagehide', () => {
+      if (typeof window !== 'undefined' && window.__labIsResetting) return;
       if (dirtyFields.size > 0) save();
     });
+    window.addEventListener('carana_cbd_lab_reset', () => {
+      dirtyFields.clear();
+    });
     window.addEventListener('storage', e => {
+      if (e.key === 'carana_cbd_lab_reset_token') {
+        if (typeof window !== 'undefined') window.__labIsResetting = true;
+        dirtyFields.clear();
+        window.location.reload();
+        return;
+      }
       if (e.key === Storage.STORAGE_KEY) {
         const incoming = Storage.loadLabState();
         if (!incoming) return;
@@ -766,6 +778,7 @@
           <div style="font-size: 0.8rem; text-transform: uppercase; font-weight: 800; color: #0072ce; letter-spacing: 0.05em;">United Nations Police (UNPOL) · Capacity-Building and Development (CBD)</div>
           <h1 style="margin: 6px 0 4px; font-size: 20pt; color: #001f3f;">Comprehensive Mission Handover Dossier</h1>
           <div style="font-size: 11pt; color: #333; font-weight: 600;">Full Six-Phase Cycle: Situational Analysis → Transition Protocol</div>
+          <div style="font-size: 9.5pt; color: #444; margin-top: 4px; font-weight: 600;">Prepared by Lt. Col. Maissara Selim</div>
           
           <div style="margin-top: 8px;">
             ${isAllConfirmed ? `
@@ -795,7 +808,7 @@
 
         <!-- TRAINING SAFEGUARD & INSTRUCTIONAL PREMISE -->
         <div style="background: #fdf8eb; border: 1px solid #d4a72c; padding: 10px 14px; font-size: 8.5pt; color: #583c03; margin-bottom: 20px; border-radius: 4px;">
-          <strong>Official Training Safeguard & Curriculum Premise:</strong> CARANA and UNAC are fictional training scenarios developed by the United Nations Department of Peace Operations (DPO). This dossier documents the cumulative operational outputs of UNPOL CBD Job-Specific Training (JST) Lessons 1 through 6. In accordance with JST Lesson 6 (Slide 8 & Activity 6.1), transition planning specifically addresses the programmatic handover and sustainability of the bilateral Capacity-Building and Development (CBD) activity to host-state authorities and development partners, rather than the political withdrawal or overall liquidation of the wider UN peacekeeping mission.
+          <strong>Official Training Safeguard & Curriculum Premise:</strong> Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference. In accordance with JST Lesson 6 (Activity 6.1), transition planning specifically addresses the programmatic handover and sustainability of the bilateral Capacity-Building and Development (CBD) activity to host-state authorities and development partners, rather than the political withdrawal or overall liquidation of the wider UN peacekeeping mission.
         </div>
 
         <!-- ========================================== -->
@@ -1471,6 +1484,12 @@
             <div style="margin-top: 4px;"><strong>Overall CBD Learning Journey:</strong> ${escapeHtml(m6.reflection?.q3OverallCBDJourney || 'Not provided')}</div>
           </div>
         </section>
+
+        <!-- Dossier Footer -->
+        <div style="margin-top: 24px; padding-top: 12px; border-top: 1px solid #ccc; font-size: 8pt; color: #555; display: flex; justify-content: space-between; align-items: center;">
+          <span>Prepared by Lt. Col. Maissara Selim · UNPOL Capacity-Building and Development (CBD)</span>
+          <span>CARANA CBD Learning Lab</span>
+        </div>
       </div>
     `;
 

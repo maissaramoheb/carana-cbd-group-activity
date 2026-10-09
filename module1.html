@@ -10,15 +10,18 @@
 <body>
   <div class="lab-container">
     <!-- Top Nav Utility Bar -->
-    <nav style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.88rem;" aria-label="Breadcrumb and quick links">
-      <div>
+    <nav class="top-nav-bar" aria-label="Breadcrumb and quick links">
+      <div class="top-nav-left">
         <a href="index.html" style="font-weight: 700; text-decoration: none;">← CARANA CBD Learning Lab Hub</a>
-        <span style="color: var(--muted); margin: 0 8px;">/</span>
-        <span style="color: var(--ink-light); font-weight: 600;">Phase 1: Situational Analysis</span>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <span style="color: var(--ink); font-weight: 700;">Phase 1: Situational Analysis</span>
       </div>
-      <div style="display: flex; gap: 14px; align-items: center;">
+      <div class="top-nav-right">
+        <button class="btn btn-sm btn-ghost reset-lab-btn" id="topNavResetBtn" data-action="reset-lab" type="button" title="Start a fresh session or reset all six modules">
+          🔄 Start New Session
+        </button>
         <a href="CARANA_CBD_Group_Activity.html" style="color: var(--muted); text-decoration: none;" target="_blank">
-          ⏱ 60-Minute Fast Track Activity ↗
+          ⏱ 60-Minute Fast Track ↗
         </a>
       </div>
     </nav>
@@ -26,8 +29,11 @@
     <!-- Lab Header -->
     <header class="lab-header">
       <div class="lab-brand">
-        <span class="lab-emblem">UN Peacekeeping</span>
-        <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 1</span>
+        <div class="lab-brand-left">
+          <span class="lab-emblem">UN Peacekeeping</span>
+          <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 1</span>
+        </div>
+        <div class="lab-attribution-badge">Prepared by Lt. Col. Maissara Selim</div>
       </div>
       <h1 class="lab-title">Module 1: Situational Analysis</h1>
       <p class="lab-subtitle">
@@ -52,20 +58,15 @@
           <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
             📚 CBD Glossary
           </button>
+          <button class="btn btn-sm btn-reset-session reset-lab-btn" id="resetLabBtn" data-action="reset-lab" type="button" title="Start a clean session or reset all six modules">
+            🔄 Reset Session
+          </button>
           <button class="btn btn-sm btn-primary" id="manualSaveBtn" type="button">
             💾 Save Work
           </button>
         </div>
       </div>
     </header>
-
-    <!-- Training Safeguard Alert -->
-    <aside class="training-safeguard">
-      <div style="font-size: 1.3rem; line-height: 1;">⚠️</div>
-      <div>
-        <strong>Official Training Safeguard.</strong> CARANA and UNAC are fictional training scenarios developed by the United Nations Department of Peace Operations (DPO). This learning lab is an instructional tool based on the official UNPOL Job-Specific Training (JST) material. It is not an official operational assessment or political endorsement.
-      </div>
-    </aside>
 
     <!-- Facilitator Banner (visible in Facilitator mode) -->
     <div class="facilitator-banner facilitator-only" style="display: none;">
@@ -129,6 +130,21 @@
           <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 20 minutes</span>
         </div>
         <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Establish syndicate identity, confirm note-taker roles, and review UNPOL CBD Lesson 1 core learning aims.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Active syndicate profile and baseline readiness for Galasi CIS reform assessment.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Progress to Stage 2 for PESTEL-S Conflict Analysis and Response Analysis.</p>
+            </div>
+          </div>
+
           <div class="grid-2" style="margin-bottom: 24px;">
             <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
               <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">Aim & Relevance</h3>
@@ -216,6 +232,21 @@
           <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 45 minutes</span>
         </div>
         <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Map the macro-environment using PESTEL-S and analyze reform initiatives across individual, organizational, and strategic levels.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Documented macro-drivers, response gaps, and three-level CBD perspective conclusions.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stakeholder Mapping to evaluate influence, interest, and resistance.</p>
+            </div>
+          </div>
+
           <div style="margin-bottom: 24px;">
             <h3 style="color: var(--navy); margin-bottom: 6px;">1. Conflict Analysis (PESTEL-S Framework)</h3>
             <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 16px;">
@@ -366,6 +397,21 @@
           <button class="btn btn-primary btn-sm" id="addStakeholderBtn" type="button">+ Add Stakeholder</button>
         </div>
         <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Assess key host-State actors across the 4-Quadrant Influence/Interest grid (Lesson 1 Slide 15).</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Consolidated stakeholder register with position, interest, and engagement strategies.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Examine the 5×6 Diagnostic Matrix to correlate functional areas with cross-cutting dimensions.</p>
+            </div>
+          </div>
+
           <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 18px;">
             In accordance with UNPOL JST Lesson 1 (Slides 12 & 45), evaluate key stakeholders by role, power (influence on CBD), and level of interest. 
             Adjusting influence and interest immediately maps the actor into the official four engagement quadrants below.
@@ -435,6 +481,21 @@
           <span style="font-size: 0.85rem; color: var(--muted);">Click any cell to inspect and map evidence</span>
         </div>
         <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Correlate the 5 official UNPOL CBD Areas (13 functional rows) against 6 cross-cutting dimensions using scenario evidence.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Pinpointed paragraph citations and diagnostic findings across the 78 matrix intersections.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Synthesize recorded findings into the 4-Quadrant SWOT analysis.</p>
+            </div>
+          </div>
+
           <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 16px; font-size: 0.88rem; color: var(--ink);">
             <strong>Curriculum Mapping Instructions (Paragraphs 6–57):</strong>
             Allocate issues toward the specific dimensions first: <em>Environmental Sustainability, Conflict Prevention, Gender, CPOC, and Human Rights</em>.
@@ -463,6 +524,21 @@
           <span id="swotCountBadge" class="badge" style="background: var(--warn); color: #fff; padding: 4px 10px; border-radius: 99px; font-weight: 700; font-size: 0.82rem;">0 items</span>
         </div>
         <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Transform empirical diagnostic findings into strategic Strengths, Weaknesses, Opportunities, and Threats.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Balanced 4-box SWOT matrix reflecting genuine host-State capacities and institutional risks.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Establish the Programmatic Baseline Register and validate Phase 1 completion.</p>
+            </div>
+          </div>
+
           <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 16px;">
             In accordance with UNPOL JST Lesson 1 Task B (p. 23 & 33), funnel your CBD matrix findings into a SWOT analysis. 
             Identify internal Strengths and Weaknesses of the Galasi CIS, and external Opportunities (<strong>Points of Entry for CBD activities</strong>) 
@@ -550,6 +626,21 @@
           <button class="btn btn-primary btn-sm" id="addBaselineBtn" type="button">+ Add Baseline Metric</button>
         </div>
         <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Formulate qualitative and quantitative "As is" baselines with entry points and means of verification.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Complete Baseline Register and syndicate self-confirmation for transition to Phase 2.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Unlock Module 2 (Objective Setting & Prioritisation) with established baseline metrics.</p>
+            </div>
+          </div>
+
           <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 16px;">
             Per UNPOL CBD Lesson 1 (Slide 15) and Lesson 0 (Key Words), establishing an empirical baseline is mandatory to enable 
             subsequent evaluation of CBD outcomes in Phase 5. The baseline documents the <strong>"As is"</strong> status quo to determine 
@@ -671,11 +762,22 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; align-items: center;">
-      <span>CARANA CBD Learning Lab · UN Peacekeeping Training Material</span>
-      <span id="stageCompleteFooterBadge" style="font-weight: 600;">Phase 1 In Progress · Pending Self-Confirmation</span>
-      <span>Preserving Fast Track Quick Activity · Offline Local-First Architecture</span>
+    <!-- Consolidated Institutional Footer -->
+    <footer class="lab-footer">
+      <div class="lab-footer-primary">
+        <div class="lab-footer-brand">
+          <strong>CARANA CBD Learning Lab</strong>
+          <span class="lab-footer-attribution">Prepared by Lt. Col. Maissara Selim</span>
+        </div>
+        <span id="stageCompleteFooterBadge" class="footer-stage-badge">Phase 1 In Progress · Pending Self-Confirmation</span>
+      </div>
+      <p class="lab-disclaimer">
+        Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.
+      </p>
+      <div class="lab-footer-secondary">
+        <span>Curriculum Reference: UNPOL CBD JST (Lesson 1) · Participant exercise outputs are syndicate-authored.</span>
+        <span>Offline Local-First Architecture</span>
+      </div>
     </footer>
   </div>
 

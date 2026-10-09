@@ -10,25 +10,28 @@
 <body>
   <div class="lab-container">
     <!-- Top Nav Utility Bar -->
-    <nav style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.88rem;" aria-label="Breadcrumb and quick links">
-      <div>
+    <nav class="top-nav-bar" aria-label="Breadcrumb and quick links">
+      <div class="top-nav-left">
         <a href="index.html" style="font-weight: 700; text-decoration: none;">← CARANA CBD Learning Lab Hub</a>
-        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
         <a href="module1.html" style="color: var(--ink-light); text-decoration: none;">Phase 1</a>
-        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
         <a href="module2.html" style="color: var(--ink-light); text-decoration: none;">Phase 2</a>
-        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
         <a href="module3.html" style="color: var(--ink-light); text-decoration: none;">Phase 3</a>
-        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
         <a href="module4.html" style="color: var(--ink-light); text-decoration: none;">Phase 4</a>
-        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
         <a href="module5.html" style="color: var(--ink-light); text-decoration: none;">Phase 5</a>
-        <span style="color: var(--muted); margin: 0 8px;">/</span>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
         <span style="color: var(--ink); font-weight: 700;">Phase 6: Transition & Handover</span>
       </div>
-      <div style="display: flex; gap: 14px; align-items: center;">
+      <div class="top-nav-right">
+        <button class="btn btn-sm btn-ghost reset-lab-btn" id="topNavResetBtn" data-action="reset-lab" type="button" title="Start a fresh session or reset all six modules">
+          🔄 Start New Session
+        </button>
         <a href="CARANA_CBD_Group_Activity.html" style="color: var(--muted); text-decoration: none;" target="_blank">
-          ⏱ 60-Minute Fast Track Activity ↗
+          ⏱ 60-Minute Fast Track ↗
         </a>
       </div>
     </nav>
@@ -36,8 +39,11 @@
     <!-- Lab Header -->
     <header class="lab-header">
       <div class="lab-brand">
-        <span class="lab-emblem">UN Peacekeeping</span>
-        <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 6</span>
+        <div class="lab-brand-left">
+          <span class="lab-emblem">UN Peacekeeping</span>
+          <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 6</span>
+        </div>
+        <div class="lab-attribution-badge">Prepared by Lt. Col. Maissara Selim</div>
       </div>
       <h1 class="lab-title">Module 6: Transition & Handover</h1>
       <p class="lab-subtitle">
@@ -58,20 +64,15 @@
           <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
             📚 CBD Glossary
           </button>
+          <button class="btn btn-sm btn-reset-session reset-lab-btn" id="resetLabBtn" data-action="reset-lab" type="button" title="Start a clean session or reset all six modules">
+            🔄 Reset Session
+          </button>
           <button class="btn btn-sm btn-primary" id="manualSaveBtn" type="button">
             💾 Save Work
           </button>
         </div>
       </div>
     </header>
-
-    <!-- Training Safeguard Alert -->
-    <aside class="training-safeguard">
-      <div style="font-size: 1.3rem; line-height: 1;">⚠️</div>
-      <div>
-        <strong>Official Training Safeguard.</strong> CARANA and UNAC are fictional training scenarios developed by the United Nations Department of Peace Operations (DPO). This learning lab operationalizes the official UNPOL Job-Specific Training (JST) material.
-      </div>
-    </aside>
 
     <!-- Six-Phase Curriculum Track -->
     <nav class="curriculum-track" aria-label="Curriculum Modules">
@@ -479,11 +480,22 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; align-items: center;">
-      <span>CARANA CBD Learning Lab · UN Peacekeeping Training Material</span>
-      <span id="stageCompleteFooterBadge" style="font-weight: 600;">Phase 6 In Progress · Pending Self-Confirmation</span>
-      <span>Module 6: Transition & Handover · Complete 6-Phase Cycle</span>
+    <!-- Consolidated Institutional Footer -->
+    <footer class="lab-footer">
+      <div class="lab-footer-primary">
+        <div class="lab-footer-brand">
+          <strong>CARANA CBD Learning Lab</strong>
+          <span class="lab-footer-attribution">Prepared by Lt. Col. Maissara Selim</span>
+        </div>
+        <span id="stageCompleteFooterBadge" class="footer-stage-badge">Phase 6 In Progress · Pending Self-Confirmation</span>
+      </div>
+      <p class="lab-disclaimer">
+        Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.
+      </p>
+      <div class="lab-footer-secondary">
+        <span>Curriculum Reference: UNPOL CBD JST (Lesson 6) · Participant exercise outputs are syndicate-authored.</span>
+        <span>Offline Local-First Architecture</span>
+      </div>
     </footer>
   </div>
 

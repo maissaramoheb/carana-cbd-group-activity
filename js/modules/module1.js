@@ -65,6 +65,7 @@
   }
 
   function save(statusMsg) {
+    if (typeof window !== 'undefined' && window.__labIsResetting) return false;
     collectFormFields();
     const latest = Storage.loadLabState();
     if (latest) {
@@ -267,12 +268,25 @@
 
   function setupLifecycleListeners() {
     window.addEventListener('beforeunload', () => {
+      if (typeof window !== 'undefined' && window.__labIsResetting) return;
       if (dirtyFields.size > 0) save();
     });
     window.addEventListener('pagehide', () => {
+      if (typeof window !== 'undefined' && window.__labIsResetting) return;
       if (dirtyFields.size > 0) save();
     });
+    window.addEventListener('carana_cbd_lab_reset', () => {
+      dirtyFields.clear();
+      deletedStakeholderIds.clear();
+    });
     window.addEventListener('storage', e => {
+      if (e.key === 'carana_cbd_lab_reset_token') {
+        if (typeof window !== 'undefined') window.__labIsResetting = true;
+        dirtyFields.clear();
+        deletedStakeholderIds.clear();
+        window.location.reload();
+        return;
+      }
       if (e.key === Storage.STORAGE_KEY) {
         const incoming = Storage.loadLabState();
         if (!incoming) return;

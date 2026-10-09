@@ -12,8 +12,11 @@
     <!-- Lab Header -->
     <header class="lab-header">
       <div class="lab-brand">
-        <span class="lab-emblem">United Nations</span>
-        <span class="lab-badge">Police Division · Integrated Training Service</span>
+        <div class="lab-brand-left">
+          <span class="lab-emblem">United Nations</span>
+          <span class="lab-badge">Police Division · Integrated Training Service</span>
+        </div>
+        <div class="lab-attribution-badge">Prepared by Lt. Col. Maissara Selim</div>
       </div>
       <h1 class="lab-title">CARANA CBD Learning Lab</h1>
       <p class="lab-subtitle">
@@ -34,22 +37,15 @@
           <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
             📚 CBD Glossary
           </button>
+          <button class="btn btn-sm btn-reset-session reset-lab-btn" id="resetLabBtn" data-action="reset-lab" type="button" title="Start a clean session or reset all six modules">
+            🔄 Start New Session
+          </button>
           <a href="CARANA_CBD_Group_Activity.html" class="btn btn-sm btn-accent" style="text-decoration: none;">
             ⏱ 60-Minute Fast Track ↗
           </a>
         </div>
       </div>
     </header>
-
-    <!-- Training Safeguard Alert -->
-    <aside class="training-safeguard">
-      <div style="font-size: 1.3rem; line-height: 1;">⚠️</div>
-      <div>
-        <strong>Instructional Authority & Training Safeguard.</strong> CARANA and UNAC are fictional training settings 
-        developed by the UN Department of Peace Operations (DPO). This learning lab operationalizes the official UNPOL Job-Specific 
-        Training (JST) on Capacity-Building and Development curriculum. Group outputs record participant learning discussions only.
-      </div>
-    </aside>
 
     <!-- Track Banner -->
     <div style="margin-bottom: 24px;">
@@ -243,10 +239,24 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-      <span>CARANA CBD Learning Lab · UN Peacekeeping Training Material</span>
-      <span>Modular Architecture · Development Branch</span>
+    <!-- Consolidated Institutional Footer -->
+    <footer class="lab-footer">
+      <div class="lab-footer-primary">
+        <div class="lab-footer-brand">
+          <strong>CARANA CBD Learning Lab</strong>
+          <span class="lab-footer-attribution">Prepared by Lt. Col. Maissara Selim</span>
+        </div>
+        <div style="font-size: 0.82rem; color: var(--navy); font-weight: 600;">
+          UN Peacekeeping Police Division · Integrated Training Service (ITS)
+        </div>
+      </div>
+      <p class="lab-disclaimer">
+        Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.
+      </p>
+      <div class="lab-footer-secondary">
+        <span>Tool Architecture & Methodology: Prepared by Lt. Col. Maissara Selim · Participant exercise outputs are syndicate-authored.</span>
+        <span>Local-First Offline Architecture · Non-Destructive Data Continuity</span>
+      </div>
     </footer>
   </div>
 

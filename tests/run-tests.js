@@ -1148,6 +1148,109 @@ runTest('Blocker 2: Module 6 UI strings and Dossier banner reflect truthful cycl
   assert(m6Content.includes('UNCONFIRMED DRAFT DOSSIER'), 'Dossier must label unconfirmed draft');
 });
 
+// 13. UI/UX REFINEMENT, BRANDING, DISCLAIMER CONSOLIDATION & RESET VERIFICATION
+console.log('\nGroup 13: UI/UX Refinement, Branding, Disclaimer & Reset Verification');
+
+runTest('Branding: Consistent Author Attribution across Portal Hub, Modules 1–6, and Dossier', () => {
+  const authorString = 'Prepared by Lt. Col. Maissara Selim';
+  const htmlFiles = ['index.html', 'module1.html', 'module2.html', 'module3.html', 'module4.html', 'module5.html', 'module6.html'];
+
+  htmlFiles.forEach(file => {
+    const content = fs.readFileSync(path.join(ROOT_DIR, file), 'utf8');
+    assert(content.includes(authorString), `${file} must contain author attribution "${authorString}"`);
+  });
+
+  // Verify dossier in module6.js also contains author attribution
+  const m6Content = fs.readFileSync(path.join(ROOT_DIR, 'js/modules/module6.js'), 'utf8');
+  assert(m6Content.includes(authorString), `js/modules/module6.js must contain author attribution in generated dossier`);
+});
+
+runTest('Disclaimer: Single Consolidated Training Disclaimer across Portal Hub, Modules 1–6, and Dossier', () => {
+  const disclaimerSnippet = 'Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.';
+  const htmlFiles = ['index.html', 'module1.html', 'module2.html', 'module3.html', 'module4.html', 'module5.html', 'module6.html'];
+
+  htmlFiles.forEach(file => {
+    const content = fs.readFileSync(path.join(ROOT_DIR, file), 'utf8');
+    assert(content.includes(disclaimerSnippet), `${file} must contain the consolidated training disclaimer`);
+  });
+
+  const m6Content = fs.readFileSync(path.join(ROOT_DIR, 'js/modules/module6.js'), 'utf8');
+  assert(m6Content.includes(disclaimerSnippet), `Dossier in js/modules/module6.js must include the consolidated training disclaimer`);
+  assert(m6Content.includes('Activity 6.1'), `Module 6 disclaimer/premise must preserve the Activity 6.1 CBD transition scope`);
+});
+
+runTest('Reset Function: resetLabState restores clean state and broadcasts reset token without affecting Quick Exercise', () => {
+  // Mock localStorage
+  const store = {};
+  const mockStorage = {
+    getItem: (k) => store[k] || null,
+    setItem: (k, v) => { store[k] = String(v); },
+    removeItem: (k) => { delete store[k]; }
+  };
+  global.localStorage = mockStorage;
+
+  try {
+    // Set up modified state in mock localStorage
+    const modifiedState = storage.getDefaultState();
+    modifiedState.session.teamName = 'Alpha Team';
+    modifiedState.module1.confirmed = true;
+    storage.saveLabState(modifiedState);
+
+    // Also simulate Quick Exercise storage data
+    const quickKey = 'carana_cbd_group_activity_v1';
+    const quickData = JSON.stringify({ stage: 3, notes: 'Quick exercise data' });
+    global.localStorage.setItem(quickKey, quickData);
+
+    assert.strictEqual(storage.loadLabState().session.teamName, 'Alpha Team', 'Precondition: modified team name stored');
+    assert.strictEqual(global.localStorage.getItem(quickKey), quickData, 'Precondition: Quick exercise data stored');
+
+    // Trigger reset
+    const resetSuccess = storage.resetLabState();
+    assert(resetSuccess && resetSuccess.version === '1.0.0', 'resetLabState must return fresh default state');
+
+    // Verify state is clean
+    const cleanState = storage.loadLabState();
+    assert.strictEqual(cleanState.session.teamName, '', 'Session team name must be reset');
+    assert.strictEqual(cleanState.module1.confirmed, false, 'Module 1 confirmed status must be false');
+
+    // Verify Quick Exercise storage is completely unaffected
+    assert.strictEqual(global.localStorage.getItem(quickKey), quickData, 'Quick Exercise data must remain intact after lab reset');
+
+    // Verify reset token broadcast key
+    assert(storage.RESET_EVENT_KEY === 'carana_cbd_lab_reset_token', 'RESET_EVENT_KEY must be carana_cbd_lab_reset_token');
+
+    // Verify all 6 module js files listen for reset token
+    for (let i = 1; i <= 6; i++) {
+      const modContent = fs.readFileSync(path.join(ROOT_DIR, `js/modules/module${i}.js`), 'utf8');
+      assert(modContent.includes('carana_cbd_lab_reset_token'), `module${i}.js must handle carana_cbd_lab_reset_token`);
+    }
+  } finally {
+    delete global.localStorage;
+  }
+});
+
+runTest('UI/UX: Top Navigation, Reset Buttons, Stage Briefings, and Responsive Layout Elements', () => {
+  const cssContent = fs.readFileSync(path.join(ROOT_DIR, 'css/design-system.css'), 'utf8');
+  assert(cssContent.includes('.lab-attribution-badge'), 'CSS must define .lab-attribution-badge');
+  assert(cssContent.includes('.top-nav-bar'), 'CSS must define .top-nav-bar');
+  assert(cssContent.includes('.stage-briefing'), 'CSS must define .stage-briefing');
+  assert(cssContent.includes('.btn-reset-session'), 'CSS must define .btn-reset-session');
+  assert(cssContent.includes('.reset-modal-backdrop'), 'CSS must define .reset-modal-backdrop');
+  assert(cssContent.includes('.reset-modal-box'), 'CSS must define .reset-modal-box');
+  assert(cssContent.includes('.toast-container'), 'CSS must define .toast-container');
+  assert(cssContent.includes('.toast-message'), 'CSS must define .toast-message');
+
+  // Verify reset button hooks in index.html and module HTML files
+  const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  assert(indexHtml.includes('data-action="reset-lab"'), 'index.html must include reset lab button');
+
+  for (let i = 1; i <= 6; i++) {
+    const modHtml = fs.readFileSync(path.join(ROOT_DIR, `module${i}.html`), 'utf8');
+    assert(modHtml.includes('data-action="reset-lab"'), `module${i}.html must include reset lab button`);
+    assert(modHtml.includes('class="top-nav-bar"'), `module${i}.html must include top navigation bar`);
+  }
+});
+
 console.log('\n======================================================');
 console.log(`TEST RESULTS: ${testsPassed} passed, ${testsFailed} failed`);
 console.log('======================================================\n');
