@@ -73,10 +73,36 @@
   }
 
   function setupAutosaveListener() {
+    document.addEventListener('input', e => {
+      if (e.target && e.target.id !== 'confirmModule3' && e.target.id !== 'selfConfirmCheck') {
+        invalidateConfirmation();
+      }
+    });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
       render3x3RiskMatrix();
     }, 600));
+  }
+
+  function invalidateConfirmation() {
+    if (state.module3 && state.module3.confirmed) {
+      state.module3.confirmed = false;
+      const chk = document.getElementById('confirmModule3') || document.getElementById('selfConfirmCheck');
+      if (chk) chk.checked = false;
+      updateCompletionBadge();
+    }
+  }
+
+  function updateCompletionBadge() {
+    const badge = document.getElementById('stageCompleteFooterBadge');
+    if (!badge) return;
+    if (state.module3 && state.module3.confirmed) {
+      badge.textContent = '✓ Phase 3 Self-Confirmed · Ready for Module 4';
+      badge.style.color = 'var(--ok)';
+    } else {
+      badge.textContent = 'Phase 3 In Progress · Pending Self-Confirmation';
+      badge.style.color = 'var(--navy)';
+    }
   }
 
   function setupLifecycleListeners() {
@@ -84,11 +110,22 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        state = Storage.loadLabState();
-        populateFormFields();
-        renderLogframeTables();
-        renderRisks();
-        render3x3RiskMatrix();
+        collectFormFields();
+        const incoming = Storage.loadLabState();
+        if (!incoming) return;
+        for (let i = 1; i <= 6; i++) {
+          const modKey = 'module' + i;
+          if (modKey !== 'module3' && incoming[modKey]) {
+            state[modKey] = incoming[modKey];
+          }
+        }
+        if (incoming.session) {
+          const activeId = document.activeElement ? document.activeElement.id : '';
+          if (!['teamNameInput', 'participantsInput', 'noteTakerInput'].includes(activeId)) {
+            state.session = incoming.session;
+          }
+        }
+        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(3);
         updateSaveIndicator('Synced from another tab');
       }
@@ -260,7 +297,17 @@
     const outputs = state.module3.logframe?.outputs || [];
     const outcomes = state.module3.logframe?.outcomes || [];
 
+    function getOutputCode(outpIndex) {
+      const op = outputs[outpIndex];
+      if (!op) return '1.1';
+      const pOutcomeIdx = outcomes.findIndex(o => o.id === op.outcomeId);
+      const outcomeNum = pOutcomeIdx >= 0 ? (pOutcomeIdx + 1) : 1;
+      const siblingOutputs = outputs.filter((o, i) => (o.outcomeId === op.outcomeId || (!o.outcomeId && pOutcomeIdx <= 0)) && i <= outpIndex);
+      return `${outcomeNum}.${siblingOutputs.length}`;
+    }
+
     host.innerHTML = outputs.map((op, idx) => {
+      const outputCode = getOutputCode(idx);
       const outcomeOptions = outcomes.length > 0
         ? outcomes.map((o, oIdx) => `<option value="${escapeHtml(o.id)}" ${op.outcomeId === o.id ? 'selected' : ''}>Outcome ${oIdx + 1}</option>`).join('')
         : `<option value="out-1">Outcome 1</option>`;
@@ -268,16 +315,16 @@
       return `
         <tr data-idx="${idx}">
           <td>
-            <div style="font-weight: 700; margin-bottom: 4px;">Output 1.${idx + 1}</div>
-            <select class="form-select outp-field" data-idx="${idx}" data-field="outcomeId" style="font-size: 0.78rem; padding: 4px;" aria-label="Parent Outcome for Output 1.${idx + 1}">
+            <div style="font-weight: 700; margin-bottom: 4px;">Output ${outputCode}</div>
+            <select class="form-select outp-field" data-idx="${idx}" data-field="outcomeId" style="font-size: 0.78rem; padding: 4px;" aria-label="Parent Outcome for Output ${outputCode}">
               ${outcomeOptions}
             </select>
           </td>
-          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="narrative" placeholder="Tangible deliverable narrative..." style="min-height: 60px;" aria-label="Output 1.${idx + 1} narrative">${escapeHtml(op.narrative || '')}</textarea></td>
-          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="indicators" placeholder="Objectively verifiable indicators..." style="min-height: 60px;" aria-label="Output 1.${idx + 1} indicators">${escapeHtml(op.indicators || '')}</textarea></td>
-          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="verification" placeholder="Means of verification..." style="min-height: 60px;" aria-label="Output 1.${idx + 1} verification">${escapeHtml(op.verification || '')}</textarea></td>
-          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="assumptions" placeholder="Output assumptions & risks..." style="min-height: 60px;" aria-label="Output 1.${idx + 1} assumptions">${escapeHtml(op.assumptions || '')}</textarea></td>
-          <td><button class="btn btn-sm btn-danger remove-outp-btn" data-idx="${idx}" type="button" aria-label="Remove output 1.${idx + 1}">×</button></td>
+          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="narrative" placeholder="Tangible deliverable narrative..." style="min-height: 60px;" aria-label="Output ${outputCode} narrative">${escapeHtml(op.narrative || '')}</textarea></td>
+          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="indicators" placeholder="Objectively verifiable indicators..." style="min-height: 60px;" aria-label="Output ${outputCode} indicators">${escapeHtml(op.indicators || '')}</textarea></td>
+          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="verification" placeholder="Means of verification..." style="min-height: 60px;" aria-label="Output ${outputCode} verification">${escapeHtml(op.verification || '')}</textarea></td>
+          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="assumptions" placeholder="Output assumptions & risks..." style="min-height: 60px;" aria-label="Output ${outputCode} assumptions">${escapeHtml(op.assumptions || '')}</textarea></td>
+          <td><button class="btn btn-sm btn-danger remove-outp-btn" data-idx="${idx}" type="button" aria-label="Remove output ${outputCode}">×</button></td>
         </tr>
       `;
     }).join('');
@@ -287,7 +334,21 @@
         const i = +e.target.dataset.idx;
         const f = e.target.dataset.field;
         state.module3.logframe.outputs[i][f] = e.target.value;
+        invalidateConfirmation();
         save();
+        if (f === 'outcomeId') {
+          renderLogframeTables();
+        }
+      });
+      el.addEventListener('change', e => {
+        const i = +e.target.dataset.idx;
+        const f = e.target.dataset.field;
+        if (f === 'outcomeId') {
+          state.module3.logframe.outputs[i][f] = e.target.value;
+          invalidateConfirmation();
+          save();
+          renderLogframeTables();
+        }
       });
     });
 
@@ -296,6 +357,7 @@
         const i = +b.dataset.idx;
         if (state.module3.logframe.outputs.length > 1) {
           state.module3.logframe.outputs.splice(i, 1);
+          invalidateConfirmation();
           save();
           renderLogframeTables();
         }
@@ -308,25 +370,42 @@
     if (!host) return;
     const activities = state.module3.logframe?.activities || [];
     const outputs = state.module3.logframe?.outputs || [];
+    const outcomes = state.module3.logframe?.outcomes || [];
+
+    function getOutputCode(opId) {
+      const opIdx = outputs.findIndex(o => o.id === opId);
+      if (opIdx < 0) return '1.1';
+      const op = outputs[opIdx];
+      const pOutcomeIdx = outcomes.findIndex(o => o.id === op.outcomeId);
+      const outcomeNum = pOutcomeIdx >= 0 ? (pOutcomeIdx + 1) : 1;
+      const siblingOutputs = outputs.filter((o, i) => (o.outcomeId === op.outcomeId || (!o.outcomeId && pOutcomeIdx <= 0)) && i <= opIdx);
+      return `${outcomeNum}.${siblingOutputs.length}`;
+    }
 
     host.innerHTML = activities.map((act, idx) => {
+      const parentCode = getOutputCode(act.outputId);
+      const parentOpIdx = outputs.findIndex(o => o.id === act.outputId);
+      const siblingActivities = activities.filter((a, i) => (a.outputId === act.outputId || (!a.outputId && parentOpIdx <= 0)) && i <= idx);
+      const actSubIdx = siblingActivities.length;
+      const activityCode = `${parentCode}.${actSubIdx}`;
+
       const outputOptions = outputs.length > 0
-        ? outputs.map((op, opIdx) => `<option value="${escapeHtml(op.id)}" ${act.outputId === op.id ? 'selected' : ''}>Output 1.${opIdx + 1}</option>`).join('')
+        ? outputs.map(op => `<option value="${escapeHtml(op.id)}" ${act.outputId === op.id ? 'selected' : ''}>Output ${getOutputCode(op.id)}</option>`).join('')
         : `<option value="outp-1">Output 1.1</option>`;
 
       return `
         <tr data-idx="${idx}">
           <td>
-            <div style="font-weight: 700; margin-bottom: 4px;">Activity 1.1.${idx + 1}</div>
-            <select class="form-select act-field" data-idx="${idx}" data-field="outputId" style="font-size: 0.78rem; padding: 4px;" aria-label="Parent Output for Activity 1.1.${idx + 1}">
+            <div style="font-weight: 700; margin-bottom: 4px;">Activity ${activityCode}</div>
+            <select class="form-select act-field" data-idx="${idx}" data-field="outputId" style="font-size: 0.78rem; padding: 4px;" aria-label="Parent Output for Activity ${activityCode}">
               ${outputOptions}
             </select>
           </td>
-          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="narrative" placeholder="Planned activity description..." style="min-height: 60px;" aria-label="Activity 1.1.${idx + 1} narrative">${escapeHtml(act.narrative || '')}</textarea></td>
-          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="inputs" placeholder="Capital, Labor, Knowledge (RBB)" style="min-height: 60px;" aria-label="Activity 1.1.${idx + 1} resource inputs">${escapeHtml(act.inputs || '')}</textarea></td>
-          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="verification" placeholder="Verification / monitoring..." style="min-height: 60px;" aria-label="Activity 1.1.${idx + 1} verification">${escapeHtml(act.verification || '')}</textarea></td>
-          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="assumptions" placeholder="Activity assumptions & risks..." style="min-height: 60px;" aria-label="Activity 1.1.${idx + 1} assumptions">${escapeHtml(act.assumptions || '')}</textarea></td>
-          <td><button class="btn btn-sm btn-danger remove-act-btn" data-idx="${idx}" type="button" aria-label="Remove activity 1.1.${idx + 1}">×</button></td>
+          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="narrative" placeholder="Planned activity description..." style="min-height: 60px;" aria-label="Activity ${activityCode} narrative">${escapeHtml(act.narrative || '')}</textarea></td>
+          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="inputs" placeholder="Capital, Labor, Knowledge (RBB)" style="min-height: 60px;" aria-label="Activity ${activityCode} resource inputs">${escapeHtml(act.inputs || '')}</textarea></td>
+          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="verification" placeholder="Verification / monitoring..." style="min-height: 60px;" aria-label="Activity ${activityCode} verification">${escapeHtml(act.verification || '')}</textarea></td>
+          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="assumptions" placeholder="Activity assumptions & risks..." style="min-height: 60px;" aria-label="Activity ${activityCode} assumptions">${escapeHtml(act.assumptions || '')}</textarea></td>
+          <td><button class="btn btn-sm btn-danger remove-act-btn" data-idx="${idx}" type="button" aria-label="Remove activity ${activityCode}">×</button></td>
         </tr>
       `;
     }).join('');
@@ -336,7 +415,21 @@
         const i = +e.target.dataset.idx;
         const f = e.target.dataset.field;
         state.module3.logframe.activities[i][f] = e.target.value;
+        invalidateConfirmation();
         save();
+        if (f === 'outputId') {
+          renderLogframeTables();
+        }
+      });
+      el.addEventListener('change', e => {
+        const i = +e.target.dataset.idx;
+        const f = e.target.dataset.field;
+        if (f === 'outputId') {
+          state.module3.logframe.activities[i][f] = e.target.value;
+          invalidateConfirmation();
+          save();
+          renderLogframeTables();
+        }
       });
     });
 
@@ -345,6 +438,7 @@
         const i = +b.dataset.idx;
         if (state.module3.logframe.activities.length > 1) {
           state.module3.logframe.activities.splice(i, 1);
+          invalidateConfirmation();
           save();
           renderLogframeTables();
         }
@@ -628,12 +722,29 @@
     `).join('');
   }
 
+  let modalOpenerEl = null;
+
   function toggleScenarioDrawer(open) {
     const drawer = document.getElementById('scenarioDrawer');
     const backdrop = document.getElementById('scenarioDrawerBackdrop');
+    if (!drawer || !backdrop) return;
     const shouldOpen = open !== undefined ? open : !drawer.classList.contains('open');
-    drawer.classList.toggle('open', shouldOpen);
-    backdrop.classList.toggle('open', shouldOpen);
+    if (shouldOpen) {
+      modalOpenerEl = document.activeElement;
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      const focusable = drawer.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length > 0) focusable[0].focus();
+    } else {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      if (modalOpenerEl && typeof modalOpenerEl.focus === 'function') {
+        modalOpenerEl.focus();
+        modalOpenerEl = null;
+      }
+    }
   }
 
   function renderGlossaryList(searchQuery) {
@@ -659,7 +770,22 @@
 
   function toggleGlossaryModal(open) {
     const backdrop = document.getElementById('glossaryModalBackdrop');
-    backdrop.classList.toggle('open', open !== undefined ? open : !backdrop.classList.contains('open'));
+    if (!backdrop) return;
+    const shouldOpen = open !== undefined ? open : !backdrop.classList.contains('open');
+    if (shouldOpen) {
+      modalOpenerEl = document.activeElement;
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      const focusable = backdrop.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length > 0) focusable[0].focus();
+    } else {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+      if (modalOpenerEl && typeof modalOpenerEl.focus === 'function') {
+        modalOpenerEl.focus();
+        modalOpenerEl = null;
+      }
+    }
   }
 
   /* Global Event Bindings */
@@ -669,6 +795,14 @@
     });
 
     document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
+
+    // Confirmation checkbox listener
+    const confirmBox = document.getElementById('confirmModule3') || document.getElementById('selfConfirmCheck');
+    confirmBox?.addEventListener('change', e => {
+      state.module3.confirmed = e.target.checked;
+      save(e.target.checked ? 'Phase 3 Confirmed' : 'Confirmation withdrawn');
+      updateCompletionBadge();
+    });
 
     document.getElementById('importFromM2Btn')?.addEventListener('click', importFromModule2);
     document.getElementById('importThreatsBtn')?.addEventListener('click', importThreatsFromModule1);
@@ -696,13 +830,35 @@
       renderGlossaryList(e.target.value);
     });
 
-    // Escape key listener for accessible modal / drawer dismissal
+    // Modal focus containment and Escape listener
     document.addEventListener('keydown', e => {
+      const glossaryOpen = document.getElementById('glossaryModalBackdrop')?.classList.contains('open');
+      const drawerOpen = document.getElementById('scenarioDrawer')?.classList.contains('open');
+
       if (e.key === 'Escape') {
-        if (document.getElementById('glossaryModalBackdrop')?.classList.contains('open')) {
-          toggleGlossaryModal(false);
-        } else if (document.getElementById('scenarioDrawerBackdrop')?.classList.contains('open')) {
-          toggleScenarioDrawer(false);
+        if (glossaryOpen) toggleGlossaryModal(false);
+        if (drawerOpen) toggleScenarioDrawer(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && (glossaryOpen || drawerOpen)) {
+        const activeContainer = glossaryOpen ? document.getElementById('glossaryModalBackdrop') : document.getElementById('scenarioDrawer');
+        if (!activeContainer) return;
+        const focusable = Array.from(activeContainer.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+          }
         }
       }
     });
@@ -716,7 +872,13 @@
     // Print
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
+      if (!state.module3?.confirmed) {
+        const proceed = confirm('Note: Phase 3 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        if (!proceed) return;
+      }
+      if (Storage.preparePrintableContent) Storage.preparePrintableContent();
       window.print();
+      if (Storage.cleanupPrintableContent) Storage.cleanupPrintableContent();
     });
   }
 

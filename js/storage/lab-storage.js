@@ -54,7 +54,7 @@
         role: 'participant' // 'participant' | 'facilitator'
       },
       module1: {
-        status: 'in_progress', // 'not_started' | 'in_progress' | 'completed'
+        status: 'not_started', // 'not_started' | 'in_progress' | 'completed'
         // Conflict Analysis (PESTEL-S)
         pestel: {
           political: '',
@@ -275,38 +275,38 @@
         // Logical Framework Matrix (Logframe)
         logframe: {
           impact: {
-            narrative: 'Galasi CIS professionally addresses SGBV-related cases in a manner that does no harm to victims and witnesses, fostering community trust.',
-            indicators: 'Short-term increase in reported SGBV cases followed by long-term decrease in recidivism; improved public trust in Galasi CIS.',
-            verification: 'Galasi Police Directorate crime records; joint UNPOL-civil society community surveys.',
-            assumptions: 'Sustained institutional stability and absence of major armed conflict resurgence.'
+            narrative: '',
+            indicators: '',
+            verification: '',
+            assumptions: ''
           },
           outcomes: [
             {
               id: 'out-1',
-              narrative: 'Effective investigation and delivery of prosecutable criminal case dockets.',
-              indicators: 'Targeted proportion of case files accepted without procedural dismissal.',
-              verification: 'Public Prosecutor liaison registry; court trial records.',
-              assumptions: 'Constructive cooperation from prosecutors and judicial authorities.'
+              narrative: '',
+              indicators: '',
+              verification: '',
+              assumptions: ''
             }
           ],
           outputs: [
             {
               id: 'outp-1',
               outcomeId: 'out-1',
-              narrative: 'Specialised SGBV investigation capability established within Galasi CIS.',
-              indicators: 'Unit formal charter gazetted; certified male and female investigators deployed.',
-              verification: 'Galasi Police Directorate assignment roster and organizational chart.',
-              assumptions: 'Command leadership supports specialized detective tenure.'
+              narrative: '',
+              indicators: '',
+              verification: '',
+              assumptions: ''
             }
           ],
           activities: [
             {
               id: 'act-1',
               outputId: 'outp-1',
-              narrative: 'Draft and gazette administrative terms of reference establishing the specialized unit.',
-              inputs: 'Labor: UNPOL advisory accompaniment + host CIS leadership working group.',
-              verification: 'Signed Terms of Reference administrative bulletin.',
-              assumptions: 'Timely administrative approvals by police directorate leadership.'
+              narrative: '',
+              inputs: '',
+              verification: '',
+              assumptions: ''
             }
           ]
         },
@@ -465,7 +465,7 @@
           principles: 'SGF compliance, human rights-sensitive, gender-sensitive, impartial and transparent',
           dataCollectionStrategy: '[Lesson 5 Triangulation] Intake registries, court file audits, and community feedback.'
         },
-        // 8-Month Situational Assessment (Le Galasien & Cable from Section Chief Yaa)
+        // 8-Month Situational Assessment (Le Galasien & Official Email from Section Chief Yaa)
         crisisAnalysis: {
           leadershipShiftImpact: '[Lesson 5 Crisis Analysis] Leadership transition and appointment of interim command requiring executive mentoring support.',
           absorptionCapacityAssessment: '[Lesson 5 Crisis Analysis] High daily operational caseload conflicting with training abstractions and organizational absorption.',
@@ -481,20 +481,20 @@
             kpiTitle: 'SGBV Investigation Capability & Personnel Vetting',
             baselineValue: 'Initial baseline per Module 1/2',
             targetValue: 'Target set in Module 2/3',
-            actualValue: '10 investigators completed classroom phase; field competency verification pending',
-            varianceStatus: 'Delayed',
-            varianceAnalysis: 'Vetting procedural delays and personnel absorption pressure.',
-            correctiveAction: 'Deploy mobile mentoring teams for in-situ competency verification.'
+            actualValue: '',
+            varianceStatus: 'Pending Verification',
+            varianceAnalysis: '',
+            correctiveAction: ''
           },
           {
             id: 'eval-kpi-2',
             kpiTitle: 'Case File Admissibility & Record Keeping',
             baselineValue: 'Initial baseline per Module 1/2',
             targetValue: 'Target set in Module 2/3',
-            actualValue: 'Intermittent paper logbook; digital server crash prevents quantitative audit',
-            varianceStatus: 'Critical Variance',
-            varianceAnalysis: 'IT server outage and differing evidentiary threshold standards with prosecution.',
-            correctiveAction: 'Institute emergency standardized physical ledgers and joint case clinics.'
+            actualValue: '',
+            varianceStatus: 'Pending Verification',
+            varianceAnalysis: '',
+            correctiveAction: ''
           }
         ],
         // 3-Tier Adjustment Recommendations (Lesson 5 Activity 5.1 Task B)
@@ -544,8 +544,8 @@
         description: 'Transition and Handover (UNPOL CBD JST Lesson 6)',
         // Transition Strategy & Mandate Triggers (Lesson 6 Slides 6-9)
         transitionStrategy: {
-          hopcInitiationDate: 'Initiated at Month 12 under HOPC authority (Lesson 6 p. 5)',
-          primaryTrigger: 'Verified achievement of CBD benchmarks under HOPC authority (Lesson 6 p. 4-6)',
+          hopcInitiationDate: 'Determined by HOPC based on mandate benchmarks and local institutional absorption capacity (JST Lesson 6 pp. 4–6)',
+          primaryTrigger: '[Instructional Premise · JST Lesson 6 Activity 6.1] Assume planned CBD benchmarks achieved; transition initiated following joint UNPOL-counterpart capacity assessment',
           succeedingEntity: 'Galasi Police Directorate (CIS) with UN Country Team programmatic support',
           localOwnerDesignation: 'Director of Galasi Criminal Investigations Service (CIS)'
         },
@@ -647,7 +647,7 @@
         }
       }
       if (Array.isArray(source[key])) {
-        output[key] = source[key].slice();
+        output[key] = source[key].filter(item => item !== null && item !== undefined).slice();
       } else if (typeof source[key] === 'object' && source[key] !== null && target && typeof target[key] === 'object' && target[key] !== null && !Array.isArray(target[key])) {
         output[key] = deepMerge(target[key], source[key]);
       } else {
@@ -655,6 +655,59 @@
       }
     }
     return output;
+  }
+
+  function getModuleProgressStatus(modData, modNum) {
+    if (!modData || typeof modData !== 'object') return 'not_started';
+    if (modData.confirmed) return 'completed';
+
+    switch (modNum) {
+      case 1: {
+        const p = modData.pestel || {};
+        const hasPestel = Object.values(p).some(v => typeof v === 'string' && v.trim().length > 0);
+        const hasMatrix = modData.matrixCells && Object.keys(modData.matrixCells).some(k => {
+          const c = modData.matrixCells[k];
+          return c && ((c.paragraphs && c.paragraphs.length > 0) || (c.notes && c.notes.trim().length > 0));
+        });
+        const hasSummary = modData.summary && Object.values(modData.summary).some(v => typeof v === 'string' && v.trim().length > 0);
+        const hasBaseline = Array.isArray(modData.baseline) && modData.baseline.some(b => b && ((b.asIsEvidence && b.asIsEvidence.trim().length > 0) || (b.baselineMetric && b.baselineMetric.trim().length > 0)));
+        const hasReflect = modData.reflection && Object.values(modData.reflection).some(v => typeof v === 'string' && v.trim().length > 0);
+        return (hasPestel || hasMatrix || hasSummary || hasBaseline || hasReflect) ? 'in_progress' : 'not_started';
+      }
+      case 2: {
+        const hasSmart = Array.isArray(modData.smartObjectives) && modData.smartObjectives.some(s => s && ((s.specific && s.specific.trim().length > 0) || (s.fullStatement && s.fullStatement.trim().length > 0)));
+        const hasCustomScores = Array.isArray(modData.objectives) && modData.objectives.some(o => o && o.scores && Object.values(o.scores).some(val => val > 1));
+        const hasKpi = Array.isArray(modData.kpis) && modData.kpis.some(k => k && ((k.baselineValue && k.baselineValue.trim().length > 0) || (k.targetValue && k.targetValue.trim().length > 0)));
+        const hasReflect = modData.reflection && Object.values(modData.reflection).some(v => typeof v === 'string' && v.trim().length > 0);
+        return (hasSmart || hasCustomScores || hasKpi || hasReflect) ? 'in_progress' : 'not_started';
+      }
+      case 3: {
+        const lf = modData.logframe || {};
+        const hasImpact = lf.impact && ((lf.impact.narrative && lf.impact.narrative.trim().length > 0) || (lf.impact.indicators && lf.impact.indicators.trim().length > 0));
+        const hasOutcomes = Array.isArray(lf.outcomes) && lf.outcomes.some(o => o && o.narrative && o.narrative.trim().length > 0);
+        const hasOutputs = Array.isArray(lf.outputs) && lf.outputs.some(o => o && o.narrative && o.narrative.trim().length > 0);
+        const hasActivities = Array.isArray(lf.activities) && lf.activities.some(a => a && a.narrative && a.narrative.trim().length > 0);
+        const hasReflect = modData.reflection && Object.values(modData.reflection).some(v => typeof v === 'string' && v.trim().length > 0);
+        return (hasImpact || hasOutcomes || hasOutputs || hasActivities || hasReflect) ? 'in_progress' : 'not_started';
+      }
+      case 4: {
+        const hasTracker = Array.isArray(modData.activityTracker) && modData.activityTracker.some(t => t && ((t.progressPercent && t.progressPercent > 0) || (t.fieldAdvisoryNote && t.fieldAdvisoryNote.trim().length > 0)));
+        const hasReflect = modData.reflection && Object.values(modData.reflection).some(v => typeof v === 'string' && v.trim().length > 0);
+        return (hasTracker || hasReflect) ? 'in_progress' : 'not_started';
+      }
+      case 5: {
+        const hasKpiEval = Array.isArray(modData.kpiEvaluations) && modData.kpiEvaluations.some(k => k && ((k.actualValue && k.actualValue.trim().length > 0) || (k.varianceAnalysis && k.varianceAnalysis.trim().length > 0)));
+        const hasReflect = modData.reflection && Object.values(modData.reflection).some(v => typeof v === 'string' && v.trim().length > 0);
+        return (hasKpiEval || hasReflect) ? 'in_progress' : 'not_started';
+      }
+      case 6: {
+        const hasRoadmap = Array.isArray(modData.transitionRoadmap) && modData.transitionRoadmap.some(r => r && r.status === 'Completed');
+        const hasReflect = modData.reflection && Object.values(modData.reflection).some(v => typeof v === 'string' && v.trim().length > 0);
+        return (hasRoadmap || hasReflect) ? 'in_progress' : 'not_started';
+      }
+      default:
+        return 'not_started';
+    }
   }
 
   function loadLabState() {
@@ -697,6 +750,12 @@
     try {
       if (!state || typeof state !== 'object') return false;
       state.updatedAt = new Date().toISOString();
+      for (let i = 1; i <= 6; i++) {
+        const k = 'module' + i;
+        if (state[k]) {
+          state[k].status = getModuleProgressStatus(state[k], i);
+        }
+      }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       return true;
     } catch (e) {
@@ -737,35 +796,216 @@
     if (!data || typeof data !== 'object' || Array.isArray(data)) {
       return { valid: false, error: 'Uploaded file is not a valid JSON object.' };
     }
-    // Check app identifier
-    if (!data.app || typeof data.app !== 'string' || !data.app.includes('CARANA CBD')) {
+    // Check exact app identifier
+    if (data.app !== 'CARANA CBD Learning Lab') {
       return { valid: false, error: 'Uploaded JSON is missing valid CARANA CBD Learning Lab app identifier.' };
     }
-    // Version check
-    if (!data.version || typeof data.version !== 'string' || !data.version.startsWith('1.')) {
+    // Strict semantic version check: 1.x
+    if (typeof data.version !== 'string' || !/^1\.\d+(\.\d+)?$/.test(data.version)) {
       return { valid: false, error: `Unsupported or invalid schema version "${data.version}". Expected version 1.x.` };
     }
     // Session validation
-    if (data.session !== undefined && (data.session === null || typeof data.session !== 'object' || Array.isArray(data.session))) {
-      return { valid: false, error: 'Invalid session structure in imported JSON.' };
+    if (data.session !== undefined) {
+      if (data.session === null || typeof data.session !== 'object' || Array.isArray(data.session)) {
+        return { valid: false, error: 'Invalid session structure in imported JSON.' };
+      }
+      if (data.session.role !== undefined && data.session.role !== 'participant' && data.session.role !== 'facilitator') {
+        return { valid: false, error: 'Invalid session role in imported JSON (must be participant or facilitator).' };
+      }
     }
+
     // Module 1 validation
     if (!data.module1 || typeof data.module1 !== 'object' || Array.isArray(data.module1)) {
       return { valid: false, error: 'Missing or invalid module1 structure in imported JSON.' };
     }
-    if (data.module1.stakeholders !== undefined && !Array.isArray(data.module1.stakeholders)) {
-      return { valid: false, error: 'Module 1 stakeholders must be an array.' };
-    }
-    if (data.module1.baseline !== undefined && !Array.isArray(data.module1.baseline)) {
-      return { valid: false, error: 'Module 1 baseline must be an array.' };
-    }
-    // Modules 2-6 structural validation if provided
-    for (let i = 2; i <= 6; i++) {
-      const modKey = 'module' + i;
-      if (data[modKey] !== undefined && (data[modKey] === null || typeof data[modKey] !== 'object' || Array.isArray(data[modKey]))) {
-        return { valid: false, error: `Invalid ${modKey} structure in imported JSON.` };
+    if (data.module1.stakeholders !== undefined) {
+      if (!Array.isArray(data.module1.stakeholders) || data.module1.stakeholders.some(s => !s || typeof s !== 'object' || Array.isArray(s))) {
+        return { valid: false, error: 'Module 1 stakeholders must be an array of non-null objects.' };
       }
     }
+    if (data.module1.baseline !== undefined) {
+      if (!Array.isArray(data.module1.baseline) || data.module1.baseline.some(b => !b || typeof b !== 'object' || Array.isArray(b))) {
+        return { valid: false, error: 'Module 1 baseline must be an array of non-null objects.' };
+      }
+    }
+    if (data.module1.matrixCells !== undefined) {
+      if (data.module1.matrixCells === null || typeof data.module1.matrixCells !== 'object' || Array.isArray(data.module1.matrixCells)) {
+        return { valid: false, error: 'Module 1 matrixCells must be a valid key-value object.' };
+      }
+      for (const k of Object.keys(data.module1.matrixCells)) {
+        if (!k.includes('|')) {
+          return { valid: false, error: `Invalid matrix cell key "${k}". Expected subArea|dimension format.` };
+        }
+        const cell = data.module1.matrixCells[k];
+        if (!cell || typeof cell !== 'object' || Array.isArray(cell)) {
+          return { valid: false, error: `Invalid matrix cell object at "${k}".` };
+        }
+        if (cell.paragraphs !== undefined && (!Array.isArray(cell.paragraphs) || cell.paragraphs.some(p => typeof p !== 'number' || isNaN(p)))) {
+          return { valid: false, error: `Matrix cell paragraphs at "${k}" must be an array of numbers.` };
+        }
+      }
+    }
+    if (data.module1.swot !== undefined && (data.module1.swot === null || typeof data.module1.swot !== 'object' || Array.isArray(data.module1.swot))) {
+      return { valid: false, error: 'Module 1 SWOT must be an object.' };
+    }
+
+    // Module 2 validation
+    if (data.module2 !== undefined) {
+      if (data.module2 === null || typeof data.module2 !== 'object' || Array.isArray(data.module2)) {
+        return { valid: false, error: 'Invalid module2 structure in imported JSON.' };
+      }
+      if (data.module2.objectives !== undefined) {
+        if (!Array.isArray(data.module2.objectives) || data.module2.objectives.some(o => !o || typeof o !== 'object' || Array.isArray(o))) {
+          return { valid: false, error: 'Module 2 objectives must be an array of non-null objects.' };
+        }
+        for (const obj of data.module2.objectives) {
+          if (obj.scores && typeof obj.scores === 'object') {
+            for (const [cat, sc] of Object.entries(obj.scores)) {
+              if (typeof sc !== 'number' || sc < 1 || sc > 3) {
+                return { valid: false, error: `Objective score for "${cat}" must be a number between 1 and 3.` };
+              }
+            }
+          }
+        }
+      }
+      if (data.module2.smartObjectives !== undefined) {
+        if (!Array.isArray(data.module2.smartObjectives) || data.module2.smartObjectives.some(s => !s || typeof s !== 'object' || Array.isArray(s))) {
+          return { valid: false, error: 'Module 2 smartObjectives must be an array of non-null objects.' };
+        }
+      }
+      if (data.module2.kpis !== undefined) {
+        if (!Array.isArray(data.module2.kpis) || data.module2.kpis.some(k => !k || typeof k !== 'object' || Array.isArray(k))) {
+          return { valid: false, error: 'Module 2 kpis must be an array of non-null objects.' };
+        }
+      }
+    }
+
+    // Module 3 validation
+    if (data.module3 !== undefined) {
+      if (data.module3 === null || typeof data.module3 !== 'object' || Array.isArray(data.module3)) {
+        return { valid: false, error: 'Invalid module3 structure in imported JSON.' };
+      }
+      if (data.module3.risks !== undefined) {
+        if (!Array.isArray(data.module3.risks) || data.module3.risks.some(r => !r || typeof r !== 'object' || Array.isArray(r))) {
+          return { valid: false, error: 'Module 3 risks must be an array of non-null objects.' };
+        }
+        for (const r of data.module3.risks) {
+          if (r.likelihood !== undefined && ![1, 2, 3].includes(r.likelihood)) {
+            return { valid: false, error: 'Risk likelihood must be 1, 2, or 3.' };
+          }
+          if (r.impact !== undefined && ![1, 2, 3].includes(r.impact)) {
+            return { valid: false, error: 'Risk impact must be 1, 2, or 3.' };
+          }
+          if (r.zone !== undefined && !['green', 'yellow', 'red'].includes(r.zone)) {
+            return { valid: false, error: 'Risk zone must be green, yellow, or red.' };
+          }
+        }
+      }
+      if (data.module3.logframe !== undefined) {
+        if (data.module3.logframe === null || typeof data.module3.logframe !== 'object' || Array.isArray(data.module3.logframe)) {
+          return { valid: false, error: 'Module 3 logframe must be an object.' };
+        }
+        for (const listKey of ['outcomes', 'outputs', 'activities']) {
+          if (data.module3.logframe[listKey] !== undefined) {
+            if (!Array.isArray(data.module3.logframe[listKey]) || data.module3.logframe[listKey].some(item => !item || typeof item !== 'object' || Array.isArray(item))) {
+              return { valid: false, error: `Module 3 logframe ${listKey} must be an array of non-null objects.` };
+            }
+          }
+        }
+      }
+    }
+
+    // Module 4 validation
+    if (data.module4 !== undefined) {
+      if (data.module4 === null || typeof data.module4 !== 'object' || Array.isArray(data.module4)) {
+        return { valid: false, error: 'Invalid module4 structure in imported JSON.' };
+      }
+      if (data.module4.activityTracker !== undefined) {
+        if (!Array.isArray(data.module4.activityTracker) || data.module4.activityTracker.some(t => !t || typeof t !== 'object' || Array.isArray(t))) {
+          return { valid: false, error: 'Module 4 activityTracker must be an array of non-null objects.' };
+        }
+        for (const tr of data.module4.activityTracker) {
+          if (tr.progressPercent !== undefined) {
+            if (typeof tr.progressPercent !== 'number' || isNaN(tr.progressPercent) || tr.progressPercent < 0 || tr.progressPercent > 100) {
+              return { valid: false, error: 'Activity tracker progressPercent must be a number between 0 and 100.' };
+            }
+          }
+        }
+      }
+      if (data.module4.fieldSetbacks !== undefined) {
+        if (!Array.isArray(data.module4.fieldSetbacks) || data.module4.fieldSetbacks.some(sb => !sb || typeof sb !== 'object' || Array.isArray(sb))) {
+          return { valid: false, error: 'Module 4 fieldSetbacks must be an array of non-null objects.' };
+        }
+        for (const sb of data.module4.fieldSetbacks) {
+          if (sb.status !== undefined && !['Scheduled', 'In Progress', 'Resolved'].includes(sb.status)) {
+            return { valid: false, error: `Invalid setback status "${sb.status}".` };
+          }
+        }
+      }
+    }
+
+    // Module 5 validation
+    if (data.module5 !== undefined) {
+      if (data.module5 === null || typeof data.module5 !== 'object' || Array.isArray(data.module5)) {
+        return { valid: false, error: 'Invalid module5 structure in imported JSON.' };
+      }
+      if (data.module5.kpiEvaluations !== undefined) {
+        if (!Array.isArray(data.module5.kpiEvaluations) || data.module5.kpiEvaluations.some(ev => !ev || typeof ev !== 'object' || Array.isArray(ev))) {
+          return { valid: false, error: 'Module 5 kpiEvaluations must be an array of non-null objects.' };
+        }
+        for (const ev of data.module5.kpiEvaluations) {
+          if (ev.varianceStatus !== undefined && !['On Track', 'Delayed', 'Critical Variance', 'Pending Verification', 'Pending Evaluation'].includes(ev.varianceStatus)) {
+            return { valid: false, error: `Invalid varianceStatus in Module 5: "${ev.varianceStatus}".` };
+          }
+        }
+      }
+      if (data.module5.adjustments !== undefined) {
+        if (!Array.isArray(data.module5.adjustments) || data.module5.adjustments.some(adj => !adj || typeof adj !== 'object' || Array.isArray(adj))) {
+          return { valid: false, error: 'Module 5 adjustments must be an array of non-null objects.' };
+        }
+        for (const adj of data.module5.adjustments) {
+          if (adj.reaction !== undefined && adj.reaction !== '' && !['Fully Accept', 'Partially Accept', 'Reject'].includes(adj.reaction)) {
+            return { valid: false, error: `Invalid reaction in Module 5 adjustments: "${adj.reaction}".` };
+          }
+        }
+      }
+    }
+
+    // Module 6 validation
+    if (data.module6 !== undefined) {
+      if (data.module6 === null || typeof data.module6 !== 'object' || Array.isArray(data.module6)) {
+        return { valid: false, error: 'Invalid module6 structure in imported JSON.' };
+      }
+      if (data.module6.transitionRoadmap !== undefined) {
+        if (!Array.isArray(data.module6.transitionRoadmap) || data.module6.transitionRoadmap.some(r => !r || typeof r !== 'object' || Array.isArray(r))) {
+          return { valid: false, error: 'Module 6 transitionRoadmap must be an array of non-null objects.' };
+        }
+      }
+      if (data.module6.challengesRemedies !== undefined) {
+        if (!Array.isArray(data.module6.challengesRemedies) || data.module6.challengesRemedies.some(cr => !cr || typeof cr !== 'object' || Array.isArray(cr))) {
+          return { valid: false, error: 'Module 6 challengesRemedies must be an array of non-null objects.' };
+        }
+        for (const cr of data.module6.challengesRemedies) {
+          if (cr.riskLevel !== undefined && !['Low', 'Medium', 'High'].includes(cr.riskLevel)) {
+            return { valid: false, error: `Invalid riskLevel in Module 6 challenges: "${cr.riskLevel}".` };
+          }
+        }
+      }
+    }
+
+    // Common status & confirmed checks for modules 1-6
+    for (let i = 1; i <= 6; i++) {
+      const mod = data['module' + i];
+      if (mod && typeof mod === 'object') {
+        if (mod.status !== undefined && !['not_started', 'in_progress', 'completed'].includes(mod.status)) {
+          return { valid: false, error: `Invalid module${i} status "${mod.status}".` };
+        }
+        if (mod.confirmed !== undefined && typeof mod.confirmed !== 'boolean') {
+          return { valid: false, error: `Module${i} confirmed flag must be a boolean.` };
+        }
+      }
+    }
+
     return { valid: true };
   }
 
@@ -823,19 +1063,23 @@
     container.innerHTML = modules.map(m => {
       const isCurrent = m.num === currentModuleNum;
       const isConfirmed = !!(state[m.key] && state[m.key].confirmed);
+      const modStatus = getModuleProgressStatus(state[m.key], m.num);
 
       let stepClass = 'track-step';
       let badgeText = `Phase 0${m.num}`;
 
       if (isCurrent) {
         stepClass += isConfirmed ? ' completed active' : ' active';
-        badgeText += isConfirmed ? ' · Confirmed' : ' · Active';
+        badgeText += isConfirmed ? ' · Confirmed' : (modStatus === 'in_progress' ? ' · In Progress' : ' · Active');
       } else if (isConfirmed) {
         stepClass += ' completed';
         badgeText += ' · Confirmed';
-      } else {
+      } else if (modStatus === 'in_progress') {
         stepClass += ' in-progress';
         badgeText += ' · In Progress';
+      } else {
+        stepClass += ' not-started';
+        badgeText += ' · Not Started';
       }
 
       return `
@@ -860,6 +1104,33 @@
     return fresh;
   }
 
+  function preparePrintableContent() {
+    if (typeof document === 'undefined') return;
+    document.querySelectorAll('.printable-clone').forEach(el => el.remove());
+    document.querySelectorAll('textarea').forEach(ta => {
+      const clone = document.createElement('div');
+      clone.className = 'printable-clone printable-textarea-clone';
+      clone.textContent = ta.value || '—';
+      ta.parentNode.insertBefore(clone, ta);
+    });
+    document.querySelectorAll('input[type="text"], input[type="number"], input:not([type])').forEach(inp => {
+      const clone = document.createElement('div');
+      clone.className = 'printable-clone printable-input-clone';
+      clone.textContent = inp.value || '—';
+      inp.parentNode.insertBefore(clone, inp);
+    });
+  }
+
+  function cleanupPrintableContent() {
+    if (typeof document === 'undefined') return;
+    document.querySelectorAll('.printable-clone').forEach(el => el.remove());
+  }
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('beforeprint', preparePrintableContent);
+    window.addEventListener('afterprint', cleanupPrintableContent);
+  }
+
   return {
     STORAGE_KEY,
     SCHEMA_VERSION,
@@ -870,6 +1141,10 @@
     importLabFromJson,
     resetLabState,
     validateImportedData,
-    renderCurriculumTrack
+    renderCurriculumTrack,
+    getModuleProgressStatus,
+    deepMerge,
+    preparePrintableContent,
+    cleanupPrintableContent
   };
 });

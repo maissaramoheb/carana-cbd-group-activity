@@ -71,6 +71,11 @@
   }
 
   function setupAutosaveListener() {
+    document.addEventListener('input', e => {
+      if (e.target && e.target.id !== 'confirmModule1' && e.target.id !== 'selfConfirmCheck') {
+        invalidateConfirmation();
+      }
+    });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
       renderStakeholderQuadrants();
@@ -78,18 +83,48 @@
     }, 600));
   }
 
+  function invalidateConfirmation() {
+    if (state.module1 && state.module1.confirmed) {
+      state.module1.confirmed = false;
+      const chk = document.getElementById('confirmModule1') || document.getElementById('selfConfirmCheck');
+      if (chk) chk.checked = false;
+      updateCompletionBadge();
+    }
+  }
+
+  function updateCompletionBadge() {
+    const badge = document.getElementById('stageCompleteFooterBadge');
+    if (!badge) return;
+    if (state.module1 && state.module1.confirmed) {
+      badge.textContent = '✓ Phase 1 Self-Confirmed · Ready for Module 2';
+      badge.style.color = 'var(--ok)';
+    } else {
+      badge.textContent = 'Phase 1 In Progress · Pending Self-Confirmation';
+      badge.style.color = 'var(--navy)';
+    }
+  }
+
   function setupLifecycleListeners() {
     window.addEventListener('beforeunload', () => save());
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        state = Storage.loadLabState();
-        populateFormFields();
-        renderStakeholders();
-        renderStakeholderQuadrants();
-        renderMatrix();
-        renderSwot();
-        renderBaseline();
+        collectFormFields();
+        const incoming = Storage.loadLabState();
+        if (!incoming) return;
+        for (let i = 1; i <= 6; i++) {
+          const modKey = 'module' + i;
+          if (modKey !== 'module1' && incoming[modKey]) {
+            state[modKey] = incoming[modKey];
+          }
+        }
+        if (incoming.session) {
+          const activeId = document.activeElement ? document.activeElement.id : '';
+          if (!['teamNameInput', 'participantsInput', 'noteTakerInput'].includes(activeId)) {
+            state.session = incoming.session;
+          }
+        }
+        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(1);
         updateSaveIndicator('Synced from another tab');
       }
@@ -412,6 +447,65 @@
     });
 
     html += `</tbody></table>`;
+
+    const nonEmptyCells = [];
+    Scenario.AREAS.forEach(area => {
+      area.subcategories.forEach(sub => {
+        Scenario.DIMENSIONS.forEach(dim => {
+          const cellKey = `${sub.id}|${dim.id}`;
+          const cellData = state.module1.matrixCells[cellKey];
+          if (cellData && ((cellData.paragraphs && cellData.paragraphs.length > 0) || (cellData.notes && cellData.notes.trim().length > 0))) {
+            nonEmptyCells.push({
+              areaName: area.name,
+              subName: sub.name,
+              dimName: dim.name,
+              paragraphs: cellData.paragraphs || [],
+              notes: cellData.notes || ''
+            });
+          }
+        });
+      });
+    });
+
+    html += `
+      <div class="printable-matrix-summary print-only-section" style="margin-top: 28px;">
+        <h4 style="font-size: 1.05rem; color: var(--navy); margin-bottom: 12px; border-bottom: 2px solid var(--un-blue); padding-bottom: 6px;">
+          Structured Diagnostic Matrix Findings & Evidence Register
+        </h4>
+        ${nonEmptyCells.length === 0 ? '<p style="font-size: 0.88rem; color: var(--muted); font-style: italic;">No specific matrix findings or paragraph references recorded yet.</p>' : `
+          <table class="table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="background: var(--wash); text-align: left;">
+                <th style="padding: 8px; border: 1px solid var(--line); width: 25%;">Area & Sub-Category</th>
+                <th style="padding: 8px; border: 1px solid var(--line); width: 20%;">Dimension</th>
+                <th style="padding: 8px; border: 1px solid var(--line); width: 15%;">Scenario Ref</th>
+                <th style="padding: 8px; border: 1px solid var(--line); width: 40%;">Diagnostic Finding & Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${nonEmptyCells.map(c => `
+                <tr>
+                  <td style="padding: 8px; border: 1px solid var(--line); vertical-align: top;">
+                    <strong>${escapeHtml(c.areaName)}</strong><br>
+                    <span style="color: var(--muted);">${escapeHtml(c.subName)}</span>
+                  </td>
+                  <td style="padding: 8px; border: 1px solid var(--line); vertical-align: top;">
+                    ${escapeHtml(c.dimName)}
+                  </td>
+                  <td style="padding: 8px; border: 1px solid var(--line); vertical-align: top;">
+                    ${c.paragraphs.length > 0 ? c.paragraphs.map(p => `<span class="badge" style="display:inline-block; margin:2px 2px 2px 0;">Para ${p}</span>`).join('') : '—'}
+                  </td>
+                  <td style="padding: 8px; border: 1px solid var(--line); vertical-align: top; white-space: pre-wrap; word-break: break-word;">
+                    ${escapeHtml(c.notes || '—')}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `}
+      </div>
+    `;
+
     tableHost.innerHTML = html;
 
     tableHost.querySelectorAll('.matrix-cell').forEach(td => {
@@ -425,7 +519,10 @@
     });
   }
 
+  let modalOpenerEl = null;
+
   function openCellModal(cellKey) {
+    modalOpenerEl = document.activeElement;
     activeModalCellKey = cellKey;
     const [subId, dimId] = cellKey.split('|');
     let subName = subId;
@@ -478,7 +575,13 @@
     });
 
     // Focus note input
-    document.getElementById('cellModalBackdrop').classList.add('open');
+    const backdrop = document.getElementById('cellModalBackdrop');
+    if (backdrop) {
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      const focusable = backdrop.querySelectorAll('textarea, input, button, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length > 0) focusable[0].focus();
+    }
   }
 
   function saveCellModal() {
@@ -497,14 +600,23 @@
       notes: getValue('modalCellNotes')
     };
 
+    invalidateConfirmation();
     save('Updated matrix cell');
     closeCellModal();
     renderMatrix();
   }
 
   function closeCellModal() {
-    document.getElementById('cellModalBackdrop').classList.remove('open');
+    const backdrop = document.getElementById('cellModalBackdrop');
+    if (backdrop) {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+    }
     activeModalCellKey = null;
+    if (modalOpenerEl && typeof modalOpenerEl.focus === 'function') {
+      modalOpenerEl.focus();
+      modalOpenerEl = null;
+    }
   }
 
   /* SWOT Analysis */
@@ -656,9 +768,24 @@
   function toggleScenarioDrawer(open) {
     const drawer = document.getElementById('scenarioDrawer');
     const backdrop = document.getElementById('scenarioDrawerBackdrop');
+    if (!drawer || !backdrop) return;
     const shouldOpen = open !== undefined ? open : !drawer.classList.contains('open');
-    drawer.classList.toggle('open', shouldOpen);
-    backdrop.classList.toggle('open', shouldOpen);
+    if (shouldOpen) {
+      modalOpenerEl = document.activeElement;
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      const focusable = drawer.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length > 0) focusable[0].focus();
+    } else {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      if (modalOpenerEl && typeof modalOpenerEl.focus === 'function') {
+        modalOpenerEl.focus();
+        modalOpenerEl = null;
+      }
+    }
   }
 
   /* Glossary Modal */
@@ -689,7 +816,22 @@
 
   function toggleGlossaryModal(open) {
     const backdrop = document.getElementById('glossaryModalBackdrop');
-    backdrop.classList.toggle('open', open !== undefined ? open : !backdrop.classList.contains('open'));
+    if (!backdrop) return;
+    const shouldOpen = open !== undefined ? open : !backdrop.classList.contains('open');
+    if (shouldOpen) {
+      modalOpenerEl = document.activeElement;
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      const focusable = backdrop.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length > 0) focusable[0].focus();
+    } else {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+      if (modalOpenerEl && typeof modalOpenerEl.focus === 'function') {
+        modalOpenerEl.focus();
+        modalOpenerEl = null;
+      }
+    }
   }
 
   /* Role Switcher (Participant vs Facilitator) */
@@ -719,6 +861,14 @@
     // Save button
     document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
 
+    // Confirmation checkbox listener
+    const confirmBox = document.getElementById('confirmModule1') || document.getElementById('selfConfirmCheck');
+    confirmBox?.addEventListener('change', e => {
+      state.module1.confirmed = e.target.checked;
+      save(e.target.checked ? 'Phase 1 Confirmed' : 'Confirmation withdrawn');
+      updateCompletionBadge();
+    });
+
     // Role selector
     document.getElementById('roleSelector')?.addEventListener('change', e => {
       setRole(e.target.value);
@@ -746,21 +896,48 @@
     document.getElementById('closeCellModalBtn')?.addEventListener('click', closeCellModal);
     document.getElementById('saveCellModalBtn')?.addEventListener('click', saveCellModal);
 
-    // Escape key listener for accessible modal / drawer dismissal
+    // Modal focus containment and Escape listener
     document.addEventListener('keydown', e => {
+      const cellOpen = document.getElementById('cellModalBackdrop')?.classList.contains('open');
+      const glossaryOpen = document.getElementById('glossaryModalBackdrop')?.classList.contains('open');
+      const drawerOpen = document.getElementById('scenarioDrawer')?.classList.contains('open');
+
       if (e.key === 'Escape') {
-        if (document.getElementById('cellModalBackdrop')?.classList.contains('open')) {
-          closeCellModal();
-        } else if (document.getElementById('glossaryModalBackdrop')?.classList.contains('open')) {
-          toggleGlossaryModal(false);
-        } else if (document.getElementById('scenarioDrawerBackdrop')?.classList.contains('open')) {
-          toggleScenarioDrawer(false);
+        if (cellOpen) closeCellModal();
+        if (glossaryOpen) toggleGlossaryModal(false);
+        if (drawerOpen) toggleScenarioDrawer(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && (cellOpen || glossaryOpen || drawerOpen)) {
+        let activeContainer = null;
+        if (cellOpen) activeContainer = document.getElementById('cellModalBackdrop');
+        else if (glossaryOpen) activeContainer = document.getElementById('glossaryModalBackdrop');
+        else if (drawerOpen) activeContainer = document.getElementById('scenarioDrawer');
+
+        if (!activeContainer) return;
+        const focusable = Array.from(activeContainer.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+          }
         }
       }
     });
 
     // Stakeholder buttons
     document.getElementById('addStakeholderBtn')?.addEventListener('click', () => {
+      invalidateConfirmation();
       state.module1.stakeholders.push({
         name: '',
         role: 'Enabler',
@@ -775,10 +952,16 @@
     });
 
     // SWOT buttons
-    document.getElementById('addSwotBtn')?.addEventListener('click', addSwotItem);
+    document.getElementById('addSwotBtn')?.addEventListener('click', () => {
+      invalidateConfirmation();
+      addSwotItem();
+    });
 
     // Baseline buttons
-    document.getElementById('addBaselineBtn')?.addEventListener('click', addBaselineRow);
+    document.getElementById('addBaselineBtn')?.addEventListener('click', () => {
+      invalidateConfirmation();
+      addBaselineRow();
+    });
 
     // Toggle expected guide overlay
     document.getElementById('toggleExpectedGuideBtn')?.addEventListener('click', () => {
@@ -832,7 +1015,13 @@
     // Print / PDF Report
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
+      if (!state.module1?.confirmed) {
+        const proceed = confirm('Note: Phase 1 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        if (!proceed) return;
+      }
+      if (Storage.preparePrintableContent) Storage.preparePrintableContent();
       window.print();
+      if (Storage.cleanupPrintableContent) Storage.cleanupPrintableContent();
     });
   }
 

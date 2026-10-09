@@ -72,9 +72,35 @@
   }
 
   function setupAutosaveListener() {
+    document.addEventListener('input', e => {
+      if (e.target && e.target.id !== 'confirmModule2' && e.target.id !== 'selfConfirmCheck') {
+        invalidateConfirmation();
+      }
+    });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
     }, 600));
+  }
+
+  function invalidateConfirmation() {
+    if (state.module2 && state.module2.confirmed) {
+      state.module2.confirmed = false;
+      const chk = document.getElementById('confirmModule2') || document.getElementById('selfConfirmCheck');
+      if (chk) chk.checked = false;
+      updateCompletionBadge();
+    }
+  }
+
+  function updateCompletionBadge() {
+    const badge = document.getElementById('stageCompleteFooterBadge');
+    if (!badge) return;
+    if (state.module2 && state.module2.confirmed) {
+      badge.textContent = '✓ Phase 2 Self-Confirmed · Ready for Module 3';
+      badge.style.color = 'var(--ok)';
+    } else {
+      badge.textContent = 'Phase 2 In Progress · Pending Self-Confirmation';
+      badge.style.color = 'var(--navy)';
+    }
   }
 
   function setupLifecycleListeners() {
@@ -82,12 +108,22 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        state = Storage.loadLabState();
-        populateFormFields();
-        renderCandidates();
-        renderPrioritisationTable();
-        renderSmartWizards();
-        renderKpiTable();
+        collectFormFields();
+        const incoming = Storage.loadLabState();
+        if (!incoming) return;
+        for (let i = 1; i <= 6; i++) {
+          const modKey = 'module' + i;
+          if (modKey !== 'module2' && incoming[modKey]) {
+            state[modKey] = incoming[modKey];
+          }
+        }
+        if (incoming.session) {
+          const activeId = document.activeElement ? document.activeElement.id : '';
+          if (!['teamNameInput', 'participantsInput', 'noteTakerInput'].includes(activeId)) {
+            state.session = incoming.session;
+          }
+        }
+        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(2);
         updateSaveIndicator('Synced from another tab');
       }
@@ -450,41 +486,28 @@
 
   /* Sync Top 2 Ranked Objectives to SMART section preserving objectiveId identity */
   function syncTopSmartObjectives() {
-    const sorted = [...state.module2.objectives].sort((a, b) => a.rank - b.rank);
-    const top2 = sorted.slice(0, 2);
-
     if (!state.module2.smartObjectives) state.module2.smartObjectives = [];
+    const objectives = state.module2.objectives || [];
 
-    // Map each top 2 objective to its own SMART record by objectiveId, preserving authored text
-    const newTopSmart = top2.map((obj, idx) => {
+    // Ensure every candidate objective has a corresponding SMART record, preserving all authored entries
+    objectives.forEach(obj => {
       let smart = state.module2.smartObjectives.find(s => s.objectiveId === obj.id);
       if (!smart) {
-        // Also check if there is an unattached or legacy record at this index
-        const legacy = state.module2.smartObjectives[idx];
-        if (legacy && (!legacy.objectiveId || !state.module2.objectives.some(o => o.id === legacy.objectiveId))) {
-          smart = legacy;
-          smart.objectiveId = obj.id;
-          smart.title = obj.title;
-        } else {
-          smart = {
-            id: 'smart-' + obj.id,
-            objectiveId: obj.id,
-            title: obj.title,
-            specific: '',
-            measurable: '',
-            achievable: '',
-            relevant: '',
-            timeBound: '',
-            fullStatement: ''
-          };
-        }
+        state.module2.smartObjectives.push({
+          id: 'smart-' + obj.id,
+          objectiveId: obj.id,
+          title: obj.title,
+          specific: '',
+          measurable: '',
+          achievable: '',
+          relevant: '',
+          timeBound: '',
+          fullStatement: ''
+        });
       } else {
         smart.title = obj.title;
       }
-      return smart;
     });
-
-    state.module2.smartObjectives = newTopSmart;
   }
 
   /* Render S.M.A.R.T. Formulation Wizard */
@@ -494,71 +517,103 @@
 
     syncTopSmartObjectives();
 
-    host.innerHTML = state.module2.smartObjectives.slice(0, 2).map((smart, idx) => `
+    const sorted = [...(state.module2.objectives || [])].sort((a, b) => a.rank - b.rank);
+    const top2 = sorted.slice(0, 2);
+
+    host.innerHTML = top2.map((obj, idx) => {
+      const smart = state.module2.smartObjectives.find(s => s.objectiveId === obj.id) || {
+        objectiveId: obj.id,
+        title: obj.title,
+        specific: '',
+        measurable: '',
+        achievable: '',
+        relevant: '',
+        timeBound: '',
+        fullStatement: ''
+      };
+
+      return `
       <div class="card" style="margin-bottom: 24px; border-left: 6px solid ${idx === 0 ? 'var(--ok)' : 'var(--un-blue)'};">
         <div class="card-header" style="background: var(--wash);">
           <div>
             <span class="badge" style="background: ${idx === 0 ? 'var(--ok)' : 'var(--un-blue)'}; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 800;">
               Priority #${idx + 1}
             </span>
-            <h3 style="margin-top: 4px; font-size: 1.2rem;">${escapeHtml(smart.title)}</h3>
+            <h3 style="margin-top: 4px; font-size: 1.2rem;">${escapeHtml(smart.title || obj.title)}</h3>
           </div>
           <span style="font-size: 0.85rem; color: var(--muted);">S.M.A.R.T. Framework Formulation</span>
         </div>
         <div class="card-body">
           <div class="grid-2">
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="smart-${idx}-specific">
                 (S) Specific
                 <span class="form-hint">Related directly to mandate and clear operational scope</span>
               </label>
-              <textarea class="form-textarea smart-field" data-idx="${idx}" data-field="specific">${escapeHtml(smart.specific || '')}</textarea>
+              <textarea id="smart-${idx}-specific" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="specific" aria-label="Priority #${idx + 1} Specific">${escapeHtml(smart.specific || '')}</textarea>
             </div>
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="smart-${idx}-measurable">
                 (M) Measurable
                 <span class="form-hint">Quantifiable indicators of success (# or %)</span>
               </label>
-              <textarea class="form-textarea smart-field" data-idx="${idx}" data-field="measurable">${escapeHtml(smart.measurable || '')}</textarea>
+              <textarea id="smart-${idx}-measurable" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="measurable" aria-label="Priority #${idx + 1} Measurable">${escapeHtml(smart.measurable || '')}</textarea>
             </div>
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="smart-${idx}-achievable">
                 (A) Achievable
                 <span class="form-hint">Feasible within available mission resources and partnerships</span>
               </label>
-              <textarea class="form-textarea smart-field" data-idx="${idx}" data-field="achievable">${escapeHtml(smart.achievable || '')}</textarea>
+              <textarea id="smart-${idx}-achievable" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="achievable" aria-label="Priority #${idx + 1} Achievable">${escapeHtml(smart.achievable || '')}</textarea>
             </div>
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="smart-${idx}-relevant">
                 (R) Realistic & Relevant
                 <span class="form-hint">Falls within authorized mandate tasks and political reality</span>
               </label>
-              <textarea class="form-textarea smart-field" data-idx="${idx}" data-field="relevant">${escapeHtml(smart.relevant || '')}</textarea>
+              <textarea id="smart-${idx}-relevant" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="relevant" aria-label="Priority #${idx + 1} Realistic & Relevant">${escapeHtml(smart.relevant || '')}</textarea>
             </div>
             <div class="form-group col-full">
-              <label class="form-label">
+              <label class="form-label" for="smart-${idx}-timeBound">
                 (T) Time-Bound
                 <span class="form-hint">Clear implementation horizon (e.g. Month 6, Month 12)</span>
               </label>
-              <input class="form-input smart-field" data-idx="${idx}" data-field="timeBound" value="${escapeHtml(smart.timeBound || '')}" placeholder="e.g. Completed within 12 months">
+              <input id="smart-${idx}-timeBound" class="form-input smart-field" data-obj-id="${obj.id}" data-field="timeBound" value="${escapeHtml(smart.timeBound || '')}" placeholder="e.g. Completed within 12 months" aria-label="Priority #${idx + 1} Time-Bound">
             </div>
             <div class="form-group col-full" style="background: var(--wash-subtle); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--line);">
-              <label class="form-label" style="color: var(--navy);">
+              <label class="form-label" for="smart-${idx}-fullStatement" style="color: var(--navy);">
                 Consolidated SMART Objective Statement
                 <span class="form-hint">Combined formal wording to be transferred into Module 3 Logframe</span>
               </label>
-              <textarea class="form-textarea smart-field" data-idx="${idx}" data-field="fullStatement" style="min-height: 80px; font-weight: 600;">${escapeHtml(smart.fullStatement || '')}</textarea>
+              <textarea id="smart-${idx}-fullStatement" class="form-textarea smart-field" data-obj-id="${obj.id}" data-field="fullStatement" style="min-height: 80px; font-weight: 600;" aria-label="Priority #${idx + 1} Consolidated SMART Statement">${escapeHtml(smart.fullStatement || '')}</textarea>
             </div>
           </div>
         </div>
       </div>
-    `).join('');
+      `;
+    }).join('');
 
     host.querySelectorAll('.smart-field').forEach(el => {
       el.addEventListener('input', e => {
-        const i = +e.target.dataset.idx;
+        const objId = e.target.dataset.objId;
         const f = e.target.dataset.field;
-        state.module2.smartObjectives[i][f] = e.target.value;
+        let targetSmart = state.module2.smartObjectives.find(s => s.objectiveId === objId);
+        if (!targetSmart) {
+          targetSmart = {
+            id: 'smart-' + objId,
+            objectiveId: objId,
+            title: '',
+            specific: '',
+            measurable: '',
+            achievable: '',
+            relevant: '',
+            timeBound: '',
+            fullStatement: ''
+          };
+          state.module2.smartObjectives.push(targetSmart);
+        }
+        targetSmart[f] = e.target.value;
+        invalidateConfirmation();
         save();
       });
     });
@@ -651,12 +706,29 @@
     `).join('');
   }
 
+  let modalOpenerEl = null;
+
   function toggleScenarioDrawer(open) {
     const drawer = document.getElementById('scenarioDrawer');
     const backdrop = document.getElementById('scenarioDrawerBackdrop');
+    if (!drawer || !backdrop) return;
     const shouldOpen = open !== undefined ? open : !drawer.classList.contains('open');
-    drawer.classList.toggle('open', shouldOpen);
-    backdrop.classList.toggle('open', shouldOpen);
+    if (shouldOpen) {
+      modalOpenerEl = document.activeElement;
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      const focusable = drawer.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length > 0) focusable[0].focus();
+    } else {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      if (modalOpenerEl && typeof modalOpenerEl.focus === 'function') {
+        modalOpenerEl.focus();
+        modalOpenerEl = null;
+      }
+    }
   }
 
   /* Glossary Modal */
@@ -687,7 +759,22 @@
 
   function toggleGlossaryModal(open) {
     const backdrop = document.getElementById('glossaryModalBackdrop');
-    backdrop.classList.toggle('open', open !== undefined ? open : !backdrop.classList.contains('open'));
+    if (!backdrop) return;
+    const shouldOpen = open !== undefined ? open : !backdrop.classList.contains('open');
+    if (shouldOpen) {
+      modalOpenerEl = document.activeElement;
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      const focusable = backdrop.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length > 0) focusable[0].focus();
+    } else {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+      if (modalOpenerEl && typeof modalOpenerEl.focus === 'function') {
+        modalOpenerEl.focus();
+        modalOpenerEl = null;
+      }
+    }
   }
 
   /* Global Event Bindings */
@@ -697,6 +784,14 @@
     });
 
     document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
+
+    // Confirmation checkbox listener
+    const confirmBox = document.getElementById('confirmModule2') || document.getElementById('selfConfirmCheck');
+    confirmBox?.addEventListener('change', e => {
+      state.module2.confirmed = e.target.checked;
+      save(e.target.checked ? 'Phase 2 Confirmed' : 'Confirmation withdrawn');
+      updateCompletionBadge();
+    });
 
     document.getElementById('importFromM1Btn')?.addEventListener('click', importFromModule1);
 
@@ -727,13 +822,35 @@
       renderGlossaryList(e.target.value);
     });
 
-    // Escape key listener for accessible modal / drawer dismissal
+    // Modal focus containment and Escape listener
     document.addEventListener('keydown', e => {
+      const glossaryOpen = document.getElementById('glossaryModalBackdrop')?.classList.contains('open');
+      const drawerOpen = document.getElementById('scenarioDrawer')?.classList.contains('open');
+
       if (e.key === 'Escape') {
-        if (document.getElementById('glossaryModalBackdrop')?.classList.contains('open')) {
-          toggleGlossaryModal(false);
-        } else if (document.getElementById('scenarioDrawerBackdrop')?.classList.contains('open')) {
-          toggleScenarioDrawer(false);
+        if (glossaryOpen) toggleGlossaryModal(false);
+        if (drawerOpen) toggleScenarioDrawer(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && (glossaryOpen || drawerOpen)) {
+        const activeContainer = glossaryOpen ? document.getElementById('glossaryModalBackdrop') : document.getElementById('scenarioDrawer');
+        if (!activeContainer) return;
+        const focusable = Array.from(activeContainer.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+          }
         }
       }
     });
@@ -746,7 +863,13 @@
 
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
+      if (!state.module2?.confirmed) {
+        const proceed = confirm('Note: Phase 2 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        if (!proceed) return;
+      }
+      if (Storage.preparePrintableContent) Storage.preparePrintableContent();
       window.print();
+      if (Storage.cleanupPrintableContent) Storage.cleanupPrintableContent();
     });
   }
 
@@ -767,6 +890,7 @@
     setStage,
     save,
     recalculateAllScores,
-    calculateObjectiveScores
+    calculateObjectiveScores,
+    syncTopSmartObjectives
   };
 });

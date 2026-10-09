@@ -982,6 +982,42 @@ a:hover {
     border-collapse: collapse !important;
   }
 
+  .matrix-container {
+    overflow: visible !important;
+    max-width: 100% !important;
+  }
+
+  .matrix-table {
+    min-width: 0 !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+    font-size: 6.8pt !important;
+  }
+
+  .matrix-cell {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 2px 3px !important;
+  }
+
+  /* Show printable clones and hide replaced textareas to avoid Chromium print clipping */
+  .printable-clone {
+    display: block !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    border: 1px solid #ccc !important;
+    padding: 6px 8px !important;
+    background: #fafafa !important;
+    font-size: 8.5pt !important;
+    color: #111 !important;
+    min-height: 24px !important;
+  }
+
+  .printable-clone-hidden {
+    display: none !important;
+  }
+
   th, td {
     border: 1px solid #bbb !important;
     padding: 4px 6px !important;
@@ -997,7 +1033,7 @@ a:hover {
     display: block !important;
   }
 
-  .print-only {
+  .print-only, .print-only-section {
     display: block !important;
   }
 
@@ -1007,6 +1043,6 @@ a:hover {
   }
 }
 
-.print-only {
+.print-only, .print-only-section, .printable-clone {
   display: none;
 }

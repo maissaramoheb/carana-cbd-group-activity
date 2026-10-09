@@ -72,9 +72,35 @@
   }
 
   function setupAutosaveListener() {
+    document.addEventListener('input', e => {
+      if (e.target && e.target.id !== 'confirmModule5' && e.target.id !== 'selfConfirmCheck') {
+        invalidateConfirmation();
+      }
+    });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
     }, 600));
+  }
+
+  function invalidateConfirmation() {
+    if (state.module5 && state.module5.confirmed) {
+      state.module5.confirmed = false;
+      const chk = document.getElementById('confirmModule5') || document.getElementById('selfConfirmCheck');
+      if (chk) chk.checked = false;
+      updateCompletionBadge();
+    }
+  }
+
+  function updateCompletionBadge() {
+    const badge = document.getElementById('stageCompleteFooterBadge');
+    if (!badge) return;
+    if (state.module5 && state.module5.confirmed) {
+      badge.textContent = '✓ Phase 5 Self-Confirmed · Ready for Module 6';
+      badge.style.color = 'var(--ok)';
+    } else {
+      badge.textContent = 'Phase 5 In Progress · Pending Self-Confirmation';
+      badge.style.color = 'var(--navy)';
+    }
   }
 
   function setupLifecycleListeners() {
@@ -82,10 +108,22 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        state = Storage.loadLabState();
-        populateFormFields();
-        renderKpiEvaluations();
-        renderAdjustments();
+        collectFormFields();
+        const incoming = Storage.loadLabState();
+        if (!incoming) return;
+        for (let i = 1; i <= 6; i++) {
+          const modKey = 'module' + i;
+          if (modKey !== 'module5' && incoming[modKey]) {
+            state[modKey] = incoming[modKey];
+          }
+        }
+        if (incoming.session) {
+          const activeId = document.activeElement ? document.activeElement.id : '';
+          if (!['teamNameInput', 'participantsInput', 'noteTakerInput', 'teamName'].includes(activeId)) {
+            state.session = incoming.session;
+          }
+        }
+        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(5);
         updateSaveIndicator('Synced from another tab');
       }
@@ -160,8 +198,9 @@
     setValue('reflectionFacingTruths', ref.q2FacingInconvenientTruths);
     setValue('reflectionResilienceFailure', ref.q3PersonalResilienceInFailure);
 
-    const confirmBox = document.getElementById('confirmModule5');
+    const confirmBox = document.getElementById('confirmModule5') || document.getElementById('selfConfirmCheck');
     if (confirmBox) confirmBox.checked = !!state.module5.confirmed;
+    updateCompletionBadge();
   }
 
   function collectFormFields() {
@@ -194,7 +233,7 @@
       q3PersonalResilienceInFailure: getValue('reflectionResilienceFailure')
     };
 
-    const confirmBox = document.getElementById('confirmModule5');
+    const confirmBox = document.getElementById('confirmModule5') || document.getElementById('selfConfirmCheck');
     if (confirmBox) state.module5.confirmed = confirmBox.checked;
   }
 
@@ -275,6 +314,7 @@
         const i = +e.target.dataset.idx;
         const f = e.target.dataset.field;
         state.module5.kpiEvaluations[i][f] = e.target.value;
+        invalidateConfirmation();
         save();
       });
     });
@@ -283,6 +323,7 @@
       el.addEventListener('change', e => {
         const i = +e.target.dataset.idx;
         state.module5.kpiEvaluations[i].varianceStatus = e.target.value;
+        invalidateConfirmation();
         save();
         renderKpiEvaluations();
       });
@@ -293,6 +334,7 @@
         const i = +b.dataset.idx;
         if (state.module5.kpiEvaluations.length > 1) {
           state.module5.kpiEvaluations.splice(i, 1);
+          invalidateConfirmation();
           save();
           renderKpiEvaluations();
         }
@@ -301,6 +343,7 @@
   }
 
   function addKpiEvaluationRow() {
+    invalidateConfirmation();
     state.module5.kpiEvaluations.push({
       id: 'eval-kpi-' + Date.now(),
       kpiTitle: 'New Performance Indicator Evaluation',
@@ -454,6 +497,7 @@
         const i = +e.target.dataset.idx;
         const f = e.target.dataset.field;
         state.module5.adjustments[i][f] = e.target.value;
+        invalidateConfirmation();
         save();
       });
     });
@@ -462,6 +506,7 @@
       el.addEventListener('change', e => {
         const i = +e.target.dataset.idx;
         state.module5.adjustments[i].reaction = e.target.value;
+        invalidateConfirmation();
         save();
         renderAdjustments();
       });
@@ -472,6 +517,7 @@
         const i = +b.dataset.idx;
         if (state.module5.adjustments.length > 1) {
           state.module5.adjustments.splice(i, 1);
+          invalidateConfirmation();
           save();
           renderAdjustments();
         }
@@ -480,6 +526,7 @@
   }
 
   function addAdjustmentRow() {
+    invalidateConfirmation();
     state.module5.adjustments.push({
       id: 'adj-' + Date.now(),
       recommendationTitle: 'New Strategic Adjustment Recommendation',
@@ -571,6 +618,15 @@
     });
 
     document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
+
+    // Confirmation checkbox listener
+    const confirmBox = document.getElementById('confirmModule5') || document.getElementById('selfConfirmCheck');
+    confirmBox?.addEventListener('change', e => {
+      state.module5.confirmed = e.target.checked;
+      save(e.target.checked ? 'Phase 5 Confirmed' : 'Confirmation withdrawn');
+      updateCompletionBadge();
+    });
+
     document.getElementById('importM2M3Btn')?.addEventListener('click', importFromModules2And3);
     document.getElementById('addKpiEvalBtn')?.addEventListener('click', addKpiEvaluationRow);
     document.getElementById('addAdjustmentBtn')?.addEventListener('click', addAdjustmentRow);
@@ -593,11 +649,36 @@
       renderGlossaryList(e.target.value);
     });
 
-    // Global keyboard accessibility (Escape to dismiss modal / drawer)
+    // Modal focus containment and Escape listener
     document.addEventListener('keydown', e => {
+      const glossaryOpen = document.getElementById('glossaryModalBackdrop')?.classList.contains('open');
+      const drawerOpen = document.getElementById('scenarioDrawer')?.classList.contains('open');
+
       if (e.key === 'Escape') {
-        toggleScenarioDrawer(false);
-        toggleGlossaryModal(false);
+        if (glossaryOpen) toggleGlossaryModal(false);
+        if (drawerOpen) toggleScenarioDrawer(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && (glossaryOpen || drawerOpen)) {
+        const activeContainer = glossaryOpen ? document.getElementById('glossaryModalBackdrop') : document.getElementById('scenarioDrawer');
+        if (!activeContainer) return;
+        const focusable = Array.from(activeContainer.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     });
 
@@ -610,7 +691,13 @@
     // Print
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
+      if (!state.module5?.confirmed) {
+        const proceed = confirm('Note: Phase 5 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        if (!proceed) return;
+      }
+      if (Storage.preparePrintableContent) Storage.preparePrintableContent();
       window.print();
+      if (Storage.cleanupPrintableContent) Storage.cleanupPrintableContent();
     });
   }
 

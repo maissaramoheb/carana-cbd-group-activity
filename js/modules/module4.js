@@ -72,9 +72,35 @@
   }
 
   function setupAutosaveListener() {
+    document.addEventListener('input', e => {
+      if (e.target && e.target.id !== 'confirmModule4' && e.target.id !== 'selfConfirmCheck') {
+        invalidateConfirmation();
+      }
+    });
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
     }, 600));
+  }
+
+  function invalidateConfirmation() {
+    if (state.module4 && state.module4.confirmed) {
+      state.module4.confirmed = false;
+      const chk = document.getElementById('confirmModule4') || document.getElementById('selfConfirmCheck');
+      if (chk) chk.checked = false;
+      updateCompletionBadge();
+    }
+  }
+
+  function updateCompletionBadge() {
+    const badge = document.getElementById('stageCompleteFooterBadge');
+    if (!badge) return;
+    if (state.module4 && state.module4.confirmed) {
+      badge.textContent = '✓ Phase 4 Self-Confirmed · Ready for Module 5';
+      badge.style.color = 'var(--ok)';
+    } else {
+      badge.textContent = 'Phase 4 In Progress · Pending Self-Confirmation';
+      badge.style.color = 'var(--navy)';
+    }
   }
 
   function setupLifecycleListeners() {
@@ -82,11 +108,22 @@
     window.addEventListener('pagehide', () => save());
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
-        state = Storage.loadLabState();
-        populateFormFields();
-        renderRoleReversal();
-        renderFieldSetbacks();
-        renderActivityTracker();
+        collectFormFields();
+        const incoming = Storage.loadLabState();
+        if (!incoming) return;
+        for (let i = 1; i <= 6; i++) {
+          const modKey = 'module' + i;
+          if (modKey !== 'module4' && incoming[modKey]) {
+            state[modKey] = incoming[modKey];
+          }
+        }
+        if (incoming.session) {
+          const activeId = document.activeElement ? document.activeElement.id : '';
+          if (!['teamNameInput', 'participantsInput', 'noteTakerInput', 'teamName'].includes(activeId)) {
+            state.session = incoming.session;
+          }
+        }
+        Storage.saveLabState(state);
         Storage.renderCurriculumTrack(4);
         updateSaveIndicator('Synced from another tab');
       }
@@ -155,8 +192,9 @@
     setValue('reflectionEmpathy', ref.q2EmpathyAndResistance);
     setValue('reflectionResilience', ref.q3ResilienceInTheField);
 
-    const confirmBox = document.getElementById('confirmModule4');
+    const confirmBox = document.getElementById('confirmModule4') || document.getElementById('selfConfirmCheck');
     if (confirmBox) confirmBox.checked = !!state.module4.confirmed;
+    updateCompletionBadge();
   }
 
   function collectFormFields() {
@@ -179,7 +217,7 @@
       q3ResilienceInTheField: getValue('reflectionResilience')
     };
 
-    const confirmBox = document.getElementById('confirmModule4');
+    const confirmBox = document.getElementById('confirmModule4') || document.getElementById('selfConfirmCheck');
     if (confirmBox) state.module4.confirmed = confirmBox.checked;
   }
 
@@ -382,7 +420,7 @@
           </select>
         </td>
         <td>
-          <input type="number" class="form-input tr-field" data-idx="${idx}" data-field="progressPercent" min="0" max="100" value="${tr.progressPercent || 0}" style="width: 70px;" aria-label="Activity progress percentage (0-100)"> %
+          <input type="number" class="form-input tr-field" data-idx="${idx}" data-field="progressPercent" min="0" max="100" value="${escapeHtml(String(tr.progressPercent != null ? tr.progressPercent : 0))}" style="width: 70px;" aria-label="Activity progress percentage (0-100)"> %
         </td>
         <td>
           <textarea class="form-textarea tr-field" data-idx="${idx}" data-field="fieldAdvisoryNote" style="min-height: 60px;" aria-label="Field advisory and mentoring note">${escapeHtml(tr.fieldAdvisoryNote || '')}</textarea>
@@ -407,6 +445,7 @@
         } else {
           state.module4.activityTracker[i][f] = e.target.value;
         }
+        invalidateConfirmation();
         save();
       });
       if (el.dataset.field === 'progressPercent') {
@@ -422,6 +461,7 @@
         const i = +b.dataset.idx;
         if (state.module4.activityTracker.length > 1) {
           state.module4.activityTracker.splice(i, 1);
+          invalidateConfirmation();
           save();
           renderActivityTracker();
         }
@@ -573,11 +613,28 @@
 
     document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
 
+    // Confirmation checkbox listener
+    const confirmBox = document.getElementById('confirmModule4') || document.getElementById('selfConfirmCheck');
+    confirmBox?.addEventListener('change', e => {
+      state.module4.confirmed = e.target.checked;
+      save(e.target.checked ? 'Phase 4 Confirmed' : 'Confirmation withdrawn');
+      updateCompletionBadge();
+    });
+
     document.getElementById('importFromM3Btn')?.addEventListener('click', importFromModule3Logframe);
 
-    document.getElementById('addRoleBtn')?.addEventListener('click', addRoleRow);
-    document.getElementById('addSetbackBtn')?.addEventListener('click', addSetbackRow);
-    document.getElementById('addTrackerBtn')?.addEventListener('click', addTrackerRow);
+    document.getElementById('addRoleBtn')?.addEventListener('click', () => {
+      invalidateConfirmation();
+      addRoleRow();
+    });
+    document.getElementById('addSetbackBtn')?.addEventListener('click', () => {
+      invalidateConfirmation();
+      addSetbackRow();
+    });
+    document.getElementById('addTrackerBtn')?.addEventListener('click', () => {
+      invalidateConfirmation();
+      addTrackerRow();
+    });
 
     // Scenario drawer
     document.getElementById('openScenarioDrawerBtn')?.addEventListener('click', () => toggleScenarioDrawer(true));
@@ -597,11 +654,36 @@
       renderGlossaryList(e.target.value);
     });
 
-    // Global keyboard accessibility (Escape to dismiss modal / drawer)
+    // Modal focus containment and Escape listener
     document.addEventListener('keydown', e => {
+      const glossaryOpen = document.getElementById('glossaryModalBackdrop')?.classList.contains('open');
+      const drawerOpen = document.getElementById('scenarioDrawer')?.classList.contains('open');
+
       if (e.key === 'Escape') {
-        toggleScenarioDrawer(false);
-        toggleGlossaryModal(false);
+        if (glossaryOpen) toggleGlossaryModal(false);
+        if (drawerOpen) toggleScenarioDrawer(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && (glossaryOpen || drawerOpen)) {
+        const activeContainer = glossaryOpen ? document.getElementById('glossaryModalBackdrop') : document.getElementById('scenarioDrawer');
+        if (!activeContainer) return;
+        const focusable = Array.from(activeContainer.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last || !activeContainer.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     });
 
@@ -614,7 +696,13 @@
     // Print
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
+      if (!state.module4?.confirmed) {
+        const proceed = confirm('Note: Phase 4 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        if (!proceed) return;
+      }
+      if (Storage.preparePrintableContent) Storage.preparePrintableContent();
       window.print();
+      if (Storage.cleanupPrintableContent) Storage.cleanupPrintableContent();
     });
   }
 

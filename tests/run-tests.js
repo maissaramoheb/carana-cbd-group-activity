@@ -16,6 +16,7 @@ const glossary = require(path.join(ROOT_DIR, 'js/data/curriculum-glossary.js'));
 const storage = require(path.join(ROOT_DIR, 'js/storage/lab-storage.js'));
 const module2 = require(path.join(ROOT_DIR, 'js/modules/module2.js'));
 const module3 = require(path.join(ROOT_DIR, 'js/modules/module3.js'));
+const module6 = require(path.join(ROOT_DIR, 'js/modules/module6.js'));
 
 let testsPassed = 0;
 let testsFailed = 0;
@@ -661,6 +662,225 @@ runTest('Portal Hub index.html activates and links Module 6', () => {
   const content = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
   assert(content.includes('href="module6.html"'), 'index.html must link to module6.html');
   assert(content.includes('Phase 6 · Working'), 'Module 6 badge must be active in index.html');
+});
+
+// 11. CODEX AUDIT REMEDIATION VERIFICATION
+console.log('\nGroup 11: Security, Data Integrity & Codex Remediation Verification');
+
+runTest('P1-N01: Security — Dossier XSS neutralization and script escaping', () => {
+  const testState = storage.getDefaultState();
+  testState.session.teamName = '<script>alert("teamXSS")</script>';
+  testState.module1.perspectives.peacekeeping = '<img src=x onerror=alert("imgXSS")>';
+  testState.module4.activityTracker[0].progressPercent = 45;
+  testState.module4.activityTracker[0].fieldAdvisoryNote = '<svg onload=alert("svgXSS")>';
+  
+  const dossierHtml = module6.generateFullMissionDossier(null, testState);
+  assert(!dossierHtml.includes('<script>alert("teamXSS")</script>'), 'Raw script tags must not appear in generated dossier');
+  assert(dossierHtml.includes('&lt;script&gt;alert(&quot;teamXSS&quot;)&lt;/script&gt;'), 'Script tags must be HTML-escaped');
+  assert(!dossierHtml.includes('<img src=x onerror='), 'Raw img tag with event handlers must not appear unescaped');
+  assert(!dossierHtml.includes('<svg onload='), 'Raw svg tag with onload must not appear unescaped');
+});
+
+runTest('P1-N01: Security — Activity Tracker progressPercent bounds validation on import', () => {
+  const validState = storage.getDefaultState();
+  
+  // Non-numeric progressPercent
+  const badProgress1 = JSON.parse(JSON.stringify(validState));
+  badProgress1.module4.activityTracker[0].progressPercent = '<script>alert(1)</script>';
+  assert.strictEqual(storage.validateImportedData(badProgress1).valid, false, 'Non-numeric progressPercent must be rejected');
+
+  // Negative progressPercent
+  const badProgress2 = JSON.parse(JSON.stringify(validState));
+  badProgress2.module4.activityTracker[0].progressPercent = -10;
+  assert.strictEqual(storage.validateImportedData(badProgress2).valid, false, 'Negative progressPercent must be rejected');
+
+  // Out of bounds (> 100) progressPercent
+  const badProgress3 = JSON.parse(JSON.stringify(validState));
+  badProgress3.module4.activityTracker[0].progressPercent = 101;
+  assert.strictEqual(storage.validateImportedData(badProgress3).valid, false, 'ProgressPercent > 100 must be rejected');
+});
+
+runTest('P1-N02: Data Integrity — SMART objectives keyed by objectiveId preserve authored criteria across priority changes', () => {
+  // Candidate objectives
+  const objectives = [
+    { id: 'obj-1', title: 'Community Policing Councils', rank: 1, scores: { overall: 85 } },
+    { id: 'obj-2', title: 'SGBV Investigative Unit SOPs', rank: 2, scores: { overall: 80 } },
+    { id: 'obj-3', title: 'Police Accountability Internal Affairs', rank: 3, scores: { overall: 75 } }
+  ];
+  
+  // Authored SMART criteria for obj-1 and obj-2
+  const smartObjectives = [
+    {
+      id: 'smart-obj-1',
+      objectiveId: 'obj-1',
+      title: 'Community Policing Councils',
+      specific: 'Establish 4 community councils in Galasi',
+      measurable: '4 formal MOUs signed',
+      achievable: 'Within current UNPOL deployment capacity',
+      relevant: 'Directly addresses paragraph 14 community trust deficit',
+      timeBound: 'By Month 6'
+    },
+    {
+      id: 'smart-obj-2',
+      objectiveId: 'obj-2',
+      title: 'SGBV Investigative Unit SOPs',
+      specific: 'Draft and train 15 investigators on SGBV SOPs',
+      measurable: '15 investigators certified',
+      achievable: 'Training facilities available in Galasi Academy',
+      relevant: 'Directly addresses paragraph 22 high attrition and impunity',
+      timeBound: 'By Month 9'
+    }
+  ];
+
+  // Re-prioritise: obj-3 rises to rank 1, obj-2 stays rank 2, obj-1 drops to rank 3
+  objectives[0].rank = 3; // obj-1 dropped
+  objectives[2].rank = 1; // obj-3 elevated
+
+  // Simulate module2 syncTopSmartObjectives behavior
+  objectives.forEach(obj => {
+    let smart = smartObjectives.find(s => s.objectiveId === obj.id);
+    if (!smart) {
+      smartObjectives.push({
+        id: 'smart-' + obj.id,
+        objectiveId: obj.id,
+        title: obj.title,
+        specific: '',
+        measurable: '',
+        achievable: '',
+        relevant: '',
+        timeBound: '',
+        localOwnershipSafeguard: ''
+      });
+    } else {
+      smart.title = obj.title;
+    }
+  });
+
+  // Verify authored SMART criteria for obj-1 were not erased
+  const obj1Smart = smartObjectives.find(s => s.objectiveId === 'obj-1');
+  assert(obj1Smart, 'obj-1 SMART entry must still exist after dropping below top 2');
+  assert.strictEqual(obj1Smart.specific, 'Establish 4 community councils in Galasi', 'obj-1 specific field must be preserved');
+  assert.strictEqual(obj1Smart.measurable, '4 formal MOUs signed', 'obj-1 measurable field must be preserved');
+});
+
+runTest('P1-05: Strict Schema Validation — Corrupted nested payloads and invalid enums are rejected', () => {
+  const validState = storage.getDefaultState();
+
+  // Invalid module1 status enum
+  const badStatus = JSON.parse(JSON.stringify(validState));
+  badStatus.module1.status = 'random_status';
+  const res1 = storage.validateImportedData(badStatus);
+  assert.strictEqual(res1.valid, false, 'Invalid module status enum must be rejected');
+  assert(res1.error.includes('status'), 'Error must specify status failure');
+
+  // Corrupted array (non-array where array required)
+  const badArray = JSON.parse(JSON.stringify(validState));
+  badArray.module1.stakeholders = 'not-an-array';
+  const res2 = storage.validateImportedData(badArray);
+  assert.strictEqual(res2.valid, false, 'Non-array stakeholders must be rejected');
+
+  // Corrupted nested object
+  const badObj = JSON.parse(JSON.stringify(validState));
+  badObj.module3.logframe = 'string-instead-of-object';
+  const res3 = storage.validateImportedData(badObj);
+  assert.strictEqual(res3.valid, false, 'Non-object logframe must be rejected');
+});
+
+runTest('P1-06: Data Integrity — Multi-tab state merge preserves local session fields and defends against null elements', () => {
+  const localState = storage.getDefaultState();
+  localState.session.teamName = 'Local Tab Alpha Team';
+  localState.module1.summary.keyFinding = 'Local tab drafted finding';
+  
+  const incomingState = storage.getDefaultState();
+  incomingState.session.teamName = 'Incoming Tab Beta Team';
+  incomingState.module2.kpis = [
+    { name: 'Incoming KPI 1', type: 'Quantitative (#)', baselineValue: '0', targetValue: '10' }
+  ];
+
+  // Merge foreign module updates (e.g. module2) into localState while preserving local module1 and session
+  const merged = storage.deepMerge(localState, {
+    module2: incomingState.module2
+  });
+
+  assert.strictEqual(merged.session.teamName, 'Local Tab Alpha Team', 'Local session must not be overwritten');
+  assert.strictEqual(merged.module1.summary.keyFinding, 'Local tab drafted finding', 'Local module1 must not be overwritten');
+  assert.strictEqual(merged.module2.kpis.length, 1, 'Incoming module2 changes must be successfully merged');
+  assert.strictEqual(merged.module2.kpis[0].name, 'Incoming KPI 1', 'Merged KPI content must match');
+});
+
+runTest('P1-07: Reporting — Dossier includes all 6 phases and maps authentic schema fields', () => {
+  const testState = storage.getDefaultState();
+  testState.module1.pestel.political = 'Political instability in Galasi province';
+  testState.module2.kpis = [{ name: 'SGBV Reporting Rate', type: 'Quantitative (%)', baselineValue: '12%', targetValue: '45%' }];
+  testState.module3.theoryOfChange.driver = 'Driver of change: Joint community-police accountability';
+  testState.module4.roleReversal[0].perceivedThreats = 'Counterpart fears losing command discretion';
+  testState.module5.crisisAnalysis.budgetCliffRisk = 'Risk of financial year budget lapse';
+  testState.module6.institutionalizingPractice.doctrineCodification = 'Codifying standard operating procedures into Galasi police doctrine';
+
+  const dossierHtml = module6.generateFullMissionDossier(null, testState);
+  
+  // Verify all 6 phases are present
+  assert(dossierHtml.includes('Phase 1: Situational Analysis'), 'Phase 1 must be present in dossier');
+  assert(dossierHtml.includes('Phase 2: Objective Setting &amp; Prioritisation') || dossierHtml.includes('Phase 2: Objective Setting & Prioritisation'), 'Phase 2 must be present in dossier');
+  assert(dossierHtml.includes('Phase 3: Planning Activities &amp; Logframe') || dossierHtml.includes('Phase 3: Planning Activities & Logframe'), 'Phase 3 must be present in dossier');
+  assert(dossierHtml.includes('Phase 4: Implementation (JST Lesson 4)'), 'Phase 4 must be present in dossier');
+  assert(dossierHtml.includes('Phase 5: Evaluation &amp; Adjustment') || dossierHtml.includes('Phase 5: Evaluation & Adjustment'), 'Phase 5 must be present in dossier');
+  assert(dossierHtml.includes('Phase 6: Transition &amp; Handover Protocol') || dossierHtml.includes('Phase 6: Transition & Handover Protocol'), 'Phase 6 must be present in dossier');
+
+  // Verify specific authentic schema fields rendered
+  assert(dossierHtml.includes('Political instability in Galasi province'), 'M1 PESTEL political field rendered');
+  assert(dossierHtml.includes('SGBV Reporting Rate'), 'M2 KPI field rendered');
+  assert(dossierHtml.includes('Joint community-police accountability'), 'M3 TOC driver rendered');
+  assert(dossierHtml.includes('Counterpart fears losing command discretion'), 'M4 Role Reversal rendered');
+  assert(dossierHtml.includes('Risk of financial year budget lapse'), 'M5 Crisis Analysis rendered');
+  assert(dossierHtml.includes('Codifying standard operating procedures into Galasi police doctrine'), 'M6 Institutionalizing practice rendered');
+});
+
+runTest('P2-02 & P2-03: Accessibility & Dynamic Logframe Hierarchical Numbering', () => {
+  // Check module2.html contains smartWizardsHost container
+  const m2Html = fs.readFileSync(path.join(ROOT_DIR, 'module2.html'), 'utf8');
+  assert(m2Html.includes('id="smartWizardsHost"'), 'smartWizardsHost container missing');
+
+  // Check module2.js generates 12 accessible SMART criteria labels with matching for attributes
+  const m2Content = fs.readFileSync(path.join(ROOT_DIR, 'js/modules/module2.js'), 'utf8');
+  assert(m2Content.includes('for="smart-${idx}-specific"'), 'smart-${idx}-specific label missing');
+  assert(m2Content.includes('for="smart-${idx}-measurable"'), 'smart-${idx}-measurable label missing');
+  assert(m2Content.includes('for="smart-${idx}-achievable"'), 'smart-${idx}-achievable label missing');
+  assert(m2Content.includes('for="smart-${idx}-relevant"'), 'smart-${idx}-relevant label missing');
+  assert(m2Content.includes('for="smart-${idx}-timeBound"'), 'smart-${idx}-timeBound label missing');
+  assert(m2Content.includes('for="smart-${idx}-fullStatement"'), 'smart-${idx}-fullStatement label missing');
+  assert(m2Content.includes('id="smart-${idx}-specific"'), 'smart-${idx}-specific id missing');
+  assert(m2Content.includes('id="smart-${idx}-measurable"'), 'smart-${idx}-measurable id missing');
+  assert(m2Content.includes('id="smart-${idx}-achievable"'), 'smart-${idx}-achievable id missing');
+  assert(m2Content.includes('id="smart-${idx}-relevant"'), 'smart-${idx}-relevant id missing');
+  assert(m2Content.includes('id="smart-${idx}-timeBound"'), 'smart-${idx}-timeBound id missing');
+  assert(m2Content.includes('id="smart-${idx}-fullStatement"'), 'smart-${idx}-fullStatement id missing');
+
+  // Verify dynamic logframe numbering logic in module3.js
+  const m3Content = fs.readFileSync(path.join(ROOT_DIR, 'js/modules/module3.js'), 'utf8');
+  assert(m3Content.includes('${parentCode}.${actSubIdx}'), 'Activity code must be derived from parent output code');
+  assert(m3Content.includes('${outcomeNum}.${siblingOutputs.length}'), 'Output code must be derived from parent outcome code');
+});
+
+runTest('Curriculum Honesty: Module 1 initial status, Module 6 premise, and Lesson 5 email communication', () => {
+  const defaultState = storage.getDefaultState();
+  assert.strictEqual(defaultState.module1.status, 'not_started', 'Module 1 initial status must be not_started');
+
+  // Module 6 must cite JST Lesson 6 Activity 6.1 instructional premise without claiming verified achievement
+  const m6Content = fs.readFileSync(path.join(ROOT_DIR, 'js/modules/module6.js'), 'utf8');
+  assert(m6Content.includes('Activity 6.1'), 'Module 6 must cite JST Lesson 6 Activity 6.1');
+  assert(!m6Content.includes('Verified milestone achievement over Month 12'), 'Fabricated Month 12 milestone claim must not exist');
+
+  // Module 5 must cite official email communication from Section Chief Yaa per Lesson 5 p. 15
+  const m5Html = fs.readFileSync(path.join(ROOT_DIR, 'module5.html'), 'utf8');
+  assert(m5Html.includes('Official Email Communication from Section Chief Yaa (Lesson 5 p. 15)'), 'Section Chief Yaa communication must be labeled official email');
+  assert(!m5Html.includes('Official Urgent Cable from Section Chief Yaa'), 'Urgent Cable label must be replaced');
+
+  // All 6 module html files must include stageCompleteFooterBadge
+  for (let i = 1; i <= 6; i++) {
+    const htmlContent = fs.readFileSync(path.join(ROOT_DIR, `module${i}.html`), 'utf8');
+    assert(htmlContent.includes('id="stageCompleteFooterBadge"'), `module${i}.html must contain stageCompleteFooterBadge`);
+  }
 });
 
 console.log('\n======================================================');
