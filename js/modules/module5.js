@@ -45,21 +45,29 @@
     renderAdjustments();
     renderScenarioDrawerList();
     renderGlossaryList();
+    Storage.renderCurriculumTrack(5);
     updateSaveIndicator('Loaded local data');
     setupAutosaveListener();
+    setupLifecycleListeners();
   }
 
   function save(statusMsg) {
     collectFormFields();
-    Storage.saveLabState(state);
-    updateSaveIndicator(statusMsg || 'Saved locally');
+    const ok = Storage.saveLabState(state);
+    if (!ok) {
+      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+    } else {
+      updateSaveIndicator(statusMsg || 'Saved locally');
+    }
+    Storage.renderCurriculumTrack(5);
+    return ok;
   }
 
-  function updateSaveIndicator(msg) {
+  function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
       el.textContent = msg || 'Saved locally on this device';
-      el.style.color = 'var(--ok)';
+      el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
 
@@ -67,6 +75,21 @@
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
     }, 600));
+  }
+
+  function setupLifecycleListeners() {
+    window.addEventListener('beforeunload', () => save());
+    window.addEventListener('pagehide', () => save());
+    window.addEventListener('storage', e => {
+      if (e.key === Storage.STORAGE_KEY) {
+        state = Storage.loadLabState();
+        populateFormFields();
+        renderKpiEvaluations();
+        renderAdjustments();
+        Storage.renderCurriculumTrack(5);
+        updateSaveIndicator('Synced from another tab');
+      }
+    });
   }
 
   function debounce(fn, delay) {
@@ -204,42 +227,42 @@
               <strong style="margin-left: 8px; font-size: 1.05rem; color: var(--navy);">${escapeHtml(kpi.kpiTitle)}</strong>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
-              <select class="form-select kpi-variance-status" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto;">
+              <select class="form-select kpi-variance-status" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto;" aria-label="Variance status for ${escapeHtml(kpi.kpiTitle || (idx + 1))}">
                 <option value="On Track" ${kpi.varianceStatus === 'On Track' ? 'selected' : ''}>Status: On Track</option>
                 <option value="Delayed" ${kpi.varianceStatus === 'Delayed' ? 'selected' : ''}>Status: Delayed</option>
                 <option value="Critical Variance" ${kpi.varianceStatus === 'Critical Variance' ? 'selected' : ''}>Status: Critical Variance</option>
                 <option value="Exceeded" ${kpi.varianceStatus === 'Exceeded' ? 'selected' : ''}>Status: Exceeded</option>
               </select>
-              <button class="btn btn-sm btn-danger remove-kpi-btn" data-idx="${idx}" type="button">×</button>
+              <button class="btn btn-sm btn-danger remove-kpi-btn" data-idx="${idx}" type="button" aria-label="Remove KPI evaluation ${escapeHtml(kpi.kpiTitle || (idx + 1))}">×</button>
             </div>
           </div>
           <div class="card-body">
             <div class="form-group">
               <label class="form-label">KPI / Performance Metric Name</label>
-              <input class="form-input kpi-field" data-idx="${idx}" data-field="kpiTitle" value="${escapeHtml(kpi.kpiTitle)}">
+              <input class="form-input kpi-field" data-idx="${idx}" data-field="kpiTitle" value="${escapeHtml(kpi.kpiTitle)}" aria-label="Performance indicator title">
             </div>
             <div class="grid-3" style="margin-bottom: 14px;">
               <div class="form-group">
                 <label class="form-label" style="font-size: 0.8rem; color: var(--muted);">Module 1 Baseline</label>
-                <input class="form-input kpi-field" data-idx="${idx}" data-field="baselineValue" value="${escapeHtml(kpi.baselineValue || '')}">
+                <input class="form-input kpi-field" data-idx="${idx}" data-field="baselineValue" value="${escapeHtml(kpi.baselineValue || '')}" aria-label="Baseline value">
               </div>
               <div class="form-group">
                 <label class="form-label" style="font-size: 0.8rem; color: var(--navy);">Module 2/3 Planned Target</label>
-                <input class="form-input kpi-field" data-idx="${idx}" data-field="targetValue" value="${escapeHtml(kpi.targetValue || '')}">
+                <input class="form-input kpi-field" data-idx="${idx}" data-field="targetValue" value="${escapeHtml(kpi.targetValue || '')}" aria-label="Planned target value">
               </div>
               <div class="form-group">
                 <label class="form-label" style="font-size: 0.8rem; color: var(--danger);">Month 8 Actual Measured Reality</label>
-                <input class="form-input kpi-field" data-idx="${idx}" data-field="actualValue" value="${escapeHtml(kpi.actualValue || '')}">
+                <input class="form-input kpi-field" data-idx="${idx}" data-field="actualValue" value="${escapeHtml(kpi.actualValue || '')}" aria-label="Month 8 actual measured value">
               </div>
             </div>
             <div class="grid-2">
               <div class="form-group">
                 <label class="form-label" style="color: var(--danger);">Empirical Variance & Bottleneck Analysis</label>
-                <textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="varianceAnalysis" style="min-height: 70px;">${escapeHtml(kpi.varianceAnalysis || '')}</textarea>
+                <textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="varianceAnalysis" style="min-height: 70px;" aria-label="Empirical variance and bottleneck analysis">${escapeHtml(kpi.varianceAnalysis || '')}</textarea>
               </div>
               <div class="form-group">
                 <label class="form-label" style="color: var(--ok-dark);">Targeted Corrective Action</label>
-                <textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="correctiveAction" style="min-height: 70px;">${escapeHtml(kpi.correctiveAction || '')}</textarea>
+                <textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="correctiveAction" style="min-height: 70px;" aria-label="Targeted corrective action">${escapeHtml(kpi.correctiveAction || '')}</textarea>
               </div>
             </div>
           </div>
@@ -293,30 +316,81 @@
   }
 
   function importFromModules2And3() {
-    let imported = 0;
-    // Import from M2 KPIs
+    let importedM2 = 0;
+    let importedM3 = 0;
+    let updated = 0;
+
+    if (state.module5.kpiEvaluations.length > 0) {
+      const proceed = confirm('Reconcile evaluation indicators with Module 2 KPIs and Module 3 Logframe outputs? Existing evaluation notes will be preserved.');
+      if (!proceed) return;
+    }
+
+    // 1. Import/reconcile from M2 KPIs
     if (state.module2 && state.module2.kpis) {
       state.module2.kpis.forEach(k => {
-        const exists = state.module5.kpiEvaluations.some(e => e.kpiTitle.toLowerCase() === k.name.toLowerCase());
-        if (!exists && k.name) {
+        if (!k.name) return;
+        const existing = state.module5.kpiEvaluations.find(e => 
+          (e.sourceId && e.sourceId === k.id) ||
+          (e.kpiTitle && e.kpiTitle.trim().toLowerCase() === k.name.trim().toLowerCase())
+        );
+
+        if (existing) {
+          existing.sourceId = k.id;
+          if (k.baselineValue && !existing.baselineValue) existing.baselineValue = k.baselineValue;
+          if (k.targetValue && !existing.targetValue) existing.targetValue = k.targetValue;
+          updated++;
+        } else {
           state.module5.kpiEvaluations.push({
-            id: 'eval-kpi-' + Date.now() + '-' + imported,
+            id: 'eval-kpi-' + Date.now() + '-' + importedM2,
+            sourceId: k.id,
             kpiTitle: k.name,
             baselineValue: k.baselineValue || 'Baseline N/A',
             targetValue: k.targetValue || 'Target N/A',
-            actualValue: 'Mid-term audit in progress',
+            actualValue: 'Pending 8-month audit',
             varianceStatus: 'Delayed',
-            varianceAnalysis: 'Imported from Module 2 Performance Framework. Undergoing 8-month verification.',
+            varianceAnalysis: 'Imported from Module 2 Performance Framework. Undergoing mid-term field verification.',
             correctiveAction: 'Triangulate field reports and establish low-tech verification ledger.'
           });
-          imported++;
+          importedM2++;
         }
       });
     }
 
-    save('Imported Module 2 KPIs');
+    // 2. Import/reconcile from Module 3 Logframe outputs
+    if (state.module3 && state.module3.logframe && state.module3.logframe.outputs) {
+      state.module3.logframe.outputs.forEach(outp => {
+        if (!outp.narrative) return;
+        const titleStr = `Output ${outp.id}: ${outp.narrative}`;
+        const existing = state.module5.kpiEvaluations.find(e =>
+          (e.sourceId && e.sourceId === outp.id) ||
+          (e.kpiTitle && e.kpiTitle.trim().toLowerCase() === titleStr.trim().toLowerCase()) ||
+          (e.kpiTitle && e.kpiTitle.trim().toLowerCase() === outp.narrative.trim().toLowerCase())
+        );
+
+        if (existing) {
+          existing.sourceId = outp.id;
+          if (outp.indicators && !existing.targetValue) existing.targetValue = outp.indicators;
+          updated++;
+        } else {
+          state.module5.kpiEvaluations.push({
+            id: 'eval-outp-' + Date.now() + '-' + importedM3,
+            sourceId: outp.id,
+            kpiTitle: titleStr,
+            baselineValue: 'Module 1 Baseline',
+            targetValue: outp.indicators || 'Per Logframe target',
+            actualValue: 'Pending verification',
+            varianceStatus: 'Delayed',
+            varianceAnalysis: `Imported from Module 3 Logframe Output. Verification: ${outp.verification || 'Field observation'}.`,
+            correctiveAction: 'Deploy advisory inspection team.'
+          });
+          importedM3++;
+        }
+      });
+    }
+
+    save('Reconciled Modules 2 & 3 Planning');
     renderKpiEvaluations();
-    alert(`Imported ${imported} indicators from Module 2 Performance Framework.`);
+    alert(`Reconciliation Complete: ${updated} existing indicators updated, ${importedM2} KPIs and ${importedM3} Logframe outputs added.`);
   }
 
   /* Stage 4: 3-Tier Adjustment Recommendations */
@@ -337,18 +411,18 @@
               <strong style="margin-left: 10px; font-size: 1.05rem; color: var(--navy);">${escapeHtml(adj.recommendationTitle)}</strong>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
-              <select class="form-select adj-reaction" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto; font-weight: 700;">
+              <select class="form-select adj-reaction" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto; font-weight: 700;" aria-label="Syndicate decision on ${escapeHtml(adj.recommendationTitle || (idx + 1))}">
                 <option value="Fully Accept" ${adj.reaction === 'Fully Accept' ? 'selected' : ''}>Reaction: Fully Accept</option>
                 <option value="Partially Accept" ${adj.reaction === 'Partially Accept' ? 'selected' : ''}>Reaction: Partially Accept</option>
                 <option value="Reject" ${adj.reaction === 'Reject' ? 'selected' : ''}>Reaction: Reject</option>
               </select>
-              <button class="btn btn-sm btn-danger remove-adj-btn" data-idx="${idx}" type="button">×</button>
+              <button class="btn btn-sm btn-danger remove-adj-btn" data-idx="${idx}" type="button" aria-label="Remove adjustment recommendation ${escapeHtml(adj.recommendationTitle || (idx + 1))}">×</button>
             </div>
           </div>
           <div class="card-body">
             <div class="form-group">
               <label class="form-label">Recommendation Title & Scope</label>
-              <input class="form-input adj-field" data-idx="${idx}" data-field="recommendationTitle" value="${escapeHtml(adj.recommendationTitle)}">
+              <input class="form-input adj-field" data-idx="${idx}" data-field="recommendationTitle" value="${escapeHtml(adj.recommendationTitle)}" aria-label="Recommendation title and scope">
             </div>
             <div class="grid-2">
               <div class="form-group">
@@ -356,18 +430,18 @@
                   Decision Justification (Lesson 5 Slide 10)
                   <span class="form-hint">Why do implementors agree, disagree, or reject parts of this recommendation?</span>
                 </label>
-                <textarea class="form-textarea adj-field" data-idx="${idx}" data-field="justification" style="min-height: 80px;">${escapeHtml(adj.justification || '')}</textarea>
+                <textarea class="form-textarea adj-field" data-idx="${idx}" data-field="justification" style="min-height: 80px;" aria-label="Decision justification">${escapeHtml(adj.justification || '')}</textarea>
               </div>
               <div class="form-group">
                 <label class="form-label" style="color: var(--ok-dark);">
                   Concrete Action Plan & Remedial Measure
                   <span class="form-hint">What immediate steps will be taken to implement this decision?</span>
                 </label>
-                <textarea class="form-textarea adj-field" data-idx="${idx}" data-field="actionPlan" style="min-height: 80px;">${escapeHtml(adj.actionPlan || '')}</textarea>
+                <textarea class="form-textarea adj-field" data-idx="${idx}" data-field="actionPlan" style="min-height: 80px;" aria-label="Action plan and remedial measure">${escapeHtml(adj.actionPlan || '')}</textarea>
               </div>
               <div class="form-group col-full" style="background: var(--wash-subtle); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--line);">
                 <label class="form-label">Lead Stakeholder & Responsible Entity</label>
-                <input class="form-input adj-field" data-idx="${idx}" data-field="stakeholderOwner" value="${escapeHtml(adj.stakeholderOwner || '')}">
+                <input class="form-input adj-field" data-idx="${idx}" data-field="stakeholderOwner" value="${escapeHtml(adj.stakeholderOwner || '')}" aria-label="Lead stakeholder owner">
               </div>
             </div>
           </div>
@@ -437,12 +511,22 @@
     `).join('');
   }
 
+  let lastActiveElement = null;
+
   function toggleScenarioDrawer(open) {
     const drawer = document.getElementById('scenarioDrawer');
     const backdrop = document.getElementById('scenarioDrawerBackdrop');
     const shouldOpen = open !== undefined ? open : !drawer.classList.contains('open');
+    if (shouldOpen) {
+      lastActiveElement = document.activeElement;
+    }
     drawer.classList.toggle('open', shouldOpen);
     backdrop.classList.toggle('open', shouldOpen);
+    if (shouldOpen) {
+      setTimeout(() => document.getElementById('scenarioSearchInput')?.focus(), 50);
+    } else if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+      lastActiveElement.focus();
+    }
   }
 
   function renderGlossaryList(searchQuery) {
@@ -468,7 +552,16 @@
 
   function toggleGlossaryModal(open) {
     const backdrop = document.getElementById('glossaryModalBackdrop');
-    backdrop.classList.toggle('open', open !== undefined ? open : !backdrop.classList.contains('open'));
+    const shouldOpen = open !== undefined ? open : !backdrop.classList.contains('open');
+    if (shouldOpen) {
+      lastActiveElement = document.activeElement;
+    }
+    backdrop.classList.toggle('open', shouldOpen);
+    if (shouldOpen) {
+      setTimeout(() => document.getElementById('glossarySearchInput')?.focus(), 50);
+    } else if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+      lastActiveElement.focus();
+    }
   }
 
   /* Global Event Bindings */
@@ -498,6 +591,14 @@
     });
     document.getElementById('glossarySearchInput')?.addEventListener('input', e => {
       renderGlossaryList(e.target.value);
+    });
+
+    // Global keyboard accessibility (Escape to dismiss modal / drawer)
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        toggleScenarioDrawer(false);
+        toggleGlossaryModal(false);
+      }
     });
 
     // JSON export

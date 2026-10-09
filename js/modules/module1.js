@@ -43,22 +43,30 @@
     renderBaseline();
     renderScenarioDrawerList();
     renderGlossaryList();
+    Storage.renderCurriculumTrack(1);
     updateSaveIndicator('Loaded local data');
     updateRoleView();
     setupAutosaveListener();
+    setupLifecycleListeners();
   }
 
   function save(statusMsg) {
     collectFormFields();
-    Storage.saveLabState(state);
-    updateSaveIndicator(statusMsg || 'Saved locally');
+    const ok = Storage.saveLabState(state);
+    if (!ok) {
+      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+    } else {
+      updateSaveIndicator(statusMsg || 'Saved locally');
+    }
+    Storage.renderCurriculumTrack(1);
+    return ok;
   }
 
-  function updateSaveIndicator(msg) {
+  function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
       el.textContent = msg || 'Saved locally on this device';
-      el.style.color = 'var(--ok)';
+      el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
 
@@ -68,6 +76,24 @@
       renderStakeholderQuadrants();
       updateSwotCountBadge();
     }, 600));
+  }
+
+  function setupLifecycleListeners() {
+    window.addEventListener('beforeunload', () => save());
+    window.addEventListener('pagehide', () => save());
+    window.addEventListener('storage', e => {
+      if (e.key === Storage.STORAGE_KEY) {
+        state = Storage.loadLabState();
+        populateFormFields();
+        renderStakeholders();
+        renderStakeholderQuadrants();
+        renderMatrix();
+        renderSwot();
+        renderBaseline();
+        Storage.renderCurriculumTrack(1);
+        updateSaveIndicator('Synced from another tab');
+      }
+    });
   }
 
   function debounce(fn, delay) {
@@ -224,16 +250,16 @@
       <div class="card" style="margin-bottom: 12px; background: #ffffff;" data-idx="${idx}">
         <div style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; background: var(--wash); border-bottom: 1px solid var(--line);">
           <strong>Actor #${idx + 1}: ${escapeHtml(s.name || 'Unnamed Stakeholder')}</strong>
-          <button class="btn btn-sm btn-danger remove-stakeholder-btn" data-remove="${idx}" type="button">Remove</button>
+          <button class="btn btn-sm btn-danger remove-stakeholder-btn" data-remove="${idx}" type="button" aria-label="Remove stakeholder ${escapeHtml(s.name || (idx + 1))}">Remove</button>
         </div>
         <div style="padding: 14px 16px;" class="grid-3">
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label">Stakeholder Name / Entity</label>
-            <input class="form-input stake-field" data-idx="${idx}" data-field="name" value="${escapeHtml(s.name)}" placeholder="e.g. Public Prosecutors">
+            <input class="form-input stake-field" data-idx="${idx}" data-field="name" value="${escapeHtml(s.name)}" placeholder="e.g. Public Prosecutors" aria-label="Stakeholder name">
           </div>
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label">Role in CBD</label>
-            <select class="form-select stake-field" data-idx="${idx}" data-field="role">
+            <select class="form-select stake-field" data-idx="${idx}" data-field="role" aria-label="Stakeholder role in CBD">
               ${['Owner', 'Enabler', 'Affected group', 'Influencer', 'Potential blocker'].map(r => `
                 <option value="${r}" ${r === s.role ? 'selected' : ''}>${r}</option>
               `).join('')}
@@ -242,12 +268,12 @@
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label">Influence vs Interest</label>
             <div style="display: flex; gap: 6px;">
-              <select class="form-select stake-field" data-idx="${idx}" data-field="influence" title="Influence">
+              <select class="form-select stake-field" data-idx="${idx}" data-field="influence" title="Influence" aria-label="Stakeholder influence level">
                 <option value="High" ${s.influence === 'High' ? 'selected' : ''}>Inf: High</option>
                 <option value="Medium" ${s.influence === 'Medium' ? 'selected' : ''}>Inf: Med</option>
                 <option value="Low" ${s.influence === 'Low' ? 'selected' : ''}>Inf: Low</option>
               </select>
-              <select class="form-select stake-field" data-idx="${idx}" data-field="interest" title="Interest">
+              <select class="form-select stake-field" data-idx="${idx}" data-field="interest" title="Interest" aria-label="Stakeholder interest level">
                 <option value="High" ${s.interest === 'High' ? 'selected' : ''}>Int: High</option>
                 <option value="Medium" ${s.interest === 'Medium' ? 'selected' : ''}>Int: Med</option>
                 <option value="Low" ${s.interest === 'Low' ? 'selected' : ''}>Int: Low</option>
@@ -256,11 +282,11 @@
           </div>
           <div class="form-group col-full" style="margin-bottom: 0;">
             <label class="form-label">Motivations, Needs & Perceived Obstacles</label>
-            <input class="form-input stake-field" data-idx="${idx}" data-field="needs" value="${escapeHtml(s.needs || '')}" placeholder="What drives or concerns this stakeholder?">
+            <input class="form-input stake-field" data-idx="${idx}" data-field="needs" value="${escapeHtml(s.needs || '')}" placeholder="What drives or concerns this stakeholder?" aria-label="Stakeholder motivations and needs">
           </div>
           <div class="form-group col-full" style="margin-bottom: 0;">
             <label class="form-label">Engagement & Communication Strategy</label>
-            <input class="form-input stake-field" data-idx="${idx}" data-field="strategy" value="${escapeHtml(s.strategy || '')}" placeholder="How will UNPOL CBD advisers engage them?">
+            <input class="form-input stake-field" data-idx="${idx}" data-field="strategy" value="${escapeHtml(s.strategy || '')}" placeholder="How will UNPOL CBD advisers engage them?" aria-label="Stakeholder engagement and communication strategy">
           </div>
         </div>
       </div>
@@ -425,7 +451,7 @@
 
     // Paragraph pills selector
     const paraHost = document.getElementById('modalCellParaPills');
-    const selectedParas = new Set(cellData.paragraphs || []);
+    const selectedParas = new Set((cellData.paragraphs || []).filter(p => Number.isInteger(p) && p > 0));
 
     paraHost.innerHTML = Scenario.PARAGRAPHS.map(p => {
       const isSel = selectedParas.has(p.id);
@@ -439,7 +465,8 @@
 
     paraHost.querySelectorAll('[data-para-id]').forEach(b => {
       b.onclick = () => {
-        const pId = +b.dataset.para_id;
+        const pId = parseInt(b.getAttribute('data-para-id') || b.dataset.paraId, 10);
+        if (!Number.isInteger(pId)) return;
         if (selectedParas.has(pId)) {
           selectedParas.delete(pId);
           b.className = 'btn btn-sm btn-ghost';
@@ -458,8 +485,12 @@
     if (!activeModalCellKey) return;
     const selectedParas = [];
     document.getElementById('modalCellParaPills').querySelectorAll('.btn-primary').forEach(b => {
-      selectedParas.push(+b.dataset.para_id);
+      const pId = parseInt(b.getAttribute('data-para-id') || b.dataset.paraId, 10);
+      if (Number.isInteger(pId) && pId > 0 && !selectedParas.includes(pId)) {
+        selectedParas.push(pId);
+      }
     });
+    selectedParas.sort((a, b) => a - b);
 
     state.module1.matrixCells[activeModalCellKey] = {
       paragraphs: selectedParas,
@@ -501,7 +532,7 @@
           ${item.isEntryPoint ? '<span class="cell-badge" style="background:#0c6a99; margin-left:6px;">CBD Entry Point</span>' : ''}
           ${item.isRisk ? '<span class="cell-badge" style="background:#a62727; margin-left:6px;">CBD Risk</span>' : ''}
         </div>
-        <button class="remove-btn" type="button" data-cat="${categoryKey}" data-idx="${idx}" title="Remove item">×</button>
+        <button class="remove-btn" type="button" data-cat="${categoryKey}" data-idx="${idx}" title="Remove item" aria-label="Remove SWOT item: ${escapeHtml(item.text)}">×</button>
       </div>
     `).join('');
 
@@ -556,12 +587,12 @@
 
     host.innerHTML = state.module1.baseline.map((b, idx) => `
       <tr data-idx="${idx}">
-        <td><input class="form-input base-field" data-idx="${idx}" data-field="area" value="${escapeHtml(b.area || '')}" placeholder="Domain / Area"></td>
-        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="asIsEvidence" style="min-height: 80px;">${escapeHtml(b.asIsEvidence || '')}</textarea></td>
-        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="baselineMetric" style="min-height: 80px;">${escapeHtml(b.baselineMetric || '')}</textarea></td>
-        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="tobeTarget" style="min-height: 80px;">${escapeHtml(b.tobeTarget || '')}</textarea></td>
-        <td><input class="form-input base-field" data-idx="${idx}" data-field="verificationSource" value="${escapeHtml(b.verificationSource || '')}"></td>
-        <td><button class="btn btn-sm btn-danger remove-base-btn" data-idx="${idx}" type="button">×</button></td>
+        <td><input class="form-input base-field" data-idx="${idx}" data-field="area" value="${escapeHtml(b.area || '')}" placeholder="Domain / Area" aria-label="Baseline domain or area for row ${idx + 1}"></td>
+        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="asIsEvidence" style="min-height: 80px;" aria-label="Current baseline AS-IS evidence for row ${idx + 1}">${escapeHtml(b.asIsEvidence || '')}</textarea></td>
+        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="baselineMetric" style="min-height: 80px;" aria-label="Baseline metric for row ${idx + 1}">${escapeHtml(b.baselineMetric || '')}</textarea></td>
+        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="tobeTarget" style="min-height: 80px;" aria-label="Target TO-BE state for row ${idx + 1}">${escapeHtml(b.tobeTarget || '')}</textarea></td>
+        <td><input class="form-input base-field" data-idx="${idx}" data-field="verificationSource" value="${escapeHtml(b.verificationSource || '')}" aria-label="Means of verification for row ${idx + 1}"></td>
+        <td><button class="btn btn-sm btn-danger remove-base-btn" data-idx="${idx}" type="button" aria-label="Remove baseline row ${idx + 1}">×</button></td>
       </tr>
     `).join('');
 
@@ -714,6 +745,19 @@
     // Cell modal controls
     document.getElementById('closeCellModalBtn')?.addEventListener('click', closeCellModal);
     document.getElementById('saveCellModalBtn')?.addEventListener('click', saveCellModal);
+
+    // Escape key listener for accessible modal / drawer dismissal
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (document.getElementById('cellModalBackdrop')?.classList.contains('open')) {
+          closeCellModal();
+        } else if (document.getElementById('glossaryModalBackdrop')?.classList.contains('open')) {
+          toggleGlossaryModal(false);
+        } else if (document.getElementById('scenarioDrawerBackdrop')?.classList.contains('open')) {
+          toggleScenarioDrawer(false);
+        }
+      }
+    });
 
     // Stakeholder buttons
     document.getElementById('addStakeholderBtn')?.addEventListener('click', () => {

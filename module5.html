@@ -475,7 +475,7 @@
           <div style="background: var(--gold-bg); border: 1px solid #e2cb91; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
             <input type="checkbox" id="confirmModule5" style="width: auto; margin-top: 5px;">
             <label for="confirmModule5" style="font-size: 0.92rem; color: #583c03;">
-              <strong>Syndicate Validation:</strong> Our group has completed the 8-month crisis evaluation, formulated evidence-based 3-tier adjustment decisions, and recalibrated the project timeline and budget. The project is stabilized and prepared to enter Phase 6: Transition & Handover.
+              <strong>Syndicate Self-Assessment & Validation:</strong> Our group has completed the 8-month crisis evaluation, formulated evidence-based 3-tier adjustment decisions, and recalibrated the project timeline and budget. Note: Formal curriculum certification requires facilitator assessment.
             </label>
           </div>
 
@@ -504,28 +504,28 @@
 
   <!-- Off-Canvas Scenario Reference Drawer -->
   <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
-  <aside class="scenario-drawer" id="scenarioDrawer" aria-label="Carana Scenario Reference">
+  <aside class="scenario-drawer" id="scenarioDrawer" role="region" aria-label="Carana Scenario Reference">
     <div class="drawer-header">
       <h3>Carana Scenario Explorer (57 Paras)</h3>
       <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
     </div>
     <div class="drawer-body">
       <div class="drawer-search">
-        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number...">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number..." aria-label="Search scenario paragraphs">
       </div>
       <div id="scenarioDrawerList"></div>
     </div>
   </aside>
 
   <!-- Glossary Modal Dialog -->
-  <div class="modal-backdrop" id="glossaryModalBackdrop">
+  <div class="modal-backdrop" id="glossaryModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="glossaryModalTitle">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>UNPOL CBD Curriculum Glossary</h3>
-        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button">×</button>
+        <h3 id="glossaryModalTitle">UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close glossary">×</button>
       </div>
       <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
-        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Evaluation, Deming, Adjustment)...">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Evaluation, Deming, Adjustment)..." aria-label="Search glossary terms">
       </div>
       <div class="modal-body" id="glossaryList"></div>
     </div>

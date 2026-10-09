@@ -303,10 +303,11 @@
               <table class="baseline-table">
                 <thead>
                   <tr>
-                    <th style="width: 120px;">Output</th>
+                    <th style="width: 140px;">Output & Parent Link</th>
                     <th>Narrative Summary (Deliverable)</th>
                     <th>Objectively Verifiable Indicators</th>
-                    <th style="width: 220px;">Means of Verification</th>
+                    <th style="width: 180px;">Means of Verification</th>
+                    <th>Important Assumptions & Risks</th>
                     <th style="width: 40px;"></th>
                   </tr>
                 </thead>
@@ -325,10 +326,11 @@
               <table class="baseline-table">
                 <thead>
                   <tr>
-                    <th style="width: 120px;">Activity</th>
+                    <th style="width: 140px;">Activity & Parent Link</th>
                     <th>Planned Activity Description</th>
                     <th>Resource Inputs (Capital $, Labor Hours, Knowledge/IT)</th>
-                    <th style="width: 220px;">Verification / Monitoring</th>
+                    <th style="width: 180px;">Verification / Monitoring</th>
+                    <th>Important Assumptions & Risks</th>
                     <th style="width: 40px;"></th>
                   </tr>
                 </thead>
@@ -539,7 +541,7 @@
           <div style="background: var(--gold-bg); border: 1px solid #e2cb91; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
             <input type="checkbox" id="confirmModule3" style="width: auto; margin-top: 5px;">
             <label for="confirmModule3" style="font-size: 0.92rem; color: #583c03;">
-              <strong>Syndicate Validation:</strong> Our group has agreed upon this operational Logframe, Results-Based Budgeting allocation, and Risk Management plan. This plan is validated for execution in <strong>Module 4: Implementation (MMA Execution & Problem-Solving)</strong>.
+              <strong>Syndicate Self-Assessment & Validation:</strong> Our group has agreed upon this operational Logframe, Results-Based Budgeting allocation, and Risk Management plan as a learning self-assessment. This plan is validated for execution in <strong>Module 4: Implementation (MMA Execution & Problem-Solving)</strong>.
             </label>
           </div>
 
@@ -583,13 +585,13 @@
 
   <!-- Glossary Modal Dialog -->
   <div class="modal-backdrop" id="glossaryModalBackdrop">
-    <div class="modal-box">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="glossaryModalTitle">
       <div class="modal-header">
-        <h3>UNPOL CBD Curriculum Glossary</h3>
-        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button">×</button>
+        <h3 id="glossaryModalTitle">UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close glossary">×</button>
       </div>
       <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
-        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Logframe, RBB, Risk)...">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Logframe, RBB, Risk)..." aria-label="Search curriculum terms">
       </div>
       <div class="modal-body" id="glossaryList"></div>
     </div>

@@ -90,31 +90,31 @@
           opportunities: [], // CBD entry points
           threats: [] // CBD risks
         },
-        // Baseline Register
+        // Baseline Register (Lesson 1 Activity 1.1)
         baseline: [
           {
             id: 'base-1',
-            area: 'Policing Services / SGBV',
-            asIsEvidence: '12 female officers out of 250 in CIS (4.8%). No specialised SGBV unit; cases assigned on availability/personal preference. Victims fear approaching police (Para 2, 3, 4).',
-            baselineMetric: '0 specialized SGBV investigators certified; 0 dedicated interviewing rooms.',
-            tobeTarget: 'Operational SGBV investigation unit established with certified female & male investigators and protected interviewing space.',
-            verificationSource: 'Galasi CIS personnel roster, SOP registry, inspection of facilities.'
+            area: 'Policing Services / SGBV (Curriculum Focus)',
+            asIsEvidence: '',
+            baselineMetric: '',
+            tobeTarget: '',
+            verificationSource: ''
           },
           {
             id: 'base-2',
-            area: 'Accountability & Complaints',
-            asIsEvidence: 'Code of conduct suspended; no independent external complaint mechanism; complaints handled case-by-case (Para 27, 40, 51).',
-            baselineMetric: '0 active internal affairs guidelines; 0 citizen complaint logbooks.',
-            tobeTarget: 'Enforceable Code of Conduct reinstated with transparent complaint intake and tracking mechanism.',
-            verificationSource: 'Galasi PD directive, public notices, human rights ombudsman logs.'
+            area: 'Accountability & Professional Standards',
+            asIsEvidence: '',
+            baselineMetric: '',
+            tobeTarget: '',
+            verificationSource: ''
           },
           {
             id: 'base-3',
-            area: 'Forensic Capabilities & Protocol',
-            asIsEvidence: 'No certified serological lab, no specialised surveillance personnel; files thrown out of court due to procedural errors (Para 11, 24).',
-            baselineMetric: 'Zero forensic chain-of-custody standard operating procedures.',
-            tobeTarget: 'Standardised forensic protocols implemented in cooperation with public prosecution.',
-            verificationSource: 'Court trial records, case file audits.'
+            area: 'Forensic Capabilities & Evidence Integrity',
+            asIsEvidence: '',
+            baselineMetric: '',
+            tobeTarget: '',
+            verificationSource: ''
           }
         ],
         // Reflection Activity (Lesson 1 Repository)
@@ -134,36 +134,13 @@
       module2: {
         status: 'not_started', // 'not_started' | 'in_progress' | 'completed'
         description: 'Objective Setting, Prioritisation and Performance Frameworks',
-        // Candidates pool (imported from Module 1 or added)
+        // Candidates pool (imported from Module 1 or added from Lesson 2 Activity 2.1)
         objectives: [
           {
             id: 'obj-1',
             title: "Improving CIS's SGBV Investigation Capability",
-            description: 'Establish a specialized unit with trained investigators to address high rates of sexual and gender-based violence and protect vulnerable victims.',
-            source: 'Module 1 SWOT Opportunity & Baseline 1',
-            scores: {
-              policingPractice: 3,
-              environmental: 1,
-              conflictPrevention: 3,
-              humanRights: 3,
-              gender: 3,
-              cpoc: 2,
-              need: 1,
-              risk: 2,
-              implementability: 2,
-              complementarity: 3, // 1.5 weighted (3 * 0.5)
-              donorInterest: 3
-            },
-            rawStrategicScore: 2.5,
-            weightedStrategicScore: 5.0,
-            overallScore: 12.5,
-            rank: 1
-          },
-          {
-            id: 'obj-2',
-            title: "Digitalising CIS's Work Processes & Case Files",
-            description: 'Transition from pen-and-paper registers to centralized database to improve case management and transparency.',
-            source: 'Module 1 SWOT Opportunity',
+            description: 'Establish specialized capacity to address sexual and gender-based violence (Lesson 2 Activity 2.1 candidate)',
+            source: 'Module 1 Entry Point / Lesson 2 Candidate',
             scores: {
               policingPractice: 1,
               environmental: 1,
@@ -171,38 +148,61 @@
               humanRights: 1,
               gender: 1,
               cpoc: 1,
-              need: 3,
-              risk: 3,
-              implementability: 3,
-              complementarity: 1, // 0.5 weighted (1 * 0.5)
+              need: 1,
+              risk: 1,
+              implementability: 1,
+              complementarity: 1,
               donorInterest: 1
             },
             rawStrategicScore: 1.0,
             weightedStrategicScore: 2.0,
-            overallScore: 9.5,
+            overallScore: 0,
+            rank: 1
+          },
+          {
+            id: 'obj-2',
+            title: "Digitalising CIS's Work Processes & Case Files",
+            description: 'Transition from manual registers to computerised system (Lesson 2 Activity 2.1 candidate)',
+            source: 'Lesson 2 Candidate Objective',
+            scores: {
+              policingPractice: 1,
+              environmental: 1,
+              conflictPrevention: 1,
+              humanRights: 1,
+              gender: 1,
+              cpoc: 1,
+              need: 1,
+              risk: 1,
+              implementability: 1,
+              complementarity: 1,
+              donorInterest: 1
+            },
+            rawStrategicScore: 1.0,
+            weightedStrategicScore: 2.0,
+            overallScore: 0,
             rank: 2
           },
           {
             id: 'obj-3',
             title: 'Reinstating Code of Conduct & Oversight Mechanisms',
-            description: 'Draft updated Code of Conduct SOPs, train officers, and establish accessible complaint intake to restore public trust.',
-            source: 'Module 1 Baseline 2',
+            description: 'Reactivate suspended professional standards and intake mechanism (Lesson 2 Candidate)',
+            source: 'Lesson 2 Candidate Objective',
             scores: {
-              policingPractice: 3,
+              policingPractice: 1,
               environmental: 1,
-              conflictPrevention: 2,
-              humanRights: 3,
-              gender: 2,
-              cpoc: 2,
-              need: 2,
-              risk: 2,
-              implementability: 2,
-              complementarity: 2,
-              donorInterest: 2
+              conflictPrevention: 1,
+              humanRights: 1,
+              gender: 1,
+              cpoc: 1,
+              need: 1,
+              risk: 1,
+              implementability: 1,
+              complementarity: 1,
+              donorInterest: 1
             },
-            rawStrategicScore: 2.17,
-            weightedStrategicScore: 4.33,
-            overallScore: 11.33,
+            rawStrategicScore: 1.0,
+            weightedStrategicScore: 2.0,
+            overallScore: 0,
             rank: 3
           }
         ],
@@ -211,24 +211,24 @@
           {
             id: 'smart-1',
             objectiveId: 'obj-1',
-            title: "Establish and Operationalise Galasi CIS SGBV Investigation Unit",
-            specific: 'Establish a dedicated SGBV unit within Galasi CIS with 15 certified male and female investigators, standard operating procedures, and a secure confidential interview facility.',
-            measurable: '15 investigators certified in victim-centered interviewing; 100% of reported SGBV cases investigated according to formal SOPs within 12 months.',
-            achievable: 'Feasible through partnership with UNODC, Interpol project support, and local women’s civil society organisations.',
-            relevant: 'Directly addresses widespread SGBV victimisation and extreme under-reporting in Galasi under UNSCR 2151 and SDG 16.',
-            timeBound: 'Full operational status achieved within 12 months of project inception.',
-            fullStatement: 'By Month 12, Galasi CIS will establish and operationalise a specialised SGBV Investigation Unit comprising 15 certified investigators operating under formal human-rights compliant SOPs with a dedicated confidential interview facility.'
+            title: "Improving CIS's SGBV Investigation Capability",
+            specific: '',
+            measurable: '',
+            achievable: '',
+            relevant: '',
+            timeBound: '',
+            fullStatement: ''
           },
           {
             id: 'smart-2',
-            objectiveId: 'obj-3',
-            title: "Reactivate and Institutionalise Galasi PD Professional Conduct SOPs",
-            specific: 'Update and re-issue the suspended CNP Code of Conduct for Galasi CIS and establish a transparent internal complaint intake logbook.',
-            measurable: '250 CIS officers briefed and signed adherence pledges; 100% of received complaints logged and reviewed within 14 days.',
-            achievable: 'Leverages Interpol "Police Support for Galasi" human rights workshop outputs and command support.',
-            relevant: 'Restores public trust and addresses impunity regarding police misconduct towards minority communities.',
-            timeBound: 'Achieved within 6 months of rollout.',
-            fullStatement: 'Within 6 months, Galasi CIS leadership will re-issue the revised Code of Conduct, train all 250 personnel, and establish an active complaint intake register with monthly reporting to Galasi Police Directorate.'
+            objectiveId: 'obj-2',
+            title: "Digitalising CIS's Work Processes & Case Files",
+            specific: '',
+            measurable: '',
+            achievable: '',
+            relevant: '',
+            timeBound: '',
+            fullStatement: ''
           }
         ],
         // Performance Indicators Framework (PIs / KPIs)
@@ -236,35 +236,24 @@
           {
             id: 'kpi-1',
             smartId: 'smart-1',
-            name: 'Number of trained and certified SGBV criminal investigators',
+            name: 'Specialized SGBV Investigation Capacity',
             type: 'Quantitative (#)',
-            baselineValue: '0 certified investigators in Galasi CIS',
-            targetValue: '15 investigators certified (at least 6 female officers)',
-            source: 'CIS Training & Roster Records',
+            baselineValue: '',
+            targetValue: '',
+            source: '',
             frequency: 'Quarterly',
-            responsible: 'UNPOL CBD Training Lead & Head of CIS'
+            responsible: ''
           },
           {
             id: 'kpi-2',
             smartId: 'smart-1',
-            name: 'Percentage of SGBV case files meeting prosecution procedural standards',
+            name: 'Case File Admissibility Rate',
             type: 'Quantitative (%)',
-            baselineValue: 'Estimated < 20% (frequent dismissal due to procedural defects)',
-            targetValue: '≥ 75% of submitted files accepted without dismissal',
-            source: 'Public Prosecution Office Case Logs',
+            baselineValue: '',
+            targetValue: '',
+            source: '',
             frequency: 'Bi-annually',
-            responsible: 'Joint Police-Prosecutor Liaison Committee'
-          },
-          {
-            id: 'kpi-3',
-            smartId: 'smart-2',
-            name: 'Operational Code of Conduct and Disciplinary Intake SOP',
-            type: 'Qualitative condition',
-            baselineValue: 'Code of conduct suspended; no complaint intake desk',
-            targetValue: 'Formal SOP approved, published, and intake registry active',
-            source: 'Galasi PD Directive Bulletin & Ombudsman Inspection',
-            frequency: 'Semi-annually',
-            responsible: 'Galasi PD Internal Affairs & UNPOL CBD Adviser'
+            responsible: ''
           }
         ],
         reflection: {
@@ -277,80 +266,47 @@
       module3: {
         status: 'not_started', // 'not_started' | 'in_progress' | 'completed'
         description: 'Planning Activities, Logframe and RBB',
-        // Theory of Change
+        // Theory of Change (Lesson 3 Activity 3.1)
         theoryOfChange: {
-          driver: 'High prevalence of violent crime, SGBV, and public mistrust in Galasi.',
-          criticalConditions: 'Victims feel safe to report; investigators possess professional competence; leadership enforces human rights SOPs; prosecutors accept case files.',
-          rationale: 'If we establish a dedicated, trained SGBV investigation unit operating from a secure facility under strict confidentiality SOPs, then reporting of SGBV will increase and cases will withstand prosecution scrutiny, because victim stigmatization and procedural errors in court will be systematically mitigated.'
+          driver: '[Curriculum Framework] High prevalence of violent crime and public mistrust in Galasi (Lesson 3 ToC entry point)',
+          criticalConditions: '[Curriculum Framework] Protected victim reporting environment, competent investigator cadre, and prosecution collaboration.',
+          rationale: '[Curriculum Framework Hypothesis] If specialized investigative capacity is established under protective SOPs, then reporting and prosecution will increase because procedural errors are mitigated.'
         },
         // Logical Framework Matrix (Logframe)
         logframe: {
           impact: {
-            narrative: 'Galasi CIS professionally addresses SGBV-related cases in a manner that does no harm to victims and witnesses, in turn fostering community trust.',
-            indicators: 'Short-term increase in reported SGBV cases followed by long-term decrease in recidivism; improved % trust in Galasi CIS.',
-            verification: 'Galasi PD annual crime statistics; joint UNPOL-civil society community perception survey.',
-            assumptions: 'Sustained political stability and absence of major armed conflict resurgence.'
+            narrative: 'Galasi CIS professionally addresses SGBV-related cases in a manner that does no harm to victims and witnesses, fostering community trust.',
+            indicators: 'Short-term increase in reported SGBV cases followed by long-term decrease in recidivism; improved public trust in Galasi CIS.',
+            verification: 'Galasi Police Directorate crime records; joint UNPOL-civil society community surveys.',
+            assumptions: 'Sustained institutional stability and absence of major armed conflict resurgence.'
           },
           outcomes: [
             {
               id: 'out-1',
-              narrative: 'Effective investigation and delivery of actionable results (prosecutable cases).',
-              indicators: '≥ 75% of SGBV case files submitted to prosecution result in formal charges.',
+              narrative: 'Effective investigation and delivery of prosecutable criminal case dockets.',
+              indicators: 'Targeted proportion of case files accepted without procedural dismissal.',
               verification: 'Public Prosecutor liaison registry; court trial records.',
-              assumptions: 'Public prosecutors maintain constructive cooperation and avoid adversarial obstruction.'
-            },
-            {
-              id: 'out-2',
-              narrative: 'Victims of SGBV-related crimes are protected from repercussions and social ostracism.',
-              indicators: '100% of interviewed victims report feeling secure during CIS intake and investigation.',
-              verification: 'Confidential victim service feedback survey; NGO partner monitoring logs.',
-              assumptions: 'Local community leaders and elders support victim reporting and discourage retaliation.'
+              assumptions: 'Constructive cooperation from prosecutors and judicial authorities.'
             }
           ],
           outputs: [
             {
               id: 'outp-1',
               outcomeId: 'out-1',
-              narrative: 'A specialised SGBV investigation unit is formally established and integrated into CIS structure.',
-              indicators: 'Unit formal charter signed by Galasi PD Chief of Staff; 15 investigators assigned (at least 6 female).',
-              verification: 'Galasi PD organizational chart; personnel assignment roster.'
-            },
-            {
-              id: 'outp-2',
-              outcomeId: 'out-1',
-              narrative: 'Personnel trained in victim-centred interviewing, evidence handling, and legal protocol.',
-              indicators: '15 investigators complete certified 4-week advanced SGBV curriculum.',
-              verification: 'Training attendance sheets; post-course certification records.'
-            },
-            {
-              id: 'outp-3',
-              outcomeId: 'out-2',
-              narrative: 'Confidential victim intake protocol and secure interview facility established.',
-              indicators: 'Separate confidential facility operational; data protection SOP issued.',
-              verification: 'Facility inspection report; SOP bulletin.'
+              narrative: 'Specialised SGBV investigation capability established within Galasi CIS.',
+              indicators: 'Unit formal charter gazetted; certified male and female investigators deployed.',
+              verification: 'Galasi Police Directorate assignment roster and organizational chart.',
+              assumptions: 'Command leadership supports specialized detective tenure.'
             }
           ],
           activities: [
             {
               id: 'act-1',
               outputId: 'outp-1',
-              narrative: 'Draft and gazette administrative terms of reference establishing the Galasi CIS SGBV unit.',
-              inputs: 'Labor: 40 hours UNPOL advisory support + 20 hours CIS leadership drafting.',
-              verification: 'Signed Terms of Reference document.'
-            },
-            {
-              id: 'act-2',
-              outputId: 'outp-2',
-              narrative: 'Conduct specialized SGBV interview & evidence management training in coordination with UNODC & Interpol.',
-              inputs: 'Capital: $15,000 training logistics (Trust Fund). Labor: 2 international trainers for 20 training days.',
-              verification: 'Course completion report; training log.'
-            },
-            {
-              id: 'act-3',
-              outputId: 'outp-3',
-              narrative: 'Secure, furnish, and equip off-site confidential interview room with victim protection NGO partnership.',
-              inputs: 'Capital: $25,000 Quick Impact Project (QIP) allocation. Labor: Facilities management team.',
-              verification: 'QIP project completion voucher; Memorandum of Understanding with local NGO.'
+              narrative: 'Draft and gazette administrative terms of reference establishing the specialized unit.',
+              inputs: 'Labor: UNPOL advisory accompaniment + host CIS leadership working group.',
+              verification: 'Signed Terms of Reference administrative bulletin.',
+              assumptions: 'Timely administrative approvals by police directorate leadership.'
             }
           ]
         },
@@ -358,55 +314,33 @@
         risks: [
           {
             id: 'risk-1',
-            title: 'Lack of officers willing to join the specialised SGBV unit',
-            description: 'Male officers may perceive SGBV as low-status crime; female officers may hesitate due to prevailing male-dominated institutional culture.',
-            likelihood: 2, // Medium
-            impact: 3,     // High
-            magnitude: 6,
-            zone: 'red',
-            mitigationStrategy: 'Introduce prestige incentives, accelerated career advancement points, and targeted leadership backing from Head of CIS.',
-            contingencyPlan: 'Temporarily co-locate experienced UNPOL female advisers to mentor incoming candidates and build peer support.'
-          },
-          {
-            id: 'risk-2',
-            title: 'Lack of dedicated off-site facility leading to victim stigmatisation',
-            description: 'Victims avoid approaching main police building for fear of public exposure and harassment by armed officers.',
-            likelihood: 3, // High
-            impact: 3,     // High
-            magnitude: 9,
-            zone: 'red',
-            mitigationStrategy: 'Fast-track Quick Impact Project (QIP) funding to lease and secure an off-site confidential interview bungalow.',
-            contingencyPlan: 'Partner with local accredited women’s health NGO to utilize a private consulting room for police interviews.'
-          },
-          {
-            id: 'risk-3',
-            title: 'Resistance from public prosecutors to accept initial CIS files',
-            description: 'Existing "us against them" institutional friction causes prosecutors to dismiss cases citing alleged technical errors.',
-            likelihood: 2, // Medium
-            impact: 2,     // Medium
-            magnitude: 4,
-            zone: 'yellow',
-            mitigationStrategy: 'Establish monthly joint police-prosecutor case file clinics to co-design evidence submission checklists.',
-            contingencyPlan: 'Elevate recurring procedural disagreements to the Joint Rule of Law Working Group co-chaired by UNAC.'
-          },
-          {
-            id: 'risk-4',
-            title: 'Lack of IT and database equipment for case records',
-            description: 'Central procurement delays electronic records management software and hardware.',
+            title: 'Resistance to new specialized procedures among investigators',
+            description: 'Personnel may hesitate to adopt new investigative standards without dedicated incentives.',
             likelihood: 1, // Low
             impact: 1,     // Low
             magnitude: 1,
             zone: 'green',
-            mitigationStrategy: 'Implement standardized hard-copy secure ledgers and locked filing cabinets in the interim.',
-            contingencyPlan: 'Continue analogue casework with strict physical access control until donor IT packages arrive.'
+            mitigationStrategy: 'Introduce professional development recognition and specialized certificates.',
+            contingencyPlan: 'Provide continuous mentor accompaniment and peer-to-peer coaching.'
+          },
+          {
+            id: 'risk-2',
+            title: 'Inter-agency friction regarding evidentiary thresholds',
+            description: 'Public prosecutors may question initial case files without joint procedural clarity.',
+            likelihood: 2, // Medium
+            impact: 1,     // Low (per Lesson 3 p. 40, L2/I1 is Green)
+            magnitude: 2,
+            zone: 'green',
+            mitigationStrategy: 'Convene joint police-prosecutor case file review clinics.',
+            contingencyPlan: 'Elevate procedural questions to the Joint Rule of Law Working Group.'
           }
         ],
         // Contingency Planning (Lesson 3 Slide 18)
         contingency: {
-          trigger: 'Sudden political reorganization or civil unrest causing suspension of regular CIS operations.',
-          backupPlan: 'Preserve secured case files off-site; designate interim senior female investigator as acting focal point; redirect pending victim support through UN partner network.',
-          stakeholderCommunication: 'Notify Head of CIS, UNPOL Police Commissioner, and local NGO partners within 24 hours.',
-          continuityPersonnel: 'Deputy Head of CIS, Lead SGBV Investigator, UNPOL Mentor.'
+          trigger: 'Administrative reorganizations or unforeseen field setbacks disrupting operational timeline.',
+          backupPlan: 'Preserve secure documentation off-site and maintain mentor accompaniment network.',
+          stakeholderCommunication: 'Notify Head of CIS, UNPOL Leadership, and civil society counterparts.',
+          continuityPersonnel: 'Deputy Head of CIS, Lead Investigator, UNPOL CBD Mentor.'
         },
         reflection: {
           q1Experience: '',
@@ -420,68 +354,74 @@
         description: 'Implementation, MMA Execution and Problem-Solving',
         // Monitoring, Mentoring & Advising (MMA) Strategy
         mmaStrategy: {
-          monitoringMechanisms: 'Daily co-location observation logs, case file intake tracking, compliance check against human rights standards.',
-          advisingPriorities: 'Technical guidance to CIS Leadership on SOP drafting, file quality assurance, and inter-agency coordination with prosecution.',
-          mentoringCoachingPlan: 'One-on-one coaching for newly assigned SGBV investigators, confidence-building for female officers, reflective case debriefings.'
+          monitoringMechanisms: '[Curriculum MMA Framework] Co-location observation logs, case intake monitoring, and procedural compliance checks.',
+          advisingPriorities: '[Curriculum MMA Framework] Technical advising to CIS leadership on SOP implementation, file QA, and prosecution liaison.',
+          mentoringCoachingPlan: '[Curriculum MMA Framework] One-on-one coaching for newly assigned investigators and reflective case review debriefings.'
         },
-        // Interactive Role Reversal (Counterpart's Perspective)
+        // Interactive Role Reversal (Counterpart Perspective per Lesson 4 Activity 4.1)
         roleReversal: [
           {
             id: 'role-1',
-            counterpart: 'Head of Galasi CIS (Col. Tariq)',
-            perceivedThreats: 'Fears appearing weak before subordinates; anxious about being held personally liable if politically sensitive cases surface; wary of international advisers taking credit for successes.',
-            unspokenIncentives: 'Desire for career advancement, prestige within CNP hierarchy, retaining operational discretion, protecting loyal officers.',
-            respectfulEngagementStrategy: 'Always brief him in private before plenary meetings; present all draft SOPs as co-authored under his leadership; publicly credit his department for all breakthroughs.'
+            counterpart: 'Head of Galasi Criminal Investigations Service (CIS)',
+            perceivedThreats: '[Curriculum Role Reversal] Professional vulnerability, command liability, and apprehension regarding external intervention.',
+            unspokenIncentives: '[Curriculum Role Reversal] Departmental standing, career progression, and retaining operational discretion.',
+            respectfulEngagementStrategy: '[Curriculum MMA Principle] Consultative private briefings and shared institutional ownership under national command.'
           },
           {
             id: 'role-2',
             counterpart: 'Senior Male Homicide Investigator',
-            perceivedThreats: 'Perceives specialized SGBV work as "social work" or low-status crime; fears loss of informal fee collection and disruption of established habits.',
-            unspokenIncentives: 'Respect from peers, modern specialized investigation equipment, professional training certificates with donor prestige.',
-            respectfulEngagementStrategy: 'Frame advanced SGBV interviewing as high-level investigative methodology; showcase sophisticated forensic and psychological interviewing tools (UNODC/Interpol curricula).'
+            perceivedThreats: '[Curriculum Role Reversal] Apprehension over specialized procedural methods disrupting established routines.',
+            unspokenIncentives: '[Curriculum Role Reversal] Professional prestige, specialized evidentiary tools, and certified training recognition.',
+            respectfulEngagementStrategy: '[Curriculum MMA Principle] Frame advanced interviewing as elite forensic technique with joint investigative recognition.'
           },
           {
             id: 'role-3',
             counterpart: 'Female Uniformed Officer Considering Transfer',
-            perceivedThreats: 'Fears professional isolation in an exclusively male unit, harassment, and retaliation from superiors if she advocates for victims.',
-            unspokenIncentives: 'Meaningful service to community, professional development, escaping static guard duties.',
-            respectfulEngagementStrategy: 'Provide dedicated UNPOL female mentor accompaniment; advocate for cohort recruitment (transfer in pairs or groups of 3+ rather than solo); ensure safe separate sanitation facilities.'
+            perceivedThreats: '[Curriculum Role Reversal] Risk of professional isolation in male-dominated command and peer retaliation.',
+            unspokenIncentives: '[Curriculum Role Reversal] Professional development, specialized community service, and career advancement.',
+            respectfulEngagementStrategy: '[Curriculum MMA Principle] Cohort-based transfer, dedicated UNPOL female mentor accompaniment, and protective facilities.'
           }
         ],
         // Change Management Framework
         changeManagement: {
-          unfreezingTactics: 'Joint workshop reviewing high prosecution dismissal rates (>80%) to build shared recognition that the current status quo harms CIS prestige.',
-          coalitionChampions: 'Partner with respected Galasi elders, the progressive Deputy Head of CIS, and the regional head of the Women Lawyers Association.',
-          quickWins: 'Refurbish the confidential interview bungalow within 30 days and deliver the first cohort of certified victim-intake training.',
-          sustainingMomentum: 'Establish monthly joint police-prosecutor case clinics and publish quarterly performance bulletins celebrating successful prosecutions.'
+          unfreezingTactics: '[Curriculum Change Management] Joint review workshops highlighting dismissals to establish shared need for reform.',
+          coalitionChampions: '[Curriculum Change Management] Progressive senior investigators, community elders, and civil society legal advocates.',
+          quickWins: '[Curriculum Change Management] Refurbish private intake room and deliver certified foundational training module.',
+          sustainingMomentum: '[Curriculum Change Management] Regular joint police-prosecutor clinics and monthly performance bulletins.'
         },
         // Dynamic Problem-Solving: Field Setback Simulations
         fieldSetbacks: [
           {
             id: 'setback-1',
-            title: 'Setback A: Leadership Resistance to Off-Site Facility',
-            scenario: 'Galasi PD Chief of Staff insists that all CIS interviews must take place inside the central fortified station, refusing to authorize the off-site bungalow lease (citing security and territorial authority).',
-            rootCause: 'Territorial control anxiety and fear of lost command visibility over off-site personnel.',
-            negotiationStrategy: 'Interest-based negotiation: Offer dedicated security patrols and radio comms linking the bungalow directly to Central Dispatch, satisfying his security mandate while protecting victim confidentiality.',
-            resolutionAction: 'Sign joint security protocol with Galasi PD uniformed branch guaranteeing perimeter guard for the facility without armed officers entering interview rooms.',
-            status: 'Resolved'
+            title: 'Setback A: Counterpart Reluctance & Administrative Delays',
+            category: 'Counterpart Reluctance',
+            scenario: 'Key counterparts delay scheduled activities and express doubt regarding operational feasibility.',
+            rootCause: '[Curriculum Setback Analysis] Institutional hesitation, administrative inertia, and differing jurisdictional expectations.',
+            fiveWhysAnalysis: 'Why 1: Meeting postponed -> Why 2: Draft SOP not reviewed -> Why 3: Competing command duties -> Why 4: Lack of dedicated drafting team -> Why 5: Insufficient co-ownership.',
+            negotiationStrategy: '[Curriculum Interest-Based Mediation] Identify shared underlying interests and establish joint procedural clarity.',
+            resolutionAction: '[Curriculum Action Framework] Institute structured co-drafting sessions and senior command endorsement.',
+            status: 'Scheduled'
           },
           {
             id: 'setback-2',
-            title: 'Setback B: Prosecution File Rejection Crisis',
-            scenario: 'Public prosecutor summarily rejects first three SGBV case files submitted by the new unit, claiming "unqualified interviewing and procedural defects" (Para 11).',
-            rootCause: 'Historic "us against them" institutional rivalry and lack of shared evidentiary threshold definitions.',
-            negotiationStrategy: 'Invite Chief Prosecutor to co-chair a joint case-review clinic where prosecutors define the exact admissibility checklist.',
-            resolutionAction: 'Institute mandatory pre-submission case checklist signed by both lead detective and duty prosecutor.',
-            status: 'In Progress'
+            title: 'Setback B: Resource and Logistics Shortfalls',
+            category: 'Logistical & Resource Shortfalls',
+            scenario: 'Procurement delays and premises access hurdles slow down field activities.',
+            rootCause: '[Curriculum Setback Analysis] Central procurement delays and physical infrastructure preparation bottlenecks.',
+            fiveWhysAnalysis: 'Why 1: Equipment not delivered -> Why 2: Procurement requisition delayed -> Why 3: Budget line authorization -> Why 4: Multi-agency approvals -> Why 5: Lack of fast-track mechanism.',
+            negotiationStrategy: '[Curriculum Interest-Based Mediation] Leverage partner assistance and interim low-tech operational measures.',
+            resolutionAction: '[Curriculum Action Framework] Fast-track interim facility lease and secure essential analogue supplies.',
+            status: 'Scheduled'
           },
           {
             id: 'setback-3',
-            title: 'Setback C: Retention and Reassignment Threat',
-            scenario: 'Dominant political party influences CNP headquarters to transfer 4 of the newly trained SGBV investigators to static border checkpoint duties (Para 8, 23).',
-            rootCause: 'Partisan patronage and absence of codified police specialization tenure regulations.',
-            negotiationStrategy: 'Engage Head of Police Component (HOPC) and Police Commissioner to invoke the bilateral donor training conditionality clause protecting trained personnel.',
-            resolutionAction: 'Draft and sign Ministerial directive establishing a mandatory 2-year minimum tenure for certified specialized investigators.',
+            title: 'Setback C: Inter-Agency Jurisdictional Disagreement',
+            category: 'Institutional Disagreements',
+            scenario: 'Friction between police command and prosecution/justice authorities regarding roles.',
+            rootCause: '[Curriculum Setback Analysis] Historical inter-agency rivalry and absence of shared evidence threshold standards.',
+            fiveWhysAnalysis: 'Why 1: Files rejected -> Why 2: Procedural defects cited -> Why 3: Differing checklist formats -> Why 4: No joint liaison mechanism -> Why 5: Institutional separation.',
+            negotiationStrategy: '[Curriculum Interest-Based Mediation] Convene joint police-prosecutor clinics to co-design evidence admissibility checklists.',
+            resolutionAction: '[Curriculum Action Framework] Establish Joint Liaison Working Group with bi-weekly case clinics.',
             status: 'Scheduled'
           }
         ],
@@ -490,32 +430,22 @@
           {
             id: 'track-1',
             activityId: 'act-1',
-            activityTitle: 'Draft and gazette administrative terms of reference establishing the Galasi CIS SGBV unit',
+            activityTitle: 'Initial Implementation Activity 1 (from Module 3)',
             outputRef: 'Output 1.1',
-            status: 'Completed',
-            progressPercent: 100,
-            fieldAdvisoryNote: 'TOR signed by Head of CIS on Day 20. Unit integrated into official org chart.',
-            lastUpdated: '2026-10-08'
+            status: 'In Progress',
+            progressPercent: 10,
+            fieldAdvisoryNote: '[Field Advisory Observation] Initial operational planning underway with counterpart leadership.',
+            lastUpdated: getTodayDateString()
           },
           {
             id: 'track-2',
             activityId: 'act-2',
-            activityTitle: 'Conduct specialized SGBV interview & evidence management training (Interpol/UNODC)',
+            activityTitle: 'Initial Implementation Activity 2 (from Module 3)',
             outputRef: 'Output 1.2',
             status: 'In Progress',
-            progressPercent: 65,
-            fieldAdvisoryNote: 'Cohort 1 (10 officers) currently in Week 2. Strong engagement from female officers.',
-            lastUpdated: '2026-10-08'
-          },
-          {
-            id: 'track-3',
-            activityId: 'act-3',
-            activityTitle: 'Secure and equip off-site confidential interview room with NGO partnership',
-            outputRef: 'Output 1.3',
-            status: 'In Progress',
-            progressPercent: 40,
-            fieldAdvisoryNote: 'Lease finalized under QIP funding. Furniture and recording equipment pending delivery.',
-            lastUpdated: '2026-10-08'
+            progressPercent: 5,
+            fieldAdvisoryNote: '[Field Advisory Observation] Logistics coordination and preliminary engagement commenced.',
+            lastUpdated: getTodayDateString()
           }
         ],
         reflection: {
@@ -531,93 +461,75 @@
         // Evaluation Framework & Deming PDCA Cycle
         evaluationFramework: {
           demingPhase: 'Check & Act',
-          evalActors: 'Mission Evaluation Unit (under Mission CoS), OIOS, and SPC Support',
+          evalActors: 'Mission Evaluation Unit, OIOS, and SPC Support (Lesson 5 Curriculum Framework)',
           principles: 'SGF compliance, human rights-sensitive, gender-sensitive, impartial and transparent',
-          dataCollectionStrategy: 'Triangulation of police intake registers, court dismissal audits, and confidential civil society interviews'
+          dataCollectionStrategy: '[Lesson 5 Triangulation] Intake registries, court file audits, and community feedback.'
         },
         // 8-Month Situational Assessment (Le Galasien & Cable from Section Chief Yaa)
         crisisAnalysis: {
-          leadershipShiftImpact: 'Col. Tariq transferred; inexperienced Tatsi deputy appointed for UN diversity requirements lacks criminal investigations background; succession candidate questioned over past human rights record.',
-          absorptionCapacityAssessment: 'Galasi CIS overwhelmed by proposed changes in time allotted; daily caseload pressure conflicts with training abstractions.',
-          dataLossAssessment: 'Total loss of digitized performance measurement data due to IT crash; urgent need for resilient low-tech data ledgers.',
-          interAgencyFriction: 'Jurisdiction struggle: Ministry of Justice claims competence over CNP policy drafting, delaying formal gazetting of SOPs.',
-          publicPerceptionGap: 'Citizens, especially women and Tatsi minorities, express profound skepticism; ombudsman mechanism remains completely unused.',
-          budgetCliffRisk: 'Lagging 6 weeks behind; funds cannot carry over past fiscal year; risk of losing allocations unless urgently reprogrammed.'
+          leadershipShiftImpact: '[Lesson 5 Crisis Analysis] Leadership transition and appointment of interim command requiring executive mentoring support.',
+          absorptionCapacityAssessment: '[Lesson 5 Crisis Analysis] High daily operational caseload conflicting with training abstractions and organizational absorption.',
+          dataLossAssessment: '[Lesson 5 Crisis Analysis] Total failure of digital records system necessitating immediate paper-based logging protocols.',
+          interAgencyFriction: '[Lesson 5 Crisis Analysis] Evidentiary dispute between police investigators and prosecution regarding case admissibility.',
+          publicPerceptionGap: '[Lesson 5 Crisis Analysis] Citizen and community skepticism requiring renewed outreach and protected complaint mechanisms.',
+          budgetCliffRisk: '[Lesson 5 Crisis Analysis] 6-week delay risking lapse of current financial year funds without formal reprogramming.'
         },
         // KPI & Activity Variance Evaluations (Lesson 5 Activity 5.1 Task A)
         kpiEvaluations: [
           {
             id: 'eval-kpi-1',
-            kpiTitle: 'Number of trained and certified SGBV criminal investigators',
-            baselineValue: '0 certified investigators in Galasi CIS',
-            targetValue: '15 investigators certified (at least 6 female officers)',
-            actualValue: '10 investigators completed classroom module; 0 formally certified due to delayed vetting and test deferral',
-            varianceStatus: 'Delayed', // 'On Track' | 'Delayed' | 'Critical Variance' | 'Exceeded'
-            varianceAnalysis: 'Vetting bottlenecks and CNP headquarters attempting to reassign trained officers to static border posts. High absorption strain.',
-            correctiveAction: 'Deploy UNPOL mobile mentor team to administer in-situ field competency tests; invoke bilateral donor protection clause against premature transfers.'
+            kpiTitle: 'SGBV Investigation Capability & Personnel Vetting',
+            baselineValue: 'Initial baseline per Module 1/2',
+            targetValue: 'Target set in Module 2/3',
+            actualValue: '10 investigators completed classroom phase; field competency verification pending',
+            varianceStatus: 'Delayed',
+            varianceAnalysis: 'Vetting procedural delays and personnel absorption pressure.',
+            correctiveAction: 'Deploy mobile mentoring teams for in-situ competency verification.'
           },
           {
             id: 'eval-kpi-2',
-            kpiTitle: 'Percentage of SGBV case files meeting prosecution procedural standards',
-            baselineValue: 'Under 15% accepted by Galasi Prosecution Office',
-            targetValue: 'At least 75% accepted without procedural dismissal',
-            actualValue: 'Estimated ~20%; accurate rate unknown due to total loss of IT database records',
+            kpiTitle: 'Case File Admissibility & Record Keeping',
+            baselineValue: 'Initial baseline per Module 1/2',
+            targetValue: 'Target set in Module 2/3',
+            actualValue: 'Intermittent paper logbook; digital server crash prevents quantitative audit',
             varianceStatus: 'Critical Variance',
-            varianceAnalysis: 'IT server failure erased quantitative case intake records; ongoing institutional rivalry with Falin Ministry of Justice prosecutors.',
-            correctiveAction: 'Reinstate paper-based emergency logbook; convene emergency joint UNPOL-CIS-Prosecution case file clinics to co-sign admissibility checklists.'
-          },
-          {
-            id: 'eval-kpi-3',
-            kpiTitle: 'Public complaint mechanism utilisation & misconduct review',
-            baselineValue: '0 formal external complaints recorded',
-            targetValue: '100% of received complaints logged and reviewed within 14 days',
-            actualValue: '0 complaints lodged through new ombudsman office in 8 months',
-            varianceStatus: 'Critical Variance',
-            varianceAnalysis: 'Citizens, especially vulnerable women and minority groups, unaware or terrified of retaliation; ombudsman office lacks outreach and safe intake channels.',
-            correctiveAction: 'Launch community radio sensitization campaign with local women civil society leaders; co-locate complaint dropboxes in neutral civil society facilities.'
+            varianceAnalysis: 'IT server outage and differing evidentiary threshold standards with prosecution.',
+            correctiveAction: 'Institute emergency standardized physical ledgers and joint case clinics.'
           }
         ],
         // 3-Tier Adjustment Recommendations (Lesson 5 Activity 5.1 Task B)
         adjustments: [
           {
             id: 'adj-1',
-            recommendationTitle: '1. Leadership Engagement & Executive Mentoring for Interim CIS Command',
-            reaction: 'Fully Accept', // 'Fully Accept' | 'Partially Accept' | 'Reject'
-            justification: 'The transfer of Col. Tariq and elevation of an inexperienced Tatsi deputy creates acute leadership vulnerability that will stall reform without immediate mentoring.',
-            actionPlan: 'Provide daily co-located executive advising to the new deputy; develop a 90-day transitional command roadmap; advise mission leadership against appointing succession candidates with human rights allegations.',
-            stakeholderOwner: 'UNPOL Senior Police Adviser & Head of Galasi Police Directorate'
+            recommendationTitle: '1. Leadership Engagement & Executive Mentoring for Interim Command',
+            reaction: 'Fully Accept',
+            justification: '[Lesson 5 Task B Adaptation] Essential to provide structured executive mentoring during transitional command.',
+            actionPlan: '[Lesson 5 Task B Adaptation] Institute daily executive advising and develop 90-day transitional command plan.',
+            stakeholderOwner: 'UNPOL Senior Police Adviser & Host Police Directorate'
           },
           {
             id: 'adj-2',
-            recommendationTitle: '2. Inter-Agency MOJ vs CNP Competence Conflict Resolution',
+            recommendationTitle: '2. Inter-Agency Coordination & Procedural SOP Reconciliation',
             reaction: 'Fully Accept',
-            justification: 'Jurisdiction dispute between Ministry of Justice and CNP over policy drafting is beyond tactical police component authority and paralyzes SOP legalization.',
-            actionPlan: 'Elevate dispute to the DSRSG/RoL and UNAC Mission Leadership to facilitate a formal tripartite MOU between Ministry of Interior, Ministry of Justice, and CNP.',
-            stakeholderOwner: 'UNAC DSRSG/Rule of Law, UNPOL Police Commissioner & Falin MOJ'
+            justification: '[Lesson 5 Task B Adaptation] Resolve jurisdictional impasse between police and prosecution regarding case admissibility.',
+            actionPlan: '[Lesson 5 Task B Adaptation] Elevate to Joint Rule of Law Working Group to sign joint procedural protocol.',
+            stakeholderOwner: 'Joint Rule of Law Working Group & Ministry of Justice'
           },
           {
             id: 'adj-3',
-            recommendationTitle: '3. Emergency Budgetary Cliff Mitigation & Absorption Pacing',
+            recommendationTitle: '3. Reprogramming Budget Allocations Before Fiscal Year End',
             reaction: 'Partially Accept',
-            justification: 'While Section Chief Yaa warned funds cannot carry over, repeating the full 4-month approval process would kill momentum. Reprogramming within the current cycle is essential.',
-            actionPlan: 'Submit urgent programmatic reallocation request to fast-track remaining capital expenditures (interview room refurbishment, offline ledger procurement) before financial year-end.',
-            stakeholderOwner: 'UNPOL Program Management Unit & Mission Support Finance'
-          },
-          {
-            id: 'adj-4',
-            recommendationTitle: '4. Public Trust Restoration & Ombudsman Outreach',
-            reaction: 'Fully Accept',
-            justification: 'The Le Galasien finding that vulnerable groups remain skeptical and the ombudsman is unused proves that institutional reform without community trust is futile.',
-            actionPlan: 'Partner with local women’s associations and minority elders to re-introduce the complaint mechanism with anonymous intake protocols and visible witness protection.',
-            stakeholderOwner: 'Galasi Ombudsman, UNPOL Community Policing Team, Local CSOs'
+            justification: '[Lesson 5 Task B Adaptation] Reprogram remaining funds within current cycle to prevent budget lapse.',
+            actionPlan: '[Lesson 5 Task B Adaptation] Fast-track urgent programmatic reallocation for essential training and records materials.',
+            stakeholderOwner: 'UNPOL Program Management & Host Counterpart'
           }
         ],
         // Impact on Initial Planning (Lesson 5 Activity 5.1 Task C)
         impactAssessment: {
-          timelineImpact: 'Overall milestone completion shifted back by 12 weeks to accommodate leadership transition, paper ledger reinstatement, and SOP gazetting.',
-          resourceImpact: 'Immediate reallocation of $35,000 to emergency paper registers, mobile training clinics, and civil society outreach before budget year-end.',
-          qualityImpact: 'Initial cohort certification deferred until field competency is verified, preserving high investigative standards over rushed outputs.',
-          counterpartWillingness: 'Cautious receptivity from interim Tatsi deputy; heightened political scrutiny from central CNP HQ.'
+          timelineImpact: '[Lesson 5 Task C Recalibration] Target completion dates extended by 12 weeks to accommodate operational transition.',
+          resourceImpact: '[Lesson 5 Task C Recalibration] Immediate reprogramming of capital funds to procure emergency records and materials.',
+          qualityImpact: '[Lesson 5 Task C Recalibration] Rigorous competency certification maintained prior to independent caseload deployment.',
+          counterpartWillingness: '[Lesson 5 Task C Recalibration] Receptive engagement from interim command with continued oversight coordination.'
         },
         // Syndicate Reflection (Lesson 5 Activity 5.1 Task D)
         reflection: {
@@ -632,88 +544,82 @@
         description: 'Transition and Handover (UNPOL CBD JST Lesson 6)',
         // Transition Strategy & Mandate Triggers (Lesson 6 Slides 6-9)
         transitionStrategy: {
-          hopcInitiationDate: 'Month 18 of Mission Mandate',
-          primaryTrigger: 'Substantial achievement of core CBD objectives verified by Lesson 5 Evaluation',
-          succeedingEntity: 'Galasi Police Directorate (CIS) with continuing UN Country Team (UNDP/UNODC) programmatic support',
-          localOwnerDesignation: 'Director of Galasi Criminal Investigations Service & Galasi Police Academy Commandant'
+          hopcInitiationDate: 'Initiated at Month 12 under HOPC authority (Lesson 6 p. 5)',
+          primaryTrigger: 'Verified achievement of CBD benchmarks under HOPC authority (Lesson 6 p. 4-6)',
+          succeedingEntity: 'Galasi Police Directorate (CIS) with UN Country Team programmatic support',
+          localOwnerDesignation: 'Director of Galasi Criminal Investigations Service (CIS)'
         },
         // The Four Principles of Transition (Lesson 6 Slide 8)
         fourPrinciplesFramework: {
-          earlyPlanning: 'Phased 6-month drawdown schedule initiated at Month 12; status determined across human rights, gender, strategic, political, and financial dimensions.',
-          unIntegration: 'Integrated transition compact signed with UNCT (UNDP Rule of Law project, UNODC, UN Women) ensuring long-term technical and material assistance.',
-          localOwnership: 'National counterpart co-leads all training modules and assumes direct budget responsibility under the Galasi Police Directorate annual appropriation.',
-          communicationProtocol: 'Bimonthly transition bulletins to Galasi civil society, joint press releases by HOPC and CNP Commissioner, transparent milestone briefings.'
+          earlyPlanning: '[Lesson 6 Slide 8 Principle 1] Phased transition strategy initiated under HOPC authority during early mission mandate.',
+          unIntegration: '[Lesson 6 Slide 8 Principle 2] Integrated transition compact established with UN Country Team programmatic agencies.',
+          localOwnership: '[Lesson 6 Slide 8 Principle 3] National counterpart assumes primary leadership and operational budget ownership.',
+          communicationProtocol: '[Lesson 6 Slide 8 Principle 4] Structured transparent milestone briefings to civil society and national stakeholders.'
         },
         // Phased Handover Roadmap (Lesson 6 Activity 6.1 Task 1)
         transitionRoadmap: [
           {
             id: 'trans-step-1',
-            phase: 'Phase A: Co-Management (Months 1–2)',
-            milestone: 'Joint operation of SGBV Unit and Code of Conduct complaint register; 50/50 division of supervisory responsibilities.',
-            leadResponsible: 'UNPOL CBD Lead Adviser & Galasi CIS Deputy',
-            handoverCriteria: '100% of case reviews conducted jointly; zero unaddressed human rights violations.',
-            status: 'Completed'
+            phase: 'Phase A: Co-Management',
+            milestone: 'Joint operation with shared supervisory responsibilities and co-location',
+            leadResponsible: 'UNPOL CBD Lead Adviser & National Counterpart',
+            handoverCriteria: '[Lesson 6 Criteria] 100% of case reviews conducted jointly with zero unaddressed human rights violations.',
+            status: 'Scheduled'
           },
           {
             id: 'trans-step-2',
-            phase: 'Phase B: Shadow Advisory (Months 3–4)',
-            milestone: 'National detectives assume 100% casework leadership; UNPOL shifts from daily co-location to scheduled mentoring visits and QA checks.',
-            leadResponsible: 'Galasi CIS Unit Chief & UNPOL Shadow Mentor',
-            handoverCriteria: 'National investigators independently resolve 25+ casework dockets with >80% prosecution acceptance rate.',
-            status: 'In Progress'
+            phase: 'Phase B: Shadow Advisory',
+            milestone: 'National detectives assume casework leadership; UNPOL provides mentoring and QA',
+            leadResponsible: 'National Unit Lead & UNPOL Shadow Mentor',
+            handoverCriteria: '[Lesson 6 Criteria] National investigators independently resolve casework with acceptable prosecution standards.',
+            status: 'Scheduled'
           },
           {
             id: 'trans-step-3',
-            phase: 'Phase C: Institutionalization (Months 5–6)',
-            milestone: 'Curriculum codified into national Police Academy; operational budget line established in Galasi PD annual budget.',
-            leadResponsible: 'Director of Police Academy & Ministry of Interior Budget Officer',
-            handoverCriteria: 'Formal gazetting of SGBV investigation manual; ministerial decree protecting specialized detective tenure.',
+            phase: 'Phase C: Institutionalization',
+            milestone: 'Curriculum codified into national Police Academy; operational budget line established',
+            leadResponsible: 'Director of Police Academy & Budget Authority',
+            handoverCriteria: '[Lesson 6 Criteria] Formal gazetting of operating guidelines and ministerial protection of specialized cadre.',
             status: 'Scheduled'
           },
           {
             id: 'trans-step-4',
-            phase: 'Phase D: Full Handover & UNCT Handoff (Month 6+)',
-            milestone: 'Execution of formal Transition Instrument / Handover Protocol; transition of residual donor support to UNDP/UNODC.',
-            leadResponsible: 'HOPC, UNPOL Police Commissioner, Head of CNP, UNDP Resident Representative',
-            handoverCriteria: 'Formal signing ceremony and transition protocol archivation; exit of tactical UNPOL advisers.',
+            phase: 'Phase D: Full Handover & UNCT Handoff',
+            milestone: 'Execution of formal Transition Instrument / Handover Protocol',
+            leadResponsible: 'HOPC, Police Commissioner, National Authorities, UNCT',
+            handoverCriteria: '[Lesson 6 Criteria] Execution of transition protocol and exit of tactical UNPOL advisers.',
             status: 'Scheduled'
           }
         ],
         // Institutionalizing Sustainable Policing Practice (Lesson 6 Slide 10 & Activity 6.1 Task 2)
         institutionalizingPractice: {
-          doctrineCodification: 'SGBV investigation SOPs and Human Rights Code of Conduct formally gazetted as standard CNP national operating directives.',
-          academyIntegration: 'Mandatory 40-hour victim-centered interviewing curriculum integrated into basic police recruit and detective promotional courses at Galasi Police Academy.',
-          genderResponsiveBudget: 'Dedicated 12% operational budget allocation within Galasi PD budget specifically earmarked for confidential interview facilities and victim assistance logistics.',
-          oversightHandover: 'Permanent oversight transferred to the Regional Police Inspectorate and the independent Galasi Civilian Oversight Board.'
+          doctrineCodification: '[Lesson 6 Slide 10] Formal codification of operating procedures into national police doctrine directives.',
+          academyIntegration: '[Lesson 6 Slide 10] Standardized curriculum integrated into basic and detective recruit courses at Police Academy.',
+          genderResponsiveBudget: '[Lesson 6 Slide 10 Adaptation] Institutional budget line designated for specialized investigative facilities and victim support.',
+          oversightHandover: '[Lesson 6 Slide 10] Routine external inspection authority transferred to statutory civilian and inspectorate bodies.'
         },
         // Challenges & Remedies Register (Lesson 6 Activity 6.1 Task 4)
         challengesRemedies: [
           {
             id: 'cr-1',
-            challenge: 'Post-handover relapse into coercive interrogation techniques once UNPOL advisers depart',
+            challenge: 'Post-handover sustainability of specialized standards and procedures',
             riskLevel: 'High',
-            remedy: 'Establish mandatory judicial admissibility rules rejecting unrecorded confessions; integrate random quarterly case file inspections by the Civilian Oversight Board.'
+            remedy: '[Lesson 6 Remedy] Judicial admissibility guidelines requiring certified procedures and regular civilian inspections.'
           },
           {
             id: 'cr-2',
-            challenge: 'Budget exhaustion leading to closure of the off-site confidential interview bungalow',
-            riskLevel: 'High',
-            remedy: 'Secure bilateral donor endowment with local women’s health NGO under UNDP management to subsidize lease for 3 years post-mission.'
-          },
-          {
-            id: 'cr-3',
-            challenge: 'Political reassignment of trained detectives to non-specialized static duties',
+            challenge: 'Budget allocation and facility maintenance continuity',
             riskLevel: 'Medium',
-            remedy: 'National Ministerial directive codifying 3-year minimum tenure for certified specialized investigators with promotion incentives for retention.'
+            remedy: '[Lesson 6 Remedy] Bilateral partner coordination to transition ongoing facility support under UNCT auspices.'
           }
         ],
         // Handover Notice / Transition Agreement Protocol (Lesson 6 Slide 14)
         handoverNotice: {
-          handoverDate: '2027-04-15',
+          handoverDate: 'Date determined upon verified achievement of CBD benchmarks (Lesson 6 p. 5)',
           unpolSignatory: 'Senior UNPOL Capacity-Building & Development Adviser, UNAC',
-          counterpartSignatory: 'Chief of Criminal Investigations Service, Galasi Police Directorate',
-          witnessSignatory: 'Head of Police Component (HOPC) & UNDP Resident Representative',
-          residualObligations: 'UNDP will provide quarterly programmatic monitoring; CNP Directorate will submit semiannual human rights adherence reports to the Minister of Interior.'
+          counterpartSignatory: 'Head of Criminal Investigations Service (CIS), Galasi Police Directorate',
+          witnessSignatory: 'Head of Police Component (HOPC) & UN Resident Coordinator',
+          residualObligations: '[Lesson 6 Handover Protocol] UNCT agencies provide continuing programmatic monitoring under national leadership.'
         },
         // Final Syndicate Reflection on the 6-Phase CBD Cycle (Lesson 6 Activity 6.1 Task 5)
         reflection: {
@@ -734,9 +640,15 @@
     if (!source || typeof source !== 'object') return target;
     const output = Object.assign({}, target);
     for (const key of Object.keys(source)) {
-      if (source[key] instanceof Array) {
-        output[key] = source[key];
-      } else if (source[key] !== null && typeof source[key] === 'object' && target && typeof target[key] === 'object') {
+      if (source[key] === null || source[key] === undefined) {
+        // Guard against null/undefined destroying defaults, especially session or modules
+        if (target && target[key] !== undefined && target[key] !== null) {
+          continue;
+        }
+      }
+      if (Array.isArray(source[key])) {
+        output[key] = source[key].slice();
+      } else if (typeof source[key] === 'object' && source[key] !== null && target && typeof target[key] === 'object' && target[key] !== null && !Array.isArray(target[key])) {
         output[key] = deepMerge(target[key], source[key]);
       } else {
         output[key] = source[key];
@@ -753,8 +665,28 @@
         saveLabState(fresh);
         return fresh;
       }
-      const parsed = JSON.parse(stored);
-      return deepMerge(getDefaultState(), parsed);
+      let parsed;
+      try {
+        parsed = JSON.parse(stored);
+      } catch (parseErr) {
+        console.warn('Malformed JSON in localStorage. Quarantining to backup key:', parseErr);
+        try { localStorage.setItem(STORAGE_KEY + '_corrupted_backup', stored); } catch (_) {}
+        const fresh = getDefaultState();
+        saveLabState(fresh);
+        return fresh;
+      }
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        console.warn('Invalid root state in localStorage. Resetting to defaults.');
+        const fresh = getDefaultState();
+        saveLabState(fresh);
+        return fresh;
+      }
+      const merged = deepMerge(getDefaultState(), parsed);
+      // Guarantee session object always exists and has valid structure
+      if (!merged.session || typeof merged.session !== 'object') {
+        merged.session = getDefaultState().session;
+      }
+      return merged;
     } catch (e) {
       console.warn('Error reading from localStorage, initializing defaults:', e);
       return getDefaultState();
@@ -763,6 +695,7 @@
 
   function saveLabState(state) {
     try {
+      if (!state || typeof state !== 'object') return false;
       state.updatedAt = new Date().toISOString();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       return true;
@@ -801,28 +734,118 @@
   }
 
   function validateImportedData(data) {
-    if (!data || typeof data !== 'object') {
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
       return { valid: false, error: 'Uploaded file is not a valid JSON object.' };
     }
-    if (!data.version || !data.module1) {
-      return { valid: false, error: 'Uploaded JSON lacks required CARANA CBD Learning Lab structure.' };
+    // Check app identifier
+    if (!data.app || typeof data.app !== 'string' || !data.app.includes('CARANA CBD')) {
+      return { valid: false, error: 'Uploaded JSON is missing valid CARANA CBD Learning Lab app identifier.' };
+    }
+    // Version check
+    if (!data.version || typeof data.version !== 'string' || !data.version.startsWith('1.')) {
+      return { valid: false, error: `Unsupported or invalid schema version "${data.version}". Expected version 1.x.` };
+    }
+    // Session validation
+    if (data.session !== undefined && (data.session === null || typeof data.session !== 'object' || Array.isArray(data.session))) {
+      return { valid: false, error: 'Invalid session structure in imported JSON.' };
+    }
+    // Module 1 validation
+    if (!data.module1 || typeof data.module1 !== 'object' || Array.isArray(data.module1)) {
+      return { valid: false, error: 'Missing or invalid module1 structure in imported JSON.' };
+    }
+    if (data.module1.stakeholders !== undefined && !Array.isArray(data.module1.stakeholders)) {
+      return { valid: false, error: 'Module 1 stakeholders must be an array.' };
+    }
+    if (data.module1.baseline !== undefined && !Array.isArray(data.module1.baseline)) {
+      return { valid: false, error: 'Module 1 baseline must be an array.' };
+    }
+    // Modules 2-6 structural validation if provided
+    for (let i = 2; i <= 6; i++) {
+      const modKey = 'module' + i;
+      if (data[modKey] !== undefined && (data[modKey] === null || typeof data[modKey] !== 'object' || Array.isArray(data[modKey]))) {
+        return { valid: false, error: `Invalid ${modKey} structure in imported JSON.` };
+      }
     }
     return { valid: true };
   }
 
   function importLabFromJson(jsonString) {
     try {
-      const parsed = JSON.parse(jsonString);
+      let parsed;
+      try {
+        parsed = JSON.parse(jsonString);
+      } catch (err) {
+        return { success: false, error: 'Malformed JSON syntax: ' + err.message };
+      }
       const validation = validateImportedData(parsed);
       if (!validation.valid) {
         return { success: false, error: validation.error };
       }
       const merged = deepMerge(getDefaultState(), parsed);
-      saveLabState(merged);
+      const saved = saveLabState(merged);
+      if (!saved) {
+        return { success: false, error: 'Failed to persist imported data to local storage (quota exceeded or storage blocked).' };
+      }
       return { success: true, state: merged };
     } catch (e) {
-      return { success: false, error: 'Malformed JSON syntax: ' + e.message };
+      return { success: false, error: 'Import failed: ' + e.message };
     }
+  }
+
+  function renderCurriculumTrack(currentModuleNum, targetContainer) {
+    if (typeof document === 'undefined') return;
+    const container = targetContainer || document.getElementById('curriculumTrackGrid') || document.querySelector('.curriculum-track-grid');
+    if (!container) return;
+
+    const state = loadLabState();
+    const modules = [
+      { num: 1, file: 'module1.html', title: 'Situational Analysis', desc: '"As is" baseline & conflict scan', key: 'module1' },
+      { num: 2, file: 'module2.html', title: 'Objective Setting', desc: '"To be" SMART & Prioritisation', key: 'module2' },
+      { num: 3, file: 'module3.html', title: 'Planning Activities', desc: '"What to" Logframe & RBB', key: 'module3' },
+      { num: 4, file: 'module4.html', title: 'Implementation', desc: '"How to" MMA execution', key: 'module4' },
+      { num: 5, file: 'module5.html', title: 'Evaluation & Adjust.', desc: '"Did we" Impact & adaptation', key: 'module5' },
+      { num: 6, file: 'module6.html', title: 'Transition & Handover', desc: '"Sustain" Exit & local ownership', key: 'module6' }
+    ];
+
+    let confirmedCount = 0;
+    modules.forEach(m => {
+      if (state[m.key] && state[m.key].confirmed) confirmedCount++;
+    });
+
+    const header = container.parentElement?.querySelector('.curriculum-track-header');
+    if (header) {
+      const subtitleEl = document.getElementById('curriculumTrackSubtitle') || header.querySelector('span:last-child');
+      if (subtitleEl) {
+        subtitleEl.textContent = `${confirmedCount} of 6 Phases Self-Validated`;
+      }
+    }
+
+    container.innerHTML = modules.map(m => {
+      const isCurrent = m.num === currentModuleNum;
+      const isConfirmed = !!(state[m.key] && state[m.key].confirmed);
+
+      let stepClass = 'track-step';
+      let badgeText = `Phase 0${m.num}`;
+
+      if (isCurrent) {
+        stepClass += isConfirmed ? ' completed active' : ' active';
+        badgeText += isConfirmed ? ' · Confirmed' : ' · Active';
+      } else if (isConfirmed) {
+        stepClass += ' completed';
+        badgeText += ' · Confirmed';
+      } else {
+        stepClass += ' in-progress';
+        badgeText += ' · In Progress';
+      }
+
+      return `
+        <a href="${m.file}" class="${stepClass}" title="Go to Phase ${m.num}: ${m.title}">
+          <span class="track-num">${badgeText}</span>
+          <span class="track-title">${m.title}</span>
+          <span class="track-desc">${m.desc}</span>
+        </a>
+      `;
+    }).join('');
   }
 
   function resetLabState() {
@@ -846,6 +869,7 @@
     exportLabAsJson,
     importLabFromJson,
     resetLabState,
-    validateImportedData
+    validateImportedData,
+    renderCurriculumTrack
   };
 });

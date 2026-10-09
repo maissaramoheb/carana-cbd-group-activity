@@ -46,21 +46,29 @@
     render3x3RiskMatrix();
     renderScenarioDrawerList();
     renderGlossaryList();
+    Storage.renderCurriculumTrack(3);
     updateSaveIndicator('Loaded local data');
     setupAutosaveListener();
+    setupLifecycleListeners();
   }
 
   function save(statusMsg) {
     collectFormFields();
-    Storage.saveLabState(state);
-    updateSaveIndicator(statusMsg || 'Saved locally');
+    const ok = Storage.saveLabState(state);
+    if (!ok) {
+      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+    } else {
+      updateSaveIndicator(statusMsg || 'Saved locally');
+    }
+    Storage.renderCurriculumTrack(3);
+    return ok;
   }
 
-  function updateSaveIndicator(msg) {
+  function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
       el.textContent = msg || 'Saved locally on this device';
-      el.style.color = 'var(--ok)';
+      el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
 
@@ -69,6 +77,22 @@
       save('Autosaved');
       render3x3RiskMatrix();
     }, 600));
+  }
+
+  function setupLifecycleListeners() {
+    window.addEventListener('beforeunload', () => save());
+    window.addEventListener('pagehide', () => save());
+    window.addEventListener('storage', e => {
+      if (e.key === Storage.STORAGE_KEY) {
+        state = Storage.loadLabState();
+        populateFormFields();
+        renderLogframeTables();
+        renderRisks();
+        render3x3RiskMatrix();
+        Storage.renderCurriculumTrack(3);
+        updateSaveIndicator('Synced from another tab');
+      }
+    });
   }
 
   function debounce(fn, delay) {
@@ -201,11 +225,11 @@
     host.innerHTML = outcomes.map((o, idx) => `
       <tr data-idx="${idx}">
         <td style="font-weight: 700;">Outcome ${idx + 1}</td>
-        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="narrative" style="min-height: 60px;">${escapeHtml(o.narrative || '')}</textarea></td>
-        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="indicators" style="min-height: 60px;">${escapeHtml(o.indicators || '')}</textarea></td>
-        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="verification" style="min-height: 60px;">${escapeHtml(o.verification || '')}</textarea></td>
-        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="assumptions" style="min-height: 60px;">${escapeHtml(o.assumptions || '')}</textarea></td>
-        <td><button class="btn btn-sm btn-danger remove-out-btn" data-idx="${idx}" type="button">×</button></td>
+        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="narrative" style="min-height: 60px;" aria-label="Outcome ${idx + 1} narrative">${escapeHtml(o.narrative || '')}</textarea></td>
+        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="indicators" style="min-height: 60px;" aria-label="Outcome ${idx + 1} indicators">${escapeHtml(o.indicators || '')}</textarea></td>
+        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="verification" style="min-height: 60px;" aria-label="Outcome ${idx + 1} verification">${escapeHtml(o.verification || '')}</textarea></td>
+        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="assumptions" style="min-height: 60px;" aria-label="Outcome ${idx + 1} assumptions">${escapeHtml(o.assumptions || '')}</textarea></td>
+        <td><button class="btn btn-sm btn-danger remove-out-btn" data-idx="${idx}" type="button" aria-label="Remove outcome ${idx + 1}">×</button></td>
       </tr>
     `).join('');
 
@@ -234,16 +258,29 @@
     const host = document.getElementById('logframeOutputsBody');
     if (!host) return;
     const outputs = state.module3.logframe?.outputs || [];
+    const outcomes = state.module3.logframe?.outcomes || [];
 
-    host.innerHTML = outputs.map((op, idx) => `
-      <tr data-idx="${idx}">
-        <td style="font-weight: 700;">Output 1.${idx + 1}</td>
-        <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="narrative" style="min-height: 60px;">${escapeHtml(op.narrative || '')}</textarea></td>
-        <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="indicators" style="min-height: 60px;">${escapeHtml(op.indicators || '')}</textarea></td>
-        <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="verification" style="min-height: 60px;">${escapeHtml(op.verification || '')}</textarea></td>
-        <td><button class="btn btn-sm btn-danger remove-outp-btn" data-idx="${idx}" type="button">×</button></td>
-      </tr>
-    `).join('');
+    host.innerHTML = outputs.map((op, idx) => {
+      const outcomeOptions = outcomes.length > 0
+        ? outcomes.map((o, oIdx) => `<option value="${escapeHtml(o.id)}" ${op.outcomeId === o.id ? 'selected' : ''}>Outcome ${oIdx + 1}</option>`).join('')
+        : `<option value="out-1">Outcome 1</option>`;
+
+      return `
+        <tr data-idx="${idx}">
+          <td>
+            <div style="font-weight: 700; margin-bottom: 4px;">Output 1.${idx + 1}</div>
+            <select class="form-select outp-field" data-idx="${idx}" data-field="outcomeId" style="font-size: 0.78rem; padding: 4px;" aria-label="Parent Outcome for Output 1.${idx + 1}">
+              ${outcomeOptions}
+            </select>
+          </td>
+          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="narrative" placeholder="Tangible deliverable narrative..." style="min-height: 60px;" aria-label="Output 1.${idx + 1} narrative">${escapeHtml(op.narrative || '')}</textarea></td>
+          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="indicators" placeholder="Objectively verifiable indicators..." style="min-height: 60px;" aria-label="Output 1.${idx + 1} indicators">${escapeHtml(op.indicators || '')}</textarea></td>
+          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="verification" placeholder="Means of verification..." style="min-height: 60px;" aria-label="Output 1.${idx + 1} verification">${escapeHtml(op.verification || '')}</textarea></td>
+          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="assumptions" placeholder="Output assumptions & risks..." style="min-height: 60px;" aria-label="Output 1.${idx + 1} assumptions">${escapeHtml(op.assumptions || '')}</textarea></td>
+          <td><button class="btn btn-sm btn-danger remove-outp-btn" data-idx="${idx}" type="button" aria-label="Remove output 1.${idx + 1}">×</button></td>
+        </tr>
+      `;
+    }).join('');
 
     host.querySelectorAll('.outp-field').forEach(el => {
       el.addEventListener('input', e => {
@@ -270,16 +307,29 @@
     const host = document.getElementById('logframeActivitiesBody');
     if (!host) return;
     const activities = state.module3.logframe?.activities || [];
+    const outputs = state.module3.logframe?.outputs || [];
 
-    host.innerHTML = activities.map((act, idx) => `
-      <tr data-idx="${idx}">
-        <td style="font-weight: 700;">Activity 1.1.${idx + 1}</td>
-        <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="narrative" style="min-height: 60px;">${escapeHtml(act.narrative || '')}</textarea></td>
-        <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="inputs" placeholder="Capital, Labor, Knowledge (RBB)" style="min-height: 60px;">${escapeHtml(act.inputs || '')}</textarea></td>
-        <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="verification" style="min-height: 60px;">${escapeHtml(act.verification || '')}</textarea></td>
-        <td><button class="btn btn-sm btn-danger remove-act-btn" data-idx="${idx}" type="button">×</button></td>
-      </tr>
-    `).join('');
+    host.innerHTML = activities.map((act, idx) => {
+      const outputOptions = outputs.length > 0
+        ? outputs.map((op, opIdx) => `<option value="${escapeHtml(op.id)}" ${act.outputId === op.id ? 'selected' : ''}>Output 1.${opIdx + 1}</option>`).join('')
+        : `<option value="outp-1">Output 1.1</option>`;
+
+      return `
+        <tr data-idx="${idx}">
+          <td>
+            <div style="font-weight: 700; margin-bottom: 4px;">Activity 1.1.${idx + 1}</div>
+            <select class="form-select act-field" data-idx="${idx}" data-field="outputId" style="font-size: 0.78rem; padding: 4px;" aria-label="Parent Output for Activity 1.1.${idx + 1}">
+              ${outputOptions}
+            </select>
+          </td>
+          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="narrative" placeholder="Planned activity description..." style="min-height: 60px;" aria-label="Activity 1.1.${idx + 1} narrative">${escapeHtml(act.narrative || '')}</textarea></td>
+          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="inputs" placeholder="Capital, Labor, Knowledge (RBB)" style="min-height: 60px;" aria-label="Activity 1.1.${idx + 1} resource inputs">${escapeHtml(act.inputs || '')}</textarea></td>
+          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="verification" placeholder="Verification / monitoring..." style="min-height: 60px;" aria-label="Activity 1.1.${idx + 1} verification">${escapeHtml(act.verification || '')}</textarea></td>
+          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="assumptions" placeholder="Activity assumptions & risks..." style="min-height: 60px;" aria-label="Activity 1.1.${idx + 1} assumptions">${escapeHtml(act.assumptions || '')}</textarea></td>
+          <td><button class="btn btn-sm btn-danger remove-act-btn" data-idx="${idx}" type="button" aria-label="Remove activity 1.1.${idx + 1}">×</button></td>
+        </tr>
+      `;
+    }).join('');
 
     host.querySelectorAll('.act-field').forEach(el => {
       el.addEventListener('input', e => {
@@ -317,12 +367,14 @@
 
   function addOutputRow() {
     if (!state.module3.logframe.outputs) state.module3.logframe.outputs = [];
+    const defaultParent = state.module3.logframe.outcomes?.[0]?.id || 'out-1';
     state.module3.logframe.outputs.push({
       id: 'outp-' + Date.now(),
-      outcomeId: 'out-1',
+      outcomeId: defaultParent,
       narrative: '',
       indicators: '',
-      verification: ''
+      verification: '',
+      assumptions: ''
     });
     save();
     renderOutputsTable();
@@ -330,12 +382,14 @@
 
   function addActivityRow() {
     if (!state.module3.logframe.activities) state.module3.logframe.activities = [];
+    const defaultParent = state.module3.logframe.outputs?.[0]?.id || 'outp-1';
     state.module3.logframe.activities.push({
       id: 'act-' + Date.now(),
-      outputId: 'outp-1',
+      outputId: defaultParent,
       narrative: '',
       inputs: '',
-      verification: ''
+      verification: '',
+      assumptions: ''
     });
     save();
     renderActivitiesTable();
@@ -350,22 +404,35 @@
     }
 
     if (!state.module3.logframe.outcomes) state.module3.logframe.outcomes = [];
-    state.module3.logframe.outcomes = [];
+    const hasExisting = state.module3.logframe.outcomes.length > 0;
+    if (hasExisting) {
+      const choice = confirm('You already have Logframe Outcomes.\n\nClick OK to MERGE (add missing objectives without deleting existing outcomes), or CANCEL to keep current outcomes without changes.');
+      if (!choice) return;
+    }
 
+    let added = 0;
     m2.smartObjectives.forEach((smart, idx) => {
-      const relatedKpi = m2.kpis?.find(k => k.smartId === smart.id);
-      state.module3.logframe.outcomes.push({
-        id: 'out-' + (idx + 1),
-        narrative: smart.fullStatement || smart.title,
-        indicators: relatedKpi ? `${relatedKpi.name} (Target: ${relatedKpi.targetValue})` : smart.measurable,
-        verification: relatedKpi ? relatedKpi.source : 'Inspection and records',
-        assumptions: 'Institutional stability and host-State commitment'
-      });
+      const title = smart.fullStatement || smart.title || '';
+      if (!title) return;
+      const exists = state.module3.logframe.outcomes.some(o => 
+        (smart.objectiveId && o.id.includes(smart.objectiveId)) || (o.narrative && o.narrative.toLowerCase() === title.toLowerCase())
+      );
+      if (!exists) {
+        const relatedKpi = m2.kpis?.find(k => k.smartId === smart.id);
+        state.module3.logframe.outcomes.push({
+          id: 'out-' + (smart.objectiveId || smart.id || (idx + 1)),
+          narrative: title,
+          indicators: relatedKpi ? `${relatedKpi.name} (Target: ${relatedKpi.targetValue || 'N/A'})` : smart.measurable || '',
+          verification: relatedKpi ? (relatedKpi.source || 'Records audit') : 'Inspection and records',
+          assumptions: 'Institutional stability and host-State commitment'
+        });
+        added++;
+      }
     });
 
     save('Imported Module 2 SMART Outcomes');
     renderLogframeTables();
-    alert(`Imported ${m2.smartObjectives.length} SMART objectives from Module 2 into Logframe Outcomes.`);
+    alert(`Imported ${added} SMART objectives from Module 2 into Logframe Outcomes.`);
   }
 
   /* Inter-Module Data Pipeline: Import Risks from Module 1 SWOT Threats */
@@ -402,6 +469,22 @@
     alert(`Imported ${added} external threats from Module 1 into the Risk Register.`);
   }
 
+  /* Official UN 3x3 Risk Matrix zone calculation (UNPOL CBD Lesson 3 p. 40 / Slide 17) */
+  function calculateRiskZone(likelihood, impact) {
+    const l = +likelihood || 1;
+    const i = +impact || 1;
+    // Red: High priority risks (Likelihood 3 & Impact 2/3, or Likelihood 2 & Impact 3)
+    if ((l === 3 && i >= 2) || (l === 2 && i === 3)) {
+      return 'red';
+    }
+    // Green: Minor risks / acceptable uncertainty (L1/I1, L1/I2, and L2/I1 per Lesson 3 p. 40)
+    if ((l === 1 && i <= 2) || (l === 2 && i === 1)) {
+      return 'green';
+    }
+    // Yellow: Moderate risks (L3/I1, L2/I2, L1/I3)
+    return 'yellow';
+  }
+
   /* Risk Analysis & Register */
   function recalculateRisks() {
     if (!state.module3.risks) state.module3.risks = [];
@@ -409,18 +492,7 @@
       const l = +r.likelihood || 1;
       const i = +r.impact || 1;
       r.magnitude = l * i;
-
-      // Official UN color coding:
-      // Red: High priority risks (Likelihood 3 & Impact 2/3, or Likelihood 2 & Impact 3)
-      if ((l === 3 && i >= 2) || (l === 2 && i === 3)) {
-        r.zone = 'red';
-      } else if (l === 1 && i <= 2) {
-        // Green: Minor risks (Likelihood 1 & Impact 1 or 2)
-        r.zone = 'green';
-      } else {
-        // Yellow: Moderate risks (L3/I1, L2/I2, L1/I3)
-        r.zone = 'yellow';
-      }
+      r.zone = calculateRiskZone(l, i);
     });
   }
 
@@ -432,16 +504,16 @@
 
     host.innerHTML = state.module3.risks.map((r, idx) => `
       <tr data-idx="${idx}" style="${r.zone === 'red' ? 'background: #fff5f5;' : r.zone === 'yellow' ? 'background: #fffdf5;' : ''}">
-        <td><input class="form-input risk-field" data-idx="${idx}" data-field="title" value="${escapeHtml(r.title || '')}" placeholder="Risk description"></td>
+        <td><input class="form-input risk-field" data-idx="${idx}" data-field="title" value="${escapeHtml(r.title || '')}" placeholder="Risk description" aria-label="Risk description for row ${idx + 1}"></td>
         <td>
-          <select class="form-select risk-field score-l" data-idx="${idx}" data-field="likelihood">
+          <select class="form-select risk-field score-l" data-idx="${idx}" data-field="likelihood" aria-label="Risk likelihood for row ${idx + 1}">
             <option value="1" ${r.likelihood === 1 ? 'selected' : ''}>1 (Low)</option>
             <option value="2" ${r.likelihood === 2 ? 'selected' : ''}>2 (Med)</option>
             <option value="3" ${r.likelihood === 3 ? 'selected' : ''}>3 (High)</option>
           </select>
         </td>
         <td>
-          <select class="form-select risk-field score-i" data-idx="${idx}" data-field="impact">
+          <select class="form-select risk-field score-i" data-idx="${idx}" data-field="impact" aria-label="Risk impact for row ${idx + 1}">
             <option value="1" ${r.impact === 1 ? 'selected' : ''}>1 (Low)</option>
             <option value="2" ${r.impact === 2 ? 'selected' : ''}>2 (Med)</option>
             <option value="3" ${r.impact === 3 ? 'selected' : ''}>3 (High)</option>
@@ -452,9 +524,9 @@
             ${r.zone.toUpperCase()} (${r.magnitude})
           </span>
         </td>
-        <td><textarea class="form-textarea risk-field" data-idx="${idx}" data-field="mitigationStrategy" style="min-height: 60px;">${escapeHtml(r.mitigationStrategy || '')}</textarea></td>
-        <td><textarea class="form-textarea risk-field" data-idx="${idx}" data-field="contingencyPlan" style="min-height: 60px;">${escapeHtml(r.contingencyPlan || '')}</textarea></td>
-        <td><button class="btn btn-sm btn-danger remove-risk-btn" data-idx="${idx}" type="button">×</button></td>
+        <td><textarea class="form-textarea risk-field" data-idx="${idx}" data-field="mitigationStrategy" style="min-height: 60px;" aria-label="Risk mitigation strategy for row ${idx + 1}">${escapeHtml(r.mitigationStrategy || '')}</textarea></td>
+        <td><textarea class="form-textarea risk-field" data-idx="${idx}" data-field="contingencyPlan" style="min-height: 60px;" aria-label="Risk contingency plan for row ${idx + 1}">${escapeHtml(r.contingencyPlan || '')}</textarea></td>
+        <td><button class="btn btn-sm btn-danger remove-risk-btn" data-idx="${idx}" type="button" aria-label="Remove risk row ${idx + 1}">×</button></td>
       </tr>
     `).join('');
 
@@ -624,6 +696,17 @@
       renderGlossaryList(e.target.value);
     });
 
+    // Escape key listener for accessible modal / drawer dismissal
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (document.getElementById('glossaryModalBackdrop')?.classList.contains('open')) {
+          toggleGlossaryModal(false);
+        } else if (document.getElementById('scenarioDrawerBackdrop')?.classList.contains('open')) {
+          toggleScenarioDrawer(false);
+        }
+      }
+    });
+
     // JSON export
     document.getElementById('exportJsonBtn')?.addEventListener('click', () => {
       collectFormFields();
@@ -653,6 +736,7 @@
     getState: () => state,
     setStage,
     save,
-    recalculateRisks
+    recalculateRisks,
+    calculateRiskZone
   };
 });

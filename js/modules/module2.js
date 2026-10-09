@@ -45,21 +45,29 @@
     renderKpiTable();
     renderScenarioDrawerList();
     renderGlossaryList();
+    Storage.renderCurriculumTrack(2);
     updateSaveIndicator('Loaded local data');
     setupAutosaveListener();
+    setupLifecycleListeners();
   }
 
   function save(statusMsg) {
     collectFormFields();
-    Storage.saveLabState(state);
-    updateSaveIndicator(statusMsg || 'Saved locally');
+    const ok = Storage.saveLabState(state);
+    if (!ok) {
+      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+    } else {
+      updateSaveIndicator(statusMsg || 'Saved locally');
+    }
+    Storage.renderCurriculumTrack(2);
+    return ok;
   }
 
-  function updateSaveIndicator(msg) {
+  function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
       el.textContent = msg || 'Saved locally on this device';
-      el.style.color = 'var(--ok)';
+      el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
 
@@ -67,6 +75,23 @@
     document.addEventListener('input', debounce(() => {
       save('Autosaved');
     }, 600));
+  }
+
+  function setupLifecycleListeners() {
+    window.addEventListener('beforeunload', () => save());
+    window.addEventListener('pagehide', () => save());
+    window.addEventListener('storage', e => {
+      if (e.key === Storage.STORAGE_KEY) {
+        state = Storage.loadLabState();
+        populateFormFields();
+        renderCandidates();
+        renderPrioritisationTable();
+        renderSmartWizards();
+        renderKpiTable();
+        Storage.renderCurriculumTrack(2);
+        updateSaveIndicator('Synced from another tab');
+      }
+    });
   }
 
   function debounce(fn, delay) {
@@ -156,17 +181,17 @@
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-size: 0.8rem; color: var(--muted);">${escapeHtml(obj.source || 'User Input')}</span>
-            <button class="btn btn-sm btn-danger remove-candidate-btn" data-idx="${idx}" type="button">Remove</button>
+            <button class="btn btn-sm btn-danger remove-candidate-btn" data-idx="${idx}" type="button" aria-label="Remove objective ${idx + 1}: ${escapeHtml(obj.title || 'Untitled Objective')}">Remove</button>
           </div>
         </div>
         <div style="padding: 14px 18px;" class="grid-2">
           <div class="form-group col-full" style="margin-bottom: 0;">
             <label class="form-label">Objective Title</label>
-            <input class="form-input cand-field" data-idx="${idx}" data-field="title" value="${escapeHtml(obj.title)}" placeholder="e.g. Modernise Criminal Evidence Management">
+            <input class="form-input cand-field" data-idx="${idx}" data-field="title" value="${escapeHtml(obj.title)}" placeholder="e.g. Modernise Criminal Evidence Management" aria-label="Candidate objective ${idx + 1} title">
           </div>
           <div class="form-group col-full" style="margin-bottom: 0;">
             <label class="form-label">Context & Problem Description</label>
-            <textarea class="form-textarea cand-field" data-idx="${idx}" data-field="description" style="min-height: 70px;">${escapeHtml(obj.description || '')}</textarea>
+            <textarea class="form-textarea cand-field" data-idx="${idx}" data-field="description" style="min-height: 70px;" aria-label="Candidate objective ${idx + 1} context and problem description">${escapeHtml(obj.description || '')}</textarea>
           </div>
         </div>
       </div>
@@ -275,30 +300,41 @@
     renderPrioritisationTable();
   }
 
-  /* Scoring & Prioritisation Algorithm */
+  /* Scoring & Prioritisation Algorithm (Lesson 2 Activity 2.1 p. 22-24) */
+  function calculateObjectiveScores(s) {
+    const scores = s || {};
+    const stratSum = (+scores.policingPractice || 1) +
+                     (+scores.environmental || 1) +
+                     (+scores.conflictPrevention || 1) +
+                     (+scores.humanRights || 1) +
+                     (+scores.gender || 1) +
+                     (+scores.cpoc || 1);
+
+    const rawStrat = stratSum / 6;
+    const weightedStrat = rawStrat * 2.00; // Weighting factor 2.00
+
+    const need = (+scores.need || 1) * 1.00;
+    const impl = (+scores.implementability || 1) * 1.00;
+    const comp = (+scores.complementarity || 1) * 0.50; // Weighting factor 0.50 per Lesson 2
+    const donor = (+scores.donorInterest || 1) * 1.00;
+    // Per UNPOL CBD Lesson 2 (p. 22 & 24): "Ignore the risk category at this point as 'Risk' is taught later in the course (Lesson 3)"
+    // Risk is recorded for completeness, but excluded from the prioritization sum.
+    const overall = weightedStrat + need + impl + comp + donor;
+
+    return {
+      rawStrategicScore: Math.round(rawStrat * 100) / 100,
+      weightedStrategicScore: Math.round(weightedStrat * 100) / 100,
+      overallScore: Math.round(overall * 100) / 100
+    };
+  }
+
   function recalculateAllScores() {
+    if (!state.module2 || !state.module2.objectives) return;
     state.module2.objectives.forEach(obj => {
-      const s = obj.scores || {};
-      const stratSum = (+s.policingPractice || 1) +
-                       (+s.environmental || 1) +
-                       (+s.conflictPrevention || 1) +
-                       (+s.humanRights || 1) +
-                       (+s.gender || 1) +
-                       (+s.cpoc || 1);
-
-      const rawStrat = stratSum / 6;
-      const weightedStrat = rawStrat * 2.00; // Weighting factor 2.00
-
-      const need = (+s.need || 1) * 1.00;
-      const risk = (+s.risk || 1) * 1.00; // Inverse scale: 3=low risk, 1=high risk
-      const impl = (+s.implementability || 1) * 1.00;
-      // Per UNPOL CBD Lesson 2 (p. 22 & 24): "Ignore the risk category at this point as 'Risk' is taught later in the course (Lesson 3)"
-      // The Risk column is recorded for completeness, but excluded from the prioritization sum to match the official scoring outcomes (e.g. SGBV=12.5, Digitalising=9.5)
-      const overall = weightedStrat + need + impl + comp + donor;
-
-      obj.rawStrategicScore = Math.round(rawStrat * 100) / 100;
-      obj.weightedStrategicScore = Math.round(weightedStrat * 100) / 100;
-      obj.overallScore = Math.round(overall * 100) / 100;
+      const calc = calculateObjectiveScores(obj.scores);
+      obj.rawStrategicScore = calc.rawStrategicScore;
+      obj.weightedStrategicScore = calc.weightedStrategicScore;
+      obj.overallScore = calc.overallScore;
     });
 
     // Sort descending by overall score
@@ -391,6 +427,7 @@
           save();
           renderPrioritisationTable();
           syncTopSmartObjectives();
+          renderSmartWizards();
         }
       });
     });
@@ -401,6 +438,7 @@
     return `
       <td style="padding: 4px; text-align: center;">
         <select class="score-selector" data-obj-id="${objId}" data-cat="${catKey}" title="${titleNote || 'Scale: 1=Low, 2=Medium, 3=High'}" 
+                aria-label="Score ${catKey} for objective ${objId}"
                 style="width: 44px; padding: 4px 2px; text-align: center; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--line);">
           <option value="1" ${val === 1 ? 'selected' : ''}>1</option>
           <option value="2" ${val === 2 ? 'selected' : ''}>2</option>
@@ -410,33 +448,43 @@
     `;
   }
 
-  /* Sync Top 2 Ranked Objectives to SMART section */
+  /* Sync Top 2 Ranked Objectives to SMART section preserving objectiveId identity */
   function syncTopSmartObjectives() {
     const sorted = [...state.module2.objectives].sort((a, b) => a.rank - b.rank);
     const top2 = sorted.slice(0, 2);
 
     if (!state.module2.smartObjectives) state.module2.smartObjectives = [];
 
-    top2.forEach((obj, idx) => {
-      let smart = state.module2.smartObjectives[idx];
+    // Map each top 2 objective to its own SMART record by objectiveId, preserving authored text
+    const newTopSmart = top2.map((obj, idx) => {
+      let smart = state.module2.smartObjectives.find(s => s.objectiveId === obj.id);
       if (!smart) {
-        smart = {
-          id: 'smart-' + (idx + 1),
-          objectiveId: obj.id,
-          title: obj.title,
-          specific: '',
-          measurable: '',
-          achievable: '',
-          relevant: '',
-          timeBound: '',
-          fullStatement: ''
-        };
-        state.module2.smartObjectives.push(smart);
+        // Also check if there is an unattached or legacy record at this index
+        const legacy = state.module2.smartObjectives[idx];
+        if (legacy && (!legacy.objectiveId || !state.module2.objectives.some(o => o.id === legacy.objectiveId))) {
+          smart = legacy;
+          smart.objectiveId = obj.id;
+          smart.title = obj.title;
+        } else {
+          smart = {
+            id: 'smart-' + obj.id,
+            objectiveId: obj.id,
+            title: obj.title,
+            specific: '',
+            measurable: '',
+            achievable: '',
+            relevant: '',
+            timeBound: '',
+            fullStatement: ''
+          };
+        }
       } else {
-        smart.objectiveId = obj.id;
         smart.title = obj.title;
       }
+      return smart;
     });
+
+    state.module2.smartObjectives = newTopSmart;
   }
 
   /* Render S.M.A.R.T. Formulation Wizard */
@@ -525,20 +573,20 @@
 
     host.innerHTML = state.module2.kpis.map((kpi, idx) => `
       <tr data-kpi-idx="${idx}">
-        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="name" value="${escapeHtml(kpi.name || '')}" placeholder="Indicator Name"></td>
+        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="name" value="${escapeHtml(kpi.name || '')}" placeholder="Indicator Name" aria-label="KPI indicator name for row ${idx + 1}"></td>
         <td>
-          <select class="form-select kpi-field" data-idx="${idx}" data-field="type">
+          <select class="form-select kpi-field" data-idx="${idx}" data-field="type" aria-label="KPI indicator type for row ${idx + 1}">
             <option value="Quantitative (#)" ${kpi.type === 'Quantitative (#)' ? 'selected' : ''}>Quantitative (#)</option>
             <option value="Quantitative (%)" ${kpi.type === 'Quantitative (%)' ? 'selected' : ''}>Quantitative (%)</option>
             <option value="Qualitative condition" ${kpi.type === 'Qualitative condition' ? 'selected' : ''}>Qualitative condition</option>
           </select>
         </td>
-        <td><textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="baselineValue" style="min-height: 60px;">${escapeHtml(kpi.baselineValue || '')}</textarea></td>
-        <td><textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="targetValue" style="min-height: 60px;">${escapeHtml(kpi.targetValue || '')}</textarea></td>
-        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="source" value="${escapeHtml(kpi.source || '')}"></td>
-        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="frequency" value="${escapeHtml(kpi.frequency || '')}"></td>
-        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="responsible" value="${escapeHtml(kpi.responsible || '')}"></td>
-        <td><button class="btn btn-sm btn-danger remove-kpi-btn" data-idx="${idx}" type="button">×</button></td>
+        <td><textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="baselineValue" style="min-height: 60px;" aria-label="KPI baseline value for row ${idx + 1}">${escapeHtml(kpi.baselineValue || '')}</textarea></td>
+        <td><textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="targetValue" style="min-height: 60px;" aria-label="KPI target value for row ${idx + 1}">${escapeHtml(kpi.targetValue || '')}</textarea></td>
+        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="source" value="${escapeHtml(kpi.source || '')}" aria-label="KPI data source for row ${idx + 1}"></td>
+        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="frequency" value="${escapeHtml(kpi.frequency || '')}" aria-label="KPI reporting frequency for row ${idx + 1}"></td>
+        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="responsible" value="${escapeHtml(kpi.responsible || '')}" aria-label="KPI responsible entity for row ${idx + 1}"></td>
+        <td><button class="btn btn-sm btn-danger remove-kpi-btn" data-idx="${idx}" type="button" aria-label="Remove KPI row ${idx + 1}">×</button></td>
       </tr>
     `).join('');
 
@@ -679,6 +727,17 @@
       renderGlossaryList(e.target.value);
     });
 
+    // Escape key listener for accessible modal / drawer dismissal
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (document.getElementById('glossaryModalBackdrop')?.classList.contains('open')) {
+          toggleGlossaryModal(false);
+        } else if (document.getElementById('scenarioDrawerBackdrop')?.classList.contains('open')) {
+          toggleScenarioDrawer(false);
+        }
+      }
+    });
+
     // JSON Export / Import
     document.getElementById('exportJsonBtn')?.addEventListener('click', () => {
       collectFormFields();
@@ -707,6 +766,7 @@
     getState: () => state,
     setStage,
     save,
-    recalculateAllScores
+    recalculateAllScores,
+    calculateObjectiveScores
   };
 });

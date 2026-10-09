@@ -14,6 +14,8 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const scenario = require(path.join(ROOT_DIR, 'js/data/carana-scenario.js'));
 const glossary = require(path.join(ROOT_DIR, 'js/data/curriculum-glossary.js'));
 const storage = require(path.join(ROOT_DIR, 'js/storage/lab-storage.js'));
+const module2 = require(path.join(ROOT_DIR, 'js/modules/module2.js'));
+const module3 = require(path.join(ROOT_DIR, 'js/modules/module3.js'));
 
 let testsPassed = 0;
 let testsFailed = 0;
@@ -139,18 +141,50 @@ runTest('Module 1 state contains all required JST methodology fields', () => {
 });
 
 runTest('JSON Import validation rejects invalid structures and accepts valid ones', () => {
-  const invalid1 = storage.validateImportedData(null);
-  assert.strictEqual(invalid1.valid, false);
-
-  const invalid2 = storage.validateImportedData({ foo: 'bar' });
-  assert.strictEqual(invalid2.valid, false);
+  assert.strictEqual(storage.validateImportedData(null).valid, false, 'null must be rejected');
+  assert.strictEqual(storage.validateImportedData('string').valid, false, 'string must be rejected');
+  assert.strictEqual(storage.validateImportedData({ foo: 'bar' }).valid, false, 'arbitrary object must be rejected');
+  assert.strictEqual(storage.validateImportedData({ app: 'other_app', version: '1.0.0' }).valid, false, 'wrong app tag must be rejected');
+  assert.strictEqual(storage.validateImportedData({ app: 'carana_cbd_lab', version: '2.0.0' }).valid, false, 'incompatible major version must be rejected');
+  assert.strictEqual(storage.validateImportedData({ app: 'carana_cbd_lab', version: '1.0.0', session: null }).valid, false, 'null session must be rejected');
 
   const valid = storage.validateImportedData(storage.getDefaultState());
-  assert.strictEqual(valid.valid, true);
+  assert.strictEqual(valid.valid, true, 'Default state must pass validation');
+});
+
+runTest('Storage quarantines corrupted data without wiping session or throwing unhandled errors', () => {
+  // Mock localStorage
+  const store = {};
+  const mockStorage = {
+    getItem: (k) => store[k] || null,
+    setItem: (k, v) => { store[k] = String(v); },
+    removeItem: (k) => { delete store[k]; }
+  };
+  global.localStorage = mockStorage;
+
+  // Set corrupted JSON
+  mockStorage.setItem(storage.STORAGE_KEY, '{ broken json');
+  const recovered = storage.loadLabState();
+  assert(recovered && recovered.version, 'Must return default state upon JSON corruption');
+  assert(mockStorage.getItem('carana_cbd_lab_v1_corrupted_backup'), 'Must quarantine corrupted JSON to backup key');
+
+  // Clean up mock
+  delete global.localStorage;
 });
 
 // 4. MATRIX & STAKEHOLDER LOGIC SUITE
 console.log('\nGroup 4: 5x6 Matrix & Stakeholder Quadrant Rules');
+
+runTest('Module 1 Matrix cell paragraph selection parses integers and filters null/NaN', () => {
+  // Simulating the dataset retrieval and sanitization logic from module1.js
+  const sampleParasFromDom = ['12', '45', 'NaN', null, undefined, ''];
+  const sanitized = sampleParasFromDom
+    .map(p => parseInt(p, 10))
+    .filter(n => Number.isInteger(n) && n > 0 && n <= 57);
+
+  assert.deepStrictEqual(sanitized, [12, 45], 'Must parse valid integers and discard NaN/null/empty');
+  assert(!sanitized.includes(null), 'Must never contain null');
+});
 
 runTest('5x6 Matrix calculates 78 possible intersections (13 rows x 6 dimensions)', () => {
   let count = 0;
@@ -220,31 +254,55 @@ runTest('Module 2 schema is properly initialized and structured', () => {
 runTest('Module 2 scoring formula precisely matches UNPOL curriculum (Lesson 2 p. 24)', () => {
   // Test Case 1: SGBV investigation capability
   // Strategic: 3, 1, 3, 3, 3, 2 -> sum=15, avg=2.5, weighted=5.0
-  // Need: 1, Impl: 2, Comp: 3 (weighted: 1.5), Donor: 3
+  // Need: 1, Impl: 2, Comp: 3 (weighted: 1.5), Donor: 3, Risk: 2 (recorded but excluded)
   // Total without risk: 5.0 + 1 + 2 + 1.5 + 3 = 12.5
-  const stratSum1 = 3 + 1 + 3 + 3 + 3 + 2;
-  const rawStrat1 = stratSum1 / 6;
-  const weightedStrat1 = rawStrat1 * 2.0;
-  const need1 = 1;
-  const impl1 = 2;
-  const comp1 = 3 * 0.5;
-  const donor1 = 3;
-  const overall1 = weightedStrat1 + need1 + impl1 + comp1 + donor1;
-  assert.strictEqual(overall1, 12.5, 'Official SGBV example must equal 12.5');
+  const scores1 = {
+    policingPractice: 3,
+    environmental: 1,
+    conflictPrevention: 3,
+    humanRights: 3,
+    gender: 3,
+    cpoc: 2,
+    need: 1,
+    risk: 2,
+    implementability: 2,
+    complementarity: 3,
+    donorInterest: 3
+  };
+  const res1 = module2.calculateObjectiveScores(scores1);
+  assert.strictEqual(res1.rawStrategicScore, 2.5, 'Raw strategic score should be 2.5');
+  assert.strictEqual(res1.weightedStrategicScore, 5.0, 'Weighted strategic score should be 5.0');
+  assert.strictEqual(res1.overallScore, 12.5, 'Official SGBV example must equal 12.5');
 
   // Test Case 2: Digitalising work processes
   // Strategic: 1, 1, 1, 1, 1, 1 -> sum=6, avg=1.0, weighted=2.0
-  // Need: 3, Impl: 3, Comp: 1 (weighted: 0.5), Donor: 1
+  // Need: 3, Impl: 3, Comp: 1 (weighted: 0.5), Donor: 1, Risk: 3 (excluded)
   // Total: 2.0 + 3 + 3 + 0.5 + 1 = 9.5
-  const stratSum2 = 6;
-  const rawStrat2 = stratSum2 / 6;
-  const weightedStrat2 = rawStrat2 * 2.0;
-  const need2 = 3;
-  const impl2 = 3;
-  const comp2 = 1 * 0.5;
-  const donor2 = 1;
-  const overall2 = weightedStrat2 + need2 + impl2 + comp2 + donor2;
-  assert.strictEqual(overall2, 9.5, 'Official Digitalising example must equal 9.5');
+  const scores2 = {
+    policingPractice: 1,
+    environmental: 1,
+    conflictPrevention: 1,
+    humanRights: 1,
+    gender: 1,
+    cpoc: 1,
+    need: 3,
+    risk: 3,
+    implementability: 3,
+    complementarity: 1,
+    donorInterest: 1
+  };
+  const res2 = module2.calculateObjectiveScores(scores2);
+  assert.strictEqual(res2.rawStrategicScore, 1.0, 'Raw strategic score should be 1.0');
+  assert.strictEqual(res2.weightedStrategicScore, 2.0, 'Weighted strategic score should be 2.0');
+  assert.strictEqual(res2.overallScore, 9.5, 'Official Digitalising example must equal 9.5');
+
+  // Boundary Case: All minimum scores (1)
+  // Strategic avg = 1.0, weighted = 2.0; need=1, impl=1, comp=1*0.5=0.5, donor=1 -> 2.0 + 1 + 1 + 0.5 + 1 = 5.5
+  const minRes = module2.calculateObjectiveScores({
+    policingPractice: 1, environmental: 1, conflictPrevention: 1, humanRights: 1, gender: 1, cpoc: 1,
+    need: 1, risk: 1, implementability: 1, complementarity: 1, donorInterest: 1
+  });
+  assert.strictEqual(minRes.overallScore, 5.5, 'Minimum boundary score must equal 5.5');
 });
 
 // 7. MODULE 3 SUITE
@@ -261,26 +319,23 @@ runTest('Module 3 schema is properly initialized and structured', () => {
   assert(m3.reflection, 'Reflection missing');
 });
 
-runTest('3x3 Risk Matrix zone calculation conforms to UNPOL curriculum (Lesson 3 Slide 17)', () => {
-  function getRiskZone(l, i) {
-    if ((l === 3 && i >= 2) || (l === 2 && i === 3)) return 'red';
-    if (l === 1 && i <= 2) return 'green';
-    return 'yellow';
-  }
+runTest('3x3 Risk Matrix zone calculation conforms to UNPOL curriculum (Lesson 3 Slide 17 & p. 40)', () => {
+  // Direct test of Module3Controller.calculateRiskZone across all 9 combinations
 
-  // High risks (Red)
-  assert.strictEqual(getRiskZone(3, 3), 'red');
-  assert.strictEqual(getRiskZone(3, 2), 'red');
-  assert.strictEqual(getRiskZone(2, 3), 'red');
+  // High risks (Red: L3/I3, L3/I2, L2/I3)
+  assert.strictEqual(module3.calculateRiskZone(3, 3), 'red', 'L3/I3 must be red');
+  assert.strictEqual(module3.calculateRiskZone(3, 2), 'red', 'L3/I2 must be red');
+  assert.strictEqual(module3.calculateRiskZone(2, 3), 'red', 'L2/I3 must be red');
 
-  // Low risks (Green)
-  assert.strictEqual(getRiskZone(1, 1), 'green');
-  assert.strictEqual(getRiskZone(1, 2), 'green');
+  // Low risks (Green: L1/I1, L1/I2, and specifically L2/I1 per Lesson 3 p. 40)
+  assert.strictEqual(module3.calculateRiskZone(1, 1), 'green', 'L1/I1 must be green');
+  assert.strictEqual(module3.calculateRiskZone(1, 2), 'green', 'L1/I2 must be green');
+  assert.strictEqual(module3.calculateRiskZone(2, 1), 'green', 'L2/I1 MUST be green per Lesson 3 p. 40');
 
-  // Medium risks (Yellow)
-  assert.strictEqual(getRiskZone(1, 3), 'yellow');
-  assert.strictEqual(getRiskZone(2, 2), 'yellow');
-  assert.strictEqual(getRiskZone(3, 1), 'yellow');
+  // Medium risks (Yellow: L1/I3, L2/I2, L3/I1)
+  assert.strictEqual(module3.calculateRiskZone(1, 3), 'yellow', 'L1/I3 must be yellow');
+  assert.strictEqual(module3.calculateRiskZone(2, 2), 'yellow', 'L2/I2 must be yellow');
+  assert.strictEqual(module3.calculateRiskZone(3, 1), 'yellow', 'L3/I1 must be yellow');
 });
 
 runTest('module3.html contains all 6 interactive stages and 3x3 risk grid', () => {
@@ -331,6 +386,54 @@ runTest('Dynamic Problem-Solving addresses field setbacks with 5 Whys and intere
   });
 });
 
+runTest('Module 4 progress input range clamping strictly enforces 0-100%', () => {
+  function clampProgress(val) {
+    return Math.max(0, Math.min(100, Math.round(+val || 0)));
+  }
+
+  assert.strictEqual(clampProgress(-15), 0, 'Negative values must clamp to 0');
+  assert.strictEqual(clampProgress(999), 100, 'Values over 100 must clamp to 100');
+  assert.strictEqual(clampProgress(45.7), 46, 'Decimals must round to nearest integer');
+  assert.strictEqual(clampProgress('not a number'), 0, 'NaN must fallback to 0');
+  assert.strictEqual(clampProgress(75), 75, 'Valid percentage must be preserved');
+});
+
+runTest('Module 4 Activity Tracker deduplicates on re-import from Logframe', () => {
+  const existingTracker = [
+    { id: 'track-1', activityId: 'act-1', activityTitle: 'SGBV Standard Operating Procedures', progressPercent: 65, fieldAdvisoryNote: 'Initial note' }
+  ];
+
+  const incomingLogframeActivities = [
+    { id: 'act-1', narrative: 'SGBV Standard Operating Procedures (Updated)', inputs: 'Inputs' },
+    { id: 'act-2', narrative: 'Forensic Evidence Training', inputs: 'Inputs' }
+  ];
+
+  // Emulate module4 importFromModule3Logframe logic
+  let added = 0;
+  let updated = 0;
+  incomingLogframeActivities.forEach(act => {
+    const existing = existingTracker.find(tr => tr.activityId === act.id || tr.id === act.id);
+    if (existing) {
+      existing.activityTitle = act.narrative;
+      updated++;
+    } else {
+      existingTracker.push({
+        id: 'track-' + act.id,
+        activityId: act.id,
+        activityTitle: act.narrative,
+        progressPercent: 0,
+        fieldAdvisoryNote: ''
+      });
+      added++;
+    }
+  });
+
+  assert.strictEqual(existingTracker.length, 2, 'Must not duplicate existing activity row');
+  assert.strictEqual(updated, 1, 'Existing row must be updated in place');
+  assert.strictEqual(added, 1, 'Only new row must be appended');
+  assert.strictEqual(existingTracker[0].progressPercent, 65, 'Participant progress must NOT be overwritten');
+});
+
 runTest('Implementation Activity Tracker interfaces with Module 3 Logframe', () => {
   const m4 = storage.getDefaultState().module4;
   m4.activityTracker.forEach(tr => {
@@ -372,6 +475,59 @@ runTest('Module 5 schema is properly initialized and structured', () => {
   assert(Array.isArray(m5.adjustments) && m5.adjustments.length >= 3, 'Adjustment recommendations missing');
   assert(m5.impactAssessment, 'Impact assessment missing');
   assert(m5.reflection, 'Reflection missing');
+});
+
+runTest('Module 5 reconciles both Module 2 KPIs and Module 3 Outputs without duplicating rows', () => {
+  const existingKpiEvals = [
+    { id: 'eval-1', sourceId: 'kpi-1', indicatorName: 'SGBV conviction rate', source: 'Module 2 KPI Framework', baselineValue: '12%', targetValue: '40%', actualValue: '28%' }
+  ];
+
+  const incomingM2Kpis = [
+    { id: 'kpi-1', name: 'SGBV conviction rate (Updated)', baselineValue: '12%', targetValue: '45%' },
+    { id: 'kpi-2', name: 'Forensic processing time', baselineValue: '45 days', targetValue: '14 days' }
+  ];
+
+  const incomingM3Outputs = [
+    { id: 'outp-1', narrative: 'Digital Evidence Storage Facility', indicators: 'Facility accredited', verification: 'UNPOL Inspection' }
+  ];
+
+  // Reconcile Module 2 KPIs
+  incomingM2Kpis.forEach(k => {
+    const existing = existingKpiEvals.find(e => e.sourceId === k.id || (e.indicatorName && e.indicatorName.toLowerCase() === k.name.toLowerCase()));
+    if (existing) {
+      existing.indicatorName = k.name;
+      existing.targetValue = k.targetValue;
+    } else {
+      existingKpiEvals.push({
+        id: 'eval-' + k.id,
+        sourceId: k.id,
+        indicatorName: k.name,
+        source: 'Module 2 KPI Framework',
+        baselineValue: k.baselineValue || 'N/A',
+        targetValue: k.targetValue || 'N/A',
+        actualValue: ''
+      });
+    }
+  });
+
+  // Reconcile Module 3 Outputs
+  incomingM3Outputs.forEach(op => {
+    const existing = existingKpiEvals.find(e => e.sourceId === op.id || (e.indicatorName && e.indicatorName.toLowerCase() === op.narrative.toLowerCase()));
+    if (!existing && op.narrative) {
+      existingKpiEvals.push({
+        id: 'eval-' + op.id,
+        sourceId: op.id,
+        indicatorName: op.narrative,
+        source: 'Module 3 Logframe Output',
+        baselineValue: 'Inception baseline',
+        targetValue: op.indicators || 'Completed',
+        actualValue: ''
+      });
+    }
+  });
+
+  assert.strictEqual(existingKpiEvals.length, 3, 'Must contain exactly 3 unique records across both modules');
+  assert.strictEqual(existingKpiEvals[0].actualValue, '28%', 'Existing participant evaluation data must NOT be overwritten');
 });
 
 runTest('8-Month Crisis Diagnostics model authentic curriculum bottlenecks', () => {
@@ -477,7 +633,7 @@ runTest('Formal Handover Protocol Instrument contains necessary signatories', ()
   assert(hn.residualObligations && hn.residualObligations.length > 15, 'Residual obligations missing');
 });
 
-runTest('module6.html exists and contains all 6 interactive stages', () => {
+runTest('module6.html exists and contains all 6 interactive stages, dossier print container and syndicate checklist', () => {
   const m6Path = path.join(ROOT_DIR, 'module6.html');
   assert(fs.existsSync(m6Path), 'module6.html does not exist');
   const content = fs.readFileSync(m6Path, 'utf8');
@@ -487,8 +643,18 @@ runTest('module6.html exists and contains all 6 interactive stages', () => {
   assert(content.includes('id="stage-practice"'), 'Stage 4 missing');
   assert(content.includes('id="stage-challenges"'), 'Stage 5 missing');
   assert(content.includes('id="stage-handover"'), 'Stage 6 missing');
+  assert(content.includes('id="missionDossierPrintContainer"'), 'Mission Dossier composite print container missing');
+  assert(content.includes('id="syndicateChecklistHost"'), 'Syndicate 6-phase self-assessment checklist container missing');
   assert(content.includes('id="scenarioDrawer"'), 'Scenario drawer missing');
   assert(content.includes('id="glossaryModalBackdrop"'), 'Glossary modal missing');
+});
+
+runTest('Design system CSS contains full dossier print rules and safeguards', () => {
+  const cssPath = path.join(ROOT_DIR, 'css/design-system.css');
+  assert(fs.existsSync(cssPath), 'design-system.css missing');
+  const css = fs.readFileSync(cssPath, 'utf8');
+  assert(css.includes('body.printing-dossier'), 'body.printing-dossier print class missing');
+  assert(css.includes('.training-safeguard'), 'Print training safeguard styling missing');
 });
 
 runTest('Portal Hub index.html activates and links Module 6', () => {

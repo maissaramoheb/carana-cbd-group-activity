@@ -648,7 +648,7 @@
           <div style="background: var(--gold-bg); border: 1px solid #e2cb91; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
             <input type="checkbox" id="confirmModule1" style="width: auto; margin-top: 5px;">
             <label for="confirmModule1" style="font-size: 0.92rem; color: #583c03;">
-              <strong>Syndicate Validation:</strong> Our group has reviewed this situational analysis. We understand that this structured baseline will serve as the direct input for <strong>Module 2 (Objective Setting & Prioritisation)</strong> and future mission evaluations.
+              <strong>Syndicate Self-Assessment & Validation:</strong> Our group has reviewed this situational analysis. We understand that this structured baseline represents a learning self-assessment and will serve as the direct input for <strong>Module 2 (Objective Setting & Prioritisation)</strong>.
             </label>
           </div>
 
@@ -695,13 +695,13 @@
 
   <!-- Glossary Modal Dialog -->
   <div class="modal-backdrop" id="glossaryModalBackdrop">
-    <div class="modal-box">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="glossaryModalTitle">
       <div class="modal-header">
-        <h3>UNPOL CBD Curriculum Glossary</h3>
-        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button">×</button>
+        <h3 id="glossaryModalTitle">UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close glossary">×</button>
       </div>
       <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
-        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Baseline, Logframe, SSR)...">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Baseline, Logframe, SSR)..." aria-label="Search glossary terms">
       </div>
       <div class="modal-body" id="glossaryList"></div>
     </div>
@@ -709,13 +709,13 @@
 
   <!-- Matrix Cell Inspector Modal -->
   <div class="modal-backdrop" id="cellModalBackdrop">
-    <div class="modal-box">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalCellTitle">
       <div class="modal-header">
         <div>
           <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #83dbff;" id="modalCellAreaSub"></span>
           <h3 id="modalCellTitle">Matrix Cell Inspector</h3>
         </div>
-        <button class="btn btn-sm btn-ghost" id="closeCellModalBtn" style="color: #fff; font-size: 1.4rem;" type="button">×</button>
+        <button class="btn btn-sm btn-ghost" id="closeCellModalBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close matrix cell inspector">×</button>
       </div>
       <div class="modal-body">
         <div style="margin-bottom: 16px;">

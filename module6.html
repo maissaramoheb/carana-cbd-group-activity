@@ -151,6 +151,17 @@
             </div>
           </div>
 
+          <!-- Curriculum Context & Inter-Module Linkage -->
+          <div style="background: #edf7fd; border: 1px solid #bce1f8; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 20px; font-size: 0.9rem; color: #0c4a6e;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <strong>Curriculum Context (Lesson 6 Activity 6.1):</strong>
+                Transition concerns the handover of an <em>individual CBD activity or project</em> (tactical/operational level), rather than full UN mission drawdown. Syndicates work from the instructional assumption that the capacity-building objectives established in Lessons 1–3 and stabilized in Lesson 5 are now advancing toward sustainable national ownership.
+              </div>
+              <button class="btn btn-sm btn-dark" id="syncM5EvaluationBtn" type="button">🔄 Sync from Module 5 Evaluation</button>
+            </div>
+          </div>
+
           <!-- Transition Setup Parameters -->
           <div style="background: var(--wash-subtle); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;">
             <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 12px;">Transition Initiation Charter for Galasi CIS Activities</h3>
@@ -438,11 +449,17 @@
             </div>
           </div>
 
+          <!-- Syndicate Completion Checklist -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 20px;">
+            <h4 style="margin: 0 0 10px; color: var(--navy);">Syndicate Six-Phase Completion Status</h4>
+            <div id="syndicateChecklistHost" style="font-size: 0.88rem;"></div>
+          </div>
+
           <!-- Final Validation Checkbox -->
           <div style="background: #edf9f2; border: 1px solid #b7ebd0; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
             <input type="checkbox" id="confirmModule6" style="width: auto; margin-top: 5px;">
             <label for="confirmModule6" style="font-size: 0.92rem; color: #135232;">
-              <strong>Master Syndicate Certification:</strong> Our group has fully completed the six-phase UNPOL Capacity-Building and Development curriculum cycle. All assessments, matrices, logframes, MMA models, crisis evaluations, and transition instruments are structured and verified.
+              <strong>Syndicate Self-Assessment & Handover Validation:</strong> Our group has completed and verified the transition and handover strategy for our CBD activity. Note: Formal curriculum certification requires facilitator assessment.
             </label>
           </div>
 
@@ -471,32 +488,35 @@
 
   <!-- Off-Canvas Scenario Reference Drawer -->
   <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
-  <aside class="scenario-drawer" id="scenarioDrawer" aria-label="Carana Scenario Reference">
+  <aside class="scenario-drawer" id="scenarioDrawer" role="region" aria-label="Carana Scenario Reference">
     <div class="drawer-header">
       <h3>Carana Scenario Explorer (57 Paras)</h3>
       <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
     </div>
     <div class="drawer-body">
       <div class="drawer-search">
-        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number...">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number..." aria-label="Search scenario paragraphs">
       </div>
       <div id="scenarioDrawerList"></div>
     </div>
   </aside>
 
   <!-- Glossary Modal Dialog -->
-  <div class="modal-backdrop" id="glossaryModalBackdrop">
+  <div class="modal-backdrop" id="glossaryModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="glossaryModalTitle">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>UNPOL CBD Curriculum Glossary</h3>
-        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button">×</button>
+        <h3 id="glossaryModalTitle">UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close glossary">×</button>
       </div>
       <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
-        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Transition, Handover, Ownership)...">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Transition, Handover, Ownership)..." aria-label="Search glossary terms">
       </div>
       <div class="modal-body" id="glossaryList"></div>
     </div>
   </div>
+
+  <!-- Dedicated Full Six-Module Mission Dossier Print Container -->
+  <div id="missionDossierPrintContainer" class="dossier-print-container" style="display: none;"></div>
 
   <!-- Scripts -->
   <script src="js/data/carana-scenario.js"></script>
