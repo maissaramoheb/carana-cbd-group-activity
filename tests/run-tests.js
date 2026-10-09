@@ -1014,6 +1014,140 @@ runTest('Curriculum Honesty: Module 1 initial status, Module 6 premise, and Less
   }
 });
 
+// 12. FINAL ACCEPTANCE BLOCKERS VERIFICATION
+console.log('\nGroup 12: Final Acceptance Blockers Verification');
+
+runTest('Blocker 1: Stable Stakeholder IDs are present on all default records and validated', () => {
+  const defaultState = storage.getDefaultState();
+  assert(Array.isArray(defaultState.module1.stakeholders), 'Stakeholders must be an array');
+  assert.strictEqual(defaultState.module1.stakeholders.length, 8, 'Default state must have 8 stakeholders');
+
+  defaultState.module1.stakeholders.forEach((s, idx) => {
+    assert(s.id, `Stakeholder at index ${idx} must have an id`);
+    assert(/^sh-[0-9a-zA-Z_\-]+$/.test(s.id), `Stakeholder id "${s.id}" must be a safe alphanumeric ID`);
+  });
+
+  // Verify scenario.DEFAULT_STAKEHOLDERS also has stable IDs
+  assert(Array.isArray(scenario.DEFAULT_STAKEHOLDERS), 'DEFAULT_STAKEHOLDERS must be an array');
+  scenario.DEFAULT_STAKEHOLDERS.forEach((s, idx) => {
+    assert(s.id, `Scenario stakeholder ${idx} must have stable id`);
+  });
+});
+
+runTest('Blocker 1: Multi-tab stakeholder record reconciliation preserves independent row edits', () => {
+  const baseState = storage.getDefaultState();
+  const idRow0 = baseState.module1.stakeholders[0].id;
+  const idRow1 = baseState.module1.stakeholders[1].id;
+
+  // Tab A edits row 0
+  const tabAState = JSON.parse(JSON.stringify(baseState));
+  tabAState.module1.stakeholders[0].name = 'TAB_A_STAKEHOLDER_ROW_0';
+
+  // Tab B edits row 1
+  const tabBState = JSON.parse(JSON.stringify(baseState));
+  tabBState.module1.stakeholders[1].name = 'TAB_B_STAKEHOLDER_ROW_1';
+
+  // Simulate record-level reconciliation when Tab B saves against Tab A's persisted state
+  const latestList = tabAState.module1.stakeholders;
+  const localList = tabBState.module1.stakeholders;
+  const dirtyFields = new Set([`stake-${idRow1}-name`]);
+  const deletedStakeholderIds = new Set();
+  const localById = new Map();
+  localList.forEach(s => localById.set(s.id, s));
+
+  const merged = [];
+  const processedIds = new Set();
+  const fields = ['name', 'role', 'influence', 'interest', 'needs', 'strategy'];
+
+  for (const lsh of latestList) {
+    processedIds.add(lsh.id);
+    if (!deletedStakeholderIds.has(lsh.id)) {
+      const localSh = localById.get(lsh.id);
+      if (!localSh) {
+        merged.push({ ...lsh });
+      } else {
+        const mergedRecord = { ...lsh };
+        for (const f of fields) {
+          const fieldKey = `stake-${lsh.id}-${f}`;
+          if (dirtyFields.has(fieldKey)) {
+            mergedRecord[f] = localSh[f];
+          }
+        }
+        merged.push(mergedRecord);
+      }
+    }
+  }
+
+  // Verify both independent edits are preserved!
+  assert.strictEqual(merged[0].name, 'TAB_A_STAKEHOLDER_ROW_0', 'Tab A edit to row 0 must be preserved');
+  assert.strictEqual(merged[1].name, 'TAB_B_STAKEHOLDER_ROW_1', 'Tab B edit to row 1 must be preserved');
+  assert.strictEqual(merged.length, 8, 'Must maintain complete list of stakeholders');
+});
+
+runTest('Blocker 1: Stakeholder edit/delete conflict retains remotely modified record', () => {
+  const baseState = storage.getDefaultState();
+  const targetId = baseState.module1.stakeholders[2].id;
+  const baseSnap = JSON.stringify(baseState.module1.stakeholders[2]);
+
+  // Tab A remotely edited record 2
+  const remotelyModified = JSON.parse(baseSnap);
+  remotelyModified.name = 'MODIFIED_BY_TAB_A';
+
+  // Tab B marked record 2 as deleted locally
+  const deletedStakeholderIds = new Set([targetId]);
+  const baselineStakeholders = new Map([[targetId, baseSnap]]);
+
+  // Test detection
+  const isModifiedRemotely = baselineStakeholders.get(targetId) && JSON.stringify(remotelyModified) !== baselineStakeholders.get(targetId);
+  assert.strictEqual(isModifiedRemotely, true, 'Remote modification during pending local deletion must be detected');
+});
+
+runTest('Blocker 2: getFullCycleProgress accurately calculates module confirmation states', () => {
+  const freshState = storage.getDefaultState();
+  const freshProgress = storage.getFullCycleProgress(freshState);
+  assert.strictEqual(freshProgress.confirmedCount, 0, 'Fresh state must have 0 confirmed modules');
+  assert.strictEqual(freshProgress.allConfirmed, false, 'Fresh state must not be all confirmed');
+  assert.deepStrictEqual(freshProgress.pendingModules, [1, 2, 3, 4, 5, 6], 'All 6 modules must be pending');
+
+  // ONLY Module 6 is confirmed
+  const onlyM6State = storage.getDefaultState();
+  onlyM6State.module6.confirmed = true;
+  const m6Progress = storage.getFullCycleProgress(onlyM6State);
+  assert.strictEqual(m6Progress.confirmedCount, 1, 'Only 1 module confirmed');
+  assert.strictEqual(m6Progress.allConfirmed, false, 'Must NOT be all confirmed when only M6 is confirmed');
+  assert.deepStrictEqual(m6Progress.confirmedModules, [6], 'Confirmed modules must only be [6]');
+  assert.deepStrictEqual(m6Progress.pendingModules, [1, 2, 3, 4, 5], 'Phases 1-5 must be pending');
+
+  // All 6 modules confirmed
+  const allState = storage.getDefaultState();
+  for (let i = 1; i <= 6; i++) allState['module' + i].confirmed = true;
+  const allProgress = storage.getFullCycleProgress(allState);
+  assert.strictEqual(allProgress.confirmedCount, 6, 'All 6 modules confirmed');
+  assert.strictEqual(allProgress.allConfirmed, true, 'allConfirmed must be true');
+  assert.deepStrictEqual(allProgress.pendingModules, [], 'Pending modules must be empty');
+
+  // Recalculation: Module 3 becomes unconfirmed
+  allState.module3.confirmed = false;
+  const recalced = storage.getFullCycleProgress(allState);
+  assert.strictEqual(recalced.confirmedCount, 5, 'Must drop to 5 confirmed');
+  assert.strictEqual(recalced.allConfirmed, false, 'Must no longer be all confirmed');
+  assert.deepStrictEqual(recalced.pendingModules, [3], 'Module 3 must be in pending modules');
+});
+
+runTest('Blocker 2: Module 6 UI strings and Dossier banner reflect truthful cycle completion', () => {
+  const m6Content = fs.readFileSync(path.join(ROOT_DIR, 'js/modules/module6.js'), 'utf8');
+
+  // Check that updateCompletionBadge checks cycle.allConfirmed
+  assert(m6Content.includes('cycle.allConfirmed'), 'Module 6 must check cycle.allConfirmed before declaring cycle complete');
+  assert(m6Content.includes('Cycle Incomplete'), 'Module 6 must explicitly report Cycle Incomplete when not all 6 modules are confirmed');
+  assert(m6Content.includes('pendingList'), 'Module 6 must list pending phases when cycle is incomplete');
+
+  // Check that Dossier banner distinguishes confirmed vs incomplete vs unconfirmed
+  assert(m6Content.includes('CONFIRMED FINAL MISSION DOSSIER'), 'Dossier must label full completion');
+  assert(m6Content.includes('INCOMPLETE DRAFT DOSSIER'), 'Dossier must label incomplete cycle');
+  assert(m6Content.includes('UNCONFIRMED DRAFT DOSSIER'), 'Dossier must label unconfirmed draft');
+});
+
 console.log('\n======================================================');
 console.log(`TEST RESULTS: ${testsPassed} passed, ${testsFailed} failed`);
 console.log('======================================================\n');

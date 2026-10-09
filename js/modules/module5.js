@@ -128,6 +128,7 @@
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
     } else {
+      dirtyFields.clear();
       updateSaveIndicator(statusMsg || 'Saved locally');
     }
     Storage.renderCurriculumTrack(5);
@@ -179,8 +180,12 @@
   }
 
   function setupLifecycleListeners() {
-    window.addEventListener('beforeunload', () => save());
-    window.addEventListener('pagehide', () => save());
+    window.addEventListener('beforeunload', () => {
+      if (dirtyFields.size > 0) save();
+    });
+    window.addEventListener('pagehide', () => {
+      if (dirtyFields.size > 0) save();
+    });
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
         const incoming = Storage.loadLabState();

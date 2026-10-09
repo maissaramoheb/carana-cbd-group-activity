@@ -53,22 +53,28 @@
 
     <!-- Track Banner -->
     <div style="margin-bottom: 24px;">
-      <h2 style="font-family: var(--font-serif); color: var(--navy); margin-bottom: 6px;">The Six-Phase UNPOL CBD Learning Journey</h2>
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin-bottom: 6px;">
+        <h2 style="font-family: var(--font-serif); color: var(--navy); margin: 0;">The Six-Phase UNPOL CBD Learning Journey</h2>
+        <div id="portalCycleSummaryBadge" style="display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; background: var(--wash); color: var(--navy);">Six-Phase Cycle In Progress</div>
+      </div>
       <p style="color: var(--muted); margin-top: 0; font-size: 0.95rem;">
         Each module systematically reuses outputs from previous phases, guiding advisers from initial evidence gathering to sustainable transition.
       </p>
     </div>
 
+    <!-- Live Curriculum Track Grid -->
+    <div id="curriculumTrackGrid" class="curriculum-track-grid" style="margin-bottom: 28px;"></div>
+
     <!-- 6-Module Interactive Grid -->
     <div class="grid-3" style="margin-bottom: 36px;">
       <!-- Module 1: ACTIVE -->
-      <div class="card" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+      <div class="card" data-module="1" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
         <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
           <div>
-            <span class="badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 1 · Working</span>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 1 · Working</span>
             <h3 style="margin-top: 4px; font-size: 1.25rem;">Situational Analysis</h3>
           </div>
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
         </div>
         <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
           <p><strong>Core Focus:</strong> "As is" Baseline & Conflict Scanning.</p>
@@ -88,13 +94,13 @@
       </div>
 
       <!-- Module 2: ACTIVE -->
-      <div class="card" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+      <div class="card" data-module="2" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
         <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
           <div>
-            <span class="badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 2 · Working</span>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 2 · Working</span>
             <h3 style="margin-top: 4px; font-size: 1.25rem;">Objective Setting & Prioritisation</h3>
           </div>
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
         </div>
         <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
           <p><strong>Core Focus:</strong> "To be" Desired End-State & SMART Goals.</p>
@@ -114,13 +120,13 @@
       </div>
 
       <!-- Module 3: ACTIVE -->
-      <div class="card" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+      <div class="card" data-module="3" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
         <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
           <div>
-            <span class="badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 3 · Working</span>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 3 · Working</span>
             <h3 style="margin-top: 4px; font-size: 1.25rem;">Planning Activities</h3>
           </div>
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
         </div>
         <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
           <p><strong>Core Focus:</strong> "What to" Action Planning & Logframe.</p>
@@ -139,13 +145,13 @@
       </div>
 
       <!-- Module 4: ACTIVE -->
-      <div class="card" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+      <div class="card" data-module="4" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
         <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
           <div>
-            <span class="badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 4 · Working</span>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 4 · Working</span>
             <h3 style="margin-top: 4px; font-size: 1.25rem;">Implementation</h3>
           </div>
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
         </div>
         <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
           <p><strong>Core Focus:</strong> "How to" Execution & MMA.</p>
@@ -164,13 +170,13 @@
       </div>
 
       <!-- Module 5: ACTIVE -->
-      <div class="card" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+      <div class="card" data-module="5" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
         <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
           <div>
-            <span class="badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 5 · Working</span>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 5 · Working</span>
             <h3 style="margin-top: 4px; font-size: 1.25rem;">Evaluation & Adjustment</h3>
           </div>
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
         </div>
         <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
           <p><strong>Core Focus:</strong> "Did we" Measuring Impact & Adapting.</p>
@@ -189,13 +195,13 @@
       </div>
 
       <!-- Module 6: ACTIVE -->
-      <div class="card" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+      <div class="card" data-module="6" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
         <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
           <div>
-            <span class="badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 6 · Working</span>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 6 · Working</span>
             <h3 style="margin-top: 4px; font-size: 1.25rem;">Transition & Handover</h3>
           </div>
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
         </div>
         <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
           <p><strong>Core Focus:</strong> "Sustain & exit" Institutionalising Ownership.</p>
@@ -339,6 +345,77 @@
       }
       renderGlossary('');
       gSearch.oninput = e => renderGlossary(e.target.value);
+
+      // Dynamic Curriculum Track & Module Cards Status
+      function updatePortalState() {
+        if (window.LabStorage) {
+          LabStorage.renderCurriculumTrack();
+          const state = LabStorage.loadLabState();
+          const cycle = LabStorage.getFullCycleProgress(state);
+
+          const summaryEl = document.getElementById('portalCycleSummaryBadge');
+          if (summaryEl) {
+            if (cycle.allConfirmed) {
+              summaryEl.textContent = '✓ Full Cycle Self-Confirmed (6/6 Modules Complete · Facilitator Review Ready)';
+              summaryEl.style.background = '#e6f4ea';
+              summaryEl.style.color = '#137333';
+            } else if (cycle.confirmedCount > 0) {
+              summaryEl.textContent = `Cycle In Progress (${cycle.confirmedCount}/6 Phases Self-Confirmed · Phases ${cycle.pendingModules.join(', ')} Pending)`;
+              summaryEl.style.background = '#e0f2fe';
+              summaryEl.style.color = '#0369a1';
+            } else {
+              summaryEl.textContent = 'Six-Phase Cycle In Progress (0/6 Phases Confirmed)';
+              summaryEl.style.background = 'var(--wash)';
+              summaryEl.style.color = 'var(--muted)';
+            }
+          }
+
+          for (let i = 1; i <= 6; i++) {
+            const card = document.querySelector(`[data-module="${i}"]`);
+            if (!card) continue;
+            const isConfirmed = !!state['module' + i]?.confirmed;
+            const status = LabStorage.getModuleProgressStatus(state['module' + i], i);
+
+            const phaseBadge = card.querySelector('.phase-badge');
+            const actionBadge = card.querySelector('.action-badge');
+
+            if (phaseBadge) {
+              if (isConfirmed) {
+                phaseBadge.textContent = `Phase ${i} · Confirmed`;
+                phaseBadge.style.background = 'var(--ok)';
+                phaseBadge.style.color = '#fff';
+              } else if (status === 'in_progress') {
+                phaseBadge.textContent = `Phase ${i} · In Progress`;
+                phaseBadge.style.background = 'var(--un-blue)';
+                phaseBadge.style.color = '#fff';
+              } else {
+                phaseBadge.textContent = `Phase ${i} · Not Started`;
+                phaseBadge.style.background = 'var(--muted)';
+                phaseBadge.style.color = '#fff';
+              }
+            }
+            if (actionBadge) {
+              if (isConfirmed) {
+                actionBadge.textContent = '✓ Self-Confirmed';
+                actionBadge.style.color = 'var(--ok)';
+              } else if (status === 'in_progress') {
+                actionBadge.textContent = 'In Progress';
+                actionBadge.style.color = 'var(--navy)';
+              } else {
+                actionBadge.textContent = 'Ready to Launch';
+                actionBadge.style.color = 'var(--muted)';
+              }
+            }
+          }
+        }
+      }
+
+      updatePortalState();
+      window.addEventListener('storage', e => {
+        if (e.key === LabStorage?.STORAGE_KEY) {
+          updatePortalState();
+        }
+      });
     });
   </script>
 </body>

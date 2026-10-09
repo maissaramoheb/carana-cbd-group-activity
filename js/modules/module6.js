@@ -46,6 +46,7 @@
     renderChallengesRemedies();
     renderScenarioDrawerList();
     renderGlossaryList();
+    updateCompletionBadge();
     Storage.renderCurriculumTrack(6);
     renderSyndicateValidationChecklist();
     updateSaveIndicator('Loaded local data');
@@ -143,8 +144,10 @@
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
     } else {
+      dirtyFields.clear();
       updateSaveIndicator(statusMsg || 'Saved locally');
     }
+    updateCompletionBadge();
     Storage.renderCurriculumTrack(6);
     renderSyndicateValidationChecklist();
     return ok;
@@ -183,33 +186,64 @@
   }
 
   function updateCompletionBadge() {
+    const cycle = Storage.getFullCycleProgress ? Storage.getFullCycleProgress(state) : {
+      confirmedCount: [1, 2, 3, 4, 5, 6].filter(i => !!state['module' + i]?.confirmed).length,
+      allConfirmed: [1, 2, 3, 4, 5, 6].every(i => !!state['module' + i]?.confirmed),
+      pendingModules: [1, 2, 3, 4, 5, 6].filter(i => !state['module' + i]?.confirmed)
+    };
+
+    const isM6Confirmed = !!(state.module6 && state.module6.confirmed);
     const badge = document.getElementById('stageCompleteFooterBadge');
-    if (badge) {
-      if (state.module6 && state.module6.confirmed) {
-        badge.textContent = '✓ Phase 6 Self-Confirmed · Full Six-Phase Cycle Complete';
-        badge.style.color = 'var(--ok)';
-      } else {
-        badge.textContent = 'Phase 6 In Progress · Pending Self-Confirmation';
-        badge.style.color = 'var(--navy)';
-      }
-    }
     const finalSpan = document.getElementById('finalCycleStatusText');
-    if (finalSpan) {
-      if (state.module6 && state.module6.confirmed) {
-        finalSpan.textContent = 'Full 6-Phase Learning Lab Completed · Ready for Final Review';
-        finalSpan.style.color = 'var(--ok)';
-        finalSpan.style.fontWeight = '700';
+
+    let badgeText = '';
+    let badgeColor = '';
+    let finalSpanText = '';
+    let finalSpanColor = '';
+
+    if (isM6Confirmed) {
+      if (cycle.allConfirmed) {
+        badgeText = '✓ Full Six-Phase Cycle Self-Confirmed (6/6) · Facilitator Review Ready';
+        badgeColor = 'var(--ok)';
+        finalSpanText = 'Full 6-Phase Learning Lab Self-Confirmed (6/6) · Ready for Final Review';
+        finalSpanColor = 'var(--ok)';
       } else {
-        finalSpan.textContent = 'Phase 6 In Progress · Pending Self-Confirmation';
-        finalSpan.style.color = 'var(--navy)';
-        finalSpan.style.fontWeight = '600';
+        const pendingList = cycle.pendingModules.join(', ');
+        badgeText = `✓ Phase 6 Self-Confirmed · Cycle Incomplete (${cycle.confirmedCount}/6 Confirmed · Phases ${pendingList} Pending)`;
+        badgeColor = '#b45309';
+        finalSpanText = `Phase 6 Self-Confirmed · Cycle Incomplete (${cycle.confirmedCount}/6 Confirmed · Phases ${pendingList} Pending)`;
+        finalSpanColor = '#b45309';
       }
+    } else {
+      if (cycle.confirmedCount > 0) {
+        badgeText = `Phase 6 In Progress · Pending Self-Confirmation (${cycle.confirmedCount}/6 Confirmed)`;
+        finalSpanText = `Phase 6 In Progress · Pending Self-Confirmation (${cycle.confirmedCount}/6 Confirmed)`;
+      } else {
+        badgeText = 'Phase 6 In Progress · Pending Self-Confirmation';
+        finalSpanText = 'Phase 6 In Progress · Pending Self-Confirmation';
+      }
+      badgeColor = 'var(--navy)';
+      finalSpanColor = 'var(--navy)';
+    }
+
+    if (badge) {
+      badge.textContent = badgeText;
+      badge.style.color = badgeColor;
+    }
+    if (finalSpan) {
+      finalSpan.textContent = finalSpanText;
+      finalSpan.style.color = finalSpanColor;
+      finalSpan.style.fontWeight = isM6Confirmed && cycle.allConfirmed ? '700' : '600';
     }
   }
 
   function setupLifecycleListeners() {
-    window.addEventListener('beforeunload', () => save());
-    window.addEventListener('pagehide', () => save());
+    window.addEventListener('beforeunload', () => {
+      if (dirtyFields.size > 0) save();
+    });
+    window.addEventListener('pagehide', () => {
+      if (dirtyFields.size > 0) save();
+    });
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
         const incoming = Storage.loadLabState();
@@ -300,6 +334,7 @@
         }
         Storage.renderCurriculumTrack(6);
         renderSyndicateValidationChecklist();
+        updateCompletionBadge();
         updateSaveIndicator('Synced from another tab');
       }
     });
@@ -722,6 +757,7 @@
     }
 
     const isAllConfirmed = [1, 2, 3, 4, 5, 6].every(num => !!s['module' + num]?.confirmed);
+    const confirmedCount = [1, 2, 3, 4, 5, 6].filter(num => !!s['module' + num]?.confirmed).length;
 
     let html = `
       <div style="padding: 10mm 5mm; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #111; line-height: 1.45;">
@@ -734,7 +770,11 @@
           <div style="margin-top: 8px;">
             ${isAllConfirmed ? `
               <span style="display: inline-block; padding: 4px 10px; background: #e6f4ea; border: 1.5px solid #137333; color: #137333; font-weight: 800; font-size: 8.5pt; border-radius: 4px;">
-                ✓ STATUS: CONFIRMED FINAL MISSION DOSSIER (All 6 Phases Validated by Syndicate)
+                ✓ STATUS: CONFIRMED FINAL MISSION DOSSIER (All 6 Phases Validated by Syndicate · Facilitator Review Ready)
+              </span>
+            ` : confirmedCount > 0 ? `
+              <span style="display: inline-block; padding: 4px 10px; background: #fef7e0; border: 1.5px solid #b06000; color: #b06000; font-weight: 800; font-size: 8.5pt; border-radius: 4px;">
+                ⚠️ STATUS: INCOMPLETE DRAFT DOSSIER (${confirmedCount}/6 Phases Self-Confirmed · Pending Syndicate Completion)
               </span>
             ` : `
               <span style="display: inline-block; padding: 4px 10px; background: #fef7e0; border: 1.5px solid #b06000; color: #b06000; font-weight: 800; font-size: 8.5pt; border-radius: 4px;">

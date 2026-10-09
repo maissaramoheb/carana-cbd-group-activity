@@ -26,10 +26,15 @@
 
   function getDefaultStakeholders() {
     if (Scenario && Scenario.DEFAULT_STAKEHOLDERS) {
-      return JSON.parse(JSON.stringify(Scenario.DEFAULT_STAKEHOLDERS));
+      const list = JSON.parse(JSON.stringify(Scenario.DEFAULT_STAKEHOLDERS));
+      return list.map((s, idx) => ({
+        id: s.id || ('sh-' + (idx + 1)),
+        ...s
+      }));
     }
     return [
       {
+        id: 'sh-1',
         name: 'Galasi CIS Leadership',
         role: 'Owner',
         influence: 'High',
@@ -710,6 +715,36 @@
     }
   }
 
+  function getFullCycleProgress(state) {
+    if (!state || typeof state !== 'object') {
+      return {
+        confirmedCount: 0,
+        totalModules: 6,
+        allConfirmed: false,
+        confirmedModules: [],
+        pendingModules: [1, 2, 3, 4, 5, 6],
+        isFacilitatorCertified: false
+      };
+    }
+    const confirmedModules = [];
+    const pendingModules = [];
+    for (let i = 1; i <= 6; i++) {
+      if (state['module' + i] && state['module' + i].confirmed === true) {
+        confirmedModules.push(i);
+      } else {
+        pendingModules.push(i);
+      }
+    }
+    return {
+      confirmedCount: confirmedModules.length,
+      totalModules: 6,
+      allConfirmed: confirmedModules.length === 6,
+      confirmedModules,
+      pendingModules,
+      isFacilitatorCertified: !!(state.certification && state.certification.certified)
+    };
+  }
+
   function loadLabState() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -738,6 +773,14 @@
       // Guarantee session object always exists and has valid structure
       if (!merged.session || typeof merged.session !== 'object') {
         merged.session = getDefaultState().session;
+      }
+      // Guarantee stable IDs for all stakeholders
+      if (merged.module1 && Array.isArray(merged.module1.stakeholders)) {
+        merged.module1.stakeholders.forEach((s, idx) => {
+          if (s && typeof s === 'object' && !s.id) {
+            s.id = 'sh-' + (idx + 1);
+          }
+        });
       }
       return merged;
     } catch (e) {
@@ -1276,11 +1319,14 @@
       if (state[m.key] && state[m.key].confirmed) confirmedCount++;
     });
 
+    const cycle = getFullCycleProgress(state);
     const header = container.parentElement?.querySelector('.curriculum-track-header');
     if (header) {
       const subtitleEl = document.getElementById('curriculumTrackSubtitle') || header.querySelector('span:last-child');
       if (subtitleEl) {
-        subtitleEl.textContent = `${confirmedCount} of 6 Phases Self-Validated`;
+        subtitleEl.textContent = cycle.allConfirmed
+          ? '6 of 6 Phases Self-Confirmed · Full Cycle Review Ready'
+          : `${cycle.confirmedCount} of 6 Phases Self-Confirmed · Cycle In Progress`;
       }
     }
 
@@ -1371,6 +1417,7 @@
     validateImportedData,
     renderCurriculumTrack,
     getModuleProgressStatus,
+    getFullCycleProgress,
     deepMerge,
     preparePrintableContent,
     cleanupPrintableContent

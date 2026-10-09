@@ -36,6 +36,7 @@
     bindGlobalControls();
     renderStageTabs();
     populateFormFields();
+    syncBaselineStakeholders();
     renderStakeholders();
     renderStakeholderQuadrants();
     renderMatrix();
@@ -51,6 +52,17 @@
   }
 
   const dirtyFields = new Set();
+  const deletedStakeholderIds = new Set();
+  const baselineStakeholders = new Map();
+
+  function syncBaselineStakeholders() {
+    baselineStakeholders.clear();
+    if (state.module1 && Array.isArray(state.module1.stakeholders)) {
+      state.module1.stakeholders.forEach(s => {
+        if (s && s.id) baselineStakeholders.set(s.id, JSON.stringify(s));
+      });
+    }
+  }
 
   function save(statusMsg) {
     collectFormFields();
@@ -113,12 +125,90 @@
             }
           }
         }
+        // Record-level stakeholder reconciliation
+        if (Array.isArray(latest.module1.stakeholders)) {
+          const latestList = latest.module1.stakeholders;
+          const localList = state.module1.stakeholders || [];
+          const localById = new Map();
+          localList.forEach(s => { if (s && s.id) localById.set(s.id, s); });
+
+          const merged = [];
+          const processedIds = new Set();
+          const fields = ['name', 'role', 'influence', 'interest', 'needs', 'strategy'];
+
+          for (const lsh of latestList) {
+            if (!lsh || !lsh.id) continue;
+            processedIds.add(lsh.id);
+
+            if (deletedStakeholderIds.has(lsh.id)) {
+              // Check if lsh was modified remotely compared to baseline snapshot
+              const baseSnap = baselineStakeholders.get(lsh.id);
+              const isModifiedRemotely = baseSnap && JSON.stringify(lsh) !== baseSnap;
+              if (isModifiedRemotely) {
+                console.warn(`[Concurrency] Stakeholder "${lsh.id}" was modified remotely while marked for deletion locally. Retaining to prevent data loss.`);
+                deletedStakeholderIds.delete(lsh.id);
+                merged.push({ ...lsh });
+              } else {
+                // Intentionally deleted locally without conflicting remote modification
+                continue;
+              }
+            } else {
+              const localSh = localById.get(lsh.id);
+              if (!localSh) {
+                // Stakeholder added remotely in another tab
+                merged.push({ ...lsh });
+              } else {
+                // Stakeholder present locally and remotely: merge at field level
+                const mergedRecord = { ...lsh };
+                for (const f of fields) {
+                  const fieldKey = `stake-${lsh.id}-${f}`;
+                  if (dirtyFields.has(fieldKey)) {
+                    mergedRecord[f] = localSh[f];
+                  } else if (lsh[f] !== undefined) {
+                    mergedRecord[f] = lsh[f];
+                  }
+                }
+                merged.push(mergedRecord);
+              }
+            }
+          }
+
+          // Preserve new stakeholders added locally not yet in latest
+          for (const localSh of localList) {
+            if (localSh && localSh.id && !processedIds.has(localSh.id) && !deletedStakeholderIds.has(localSh.id)) {
+              merged.push({ ...localSh });
+            }
+          }
+
+          state.module1.stakeholders = merged;
+        }
+
+        // Record-level baseline indicators reconciliation
+        if (Array.isArray(latest.module1.baseline)) {
+          const latestBase = latest.module1.baseline;
+          const localBase = state.module1.baseline || [];
+          const baseFields = ['area', 'asIsEvidence', 'baselineMetric', 'tobeTarget', 'verificationSource'];
+          for (const lb of latestBase) {
+            if (!lb || !lb.id) continue;
+            const localB = localBase.find(b => b.id === lb.id);
+            if (!localB) continue;
+            for (const f of baseFields) {
+              const inputId = `base-${lb.id}-${f}`;
+              if (!dirtyFields.has(inputId) && lb[f] !== undefined) {
+                localB[f] = lb[f];
+              }
+            }
+          }
+        }
       }
     }
     const ok = Storage.saveLabState(state);
     if (!ok) {
       updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
     } else {
+      dirtyFields.clear();
+      deletedStakeholderIds.clear();
+      syncBaselineStakeholders();
       updateSaveIndicator(statusMsg || 'Saved locally');
     }
     Storage.renderCurriculumTrack(1);
@@ -176,8 +266,12 @@
   }
 
   function setupLifecycleListeners() {
-    window.addEventListener('beforeunload', () => save());
-    window.addEventListener('pagehide', () => save());
+    window.addEventListener('beforeunload', () => {
+      if (dirtyFields.size > 0) save();
+    });
+    window.addEventListener('pagehide', () => {
+      if (dirtyFields.size > 0) save();
+    });
     window.addEventListener('storage', e => {
       if (e.key === Storage.STORAGE_KEY) {
         const incoming = Storage.loadLabState();
@@ -253,6 +347,75 @@
               if (activeId !== id && !dirtyFields.has(id) && incoming.module1.reflection[f] !== undefined) {
                 state.module1.reflection[f] = incoming.module1.reflection[f];
                 setValue(id, incoming.module1.reflection[f]);
+              }
+            }
+          }
+          // Real-time record-level stakeholder synchronization
+          if (Array.isArray(incoming.module1.stakeholders)) {
+            const incomingList = incoming.module1.stakeholders;
+            const localList = state.module1.stakeholders || [];
+            const fields = ['name', 'role', 'influence', 'interest', 'needs', 'strategy'];
+
+            let structureChanged = incomingList.length !== localList.length;
+            if (!structureChanged) {
+              for (let i = 0; i < incomingList.length; i++) {
+                if (incomingList[i]?.id !== localList[i]?.id) {
+                  structureChanged = true;
+                  break;
+                }
+              }
+            }
+
+            const isTypingInStakeholders = document.activeElement && document.activeElement.classList.contains('stake-field');
+            if (structureChanged && !isTypingInStakeholders && deletedStakeholderIds.size === 0) {
+              state.module1.stakeholders = JSON.parse(JSON.stringify(incomingList));
+              syncBaselineStakeholders();
+              renderStakeholders();
+              renderStakeholderQuadrants();
+            } else {
+              for (const incSh of incomingList) {
+                if (!incSh || !incSh.id) continue;
+                const localSh = localList.find(s => s.id === incSh.id);
+                if (!localSh) continue;
+
+                for (const f of fields) {
+                  const inputId = `stake-${incSh.id}-${f}`;
+                  if (activeId !== inputId && !dirtyFields.has(inputId)) {
+                    localSh[f] = incSh[f];
+                    const inputEl = document.getElementById(inputId);
+                    if (inputEl && inputEl.value !== incSh[f]) {
+                      inputEl.value = incSh[f] || '';
+                    }
+                    if (f === 'name') {
+                      const h = document.getElementById(`stakeHeader-${incSh.id}`);
+                      if (h) {
+                        const idx = localList.indexOf(localSh);
+                        h.textContent = `Actor #${idx + 1}: ${incSh.name || 'Unnamed Stakeholder'}`;
+                      }
+                    }
+                  }
+                }
+              }
+              renderStakeholderQuadrants();
+            }
+          }
+
+          // Real-time baseline indicators synchronization
+          if (Array.isArray(incoming.module1.baseline)) {
+            const incBase = incoming.module1.baseline;
+            const localBase = state.module1.baseline || [];
+            const baseFields = ['area', 'asIsEvidence', 'baselineMetric', 'tobeTarget', 'verificationSource'];
+            for (const ib of incBase) {
+              if (!ib || !ib.id) continue;
+              const localB = localBase.find(b => b.id === ib.id);
+              if (!localB) continue;
+              for (const f of baseFields) {
+                const inputId = `base-${ib.id}-${f}`;
+                if (activeId !== inputId && !dirtyFields.has(inputId) && ib[f] !== undefined) {
+                  localB[f] = ib[f];
+                  const inp = document.getElementById(inputId);
+                  if (inp && inp.value !== ib[f]) inp.value = ib[f];
+                }
               }
             }
           }
@@ -413,20 +576,25 @@
     const container = document.getElementById('stakeholderList');
     if (!container) return;
 
+    // Ensure every stakeholder has a valid stable ID
+    state.module1.stakeholders.forEach((s, idx) => {
+      if (s && !s.id) s.id = 'sh-' + (idx + 1);
+    });
+
     container.innerHTML = state.module1.stakeholders.map((s, idx) => `
-      <div class="card" style="margin-bottom: 12px; background: #ffffff;" data-idx="${idx}">
+      <div class="card" style="margin-bottom: 12px; background: #ffffff;" data-idx="${idx}" data-stakeholder-id="${s.id}">
         <div style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; background: var(--wash); border-bottom: 1px solid var(--line);">
-          <strong>Actor #${idx + 1}: ${escapeHtml(s.name || 'Unnamed Stakeholder')}</strong>
-          <button class="btn btn-sm btn-danger remove-stakeholder-btn" data-remove="${idx}" type="button" aria-label="Remove stakeholder ${escapeHtml(s.name || (idx + 1))}">Remove</button>
+          <strong id="stakeHeader-${s.id}">Actor #${idx + 1}: ${escapeHtml(s.name || 'Unnamed Stakeholder')}</strong>
+          <button class="btn btn-sm btn-danger remove-stakeholder-btn" data-id="${s.id}" data-remove="${idx}" type="button" aria-label="Remove stakeholder ${escapeHtml(s.name || (idx + 1))}">Remove</button>
         </div>
         <div style="padding: 14px 16px;" class="grid-3">
           <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label">Stakeholder Name / Entity</label>
-            <input class="form-input stake-field" data-idx="${idx}" data-field="name" value="${escapeHtml(s.name)}" placeholder="e.g. Public Prosecutors" aria-label="Stakeholder name">
+            <label class="form-label" for="stake-${s.id}-name">Stakeholder Name / Entity</label>
+            <input id="stake-${s.id}-name" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="name" value="${escapeHtml(s.name)}" placeholder="e.g. Public Prosecutors" aria-label="Stakeholder name">
           </div>
           <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label">Role in CBD</label>
-            <select class="form-select stake-field" data-idx="${idx}" data-field="role" aria-label="Stakeholder role in CBD">
+            <label class="form-label" for="stake-${s.id}-role">Role in CBD</label>
+            <select id="stake-${s.id}-role" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="role" aria-label="Stakeholder role in CBD">
               ${['Owner', 'Enabler', 'Affected group', 'Influencer', 'Potential blocker'].map(r => `
                 <option value="${r}" ${r === s.role ? 'selected' : ''}>${r}</option>
               `).join('')}
@@ -435,12 +603,12 @@
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label">Influence vs Interest</label>
             <div style="display: flex; gap: 6px;">
-              <select class="form-select stake-field" data-idx="${idx}" data-field="influence" title="Influence" aria-label="Stakeholder influence level">
+              <select id="stake-${s.id}-influence" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="influence" title="Influence" aria-label="Stakeholder influence level">
                 <option value="High" ${s.influence === 'High' ? 'selected' : ''}>Inf: High</option>
                 <option value="Medium" ${s.influence === 'Medium' ? 'selected' : ''}>Inf: Med</option>
                 <option value="Low" ${s.influence === 'Low' ? 'selected' : ''}>Inf: Low</option>
               </select>
-              <select class="form-select stake-field" data-idx="${idx}" data-field="interest" title="Interest" aria-label="Stakeholder interest level">
+              <select id="stake-${s.id}-interest" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="interest" title="Interest" aria-label="Stakeholder interest level">
                 <option value="High" ${s.interest === 'High' ? 'selected' : ''}>Int: High</option>
                 <option value="Medium" ${s.interest === 'Medium' ? 'selected' : ''}>Int: Med</option>
                 <option value="Low" ${s.interest === 'Low' ? 'selected' : ''}>Int: Low</option>
@@ -448,12 +616,12 @@
             </div>
           </div>
           <div class="form-group col-full" style="margin-bottom: 0;">
-            <label class="form-label">Motivations, Needs & Perceived Obstacles</label>
-            <input class="form-input stake-field" data-idx="${idx}" data-field="needs" value="${escapeHtml(s.needs || '')}" placeholder="What drives or concerns this stakeholder?" aria-label="Stakeholder motivations and needs">
+            <label class="form-label" for="stake-${s.id}-needs">Motivations, Needs & Perceived Obstacles</label>
+            <input id="stake-${s.id}-needs" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="needs" value="${escapeHtml(s.needs || '')}" placeholder="What drives or concerns this stakeholder?" aria-label="Stakeholder motivations and needs">
           </div>
           <div class="form-group col-full" style="margin-bottom: 0;">
-            <label class="form-label">Engagement & Communication Strategy</label>
-            <input class="form-input stake-field" data-idx="${idx}" data-field="strategy" value="${escapeHtml(s.strategy || '')}" placeholder="How will UNPOL CBD advisers engage them?" aria-label="Stakeholder engagement and communication strategy">
+            <label class="form-label" for="stake-${s.id}-strategy">Engagement & Communication Strategy</label>
+            <input id="stake-${s.id}-strategy" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="strategy" value="${escapeHtml(s.strategy || '')}" placeholder="How will UNPOL CBD advisers engage them?" aria-label="Stakeholder engagement and communication strategy">
           </div>
         </div>
       </div>
@@ -461,19 +629,44 @@
 
     container.querySelectorAll('.stake-field').forEach(el => {
       el.addEventListener('input', e => {
-        const i = +e.target.dataset.idx;
+        const shId = e.target.dataset.id;
         const f = e.target.dataset.field;
-        state.module1.stakeholders[i][f] = e.target.value;
-        save();
+        const fieldKey = `stake-${shId}-${f}`;
+        dirtyFields.add(fieldKey);
+        if (e.target.id) dirtyFields.add(e.target.id);
+        const targetSh = state.module1.stakeholders.find(s => s.id === shId);
+        if (targetSh) {
+          targetSh[f] = e.target.value;
+        }
+        if (f === 'name') {
+          const h = document.getElementById(`stakeHeader-${shId}`);
+          if (h) {
+            h.textContent = `Actor #${+e.target.dataset.idx + 1}: ${e.target.value || 'Unnamed Stakeholder'}`;
+          }
+        }
+        invalidateConfirmation();
         renderStakeholderQuadrants();
+      });
+      el.addEventListener('change', e => {
+        const shId = e.target.dataset.id;
+        const f = e.target.dataset.field;
+        dirtyFields.add(`stake-${shId}-${f}`);
+        if (e.target.id) dirtyFields.add(e.target.id);
+        save();
       });
     });
 
     container.querySelectorAll('.remove-stakeholder-btn').forEach(b => {
       b.onclick = () => {
-        const i = +b.dataset.remove;
+        const shId = b.dataset.id;
         if (state.module1.stakeholders.length > 1) {
-          state.module1.stakeholders.splice(i, 1);
+          deletedStakeholderIds.add(shId);
+          dirtyFields.add(`stake-deleted-${shId}`);
+          const idx = state.module1.stakeholders.findIndex(s => s.id === shId);
+          if (idx !== -1) {
+            state.module1.stakeholders.splice(idx, 1);
+          }
+          invalidateConfirmation();
           save();
           renderStakeholders();
           renderStakeholderQuadrants();
@@ -1070,7 +1263,9 @@
     // Stakeholder buttons
     document.getElementById('addStakeholderBtn')?.addEventListener('click', () => {
       invalidateConfirmation();
+      const newId = 'sh-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
       state.module1.stakeholders.push({
+        id: newId,
         name: '',
         role: 'Enabler',
         influence: 'Medium',
@@ -1078,6 +1273,7 @@
         needs: '',
         strategy: ''
       });
+      dirtyFields.add(`stake-added-${newId}`);
       save();
       renderStakeholders();
       renderStakeholderQuadrants();

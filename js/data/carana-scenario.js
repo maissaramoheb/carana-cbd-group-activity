@@ -307,6 +307,7 @@
 
   const DEFAULT_STAKEHOLDERS = [
     {
+      id: 'sh-1',
       name: 'Galasi CIS Leadership (Head of CIS)',
       role: 'Owner',
       influence: 'High',
@@ -315,6 +316,7 @@
       strategy: 'Engage closely & influence actively: Build consultative partnership, involve in all assessments, align CBD with his priorities.'
     },
     {
+      id: 'sh-2',
       name: 'Galasi Police Department (PD) Leadership / CoS',
       role: 'Influencer',
       influence: 'High',
@@ -323,6 +325,7 @@
       strategy: 'Keep satisfied: Maintain regular briefings, clarify CIS advisory boundaries, avoid institutional conflict.'
     },
     {
+      id: 'sh-3',
       name: 'Public Prosecutors & Judiciary',
       role: 'Enabler',
       influence: 'High',
@@ -331,6 +334,7 @@
       strategy: 'Engage closely: Establish joint police-prosecution case review sessions to break "us against them" culture.'
     },
     {
+      id: 'sh-4',
       name: 'Community Leaders & Elders',
       role: 'Enabler',
       influence: 'Medium',
@@ -339,6 +343,7 @@
       strategy: 'Engage closely: Leverage shared Falin cultural connection while expanding trust to minority elders.'
     },
     {
+      id: 'sh-5',
       name: 'Women & Ethnic Minority Groups (Galasi Civil Society)',
       role: 'Affected group',
       influence: 'Low',
@@ -347,6 +352,7 @@
       strategy: 'Keep informed & show consideration: Create safe reporting channels, involve female leaders, build witness safeguards.'
     },
     {
+      id: 'sh-6',
       name: 'Interpol / Police Support for Galasi Project',
       role: 'Enabler',
       influence: 'High',
@@ -355,6 +361,7 @@
       strategy: 'Engage closely & coordinate: Harmonise UNPOL CBD activities with Interpol training and SOP reviews to prevent duplication.'
     },
     {
+      id: 'sh-7',
       name: 'UNODC (Criminal Networks Training)',
       role: 'Enabler',
       influence: 'Medium',
@@ -363,6 +370,7 @@
       strategy: 'Coordinate closely: Ensure candidates selected for UNODC courses are retained and deployed in CIS analytical roles.'
     },
     {
+      id: 'sh-8',
       name: 'Dominant Political Party / Legislative Branch',
       role: 'Potential blocker',
       influence: 'High',
