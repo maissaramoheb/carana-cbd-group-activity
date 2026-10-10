@@ -7,6 +7,7 @@ authors:
   - family-names: "Selim"
     given-names: "Maissara"
     orcid: "https://orcid.org/0009-0004-3009-5888"
+doi: "10.5281/zenodo.23284920"
 repository-code: "https://github.com/maissaramoheb/carana-cbd-group-activity"
 url: "https://carana-cbd-group-activity.maissara.tech/"
 version: "1.0.1"

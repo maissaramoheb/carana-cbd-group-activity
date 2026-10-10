@@ -9,11 +9,13 @@ This document provides the complete, production-ready project entry for publicat
 - **Project Name:** CARANA CBD Learning Lab
 - **Short Name:** CARANA CBD Lab
 - **Slug:** `carana-cbd-learning-lab`
-- **Status:** `PRODUCTION / v1.0.0`
+- **Status:** `PRODUCTION / v1.0.1`
 - **Role of Creator:** Sole Instructional Designer, Software Architect, and Engineer (*Prepared by Lt. Col. Maissara Selim*)
 - **Author ORCID:** `https://orcid.org/0009-0004-3009-5888`
 - **Production URL:** [https://carana-cbd-group-activity.maissara.tech/](https://carana-cbd-group-activity.maissara.tech/)
 - **GitHub Repository:** [https://github.com/maissaramoheb/carana-cbd-group-activity](https://github.com/maissaramoheb/carana-cbd-group-activity)
+- **Zenodo DOI:** [https://doi.org/10.5281/zenodo.23284920](https://doi.org/10.5281/zenodo.23284920)
+- **Concept DOI:** [https://doi.org/10.5281/zenodo.23284919](https://doi.org/10.5281/zenodo.23284919)
 - **Primary Asset:** `/images/carana-cbd-learning-lab.webp` (1440 × 900 px, 112 KB, optimized)
 
 ---
@@ -87,7 +89,8 @@ An offline-first, browser-local interactive laboratory embedding the 36-stage BO
     slug: "carana-cbd-learning-lab",
     shortName: "CARANA CBD Lab",
     name: "CARANA CBD Learning Lab: Six-Phase Simulation Workspace",
-    status: "PRODUCTION / v1.0.0",
+    status: "PRODUCTION / v1.0.1",
+    doi: "https://doi.org/10.5281/zenodo.23284920",
     image: "/images/carana-cbd-learning-lab.webp",
     imageAlt:
       "CARANA CBD Learning Lab six-phase curriculum navigation and syndicate planning portal.",
@@ -112,7 +115,8 @@ An offline-first, browser-local interactive laboratory embedding the 36-stage BO
       "Consolidated Master Mission Dossier Generation",
     ],
     current: [
-      "Production release v1.0.0 running live at https://carana-cbd-group-activity.maissara.tech/.",
+      "Production release v1.0.1 running live at https://carana-cbd-group-activity.maissara.tech/.",
+      "Archived on Zenodo with persistent DOI: https://doi.org/10.5281/zenodo.23284920.",
       "Complete 36-stage interactive learning cycle across all 6 UNPOL JST modules.",
       "Dual instructional mode: Full ~14-hour Syndicate Learning Lab plus 60-Minute Fast-Track Quick Exercise.",
       "Local-first localStorage persistence with stable stakeholder IDs (sh-1..sh-8) and multi-tab concurrency protection.",
@@ -128,6 +132,6 @@ An offline-first, browser-local interactive laboratory embedding the 36-stage BO
       "Deterministic prioritisation charts and variance thresholds guide reflection but do not replace facilitator assessment or operational command judgment.",
       "Do not store classified or sensitive real-world operational materials in public browser environments.",
     ],
-    sourceCommit: "f4bf0f3",
+    sourceCommit: "53b50fc",
   },
 ```

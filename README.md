@@ -2,6 +2,7 @@
 
 > **A professional, local-first interactive simulation laboratory supporting the six phases of United Nations Police (UNPOL) Capacity-Building and Development (CBD).**
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23284920.svg)](https://doi.org/10.5281/zenodo.23284920)
 [![Production URL](https://img.shields.io/badge/Production-carana--cbd--group--activity.maissara.tech-007cb0?style=flat-square&logo=vercel)](https://carana-cbd-group-activity.maissara.tech/)
 [![Release](https://img.shields.io/badge/Release-v1.0.1-166534?style=flat-square)](https://github.com/maissaramoheb/carana-cbd-group-activity/releases)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0004--3009--5888-A6CE39?style=flat-square&logo=orcid)](https://orcid.org/0009-0004-3009-5888)
@@ -223,15 +224,19 @@ If you utilize, evaluate, or reference the **CARANA CBD Learning Lab** in traini
   title        = {{CARANA CBD Learning Lab: An Offline-First Simulation Environment for UNPOL Capacity-Building and Development}},
   year         = {2026},
   version      = {v1.0.1},
-  publisher    = {GitHub},
-  url          = {https://carana-cbd-group-activity.maissara.tech/},
-  repository   = {https://github.com/maissaramoheb/carana-cbd-group-activity},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.23284920},
+  url          = {https://doi.org/10.5281/zenodo.23284920},
   note         = {Prepared by Lt. Col. Maissara Selim. ORCID: 0009-0004-3009-5888}
 }
 ```
 
 ### APA Format
-Selim, M. (2026). *CARANA CBD Learning Lab: An Offline-First Simulation Environment for UNPOL Capacity-Building and Development* (Version 1.0.1) [Computer software]. https://carana-cbd-group-activity.maissara.tech/
+Selim, M. (2026). *CARANA CBD Learning Lab: An Offline-First Simulation Environment for UNPOL Capacity-Building and Development* (Version 1.0.1) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23284920
+
+**Persistent Identifiers:**
+- **Version-Specific DOI:** [10.5281/zenodo.23284920](https://doi.org/10.5281/zenodo.23284920)
+- **Concept DOI (all versions):** [10.5281/zenodo.23284919](https://doi.org/10.5281/zenodo.23284919)
 
 See [`CITATION.cff`](CITATION.cff) for machine-readable citation metadata conforming to the Citation File Format standard.
 
