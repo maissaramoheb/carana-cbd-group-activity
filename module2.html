@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Module 2: Objective Setting & Prioritisation · CARANA CBD Learning Lab</title>
+  <link rel="stylesheet" href="css/design-system.css">
+</head>
+<body>
+  <div class="lab-container">
+    <!-- Top Nav Utility Bar -->
+    <nav class="top-nav-bar" aria-label="Breadcrumb and quick links">
+      <div class="top-nav-left">
+        <a href="index.html" style="font-weight: 700; text-decoration: none;">← CARANA CBD Learning Lab Hub</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module1.html" style="color: var(--ink-light); text-decoration: none;">Phase 1: Situational Analysis</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <span style="color: var(--ink); font-weight: 700;">Phase 2: Objective Setting</span>
+      </div>
+      <div class="top-nav-right">
+        <button class="btn btn-sm btn-ghost reset-lab-btn" id="topNavResetBtn" data-action="reset-lab" type="button" title="Start a fresh session or reset all six modules">
+          🔄 Start New Session
+        </button>
+        <a href="CARANA_CBD_Group_Activity.html" style="color: var(--muted); text-decoration: none;" target="_blank">
+          ⏱ 60-Minute Fast Track ↗
+        </a>
+      </div>
+    </nav>
+
+    <!-- Lab Header -->
+    <header class="lab-header">
+      <div class="lab-brand">
+        <div class="lab-brand-left">
+          <span class="lab-emblem">UN Peacekeeping</span>
+          <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 2</span>
+        </div>
+        <div class="lab-attribution-badge">Prepared by Lt. Col. Maissara Selim</div>
+      </div>
+      <h1 class="lab-title">Module 2: Objective Setting & Prioritisation</h1>
+      <p class="lab-subtitle">
+        Translating evidence into strategic "To be" objectives, prioritising competing initiatives via multi-criteria scoring, 
+        and formulating SMART performance frameworks.
+      </p>
+
+      <div class="lab-meta-bar">
+        <div class="lab-meta-left">
+          <div class="lab-meta-item">Focus: <strong>Strategic "To be" Objectives & KPIs</strong></div>
+          <div class="lab-meta-item">Authority: <strong>UNSCR 2151 & SDG 16</strong></div>
+          <div class="lab-meta-item">Status: <span id="saveIndicator">Loaded</span></div>
+        </div>
+        <div class="lab-controls-bar">
+          <button class="btn btn-sm btn-dark" id="openScenarioDrawerBtn" type="button">
+            📖 Scenario (57 Paras)
+          </button>
+          <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
+            📚 CBD Glossary
+          </button>
+          <button class="btn btn-sm btn-reset-session reset-lab-btn" id="resetLabBtn" data-action="reset-lab" type="button" title="Start a clean session or reset all six modules">
+            🔄 Reset Session
+          </button>
+          <button class="btn btn-sm btn-primary" id="manualSaveBtn" type="button">
+            💾 Save Work
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Six-Phase Curriculum Track -->
+    <nav class="curriculum-track" aria-label="Curriculum Modules">
+      <div class="curriculum-track-header">
+        <span>UNPOL Capacity-Building & Development Process Cycle</span>
+        <span>Phases 1–6</span>
+      </div>
+      <div class="curriculum-track-grid">
+        <a href="module1.html" class="track-step completed">
+          <span class="track-num">Phase 01 · Done</span>
+          <span class="track-title">Situational Analysis</span>
+          <span class="track-desc">"As is" baseline & conflict scan</span>
+        </a>
+        <a href="module2.html" class="track-step active">
+          <span class="track-num">Phase 02 · Active</span>
+          <span class="track-title">Objective Setting</span>
+          <span class="track-desc">"To be" SMART & Prioritisation</span>
+        </a>
+        <div class="track-step locked">
+          <span class="track-num">Phase 03</span>
+          <span class="track-title">Planning Activities</span>
+          <span class="track-desc">"What to" Logframe & RBB</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 04</span>
+          <span class="track-title">Implementation</span>
+          <span class="track-desc">"How to" MMA execution</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 05</span>
+          <span class="track-title">Evaluation & Adjust.</span>
+          <span class="track-desc">"Did we" Impact measurement</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 06</span>
+          <span class="track-title">Transition & Handover</span>
+          <span class="track-desc">"Sustain" Exit & local ownership</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Stage Navigation Tabs for Module 2 -->
+    <nav class="stage-nav" id="stageNav" aria-label="Module 2 Stages"></nav>
+
+    <!-- ================= STAGE 1: STRATEGIC ALIGNMENT ================= -->
+    <section class="stage-panel active" id="stage-orientation">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 1 · BOPPPS Bridge-In & Strategic Alignment</span>
+            <h2 style="margin-top: 4px;">Strategic Frameworks, National Ownership & Principles</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 25 minutes</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Review UNPOL CBD strategic frameworks, UNSCR 2151 mandates, and national ownership principles.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Shared understanding of reform principles, human rights standards, and justice sector linkages.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Proceed to Stage 2 to formulate and review candidate objectives drawn from Module 1 baseline findings.</p>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom: 24px;">
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">Why Objective Setting & Prioritisation Matter</h3>
+              <p style="margin: 0 0 10px; font-size: 0.92rem; color: var(--ink);">
+                Experience in post-conflict settings proves that <strong>there will always be more work to do than resources available to do it</strong>. 
+                CBD advisers will constantly be confronted with competing demands. To succeed, advisers must establish a mechanism for comparing 
+                the strategic value, implementability, risk, and complementarity of alternatives in an accountable, transparent, and defensible manner.
+              </p>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--muted);">
+                <li>Align with UNSCR 2151 (Security Sector Reform) and UN SDG 16 targets.</li>
+                <li>Balance host-State perceived needs with international human rights standards.</li>
+                <li>Avoid endless reviews: establish transparent priorities and take action.</li>
+              </ul>
+            </div>
+
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">Key Principles of Sustainable Reform (Lesson 2 Slide 13)</h3>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--ink); line-height: 1.55;">
+                <li><strong>Local (National) Ownership:</strong> Consistency with host-nation political objectives, leadership buy-in, and genuine counterpart participation at all stages.</li>
+                <li><strong>Security-Development Nexus:</strong> Police CBD creates sustainable security; stable security allows long-term institutional reform.</li>
+                <li><strong>Results-Orientation:</strong> Clear focus on outcomes (what changes for the community) rather than merely scheduled activities.</li>
+                <li><strong>People-Centred Policing:</strong> Human security and protection of vulnerable groups over narrow regime security.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background: var(--gold-bg); border-left: 4px solid var(--gold); padding: 14px 18px; border-radius: 4px; font-size: 0.9rem; color: var(--gold-dark);">
+            <strong>Curriculum Authority Note:</strong> In accordance with UNPOL JST Lesson 2 (Slide 11), police capacity-building 
+            must not be viewed as an isolated technical process. Objectives must reflect alignment with the broader justice sector 
+            (prosecutions, courts, corrections) and national oversight institutions.
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: var(--muted); font-size: 0.85rem;">Review the strategic parameters before selecting objectives.</span>
+          <button class="btn btn-primary" data-goto-stage="stage-candidates" type="button">Continue to Candidates Pool →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 2: CANDIDATES POOL ================= -->
+    <section class="stage-panel" id="stage-candidates">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 2 · Activity 2.1 Step 1</span>
+            <h2 style="margin-top: 4px;">Objective Candidates Pool (6 to 10 Objectives)</h2>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span id="candidateCountBadge" class="badge" style="background: var(--navy); color: #fff; padding: 4px 10px; border-radius: 99px; font-weight: 700; font-size: 0.82rem;">3 Objectives</span>
+            <button class="btn btn-sm btn-primary" id="importFromM1Btn" type="button">🔄 Import from Module 1</button>
+            <button class="btn btn-sm btn-dark" id="addCandidateBtn" type="button">+ Add Custom Objective</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Formulate 6 to 10 potential reform objectives competing for UNPOL and mission resources.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Candidate pool of strategic objectives populated from Module 1 SWOT or syndicate inputs.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Proceed to Stage 3 to apply the UNPOL 6-category prioritisation matrix and ranking formula.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 18px;">
+            Based on the situational baseline and SWOT findings from Module 1, formulate <strong>6 to 10 potential objectives</strong> 
+            competing for mission resources. You can import opportunities and baseline gaps directly from Module 1 using the button above.
+          </p>
+
+          <div id="candidatesListHost">
+            <!-- Dynamically populated candidate cards -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-orientation" type="button">← Back to Strategic Alignment</button>
+          <button class="btn btn-primary" data-goto-stage="stage-prioritisation" type="button">Continue to Prioritisation Chart →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3: PRIORITISATION MATRIX ================= -->
+    <section class="stage-panel" id="stage-prioritisation">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 3 · Activity 2.1 Step 2</span>
+            <h2 style="margin-top: 4px;">UNPOL CBD Objective Prioritisation Chart (Lesson 2 p. 24 & 30)</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Scoring Scale: 1 = Low, 2 = Medium, 3 = High</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Score candidate objectives across 6 official criteria (Strategic, Implementability, Risk, Ownership, Gender, Impact).</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Calculated priority scores, rank orders, and tier allocations (High / Medium / Low).</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Proceed to Stage 4 to select top-tier objectives and draft rigorous SMART criteria.</p>
+            </div>
+          </div>
+
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 16px; font-size: 0.86rem; color: var(--ink); line-height: 1.5;">
+            <strong>Official Scoring Model Rules (Lesson 2 p. 25 & 32):</strong>
+            <ul>
+              <li><strong>6 Strategic Categories</strong> (Policing, Environmental, Conflict Prevention, Human Rights, Gender, CPOC): each rated 1–3, weighted with factor of <strong>2.00</strong>.</li>
+              <li><strong>Need (Beneficiary Assessment)</strong>, <strong>Implementability</strong>, and <strong>Donor Interest</strong>: rated 1–3, weighted at <strong>1.00</strong>.</li>
+              <li><strong>Risk</strong>: Inverse scale where <strong>3 = Low Risk</strong> and <strong>1 = High Risk</strong>. <em>Curriculum Rule (Lesson 2 p. 22 & 24): The Risk column is included for matrix completeness, but ignored in the prioritisation sum at this phase as comprehensive 3×3 Risk Analysis is formally conducted in Lesson 3.</em></li>
+              <li><strong>Complementarity</strong>: Weighted at <strong>0.50</strong> so it does not skew the overall balance.</li>
+            </ul>
+          </div>
+
+          <div class="matrix-container" id="prioritisationTableHost">
+            <!-- Dynamically populated prioritisation table -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-candidates" type="button">← Back to Candidates Pool</button>
+          <button class="btn btn-primary" data-goto-stage="stage-smart" type="button">Continue to S.M.A.R.T. Formulation →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 4: S.M.A.R.T. FORMULATION ================= -->
+    <section class="stage-panel" id="stage-smart">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 4 · Activity 2.1 Step 3</span>
+            <h2 style="margin-top: 4px;">S.M.A.R.T. Objective Formulation Assistant</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Formulate the Top 2 Highest Prioritised Objectives</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Refine top-ranked objectives against SMART criteria (Specific, Measurable, Achievable, Relevant, Time-bound).</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Fully articulated SMART objectives with baseline indicators and target completion dates.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Proceed to Stage 5 to define quantitative and qualitative KPIs for performance tracking.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            In accordance with UNPOL JST Lesson 2 (Slides 14 & 18), phrase the <strong>two highest prioritised objectives</strong> 
+            using the five elements of the S.M.A.R.T. framework. These statements will serve as the <em>Developmental Outcomes</em> in the Module 3 Logframe.
+          </p>
+
+          <div id="smartWizardsHost">
+            <!-- Dynamically populated SMART wizards for Top 2 ranked objectives -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-prioritisation" type="button">← Back to Prioritisation Matrix</button>
+          <button class="btn btn-primary" data-goto-stage="stage-kpis" type="button">Continue to Performance Framework →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 5: PERFORMANCE FRAMEWORK ================= -->
+    <section class="stage-panel" id="stage-kpis">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 5 · Performance Framework</span>
+            <h2 style="margin-top: 4px;">Key Performance Indicators (KPIs / PIs)</h2>
+          </div>
+          <button class="btn btn-primary btn-sm" id="addKpiBtn" type="button">+ Add Performance Indicator</button>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Establish quantitative metrics and qualitative indicators for each confirmed SMART objective.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>KPI performance framework linking developmental objectives to measurable progress indicators.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Proceed to Stage 6 for syndicate review, self-confirmation, and handover to Module 3 planning.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 18px;">
+            Per UNPOL CBD Lesson 2 (Slide 15 & 20), evaluation of performance requires objectives that are measurable. 
+            Transform qualitative intentions into countable numbers and verifiable conditions to establish the performance framework.
+          </p>
+
+          <div style="overflow-x: auto;">
+            <table class="baseline-table">
+              <thead>
+                <tr>
+                  <th style="width: 18%;">Performance Indicator Name</th>
+                  <th style="width: 12%;">Indicator Type</th>
+                  <th style="width: 14%;">Baseline Value (from M1)</th>
+                  <th style="width: 14%;">Target Value (Desired State)</th>
+                  <th style="width: 14%;">Means of Verification</th>
+                  <th style="width: 14%;">Frequency</th>
+                  <th style="width: 14%;">Responsibility</th>
+                  <th style="width: 30px;"></th>
+                </tr>
+              </thead>
+              <tbody id="kpiTableBody">
+                <!-- Dynamically populated KPI rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-smart" type="button">← Back to SMART Formulation</button>
+          <button class="btn btn-primary" data-goto-stage="stage-summary" type="button">Continue to Review & Reflection →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 6: REVIEW & REFLECTION ================= -->
+    <section class="stage-panel" id="stage-summary">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 6 · Review & Learning Transfer</span>
+            <h2 style="margin-top: 4px;">Review, Syndicate Reflection & Bridge to Module 3</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Completion & Data Handoff</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Validate Module 2 outcomes against Lesson 2 curriculum standards and confirm syndicate consensus.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Participant-reviewed objective package ready to feed directly into Module 3 Logframe matrices.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Launch Module 3 (Planning Activities) to translate confirmed objectives into actionable activities.</p>
+            </div>
+          </div>
+
+          <!-- Learning Reflection Activity -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 4px;">Curriculum Learning Reflection Activity (Lesson 2 Outline p. 28)</h3>
+            <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 16px;">
+              Reflect on the three core reflective dimensions: <em>What? So what? Now what?</em>
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionExperience">
+                1. What? What stood out during the prioritisation and scoring exercise?
+              </label>
+              <textarea class="form-textarea" id="reflectionExperience" placeholder="Reflect on tensions between beneficiary need vs strategic impact..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionPrioritisation">
+                2. So what? How does multi-criteria scoring help prevent ad-hoc or biased decision-making?
+              </label>
+              <textarea class="form-textarea" id="reflectionPrioritisation" placeholder="Explain the value of a transparent scoring model..."></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="reflectionOwnership">
+                3. Now what? How will you engage the host-State counterpart (Galasi CIS) to ensure national ownership of these prioritised goals?
+              </label>
+              <textarea class="form-textarea" id="reflectionOwnership" placeholder="Describe the consultation and joint-ownership strategy..."></textarea>
+            </div>
+          </div>
+
+          <!-- Validation Checkbox -->
+          <div style="background: var(--gold-bg); border: 1px solid #e2cb91; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
+            <input type="checkbox" id="confirmModule2" style="width: auto; margin-top: 5px;">
+            <label for="confirmModule2" style="font-size: 0.92rem; color: #583c03;">
+              <strong>Syndicate Self-Assessment & Validation:</strong> Our group has agreed on the prioritised SMART objectives and KPI performance framework as a learning self-assessment. These objectives are ready for transfer into <strong>Module 3: Planning Activities (Logframe & RBB)</strong>.
+            </label>
+          </div>
+
+          <!-- Export & Actions -->
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-dark" id="printPdfBtn" type="button">📄 Generate Briefing PDF</button>
+              <button class="btn btn-primary" id="exportJsonBtn" type="button">💾 Export Lab State (.json)</button>
+            </div>
+            <a href="index.html" class="btn btn-dark" style="text-decoration: none;">Return to Lab Portal Hub ↗</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-kpis" type="button">← Back to KPI Framework</button>
+          <span style="font-size: 0.85rem; color: var(--ok); font-weight: 700;">Phase 2 Complete · Ready for Module 3</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consolidated Institutional Footer -->
+    <footer class="lab-footer">
+      <div class="lab-footer-primary">
+        <div class="lab-footer-brand">
+          <strong>CARANA CBD Learning Lab</strong>
+          <span class="lab-footer-attribution">Prepared by Lt. Col. Maissara Selim</span>
+        </div>
+        <span id="stageCompleteFooterBadge" class="footer-stage-badge">Phase 2 In Progress · Pending Self-Confirmation</span>
+      </div>
+      <p class="lab-disclaimer">
+        Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.
+      </p>
+      <div class="lab-footer-secondary">
+        <span>Curriculum Reference: UNPOL CBD JST (Lesson 2) · Participant exercise outputs are syndicate-authored.</span>
+        <span>Offline Local-First Architecture</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Off-Canvas Scenario Reference Drawer -->
+  <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
+  <aside class="scenario-drawer" id="scenarioDrawer" aria-label="Carana Scenario Reference">
+    <div class="drawer-header">
+      <h3>Carana Scenario Explorer (57 Paras)</h3>
+      <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-search">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number...">
+      </div>
+      <div id="scenarioDrawerList"></div>
+    </div>
+  </aside>
+
+  <!-- Glossary Modal Dialog -->
+  <div class="modal-backdrop" id="glossaryModalBackdrop">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="glossaryModalTitle">
+      <div class="modal-header">
+        <h3 id="glossaryModalTitle">UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close glossary">×</button>
+      </div>
+      <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. SMART, KPI, SSR)..." aria-label="Search glossary terms">
+      </div>
+      <div class="modal-body" id="glossaryList"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data/carana-scenario.js"></script>
+  <script src="js/data/curriculum-glossary.js"></script>
+  <script src="js/storage/lab-storage.js"></script>
+  <script src="js/modules/module2.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Module2App.init();
+    });
+  </script>
+</body>
+</html>

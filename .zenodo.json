@@ -1,0 +1,23 @@
+{
+  "title": "CARANA CBD Learning Lab: An Offline-First Simulation Environment for UNPOL Capacity-Building and Development",
+  "description": "An offline-first, local-first interactive simulation laboratory supporting the six phases of United Nations Police (UNPOL) Capacity-Building and Development (CBD). Designed for peace operations personnel, police development advisers, and training institutions to translate peacekeeping intelligence into structured, evidence-based planning outputs.",
+  "creators": [
+    {
+      "name": "Selim, Maissara",
+      "orcid": "0009-0004-3009-5888"
+    }
+  ],
+  "upload_type": "software",
+  "access_right": "open",
+  "keywords": [
+    "UNPOL",
+    "Peacekeeping",
+    "Capacity-Building",
+    "Police Reform",
+    "CARANA Scenario",
+    "Educational Software",
+    "Simulation",
+    "Security Sector Reform"
+  ],
+  "notes": "Prepared by Lt. Col. Maissara Selim. Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference."
+}

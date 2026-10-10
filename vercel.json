@@ -2,8 +2,44 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/",
+      "source": "/quick-exercise",
       "destination": "/CARANA_CBD_Group_Activity"
+    },
+    {
+      "source": "/module1",
+      "destination": "/module1"
+    },
+    {
+      "source": "/module2",
+      "destination": "/module2"
+    },
+    {
+      "source": "/module3",
+      "destination": "/module3"
+    },
+    {
+      "source": "/module4",
+      "destination": "/module4"
+    },
+    {
+      "source": "/module5",
+      "destination": "/module5"
+    },
+    {
+      "source": "/module6",
+      "destination": "/module6"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/tests/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "/",
+      "permanent": false
     }
   ]
 }

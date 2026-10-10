@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Module 6: Transition & Handover · CARANA CBD Learning Lab</title>
+  <link rel="stylesheet" href="css/design-system.css">
+</head>
+<body>
+  <div class="lab-container">
+    <!-- Top Nav Utility Bar -->
+    <nav class="top-nav-bar" aria-label="Breadcrumb and quick links">
+      <div class="top-nav-left">
+        <a href="index.html" style="font-weight: 700; text-decoration: none;">← CARANA CBD Learning Lab Hub</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module1.html" style="color: var(--ink-light); text-decoration: none;">Phase 1</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module2.html" style="color: var(--ink-light); text-decoration: none;">Phase 2</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module3.html" style="color: var(--ink-light); text-decoration: none;">Phase 3</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module4.html" style="color: var(--ink-light); text-decoration: none;">Phase 4</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module5.html" style="color: var(--ink-light); text-decoration: none;">Phase 5</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <span style="color: var(--ink); font-weight: 700;">Phase 6: Transition & Handover</span>
+      </div>
+      <div class="top-nav-right">
+        <button class="btn btn-sm btn-ghost reset-lab-btn" id="topNavResetBtn" data-action="reset-lab" type="button" title="Start a fresh session or reset all six modules">
+          🔄 Start New Session
+        </button>
+        <a href="CARANA_CBD_Group_Activity.html" style="color: var(--muted); text-decoration: none;" target="_blank">
+          ⏱ 60-Minute Fast Track ↗
+        </a>
+      </div>
+    </nav>
+
+    <!-- Lab Header -->
+    <header class="lab-header">
+      <div class="lab-brand">
+        <div class="lab-brand-left">
+          <span class="lab-emblem">UN Peacekeeping</span>
+          <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 6</span>
+        </div>
+        <div class="lab-attribution-badge">Prepared by Lt. Col. Maissara Selim</div>
+      </div>
+      <h1 class="lab-title">Module 6: Transition & Handover</h1>
+      <p class="lab-subtitle">
+        Tactical transition planning, the Four Key Principles (Early Planning, UN Integration, Local Ownership, Communication), 
+        institutionalising new policing practice, gender-responsive budgeting, and formal Handover Protocol.
+      </p>
+
+      <div class="lab-meta-bar">
+        <div class="lab-meta-left">
+          <div class="lab-meta-item">Focus: <strong>Sustainable Ownership & Operational Handover</strong></div>
+          <div class="lab-meta-item">Authority: <strong>UNPOL CBD JST Lesson 6 & HOPC Transition Guidelines</strong></div>
+          <div class="lab-meta-item">Status: <span id="saveIndicator">Loaded</span></div>
+        </div>
+        <div class="lab-controls-bar">
+          <button class="btn btn-sm btn-dark" id="openScenarioDrawerBtn" type="button">
+            📖 Scenario (57 Paras)
+          </button>
+          <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
+            📚 CBD Glossary
+          </button>
+          <button class="btn btn-sm btn-reset-session reset-lab-btn" id="resetLabBtn" data-action="reset-lab" type="button" title="Start a clean session or reset all six modules">
+            🔄 Reset Session
+          </button>
+          <button class="btn btn-sm btn-primary" id="manualSaveBtn" type="button">
+            💾 Save Work
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Six-Phase Curriculum Track -->
+    <nav class="curriculum-track" aria-label="Curriculum Modules">
+      <div class="curriculum-track-header">
+        <span>UNPOL Capacity-Building & Development Process Cycle</span>
+        <span>Phases 1–6 Complete</span>
+      </div>
+      <div class="curriculum-track-grid">
+        <a href="module1.html" class="track-step completed">
+          <span class="track-num">Phase 01 · Done</span>
+          <span class="track-title">Situational Analysis</span>
+          <span class="track-desc">"As is" baseline & conflict scan</span>
+        </a>
+        <a href="module2.html" class="track-step completed">
+          <span class="track-num">Phase 02 · Done</span>
+          <span class="track-title">Objective Setting</span>
+          <span class="track-desc">"To be" SMART & Prioritisation</span>
+        </a>
+        <a href="module3.html" class="track-step completed">
+          <span class="track-num">Phase 03 · Done</span>
+          <span class="track-title">Planning Activities</span>
+          <span class="track-desc">"What to" Logframe & RBB</span>
+        </a>
+        <a href="module4.html" class="track-step completed">
+          <span class="track-num">Phase 04 · Done</span>
+          <span class="track-title">Implementation</span>
+          <span class="track-desc">"How to" MMA execution</span>
+        </a>
+        <a href="module5.html" class="track-step completed">
+          <span class="track-num">Phase 05 · Done</span>
+          <span class="track-title">Evaluation & Adjust.</span>
+          <span class="track-desc">"Did we" Impact & adaptation</span>
+        </a>
+        <a href="module6.html" class="track-step active">
+          <span class="track-num">Phase 06 · Active</span>
+          <span class="track-title">Transition & Handover</span>
+          <span class="track-desc">"Sustain" Exit & local ownership</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Stage Navigation Tabs for Module 6 -->
+    <nav class="stage-nav" id="stageNav" aria-label="Module 6 Stages"></nav>
+
+    <!-- ================= STAGE 1: TRANSITION PRINCIPLES & TRIGGERS ================= -->
+    <section class="stage-panel active" id="stage-principles">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 1 · BOPPPS Bridge-In & Mandate Authority</span>
+            <h2 style="margin-top: 4px;">Transition Definition, Triggers & The Four Key Principles (Lesson 6 Slides 6–9)</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 25 minutes</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Define tactical transition triggers, HOPC decision authority, and the Four Key Principles.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Transition Initiation Charter establishing succeeding entities, local owners, and triggers.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 2 to conduct integrated capability assessments and gender-responsive budgeting.</p>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom: 24px;">
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">Definition & Mandated Authority</h3>
+              <p style="margin: 0 0 10px; font-size: 0.92rem; color: var(--ink);">
+                <em>"The term transition describes the process of closing a CBD activity and handing it over to the national counterpart or another CBD actor (e.g. UN Country Team, UNDP, UNODC, or bilateral partners). It refers solely to isolated CBD activities on the tactical/operational level, not mission drawdown."</em> (Lesson 6 p. 4).
+              </p>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--muted); line-height: 1.55;">
+                <li><strong>Decision Authority (Slide 9):</strong> The Head of Police Component (HOPC) decides to initiate transition with the advice of the responsible UNPOL CBD adviser.</li>
+                <li><strong>Dual Nature:</strong> Handover is not merely the final phase of a project, but the beginning of an ongoing, self-sustaining national process.</li>
+                <li><strong>Sensitivity & Respect:</strong> Sensitivity on the part of the CBD adviser is crucial when coordinating with counterparts and succeeding agencies.</li>
+              </ul>
+            </div>
+
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">The Four Key Principles of Transition (Slide 8)</h3>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--ink); line-height: 1.55;">
+                <li><strong>1. Early Planning:</strong> Begins early in the project life cycle, remains flexible, and incorporates scenario-based contingency planning.</li>
+                <li><strong>2. UN Integration:</strong> Planned and coordinated with UN actors (UNCT, UNDP, UN Women, UNODC) who have an enduring interest in long-term police reform.</li>
+                <li><strong>3. Local Ownership:</strong> National counterparts lead the process; responsible institutional owners are identified and empowered to manage budgets and doctrine.</li>
+                <li><strong>4. Communication:</strong> Transparent protocols that carefully manage expectations among host-State leaders, mission staff, and civil society.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Curriculum Context & Inter-Module Linkage -->
+          <div style="background: #edf7fd; border: 1px solid #bce1f8; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 20px; font-size: 0.9rem; color: #0c4a6e;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <strong>Curriculum Context (Lesson 6 Activity 6.1):</strong>
+                Transition concerns the handover of an <em>individual CBD activity or project</em> (tactical/operational level), rather than full UN mission drawdown. Syndicates work from the instructional assumption that the capacity-building objectives established in Lessons 1–3 and stabilized in Lesson 5 are now advancing toward sustainable national ownership.
+              </div>
+              <button class="btn btn-sm btn-dark" id="syncM5EvaluationBtn" type="button">🔄 Sync from Module 5 Evaluation</button>
+            </div>
+          </div>
+
+          <!-- Transition Setup Parameters -->
+          <div style="background: var(--wash-subtle); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 12px;">Transition Initiation Charter for Galasi CIS Activities</h3>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="transHopcDate">
+                  HOPC Formal Initiation Timeline
+                  <span class="form-hint">When does HOPC authorize transition on the adviser's recommendation?</span>
+                </label>
+                <input class="form-input" id="transHopcDate" value="Month 18 of Mission Mandate (following Module 5 Mid-Term Evaluation)">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="transPrimaryTrigger">
+                  Mandate & Environmental Trigger (Slide 7)
+                  <span class="form-hint">Objective achievement verified by evaluation vs environmental change</span>
+                </label>
+                <input class="form-input" id="transPrimaryTrigger" placeholder="Objective achievement confirmed by Module 5 evaluation...">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="transSucceedingEntity">
+                  Succeeding Handover Entity / Partners
+                  <span class="form-hint">Who assumes ongoing support (National LEA, UNCT, UNDP, Bilateral)?</span>
+                </label>
+                <input class="form-input" id="transSucceedingEntity" placeholder="Galasi Police Directorate (CIS) & UNDP Rule of Law Program...">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="transLocalOwner">
+                  Designated Local Institutional Owner (Slide 8 Principle 3)
+                  <span class="form-hint">Specific national official/body assuming command and budget lines</span>
+                </label>
+                <input class="form-input" id="transLocalOwner" placeholder="Director of Galasi CIS & Commandant of Galasi Police Academy...">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: var(--muted); font-size: 0.85rem;">Transitions succeed when planned early with deep UNCT and counterpart integration.</span>
+          <button class="btn btn-primary" data-goto-stage="stage-assessment" type="button">Continue to Integrated Assessment & Gender Budgeting →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 2: INTEGRATED ASSESSMENT & GENDER BUDGETING ================= -->
+    <section class="stage-panel" id="stage-assessment">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 2 · Strategic Integration & Equity</span>
+            <h2 style="margin-top: 4px;">Integrated Assessment & Gender-Responsive Budgeting (Lesson 6 Slides 10–11)</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Human rights & gender-sensitive safeguards</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Assess host-State operational capacity, absorption readiness, and gender-responsive budgeting safeguards.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Integrated transition assessment detailing infrastructure sustainability and gender inclusion quotas.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 3 to develop the phased drawdown roadmap across Handover, Drawdown, and Handback.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            In accordance with UNPOL JST Lesson 6 (Slides 10 & 11), transition planning must be grounded in an integrated assessment 
+            evaluating human rights impacts and employing <strong>gender-responsive budgeting</strong> to ensure sustained allocation to women's and children's security priorities.
+          </p>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="principleEarlyPlanning">
+                1. Early Planning Framework (Slide 8.1)
+                <span class="form-hint">Timeline of necessary steps: status review, partner notifications, transition notices, checkout</span>
+              </label>
+              <textarea class="form-textarea" id="principleEarlyPlanning" style="min-height: 85px;"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="principleUnIntegration">
+                2. UNCT & Multilateral Integration (Slide 8.2)
+                <span class="form-hint">Joint programming with UNDP, UNODC, and UN Women for post-mission durability</span>
+              </label>
+              <textarea class="form-textarea" id="principleUnIntegration" style="min-height: 85px;"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="principleLocalOwnership">
+                3. Securing Sustainable Local Ownership (Slide 8.3)
+                <span class="form-hint">How host counterparts take over leadership of investigative training and casework supervision</span>
+              </label>
+              <textarea class="form-textarea" id="principleLocalOwnership" style="min-height: 85px;"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="principleCommunication">
+                4. Strategic Communication Protocol (Slide 8.4)
+                <span class="form-hint">Managing expectations across mission staff, host government, media, and civil society</span>
+              </label>
+              <textarea class="form-textarea" id="principleCommunication" style="min-height: 85px;"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-principles" type="button">← Back to Transition Principles</button>
+          <button class="btn btn-primary" data-goto-stage="stage-roadmap" type="button">Continue to Phased Transition Roadmap →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3: PHASED TRANSITION ROADMAP ================= -->
+    <section class="stage-panel" id="stage-roadmap">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 3 · Activity 6.1 Task 1</span>
+            <h2 style="margin-top: 4px;">Phased Handover Roadmap: Gradual Drawdown of UNPOL Engagement</h2>
+          </div>
+          <button class="btn btn-sm btn-dark" id="addRoadmapStepBtn" type="button">+ Add Roadmap Phase</button>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Structure the phased transition roadmap across Handover, Drawdown, and Handback milestones.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Multi-phase transition timeline detailing gradual reduction of UNPOL co-location and monitoring.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 4 to embed sustainable policing practices into national doctrine and training.</p>
+            </div>
+          </div>
+
+          <div style="background: var(--gold-bg); border-left: 4px solid var(--gold); padding: 12px 16px; border-radius: 4px; font-size: 0.9rem; color: var(--gold-dark); margin-bottom: 20px;">
+            <strong>Curriculum Handover Model (Lesson 6 Slide 10):</strong> 
+            <em>"To ensure a smooth transition process, the handover of tasks should occur over time with the mission gradually reducing its engagement while continuously monitoring progress toward completion of tasks and the capacity of local counterparts to take over residual responsibilities."</em>
+          </div>
+
+          <div id="transitionRoadmapHost">
+            <!-- Dynamically populated phased transition cards -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-assessment" type="button">← Back to Integrated Assessment</button>
+          <button class="btn btn-primary" data-goto-stage="stage-practice" type="button">Continue to Institutionalising Practice →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 4: CREATING SUSTAINABLE POLICING PRACTICE ================= -->
+    <section class="stage-panel" id="stage-practice">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 4 · Activity 6.1 Task 2</span>
+            <h2 style="margin-top: 4px;">Institutionalising Sustainable Policing Practice (Lesson 6 Slides 10 & 18)</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Doctrine, Academies & National Budgets</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Embed sustainable policing practices into national doctrine, police academy curricula, and operational budgets.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Institutionalization framework covering Standing Orders, academy accreditation, and civilian oversight.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 5 to anticipate transition obstacles, sustainability risks, and practical remedies.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            Elaborate how the transition process embeds new policing standards permanently into the organizational DNA of the Carana National Police (CNP):
+          </p>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="instDoctrine">
+                1. National Doctrine & Standard Operating Procedures (SOPs)
+                <span class="form-hint">How are SGBV protocols and human rights standards legally gazetted into national police orders?</span>
+              </label>
+              <textarea class="form-textarea" id="instDoctrine" style="min-height: 80px;" placeholder="Gazetting SGBV manual as formal CNP Standing Orders signed by Police Commissioner..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="instAcademy">
+                2. National Police Academy Curriculum Integration
+                <span class="form-hint">How are training modules permanently embedded into basic and promotional recruit curricula?</span>
+              </label>
+              <textarea class="form-textarea" id="instAcademy" style="min-height: 80px;" placeholder="40-hour victim-centered interviewing course accredited in basic academy curriculum..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="instGenderBudget">
+                3. Gender-Responsive Operational Budget Allocation (Slide 11)
+                <span class="form-hint">What permanent municipal/national budget lines guarantee continuous funding?</span>
+              </label>
+              <textarea class="form-textarea" id="instGenderBudget" style="min-height: 80px;" placeholder="Annual 12% line item in Galasi PD appropriation for confidential facility leases and victim care..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="instOversight">
+                4. Civilian Oversight & Quality Assurance Handover
+                <span class="form-hint">Who will inspect human rights adherence and investigate misconduct after UNPOL exits?</span>
+              </label>
+              <textarea class="form-textarea" id="instOversight" style="min-height: 80px;" placeholder="Handover to Galasi Civilian Oversight Board and National Police Inspectorate..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-roadmap" type="button">← Back to Transition Roadmap</button>
+          <button class="btn btn-primary" data-goto-stage="stage-challenges" type="button">Continue to Challenges & Remedies →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 5: CHALLENGES & REMEDIES ================= -->
+    <section class="stage-panel" id="stage-challenges">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 5 · Activity 6.1 Task 4</span>
+            <h2 style="margin-top: 4px;">Transition Challenges, Sustainability Risks & Practical Remedies</h2>
+          </div>
+          <button class="btn btn-sm btn-dark" id="addChallengeBtn" type="button">+ Add Challenge & Remedy</button>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Identify transition challenges, sustainability risks, and formulate concrete institutional remedies.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Transition risk and remedies matrix establishing safeguards against regression and budget deficits.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 6 to execute the formal Handover Protocol and export the master dossier.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            Anticipate obstacles that could threaten reform sustainability post-handover (e.g. regression into old habits, budget cuts, political patronage), and formulate concrete institutional safeguards:
+          </p>
+
+          <div id="challengesRemediesHost">
+            <!-- Dynamically populated challenge cards -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-practice" type="button">← Back to Sustainable Practice</button>
+          <button class="btn btn-primary" data-goto-stage="stage-handover" type="button">Continue to Handover Protocol & Final Synthesis →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 6: HANDOVER PROTOCOL & LAB SYNTHESIS ================= -->
+    <section class="stage-panel" id="stage-handover">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--ok); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 6 · Formal Handover Instrument & Dossier</span>
+            <h2 style="margin-top: 4px;">Formal Handover Protocol, 6-Phase Learning Synthesis & Master Export</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--ok); font-weight: 700;">Complete Curriculum Milestone</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Finalize the formal Handover Protocol Instrument and synthesize the full six-module learning cycle.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Signed Handover Notice compact and consolidated Six-Module CBD Learning Lab Master Dossier.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Review comprehensive syndicate accomplishments and generate printable dossier report.</p>
+            </div>
+          </div>
+
+          <!-- Official Handover Notice Protocol Document -->
+          <div style="background: #fbfdfa; border: 2px solid var(--ok); border-radius: var(--radius); padding: 22px; margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 16px;">
+              <div>
+                <span class="badge" style="background: var(--navy); color: #fff; font-size: 0.75rem;">OFFICIAL UNPOL / HOST-STATE COMPACT</span>
+                <h3 style="margin: 4px 0 0; color: var(--navy); font-size: 1.25rem;">UNPOL CBD Formal Handover Notice & Transition Instrument</h3>
+              </div>
+              <span style="font-size: 0.85rem; color: var(--muted);">UN Peacekeeping Standard Format</span>
+            </div>
+
+            <div class="grid-2" style="margin-bottom: 16px;">
+              <div class="form-group">
+                <label class="form-label" for="hnDate">Formal Effective Transition Date</label>
+                <input class="form-input" id="hnDate" type="date">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="hnUnpolSignatory">UNPOL CBD Adviser / Head of Component</label>
+                <input class="form-input" id="hnUnpolSignatory">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="hnCounterpartSignatory">National Police Counterpart Signatory</label>
+                <input class="form-input" id="hnCounterpartSignatory">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="hnWitnessSignatory">Multilateral Witness / Succeeding Entity</label>
+                <input class="form-input" id="hnWitnessSignatory">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="hnResidual">Residual Obligations, Post-Mission Technical Backstopping & Oversight</label>
+              <textarea class="form-textarea" id="hnResidual" style="min-height: 80px;"></textarea>
+            </div>
+          </div>
+
+          <!-- Overall 6-Phase Curriculum Reflection -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 4px;">Comprehensive 6-Phase Curriculum Reflection (Curriculum Outline p. 16)</h3>
+            <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 16px;">
+              Reflect across the full capacity-building lifecycle (Phases 1 through 6):
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionTransitionMindset">
+                1. How does approaching CBD with a "Transition from Day One" mindset transform daily advising in post-conflict missions?
+              </label>
+              <textarea class="form-textarea" id="reflectionTransitionMindset" placeholder="Reflect on avoiding adviser substitution and building counterpart self-reliance..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionSustainingOwnership">
+                2. What was the most critical factor in ensuring that the reform survived both the 8-month crisis and the withdrawal of co-located UN advisers?
+              </label>
+              <textarea class="form-textarea" id="reflectionSustainingOwnership" placeholder="Reflect on coalition building, low-tech resilience, institutionalizing SOPs, and community trust..."></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="reflectionOverallCBDJourney">
+                3. Synthesize your syndicate's primary takeaways across all six phases (Situational Analysis -> Objectives -> Planning -> Implementation -> Evaluation -> Transition):
+              </label>
+              <textarea class="form-textarea" id="reflectionOverallCBDJourney" placeholder="Synthesize the cohesive professional learning journey..."></textarea>
+            </div>
+          </div>
+
+          <!-- Syndicate Completion Checklist -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 20px;">
+            <h4 style="margin: 0 0 10px; color: var(--navy);">Syndicate Six-Phase Completion Status</h4>
+            <div id="syndicateChecklistHost" style="font-size: 0.88rem;"></div>
+          </div>
+
+          <!-- Final Validation Checkbox -->
+          <div style="background: #edf9f2; border: 1px solid #b7ebd0; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
+            <input type="checkbox" id="confirmModule6" style="width: auto; margin-top: 5px;">
+            <label for="confirmModule6" style="font-size: 0.92rem; color: #135232;">
+              <strong>Syndicate Self-Assessment & Handover Validation:</strong> Our group has completed and verified the transition and handover strategy for our CBD activity. Note: Formal curriculum certification requires facilitator assessment.
+            </label>
+          </div>
+
+          <!-- Comprehensive Export & Briefing Actions -->
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-dark" id="printPdfBtn" type="button">📄 Print Full Mission Dossier PDF</button>
+              <button class="btn btn-primary" id="exportJsonBtn" type="button">💾 Export Complete Lab State (.json)</button>
+            </div>
+            <a href="index.html" class="btn btn-dark" style="text-decoration: none;">Return to Lab Portal Hub ↗</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-challenges" type="button">← Back to Challenges & Remedies</button>
+          <span id="finalCycleStatusText" style="font-size: 0.85rem; color: var(--navy); font-weight: 600;">Phase 6 In Progress · Pending Self-Confirmation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consolidated Institutional Footer -->
+    <footer class="lab-footer">
+      <div class="lab-footer-primary">
+        <div class="lab-footer-brand">
+          <strong>CARANA CBD Learning Lab</strong>
+          <span class="lab-footer-attribution">Prepared by Lt. Col. Maissara Selim</span>
+        </div>
+        <span id="stageCompleteFooterBadge" class="footer-stage-badge">Phase 6 In Progress · Pending Self-Confirmation</span>
+      </div>
+      <p class="lab-disclaimer">
+        Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.
+      </p>
+      <div class="lab-footer-secondary">
+        <span>Curriculum Reference: UNPOL CBD JST (Lesson 6) · Participant exercise outputs are syndicate-authored.</span>
+        <span>Offline Local-First Architecture</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Off-Canvas Scenario Reference Drawer -->
+  <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
+  <aside class="scenario-drawer" id="scenarioDrawer" role="region" aria-label="Carana Scenario Reference">
+    <div class="drawer-header">
+      <h3>Carana Scenario Explorer (57 Paras)</h3>
+      <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-search">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number..." aria-label="Search scenario paragraphs">
+      </div>
+      <div id="scenarioDrawerList"></div>
+    </div>
+  </aside>
+
+  <!-- Glossary Modal Dialog -->
+  <div class="modal-backdrop" id="glossaryModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="glossaryModalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="glossaryModalTitle">UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close glossary">×</button>
+      </div>
+      <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Transition, Handover, Ownership)..." aria-label="Search glossary terms">
+      </div>
+      <div class="modal-body" id="glossaryList"></div>
+    </div>
+  </div>
+
+  <!-- Dedicated Full Six-Module Mission Dossier Print Container -->
+  <div id="missionDossierPrintContainer" class="dossier-print-container" style="display: none;"></div>
+
+  <!-- Scripts -->
+  <script src="js/data/carana-scenario.js"></script>
+  <script src="js/data/curriculum-glossary.js"></script>
+  <script src="js/storage/lab-storage.js"></script>
+  <script src="js/modules/module6.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Module6App.init();
+    });
+  </script>
+</body>
+</html>

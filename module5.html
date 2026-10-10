@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Module 5: Evaluation & Adjustment · CARANA CBD Learning Lab</title>
+  <link rel="stylesheet" href="css/design-system.css">
+</head>
+<body>
+  <div class="lab-container">
+    <!-- Top Nav Utility Bar -->
+    <nav class="top-nav-bar" aria-label="Breadcrumb and quick links">
+      <div class="top-nav-left">
+        <a href="index.html" style="font-weight: 700; text-decoration: none;">← CARANA CBD Learning Lab Hub</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module1.html" style="color: var(--ink-light); text-decoration: none;">Phase 1</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module2.html" style="color: var(--ink-light); text-decoration: none;">Phase 2</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module3.html" style="color: var(--ink-light); text-decoration: none;">Phase 3</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <a href="module4.html" style="color: var(--ink-light); text-decoration: none;">Phase 4</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <span style="color: var(--ink); font-weight: 700;">Phase 5: Evaluation</span>
+      </div>
+      <div class="top-nav-right">
+        <button class="btn btn-sm btn-ghost reset-lab-btn" id="topNavResetBtn" data-action="reset-lab" type="button" title="Start a fresh session or reset all six modules">
+          🔄 Start New Session
+        </button>
+        <a href="CARANA_CBD_Group_Activity.html" style="color: var(--muted); text-decoration: none;" target="_blank">
+          ⏱ 60-Minute Fast Track ↗
+        </a>
+      </div>
+    </nav>
+
+    <!-- Lab Header -->
+    <header class="lab-header">
+      <div class="lab-brand">
+        <div class="lab-brand-left">
+          <span class="lab-emblem">UN Peacekeeping</span>
+          <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 5</span>
+        </div>
+        <div class="lab-attribution-badge">Prepared by Lt. Col. Maissara Selim</div>
+      </div>
+      <h1 class="lab-title">Module 5: Evaluation & Adjustment</h1>
+      <p class="lab-subtitle">
+        Empirical evaluation of CBD engagement, Deming cycle (Check & Act), 8-month crisis variance analysis, 
+        3-tier adjustment decisions (Accept, Partially Accept, Reject), and planning recalibration.
+      </p>
+
+      <div class="lab-meta-bar">
+        <div class="lab-meta-left">
+          <div class="lab-meta-item">Focus: <strong>Empirical Variance & Adaptive Governance</strong></div>
+          <div class="lab-meta-item">Authority: <strong>UNPOL CBD JST Lesson 5 & Deming PDCA Cycle</strong></div>
+          <div class="lab-meta-item">Status: <span id="saveIndicator">Loaded</span></div>
+        </div>
+        <div class="lab-controls-bar">
+          <button class="btn btn-sm btn-dark" id="openScenarioDrawerBtn" type="button">
+            📖 Scenario (57 Paras)
+          </button>
+          <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
+            📚 CBD Glossary
+          </button>
+          <button class="btn btn-sm btn-reset-session reset-lab-btn" id="resetLabBtn" data-action="reset-lab" type="button" title="Start a clean session or reset all six modules">
+            🔄 Reset Session
+          </button>
+          <button class="btn btn-sm btn-primary" id="manualSaveBtn" type="button">
+            💾 Save Work
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Six-Phase Curriculum Track -->
+    <nav class="curriculum-track" aria-label="Curriculum Modules">
+      <div class="curriculum-track-header">
+        <span>UNPOL Capacity-Building & Development Process Cycle</span>
+        <span>Phases 1–6</span>
+      </div>
+      <div class="curriculum-track-grid">
+        <a href="module1.html" class="track-step completed">
+          <span class="track-num">Phase 01 · Done</span>
+          <span class="track-title">Situational Analysis</span>
+          <span class="track-desc">"As is" baseline & conflict scan</span>
+        </a>
+        <a href="module2.html" class="track-step completed">
+          <span class="track-num">Phase 02 · Done</span>
+          <span class="track-title">Objective Setting</span>
+          <span class="track-desc">"To be" SMART & Prioritisation</span>
+        </a>
+        <a href="module3.html" class="track-step completed">
+          <span class="track-num">Phase 03 · Done</span>
+          <span class="track-title">Planning Activities</span>
+          <span class="track-desc">"What to" Logframe & RBB</span>
+        </a>
+        <a href="module4.html" class="track-step completed">
+          <span class="track-num">Phase 04 · Done</span>
+          <span class="track-title">Implementation</span>
+          <span class="track-desc">"How to" MMA execution</span>
+        </a>
+        <a href="module5.html" class="track-step active">
+          <span class="track-num">Phase 05 · Active</span>
+          <span class="track-title">Evaluation & Adjust.</span>
+          <span class="track-desc">"Did we" Impact & adaptation</span>
+        </a>
+        <a href="module6.html" class="track-step">
+          <span class="track-num">Phase 06 · Ready</span>
+          <span class="track-title">Transition & Handover</span>
+          <span class="track-desc">"Sustain" Exit & local ownership</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Stage Navigation Tabs for Module 5 -->
+    <nav class="stage-nav" id="stageNav" aria-label="Module 5 Stages"></nav>
+
+    <!-- ================= STAGE 1: EVALUATION PRINCIPLES & METHODOLOGY ================= -->
+    <section class="stage-panel active" id="stage-methodology">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 1 · BOPPPS Bridge-In & Methodology</span>
+            <h2 style="margin-top: 4px;">Evaluation Concepts, Principles & Deming Cycle (Lesson 5 Slides 4–9)</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 25 minutes</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Ground evaluation in the Deming Cycle (Plan-Do-Check-Act) and official UN evaluation principles.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Evaluation framework defining oversight entities, triangulation strategies, and ethical standards.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 2 to review the 8-month field crisis reports and Section Chief communications.</p>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom: 24px;">
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">The Deming Cycle & Evaluation Purpose</h3>
+              <p style="margin: 0 0 10px; font-size: 0.92rem; color: var(--ink);">
+                Evaluation is the natural counterpart to planning within the CBD cycle:
+                <em>"Evaluation generates empirical knowledge about progress toward achieving sustainable development: did the engagement work; what did not work and why?"</em> (Lesson 5 p. 4).
+              </p>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--muted); line-height: 1.55;">
+                <li><strong>Plan (Modules 1–3):</strong> Situational analysis, SMART objectives, logframe causal logic.</li>
+                <li><strong>Do (Module 4):</strong> MMA execution, mentoring, and dynamic field problem-solving.</li>
+                <li><strong>Check (Module 5 Stage 1–3):</strong> Empirical measurement, variance analysis against baseline/targets.</li>
+                <li><strong>Act (Module 5 Stage 4–5):</strong> Adjusting activities, reallocating budgets, and adapting agreements.</li>
+              </ul>
+            </div>
+
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">Evaluation Actors & Principles</h3>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--ink); line-height: 1.55;">
+                <li><strong>Evaluation Actors (Slide 7):</strong> OIOS, DPET, Mission Evaluation Unit (under Mission CoS/Support), Police Division (PD inspections), SPC, and Third-Party Evaluators.</li>
+                <li><strong>Professional:</strong> Grounded in agreed United Nations principles and methods (e.g. Strategic Guidance Framework / SGF).</li>
+                <li><strong>Honest & Self-Reflective:</strong> Frank acknowledgment of systemic bottlenecks and institutional shortcomings.</li>
+                <li><strong>Impartial & Transparent:</strong> Engaging independent perspectives to prevent confirmation bias.</li>
+                <li><strong>Human Rights & Gender Sensitive:</strong> Disaggregating data to protect vulnerable beneficiaries.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Evaluation Setup Parameters -->
+          <div style="background: var(--wash-subtle); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 12px;">Evaluation Configuration Parameters for Galasi CIS Reform</h3>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="evalDemingPhase">
+                  Deming Continuous Improvement Stage
+                  <span class="form-hint">Which continuous quality phase is currently active?</span>
+                </label>
+                <input class="form-input" id="evalDemingPhase" value="Check & Act (Post-8-Month Mid-Term Evaluation)">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="evalActors">
+                  Mandated Evaluation Entity & Oversight
+                  <span class="form-hint">Who oversees the formal evaluation (Lesson 5 Slide 7)?</span>
+                </label>
+                <input class="form-input" id="evalActors" placeholder="Mission Evaluation Unit, OIOS, Police Division Inspection...">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="evalPrinciples">
+                  Core Evaluation Principles & Standard
+                  <span class="form-hint">Professional principles applied (e.g. SGF, Human Rights, Gender)</span>
+                </label>
+                <textarea class="form-textarea" id="evalPrinciples" style="min-height: 70px;" placeholder="SGF compliance, human rights-sensitive, gender-sensitive, impartial and transparent..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="evalDataStrategy">
+                  Data Triangulation & Reliability Strategy
+                  <span class="form-hint">How will qualitative and quantitative evidence be verified?</span>
+                </label>
+                <textarea class="form-textarea" id="evalDataStrategy" style="min-height: 70px;" placeholder="Triangulate paper registers, prosecution acceptance audits, and CSO interviews..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: var(--muted); font-size: 0.85rem;">Evaluation validates initial planning and provides the empirical basis for adjustment.</span>
+          <button class="btn btn-primary" data-goto-stage="stage-scenario" type="button">Continue to 8-Month Crisis Scenario →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 2: 8-MONTH CRISIS INTELLIGENCE ================= -->
+    <section class="stage-panel" id="stage-scenario">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 2 · Activity 5.1 Situational Development</span>
+            <h2 style="margin-top: 4px;">Eight-Month Milestone: Media Expose & Section Chief Email Alert</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--danger); font-weight: 700;">Critical Field Intelligence</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Analyze incoming intelligence from "Le Galasien" exposé and Section Chief Yaa's directives.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Systematic diagnostic breakdown across leadership shifts, absorption capacity, and inter-agency friction.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 3 to calculate empirical variance across Module 2 KPIs and Logframe targets.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            Eight months after initiating the CBD activities planned in Lesson 3, an investigative article published in the influential monthly newspaper 
+            <em>"Le Galasien"</em> breaks news of severe setbacks in the Galasi Police Directorate reform. Immediately afterward, your Section Chief, <strong>Yaa</strong>, transmits an official email communication confirming the crisis.
+          </p>
+
+          <div class="grid-2" style="margin-bottom: 24px;">
+            <!-- Le Galasien Passages Card -->
+            <div style="background: #fffcf7; border: 1px solid #f0dec5; border-radius: var(--radius); padding: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #f0dec5; padding-bottom: 8px;">
+                <strong style="color: #925404; font-size: 1.05rem;">📰 "Le Galasien" Investigative Report (Passages a–g)</strong>
+                <span class="badge" style="background: #d48806; color: #fff;">Public Press Expose</span>
+              </div>
+              <div style="font-size: 0.86rem; color: var(--ink); line-height: 1.5; max-height: 380px; overflow-y: auto; padding-right: 8px;">
+                <p><strong>[a. Leadership Turnover & Questionable Succession]</strong> The Head of Galasi CIS is to be transferred to another region soon. His deputy, a member of the Tatsi minority installed for UN diversity requirements, has little-to-no criminal investigation experience (served in riot control). Meanwhile, the external candidate for succession faces allegations of past human rights violations.</p>
+                <p><strong>[b. Slow Progress]</strong> Development of UNAC initiatives to empower Galasi PD is slow; no visible results so far and none expected soon.</p>
+                <p><strong>[c. UNAC Spokesperson Interview]</strong> UNAC spokesperson admitted little measurable progress, citing IT system problems that caused the <em>total loss of performance measurement data</em>, low absorption capacity in Galasi PD, and vetting and statutory law delays.</p>
+                <p><strong>[d. Jurisdiction & Competence Struggles]</strong> The Ministry of Justice claims exclusive competence over drafting and implementing CNP policy, clashing with police leadership.</p>
+                <p><strong>[e. Ombudsman Inactivity]</strong> Independent misconduct complaint ombudsman installed as first success, but has not been used by citizens for unknown reasons.</p>
+                <p><strong>[f. Public Skepticism]</strong> Vulnerable groups, women, and ethnic minorities interviewed remain deeply skeptical about any genuine change in CNP behavior.</p>
+                <p><strong>[g. Economic Imperative]</strong> Insecurity threatens commerce and investment; citizens expect tangible results from the UN presence.</p>
+              </div>
+            </div>
+
+            <!-- Official Email from Section Chief Yaa Card -->
+            <div style="background: #fdf6f6; border: 1px solid #fedcdc; border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #fedcdc; padding-bottom: 8px;">
+                <strong style="color: var(--danger); font-size: 1.05rem;">📧 Official Email Communication from Section Chief Yaa (Lesson 5 p. 15)</strong>
+                <span class="badge" style="background: var(--danger); color: #fff;">Budget Cliff Alert</span>
+              </div>
+              <div style="font-size: 0.86rem; color: var(--ink); line-height: 1.55; flex: 1;">
+                <blockquote style="margin: 0 0 12px; padding: 10px 14px; background: #fff; border-left: 4px solid var(--danger); font-style: italic;">
+                  "Referring to your questions about the media coverage, I just attended a meeting for unit leaders responsible for CBD activities in the UNAC police component. There is serious concern about our performance.<br><br>
+                  I have been requested to report on all CBD activities in my responsibility, including yours. Your most recent report showed that <strong>you are lagging 6 weeks behind</strong> and have not started to implement planned activities. Your plans were approved 4 months ago.<br><br>
+                  <strong>Be advised that your initial timeline was close to the end of this budgetary period. Funds cannot be carried over to the next period.</strong> That might require you to repeat the full review and approval process."
+                </blockquote>
+                <div style="background: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid #fedcdc; font-size: 0.82rem; color: #7f1d1d;">
+                  ⚠️ <strong>Instructional Rule (Lesson 5 p. 10):</strong> <em>"Some participants might ask for more information; however, lack of a full picture and uncertainty is common in CBD activities. Do NOT fight the scenario. Work with the information available."</em>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Structured Crisis Diagnostics -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 12px;">Synthesized Crisis Diagnostics (Lesson 5 Expected Outcomes p. 11)</h3>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="diagLeadership">
+                  1. Shift in Leadership & Command Vacancy
+                  <span class="form-hint">Impact of Col. Tariq's transfer and Tatsi deputy's inexperience</span>
+                </label>
+                <textarea class="form-textarea" id="diagLeadership" style="min-height: 70px;"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="diagAbsorption">
+                  2. Institutional Absorption Capacity Deficit
+                  <span class="form-hint">Why is Galasi PD struggling to absorb the proposed reform pace?</span>
+                </label>
+                <textarea class="form-textarea" id="diagAbsorption" style="min-height: 70px;"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="diagDataLoss">
+                  3. Performance Data Loss & Low-Tech Continuity
+                  <span class="form-hint">Consequences of IT database failure and paper ledger fallback</span>
+                </label>
+                <textarea class="form-textarea" id="diagDataLoss" style="min-height: 70px;"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="diagInterAgency">
+                  4. Inter-Agency Competence Dispute (MOJ vs CNP)
+                  <span class="form-hint">Jurisdictional deadlock over policy drafting authority</span>
+                </label>
+                <textarea class="form-textarea" id="diagInterAgency" style="min-height: 70px;"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="diagPublicPerception">
+                  5. Community Distrust & Ombudsman Underutilisation
+                  <span class="form-hint">Why have citizens not utilized the misconduct mechanism?</span>
+                </label>
+                <textarea class="form-textarea" id="diagPublicPerception" style="min-height: 70px;"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="diagBudgetCliff">
+                  6. Fiscal Cliff & 6-Week Implementation Lag
+                  <span class="form-hint">Threat of expired funds and repeating the approval process</span>
+                </label>
+                <textarea class="form-textarea" id="diagBudgetCliff" style="min-height: 70px;"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-methodology" type="button">← Back to Methodology</button>
+          <button class="btn btn-primary" data-goto-stage="stage-kpis" type="button">Continue to KPI Variance Evaluation →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3: KPI & ACTIVITY VARIANCE EVALUATION ================= -->
+    <section class="stage-panel" id="stage-kpis">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 3 · Activity 5.1 Task A</span>
+            <h2 style="margin-top: 4px;">Empirical Evaluation: Planned vs. Actual Performance Variances</h2>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-sm btn-primary" id="importM2M3Btn" type="button">🔄 Import from Modules 2 & 3</button>
+            <button class="btn btn-sm btn-dark" id="addKpiEvalBtn" type="button">+ Add KPI Evaluation</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Conduct empirical variance analysis comparing baseline indicators, targets, and 8-month actuals.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Reconciled KPI evaluation matrix identifying achieved, lagging, and off-track reform areas.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 4 to apply the UNPOL 3-tier adjustment decision matrix.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            Evaluate the planned indicators from Module 2 and planned activities from Module 3 against the reality reported 8 months in. 
+            Identify the magnitude of variance, underlying cause, and immediate corrective intervention:
+          </p>
+
+          <div id="kpiEvaluationsHost">
+            <!-- Dynamically populated KPI variance evaluation cards -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-scenario" type="button">← Back to Crisis Scenario</button>
+          <button class="btn btn-primary" data-goto-stage="stage-adjustments" type="button">Continue to 3-Tier Adjustment Matrix →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 4: 3-TIER ADJUSTMENT RECOMMENDATIONS ================= -->
+    <section class="stage-panel" id="stage-adjustments">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 4 · Activity 5.1 Task B</span>
+            <h2 style="margin-top: 4px;">Adjustment Decision Matrix: Reacting to Evaluation Results (Lesson 5 Slide 10)</h2>
+          </div>
+          <button class="btn btn-sm btn-dark" id="addAdjustmentBtn" type="button">+ Add Recommendation</button>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Make formal adjustment decisions (Fully Accept, Partially Accept, Reject) per Lesson 5 Slide 10.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Justified managerial responses, corrective action plans, and stakeholder owners for all recommendations.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 5 to recalibrate programmatic timelines, budgets, and operational scope.</p>
+            </div>
+          </div>
+
+          <div style="background: var(--wash); border-left: 4px solid var(--un-blue); padding: 12px 16px; border-radius: 4px; font-size: 0.9rem; color: var(--ink); margin-bottom: 20px;">
+            <strong>Curriculum Decision Rule (Lesson 5 Slide 10):</strong>
+            Implementors must formally categorize their reaction to each evaluation recommendation:
+            <ul style="margin: 6px 0 0; padding-left: 20px;">
+              <li><strong>Fully Accept:</strong> Agree entirely with the recommendation and commit immediately to concrete implementation actions.</li>
+              <li><strong>Partially Accept:</strong> Agree with specific elements while rejecting others, detailing precise evidence-based reasons why parts are unfeasible.</li>
+              <li><strong>Reject:</strong> Reject the recommendation, providing clear justification and alternative remedial measures.</li>
+            </ul>
+          </div>
+
+          <div id="adjustmentsHost">
+            <!-- Dynamically populated 3-tier adjustment cards -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-kpis" type="button">← Back to KPI Evaluation</button>
+          <button class="btn btn-primary" data-goto-stage="stage-impact" type="button">Continue to Planning Recalibration →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 5: PLANNING RECALIBRATION & RESOURCE IMPACT ================= -->
+    <section class="stage-panel" id="stage-impact">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 5 · Activity 5.1 Task C</span>
+            <h2 style="margin-top: 4px;">Planning Recalibration: Impact on Timelines, Budgets & Counterpart Relations</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Re-aligning the Logframe & RBB</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Assess systemic impacts of adjustments on timelines, resources, quality, and host-State willingness.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Recalibrated project scope balancing mission mandates against counterpart absorption realities.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stage 6 for syndicate review, self-confirmation, and transition to Module 6.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 20px;">
+            Adjusting implementation parameters directly alters the initial project framework established in Module 3. 
+            Evaluate the concrete programmatic impact across the four core dimensions specified in the curriculum (Lesson 5 p. 11):
+          </p>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="impactTimeline">
+                1. Timeline & Milestone Recalibration
+                <span class="form-hint">How many weeks/months are required to overcome the 6-week lag and leadership transition?</span>
+              </label>
+              <textarea class="form-textarea" id="impactTimeline" style="min-height: 80px;" placeholder="Adjust completion horizon by 12 weeks; establish 30-day interim leadership coaching milestones..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="impactResource">
+                2. Costs & Results-Based Budgeting (RBB) Cliff Mitigation
+                <span class="form-hint">How will remaining budget funds be saved before the fiscal cut-off?</span>
+              </label>
+              <textarea class="form-textarea" id="impactResource" style="min-height: 80px;" placeholder="Urgent reprogrammed procurement of offline registers, expedited QIP interview room refurbishment..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="impactQuality">
+                3. Quality of Activity Outputs & Certification Standards
+                <span class="form-hint">Will output thresholds (investigator certification, SOP legal validity) be compromised or preserved?</span>
+              </label>
+              <textarea class="form-textarea" id="impactQuality" style="min-height: 80px;" placeholder="Maintain strict certification threshold; avoid rushing untrained personnel into sensitive casework..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="impactCounterpart">
+                4. Counterpart Willingness, Morale & Mission Relations
+                <span class="form-hint">How will the transition to the new Tatsi deputy and MOJ negotiations affect partnership trust?</span>
+              </label>
+              <textarea class="form-textarea" id="impactCounterpart" style="min-height: 80px;" placeholder="Reassure interim deputy of full mission backing; initiate tripartite consultation with MOJ to clarify authority..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-adjustments" type="button">← Back to Adjustment Matrix</button>
+          <button class="btn btn-primary" data-goto-stage="stage-summary" type="button">Continue to Reflection & Handoff →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 6: LESSONS LEARNED & HANDOFF ================= -->
+    <section class="stage-panel" id="stage-summary">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 6 · Activity 5.1 Task D & Synthesis</span>
+            <h2 style="margin-top: 4px;">Lessons Learned, Syndicate Self-Reflection & Transition Readiness</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--ok); font-weight: 700;">Module 5 Completion</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Validate evaluation findings, confirm adaptive recalibrations, and document institutional lessons learned.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Participant-confirmed Module 5 evaluation report feeding directly into Module 6 transition planning.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Launch Module 6 (Transition & Handover) to institutionalize sustainable policing practices.</p>
+            </div>
+          </div>
+
+          <!-- Learning Reflection Activity -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 4px;">Curriculum Learning Reflection Activity (Curriculum Outline p. 15)</h3>
+            <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 16px;">
+              Synthesize analytical lessons, self-reflection, and adaptive leadership techniques:
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionEvalRelevance">
+                1. Why is an independent, unflinching evaluation essential rather than defensive rationalization when projects face public crisis?
+              </label>
+              <textarea class="form-textarea" id="reflectionEvalRelevance" placeholder="Reflect on transparency, avoiding sunk-cost fallacy, and accountability to host-Nation citizens..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionFacingTruths">
+                2. How does recognizing unstated assumptions (e.g. IT stability, statutory law speed, leadership continuity) improve subsequent planning?
+              </label>
+              <textarea class="form-textarea" id="reflectionFacingTruths" placeholder="Explain how fragile institutional assumptions must be hedged with low-tech contingency planning..."></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="reflectionResilienceFailure">
+                3. What personal and professional resilience techniques allow a CBD adviser to maintain constructive momentum when superiors express urgent concern?
+              </label>
+              <textarea class="form-textarea" id="reflectionResilienceFailure" placeholder="Reflect on emotional equilibrium, factual reporting to Section Chief Yaa, and collaborative problem-solving..."></textarea>
+            </div>
+          </div>
+
+          <!-- Validation Checkbox -->
+          <div style="background: var(--gold-bg); border: 1px solid #e2cb91; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
+            <input type="checkbox" id="confirmModule5" style="width: auto; margin-top: 5px;">
+            <label for="confirmModule5" style="font-size: 0.92rem; color: #583c03;">
+              <strong>Syndicate Self-Assessment & Validation:</strong> Our group has completed the 8-month crisis evaluation, formulated evidence-based 3-tier adjustment decisions, and recalibrated the project timeline and budget. Note: Formal curriculum certification requires facilitator assessment.
+            </label>
+          </div>
+
+          <!-- Actions -->
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-dark" id="printPdfBtn" type="button">📄 Generate Evaluation Dossier PDF</button>
+              <button class="btn btn-primary" id="exportJsonBtn" type="button">💾 Export Full Lab State (.json)</button>
+            </div>
+            <a href="module6.html" class="btn btn-primary" style="text-decoration: none;">Proceed to Phase 6: Transition & Handover →</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-impact" type="button">← Back to Planning Recalibration</button>
+          <span style="font-size: 0.85rem; color: var(--ok); font-weight: 700;">Phase 5 Complete · Transition Unlocked</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consolidated Institutional Footer -->
+    <footer class="lab-footer">
+      <div class="lab-footer-primary">
+        <div class="lab-footer-brand">
+          <strong>CARANA CBD Learning Lab</strong>
+          <span class="lab-footer-attribution">Prepared by Lt. Col. Maissara Selim</span>
+        </div>
+        <span id="stageCompleteFooterBadge" class="footer-stage-badge">Phase 5 In Progress · Pending Self-Confirmation</span>
+      </div>
+      <p class="lab-disclaimer">
+        Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.
+      </p>
+      <div class="lab-footer-secondary">
+        <span>Curriculum Reference: UNPOL CBD JST (Lesson 5) · Participant exercise outputs are syndicate-authored.</span>
+        <span>Offline Local-First Architecture</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Off-Canvas Scenario Reference Drawer -->
+  <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
+  <aside class="scenario-drawer" id="scenarioDrawer" role="region" aria-label="Carana Scenario Reference">
+    <div class="drawer-header">
+      <h3>Carana Scenario Explorer (57 Paras)</h3>
+      <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-search">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number..." aria-label="Search scenario paragraphs">
+      </div>
+      <div id="scenarioDrawerList"></div>
+    </div>
+  </aside>
+
+  <!-- Glossary Modal Dialog -->
+  <div class="modal-backdrop" id="glossaryModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="glossaryModalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="glossaryModalTitle">UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close glossary">×</button>
+      </div>
+      <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Evaluation, Deming, Adjustment)..." aria-label="Search glossary terms">
+      </div>
+      <div class="modal-body" id="glossaryList"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data/carana-scenario.js"></script>
+  <script src="js/data/curriculum-glossary.js"></script>
+  <script src="js/storage/lab-storage.js"></script>
+  <script src="js/modules/module5.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Module5App.init();
+    });
+  </script>
+</body>
+</html>

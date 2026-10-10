@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Module 1: Situational Analysis · CARANA CBD Learning Lab</title>
+  <link rel="stylesheet" href="css/design-system.css">
+</head>
+<body>
+  <div class="lab-container">
+    <!-- Top Nav Utility Bar -->
+    <nav class="top-nav-bar" aria-label="Breadcrumb and quick links">
+      <div class="top-nav-left">
+        <a href="index.html" style="font-weight: 700; text-decoration: none;">← CARANA CBD Learning Lab Hub</a>
+        <span style="color: var(--muted); margin: 0 4px;">/</span>
+        <span style="color: var(--ink); font-weight: 700;">Phase 1: Situational Analysis</span>
+      </div>
+      <div class="top-nav-right">
+        <button class="btn btn-sm btn-ghost reset-lab-btn" id="topNavResetBtn" data-action="reset-lab" type="button" title="Start a fresh session or reset all six modules">
+          🔄 Start New Session
+        </button>
+        <a href="CARANA_CBD_Group_Activity.html" style="color: var(--muted); text-decoration: none;" target="_blank">
+          ⏱ 60-Minute Fast Track ↗
+        </a>
+      </div>
+    </nav>
+
+    <!-- Lab Header -->
+    <header class="lab-header">
+      <div class="lab-brand">
+        <div class="lab-brand-left">
+          <span class="lab-emblem">UN Peacekeeping</span>
+          <span class="lab-badge">UNPOL CBD JST Curriculum · Phase 1</span>
+        </div>
+        <div class="lab-attribution-badge">Prepared by Lt. Col. Maissara Selim</div>
+      </div>
+      <h1 class="lab-title">Module 1: Situational Analysis</h1>
+      <p class="lab-subtitle">
+        Evidence-based assessment of host-State policing practice, conflict dynamics, external actors, 
+        stakeholder relationships, and capacity baselines in the Galasi CIS scenario.
+      </p>
+
+      <div class="lab-meta-bar">
+        <div class="lab-meta-left">
+          <div class="lab-meta-item">Focus: <strong>Galasi CIS ("As is" Baseline)</strong></div>
+          <div class="lab-meta-item">Authority: <strong>UNPOL CBD Guidelines (2015.08)</strong></div>
+          <div class="lab-meta-item">Status: <span id="saveIndicator">Loaded</span></div>
+        </div>
+        <div class="lab-controls-bar">
+          <select id="roleSelector" class="form-select" style="padding: 6px 12px; font-size: 0.84rem; width: auto; background: #ffffff; color: var(--navy); font-weight: 700;">
+            <option value="participant">Participant Mode</option>
+            <option value="facilitator">Facilitator Mode</option>
+          </select>
+          <button class="btn btn-sm btn-dark" id="openScenarioDrawerBtn" type="button">
+            📖 Scenario (57 Paras)
+          </button>
+          <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
+            📚 CBD Glossary
+          </button>
+          <button class="btn btn-sm btn-reset-session reset-lab-btn" id="resetLabBtn" data-action="reset-lab" type="button" title="Start a clean session or reset all six modules">
+            🔄 Reset Session
+          </button>
+          <button class="btn btn-sm btn-primary" id="manualSaveBtn" type="button">
+            💾 Save Work
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Facilitator Banner (visible in Facilitator mode) -->
+    <div class="facilitator-banner facilitator-only" style="display: none;">
+      <div>
+        <strong>Facilitator Mode Active:</strong> Lesson 1 allocation: 7h 35m total (60m input, 6h 35m exercise).
+        Ensure working groups appoint a tie-breaker, review paragraphs 6–57 thoroughly, and funnel matrix findings into SWOT.
+      </div>
+    </div>
+
+    <!-- Six-Phase Curriculum Track -->
+    <nav class="curriculum-track" aria-label="Curriculum Modules">
+      <div class="curriculum-track-header">
+        <span>UNPOL Capacity-Building & Development Process Cycle</span>
+        <span>Phases 1–6</span>
+      </div>
+      <div class="curriculum-track-grid">
+        <a href="module1.html" class="track-step active">
+          <span class="track-num">Phase 01 · Active</span>
+          <span class="track-title">Situational Analysis</span>
+          <span class="track-desc">"As is" baseline & conflict scan</span>
+        </a>
+        <div class="track-step locked">
+          <span class="track-num">Phase 02</span>
+          <span class="track-title">Objective Setting</span>
+          <span class="track-desc">"To be" SMART & Prioritisation</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 03</span>
+          <span class="track-title">Planning Activities</span>
+          <span class="track-desc">"What to" Logframe & RBB</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 04</span>
+          <span class="track-title">Implementation</span>
+          <span class="track-desc">"How to" MMA execution</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 05</span>
+          <span class="track-title">Evaluation & Adjust.</span>
+          <span class="track-desc">"Did we" Impact measurement</span>
+        </div>
+        <div class="track-step locked">
+          <span class="track-num">Phase 06</span>
+          <span class="track-title">Transition & Handover</span>
+          <span class="track-desc">"Sustain" Exit & local ownership</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Stage Navigation Tabs for Module 1 -->
+    <nav class="stage-nav" id="stageNav" aria-label="Module 1 Stages"></nav>
+
+    <!-- ================= STAGE 1: ORIENTATION & TEAM ================= -->
+    <section class="stage-panel active" id="stage-team">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 1 · BOPPPS Bridge-In & Setup</span>
+            <h2 style="margin-top: 4px;">Context, Learning Objectives & Team Details</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 20 minutes</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Establish syndicate identity, confirm note-taker roles, and review UNPOL CBD Lesson 1 core learning aims.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Active syndicate profile and baseline readiness for Galasi CIS reform assessment.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Progress to Stage 2 for PESTEL-S Conflict Analysis and Response Analysis.</p>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom: 24px;">
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">Aim & Relevance</h3>
+              <p style="margin: 0 0 10px; font-size: 0.92rem; color: var(--ink);">
+                To enable participants to understand conflict analysis, response analysis, and CBD analysis as evidence-based tools 
+                to support the identification of challenges that underpin police reform under UN Sustainable Development Goal 16 (Peace, Justice and Strong Institutions).
+              </p>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--muted);">
+                <li>Define the current "As is" state before prescribing interventions.</li>
+                <li>Avoid assumptions by grounding plans in documented empirical facts.</li>
+                <li>Establish an evidence baseline for subsequent evaluation in Phase 5.</li>
+              </ul>
+            </div>
+
+            <div style="background: var(--wash); padding: 18px; border-radius: var(--radius); border: 1px solid var(--line);">
+              <h3 style="margin: 0 0 8px; color: var(--navy); font-size: 1.15rem;">Learning Objectives</h3>
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.88rem; color: var(--ink); line-height: 1.5;">
+                <li>Deconstruct host-State policing practice and structural incentives.</li>
+                <li>Analyze the political, legal, economic and security dimensions via PESTEL-S.</li>
+                <li>Map internal and external actors and motivations in response analysis.</li>
+                <li>Populate the official 5 × 6 Areas–Dimensions Matrix without duplication.</li>
+                <li>Funnel findings into a 2 × 2 SWOT analysis to isolate CBD points of entry.</li>
+                <li>Formulate verifiable baseline indicators across the 3 perspectives.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-bottom: 12px;">Team & Session Details</h3>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="teamName">Syndicate / Working Group Name or Number</label>
+                <input class="form-input" id="teamName" placeholder="e.g. Syndicate 3 / Alpha Group">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sessionDate">Session Date</label>
+                <input class="form-input" id="sessionDate" type="date">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="participants">Participants (Names, Ranks, Contingents)</label>
+                <input class="form-input" id="participants" placeholder="e.g. Maj. Smith (CIVPOL), Capt. Diallo (UNPOL), Insp. Gomez (IPOs)">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="noteTaker">Appointed Note-Taker / Spokesperson</label>
+                <input class="form-input" id="noteTaker" placeholder="Participant leading documentation">
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border: 1px solid #b6d4e8; background: var(--wash-subtle);">
+            <div class="card-header" style="background: #e6f3fa;">
+              <h3 style="font-size: 1.05rem;">Case Briefing: Galasi Criminal Investigations Services (CIS)</h3>
+              <button class="btn btn-sm btn-dark" type="button" onclick="document.getElementById('openScenarioDrawerBtn').click()">Read Full 57 Paragraphs ↗</button>
+            </div>
+            <div class="card-body" style="font-size: 0.92rem; color: var(--ink); line-height: 1.55;">
+              <p>
+                You are assigned as the responsible <strong>UNPOL CBD adviser to the Galasi Criminal Investigations Services (CIS)</strong>. 
+                Carana National Police (CNP) has 7,200 officers (only 500 female, ratio ~1:2000). Galasi has 3,000,000 residents including IDPs. 
+                The Galasi Police Department (PD) has 2,500 officers (~150 female), and the Galasi CIS has <strong>250 officers, of which only 12 are female (4.8%)</strong>. 
+                Officers in Galasi CIS are exclusively of Falin ethnicity.
+              </p>
+              <p style="margin-bottom: 0;">
+                Key challenges in Galasi include disproportionate victimization of women, children, and minorities; LGBTTQI victims afraid to report; 
+                prevalent SGBV, riots, and small arms violence; no specialized investigative units (except violent extremism); outdated colonial arrest policy; 
+                conflict with public prosecutors; lack of forensic capabilities; and suspended Code of Conduct.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: var(--muted); font-size: 0.85rem;">Ensure syndicate consensus before proceeding.</span>
+          <button class="btn btn-primary" data-goto-stage="stage-conflict" type="button">Continue to Conflict & Response Analysis →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 2: CONFLICT & RESPONSE ANALYSIS ================= -->
+    <section class="stage-panel" id="stage-conflict">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 2 · Conflict, Response & Perspectives</span>
+            <h2 style="margin-top: 4px;">Conflict Analysis (PESTEL-S) & Response Analysis</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Estimated time: 45 minutes</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Map the macro-environment using PESTEL-S and analyze reform initiatives across individual, organizational, and strategic levels.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Documented macro-drivers, response gaps, and three-level CBD perspective conclusions.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Advance to Stakeholder Mapping to evaluate influence, interest, and resistance.</p>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-bottom: 6px;">1. Conflict Analysis (PESTEL-S Framework)</h3>
+            <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 16px;">
+              As instructed in UNPOL CBD Lesson 1 (Slide 8), the PESTEL-S scheme examines the broader macro-environment in conflict settings. 
+              Extract documented facts from the Carana scenario into each dimension:
+            </p>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label" for="pestelPolitical">
+                  Political (P)
+                  <span class="form-hint">Democratic oversight, party ties of CIS leadership, legislative will (e.g. Paras 8, 21, 23)</span>
+                </label>
+                <textarea class="form-textarea" id="pestelPolitical" placeholder="Documented political factors..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pestelEconomic">
+                  Economic (E)
+                  <span class="form-hint">Budget allocation, salary disparities, operational funding constraints (e.g. Paras 6, 10, 26)</span>
+                </label>
+                <textarea class="form-textarea" id="pestelEconomic" placeholder="Documented economic/resource factors..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pestelSocial">
+                  Social & Demographic (S)
+                  <span class="form-hint">Falin majority vs minorities, IDPs, LGBTTQI marginalization, women's community role (e.g. Paras 2, 3, 16, 57)</span>
+                </label>
+                <textarea class="form-textarea" id="pestelSocial" placeholder="Documented social/cultural factors..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pestelTechnological">
+                  Technological & Forensics (T)
+                  <span class="form-hint">Pen-and-paper statistics, lack of centralized databases, forensic deficits (e.g. Paras 24, 34, 49)</span>
+                </label>
+                <textarea class="form-textarea" id="pestelTechnological" placeholder="Documented technological factors..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pestelEnvironmental">
+                  Environmental (E)
+                  <span class="form-hint">Lack of environmental crime enforcement, waste management, natural resources (e.g. Paras 4, 20, 55)</span>
+                </label>
+                <textarea class="form-textarea" id="pestelEnvironmental" placeholder="Documented environmental factors..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="pestelLegal">
+                  Legal System & Norms (L)
+                  <span class="form-hint">Colonial arrest law, lack of asset forfeiture law, clash with public prosecutors (e.g. Paras 7, 11)</span>
+                </label>
+                <textarea class="form-textarea" id="pestelLegal" placeholder="Documented legal and statutory factors..."></textarea>
+              </div>
+
+              <div class="form-group col-full">
+                <label class="form-label" for="pestelSecurity">
+                  Security Landscape (-S)
+                  <span class="form-hint">Proliferation of small arms, violent crime, riots shifting to ethnic conflicts, POC perception (e.g. Paras 2, 15, 38, 56)</span>
+                </label>
+                <textarea class="form-textarea" id="pestelSecurity" placeholder="Documented security and threat landscape..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px; padding-top: 20px; border-top: 1px solid var(--line);">
+            <h3 style="color: var(--navy); margin-bottom: 6px;">2. Response Analysis (External Actors & Synergies)</h3>
+            <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 16px;">
+              Per Lesson 1 Slide 10, CBD advisers never start with a clean slate. Analyze external actors operating in Galasi:
+            </p>
+
+            <div class="grid-3">
+              <div class="form-group">
+                <label class="form-label" for="responseActors">
+                  Actors Currently in Theater
+                  <span class="form-hint">Interpol project, UNODC, EU CFSP, bilateral donors, NGOs (Paras 28, 35, 39, 54, 55)</span>
+                </label>
+                <textarea class="form-textarea" id="responseActors" placeholder="Who is active and what are they doing?"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="responseSynergies">
+                  Synergies & Strategic Opportunities
+                  <span class="form-hint">Where can UNPOL CBD harmonize with existing donor activities?</span>
+                </label>
+                <textarea class="form-textarea" id="responseSynergies" placeholder="Points of cooperation and shared initiatives..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="responseRisks">
+                  Risks of Duplication & Counterpart Fatigue
+                  <span class="form-hint">Donor competition, high-tech mismatch, uncoordinated curricula</span>
+                </label>
+                <textarea class="form-textarea" id="responseRisks" placeholder="Potential frictions or misaligned incentives..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding-top: 20px; border-top: 1px solid var(--line);">
+            <h3 style="color: var(--navy); margin-bottom: 6px;">3. The Three Focused Perspectives (Lesson 0 Slide 10)</h3>
+            <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 16px;">
+              Ensure analysis addresses all three levels of capacity development:
+            </p>
+
+            <div class="grid-3">
+              <div class="form-group">
+                <label class="form-label" for="perspectiveEnabling">
+                  Enabling Environment (360°)
+                  <span class="form-hint">Governance, statutory laws, administrative services, budget allocation</span>
+                </label>
+                <textarea class="form-textarea" id="perspectiveEnabling" placeholder="Key enabling environment factors..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="perspectiveOrganisational">
+                  Organisational Level
+                  <span class="form-hint">Structure, SOPs, C2, internal oversight, relationship with prosecutors</span>
+                </label>
+                <textarea class="form-textarea" id="perspectiveOrganisational" placeholder="Key organizational factors..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="perspectiveIndividual">
+                  Individual Level
+                  <span class="form-hint">Investigative skills, gender sensitivity, ethics, motivation, remuneration</span>
+                </label>
+                <textarea class="form-textarea" id="perspectiveIndividual" placeholder="Key individual officer factors..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-team" type="button">← Back to Orientation</button>
+          <button class="btn btn-primary" data-goto-stage="stage-stakeholders" type="button">Continue to Stakeholder Analysis →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3: STAKEHOLDER ANALYSIS ================= -->
+    <section class="stage-panel" id="stage-stakeholders">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 3 · Stakeholder Mapping</span>
+            <h2 style="margin-top: 4px;">Stakeholder Analysis & 4-Quadrant Influence Matrix</h2>
+          </div>
+          <button class="btn btn-primary btn-sm" id="addStakeholderBtn" type="button">+ Add Stakeholder</button>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Assess key host-State actors across the 4-Quadrant Influence/Interest grid (Lesson 1 Slide 15).</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Consolidated stakeholder register with position, interest, and engagement strategies.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Examine the 5×6 Diagnostic Matrix to correlate functional areas with cross-cutting dimensions.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 18px;">
+            In accordance with UNPOL JST Lesson 1 (Slides 12 & 45), evaluate key stakeholders by role, power (influence on CBD), and level of interest. 
+            Adjusting influence and interest immediately maps the actor into the official four engagement quadrants below.
+          </p>
+
+          <div id="stakeholderList"></div>
+
+          <!-- 4-Quadrant Visual Grid -->
+          <div style="margin-top: 32px; padding-top: 24px; border-top: 2px solid var(--line);">
+            <h3 style="color: var(--navy); margin-bottom: 4px;">Official 4-Quadrant Influence vs Interest Grid (Lesson 1 Annex B)</h3>
+            <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 12px;">Dynamic positioning based on stakeholder evaluations above:</p>
+
+            <div class="stakeholder-matrix-grid">
+              <!-- High Influence / Low Interest -->
+              <div class="quadrant quad-blue">
+                <div class="quadrant-title">Keep Satisfied</div>
+                <div class="quadrant-subtitle">High Influence · Low Interest</div>
+                <div class="quadrant-items" id="quadBlue"></div>
+              </div>
+
+              <!-- High Influence / High Interest -->
+              <div class="quadrant quad-red">
+                <div class="quadrant-title">Engage Closely & Influence Actively</div>
+                <div class="quadrant-subtitle">High Influence · High Interest</div>
+                <div class="quadrant-items" id="quadRed"></div>
+              </div>
+
+              <!-- Low Influence / Low Interest -->
+              <div class="quadrant quad-green">
+                <div class="quadrant-title">Monitor Minimum Effort</div>
+                <div class="quadrant-subtitle">Low Influence · Low Interest</div>
+                <div class="quadrant-items" id="quadGreen"></div>
+              </div>
+
+              <!-- Low Influence / High Interest -->
+              <div class="quadrant quad-orange">
+                <div class="quadrant-title">Keep Informed & Show Consideration</div>
+                <div class="quadrant-subtitle">Low Influence · High Interest</div>
+                <div class="quadrant-items" id="quadOrange"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 24px;">
+            <label class="form-label" for="stakeholdersConclusion">
+              Stakeholder Mapping Conclusion & Engagement Priorities
+              <span class="form-hint">Who must lead the reform (local ownership)? Whose resistance could jeopardize the process?</span>
+            </label>
+            <textarea class="form-textarea" id="stakeholdersConclusion" placeholder="Primary owner: Galasi CIS Leadership... Key coalitions needed... Mitigation for political interference..."></textarea>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-conflict" type="button">← Back to Conflict Analysis</button>
+          <button class="btn btn-primary" data-goto-stage="stage-matrix" type="button">Continue to 5×6 CBD Matrix →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 4: 5x6 AREAS-DIMENSIONS MATRIX ================= -->
+    <section class="stage-panel" id="stage-matrix">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 4 · Official Curriculum Matrix</span>
+            <h2 style="margin-top: 4px;">Official 5 × 6 Areas–Dimensions Matrix (Lesson 1 Annex C & D)</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--muted);">Click any cell to inspect and map evidence</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Correlate the 5 official UNPOL CBD Areas (13 functional rows) against 6 cross-cutting dimensions using scenario evidence.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Pinpointed paragraph citations and diagnostic findings across the 78 matrix intersections.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Synthesize recorded findings into the 4-Quadrant SWOT analysis.</p>
+            </div>
+          </div>
+
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 16px; font-size: 0.88rem; color: var(--ink);">
+            <strong>Curriculum Mapping Instructions (Paragraphs 6–57):</strong>
+            Allocate issues toward the specific dimensions first: <em>Environmental Sustainability, Conflict Prevention, Gender, CPOC, and Human Rights</em>.
+            In cases where none of these specific dimensions are suitable, allocate them under <em>Policing Practice</em>. Topics allocated to CPOC should not be duplicated.
+          </div>
+
+          <div class="matrix-container" id="matrixTableHost">
+            <!-- Dynamically populated 5x6 matrix table -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-stakeholders" type="button">← Back to Stakeholder Analysis</button>
+          <button class="btn btn-primary" data-goto-stage="stage-swot" type="button">Continue to SWOT Analysis →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 5: SWOT ANALYSIS & POINTS OF ENTRY ================= -->
+    <section class="stage-panel" id="stage-swot">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 5 · Strategic Appraisal</span>
+            <h2 style="margin-top: 4px;">SWOT Analysis & CBD Points of Entry</h2>
+          </div>
+          <span id="swotCountBadge" class="badge" style="background: var(--warn); color: #fff; padding: 4px 10px; border-radius: 99px; font-weight: 700; font-size: 0.82rem;">0 items</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Transform empirical diagnostic findings into strategic Strengths, Weaknesses, Opportunities, and Threats.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Balanced 4-box SWOT matrix reflecting genuine host-State capacities and institutional risks.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Establish the Programmatic Baseline Register and validate Phase 1 completion.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 16px;">
+            In accordance with UNPOL JST Lesson 1 Task B (p. 23 & 33), funnel your CBD matrix findings into a SWOT analysis. 
+            Identify internal Strengths and Weaknesses of the Galasi CIS, and external Opportunities (<strong>Points of Entry for CBD activities</strong>) 
+            and Threats (<strong>CBD project risks</strong>). Aim for at least <strong>15 to 20 items</strong> (3 to 4 per category).
+          </p>
+
+          <!-- Add Item Form -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 20px;">
+            <div class="grid-3" style="align-items: flex-end;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" for="newSwotText">Item Description / Finding</label>
+                <input class="form-input" id="newSwotText" placeholder="e.g. Interpol project provides ready framework for SOP overhaul">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" for="newSwotCategory">SWOT Category</label>
+                <select class="form-select" id="newSwotCategory">
+                  <option value="strengths">Strength (Internal CIS asset)</option>
+                  <option value="weaknesses">Weakness (Internal CIS deficit)</option>
+                  <option value="opportunities">Opportunity (CBD Point of Entry)</option>
+                  <option value="threats">Threat (CBD Risk factor)</option>
+                </select>
+              </div>
+              <div style="display: flex; gap: 12px; align-items: center; padding-bottom: 4px;">
+                <label style="font-size: 0.84rem; display: flex; align-items: center; gap: 4px;">
+                  <input type="checkbox" id="newSwotIsEntryPoint"> Entry Point
+                </label>
+                <label style="font-size: 0.84rem; display: flex; align-items: center; gap: 4px;">
+                  <input type="checkbox" id="newSwotIsRisk"> CBD Risk
+                </label>
+                <button class="btn btn-primary btn-sm" id="addSwotBtn" type="button" style="margin-left: auto;">Add Item</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2x2 SWOT Board -->
+          <div class="swot-grid">
+            <div class="swot-box swot-strengths">
+              <div class="swot-box-header">
+                <span>STRENGTHS (Internal)</span>
+                <span style="font-size:0.75rem; font-weight:normal;">Institutional assets & capabilities</span>
+              </div>
+              <div class="swot-box-body" id="swotStrengthsHost"></div>
+            </div>
+
+            <div class="swot-box swot-weaknesses">
+              <div class="swot-box-header">
+                <span>WEAKNESSES (Internal)</span>
+                <span style="font-size:0.75rem; font-weight:normal;">Gaps, lack of SOPs, conduct</span>
+              </div>
+              <div class="swot-box-body" id="swotWeaknessesHost"></div>
+            </div>
+
+            <div class="swot-box swot-opportunities">
+              <div class="swot-box-header">
+                <span>OPPORTUNITIES (External)</span>
+                <span style="font-size:0.75rem; font-weight:normal;">CBD Points of Entry & Partnerships</span>
+              </div>
+              <div class="swot-box-body" id="swotOpportunitiesHost"></div>
+            </div>
+
+            <div class="swot-box swot-threats">
+              <div class="swot-box-header">
+                <span>THREATS (External)</span>
+                <span style="font-size:0.75rem; font-weight:normal;">Political interference, conflict recurrence</span>
+              </div>
+              <div class="swot-box-body" id="swotThreatsHost"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-matrix" type="button">← Back to 5×6 Matrix</button>
+          <button class="btn btn-primary" data-goto-stage="stage-baseline" type="button">Continue to Baseline & Synthesis →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 6: BASELINE & SYNTHESIS ================= -->
+    <section class="stage-panel" id="stage-baseline">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="badge" style="background:var(--un-blue); color:#fff; padding:3px 8px; border-radius:4px; font-size:0.75rem; font-weight:800; text-transform:uppercase;">Stage 6 · Baseline, Review & Export</span>
+            <h2 style="margin-top: 4px;">Baseline Development, Learning Reflection & Report</h2>
+          </div>
+          <button class="btn btn-primary btn-sm" id="addBaselineBtn" type="button">+ Add Baseline Metric</button>
+        </div>
+        <div class="card-body">
+          <div class="stage-briefing">
+            <div class="briefing-block">
+              <h4>🎯 Stage Purpose</h4>
+              <p>Formulate qualitative and quantitative "As is" baselines with entry points and means of verification.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>📦 Expected Outputs</h4>
+              <p>Complete Baseline Register and syndicate self-confirmation for transition to Phase 2.</p>
+            </div>
+            <div class="briefing-block">
+              <h4>⏭️ What Happens Next</h4>
+              <p>Unlock Module 2 (Objective Setting & Prioritisation) with established baseline metrics.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--ink); margin-bottom: 16px;">
+            Per UNPOL CBD Lesson 1 (Slide 15) and Lesson 0 (Key Words), establishing an empirical baseline is mandatory to enable 
+            subsequent evaluation of CBD outcomes in Phase 5. The baseline documents the <strong>"As is"</strong> status quo to determine 
+            the gap toward the desired <strong>"To be"</strong> end-state.
+          </p>
+
+          <!-- Baseline Indicators Table -->
+          <div style="overflow-x: auto; margin-bottom: 24px;">
+            <table class="baseline-table">
+              <thead>
+                <tr>
+                  <th style="width: 180px;">Area / Domain</th>
+                  <th>"As is" Status Quo (Evidence)</th>
+                  <th>Baseline Metric / Condition</th>
+                  <th>Desired "To be" State</th>
+                  <th style="width: 180px;">Data Source / Verification</th>
+                  <th style="width: 40px;"></th>
+                </tr>
+              </thead>
+              <tbody id="baselineTableBody">
+                <!-- Dynamically populated baseline rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Problem Statement & CBD Response Synthesis -->
+          <div style="padding-top: 24px; border-top: 2px solid var(--line); margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-bottom: 12px;">Synthesis: From Evidence to Strategic Entry Point</h3>
+            
+            <div class="grid-2">
+              <div class="form-group col-full">
+                <label class="form-label" for="summaryProblem">
+                  Core Problem Statement (Evidence-Based)
+                  <span class="form-hint">Frame the primary capacity gap without jumping to solutions like "provide training"</span>
+                </label>
+                <textarea class="form-textarea" id="summaryProblem" placeholder="The core problem in Galasi CIS is..."></textarea>
+              </div>
+
+              <div class="form-group col-full">
+                <label class="form-label" for="summaryEvidence">
+                  Key Scenario Evidence
+                  <span class="form-hint">Summarize the specific facts from the 57 paragraphs supporting this finding</span>
+                </label>
+                <textarea class="form-textarea" id="summaryEvidence" placeholder="Evidence supporting this finding includes..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="summaryIntervention">
+                  Prioritised CBD Point of Entry
+                  <span class="form-hint">Derived from Opportunities in SWOT (e.g. SGBV investigative unit, Code of Conduct SOPs)</span>
+                </label>
+                <textarea class="form-textarea" id="summaryIntervention" placeholder="Recommended initial programmatic intervention..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="summarySafeguards">
+                  Human Rights & Anti-Discrimination Safeguards
+                  <span class="form-hint">Human Rights Due Diligence Policy (HRDDP), gender responsiveness, minority protection</span>
+                </label>
+                <textarea class="form-textarea" id="summarySafeguards" placeholder="Essential safeguards to avoid unintended harm or backlash..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Curriculum Learning Reflection Activity (BOPPPS Post-Assessment) -->
+          <div style="background: var(--wash); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
+            <h3 style="color: var(--navy); margin-top: 0; margin-bottom: 4px;">Curriculum Learning Reflection Activity (Curriculum Outline p. 14)</h3>
+            <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 16px;">
+              Required reflection questions from the official UNPOL Learning Activity Repository:
+            </p>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionExperience">
+                1. What did your syndicate learn through this situational analysis exercise?
+              </label>
+              <textarea class="form-textarea" id="reflectionExperience" placeholder="Reflect on the analytical methodology..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reflectionCounterpart">
+                2. How would you feel if you were the counterpart (e.g., Head of Galasi CIS) and were presented with this assessment?
+                <span class="form-hint">How does this inform the need for local ownership, tact, and constructive communication?</span>
+              </label>
+              <textarea class="form-textarea" id="reflectionCounterpart" placeholder="Put yourself in the host-State counterpart's shoes..."></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="reflectionPersonal">
+                3. What does this mean for how you will seek to perform your work as an UNPOL CBD adviser?
+              </label>
+              <textarea class="form-textarea" id="reflectionPersonal" placeholder="Key professional attitudes, resilience, and personal commitment..."></textarea>
+            </div>
+          </div>
+
+          <!-- Confirmation Checkbox -->
+          <div style="background: var(--gold-bg); border: 1px solid #e2cb91; border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
+            <input type="checkbox" id="confirmModule1" style="width: auto; margin-top: 5px;">
+            <label for="confirmModule1" style="font-size: 0.92rem; color: #583c03;">
+              <strong>Syndicate Self-Assessment & Validation:</strong> Our group has reviewed this situational analysis. We understand that this structured baseline represents a learning self-assessment and will serve as the direct input for <strong>Module 2 (Objective Setting & Prioritisation)</strong>.
+            </label>
+          </div>
+
+          <!-- Export & Report Actions -->
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-dark" id="printPdfBtn" type="button">📄 Generate Briefing PDF</button>
+              <button class="btn btn-primary" id="exportJsonBtn" type="button">💾 Export Lab State (.json)</button>
+              <label class="btn" style="cursor: pointer; margin-bottom: 0;">
+                📂 Import JSON <input type="file" id="importJsonInput" accept=".json" style="display: none;">
+              </label>
+            </div>
+            <button class="btn btn-danger btn-sm" id="resetActivityBtn" type="button">⚠️ Reset Module 1</button>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-ghost" data-goto-stage="stage-swot" type="button">← Back to SWOT Analysis</button>
+          <a href="index.html" class="btn btn-dark" style="text-decoration: none;">Return to Lab Portal Hub ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consolidated Institutional Footer -->
+    <footer class="lab-footer">
+      <div class="lab-footer-primary">
+        <div class="lab-footer-brand">
+          <strong>CARANA CBD Learning Lab</strong>
+          <span class="lab-footer-attribution">Prepared by Lt. Col. Maissara Selim</span>
+        </div>
+        <span id="stageCompleteFooterBadge" class="footer-stage-badge">Phase 1 In Progress · Pending Self-Confirmation</span>
+      </div>
+      <p class="lab-disclaimer">
+        Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.
+      </p>
+      <div class="lab-footer-secondary">
+        <span>Curriculum Reference: UNPOL CBD JST (Lesson 1) · Participant exercise outputs are syndicate-authored.</span>
+        <span>Offline Local-First Architecture</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Off-Canvas Scenario Reference Drawer -->
+  <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
+  <aside class="scenario-drawer" id="scenarioDrawer" aria-label="Carana Scenario Reference">
+    <div class="drawer-header">
+      <h3>Carana Scenario Explorer (57 Paras)</h3>
+      <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-search">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number...">
+      </div>
+      <div id="scenarioDrawerList"></div>
+    </div>
+  </aside>
+
+  <!-- Glossary Modal Dialog -->
+  <div class="modal-backdrop" id="glossaryModalBackdrop">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="glossaryModalTitle">
+      <div class="modal-header">
+        <h3 id="glossaryModalTitle">UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close glossary">×</button>
+      </div>
+      <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Baseline, Logframe, SSR)..." aria-label="Search glossary terms">
+      </div>
+      <div class="modal-body" id="glossaryList"></div>
+    </div>
+  </div>
+
+  <!-- Matrix Cell Inspector Modal -->
+  <div class="modal-backdrop" id="cellModalBackdrop">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalCellTitle">
+      <div class="modal-header">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #83dbff;" id="modalCellAreaSub"></span>
+          <h3 id="modalCellTitle">Matrix Cell Inspector</h3>
+        </div>
+        <button class="btn btn-sm btn-ghost" id="closeCellModalBtn" style="color: #fff; font-size: 1.4rem;" type="button" aria-label="Close matrix cell inspector">×</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 16px;">
+          <label class="form-label">Attach Scenario Paragraphs (Click to toggle)</label>
+          <div id="modalCellParaPills" style="max-height: 140px; overflow-y: auto; padding: 6px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fbfcfe;"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="modalCellNotes">
+            Detailed Issue Analysis & Finding Notes
+            <span class="form-hint">Describe how the selected evidence manifests in this area-dimension intersection</span>
+          </label>
+          <textarea class="form-textarea" id="modalCellNotes" placeholder="Write specific findings and observations..."></textarea>
+        </div>
+      </div>
+      <div class="card-footer" style="background: #ffffff;">
+        <button class="btn btn-ghost" type="button" onclick="document.getElementById('closeCellModalBtn').click()">Cancel</button>
+        <button class="btn btn-primary" id="saveCellModalBtn" type="button">Save Cell Findings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data/carana-scenario.js"></script>
+  <script src="js/data/curriculum-glossary.js"></script>
+  <script src="js/storage/lab-storage.js"></script>
+  <script src="js/modules/module1.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Module1App.init();
+    });
+  </script>
+</body>
+</html>

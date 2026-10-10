@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>CARANA CBD Learning Lab · UNPOL Training Portal</title>
+  <link rel="stylesheet" href="css/design-system.css">
+</head>
+<body>
+  <div class="lab-container">
+    <!-- Lab Header -->
+    <header class="lab-header">
+      <div class="lab-brand">
+        <div class="lab-brand-left">
+          <span class="lab-emblem">United Nations</span>
+          <span class="lab-badge">Police Division · Integrated Training Service</span>
+        </div>
+        <div class="lab-attribution-badge">Prepared by Lt. Col. Maissara Selim</div>
+      </div>
+      <h1 class="lab-title">CARANA CBD Learning Lab</h1>
+      <p class="lab-subtitle">
+        A professional, modular instructional environment supporting the six phases of United Nations Police (UNPOL) 
+        Capacity-Building and Development (CBD).
+      </p>
+
+      <div class="lab-meta-bar">
+        <div class="lab-meta-left">
+          <div class="lab-meta-item">Curriculum: <strong>UNPOL CBD JST 2021/2023</strong></div>
+          <div class="lab-meta-item">Methodology: <strong>BOPPPS Active Learning Model</strong></div>
+          <div class="lab-meta-item">Architecture: <strong>Offline Local-First</strong></div>
+        </div>
+        <div class="lab-controls-bar">
+          <button class="btn btn-sm btn-dark" id="openScenarioDrawerBtn" type="button">
+            📖 Scenario (57 Paras)
+          </button>
+          <button class="btn btn-sm btn-dark" id="openGlossaryBtn" type="button">
+            📚 CBD Glossary
+          </button>
+          <button class="btn btn-sm btn-reset-session reset-lab-btn" id="resetLabBtn" data-action="reset-lab" type="button" title="Start a clean session or reset all six modules">
+            🔄 Start New Session
+          </button>
+          <a href="CARANA_CBD_Group_Activity.html" class="btn btn-sm btn-accent" style="text-decoration: none;">
+            ⏱ 60-Minute Fast Track ↗
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Track Banner -->
+    <div style="margin-bottom: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin-bottom: 6px;">
+        <h2 style="font-family: var(--font-serif); color: var(--navy); margin: 0;">The Six-Phase UNPOL CBD Learning Journey</h2>
+        <div id="portalCycleSummaryBadge" style="display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; background: var(--wash); color: var(--navy);">Six-Phase Cycle In Progress</div>
+      </div>
+      <p style="color: var(--muted); margin-top: 0; font-size: 0.95rem;">
+        Each module systematically reuses outputs from previous phases, guiding advisers from initial evidence gathering to sustainable transition.
+      </p>
+    </div>
+
+    <!-- Live Curriculum Track Grid -->
+    <div id="curriculumTrackGrid" class="curriculum-track-grid" style="margin-bottom: 28px;"></div>
+
+    <!-- 6-Module Interactive Grid -->
+    <div class="grid-3" style="margin-bottom: 36px;">
+      <!-- Module 1: ACTIVE -->
+      <div class="card" data-module="1" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+        <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
+          <div>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 1 · Working</span>
+            <h3 style="margin-top: 4px; font-size: 1.25rem;">Situational Analysis</h3>
+          </div>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+        </div>
+        <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
+          <p><strong>Core Focus:</strong> "As is" Baseline & Conflict Scanning.</p>
+          <p style="color: var(--muted);">
+            Conduct PESTEL-S conflict analysis, response mapping of external actors, 4-quadrant stakeholder influence mapping, 
+            the official 5 × 6 Areas–Dimensions Matrix, 2 × 2 SWOT analysis, and qualitative/quantitative baseline indicators.
+          </p>
+          <div style="background: var(--wash); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.8rem;">
+            <strong>Curriculum Alignment:</strong> Lesson 1 (Galasi CIS case, 57 paragraphs).
+          </div>
+        </div>
+        <div class="card-footer" style="background: #ffffff;">
+          <a href="module1.html" class="btn btn-primary" style="width: 100%; text-decoration: none;">
+            Launch Module 1 Workbench →
+          </a>
+        </div>
+      </div>
+
+      <!-- Module 2: ACTIVE -->
+      <div class="card" data-module="2" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+        <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
+          <div>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 2 · Working</span>
+            <h3 style="margin-top: 4px; font-size: 1.25rem;">Objective Setting & Prioritisation</h3>
+          </div>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+        </div>
+        <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
+          <p><strong>Core Focus:</strong> "To be" Desired End-State & SMART Goals.</p>
+          <p style="color: var(--muted);">
+            Score and rank competing reform initiatives using the official 6-category prioritisation chart. 
+            Formulate SMART objectives and establish the quantitative/qualitative KPI framework.
+          </p>
+          <div style="background: var(--wash); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.8rem;">
+            <strong>Input Pipeline:</strong> Directly consumes Module 1 SWOT opportunities and baseline gaps.
+          </div>
+        </div>
+        <div class="card-footer" style="background: #ffffff;">
+          <a href="module2.html" class="btn btn-primary" style="width: 100%; text-decoration: none;">
+            Launch Module 2 Workbench →
+          </a>
+        </div>
+      </div>
+
+      <!-- Module 3: ACTIVE -->
+      <div class="card" data-module="3" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+        <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
+          <div>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 3 · Working</span>
+            <h3 style="margin-top: 4px; font-size: 1.25rem;">Planning Activities</h3>
+          </div>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+        </div>
+        <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
+          <p><strong>Core Focus:</strong> "What to" Action Planning & Logframe.</p>
+          <p style="color: var(--muted);">
+            Theory of Change causal chains, Logical Framework Approach (Logframe Matrix), Results-Based Budgeting (RBB), 3 × 3 Risk Matrix, and Contingency Planning.
+          </p>
+          <div style="background: var(--wash); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.8rem;">
+            <strong>Input Pipeline:</strong> Converts Module 2 SMART objectives into developmental outcomes.
+          </div>
+        </div>
+        <div class="card-footer" style="background: #ffffff;">
+          <a href="module3.html" class="btn btn-primary" style="width: 100%; text-decoration: none;">
+            Launch Module 3 Workbench →
+          </a>
+        </div>
+      </div>
+
+      <!-- Module 4: ACTIVE -->
+      <div class="card" data-module="4" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+        <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
+          <div>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 4 · Working</span>
+            <h3 style="margin-top: 4px; font-size: 1.25rem;">Implementation</h3>
+          </div>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+        </div>
+        <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
+          <p><strong>Core Focus:</strong> "How to" Execution & MMA.</p>
+          <p style="color: var(--muted);">
+            Monitoring, Mentoring and Advising (MMA) execution, overcoming institutional setbacks, change management resilience, and inter-agency mediation.
+          </p>
+          <div style="background: var(--wash); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.8rem;">
+            <strong>Input Pipeline:</strong> Operationalizes Module 3 Logframe activities into field MMA tracking and counterpart problem-solving.
+          </div>
+        </div>
+        <div class="card-footer" style="background: #ffffff;">
+          <a href="module4.html" class="btn btn-primary" style="width: 100%; text-decoration: none;">
+            Launch Module 4 Workbench →
+          </a>
+        </div>
+      </div>
+
+      <!-- Module 5: ACTIVE -->
+      <div class="card" data-module="5" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+        <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
+          <div>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 5 · Working</span>
+            <h3 style="margin-top: 4px; font-size: 1.25rem;">Evaluation & Adjustment</h3>
+          </div>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+        </div>
+        <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
+          <p><strong>Core Focus:</strong> "Did we" Measuring Impact & Adapting.</p>
+          <p style="color: var(--muted);">
+            Deming cycle (Check & Act), 8-month crisis intelligence ("Le Galasien" expose & Section Chief email), KPI variance analysis, and 3-tier adjustment decisions.
+          </p>
+          <div style="background: var(--wash); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.8rem;">
+            <strong>Input Pipeline:</strong> Evaluates Module 2 KPIs and Module 3/4 planned activities against 8-month field realities.
+          </div>
+        </div>
+        <div class="card-footer" style="background: #ffffff;">
+          <a href="module5.html" class="btn btn-primary" style="width: 100%; text-decoration: none;">
+            Launch Module 5 Workbench →
+          </a>
+        </div>
+      </div>
+
+      <!-- Module 6: ACTIVE -->
+      <div class="card" data-module="6" style="border: 2px solid var(--un-blue); display: flex; flex-direction: column;">
+        <div class="card-header" style="background: linear-gradient(90deg, #edf7fd, #ffffff);">
+          <div>
+            <span class="badge phase-badge" style="background: var(--un-blue); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Phase 6 · Working</span>
+            <h3 style="margin-top: 4px; font-size: 1.25rem;">Transition & Handover</h3>
+          </div>
+          <span class="action-badge" style="font-size: 0.8rem; font-weight: 700; color: var(--ok);">Ready to Launch</span>
+        </div>
+        <div class="card-body" style="flex: 1; font-size: 0.9rem; line-height: 1.5;">
+          <p><strong>Core Focus:</strong> "Sustain & exit" Institutionalising Ownership.</p>
+          <p style="color: var(--muted);">
+            Tactical transition planning, the Four Key Principles (Early Planning, UN Integration, Local Ownership, Communication), institutionalising sustainable policing practice, and formal Handover Instrument.
+          </p>
+          <div style="background: var(--wash); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.8rem;">
+            <strong>Input Pipeline:</strong> Operationalizes successful Module 1–5 achievements into enduring national ownership and UNCT compact.
+          </div>
+        </div>
+        <div class="card-footer" style="background: #ffffff;">
+          <a href="module6.html" class="btn btn-primary" style="width: 100%; text-decoration: none;">
+            Launch Module 6 Workbench →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Exercise vs Full Lab Comparison Card -->
+    <div class="card" style="background: linear-gradient(135deg, #fbfdfe 0%, #edf6fb 100%); border: 1px solid var(--line);">
+      <div class="card-header" style="background: transparent;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem;">⏱</span>
+          <div>
+            <h3 style="font-size: 1.2rem; margin: 0;">Preserved 60-Minute Fast Track Exercise</h3>
+            <span style="font-size: 0.82rem; color: var(--muted);">Original Single-Session Tabletop Simulation</span>
+          </div>
+        </div>
+        <a href="CARANA_CBD_Group_Activity.html" class="btn btn-dark btn-sm" target="_blank" style="text-decoration: none;">
+          Open 60-Minute Tool ↗
+        </a>
+      </div>
+      <div class="card-body" style="font-size: 0.92rem; color: var(--ink); line-height: 1.55;">
+        <p>
+          The original <strong>CARANA CBD Group Activity</strong> is preserved intact and fully operational. 
+          Use the 60-minute Fast Track when facilitating a rapid introductory workshop or single-period seminar.
+          For the complete multi-day Job-Specific Training (JST) program, utilize the <strong>CARANA CBD Learning Lab Modules</strong> above.
+        </p>
+      </div>
+    </div>
+
+    <!-- Consolidated Institutional Footer -->
+    <footer class="lab-footer">
+      <div class="lab-footer-primary">
+        <div class="lab-footer-brand">
+          <strong>CARANA CBD Learning Lab</strong>
+          <span class="lab-footer-attribution">Prepared by Lt. Col. Maissara Selim</span>
+        </div>
+        <div style="font-size: 0.82rem; color: var(--navy); font-weight: 600;">
+          UN Peacekeeping Police Division · Integrated Training Service (ITS)
+        </div>
+      </div>
+      <p class="lab-disclaimer">
+        Training aid based on the fictional CARANA scenario and UNPOL CBD JST learning materials. Official training materials remain the authoritative reference.
+      </p>
+      <div class="lab-footer-secondary">
+        <span>Tool Architecture & Methodology: Prepared by Lt. Col. Maissara Selim · Participant exercise outputs are syndicate-authored.</span>
+        <span>Local-First Offline Architecture · Non-Destructive Data Continuity</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Off-Canvas Scenario Reference Drawer -->
+  <div class="drawer-backdrop" id="scenarioDrawerBackdrop"></div>
+  <aside class="scenario-drawer" id="scenarioDrawer" aria-label="Carana Scenario Reference">
+    <div class="drawer-header">
+      <h3>Carana Scenario Explorer (57 Paras)</h3>
+      <button class="drawer-close" id="closeScenarioDrawerBtn" type="button" aria-label="Close drawer">×</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-search">
+        <input class="form-input" id="scenarioSearchInput" placeholder="🔍 Search keywords or paragraph number...">
+      </div>
+      <div id="scenarioDrawerList"></div>
+    </div>
+  </aside>
+
+  <!-- Glossary Modal Dialog -->
+  <div class="modal-backdrop" id="glossaryModalBackdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>UNPOL CBD Curriculum Glossary</h3>
+        <button class="btn btn-sm btn-ghost" id="closeGlossaryBtn" style="color: #fff; font-size: 1.4rem;" type="button">×</button>
+      </div>
+      <div style="padding: 12px 24px; background: var(--wash); border-bottom: 1px solid var(--line);">
+        <input class="form-input" id="glossarySearchInput" placeholder="🔍 Search curriculum terms (e.g. Baseline, Logframe, SSR)...">
+      </div>
+      <div class="modal-body" id="glossaryList"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data/carana-scenario.js"></script>
+  <script src="js/data/curriculum-glossary.js"></script>
+  <script src="js/storage/lab-storage.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Scenario drawer
+      const drawer = document.getElementById('scenarioDrawer');
+      const backdrop = document.getElementById('scenarioDrawerBackdrop');
+      const openBtn = document.getElementById('openScenarioDrawerBtn');
+      const closeBtn = document.getElementById('closeScenarioDrawerBtn');
+      const searchInput = document.getElementById('scenarioSearchInput');
+      const listHost = document.getElementById('scenarioDrawerList');
+
+      function toggleDrawer(open) {
+        drawer.classList.toggle('open', open);
+        backdrop.classList.toggle('open', open);
+      }
+      openBtn.onclick = () => toggleDrawer(true);
+      closeBtn.onclick = () => toggleDrawer(false);
+      backdrop.onclick = () => toggleDrawer(false);
+
+      function renderParas(query) {
+        const q = (query || '').toLowerCase().trim();
+        let items = CARANA_SCENARIO.PARAGRAPHS;
+        if (q) items = items.filter(p => p.id.toString() === q || p.text.toLowerCase().includes(q));
+        listHost.innerHTML = items.map(p => `
+          <div class="para-item">
+            <span class="para-badge">Paragraph ${p.id}</span>
+            <p style="margin: 4px 0 0;">${p.text}</p>
+          </div>
+        `).join('');
+      }
+      renderParas('');
+      searchInput.oninput = e => renderParas(e.target.value);
+
+      // Glossary modal
+      const gModal = document.getElementById('glossaryModalBackdrop');
+      const gOpen = document.getElementById('openGlossaryBtn');
+      const gClose = document.getElementById('closeGlossaryBtn');
+      const gSearch = document.getElementById('glossarySearchInput');
+      const gList = document.getElementById('glossaryList');
+
+      function toggleGlossary(open) {
+        gModal.classList.toggle('open', open);
+      }
+      gOpen.onclick = () => toggleGlossary(true);
+      gClose.onclick = () => toggleGlossary(false);
+      gModal.onclick = e => { if (e.target === gModal) toggleGlossary(false); };
+
+      function renderGlossary(query) {
+        const q = (query || '').toLowerCase().trim();
+        let terms = CURRICULUM_GLOSSARY.TERMS;
+        if (q) terms = terms.filter(t => t.term.toLowerCase().includes(q) || t.definition.toLowerCase().includes(q));
+        gList.innerHTML = terms.map(t => `
+          <div style="border-bottom: 1px solid var(--line); padding: 10px 0;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong style="color: var(--navy); font-size: 1rem;">${t.term}</strong>
+              <span style="font-size: 0.75rem; color: var(--muted);">${t.lesson}</span>
+            </div>
+            <p style="margin: 4px 0 0; font-size: 0.88rem; color: var(--ink);">${t.definition}</p>
+          </div>
+        `).join('');
+      }
+      renderGlossary('');
+      gSearch.oninput = e => renderGlossary(e.target.value);
+
+      // Dynamic Curriculum Track & Module Cards Status
+      function updatePortalState() {
+        if (window.LabStorage) {
+          LabStorage.renderCurriculumTrack();
+          const state = LabStorage.loadLabState();
+          const cycle = LabStorage.getFullCycleProgress(state);
+
+          const summaryEl = document.getElementById('portalCycleSummaryBadge');
+          if (summaryEl) {
+            if (cycle.allConfirmed) {
+              summaryEl.textContent = '✓ Full Cycle Self-Confirmed (6/6 Modules Complete · Facilitator Review Ready)';
+              summaryEl.style.background = '#e6f4ea';
+              summaryEl.style.color = '#137333';
+            } else if (cycle.confirmedCount > 0) {
+              summaryEl.textContent = `Cycle In Progress (${cycle.confirmedCount}/6 Phases Self-Confirmed · Phases ${cycle.pendingModules.join(', ')} Pending)`;
+              summaryEl.style.background = '#e0f2fe';
+              summaryEl.style.color = '#0369a1';
+            } else {
+              summaryEl.textContent = 'Six-Phase Cycle In Progress (0/6 Phases Confirmed)';
+              summaryEl.style.background = 'var(--wash)';
+              summaryEl.style.color = 'var(--muted)';
+            }
+          }
+
+          for (let i = 1; i <= 6; i++) {
+            const card = document.querySelector(`[data-module="${i}"]`);
+            if (!card) continue;
+            const isConfirmed = !!state['module' + i]?.confirmed;
+            const status = LabStorage.getModuleProgressStatus(state['module' + i], i);
+
+            const phaseBadge = card.querySelector('.phase-badge');
+            const actionBadge = card.querySelector('.action-badge');
+
+            if (phaseBadge) {
+              if (isConfirmed) {
+                phaseBadge.textContent = `Phase ${i} · Confirmed`;
+                phaseBadge.style.background = 'var(--ok)';
+                phaseBadge.style.color = '#fff';
+              } else if (status === 'in_progress') {
+                phaseBadge.textContent = `Phase ${i} · In Progress`;
+                phaseBadge.style.background = 'var(--un-blue)';
+                phaseBadge.style.color = '#fff';
+              } else {
+                phaseBadge.textContent = `Phase ${i} · Not Started`;
+                phaseBadge.style.background = 'var(--muted)';
+                phaseBadge.style.color = '#fff';
+              }
+            }
+            if (actionBadge) {
+              if (isConfirmed) {
+                actionBadge.textContent = '✓ Self-Confirmed';
+                actionBadge.style.color = 'var(--ok)';
+              } else if (status === 'in_progress') {
+                actionBadge.textContent = 'In Progress';
+                actionBadge.style.color = 'var(--navy)';
+              } else {
+                actionBadge.textContent = 'Ready to Launch';
+                actionBadge.style.color = 'var(--muted)';
+              }
+            }
+          }
+        }
+      }
+
+      updatePortalState();
+      window.addEventListener('storage', e => {
+        if (e.key === LabStorage?.STORAGE_KEY) {
+          updatePortalState();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
