@@ -3,7 +3,7 @@
 > **A professional, local-first interactive simulation laboratory supporting the six phases of United Nations Police (UNPOL) Capacity-Building and Development (CBD).**
 
 [![Production URL](https://img.shields.io/badge/Production-carana--cbd--group--activity.maissara.tech-007cb0?style=flat-square&logo=vercel)](https://carana-cbd-group-activity.maissara.tech/)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-166534?style=flat-square)](https://github.com/maissaramoheb/carana-cbd-group-activity/releases)
+[![Release](https://img.shields.io/badge/Release-v1.0.1-166534?style=flat-square)](https://github.com/maissaramoheb/carana-cbd-group-activity/releases)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0004--3009--5888-A6CE39?style=flat-square&logo=orcid)](https://orcid.org/0009-0004-3009-5888)
 [![License Notice](https://img.shields.io/badge/License-Educational%20Use%20%2F%20UN%20Training%20Aid-12304a?style=flat-square)](docs/LICENSING_AND_CREDITS.md)
 
@@ -222,7 +222,7 @@ If you utilize, evaluate, or reference the **CARANA CBD Learning Lab** in traini
   author       = {Selim, Maissara},
   title        = {{CARANA CBD Learning Lab: An Offline-First Simulation Environment for UNPOL Capacity-Building and Development}},
   year         = {2026},
-  version      = {v1.0.0},
+  version      = {v1.0.1},
   publisher    = {GitHub},
   url          = {https://carana-cbd-group-activity.maissara.tech/},
   repository   = {https://github.com/maissaramoheb/carana-cbd-group-activity},
@@ -231,7 +231,7 @@ If you utilize, evaluate, or reference the **CARANA CBD Learning Lab** in traini
 ```
 
 ### APA Format
-Selim, M. (2026). *CARANA CBD Learning Lab: An Offline-First Simulation Environment for UNPOL Capacity-Building and Development* (Version 1.0.0) [Computer software]. https://carana-cbd-group-activity.maissara.tech/
+Selim, M. (2026). *CARANA CBD Learning Lab: An Offline-First Simulation Environment for UNPOL Capacity-Building and Development* (Version 1.0.1) [Computer software]. https://carana-cbd-group-activity.maissara.tech/
 
 See [`CITATION.cff`](CITATION.cff) for machine-readable citation metadata conforming to the Citation File Format standard.
 

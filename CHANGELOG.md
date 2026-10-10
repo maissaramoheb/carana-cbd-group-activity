@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 2026-10-10
+
+### Changed
+- **Research Software Archival & Citation Metadata:**
+  - Updated software release version to `v1.0.1` to trigger automated Zenodo archiving via the active GitHub integration webhook.
+  - Updated `CITATION.cff`, `README.md`, and project metadata to version `1.0.1`.
+  - Preserved author attribution (*Prepared by Lt. Col. Maissara Selim*, ORCID: `0009-0004-3009-5888`).
+  - Verified compatibility with Zenodo deposit schema (`.zenodo.json`).
+
+### Preserved
+- All core application functionality across all six modules and 36 learning stages.
+- Local-first browser storage and multi-tab concurrency reconciliation.
+- Complete 65/65 regression test suite pass rate.
+- Byte-identical legacy 60-Minute Fast-Track Quick Exercise (`CARANA_CBD_Group_Activity.html`, SHA-256: `b1ff9a705c3faeee59000b629ae3db4aa23f9d2d7d5c8a2cef1a9872532e26d4`).
+
+---
+
 ## [1.0.0] - 2026-10-10
 
 ### Added
