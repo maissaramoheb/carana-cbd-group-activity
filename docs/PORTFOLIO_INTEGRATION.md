@@ -44,7 +44,7 @@ An offline-first, browser-local interactive laboratory embedding the 36-stage BO
 7. **Master Dossier Generation:** Consolidated 6-Phase Printable Mission Dossier with dynamic verification status.
 
 ### Current Capabilities
-- Production release `v1.0.0` running live at `https://carana-cbd-group-activity.maissara.tech/`.
+- Production release `v1.0.1` running live at `https://carana-cbd-group-activity.maissara.tech/`.
 - Complete 36-stage interactive learning cycle across all 6 UNPOL JST modules.
 - Dual instructional delivery: Full ~14-hour Syndicate Learning Lab plus 60-Minute Fast-Track Quick Exercise.
 - Local-first `localStorage` persistence with stable stakeholder IDs (`sh-1`..`sh-8`) and multi-tab concurrency protection.
