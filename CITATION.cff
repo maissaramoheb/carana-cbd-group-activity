@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use or reference this educational software in academic work, policy analysis, or training design, please cite it using the metadata below."
+title: "CARANA CBD Learning Lab"
+abstract: "An offline-first, local-first interactive simulation laboratory supporting the six phases of United Nations Police (UNPOL) Capacity-Building and Development (CBD). Designed for peace operations personnel, police development advisers, and training institutions to translate peacekeeping intelligence into structured, evidence-based planning outputs."
+type: software
+authors:
+  - family-names: "Selim"
+    given-names: "Maissara"
+    orcid: "https://orcid.org/0009-0004-3009-5888"
+repository-code: "https://github.com/maissaramoheb/carana-cbd-group-activity"
+url: "https://carana-cbd-group-activity.maissara.tech/"
+version: "1.0.0"
+date-released: "2026-10-10"
+keywords:
+  - "unpol"
+  - "peacekeeping"
+  - "capacity-building"
+  - "police-reform"
+  - "carana-scenario"
+  - "security-sector-reform"
+  - "educational-software"
+  - "simulation"
+  - "local-first"
