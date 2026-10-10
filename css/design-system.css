@@ -5,42 +5,45 @@
 
 :root {
   --un-blue: #009edb;
-  --un-blue-dark: #007cb0;
-  --un-blue-light: #e1f4fd;
+  --un-blue-dark: #007bb0;
+  --un-blue-light: #e8f5fd;
   --navy: #12304a;
   --navy-dark: #0a1c2c;
   --navy-light: #1c4363;
   --ink: #1e2c38;
   --ink-light: #3d5060;
-  --muted: #5e7486;
+  --muted: #536b7d;
   --wash: #f0f6fa;
   --wash-subtle: #f8fbfe;
   --surface: #ffffff;
   --line: #cbdce7;
-  --line-strong: #9cbacf;
+  --line-strong: #96b6cd;
   
-  --gold: #c99a3d;
-  --gold-dark: #8c661a;
+  --gold: #b58327;
+  --gold-dark: #78530a;
   --gold-bg: #fff9eb;
   
-  --ok: #16785b;
-  --ok-dark: #0e543f;
+  --ok: #15795c;
+  --ok-dark: #0d543e;
   --ok-bg: #edf8f4;
+  --ok-border: #a4ddca;
   
-  --warn: #d97706;
+  --warn: #bc6903;
   --warn-bg: #fffbeb;
+  --warn-border: #fcd34d;
   
-  --danger: #be2e2e;
+  --danger: #b91c1c;
   --danger-bg: #fdf2f2;
   --danger-light: #fad6d6;
+  --danger-border: #fca5a5;
   
   --radius-sm: 6px;
   --radius: 12px;
   --radius-lg: 16px;
   
-  --shadow-sm: 0 2px 8px rgba(18, 48, 74, 0.06);
-  --shadow: 0 10px 30px rgba(18, 48, 74, 0.09);
-  --shadow-lg: 0 20px 48px rgba(18, 48, 74, 0.14);
+  --shadow-sm: 0 2px 8px rgba(18, 48, 74, 0.05);
+  --shadow: 0 8px 24px rgba(18, 48, 74, 0.08);
+  --shadow-lg: 0 16px 40px rgba(18, 48, 74, 0.12);
   
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-serif: Georgia, Cambria, "Times New Roman", serif;
@@ -69,7 +72,7 @@ body {
 
 /* Accessible focus ring */
 :focus-visible {
-  outline: 3px solid var(--un-blue);
+  outline: 2px solid var(--un-blue);
   outline-offset: 2px;
 }
 
@@ -88,9 +91,10 @@ a {
   color: var(--un-blue-dark);
   text-decoration: underline;
   text-underline-offset: 2px;
+  transition: color 0.15s ease;
 }
 a:hover {
-  color: var(--navy);
+  color: var(--navy-dark);
 }
 
 /* Layout Containers */
@@ -295,17 +299,18 @@ a:hover {
   display: block;
   text-decoration: none;
   color: var(--ink);
-  transition: all 0.2s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
-.track-step:hover {
+.track-step:hover:not(.locked) {
   border-color: var(--line-strong);
   background: #ffffff;
+  box-shadow: var(--shadow-sm);
 }
 .track-step.active {
   background: var(--navy);
   color: #ffffff;
   border-color: var(--navy);
-  box-shadow: 0 4px 12px rgba(18, 48, 74, 0.2);
+  box-shadow: 0 4px 14px rgba(18, 48, 74, 0.22);
 }
 .track-step.active .track-num {
   color: #83dbff;
@@ -314,8 +319,12 @@ a:hover {
   color: #e2f0f8;
 }
 .track-step.completed {
-  border-color: #86ceb5;
+  border-color: var(--ok-border);
   background: var(--ok-bg);
+}
+.track-step.completed:hover:not(.locked) {
+  border-color: var(--ok);
+  background: #e3f4ee;
 }
 .track-step.completed .track-num {
   color: var(--ok);
@@ -356,24 +365,33 @@ a:hover {
   font-size: 0.9rem;
   font-weight: 700;
   padding: 9px 16px;
+  min-height: 38px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--line-strong);
   background: var(--surface);
   color: var(--navy);
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
   white-space: nowrap;
+  user-select: none;
 }
 .btn:hover {
   background: var(--wash);
   border-color: var(--navy);
+  box-shadow: 0 2px 6px rgba(18, 48, 74, 0.08);
 }
 .btn:active {
   transform: translateY(1px);
+  box-shadow: none;
 }
 .btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
+  box-shadow: none;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--un-blue);
+  outline-offset: 2px;
 }
 .btn-primary {
   background: var(--un-blue);
@@ -383,6 +401,12 @@ a:hover {
 .btn-primary:hover {
   background: var(--un-blue-dark);
   border-color: var(--un-blue-dark);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 158, 219, 0.28);
+}
+.btn-primary:focus-visible {
+  outline: 2px solid var(--navy-dark);
+  outline-offset: 2px;
 }
 .btn-dark {
   background: var(--navy);
@@ -391,6 +415,13 @@ a:hover {
 }
 .btn-dark:hover {
   background: var(--navy-dark);
+  border-color: var(--navy-dark);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(10, 28, 44, 0.22);
+}
+.btn-dark:focus-visible {
+  outline: 2px solid var(--un-blue);
+  outline-offset: 2px;
 }
 .btn-accent {
   background: var(--gold-bg);
@@ -398,7 +429,10 @@ a:hover {
   color: var(--gold-dark);
 }
 .btn-accent:hover {
-  background: #faedcc;
+  background: #faecc9;
+  border-color: #9a6d1b;
+  color: #5a3f07;
+  box-shadow: 0 2px 8px rgba(181, 131, 39, 0.18);
 }
 .btn-danger {
   background: var(--danger-bg);
@@ -406,11 +440,15 @@ a:hover {
   color: var(--danger);
 }
 .btn-danger:hover {
-  background: #f8dede;
+  background: #fbe0e0;
+  border-color: #e27575;
+  color: #941717;
+  box-shadow: 0 2px 8px rgba(185, 28, 28, 0.18);
 }
 .btn-sm {
-  font-size: 0.8rem;
-  padding: 6px 11px;
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  min-height: 32px;
   border-radius: 4px;
 }
 .btn-ghost {
@@ -419,19 +457,21 @@ a:hover {
   color: var(--navy);
 }
 .btn-ghost:hover {
-  background: var(--wash);
+  background: rgba(18, 48, 74, 0.06);
   border-color: var(--line);
+  box-shadow: none;
 }
 .btn-reset-session {
-  background: rgba(220, 38, 38, 0.08);
-  border-color: rgba(220, 38, 38, 0.25);
+  background: rgba(185, 28, 28, 0.06);
+  border-color: rgba(185, 28, 28, 0.25);
   color: var(--danger);
   font-weight: 600;
 }
 .btn-reset-session:hover {
   background: var(--danger-bg);
   border-color: var(--danger);
-  color: var(--danger);
+  color: #991b1b;
+  box-shadow: 0 2px 8px rgba(185, 28, 28, 0.15);
 }
 
 /* Card & Panel System */
@@ -442,6 +482,7 @@ a:hover {
   box-shadow: var(--shadow-sm);
   margin-bottom: 24px;
   overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .card-header {
   padding: 18px 24px;
@@ -460,7 +501,7 @@ a:hover {
   font-size: 1.35rem;
 }
 .card-body {
-  padding: 24px;
+  padding: 22px 24px;
 }
 .card-footer {
   padding: 16px 24px;
@@ -471,6 +512,21 @@ a:hover {
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+/* Interactive Card Elevation on Hover */
+.card[data-module] {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+@media (hover: hover) {
+  .card[data-module]:hover,
+  .card-interactive:hover {
+    border-color: #007cb0 !important;
+    box-shadow: 0 8px 24px rgba(18, 48, 74, 0.12);
+    transform: translateY(-2px);
+  }
 }
 
 /* Form controls */
@@ -500,12 +556,17 @@ a:hover {
   padding: 10px 14px;
   outline: none;
   font-size: 0.95rem;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  line-height: 1.45;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.form-input:hover:not(:focus), .form-textarea:hover:not(:focus), .form-select:hover:not(:focus) {
+  border-color: #79a4c1;
+  background: #ffffff;
 }
 .form-input:focus, .form-textarea:focus, .form-select:focus {
   border-color: var(--un-blue);
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(0, 158, 219, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 158, 219, 0.18);
 }
 .form-textarea {
   min-height: 110px;
@@ -533,11 +594,12 @@ a:hover {
   gap: 6px;
   overflow-x: auto;
   padding-bottom: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   border-bottom: 2px solid var(--line);
+  scrollbar-width: thin;
 }
 .stage-tab {
-  padding: 10px 16px;
+  padding: 11px 18px;
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   font-weight: 700;
   font-size: 0.88rem;
@@ -547,28 +609,38 @@ a:hover {
   align-items: center;
   gap: 8px;
   border-bottom: 3px solid transparent;
-  margin-bottom: -11px;
+  margin-bottom: -10px;
   white-space: nowrap;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
 }
 .stage-tab:hover {
   color: var(--navy);
   background: rgba(0, 158, 219, 0.05);
 }
 .stage-tab.active {
-  color: var(--un-blue-dark);
+  color: var(--navy);
   border-bottom-color: var(--un-blue);
   background: #ffffff;
+  box-shadow: 0 -2px 6px rgba(18, 48, 74, 0.04);
 }
 .stage-tab .badge {
   background: var(--line);
   color: var(--ink);
   font-size: 0.72rem;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 99px;
+  font-weight: 700;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 .stage-tab.active .badge {
   background: var(--un-blue);
   color: #ffffff;
+}
+.stage-tab:focus-visible {
+  outline: 2px solid var(--un-blue);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
 }
 
 /* Stage Panel toggle */
@@ -908,21 +980,49 @@ a:hover {
   padding: 2px;
 }
 
-/* Baseline Table */
-.baseline-table {
+/* Baseline Table & General Data Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+.baseline-table, .risk-table, .logframe-table, .activity-table, .kpi-table, .evaluation-table, .transition-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.88rem;
 }
-.baseline-table th, .baseline-table td {
+.baseline-table th, .baseline-table td,
+.risk-table th, .risk-table td,
+.logframe-table th, .logframe-table td,
+.activity-table th, .activity-table td,
+.kpi-table th, .kpi-table td,
+.evaluation-table th, .evaluation-table td,
+.transition-table th, .transition-table td {
   border: 1px solid var(--line);
-  padding: 12px 14px;
+  padding: 10px 12px;
   text-align: left;
+  vertical-align: top;
 }
-.baseline-table th {
+.baseline-table thead th, .risk-table thead th, .logframe-table thead th,
+.activity-table thead th, .kpi-table thead th, .evaluation-table thead th,
+.transition-table thead th, .baseline-table th {
   background: var(--wash);
   color: var(--navy);
   font-weight: 800;
+  font-size: 0.84rem;
+}
+.baseline-table tbody tr, .risk-table tbody tr, .logframe-table tbody tr,
+.activity-table tbody tr, .kpi-table tbody tr, .evaluation-table tbody tr,
+.transition-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+.baseline-table tbody tr:hover, .risk-table tbody tr:hover, .logframe-table tbody tr:hover,
+.activity-table tbody tr:hover, .kpi-table tbody tr:hover, .evaluation-table tbody tr:hover,
+.transition-table tbody tr:hover {
+  background-color: #f3f8fc;
 }
 
 /* Facilitator Badge / Mode */
@@ -953,23 +1053,24 @@ a:hover {
   gap: 16px;
   box-shadow: var(--shadow-sm);
 }
-.briefing-item {
+.briefing-block, .briefing-item {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.briefing-label {
-  font-size: 0.72rem;
+.briefing-block h4, .briefing-label {
+  font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: var(--navy);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  margin: 0;
 }
-.briefing-text {
-  font-size: 0.84rem;
+.briefing-block p, .briefing-text {
+  font-size: 0.85rem;
   color: var(--ink-light);
   line-height: 1.45;
   margin: 0;
@@ -1155,24 +1256,50 @@ a:hover {
 @media (max-width: 900px) {
   .curriculum-track-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
   .grid-2, .grid-3 {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   .stakeholder-matrix-grid, .swot-grid {
     grid-template-columns: 1fr;
+  }
+  .stage-briefing {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 14px 16px;
   }
 }
 
 @media (max-width: 600px) {
   .curriculum-track-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
   .lab-header {
     padding: 20px 18px;
   }
   .card-header, .card-body, .card-footer {
-    padding: 16px 18px;
+    padding: 16px 16px;
+  }
+  .form-input, .form-textarea, .form-select {
+    font-size: 1rem; /* Prevents auto-zoom on iOS Safari */
+  }
+  .btn {
+    min-height: 42px; /* Minimum comfortable touch target on mobile */
+  }
+  .stage-tab {
+    padding: 9px 14px;
+    font-size: 0.84rem;
+  }
+}
+
+/* Touchscreen Interaction Overrides */
+@media (hover: none) {
+  .btn:hover, .track-step:hover, .card[data-module]:hover {
+    box-shadow: none;
+    transform: none;
   }
 }
 
