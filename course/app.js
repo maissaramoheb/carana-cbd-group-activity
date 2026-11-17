@@ -8,7 +8,7 @@
   const KEY = 'carana_cbd_course_v1';
   const LAB_KEY = 'carana_cbd_lab_v1';
   const SECTION_COUNT = lesson.sections.length;
-  let mode = 'home';
+  let mode = window.location && window.location.hash === '#activities' ? 'activities' : 'home';
   let position = { section: 0, screen: 0, kind: 'screen' };
   let answers = {};
   let checked = false;
@@ -51,9 +51,10 @@
     const k = s + ':' + n;
     if (!progress.visited.includes(k)) progress.visited.push(k);
   }
-  function goHome() { mode = 'home'; document.body.classList.remove('is-learning'); render(); }
+  function goHome() { mode = 'home'; document.body.classList.remove('is-learning'); if(window.location && window.location.hash !== '#home')window.location.hash='#home'; render(); }
   function resume() {
     mode = 'lesson';
+    if(window.location && window.location.hash !== '#lesson-1')window.location.hash='#lesson-1';
     document.body.classList.add('is-learning');
     if (isAllCleared() && progress.activityOpened) {
       position = {section:SECTION_COUNT - 1,screen:2,kind:progress.lessonComplete ? 'complete' : 'activity'};
@@ -125,7 +126,7 @@
   ];
   const activityQuickLink = '../CARANA_CBD_Group_Activity.html';
   function openActivities() {
-    mode='activities'; document.body.classList.remove('is-learning');
+    mode='activities'; if(window.location && window.location.hash !== '#activities')window.location.hash='#activities'; document.body.classList.remove('is-learning');
     render();window.scrollTo({top:0,behavior:'instant'});
   }
   function renderHome() {
@@ -313,6 +314,12 @@
       const el=$('activity-status');
       if(el && checkOriginalActivity()){el.textContent='The original workbench now reports participant confirmation. Select Verify completion to finish.';el.className='inline-feedback success';}
     }
+  });
+  window.addEventListener('hashchange', () => {
+    if (!window.location) return;
+    if(window.location.hash === '#activities' && mode !== 'activities')openActivities();
+    else if(window.location.hash === '#home' && mode !== 'home')goHome();
+    else if(window.location.hash === '#lesson-1' && mode !== 'lesson')resume();
   });
   render();
 })();
