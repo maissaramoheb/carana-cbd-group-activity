@@ -269,20 +269,23 @@
   function renderScreen() {
     const {section,screen}=position;
     const experience=window.CARANA_LESSON1_PLAYER;
+    const learningLab=window.CARANA_LESSON1_LABS;
     const sec=lesson.sections[section], item=sec.screens[screen];
     const absolute=section*3+screen+1;
     const visual='<div class="visual-card"><span class="visual-caption">'+clean(item.visualTitle)+'</span><div class="visual-flow '+(item.visual.length>5?'dense':'')+'">'+item.visual.map((x,i)=>'<div class="visual-node"><span>'+String(i+1).padStart(2,'0')+'</span>'+clean(x)+'</div>').join('')+'</div></div>';
     const outcomes=section===0&&screen===0?'<div class="learning-outcomes"><h2>By the end of this lesson, you will be able to</h2><ul>'+lesson.objectives.map(o=>'<li>'+clean(o)+'</li>').join('')+'</ul></div>':'';
     const trainerNarration=experience?experience.narrationHTML(section,screen):'';
     const fieldPractice=experience?experience.practiceHTML(section,screen):'';
+    const conceptExplorer=learningLab?learningLab.html(section,screen):'';
     const content='<div class="learning-head"><span class="micro-label">SECTION '+String(section+1).padStart(2,'0')+' OF 06 <span>·</span> SCREEN '+String(screen+1)+' OF 03</span><span class="screen-count">'+String(absolute).padStart(2,'0')+' / 18</span></div><div class="section-rule"></div>' +
-      '<div class="content-title"><span class="small-tag">'+clean(item.kicker)+'</span><h1>'+clean(item.title)+'</h1><p class="lead">'+clean(item.lead)+'</p></div>'+trainerNarration+visual +
+      '<div class="content-title"><span class="small-tag">'+clean(item.kicker)+'</span><h1>'+clean(item.title)+'</h1><p class="lead">'+clean(item.lead)+'</p></div>'+trainerNarration+visual+conceptExplorer +
       '<div class="learning-points">'+item.points.map((p,i)=>'<div class="point"><span class="point-dot"></span><p>'+clean(p)+'</p></div>').join('')+'</div>' +fieldPractice+
       '<div class="takeaway"><span>KEY IDEA</span><strong>'+clean(item.takeaway)+'</strong></div>'+outcomes +
       '<div class="lesson-foot"><span>Based on lesson plan pages '+clean(item.sourcePage)+'</span><span>Original instructional adaptation</span></div>' +
       '<div class="bottom-actions"><button class="btn outline" id="prev-screen" '+(section===0&&screen===0?'disabled':'')+'>← Back</button><button class="btn primary" id="next-screen">'+(screen===2&&!isCleared(section)?'Knowledge checkpoint →':screen===2&&section===5?'Open practice →':'Continue →')+'</button></div>';
     layout(content,sec.title);
     if(experience)experience.mount(section,screen);
+    if(learningLab)learningLab.mount(section,screen);
     $('prev-screen').addEventListener('click',()=>{
       if(screen>0) navigate(section,screen-1);
       else if(section>0) navigate(section-1,2);
