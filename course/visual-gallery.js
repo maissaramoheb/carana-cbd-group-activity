@@ -7,6 +7,7 @@
  const lesson=window.CARANA_LESSON1;
  const journey=window.CARANA_VISUAL_JOURNEY;
  const labs=window.CARANA_LESSON1_LABS;
+ const stories=window.CARANA_LESSON1_ILLUSTRATIONS;
  if(!lesson||!journey||!labs){$('vg-display').textContent='The lesson illustrations could not be loaded.';return;}
  const list=lesson.sections.flatMap((section,i)=>section.screens.map((screen,j)=>({
   id:String(i+1).padStart(2,'0')+'-'+String(j+1).padStart(2,'0'),
@@ -26,14 +27,16 @@
    const label=document.createElement('div');label.className='vg-section-title';label.textContent='SECTION '+(v.section+1)+' · '+v.group;group.append(label);nav.append(group);
   }
   const btn=document.createElement('button');btn.type='button';btn.className='vg-screen';btn.dataset.id=v.id;
-  btn.innerHTML='<span>'+esc(v.number)+'</span>'+esc(v.title);
+  btn.innerHTML='<span>'+esc(v.number)+'</span><span class="vg-screen-text">'+esc(v.title)+(stories?.artwork?.[v.id]?'<small class="vg-cinema-label">CINEMATIC + CONCEPT</small>':'')+'</span>';
   btn.addEventListener('click',()=>choose(i));
   nav.append(btn);
  }
  function render(){
   const v=list[index];
-  const html=journey.html(v.section,v.screen)||labs.html(v.section,v.screen);
-  display.innerHTML='<div class="vg-card-header"><div class="vg-eyebrow">SCREEN '+esc(v.number)+'</div><h2>'+esc(v.title)+'</h2><p>'+esc(v.group)+' · Interactive conceptual illustration</p></div>'+html+'<p class="vg-hint"><strong>Try it:</strong> Select a component of the visualization to reveal its meaning or feedback.</p>';
+  const concept=journey.html(v.section,v.screen)||labs.html(v.section,v.screen);
+  const cinema=stories?stories.html(v.section,v.screen):'';
+  const paired=cinema?'<div class="hybrid-visual-sequence"><div class="hybrid-visual-step"><span>01</span> See the situation</div>'+cinema+'<div class="hybrid-visual-step conceptual"><span>02</span> Explore the underlying concept</div>'+concept+'</div>':concept;
+  display.innerHTML='<div class="vg-card-header"><div class="vg-eyebrow">SCREEN '+esc(v.number)+(cinema?' · HYBRID VISUAL':'')+'</div><h2>'+esc(v.title)+'</h2><p>'+esc(v.group)+' · '+(cinema?'Cinematic situation + interactive concept':'Interactive conceptual illustration')+'</p></div>'+paired+'<p class="vg-hint"><strong>Try it:</strong> Select a component of the visualization to reveal its meaning or feedback.</p>';
   if(journey.html(v.section,v.screen))journey.mount(v.section,v.screen);
   else labs.mount(v.section,v.screen);
   for(const btn of nav.querySelectorAll('.vg-screen'))btn.setAttribute('aria-current',String(btn.dataset.id===v.id));
