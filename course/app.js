@@ -266,10 +266,29 @@
   }
   function renderActivity() {
     if(!isAllCleared()){navigate(0,0);return;}
-    const content='<div class="activity-header"><span class="small-tag">UNLOCKED · PRACTICAL APPLICATION</span><h1>The CARANA workbench</h1><p class="lead">You have completed the six knowledge checkpoints. Now apply the complete analytical sequence using the existing, unchanged Module 1 activity.</p><div class="activity-note"><strong>Preservation guarantee</strong><p>The exercise below loads the original Module 1 workbench from this copied repository. Its forms, interactions, original storage structure, and exports are not rewritten by the e-learning course.</p></div><div class="workbench-toolbar"><span>ORIGINAL ACTIVITY · SITUATIONAL ANALYSIS</span><a class="btn outline small" target="_blank" rel="noopener" href="../module1.html">Open in full window ↗</a></div><div class="workbench-wrap"><iframe id="workbench-frame" title="Original CARANA CBD Module 1 learning activity" src="../module1.html" loading="lazy"></iframe></div><p class="practice-help">Complete the original exercise and use its confirmation control. Then return here and verify your completion. Your exercise data is stored separately from your lesson checkpoint data.</p><div id="activity-status" class="inline-feedback" role="status" aria-live="polite">Confirmation is checked from the original workbench on this same website.</div><div class="bottom-actions"><button class="btn outline" id="back-to-lesson">← Review Lesson 1</button><button class="btn primary" id="verify-practice">Verify workbench completion →</button></div></div>';
+    const content='<div class="activity-header"><div class="activity-breadcrumb"><span>LESSON 01</span><span>→</span><span>PRACTICAL APPLICATION</span></div><span class="small-tag">UNLOCKED · ORIGINAL INTERACTIVE ACTIVITY</span><h1>Put the evidence<br><em>to work.</em></h1><p class="lead">You have completed all six knowledge checkpoints. Now apply the analytical sequence in the original CARANA Situational Analysis workbench.</p>'+
+      '<div class="activity-launch-hero"><div><span class="launch-eyebrow">01 / SITUATIONAL ANALYSIS ACTIVITY</span><strong>CARANA CBD Learning Lab</strong><p>PESTEL-S · Stakeholders · 5×6 CBD matrix · SWOT · Baseline</p><div class="launch-links"><a href="../module1.html" target="_blank" rel="noopener noreferrer" class="btn primary xl">Launch full activity <span aria-hidden="true">↗</span></a><button class="btn outline" id="open-other-activities">All activities →</button></div></div><div class="launch-symbol" aria-hidden="true">01<span>WORKBENCH</span></div></div>'+
+      '<div class="activity-note"><strong>Your exercise stays unchanged</strong><p>These controls open the original Module 1 workbench from the source application. The activity, its data format, and its original exercises remain intact. For the best working experience, launch it in a full browser tab.</p></div>'+
+      '<div class="activity-frame-head"><div><span>IN-PAGE WORKBENCH</span><p>An embedded option for learners who prefer to stay inside the course.</p></div><button id="toggle-workbench" class="btn outline small" aria-expanded="false" aria-controls="embedded-workbench">Show embedded activity ↓</button></div>'+
+      '<div class="embedded-workbench" id="embedded-workbench" hidden><div class="workbench-toolbar"><span>ORIGINAL ACTIVITY · SITUATIONAL ANALYSIS</span><a class="btn outline small" target="_blank" rel="noopener noreferrer" href="../module1.html">Open full window ↗</a></div><div class="workbench-wrap"><iframe id="workbench-frame" title="Original CARANA CBD Module 1 learning activity" loading="lazy" data-src="../module1.html"></iframe></div></div>'+
+      '<div class="practice-verification"><div><span class="small-tag">FINAL STEP</span><h2>Confirm your practical work</h2><p>When you complete the exercise in the workbench, use its existing participant confirmation control and return here. This records a self-confirmed completion, not independent performance assessment.</p></div><button class="btn primary" id="verify-practice">Verify completion →</button></div><div id="activity-status" class="inline-feedback" role="status" aria-live="polite">The guided course can check the original workbench confirmation only on this same website and browser.</div>'+
+      '<div class="bottom-actions"><button class="btn outline" id="back-to-lesson">← Review Lesson 1</button><button class="btn outline" id="go-to-library">Browse other activities ↗</button></div></div>';
     layout(content,'Lesson 1 · Practical application');
     $('back-to-lesson').addEventListener('click',()=>navigate(5,2));
     $('verify-practice').addEventListener('click',verifyActivity);
+    $('open-other-activities').addEventListener('click',openActivities);
+    $('go-to-library').addEventListener('click',openActivities);
+    $('toggle-workbench').addEventListener('click',()=>{
+      const target=$('embedded-workbench'),button=$('toggle-workbench');
+      const willOpen=target.hidden;
+      target.hidden=!willOpen;
+      button.setAttribute('aria-expanded',String(willOpen));
+      button.textContent=willOpen?'Hide embedded activity ↑':'Show embedded activity ↓';
+      if(willOpen){
+        const frame=$('workbench-frame');
+        if(!frame.getAttribute('src'))frame.setAttribute('src',frame.dataset.src);
+      }
+    });
   }
   function renderComplete() {
     if(!progress.lessonComplete){openActivity();return;}
