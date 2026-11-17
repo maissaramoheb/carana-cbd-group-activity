@@ -1,0 +1,230 @@
+/* CARANA CBD Lesson 1 · Hybrid visual learning v0.8
+ * 3 cinematic situation illustrations + interactive conceptual diagrams.
+ * In other screens, preserve the one-diagram learning rhythm.
+ */
+.is-learning .hybrid-visual-sequence{
+  --hybrid-teal:#2e8999;
+  margin:23px 0 25px;
+  padding:0;
+}
+.is-learning .hybrid-visual-step{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 10px;
+  color:#477385;
+  font-size:10.5px;
+  font-weight:850;
+  line-height:1.5;
+  letter-spacing:.075em;
+  text-transform:uppercase;
+}
+.is-learning .hybrid-visual-step span{
+  display:grid;
+  flex:none;
+  place-items:center;
+  width:28px;
+  height:28px;
+  border:1px solid #b9d9df;
+  border-radius:50%;
+  color:#207f91;
+  background:#e9f6f6;
+  font-size:10px;
+  font-weight:900;
+}
+.is-learning .hybrid-visual-step.conceptual{
+  margin:22px 0 10px;
+}
+.is-learning .hybrid-visual-step.conceptual span{
+  color:#fff;
+  background:#267d88;
+  border-color:#267d88;
+}
+.is-learning .hybrid-visual-sequence .cbd-storyboard{
+  margin:0 auto;
+  max-width:790px;
+  background:#fff;
+  border:1px solid #cbdfe4;
+  border-radius:14px;
+  box-shadow:0 14px 33px rgba(15,57,79,.07);
+}
+.is-learning .hybrid-visual-sequence .cbd-storyboard img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:auto;
+  object-fit:contain;
+  background:#e0edf0;
+}
+.is-learning .hybrid-visual-sequence .cbd-storyboard-head{
+  padding:10px 15px;
+}
+.is-learning .hybrid-visual-sequence .cbd-storyboard figcaption{
+  padding:13px 16px 14px;
+}
+.is-learning .hybrid-visual-sequence .vj-stage{
+  margin-top:0;
+  margin-bottom:0;
+}
+.is-learning .hybrid-visual-sequence .vj-heading{
+  margin-bottom:17px;
+}
+/* Concept-wheel iconography: drawn in code, no network dependency. */
+.is-learning .vj-wheel .vj-node-mark{
+  width:30px;height:30px;min-width:30px;border-radius:9px;
+}
+.is-learning .vj-wheel .vj-node-mark svg{
+  display:block;width:19px;height:19px;stroke:currentColor;
+}
+.is-learning .vj-wheel .vj-node:nth-child(1) .vj-node-mark{background:#e2e7fa;color:#566cac}
+.is-learning .vj-wheel .vj-node:nth-child(2) .vj-node-mark{background:#f9ebd9;color:#a17136}
+.is-learning .vj-wheel .vj-node:nth-child(3) .vj-node-mark{background:#f8e3e9;color:#aa5677}
+.is-learning .vj-wheel .vj-node:nth-child(4) .vj-node-mark{background:#ddf0f9;color:#3b85a0}
+.is-learning .vj-wheel .vj-node:nth-child(5) .vj-node-mark{background:#dff0df;color:#4b8d5d}
+.is-learning .vj-wheel .vj-node:nth-child(6) .vj-node-mark{background:#eee5f6;color:#78629c}
+.is-learning .vj-wheel .vj-node:nth-child(7) .vj-node-mark{background:#ddedea;color:#397e81}
+/* Progress made visible, without turning exploration into scored assessment. */
+.is-learning .vj-progress{
+  height:4px;
+  margin-top:12px;
+  border-radius:6px;
+  background:#dcebef;
+  overflow:hidden;
+}
+.is-learning .vj-progress>i{
+  display:block;
+  height:100%;width:0;
+  border-radius:6px;
+  background:linear-gradient(90deg,#69bdaf,#1b8a9d);
+  transition:width .2s ease-out;
+}
+/* More legible axes for the four-quadrant SWOT formative exercise. */
+.is-learning .vj-axis-x{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  text-align:center;
+  padding:0 1px 8px;
+  color:#527f8d;
+  font-size:10.5px;font-weight:850;
+  letter-spacing:.055em;
+}
+.is-learning .vj-swot-wrap{
+  position:relative;
+  padding:0 0 0 54px;
+}
+.is-learning .vj-axis-y{
+  position:absolute;
+  top:0;bottom:0;left:0;
+  width:47px;
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  align-items:stretch;
+  gap:9px;
+}
+.is-learning .vj-axis-y span{
+  display:grid;place-items:center;
+  color:#598497;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.04em;
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+}
+.is-learning .vj-swot-wrap .vj-answers{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
+.is-learning .vj-swot-wrap .vj-answer{
+  min-height:76px;
+  align-items:center;
+}
+.is-learning .vj-swot-wrap .vj-answer-tag{
+  font-size:18px;
+  border-radius:11px;
+  width:43px;
+  height:43px;
+}
+/* Lightweight, optional formative micro-decisions on selected concept screens. */
+.is-learning .vj-micro{
+  margin-top:17px;
+  border-top:1px dashed #bdd8df;
+  padding-top:16px;
+}
+.is-learning .vj-micro-label{
+  color:#237e91;font-size:10px;font-weight:850;letter-spacing:.09em;
+  margin-bottom:7px;
+}
+.is-learning .vj-micro-prompt{
+  color:#24475b;
+  display:block;
+  font-weight:750;
+  font-size:12.8px;
+  line-height:1.63;
+  margin:0 0 10px;
+}
+.is-learning .vj-micro-answers{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+.is-learning .vj-micro-answer{
+  display:grid;
+  place-items:center;
+  text-align:center;
+  min-height:49px;
+  padding:9px 7px;
+  border:1px solid #cadfe6;
+  background:#fff;
+  color:#2a6075;
+  border-radius:9px;
+  font:750 11.2px/1.4 var(--type-sans,system-ui,sans-serif);
+  cursor:pointer;
+  transition:background-color .16s ease,border-color .16s ease;
+}
+.is-learning .vj-micro-answer:hover{
+  border-color:#73b6bf;
+  background:#eff9fa;
+}
+.is-learning .vj-micro-answer.chosen{
+  border-color:#3a989f;
+  background:#e0f3f2;
+}
+.is-learning .vj-micro-answer:focus-visible{
+  outline:3px solid #218aa4;
+  outline-offset:3px;
+}
+.is-learning .vj-micro-feedback{
+  border-radius:8px;
+  background:#fff;
+  margin-top:10px;
+  padding:12px 14px;
+  color:#59798b;
+  line-height:1.6;
+  font-size:12px;
+  border-left:3px solid #8fb5c2;
+}
+.is-learning .vj-micro-feedback.correct{
+  background:#eff9f2;border-left-color:#4da277;color:#386b58;
+}
+.is-learning .vj-micro-feedback.reflect{
+  background:#fff8ea;border-left-color:#b99a51;color:#76603d;
+}
+@media(max-width:740px){
+  .is-learning .vj-swot-wrap{padding-left:43px}
+  .is-learning .vj-axis-y{width:37px}
+  .is-learning .vj-micro-answers{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .is-learning .hybrid-visual-sequence{margin:18px 0 22px}
+  .is-learning .hybrid-visual-step.conceptual{margin-top:17px}
+  .is-learning .hybrid-visual-sequence .cbd-storyboard{border-radius:11px}
+  .is-learning .vj-swot-wrap{padding-left:0}
+  .is-learning .vj-axis-y{display:none}
+  .is-learning .vj-axis-x{display:none}
+  .is-learning .vj-swot-wrap .vj-answers{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .is-learning .vj-progress>i,.is-learning .vj-micro-answer{transition:none}
+}
