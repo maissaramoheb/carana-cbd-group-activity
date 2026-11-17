@@ -279,8 +279,10 @@
     const conceptExplorer=learningLab?learningLab.html(section,screen):'';
     const visualJourney=window.CARANA_VISUAL_JOURNEY?window.CARANA_VISUAL_JOURNEY.html(section,screen):'';
     const storyIllustration=window.CARANA_LESSON1_ILLUSTRATIONS?window.CARANA_LESSON1_ILLUSTRATIONS.html(section,screen):'';
+    const analyticalVisual=visualJourney||conceptExplorer||visual;
+    const visualSequence=storyIllustration?'<div class="hybrid-visual-sequence" aria-label="Illustrated situation and interactive analytical explanation"><div class="hybrid-visual-step"><span>01</span> See the situation</div>'+storyIllustration+'<div class="hybrid-visual-step conceptual"><span>02</span> Explore the underlying concept</div>'+analyticalVisual+'</div>':analyticalVisual;
     const content='<div class="learning-head"><span class="micro-label">SECTION '+String(section+1).padStart(2,'0')+' OF 06 <span>·</span> SCREEN '+String(screen+1)+' OF 03</span><span class="screen-count">'+String(absolute).padStart(2,'0')+' / 18</span></div><div class="section-rule"></div>' +
-      '<div class="content-title"><span class="small-tag">'+clean(item.kicker)+'</span><h1>'+clean(item.title)+'</h1><p class="lead">'+clean(item.lead)+'</p></div>'+trainerNarration+(visualJourney||conceptExplorer||storyIllustration||visual) +
+      '<div class="content-title"><span class="small-tag">'+clean(item.kicker)+'</span><h1>'+clean(item.title)+'</h1><p class="lead">'+clean(item.lead)+'</p></div>'+trainerNarration+visualSequence +
       '<div class="learning-points">'+item.points.map((p,i)=>'<div class="point"><span class="point-dot"></span><p>'+clean(p)+'</p></div>').join('')+'</div>' +fieldPractice+
       '<div class="takeaway"><span>KEY IDEA</span><strong>'+clean(item.takeaway)+'</strong></div>'+outcomes +
       '<div class="lesson-foot"><span>Based on lesson plan pages '+clean(item.sourcePage)+'</span><span>Original instructional adaptation</span></div>' +
