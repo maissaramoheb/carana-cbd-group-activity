@@ -46,5 +46,7 @@
       "destination": "/",
       "permanent": false
     }
-  ]
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
 }
