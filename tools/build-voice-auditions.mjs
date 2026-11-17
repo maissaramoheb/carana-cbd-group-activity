@@ -1,13 +1,16 @@
 /**
- * CARANA CBD voice audition build — three deliberately limited neural speech samples.
- * - Runs only during a Vercel preview build (never at learner request time).
- * - Original activity files are copied untouched.
- * - No generated voice is exposed until the returned bytes pass MP3 signature checks.
- * - Failed sample generation leaves that clip unavailable, never a fake Play button.
- * - AI-generated voice is explicitly disclosed in the client.
+ * CARANA CBD Lesson 1 — natural English AI narration, 18 clips.
  *
- * Run locally to validate static output without network or billing:
- * SKIP_VOICE_GENERATION=1 node tools/build-voice-auditions.mjs
+ * Build-only generation with approved voice ('onyx', OpenAI TTS-1 HD).
+ * Previously served valid MP3 files on the official CBD course domain are
+ * reused byte-for-byte. Missing tracks are generated with conservative rate
+ * limiting. A partial release fails the build: never publish a course claiming
+ * 18 narrated screens when audio is incomplete.
+ *
+ * NO runtime TTS, no browser speech synthesis, no exposed API credentials.
+ *
+ * SKIP_VOICE_GENERATION=1 allows smoke-testing static assets without generating
+ * any audio. All full production builds must verify 18 source-accurate MP3s.
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -17,136 +20,150 @@ import { fileURLToPath } from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dest=path.join(root,'dist');
 const SKIP=process.env.SKIP_VOICE_GENERATION==='1';
-// Default: reuse the three already released MP3 files without new TTS spend.
-// Explicitly set CARANA_REGENERATE_SAMPLES=1 only for an intentional new audition.
-const REUSE=process.env.CARANA_REGENERATE_SAMPLES!=='1';
-const selection=[
-  {id:'01-01',topic:'The decision before the decision'},
-  {id:'02-01',topic:'Structure the context with PESTEL-S'},
-  {id:'05-02',topic:'Six dimensions cross every area'}
-];
+const AUDIO_SOURCE='https://cbd.maissara.tech/course/audio/en/lesson1/';
+const MODEL='openai/tts-1-hd';
+const VOICE='onyx';
+const GAP_MS=17500;
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
 async function stageStaticAssets(){
   await fs.rm(dest,{recursive:true,force:true});
   await fs.mkdir(dest,{recursive:true});
   const ignore=new Set(['.git','.vercel','node_modules','dist','.github','.DS_Store','.env','.env.local','.env.production','package-lock.json']);
   for(const item of await fs.readdir(root,{withFileTypes:true})){
-    if(ignore.has(item.name))continue;
-    if(item.name.startsWith('.env.'))continue;
+    if(ignore.has(item.name)||item.name.startsWith('.env.'))continue;
     await fs.cp(path.join(root,item.name),path.join(dest,item.name),{recursive:true,force:true});
   }
 }
-
-// Only the three selected pre-reviewed scripts are eligible for sampling.
-async function getNarration(){
+async function loadSource(){
   const js=await fs.readFile(path.join(root,'course/lesson1-experience.js'),'utf8');
   const sandbox={window:{}};
   vm.runInNewContext(js,sandbox,{filename:'lesson1-experience.js',timeout:3000});
   const tracks=sandbox.window.CARANA_EXPERIENCE_V05?.narration?.tracks;
-  if(!Array.isArray(tracks))throw Error('Narration script source missing');
-  const result={};
-  for(const item of selection){
-    const entry=tracks.find(track=>track.id===item.id);
-    if(!entry||typeof entry.script!=='string'||entry.script.length<300)throw Error('Invalid narration script: '+item.id);
-    result[item.id]=entry.script;
+  if(!Array.isArray(tracks)||tracks.length!==18)throw Error('Expected exactly 18 official-aligned voice scripts');
+  const expected=[];
+  for(let sec=1;sec<=6;sec++)for(let screen=1;screen<=3;screen++)
+    expected.push(String(sec).padStart(2,'0')+'-'+String(screen).padStart(2,'0'));
+  for(const [i,t] of tracks.entries()){
+    if(t.id!==expected[i]||typeof t.script!=='string'||t.script.trim().length<300)
+      throw Error('Source script incomplete or out of order: '+expected[i]);
   }
-  return result;
+  return tracks;
+}
+function isMP3(bytes){
+  return bytes.length>12000 &&
+    (bytes.subarray(0,3).toString('ascii')==='ID3' ||
+      (bytes[0]===0xff&&(bytes[1]&0xe0)===0xe0));
 }
 
-function isMP3(audio){
-  return audio.length>12000 &&
-    ((audio.subarray(0,3).toString('ascii')==='ID3') ||
-    (audio[0]===0xff && (audio[1]&0xe0)===0xe0));
+async function fetchPriorAudio(id){
+  const source=AUDIO_SOURCE+id+'.mp3';
+  try {
+    const r=await fetch(source,{signal:AbortSignal.timeout(20000),headers:{'Accept':'audio/mpeg'}});
+    const type=r.headers.get('content-type')||'';
+    if(!r.ok||!type.startsWith('audio/'))return null;
+    const bytes=Buffer.from(await r.arrayBuffer());
+    if(!isMP3(bytes))throw Error('Existing file failed MP3 validation for '+id);
+    return bytes;
+  }catch(error){
+    const msg=String(error?.message||error);
+    console.warn('[NARRATION] '+id+' reuse unavailable: '+msg.slice(0,180));
+    return null;
+  }
+}
+
+async function generateSingle(text,id,generateSpeech,gateway,lastRequest){
+  for(let attempt=1;attempt<=4;attempt++){
+    // Vercel AI Gateway limits this provider to five requests/min across the
+    // team. Space out *all* requests, including unsuccessful attempts.
+    const elapsed=Date.now()-lastRequest.at;
+    if(lastRequest.at&&elapsed<GAP_MS)await sleep(GAP_MS-elapsed);
+    lastRequest.at=Date.now();
+    try{
+      const result=await generateSpeech({
+        model:gateway.speechModel(MODEL),
+        text,
+        voice:VOICE,
+        outputFormat:'mp3',
+        abortSignal:AbortSignal.timeout(90000)
+      });
+      const bytes=Buffer.from(result.audio.uint8Array);
+      if(!isMP3(bytes))throw Error('Provider returned invalid/empty MP3');
+      return bytes;
+    }catch(error){
+      const reason=String(error?.message||error);
+      const limited=/rate limit|429|GatewayRateLimitError/i.test(reason);
+      if(attempt===4)throw Error('Audio generation failed for '+id+': '+reason.slice(0,260));
+      if(!limited)throw Error('Audio generation failed for '+id+': '+reason.slice(0,260));
+      const match=reason.match(/Retry after\s+(\d+)s/i);
+      const cooldown=Math.min(130000,Math.max(65000,(Number(match?.[1])||60)*1000+7000));
+      console.warn('[NARRATION] '+id+' rate-limited, attempt '+attempt+'; cooldown '+Math.ceil(cooldown/1000)+'s.');
+      await sleep(cooldown);
+    }
+  }
+  throw Error('Audio generation exhausted retries for '+id);
 }
 
 async function main(){
   await stageStaticAssets();
-  const texts=await getNarration();
+  const tracks=await loadSource();
   const destination=path.join(dest,'course/audio/en/lesson1');
   await fs.mkdir(destination,{recursive:true});
   const entries={};
+  const reused=[];
+  const generated=[];
+  let generateSpeech,gateway;
+  const lastRequest={at:0};
+
   if(SKIP){
-    console.log('[AUDITION] SKIP_VOICE_GENERATION=1 — static output validated, no audio generated.');
-  } else if(REUSE){
-    // Fetch exactly the already published samples from the verified course
-    // origin. Fail closed rather than silently dropping audio or regenerating it.
-    for(const item of selection){
-      const source='https://cbd.maissara.tech/course/audio/en/lesson1/'+item.id+'.mp3';
-      const response=await fetch(source,{signal:AbortSignal.timeout(20000)});
-      const contentType=response.headers.get('content-type')||'';
-      if(!response.ok||!contentType.includes('audio/')){
-        throw new Error('Cannot reuse published MP3 '+item.id+': HTTP '+response.status+' '+contentType);
-      }
-      const bytes=Buffer.from(await response.arrayBuffer());
-      if(!isMP3(bytes))throw new Error('Previously published MP3 failed validation: '+item.id);
-      await fs.writeFile(path.join(destination,item.id+'.mp3'),bytes);
-      entries[item.id]='./audio/en/lesson1/'+item.id+'.mp3';
-      console.log('[AUDITION] '+item.id+' REUSED '+bytes.length+' bytes — no TTS generation');
-    }
-  } else {
-    // Load the SDK only in the environment performing the paid generation.
-    const {generateSpeech,gateway}=await import('ai');
-    for(const item of selection){
-      const started=Date.now();
-      const maxAttempts=3;
-      for(let attempt=1; attempt<=maxAttempts; attempt++){
-        try{
-          const response=await generateSpeech({
-            model:gateway.speechModel('openai/tts-1-hd'),
-            text:texts[item.id],
-            voice:'onyx',
-            outputFormat:'mp3',
-            abortSignal:AbortSignal.timeout(90000)
-          });
-          const bytes=Buffer.from(response.audio.uint8Array);
-          if(!isMP3(bytes))throw Error('Speech model did not return valid MP3 bytes');
-          const filename=item.id+'.mp3';
-          await fs.writeFile(path.join(destination,filename),bytes);
-          entries[item.id]='./audio/en/lesson1/'+filename;
-          console.log('[AUDITION] '+item.id+' OK '+bytes.length+' bytes ('+Math.round((Date.now()-started)/1000)+'s)');
-          break;
-        }catch(error){
-          const reason=String(error?.message||error);
-          const limited=/rate limit|429|GatewayRateLimitError/i.test(reason);
-          if(limited&&attempt<maxAttempts){
-            const match=reason.match(/Retry after\s+(\d+)s/i);
-            const delayMs=Math.min(90000,Math.max(65000,(Number(match?.[1])||60)*1000+5000));
-            console.warn('[AUDITION] '+item.id+' rate-limited; waiting '+Math.ceil(delayMs/1000)+' seconds before a safe retry ('+attempt+'/'+maxAttempts+').');
-            await new Promise(resolve=>setTimeout(resolve,delayMs));
-            continue;
-          }
-          console.warn('[AUDITION] '+item.id+' unavailable after '+attempt+' attempt(s): '+reason.slice(0,300));
-          break;
+    console.log('[NARRATION] Smoke only. Audio deliberately skipped.');
+  }else{
+    for(const [i,t] of tracks.entries()){
+      let bytes=await fetchPriorAudio(t.id);
+      if(bytes){
+        reused.push(t.id);
+        console.log('[NARRATION] '+t.id+' REUSED '+bytes.length+' bytes');
+      }else{
+        if(!generateSpeech){
+          const sdk=await import('ai');
+          generateSpeech=sdk.generateSpeech;
+          gateway=sdk.gateway;
         }
+        bytes=await generateSingle(t.script,t.id,generateSpeech,gateway,lastRequest);
+        generated.push(t.id);
+        console.log('[NARRATION] '+t.id+' GENERATED '+bytes.length+' bytes ('+(i+1)+'/18)');
       }
+      await fs.writeFile(path.join(destination,t.id+'.mp3'),bytes);
+      entries[t.id]='./audio/en/lesson1/'+t.id+'.mp3';
     }
+    if(Object.keys(entries).length!==18)throw Error('Never release an incomplete Lesson 1 audio set');
   }
-  const manifest= [
-    '/* Auto-generated at build time. AI-generated audition samples; not final approved narration. */',
+
+  const manifest=[
+    '/* Generated at build-time; actual same-origin MP3s only. AI narration is disclosed. */',
     'window.CARANA_LESSON1_AUDIO_MANIFEST = '+JSON.stringify(entries,null,2)+';',
-    'window.CARANA_LESSON1_AUDIO_SAMPLE_MODE = true;',
+    'window.CARANA_LESSON1_AUDIO_SAMPLE_MODE = false;',
+    'window.CARANA_LESSON1_AUDIO_AI_MODE = true;',
     'window.CARANA_LESSON1_AUDIO_SAMPLE_METADATA = '+JSON.stringify({
-      id:'voice-audition-2026-11',
-      model:'openai/tts-1-hd',
-      voice:'onyx',
-      disclosure:'AI-generated voice audition, not a human recording or an approved final UN learning asset.',
-      generatedIds:Object.keys(entries),
+      id:'lesson1-english-narration',
+      model:MODEL,voice:VOICE,
+      disclosure:'AI-generated English trainer narration, independently authored and not UN-endorsed.',
+      generatedIds:generated,
+      reusedIds:reused
     },null,2)+';',
     ''
   ].join('\n');
   await fs.writeFile(path.join(dest,'course/lesson1-audio-manifest.js'),manifest,'utf8');
-  // Useful for deployment verification and release evidence.
-  await fs.writeFile(path.join(dest,'course/audio-samples-status.json'),JSON.stringify({
-    status:Object.keys(entries).length===3?'all-three-generated':Object.keys(entries).length>0?'partial':'no-recordings',
-    requested:selection.map(x=>x.id),
-    generated:Object.keys(entries),
-    approvedForFinalRelease:false,
-    type:'AI-generated audition clips'
-  },null,2),'utf8');
-  console.log('[AUDITION] '+Object.keys(entries).length+' of 3 MP3 sample files available in static deployment.');
+  const status={
+    status:SKIP?'smoke-no-audio':'complete',
+    requested:tracks.map(t=>t.id),available:Object.keys(entries),
+    generated,reused,total:Object.keys(entries).length,
+    model:MODEL,voice:VOICE,approvedForUNCertification:false
+  };
+  await fs.writeFile(path.join(dest,'course/audio-samples-status.json'),JSON.stringify(status,null,2),'utf8');
+  console.log('[NARRATION] '+status.total+' / 18 verified MP3 files. Generated: '+generated.length+'. Reused: '+reused.length+'.');
 }
-
 main().catch(error=>{
-  console.error('[AUDITION] static build failed:',String(error?.message||error).slice(0,280));
+  console.error('[NARRATION] BUILD FAILED (no partial release):',String(error?.message||error).slice(0,500));
   process.exitCode=1;
 });
