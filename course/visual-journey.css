@@ -113,6 +113,19 @@
 .is-learning .vj-wheel .vj-node:nth-child(5){left:25%;bottom:0}
 .is-learning .vj-wheel .vj-node:nth-child(6){left:0;top:45%}
 .is-learning .vj-wheel .vj-node:nth-child(7){left:8%;top:12%}
+/* Four types of active responders surround one national institution. */
+.is-learning .vj-orbit{height:288px;display:block;
+ background:radial-gradient(circle at 50% 50%,rgba(157,213,215,.24) 0 23%,transparent 23.5% 46%,rgba(134,202,210,.14) 46.5% 47%,transparent 47.5%);
+ border-radius:15px;
+}
+.is-learning .vj-orbit .vj-center{
+ position:absolute;width:123px;height:123px;left:50%;top:50%;transform:translate(-50%,-50%);
+}
+.is-learning .vj-orbit .vj-node{position:absolute;width:31%;min-height:79px;justify-content:center}
+.is-learning .vj-orbit .vj-node:nth-child(1){left:0;top:7%}
+.is-learning .vj-orbit .vj-node:nth-child(2){right:0;top:7%}
+.is-learning .vj-orbit .vj-node:nth-child(3){left:0;bottom:7%}
+.is-learning .vj-orbit .vj-node:nth-child(4){right:0;bottom:7%}
 /* Different analytical diagrams: tree, iceberg, coordination overlap. */
 .is-learning .vj-tree{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;align-items:center}
 .is-learning .vj-tree .vj-node{min-height:142px;flex-direction:column;text-align:center;justify-content:center}
@@ -244,6 +257,9 @@
  .is-learning .vj-wheel .vj-center{position:static;transform:none;width:auto;height:auto;min-height:65px;grid-column:1/-1;border-radius:10px;grid-row:1}
  .is-learning .vj-wheel .vj-node{position:static;width:auto;min-height:68px;flex-direction:row;text-align:left}
  .is-learning .vj-wheel .vj-node:nth-child(7){grid-column:1/-1}
+ .is-learning .vj-orbit{height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;background:none}
+ .is-learning .vj-orbit .vj-center{position:static;transform:none;width:auto;height:58px;border-radius:10px;grid-row:1;grid-column:1/-1}
+ .is-learning .vj-orbit .vj-node{position:static;width:auto;min-height:68px}
  .is-learning .vj-overlap{height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
  .is-learning .vj-overlap .vj-node{position:static;width:auto;height:auto;min-height:100px;border-radius:11px;transform:none}
  .is-learning .vj-overlap .vj-node:nth-child(3){grid-column:1/-1;width:auto;height:auto;transform:none}
