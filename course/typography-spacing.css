@@ -419,3 +419,20 @@ h1,h2,h3{overflow-wrap:normal}
 @media(prefers-reduced-motion:reduce){
   .curriculum-hero .main-cta:hover{transform:none}
 }
+
+/* v0.4.1: normalize hero spacing after removing annotated microcopy. */
+.curriculum-hero .hero-copy{padding-top:21px}
+.curriculum-hero h1{margin-top:0}
+.curriculum-hero .hero-actions{margin-top:32px}
+.curriculum-visual .cycle-orbit{margin-top:5px}
+.curriculum-visual .cycle-detail{margin-top:12px}
+.curriculum-visual .cycle-core{justify-content:center;gap:7px}
+.curriculum-visual .cycle-core-title{margin:0}
+.curriculum-visual .cycle-core-full{line-height:1.6}
+@media(max-width:1080px){
+  .curriculum-hero .hero-copy{padding-top:0}
+}
+@media(max-width:650px){
+  .curriculum-hero .hero-copy{padding-top:0}
+  .curriculum-visual .cycle-orbit{margin-top:0}
+}
