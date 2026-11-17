@@ -277,9 +277,10 @@
     const trainerNarration=experience?experience.narrationHTML(section,screen):'';
     const fieldPractice=experience?experience.practiceHTML(section,screen):'';
     const conceptExplorer=learningLab?learningLab.html(section,screen):'';
+    const visualJourney=window.CARANA_VISUAL_JOURNEY?window.CARANA_VISUAL_JOURNEY.html(section,screen):'';
     const storyIllustration=window.CARANA_LESSON1_ILLUSTRATIONS?window.CARANA_LESSON1_ILLUSTRATIONS.html(section,screen):'';
     const content='<div class="learning-head"><span class="micro-label">SECTION '+String(section+1).padStart(2,'0')+' OF 06 <span>·</span> SCREEN '+String(screen+1)+' OF 03</span><span class="screen-count">'+String(absolute).padStart(2,'0')+' / 18</span></div><div class="section-rule"></div>' +
-      '<div class="content-title"><span class="small-tag">'+clean(item.kicker)+'</span><h1>'+clean(item.title)+'</h1><p class="lead">'+clean(item.lead)+'</p></div>'+trainerNarration+storyIllustration+(conceptExplorer||visual) +
+      '<div class="content-title"><span class="small-tag">'+clean(item.kicker)+'</span><h1>'+clean(item.title)+'</h1><p class="lead">'+clean(item.lead)+'</p></div>'+trainerNarration+(visualJourney||conceptExplorer||storyIllustration||visual) +
       '<div class="learning-points">'+item.points.map((p,i)=>'<div class="point"><span class="point-dot"></span><p>'+clean(p)+'</p></div>').join('')+'</div>' +fieldPractice+
       '<div class="takeaway"><span>KEY IDEA</span><strong>'+clean(item.takeaway)+'</strong></div>'+outcomes +
       '<div class="lesson-foot"><span>Based on lesson plan pages '+clean(item.sourcePage)+'</span><span>Original instructional adaptation</span></div>' +
@@ -287,6 +288,7 @@
     layout(content,sec.title);
     if(experience)experience.mount(section,screen);
     if(learningLab)learningLab.mount(section,screen);
+    if(window.CARANA_VISUAL_JOURNEY)window.CARANA_VISUAL_JOURNEY.mount(section,screen);
     $('prev-screen').addEventListener('click',()=>{
       if(screen>0) navigate(section,screen-1);
       else if(section>0) navigate(section-1,2);
