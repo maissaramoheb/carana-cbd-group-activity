@@ -167,15 +167,15 @@
       '<nav class="premium-navigation" aria-label="Main navigation"><a href="#course-map">The CBD cycle</a><button id="header-activities">Activities <span class="nav-count">07</span></button><a href="#about">How it works</a></nav>'+
       '<div class="header-utility"><span class="utility-dot"></span> SELF-PACED · PRACTICE-DRIVEN</div></header>'+
       '<section class="hero shell premium-hero curriculum-hero"><div class="hero-copy">'+
-      '<div class="hero-overline"><span class="hero-line"></span> THE CBD LEARNING JOURNEY <span class="hero-overline-number">/ SIX CONNECTED PHASES</span></div>'+
+
       '<h1>Build capability.<br><em>Strengthen institutions.</em></h1>'+
       '<p class="hero-lead">Explore the full cycle of police Capacity Building and Development—from understanding the situation and setting priorities to implementation, evaluation, and sustainable handover.</p>'+
       '<div class="hero-actions"><a class="btn primary xl main-cta" href="#course-map">Explore the CBD cycle <span class="cta-arrow" aria-hidden="true">↘</span></a>'+
       '<button class="btn secondary xl" id="start-course">'+(started?'Resume your learning':'Start with Lesson 01')+' <span aria-hidden="true">↗</span></button></div>'+
-      '<div class="hero-trust"><span>06 CURRICULUM PHASES</span><span class="trust-divider"></span><span>INTERACTIVE LEARNING</span><span class="trust-divider"></span><span>PRACTICAL APPLICATION</span></div>'+
-      '<button class="curriculum-hero-activities" id="hero-activities">Or explore all seven practical activities <span aria-hidden="true">↗</span></button></div>'+
+
+      '</div>'+
       '<div class="hero-art premium-visual curriculum-visual" role="group" aria-label="Interactive diagram of the six phases of the CBD cycle">'+
-      '<div class="cycle-visual-header"><span class="cycle-caption-line"></span> THE COMPLETE CBD CYCLE <span class="cycle-header-code">01—06</span></div>'+
+
       '<div class="cycle-orbit"><div class="cycle-grid" aria-hidden="true"></div>'+
       '<svg class="cycle-orbit-svg" viewBox="0 0 560 450" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">'+
       '<circle cx="280" cy="225" r="148" fill="none" stroke="rgba(123,209,225,.26)" stroke-width="1.2"/>'+
@@ -185,7 +185,7 @@
       '<path d="M 425 248 L 421 258 L 411 252" fill="none" stroke="#8fe1d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
       '<path d="M 193 343 L 184 340 L 189 331" fill="none" stroke="#8fe1d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
       '</svg>'+
-      '<div class="cycle-core"><span class="cycle-core-top">ONE CONTINUOUS PROCESS</span><div class="cycle-core-title">CBD</div><span class="cycle-core-full">CAPACITY BUILDING<br>& DEVELOPMENT</span><div class="cycle-core-divider"></div><span class="cycle-core-bottom">CONTEXT → SUSTAINABILITY</span></div>'+
+      '<div class="cycle-core"><div class="cycle-core-title">CBD</div><span class="cycle-core-full">CAPACITY BUILDING<br>& DEVELOPMENT</span></div>'+
       stageButtons+
       '</div>'+
       '<div class="cycle-detail" role="status" aria-live="polite"><div class="cycle-detail-copy"><span id="cycle-caption-phase">THE FULL CURRICULUM</span><strong id="cycle-caption-title">Six phases. One connected journey.</strong><p id="cycle-caption-copy">Select any phase to explore its purpose and available practical activity.</p></div><a id="cycle-caption-action" href="#course-map" class="cycle-detail-action" aria-label="Explore the curriculum">Explore all phases <span aria-hidden="true">↗</span></a></div>'+
@@ -212,7 +212,7 @@
       '<p class="course-disclaimer">Independent instructional adaptation referencing the UNPOL CBD Job-Specific Training curriculum. Only Lesson 1 is currently available as a self-paced course; all six original workbenches remain accessible. This is not an official United Nations learning platform, certification, or endorsement. Progress is stored locally in this browser.</p></section></main>'+
       '<footer class="footer shell"><span>© 2026 CARANA CBD E-Learning · Prepared by Lt. Col. Maissara Selim</span><span>UN curriculum and CARANA scenario remain attributed to their institutional sources.</span></footer></div>';
 
-    const bindings=[['start-course',resume],['lesson-one',resume],['header-activities',openActivities],['hero-activities',openActivities],['strip-activities',openActivities],['teaser-activities',openActivities]];
+    const bindings=[['start-course',resume],['lesson-one',resume],['header-activities',openActivities],['strip-activities',openActivities],['teaser-activities',openActivities]];
     bindings.forEach(([id,fn])=>$(id).addEventListener('click',fn));
     $('brand-home').addEventListener('click',goHome);
     document.querySelectorAll('[data-cycle-phase]').forEach(button=>button.addEventListener('click',()=>{
