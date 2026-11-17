@@ -1,0 +1,421 @@
+/* CARANA CBD E-Learning v0.4 · typography and spatial refinement
+ * Intent: improve typographic hierarchy, reading measure, scanability and
+ * use of negative space without altering instructional data or activity code.
+ * External font loading is progressive; the system/Georgia fallbacks work offline.
+ */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap');
+
+:root {
+  --type-sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  --type-display:'Source Serif 4',Georgia,Cambria,'Times New Roman',serif;
+  --type-ink:#1b344a;
+  --type-secondary:#486278;
+  --type-soft:#617b8e;
+  --space-page:clamp(22px,3.25vw,52px);
+  --space-screen:clamp(18px,2.45vw,36px);
+}
+html{scroll-padding-top:82px}
+body{
+  font-family:var(--type-sans);
+  font-size:14px;
+  line-height:1.63;
+  letter-spacing:-.008em;
+  color:var(--type-ink);
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,textarea,select{font-family:var(--type-sans);letter-spacing:inherit}
+p{overflow-wrap:break-word}
+h1,h2,h3{overflow-wrap:normal}
+:is(.premium-landing,.activities-page,.is-learning) h1,
+:is(.premium-landing,.activities-page,.is-learning) h2,
+:is(.premium-landing,.activities-page,.is-learning) h3{
+  text-wrap:balance;
+}
+/* Keep premium editorial direction while improving letterform proportions. */
+.premium-hero h1,
+.curriculum-hero h1,
+.curriculum-lessons .section-heading h2,
+.premium-lessons .section-heading h2,
+.activities-hero h1,
+.teaser-copy h2,
+.method-section h2,
+.showcase-body h3,
+.future-lesson strong,
+.curriculum-phase-card h3,
+.curriculum-continuum strong,
+.highlight-title strong,
+.activity-card h3,
+.hub-heading h2,
+.quick-exercise-copy h3,
+.cycle-detail-copy>strong,
+.curriculum-key-question>strong,
+.lesson-showcase h3,
+.mission-title,
+.cycle-core-title,
+.teaser-folder>strong,
+.rail-overline ~ h2,
+.side-rail h2,
+.context-panel h3,
+.content-title h1,
+.activity-header h1,
+.quiz-success h1,
+.practice-verification h2,
+.completion-activity-banner>strong,
+.activity-launch-hero strong,
+.completion-stats strong{
+  font-family:var(--type-display);
+  font-weight:400;
+  font-optical-sizing:auto;
+}
+:is(.premium-landing,.activities-page) :is(.section-eyebrow,.hero-overline,.highlight-kicker,.activity-card-tag,.showcase-index,.showcase-overline,.curriculum-lens,.curriculum-availability,.curriculum-card-number,.curriculum-card-header,.cycle-detail-copy>span){
+  letter-spacing:.095em;
+}
+.curriculum-hero h1{
+  font-size:clamp(48px,4.8vw,72px);
+  line-height:1.13;
+  letter-spacing:-.034em;
+  margin:26px 0 23px;
+}
+.curriculum-hero h1 em{font-weight:400}
+.curriculum-hero .hero-lead{font-size:15.5px;line-height:1.77;max-width:570px}
+.curriculum-hero .hero-copy{padding-top:58px}
+.curriculum-hero .hero-actions{margin-top:27px}
+.curriculum-hero .hero-trust{margin-top:26px}
+.curriculum-hero-activities{margin-top:17px}
+.cycle-core-title{font-size:60px}
+.cycle-detail-copy>strong{font-size:21px}
+.curriculum-phase-card h3{font-size:25px;line-height:1.18}
+.curriculum-phase-card>p{font-size:12.5px;line-height:1.72}
+.curriculum-landing .method-section h2{line-height:1.2}
+.curriculum-lessons .section-heading h2{font-size:clamp(35px,3.3vw,48px);line-height:1.19}
+.curriculum-lessons .section-heading p{font-size:13.5px;line-height:1.78}
+.curriculum-route{padding-block:17px}
+.curriculum-phase-card{padding:23px 23px 19px;min-height:350px}
+.curriculum-card-header{margin-bottom:21px}
+.curriculum-key-question{padding:12px 14px}
+.curriculum-card-foot{margin-top:15px}
+.curriculum-lessons{padding-top:83px;padding-bottom:80px}
+.curriculum-lessons .section-heading{margin-bottom:26px}
+.curriculum-continuum{padding:21px 24px;margin-top:22px}
+.curriculum-landing .activity-teaser .teaser-inner{padding-top:60px;padding-bottom:61px}
+.curriculum-landing .method-section{padding-top:75px;padding-bottom:63px}
+.curriculum-landing .method-grid{gap:15px}
+.method-card{padding:23px 24px}
+.method-card p{font-size:12.5px;line-height:1.7}
+.premium-landing .footer{font-size:11.5px}
+.premium-landing .btn,.activities-page .btn{font-weight:700;letter-spacing:-.012em}
+
+/* Persistent top-level orientation in the learner workspace. The right-hand
+ * information panel stays independent, so long explanations do not grow every
+ * learning screen. */
+.course-header{
+  position:sticky;top:0;z-index:40;
+  height:68px;min-height:68px;
+  padding-inline:clamp(18px,2.2vw,34px);
+  box-shadow:0 4px 19px rgba(9,29,47,.07);
+}
+.course-header .back-home,
+.course-header .export-mini{
+  font-size:11px;font-weight:750;letter-spacing:.065em;
+}
+.course-header .header-title{
+  font-size:11px;letter-spacing:.09em;
+}
+.course-header .header-title span{padding-inline:8px}
+.course-header .header-right{gap:13px}
+.course-header #save-status{color:#9eb9c9;font-size:10.5px}
+
+/* The 3-column layout reflects the actual readable measure, not just maximum
+ * monitor width. The paper-like middle column is restrained for better scanning. */
+.workspace{
+  grid-template-columns:250px minmax(0,1fr) 246px;
+  max-width:1760px;
+  min-height:calc(100vh - 68px);
+}
+.side-rail,.context-panel{
+  position:sticky;top:68px;
+  min-height:calc(100vh - 68px);
+  max-height:calc(100dvh - 68px);
+  overflow-y:auto;
+  scrollbar-width:thin;
+  overscroll-behavior:contain;
+}
+.side-rail{
+  padding:28px 20px 24px;
+  background:#fff;
+}
+.side-rail h2{
+  font-family:var(--type-display);
+  font-size:clamp(27px,2.3vw,33px);
+  line-height:1.12;
+  letter-spacing:-.027em;
+  margin:10px 0 15px;
+}
+.side-rail>p{font-size:12.5px;line-height:1.57;margin:11px 0 19px;color:var(--type-soft)}
+.side-rail nav{gap:5px;margin-top:13px}
+.rail-item{
+  font-size:12.2px;line-height:1.45;
+  padding:11px 10px;gap:11px;
+}
+.rail-item:disabled{opacity:.63}
+.rail-item.active{font-weight:700}
+.rail-number{font-size:10px}
+.rail-divider{margin:21px 0}
+.rail-note{margin-top:21px;font-size:11px;line-height:1.62}
+.rail-progress{padding-top:2px}
+.rail-progress-row{font-size:11px}
+.rail-activity-cta{margin-top:16px;padding:12px 13px}
+.rail-activity-cta strong{font-size:12.5px}
+.rail-activity-cta small{font-size:10.5px}
+.learning-content{
+  padding:31px var(--space-page) 70px;
+  background:radial-gradient(ellipse at 94% 0,rgba(216,237,241,.37),transparent 38%),#f7fafb;
+}
+.learning-frame{max-width:910px;margin:0 auto}
+.content-overline{
+  font-size:10px;letter-spacing:.105em;
+  font-weight:750;color:#547f93;
+  margin-bottom:15px;
+}
+.learning-head{gap:12px}
+.learning-head .micro-label{
+  font-size:10.5px;letter-spacing:.11em;
+  color:#136f96;font-weight:750;line-height:1.5;
+}
+.screen-count{font-size:11px;font-weight:800;letter-spacing:.08em;flex-shrink:0}
+.section-rule{margin:14px 0 22px}
+.small-tag{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.105em;
+  padding:7px 11px;
+  line-height:1.35;
+}
+.content-title h1{
+  font-family:var(--type-display);
+  font-size:clamp(36px,3.2vw,48px);
+  line-height:1.14;
+  letter-spacing:-.035em;
+  margin:17px 0 15px;
+  max-width:22ch;
+  color:#142c44;
+}
+.content-title .lead,
+.activity-header .lead,
+.lead{
+  font-size:15.5px;
+  line-height:1.79;
+  color:#526b7d;
+  max-width:70ch;
+  margin:0 0 6px;
+}
+.learning-outcomes{margin-top:21px;padding:17px 19px}
+.learning-outcomes ul{gap:8px 19px}
+.learning-outcomes li{font-size:12.5px;line-height:1.6;color:#506d80}
+.visual-card{
+  margin:24px 0 21px;
+  padding:22px 25px;
+  border-radius:13px;
+}
+.visual-caption{font-size:10px;letter-spacing:.11em}
+.visual-flow{gap:10px;margin-top:16px}
+.visual-node{
+  min-height:69px;
+  padding:11px 12px;
+  font-size:12.2px;
+  line-height:1.45;
+  gap:10px;
+}
+.visual-node>span{font-size:10px}
+.learning-points{gap:9px}
+.point{padding:13px 16px;gap:12px}
+.point p{font-size:13.6px;line-height:1.68;color:#3c5a6e}
+.point-dot{margin-top:8px}
+.takeaway{
+  margin-top:20px;
+  padding:17px 20px;
+  border-radius:0 10px 10px 0;
+}
+.takeaway span{font-size:10px;letter-spacing:.1em;margin-bottom:7px}
+.takeaway strong{font-size:13.5px;line-height:1.55;font-weight:750}
+.lesson-foot{margin-top:14px;font-size:10.5px}
+.bottom-actions{margin-top:26px;padding-top:19px;gap:11px}
+
+/* A right-hand reference strip, not a second article. */
+.context-panel{
+  padding:33px 22px 26px;
+  background:#fff;
+}
+.context-panel .context-overline{font-size:10px;letter-spacing:.105em}
+.context-panel h3{
+  font-family:var(--type-display);
+  font-size:26px;
+  line-height:1.19;
+  letter-spacing:-.018em;
+  margin:12px 0 13px;
+  color:#173149;
+}
+.context-panel p,.context-panel li{
+  font-size:12.3px;
+  line-height:1.7;
+  color:#62798c;
+}
+.context-panel ul{padding-left:17px;margin:15px 0 0}
+.context-panel li{padding-left:2px;margin-bottom:12px}
+.context-divider{margin:21px 0}
+.context-panel .source-small{font-size:11.2px;line-height:1.6}
+
+/* Assessment rhythm — improve reading and choice targets without excessively
+ * tall cards. Keep clear, predictable question boundaries. */
+.quiz-rule{
+  align-items:center;
+  padding:14px 18px;
+  margin:23px 0 22px;
+  gap:18px;
+  border-radius:9px;
+}
+.quiz-rule span{font-size:10px;font-weight:800;letter-spacing:.105em}
+.quiz-rule strong{font-size:12px;font-weight:800;white-space:nowrap}
+#quiz-form{gap:18px}
+.question-card{
+  padding:18px 19px 18px;
+  border-radius:11px;
+  box-shadow:0 5px 15px rgba(26,62,86,.026);
+}
+.question-card legend{
+  max-width:100%;
+  padding:0 9px 0 0;
+  font-size:14.1px;
+  line-height:1.5;
+  font-weight:750;
+  letter-spacing:-.012em;
+  color:#1b344c;
+}
+.question-card legend span{
+  font-size:11px;
+  letter-spacing:.065em;
+  font-weight:800;
+  margin-right:8px;
+}
+.choices{
+  gap:9px 10px;
+  margin-top:14px;
+}
+.choice{
+  padding:11px 12px;
+  min-height:47px;
+  gap:10px;
+  align-items:center;
+  font-size:12.8px;
+  line-height:1.47;
+  color:#425d73;
+  border-radius:8px;
+  border-color:#dbe7ee;
+}
+.choice input{margin:0;accent-color:#187da5}
+.choice:has(input:focus-visible){
+  outline:2px solid #1986ac;outline-offset:2px;
+}
+.choice:has(input:checked){color:#175b75;font-weight:650}
+.answer-hint{font-size:12px;line-height:1.62;padding:11px 13px}
+.inline-feedback{font-size:12px;line-height:1.6}
+.quiz-success{margin:58px auto 25px}
+.quiz-success h1{font-size:clamp(37px,3.1vw,48px)}
+.quiz-success p{font-size:14.5px;line-height:1.76}
+.completion-stats>div{padding:18px 12px}
+.activity-header{padding-bottom:20px}
+.activity-header h1{font-size:clamp(38px,3.2vw,50px)}
+.activity-note{margin:20px 0}
+.activity-launch-hero{margin:21px 0 18px;padding:25px}
+.activity-frame-head{margin-top:23px}
+.practice-verification{margin-top:23px}
+.completion-activity-banner{margin:25px 0;padding:22px}
+
+/* Readable type and consistent interaction targets in the activity catalogue. */
+.activities-page .activity-card h3{font-size:24px}
+.activities-page .activity-card>p{font-size:12.8px;line-height:1.72}
+.activity-card{min-height:414px}
+.activity-card-footer{padding:15px 20px}
+.activity-launch{font-size:12.5px}
+.activity-steps{font-size:10.5px}
+.hub-heading p{font-size:13.4px;line-height:1.73}
+.hub-body{padding-top:58px;padding-bottom:75px}
+
+/* Relative widths and rhythm adapt at laptop/tablet/mobile boundaries. */
+@media(max-width:1320px){
+  .workspace{grid-template-columns:236px minmax(0,1fr) 226px}
+  .learning-content{padding-inline:clamp(24px,3.2vw,42px)}
+  .side-rail{padding-inline:17px}
+  .context-panel{padding-inline:18px}
+  .context-panel h3{font-size:24px}
+  .curriculum-hero .hero-copy{padding-top:39px}
+}
+@media(max-width:1200px){
+  .workspace{grid-template-columns:230px minmax(0,1fr)}
+  .context-panel{display:none}
+  .learning-frame{max-width:865px}
+}
+@media(max-width:960px){
+  .course-header{padding-inline:18px}
+  .course-header .header-title{display:none}
+  .learning-content{padding-inline:clamp(20px,3vw,34px)}
+  .curriculum-hero .hero-copy{padding-top:8px}
+  .curriculum-hero h1{font-size:clamp(46px,5.8vw,67px)}
+  .curriculum-lessons{padding-top:72px;padding-bottom:70px}
+}
+@media(max-width:800px){
+  html{scroll-padding-top:72px}
+  .workspace{display:block}
+  .course-header{
+    position:sticky;top:0;min-height:65px;height:auto;
+    padding:10px 16px;
+  }
+  .course-header .header-right{gap:9px}
+  .side-rail{
+    position:relative;top:auto;
+    max-height:none;min-height:0;
+    padding:14px 17px 16px;
+    overflow:visible;
+  }
+  .side-rail nav,.side-rail h2,.side-rail>p,.side-rail .rail-divider,.side-rail .rail-note{display:none}
+  .side-rail .rail-activity-cta{margin-top:11px}
+  .learning-content{padding:26px 21px 49px}
+  .learning-frame{max-width:100%}
+  .content-overline{margin-bottom:12px}
+  .content-title h1{font-size:clamp(34px,5.2vw,43px);max-width:none}
+  .choices{grid-template-columns:1fr}
+  .choice{min-height:47px;font-size:13.2px}
+  .question-card{padding:18px 17px}
+  .curriculum-hero .hero-actions .btn{min-height:48px}
+  .curriculum-highlights{margin-top:-26px}
+}
+@media(max-width:560px){
+  .curriculum-hero h1{font-size:clamp(40px,9.5vw,55px)}
+  .curriculum-hero .hero-lead{font-size:14.5px}
+  .curriculum-hero .hero-copy{padding-top:0}
+  .cycle-detail-copy>strong{font-size:20px}
+  .curriculum-lessons .section-heading h2{font-size:clamp(32px,8vw,41px)}
+  .curriculum-phase-card{padding:22px 20px 19px}
+  .course-header .back-home,.course-header .export-mini{font-size:10px}
+  .course-header .header-activities-link{font-size:10px;padding:7px}
+  .learning-content{padding:22px 17px 40px}
+  .content-title h1{font-size:clamp(33px,9vw,42px)}
+  .content-title .lead,.lead{font-size:14.2px;line-height:1.72}
+  .visual-card{padding:18px 17px;margin:20px 0}
+  .visual-flow{gap:8px}
+  .visual-node{padding:11px 12px}
+  .point{padding:13px}
+  .point p{font-size:13px}
+  .question-card legend{font-size:13.6px}
+  .question-card{padding:17px 14px}
+  .quiz-rule{padding:12px 13px;gap:8px}
+  .quiz-rule span{font-size:9px}
+  .quiz-rule strong{font-size:10.5px}
+  .takeaway{padding:15px 16px}
+  .activity-launch-hero{padding:19px}
+  .completion-activity-banner{padding:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .curriculum-hero .main-cta:hover{transform:none}
+}
