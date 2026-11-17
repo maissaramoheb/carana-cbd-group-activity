@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#112c44">
+  <meta name="description" content="Explore all 18 concept-based visual learning aids in CARANA CBD Lesson 1 without changing course progress.">
+  <title>CARANA CBD · Visual Learning Gallery</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./premium.css">
+  <link rel="stylesheet" href="./curriculum-home.css">
+  <link rel="stylesheet" href="./typography-spacing.css">
+  <link rel="stylesheet" href="./labs.css">
+  <link rel="stylesheet" href="./visual-journey.css">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#f4f8fa;color:#1b364b;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+    .vg-header{background:linear-gradient(110deg,#10243b,#16475c);color:#f5fcfd;padding:20px max(22px,4vw) 33px}
+    .vg-top{display:flex;justify-content:space-between;align-items:center;gap:20px;max-width:1350px;margin:0 auto 28px}
+    .vg-brand{font-size:11px;font-weight:800;letter-spacing:.16em;color:#c0e9e5}
+    .vg-link{color:#dcf7f3;font-size:12px;text-decoration:underline;text-underline-offset:4px}
+    .vg-headline{max-width:1350px;margin:0 auto}
+    .vg-eyebrow{font-size:10px;letter-spacing:.15em;color:#a4dfd3;font-weight:800;margin-bottom:9px}
+    h1{margin:0;font:400 clamp(30px,4.3vw,47px)/1.15 Georgia,Cambria,serif;letter-spacing:-.03em}
+    .vg-description{max-width:700px;color:#c7dfe5;font-size:13px;line-height:1.8;margin:12px 0 0}
+    .vg-shell{max-width:1350px;margin:0 auto;padding:27px 24px 65px;display:grid;grid-template-columns:minmax(228px,285px) minmax(0,1fr);gap:24px;align-items:start}
+    .vg-sidebar{background:white;border:1px solid #d8e7eb;border-radius:13px;padding:17px;position:sticky;top:18px;max-height:calc(100vh - 36px);overflow:auto}
+    .vg-sidebar h2{font-size:11px;letter-spacing:.09em;color:#307e91;margin:0 0 10px}
+    .vg-section-title{font-size:11px;font-weight:800;color:#24465a;margin:18px 4px 7px}
+    .vg-screen{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:1px solid transparent;border-radius:8px;padding:10px 7px;color:#587284;font-size:11.7px;line-height:1.4;cursor:pointer}
+    .vg-screen span{display:grid;place-items:center;flex:none;background:#eef4f7;border-radius:6px;min-width:33px;padding:6px 4px;color:#397f91;font-weight:800;font-size:10px}
+    .vg-screen:hover{background:#f3faf9}
+    .vg-screen[aria-current="true"]{background:#e5f4f7;border-color:#c6e5e9;color:#1c647b;font-weight:800}
+    .vg-screen[aria-current="true"] span{background:#d2ebef}
+    .vg-main{min-width:0}
+    .vg-toolbar{display:flex;gap:13px;justify-content:space-between;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+    .vg-location{font-size:11px;font-weight:800;color:#44869a;letter-spacing:.06em}
+    .vg-controls{display:flex;align-items:center;gap:9px}
+    .vg-nav{border:1px solid #c4dce4;border-radius:7px;background:white;color:#246b83;min-height:37px;padding:7px 13px;font-size:11px;font-weight:800;cursor:pointer}
+    .vg-nav:hover{background:#eaf6f8}
+    .vg-nav:disabled{opacity:.4;cursor:not-allowed}
+    .vg-card{padding:18px 18px 8px;border:1px solid #d5e5e9;border-radius:14px;background:white;box-shadow:0 14px 34px rgba(15,52,73,.04)}
+    .vg-card-header{margin:1px 0 15px}
+    .vg-card-header h2{font:400 clamp(23px,2.8vw,35px)/1.2 Georgia,serif;color:#1b3a50;margin:8px 0}
+    .vg-card-header p{color:#627e90;font-size:12.5px;line-height:1.6;margin:0}
+    .vg-card .vj-stage,.vg-card .concept-lab{margin:14px 0 12px;max-width:100%}
+    .vg-hint{font-size:11.5px;color:#638092;line-height:1.7;padding:9px 4px 12px}
+    .vg-hint strong{color:#2e7890}
+    .vg-aside-note{margin-top:15px;background:#ebf6f5;border:1px solid #d2e6e4;border-radius:10px;padding:16px;color:#477282;font-size:12px;line-height:1.7}
+    .vg-aside-note strong{color:#256e7e}
+    .vg-footer{max-width:1350px;margin:0 auto;padding:15px 24px 30px;color:#6e8b99;font-size:11px}
+    :focus-visible{outline:3px solid #248dae;outline-offset:3px}
+    @media(max-width:900px){.vg-shell{grid-template-columns:1fr;gap:16px}.vg-sidebar{position:static;max-height:none}.vg-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.vg-section{grid-column:1/-1}.vg-section-title{margin-top:10px}.vg-screen{min-width:0}}
+    @media(max-width:600px){.vg-shell{padding:18px 12px 45px}.vg-header{padding:18px 17px 28px}.vg-list{grid-template-columns:repeat(2,minmax(0,1fr))}.vg-card{padding:12px 10px 7px}.vg-screen{font-size:10.5px}.vg-top{align-items:flex-start}.vg-controls{width:100%;justify-content:space-between}.vg-toolbar{gap:10px}}
+  </style>
+  <script src="./lesson1-data.js" defer></script>
+  <script src="./lesson1-labs.js" defer></script>
+  <script src="./visual-journey.js" defer></script>
+  <script src="./visual-gallery.js" defer></script>
+</head>
+<body class="is-learning">
+  <a class="skip-link" href="#vg-display">Skip to selected illustration</a>
+  <header class="vg-header">
+    <div class="vg-top"><span class="vg-brand">CARANA / CBD E-LEARNING</span><a class="vg-link" href="./">Return to full Lesson 1</a></div>
+    <div class="vg-headline"><div class="vg-eyebrow">LESSON 1 · VISUAL LEARNING PREVIEW</div><h1>Explore the illustrations directly.</h1>
+    <p class="vg-description">All 18 instructional concepts in one review gallery. Choose a screen, interact with its visual explanation, and move to another without affecting your course progress.</p></div>
+  </header>
+  <main class="vg-shell">
+    <nav class="vg-sidebar" aria-label="Lesson 1 visual screen selection">
+      <h2>SELECT AN ILLUSTRATION</h2>
+      <div class="vg-list" id="vg-list"><p>Loading visuals…</p></div>
+    </nav>
+    <div class="vg-main">
+      <div class="vg-toolbar"><span class="vg-location" id="vg-location" aria-live="polite">Loading…</span>
+        <div class="vg-controls"><button id="vg-prev" class="vg-nav" type="button">← Previous</button><button id="vg-next" class="vg-nav" type="button">Next visual →</button></div>
+      </div>
+      <div class="vg-card" id="vg-display"><div class="vg-card-header"><h2>Visual explanations</h2><p>Select a lesson screen.</p></div></div>
+      <div class="vg-aside-note"><strong>How to use this preview:</strong> Select a part of any diagram to reveal its meaning. The SWOT and capacity-classification screens have short practice cases. This gallery is for visual review and does not bypass or modify the full course's knowledge checkpoints.</div>
+    </div>
+  </main>
+  <footer class="vg-footer">Independent instructional adaptation of UNPOL CBD JST Lesson 1 · Conceptual examples are illustrative, not official CARANA activity answers.</footer>
+</body>
+</html>
