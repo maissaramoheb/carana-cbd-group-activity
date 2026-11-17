@@ -120,22 +120,62 @@ const exercises={
   ['Insecurity prevents access to several outlying service areas.',3,'An adverse external security condition is a threat to service delivery.']
  ]
 }};
+/* Native, scalable pictograms: not generated lettering, not external dependencies. */
+const pictogram={
+ Political:'<path d="M3 9h18M5 9V19M10 9V19M15 9V19M19 9V19M3 20h18M5 6l7-3 7 3z"/>',
+ Economic:'<circle cx="8" cy="8" r="4"/><path d="M6 8h4M8 5.5v5M15 20v-9h5v9M13 20h9"/>',
+ Social:'<circle cx="12" cy="7" r="3"/><path d="M6 20v-3a6 6 0 0 1 12 0v3M5 11a3 3 0 0 0-3 3v4M19 11a3 3 0 0 1 3 3v4"/>',
+ Technological:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 9h6v6H9zM9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+ Environmental:'<path d="M20 4C9 3 4 9 4 16a4 4 0 0 0 4 4c7 0 13-5 12-16ZM7 17l10-10"/>',
+ Legal:'<path d="M12 3v18M5 7h14M7 7l-4 8h8L7 7ZM17 7l-4 8h8l-4-8ZM7 21h10"/>',
+ Security:'<path d="m12 2 8 3v6c0 5-3 8-8 11-5-3-8-6-8-11V5l8-3ZM9 12l2 2 4-4"/>'
+};
+function glyph(label){
+ const body=pictogram[label];
+ return body?'<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">'+body+'</svg>':esc(label);
+}
+const microCases={
+ '02-01':{
+  prompt:'Fictional example: investigators cannot retrieve digital case files because the network fails repeatedly. Which PESTEL-S dimension is the first place to investigate?',
+  answers:['Political','Technological','Environmental'],correct:1,
+  feedback:'Start with the technological dimension to assess the information system, while checking related financial, organisational and security constraints. The example is illustrative, not a CARANA finding.'
+ },
+ '04-03':{
+  prompt:'Fictional example: a community association is highly interested in police service reform but has little formal authority. Where would you first locate it?',
+  answers:['High influence · high interest','Lower influence · high interest','Lower influence · lower interest'],correct:1,
+  feedback:'High interest and lower formal influence is the best initial placement. Listen and involve meaningfully; influence can change and community knowledge is important.'
+ },
+ '04-02':{
+  prompt:'Fictional example: a supervisor says all case files receive review, but several sampled files lack review records. What is the better next step?',
+  answers:['Conclude the supervisor is dishonest','Verify procedures, observations and records','Immediately schedule more training'],correct:1,
+  feedback:'Check the inconsistency with additional records, interviews and work observation before concluding a cause or recommending an intervention.'
+ }
+};
+function microHTML(id){
+ const c=microCases[id];if(!c)return '';
+ return '<div class="vj-micro" aria-label="Apply the visual concept">'+
+  '<div class="vj-micro-label">YOUR TURN · 1 SHORT DECISION</div>'+
+  '<p class="vj-micro-prompt">'+esc(c.prompt)+'</p>'+
+  '<div class="vj-micro-answers" role="group" aria-label="Choose the most defensible answer">'+
+   c.answers.map((a,i)=>'<button type="button" class="vj-micro-answer" data-vj-mini="'+i+'" aria-pressed="false">'+esc(a)+'</button>').join('')+
+  '</div><div id="vj-mini-feedback" class="vj-micro-feedback" role="status" aria-live="polite">Select an answer to receive an explanation. This practice is not graded.</div></div>';
+}
 function head(e){
  return '<div class="vj-heading"><span class="vj-eyebrow">'+esc(e.eyebrow)+'</span><h2>'+esc(e.title)+'</h2><p>'+esc(e.intro)+'</p></div>';
 }
 function sceneHTML(id,e){
  const body='<div class="vj-nodes vj-'+esc(e.type)+'" role="group" aria-label="'+esc(e.title)+'">'+
   e.nodes.map((n,i)=>'<button type="button" class="vj-node" data-vj-item="'+i+'" aria-pressed="false">'+
-    '<span class="vj-node-mark" aria-hidden="true">'+esc(n.mark)+'</span><span class="vj-node-label">'+esc(n.label)+'</span></button>').join('')+
+    '<span class="vj-node-mark" aria-hidden="true">'+(id==='02-01'?glyph(n.label):esc(n.mark))+'</span><span class="vj-node-label">'+esc(n.label)+'</span></button>').join('')+
    ((e.type==='wheel'||e.type==='triangle'||e.type==='orbit'||e.type==='overlap')?'<div class="vj-center" aria-hidden="true">'+(e.type==='wheel'?'OPERATING<br>CONTEXT':e.type==='triangle'?'COMPARE<br>EVIDENCE':e.type==='orbit'?'POLICE<br>COUNTERPART':'SHARED<br>TEAM')+'</div>':'')+'</div>';
  return '<section class="vj-stage" aria-label="Interactive explanatory visual">'+head(e)+body+
   '<div class="vj-result" id="vj-result" role="status" aria-live="polite"><strong>Choose one part of the illustration</strong><p>Reveal its analytical question and meaning.</p></div>'+
-  '<div class="vj-foot"><span>Explore the diagram, then continue with the lesson.</span><span id="vj-count">0 of '+e.nodes.length+' explored</span></div></section>';
+  '<div class="vj-foot"><span>Explore the diagram, then continue with the lesson.</span><span id="vj-count">0 of '+e.nodes.length+' explored</span></div><div class="vj-progress" aria-hidden="true"><i id="vj-progress-fill"></i></div>'+microHTML(id)+'</section>';
 }
 function exerciseHTML(id,e){
  return '<section class="vj-stage vj-exercise" aria-label="Interactive classification exercise">'+head(e)+
   '<div class="vj-case"><span id="vj-case-number">EXAMPLE 1 OF '+e.cases.length+'</span><strong id="vj-case-text">'+esc(e.cases[0][0])+'</strong></div>'+
-  '<div class="vj-answers '+(e.type==='swot'?'vj-swot':'vj-classify')+'" role="group" aria-label="Choose a classification">'+e.options.map((o,i)=>'<button type="button" class="vj-answer" data-vj-answer="'+i+'" aria-pressed="false"><span class="vj-answer-tag">'+(e.type==='swot'?['S','W','O','T'][i]:String(i+1).padStart(2,'0'))+'</span>'+esc(o)+'</button>').join('')+'</div>'+
+  (e.type==='swot'?'<div class="vj-swot-wrap" aria-label="SWOT four-quadrant decision matrix"><div class="vj-axis-x"><span>FAVOURABLE</span><span>UNFAVOURABLE</span></div><div class="vj-axis-y" aria-hidden="true"><span>INTERNAL</span><span>EXTERNAL</span></div>':'')+'<div class="vj-answers '+(e.type==='swot'?'vj-swot':'vj-classify')+'" role="group" aria-label="Choose a classification">'+e.options.map((o,i)=>'<button type="button" class="vj-answer" data-vj-answer="'+i+'" aria-pressed="false"><span class="vj-answer-tag">'+(e.type==='swot'?['S','W','O','T'][i]:String(i+1).padStart(2,'0'))+'</span>'+esc(o)+'</button>').join('')+'</div>'+(e.type==='swot'?'</div>':'')+
   '<div class="vj-result" id="vj-result" role="status" aria-live="polite"><strong>Make a classification</strong><p>Choose one option to reveal source-aware feedback.</p></div>'+
   '<div class="vj-foot"><span>Formative practice · Not an official CARANA answer key</span><button type="button" class="vj-next" id="vj-next" hidden>Next example →</button></div></section>';
 }
@@ -177,13 +217,26 @@ function mount(section,screen){
  const selected=new Set();
  const buttons=[...root.querySelectorAll('[data-vj-item]')];
  const count=root.querySelector('#vj-count');
+ const fill=root.querySelector('#vj-progress-fill');
  buttons.forEach(button=>button.addEventListener('click',()=>{
   const i=Number(button.dataset.vjItem),n=e.nodes[i];if(!n)return;
   selected.add(i);
   buttons.forEach((b,j)=>{b.classList.toggle('chosen',j===i);b.setAttribute('aria-pressed',String(j===i))});
   response.innerHTML='<strong>'+esc(n.question)+'</strong><p>'+esc(n.explain)+'</p>';
   count.textContent=selected.size+' of '+buttons.length+' explored';
+  if(fill)fill.style.width=(100*selected.size/buttons.length)+'%';
  }));
+ const micro=microCases[id];
+ if(micro){
+  const options=[...root.querySelectorAll('[data-vj-mini]')];
+  const feedback=root.querySelector('#vj-mini-feedback');
+  options.forEach(option=>option.addEventListener('click',()=>{
+   const i=Number(option.dataset.vjMini),correct=i===micro.correct;
+   options.forEach((b,j)=>{b.classList.toggle('chosen',j===i);b.setAttribute('aria-pressed',String(j===i));});
+   feedback.className='vj-micro-feedback '+(correct?'correct':'reflect');
+   feedback.textContent=(correct?'Well reasoned. ':'Reconsider the evidence. ')+micro.feedback;
+  }));
+ }
 }
-window.CARANA_VISUAL_JOURNEY={html,mount,scenes,exercises};
+window.CARANA_VISUAL_JOURNEY={html,mount,scenes,exercises,microCases};
 })();
