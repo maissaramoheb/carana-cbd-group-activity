@@ -1,0 +1,79 @@
+/* v0.5 conceptual explorations: progressive enhancement, accessible buttons,
+   responsive 5x6 matrix (source framework, no facilitator-only answers). */
+.concept-lab{
+  margin:24px 0 22px;padding:23px;
+  border:1px solid #d7e5ea;border-radius:13px;
+  background:linear-gradient(135deg,#f0f7f8,#fafdfd 76%);
+  box-shadow:0 9px 23px rgba(18,60,79,.035);
+}
+.concept-lab-top{margin-bottom:16px}
+.concept-lab-eyebrow{font-size:10px;letter-spacing:.11em;font-weight:850;color:#228b9c}
+.concept-lab h2{font:normal 27px/1.22 var(--type-display,Georgia,serif);color:#173c52;letter-spacing:-.024em;margin:9px 0}
+.concept-lab-top p{font-size:12.7px;line-height:1.7;color:#617d8e;max-width:75ch;margin:0}
+.concept-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.concept-option{
+  display:flex;align-items:center;gap:11px;text-align:left;
+  border:1px solid #d4e5e9;background:#fff;color:#2f5367;
+  border-radius:9px;padding:12px 13px;min-height:54px;
+  font-size:12px;font-weight:750;line-height:1.45;
+  transition:background .17s,border-color .17s;
+}
+.concept-option>span{
+  flex-shrink:0;color:#287f99;background:#e4f1f5;border-radius:7px;
+  font-size:10px;min-width:27px;height:27px;display:grid;place-items:center;
+}
+.concept-option:hover{background:#f3fbfa;border-color:#9cd3d3}
+.concept-option.selected{background:#e0f4f0;border-color:#75bcb6;color:#1e5961}
+.concept-option.selected>span{background:#247f7f;color:#fff}
+.concept-option:focus-visible,.matrix-cell:focus-visible{
+  outline:3px solid #278daf;outline-offset:2px;
+}
+.concept-response{
+  margin-top:16px;background:#fff;border-left:3px solid #2990a0;
+  border-radius:3px 9px 9px 3px;padding:16px 19px;
+}
+.concept-response strong{display:block;font-size:13px;color:#21546a}
+.concept-response p{font-size:12.8px;line-height:1.68;color:#507082;margin:6px 0 0}
+.matrix-scroll{
+  overflow-x:auto;overscroll-behavior-inline:contain;
+  border:1px solid #d7e4e9;border-radius:9px;
+  background:#fff;scrollbar-width:thin;
+}
+.matrix-table{
+  border-collapse:separate;border-spacing:0;width:100%;min-width:780px;
+  table-layout:fixed;font-size:11px;color:#3e6174;
+}
+.matrix-table caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.matrix-table th,.matrix-table td{
+  padding:10px 7px;border-right:1px solid #e5eef2;border-bottom:1px solid #e5eef2;
+  text-align:center;vertical-align:middle;
+}
+.matrix-table thead th{background:#f0f7f8;color:#245c70;font-size:10px;line-height:1.4;letter-spacing:0}
+.matrix-table thead th:first-child{width:172px;text-align:left;padding-left:14px}
+.matrix-table thead span{display:block;color:#8db2bd;font-size:9px}
+.matrix-table tbody th{
+  width:172px;text-align:left;padding-left:14px;
+  background:#f7fbfc;font-weight:750;font-size:11px;
+}
+.matrix-table tr>:last-child{border-right:0}
+.matrix-table tbody tr:last-child>*{border-bottom:0}
+.matrix-cell{
+  cursor:pointer;width:40px;height:35px;
+  display:grid;place-items:center;margin:auto;
+  color:#2e8c9d;background:#edf7f8;border:1px solid #d1e7e9;border-radius:7px;
+  font-size:16px;transition:background .16s,color .16s;
+}
+.matrix-cell:hover{background:#d5eeee}
+.matrix-cell.selected{background:#217c91;color:#fff;border-color:#217c91}
+@media(max-width:800px){
+  .concept-lab{padding:18px;margin:20px 0}
+  .concept-lab h2{font-size:25px}
+}
+@media(max-width:560px){
+  .concept-lab{padding:16px}
+  .concept-lab h2{font-size:23px}
+  .concept-options{grid-template-columns:1fr}
+  .concept-option{min-height:48px}
+  .matrix-table{min-width:740px}
+}
+@media(prefers-reduced-motion:reduce){.concept-option,.matrix-cell{transition:none}}
