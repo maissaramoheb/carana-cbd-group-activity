@@ -26,15 +26,16 @@
     const t=voiceStatus(section,screen);
     if (!t) return '';
     const ready=!!t.src;
+    const audition=ready&&!!window.CARANA_LESSON1_AUDIO_SAMPLE_MODE;
     return '<section class="trainer-voice" aria-label="English trainer explanation"><div class="trainer-voice-heading">'+
-      '<div class="voice-emblem" aria-hidden="true">◉</div><div class="voice-meta"><strong>Trainer explanation</strong><span>English · '+(ready?'Recorded narration':'Editorial transcript')+' · Optional</span></div>'+
-      (ready?'<div class="voice-availability live">AUDIO AVAILABLE</div>':'<div class="voice-availability pending">AUDIO PENDING REVIEW</div>')+'</div>'+
+      '<div class="voice-emblem" aria-hidden="true">◉</div><div class="voice-meta"><strong>Trainer explanation</strong><span>English · '+(audition?'AI-generated audition clip':ready?'Recorded narration':'Editorial transcript')+' · Optional</span></div>'+
+      (ready?'<div class="voice-availability live">'+(audition?'AI VOICE SAMPLE':'AUDIO AVAILABLE')+'</div>':'<div class="voice-availability pending">AUDIO PENDING REVIEW</div>')+'</div>'+
       (ready?'<audio id="trainer-audio" preload="metadata" src="'+esc(t.src)+'"></audio><div class="voice-controls">'+
         '<button type="button" class="voice-button primary" id="voice-play" aria-label="Play narration">▶ Play explanation</button>'+
         '<button type="button" class="voice-button" id="voice-replay" aria-label="Replay narration from the beginning">↺ Replay</button>'+
         '<button type="button" class="voice-button voice-speed" id="voice-speed" aria-label="Set narration playback speed">1× speed</button>'+
         '<span id="voice-time" class="voice-time" role="timer" aria-live="off">0:00 / --:--</span></div>'+
-        '<div class="voice-progress-track" aria-hidden="true"><i id="voice-progress-fill"></i></div>':
+        '<div class="voice-progress-track" aria-hidden="true"><i id="voice-progress-fill"></i></div>'+(audition?'<p class="voice-production-note">AI-generated voice audition, not a human recording or approved final course narration. <a href="./voice-audition.html">Compare the three audition samples</a>.</p>':''):
         '<p class="voice-production-note">The natural-voice recording is being prepared. The complete spoken explanation is available as a transcript; no synthetic browser voice will be substituted.</p>')+
       '<button type="button" id="voice-transcript-toggle" class="voice-transcript-toggle" aria-expanded="false" aria-controls="voice-transcript">Read the trainer’s explanation <span aria-hidden="true">＋</span></button>'+
       '<div class="voice-transcript" id="voice-transcript" hidden><p>'+esc(t.script)+'</p><div class="voice-transcript-foot">Narration script · '+esc(t.title)+' · Independent instructional adaptation</div></div></section>';
