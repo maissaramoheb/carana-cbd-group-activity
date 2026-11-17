@@ -1,0 +1,80 @@
+/* CARANA CBD v0.5 · trainer voice, transcript and field judgement.
+   Dedicated visual components follow the approved navy, teal, mint, editorial
+   rhythm and share the established responsive breakpoints. */
+.trainer-voice{
+  border:1px solid #cfdfe5;
+  background:linear-gradient(135deg,#f1f8f8,#fbfdfd 74%);
+  border-radius:13px;
+  padding:19px 22px 16px;
+  margin:21px 0 24px;
+  box-shadow:0 10px 26px rgba(16,61,81,.035);
+}
+.trainer-voice-heading{display:flex;align-items:center;gap:13px;min-width:0}
+.voice-emblem{flex-shrink:0;width:40px;height:40px;display:grid;place-items:center;border-radius:11px;border:1px solid #c1e5df;background:#d8f2eb;color:#236f75;font-size:19px}
+.voice-meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+.voice-meta strong{font-size:13.5px;color:#1b4356;font-weight:800;letter-spacing:-.01em}
+.voice-meta>span{font-size:10.5px;color:#668798;line-height:1.3}
+.voice-availability{margin-left:auto;white-space:nowrap;font-size:9px;font-weight:800;letter-spacing:.09em;padding:7px 10px;border-radius:25px}
+.voice-availability.pending{background:#e9eef2;color:#667e91}
+.voice-availability.live{background:#def5e9;color:#277c62}
+.voice-production-note{font-size:11.8px;line-height:1.65;color:#607b89;margin:14px 0 7px;max-width:74ch}
+.voice-transcript-toggle{display:inline-flex;gap:10px;align-items:center;background:none;border:0;border-bottom:1px solid #abd2d6;color:#246d7e;padding:6px 0;font-size:11.5px;font-weight:800;margin-top:7px}
+.voice-transcript-toggle:hover{color:#125168;border-bottom-color:#125168}
+.voice-transcript-toggle:focus-visible,.voice-button:focus-visible{outline:3px solid #56a7c1;outline-offset:3px}
+.voice-transcript{margin-top:18px;border-top:1px solid #dbe9ec;padding:15px 2px 0}
+.voice-transcript[hidden]{display:none}
+.voice-transcript p{font-size:13.5px;line-height:1.78;color:#395b6d;max-width:78ch;margin:0}
+.voice-transcript-foot{font-size:10px;color:#8aa0aa;margin-top:15px;letter-spacing:.02em}
+.voice-controls{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:17px 0 13px}
+.voice-button{border:1px solid #c0d6dc;padding:8px 12px;font-size:11.5px;font-weight:800;border-radius:8px;background:#fff;color:#28637b;min-height:39px}
+.voice-button:hover{background:#e5f3f6}
+.voice-button.primary{background:#194c69;color:#fff;border-color:#194c69}
+.voice-button.primary:hover{background:#103c56}
+.voice-button:disabled{opacity:.6;cursor:not-allowed}
+.voice-time{margin-left:auto;font-size:11px;font-variant-numeric:tabular-nums;color:#628094}
+.voice-progress-track{height:5px;background:#cfe2e8;border-radius:3px;overflow:hidden;margin-bottom:9px}
+.voice-progress-track i{display:block;height:100%;width:0;background:#278fa9;transition:width .15s linear}
+.learner-decision{background:#fff;border:1px solid #d7e4e9;border-radius:12px;padding:24px;margin:23px 0 24px;box-shadow:0 9px 28px rgba(16,51,80,.035)}
+.decision-heading .decision-eyebrow{font-size:10px;font-weight:850;letter-spacing:.115em;color:#238a98}
+.decision-heading h2{font:normal 27px/1.25 var(--type-display,Georgia,serif);color:#193c54;letter-spacing:-.024em;margin:9px 0 11px}
+.decision-heading p{font-size:13.3px;color:#4c6c80;line-height:1.77;max-width:74ch;margin:0}
+.decision-options{display:grid;grid-template-columns:1fr;gap:8px;margin-top:19px}
+.decision-option{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid #dce8ee;border-radius:9px;background:#f8fbfc;color:#3b5c70;font-size:12.8px;line-height:1.5;padding:12px 13px;min-height:49px;transition:background .15s,border-color .15s}
+.decision-option:hover{border-color:#9dced5;background:#eff9f9}
+.decision-option.chosen{background:#e2f5f2;border-color:#69bbaa;color:#1f5763;font-weight:750}
+.decision-option-index{display:grid;place-items:center;flex-shrink:0;width:28px;height:28px;border-radius:7px;color:#277792;background:#e3f1f6;font-size:11px;font-weight:850}
+.decision-option.chosen .decision-option-index{color:#fff;background:#227c82}
+.decision-option:focus-visible{outline:3px solid #2689aa;outline-offset:2px}
+.decision-feedback{padding:14px 17px;border:1px solid #d6e3ea;background:#f5fafb;border-radius:9px;margin-top:17px}
+.decision-feedback[hidden]{display:none}
+.decision-feedback.good{background:#ecf8ef;border-color:#bddfca;color:#235f4a}
+.decision-feedback.reflect{background:#fff9ed;border-color:#e7d5a5;color:#77582b}
+.decision-feedback strong{display:block;font-size:12px;font-weight:850}
+.decision-feedback p{font-size:12.5px;line-height:1.65;margin:6px 0;color:inherit}
+.decision-feedback span{font-size:11px;color:inherit;opacity:.76}
+.decision-footnote{font-size:10.5px;color:#859ba6;margin:17px 0 0}
+/* Narration and formative actions must fit mobile screens without covering
+   native controls or the next-screen action. */
+@media(max-width:800px){
+  .trainer-voice{padding:17px 18px;margin:19px 0}
+  .learner-decision{padding:19px;margin:18px 0}
+  .decision-heading h2{font-size:25px}
+}
+@media(max-width:560px){
+  .trainer-voice-heading{flex-wrap:wrap;gap:9px}
+  .voice-availability{margin-left:0}
+  .voice-emblem{width:34px;height:34px;font-size:16px}
+  .trainer-voice{padding:15px}
+  .voice-production-note{font-size:11.8px}
+  .voice-controls{gap:8px}
+  .voice-time{width:100%;text-align:left;margin:0}
+  .voice-transcript p{font-size:12.9px}
+  .learner-decision{padding:17px}
+  .decision-heading h2{font-size:24px}
+  .decision-heading p{font-size:12.7px}
+  .decision-option{padding:11px;font-size:12.3px;min-height:48px}
+  .decision-option-index{height:26px;width:26px}
+}
+@media(prefers-reduced-motion:reduce){
+  .voice-progress-track i,.decision-option{transition:none}
+}
