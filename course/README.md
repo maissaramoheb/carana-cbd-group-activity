@@ -109,3 +109,29 @@ Software adaptation by Lt. Col. Maissara Selim. Original scenario and training m
 - [ ] Independent live-browser desktop/mobile visual acceptance and full accessibility audit.
 - [ ] UN curriculum, legal rights, IP and institutional adoption reviews.
 - [ ] Independent repository/project/domain before production release.
+
+
+## v0.3 — Curriculum-wide landing experience (2026-11-17)
+
+**Design decision:** CARANA CBD E-Learning is positioned as a six-phase CBD curriculum learning environment, not a Situational Analysis microsite. The v0.2 editorial navy, mint, teal, spacious typography, visual cards and professional application remain the foundation.
+
+- Hero tells the complete Capacity Building and Development story, from situational analysis through transition and handover.
+- Replaced the previous large Lesson 1-only illustration with a single interactive six-phase CBD process diagram. Each of six selectable phases displays a concise definition and a relevant action.
+- Primary hero action now says **Explore the CBD cycle** and navigates to the entire six-phase pathway; the separate Resume/Start Lesson 01 action remains immediately available.
+- All six curriculum phases now use **equal-sized cards**, with a concise learning purpose, guiding question, and original practical workbench link. Only the first card offers a self-paced lesson entry; five others explicitly indicate that their self-paced lessons remain in development.
+- Dashboard explicitly separates six curriculum phases, one published self-paced lesson, and progress through Lesson 1 checkpoints; it does not imply total course completion metrics for unpublished lessons.
+- Added a visual curriculum sequence ending in a loop to convey continuous improvement, plus a narrative about review and learning feeding back into situational analysis.
+- Activities Hub navigation and every original workbench remain intact and independently accessible.
+- Updated HTML title and meta description to identify the full curriculum rather than Lesson 1 alone.
+- Implemented styles in the new course/curriculum-home.css, imported after the established stylesheet. No existing activity files were modified.
+- Mobile presentation changes the circular desktop phase diagram into a readable, accessible two-column phase selector. Phase buttons report selection with aria-pressed, offer focus styles and respect reduced motion.
+- Existing browser local storage remains separate from original activity records.
+
+### Verification
+
+- [x] Six selectable cycle phases correspond to six curriculum cards and all six original workbenches.
+- [x] One active self-paced lesson vs five explicitly planned self-paced lessons.
+- [x] Landing-page links, Activities Hub, lesson entry, six gated checkpoints and workbench confirmation regression checks.
+- [x] 38 automated behavioural assertions passed on initial v0.3 code.
+- [ ] Real-browser desktop/mobile visual review, assistive-technology acceptance, and human curricular copy review.
+- [ ] Independent GitHub repository and local Mac OneDrive workspace migration postponed by the project owner.
