@@ -232,7 +232,7 @@
     const s=position.section, sec=lesson.sections[s];
     const passed=isCleared(s);
     if(passed){
-      layout('<div class="quiz-success"><div class="success-icon">✓</div><span class="micro-label">CHECKPOINT CLEARED</span><h1>Understanding confirmed.</h1><p>You passed all six questions in '+clean(sec.title)+'. You can now advance.</p><div class="bottom-actions center"><button class="btn outline" id="revisit">Review this section</button><button class="btn primary" id="continue-after-quiz">'+(s===SECTION_COUNT-1?'Open practical activity →':'Continue to next section →')+'</button></div></div>','Checkpoint '+(s+1)+' · Passed');
+      layout('<div class="quiz-success"><div class="success-icon">✓</div><span class="micro-label">CHECKPOINT CLEARED</span><h1>Understanding confirmed.</h1><p>You passed all six questions in '+clean(sec.title)+'. You can now advance.</p>'+(s===SECTION_COUNT-1?'<div class="completion-activity-banner"><span>LESSON 01 / PRACTICAL APPLICATION</span><strong>Put your analysis into practice.</strong><p>The original CARANA situational-analysis exercise is ready. Launch it directly in a full window or open it inside the learning studio.</p><a class="btn primary" href="../module1.html" target="_blank" rel="noopener noreferrer">Launch Lesson 1 Activity ↗</a></div>':'')+'<div class="bottom-actions center><button class="btn outline" id="revisit">Review this section</button><button class="btn primary" id="continue-after-quiz">'+(s===SECTION_COUNT-1?'Open practical activity →':'Continue to next section →')+'</button></div></div>','Checkpoint '+(s+1)+' · Passed');
       $('revisit').addEventListener('click',()=>navigate(s,0));
       $('continue-after-quiz').addEventListener('click',()=>s===SECTION_COUNT-1?openActivity():navigate(s+1,0));
       return;
@@ -292,10 +292,13 @@
   }
   function renderComplete() {
     if(!progress.lessonComplete){openActivity();return;}
-    const content='<div class="quiz-success complete"><div class="success-icon">✓</div><span class="micro-label">LESSON 01 · LEARNER COMPLETION</span><h1>Situational Analysis completed.</h1><p>You cleared six knowledge checkpoints and confirmed completion of the original Module 1 activity. Your progress is saved in this browser.</p><div class="completion-stats"><div><strong>18</strong><span>Instructional screens</span></div><div><strong>36 / 36</strong><span>Required answers correct</span></div><div><strong>01</strong><span>Workbench self-confirmation</span></div></div><p class="fine-print">This is a local learner progress record, not an official UN qualification or assessment certificate. Completion of the workbench is based on its existing participant-confirmation control.</p><div class="bottom-actions center"><button class="btn outline" id="review-again">Review lesson</button><button class="btn primary" id="export-completion">Export progress record ↗</button></div></div>';
+    const content='<div class="quiz-success complete"><div class="success-icon">✓</div><span class="micro-label">LESSON 01 · LEARNER COMPLETION</span><h1>Situational Analysis completed.</h1><p>Six knowledge checkpoints completed, and the original Module 1 workbench has recorded your self-confirmation. Your learning progress is stored in this browser.</p><div class="completion-stats"><div><strong>18</strong><span>Instructional screens</span></div><div><strong>36 / 36</strong><span>Knowledge-check answers</span></div><div><strong>01</strong><span>Workbench self-confirmed</span></div></div>'+
+      '<div class="completion-activity-banner"><span>PRACTICE ANYTIME</span><strong>Return to your practical work.</strong><p>Review the original Situational Analysis workbench, or explore the other five CBD workbenches in the activity library.</p><div class="completion-links"><a class="btn primary" href="../module1.html" target="_blank" rel="noopener noreferrer">Reopen Lesson 1 Activity ↗</a><button class="btn outline" id="complete-activities">All activities →</button></div></div>'+
+      '<p class="fine-print">This is a local learner record, not a UN qualification or externally verified certificate. The workbench confirmation is participant-generated.</p><div class="bottom-actions center"><button class="btn outline" id="review-again">Review lesson</button><button class="btn primary" id="export-completion">Export progress record ↗</button></div></div>';
     layout(content,'Lesson 1 · Complete');
     $('review-again').addEventListener('click',()=>navigate(0,0));
     $('export-completion').addEventListener('click',exportProgress);
+    $('complete-activities').addEventListener('click',openActivities);
   }
   function render() {
     if(mode==='home'){renderHome();return;}
