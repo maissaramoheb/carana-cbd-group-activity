@@ -129,48 +129,109 @@
     mode='activities'; if(window.location && window.location.hash !== '#activities')window.location.hash='#activities'; document.body.classList.remove('is-learning');
     render();window.scrollTo({top:0,behavior:'instant'});
   }
+  /* Canonical CBD six-phase storyline for the home and curriculum pathway.
+   * Each phase's original workbench exists. Only Phase 1 has a self-paced lesson.
+   */
+  const CURRICULUM_PHASES = [
+    {num:'01',name:'Situational Analysis',lines:'Situational<br>Analysis',lens:'UNDERSTAND THE CONTEXT',summary:'Understand the operating environment, the counterpart institution, and the actual capacity gaps before designing support.',question:'What is happening, and what really needs to change?',status:'LESSON AVAILABLE',activity:'Original workbench available'},
+    {num:'02',name:'Objective Setting',lines:'Objective<br>Setting',lens:'SET THE DIRECTION',summary:'Translate evidence and identified capacity gaps into prioritised objectives and measurable results.',question:'What should capacity development achieve?',status:'SELF-PACED LESSON PLANNED',activity:'Original workbench available'},
+    {num:'03',name:'Planning Activities',lines:'Planning<br>Activities',lens:'DESIGN THE APPROACH',summary:'Choose coherent activities, resources, responsibilities and risk responses to support the agreed objectives.',question:'How will the intended results be delivered?',status:'SELF-PACED LESSON PLANNED',activity:'Original workbench available'},
+    {num:'04',name:'Implementation',lines:'Implemen-<br>tation',lens:'PUT PLANS INTO PRACTICE',summary:'Deliver support, monitor implementation, work with counterparts, and adapt when operating realities change.',question:'How do we make change happen responsibly?',status:'SELF-PACED LESSON PLANNED',activity:'Original workbench available'},
+    {num:'05',name:'Evaluation & Adjustment',lines:'Evaluation &<br>Adjustment',lens:'LEARN AND ADAPT',summary:'Use evidence to judge progress, identify what is and is not working, and adjust the approach accordingly.',question:'What is changing, and what should improve?',status:'SELF-PACED LESSON PLANNED',activity:'Original workbench available'},
+    {num:'06',name:'Transition & Handover',lines:'Transition &<br>Handover',lens:'SUSTAIN THE OUTCOMES',summary:'Strengthen national ownership and continuity so that institutional capability remains after external support ends.',question:'How will progress endure beyond the mission?',status:'SELF-PACED LESSON PLANNED',activity:'Original workbench available'}
+  ];
+
   function renderHome() {
     const started=!!progress.startedAt;
     const completed=progress.completed.length;
     const percent=Math.round(completed / SECTION_COUNT * 100);
-    $('root').innerHTML =
-      '<div class="landing premium-landing">' +
-      '<div class="opening-gradient"><header class="topbar shell premium-topbar">'+
-      '<button class="brand brand-button" id="brand-home" aria-label="CARANA course home"><span class="brand-symbol"><span class="brand-mark">C</span></span><span><strong>CARANA</strong><small>CAPACITY BUILDING · LEARNING STUDIO</small></span></button>'+
-      '<nav class="premium-navigation" aria-label="Main navigation"><a href="#course-map">Learning path</a><button id="header-activities">Activities <span class="nav-count">07</span></button><a href="#about">About</a></nav>'+
-      '<div class="header-utility"><span class="utility-dot"></span> LEARN INDEPENDENTLY</div></header>'+
-      '<section class="hero shell premium-hero"><div class="hero-copy"><div class="hero-overline"><span class="hero-line"></span> AN INTERACTIVE LEARNING EXPERIENCE <span class="hero-overline-number">/ 01—06</span></div>'+
-      '<h1>Better analysis.<br><em>Stronger institutions.</em></h1>'+
-      '<p class="hero-lead">Build the judgement behind effective police capacity development. Explore the evidence. Test your understanding. Put it into practice inside CARANA.</p>'+
-      '<div class="hero-actions"><button class="btn primary xl main-cta" id="start-course">'+(started?'Resume Lesson 01':'Begin Lesson 01')+' <span class="cta-arrow" aria-hidden="true">↗</span></button><button class="btn secondary xl" id="hero-activities">Explore activities <span aria-hidden="true">→</span></button></div>'+
-      '<div class="hero-trust"><span>NO LOGIN REQUIRED</span><span class="trust-divider"></span><span>SELF-PACED</span><span class="trust-divider"></span><span>PROGRESS STORED LOCALLY</span></div></div>'+
-      '<div class="hero-art premium-visual" aria-label="Illustrated mission-analysis dashboard containing evidence, context and response lenses" role="img">'+
-      '<div class="mission-grid"></div><div class="mission-top-label">FIELD ANALYSIS / CARANA</div><div class="mission-main"><div class="mission-top"><span>01</span><span class="mission-live"><i></i> ANALYSIS FIRST</span></div><div class="mission-emblem"><div class="emblem-core">C<span>BD</span></div><div class="emblem-rings"></div></div><div class="mission-title">SITUATIONAL<br>ANALYSIS</div><div class="mission-subtitle">An evidence-based foundation</div><div class="mission-chart"><span style="height:35%"></span><span style="height:68%"></span><span style="height:48%"></span><span style="height:87%"></span><span style="height:58%"></span><span style="height:76%"></span></div></div>'+
-      '<div class="mission-callout callout-left"><span>01</span><strong>CONTEXT</strong><small>Read the environment</small></div><div class="mission-callout callout-right"><span>02</span><strong>STAKEHOLDERS</strong><small>Understand interests</small></div><div class="mission-callout callout-bottom"><span>03</span><strong>EVIDENCE</strong><small>Identify real gaps</small></div><div class="mission-bottom-label">A BETTER DECISION STARTS WITH A BETTER DIAGNOSIS</div></div></section></div><main>'+
-      '<section class="highlights shell" aria-label="Your learning dashboard"><div class="highlight-title"><span class="highlight-kicker">YOUR COURSE DESK</span><strong>'+(started?'Keep your momentum.':'Start with the fundamentals.')+'</strong><span>'+(started?completed+' checkpoints completed so far':'Learn at your own pace, then apply what you know')+'</span></div>'+
-      '<div class="highlight-stat"><strong>06<span>/ 06</span></strong><small>LEARNING BLOCKS</small></div>'+
-      '<div class="highlight-stat"><strong>'+String(percent).padStart(2,'0')+'<span>%</span></strong><small>CHECKPOINT PROGRESS</small></div>'+
-      '<div class="highlight-action"><button id="strip-activities"><span class="strip-icon">↗</span><span><strong>Activity library</strong><small>Open exercises directly</small></span><span aria-hidden="true">→</span></button></div></section>'+
-      '<section id="course-map" class="lesson-section shell premium-lessons"><div class="section-heading"><div><div class="section-eyebrow">01 / CURRICULUM PATHWAY</div><h2>Master the CBD cycle,<br><em>one decision at a time.</em></h2><p>One complete lesson available now. The other five learning lessons will follow, while all original practice tools remain accessible.</p></div><div class="course-status"><span class="status-ring">'+percent+'%</span><span><strong>'+completed+' / 6</strong><small>Checkpoints passed</small></span></div></div>'+
-      '<div class="premium-lesson-grid"><div class="lesson-showcase"><div class="showcase-overline"><span>01 / CORE COURSE</span><span class="showcase-status">● READY TO LEARN</span></div><div class="showcase-body"><div><span class="showcase-index">LESSON ONE</span><h3>Situational<br>Analysis</h3><p>Examine the situation you encounter, analyse stakeholders, understand institutional realities, and establish an evidence-based baseline.</p><div class="showcase-tags"><span>CONFLICT</span><span>RESPONSE</span><span>CBD</span><span>SWOT</span></div></div><div class="showcase-diagram" aria-hidden="true"><div class="diagram-ring a"></div><div class="diagram-ring b"></div><div class="diagram-orb">01<span>ASSESS</span></div><div class="diagram-point p1"></div><div class="diagram-point p2"></div></div></div><div class="showcase-bottom"><span><strong>18</strong> learning screens <b>·</b> <strong>36</strong> questions <b>·</b> <strong>01</strong> activity</span><button class="btn primary" id="lesson-one">'+(started?'Continue lesson':'Start lesson')+' <span aria-hidden="true">↗</span></button></div></div>'+
-      '<div class="lesson-future-list">'+[
-        ['02','Objective Setting','Define your destination.'],
-        ['03','Planning Activities','Translate objectives into action.'],
-        ['04','Implementation','Support meaningful change.'],
-        ['05','Evaluation & Adjustment','Learn from results.'],
-        ['06','Transition & Handover','Make progress sustainable.']
-      ].map(x=>'<div class="future-lesson"><span>'+x[0]+'</span><div><strong>'+x[1]+'</strong><small>'+x[2]+'</small></div><span class="future-state">COMING LATER</span></div>').join('')+'</div></div></section>'+
-      '<section class="activity-teaser"><div class="shell teaser-inner"><div class="teaser-copy"><span class="section-eyebrow">02 / THE PRACTICAL LIBRARY</span><h2>Theory becomes capability<br><em>when you put it to work.</em></h2><p>Six complete CARANA workbenches plus a 60-minute group exercise. Activities are directly accessible for trainers and independent practice—even before finishing a lesson.</p><button class="btn primary xl" id="teaser-activities">Open Activities Hub <span aria-hidden="true">↗</span></button></div><div class="teaser-graphic" aria-hidden="true"><div class="teaser-folder"><span>ACTIVE WORKBENCH</span><strong>CARANA</strong><div class="teaser-chart"><i></i><i></i><i></i></div></div><div class="teaser-ticket">06 <small>INTERACTIVE MODULES</small></div></div></div></section>'+
-      '<section class="method-section shell" id="about"><span class="section-eyebrow">03 / HOW THE COURSE WORKS</span><h2>A focused learning sequence.</h2><div class="method-grid">'+[
-        ['01','LEARN','Explore concise, interactive learning screens derived from the official lesson plan.'],
-        ['02','CHECK','Demonstrate understanding through six-question checkpoints, with feedback and retries.'],
-        ['03','APPLY','Open the preserved CARANA activity for hands-on analysis and practical application.']
+    const stageButtons=CURRICULUM_PHASES.map((phase,i)=>
+      '<button class="cycle-stage stage-'+phase.num+'" type="button" data-cycle-phase="'+i+'" aria-pressed="false" aria-label="Explore CBD phase '+phase.num+': '+clean(phase.name)+'">'+
+      '<span class="cycle-stage-number">'+phase.num+'</span><span class="cycle-stage-copy"><strong>'+phase.lines+'</strong><small>'+(i===0?'SELF-PACED LESSON LIVE':'PRACTICE AVAILABLE')+'</small></span></button>'
+    ).join('');
+    const phaseCards=CURRICULUM_PHASES.map((phase,i)=>
+      '<article class="curriculum-phase-card curriculum-phase-'+phase.num+'"><div class="curriculum-card-header">'+
+      '<span class="curriculum-card-number">'+phase.num+'</span><span class="curriculum-availability '+(i===0?'ready':'planned')+'">'+(i===0?'SELF-PACED LESSON READY':'LESSON IN DEVELOPMENT')+'</span></div>'+
+      '<span class="curriculum-lens">'+clean(phase.lens)+'</span><h3>'+clean(phase.name)+'</h3>'+
+      '<p>'+clean(phase.summary)+'</p>'+
+      '<div class="curriculum-key-question"><span>THE CORE QUESTION</span><strong>'+clean(phase.question)+'</strong></div>'+
+      '<div class="curriculum-card-foot">'+
+      (i===0?'<button id="lesson-one" class="curriculum-learn" type="button">'+(started?'Resume learning':'Begin learning')+' <span aria-hidden="true">↗</span></button>':
+      '<span class="curriculum-coming">Self-paced lesson coming later</span>')+
+      '<a href="'+clean(ACTIVITIES[i].url)+'" target="_blank" rel="noopener noreferrer" class="curriculum-activity-link">Open activity <span aria-hidden="true">↗</span></a></div></article>'
+    ).join('');
+    $('root').innerHTML=
+      '<div class="landing premium-landing curriculum-landing">'+
+      '<div class="opening-gradient curriculum-opening"><header class="topbar shell premium-topbar">'+
+      '<button class="brand brand-button" id="brand-home" aria-label="CARANA CBD course home"><span class="brand-symbol"><span class="brand-mark">C</span></span><span><strong>CARANA</strong><small>CAPACITY BUILDING · LEARNING STUDIO</small></span></button>'+
+      '<nav class="premium-navigation" aria-label="Main navigation"><a href="#course-map">The CBD cycle</a><button id="header-activities">Activities <span class="nav-count">07</span></button><a href="#about">How it works</a></nav>'+
+      '<div class="header-utility"><span class="utility-dot"></span> SELF-PACED · PRACTICE-DRIVEN</div></header>'+
+      '<section class="hero shell premium-hero curriculum-hero"><div class="hero-copy">'+
+      '<div class="hero-overline"><span class="hero-line"></span> THE CBD LEARNING JOURNEY <span class="hero-overline-number">/ SIX CONNECTED PHASES</span></div>'+
+      '<h1>Build capability.<br><em>Strengthen institutions.</em></h1>'+
+      '<p class="hero-lead">Explore the full cycle of police Capacity Building and Development—from understanding the situation and setting priorities to implementation, evaluation, and sustainable handover.</p>'+
+      '<div class="hero-actions"><a class="btn primary xl main-cta" href="#course-map">Explore the CBD cycle <span class="cta-arrow" aria-hidden="true">↘</span></a>'+
+      '<button class="btn secondary xl" id="start-course">'+(started?'Resume your learning':'Start with Lesson 01')+' <span aria-hidden="true">↗</span></button></div>'+
+      '<div class="hero-trust"><span>06 CURRICULUM PHASES</span><span class="trust-divider"></span><span>INTERACTIVE LEARNING</span><span class="trust-divider"></span><span>PRACTICAL APPLICATION</span></div>'+
+      '<button class="curriculum-hero-activities" id="hero-activities">Or explore all seven practical activities <span aria-hidden="true">↗</span></button></div>'+
+      '<div class="hero-art premium-visual curriculum-visual" role="group" aria-label="Interactive diagram of the six phases of the CBD cycle">'+
+      '<div class="cycle-visual-header"><span class="cycle-caption-line"></span> THE COMPLETE CBD CYCLE <span class="cycle-header-code">01—06</span></div>'+
+      '<div class="cycle-orbit"><div class="cycle-grid" aria-hidden="true"></div>'+
+      '<svg class="cycle-orbit-svg" viewBox="0 0 560 450" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">'+
+      '<circle cx="280" cy="225" r="148" fill="none" stroke="rgba(123,209,225,.26)" stroke-width="1.2"/>'+
+      '<circle cx="280" cy="225" r="117" fill="none" stroke="rgba(123,209,225,.10)" stroke-width="1"/>'+
+      '<circle cx="280" cy="225" r="183" fill="none" stroke="rgba(123,209,225,.11)" stroke-width="1" stroke-dasharray="3 9"/>'+
+      '<path d="M 368 106 L 377 109 L 373 119" fill="none" stroke="#8fe1d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+      '<path d="M 425 248 L 421 258 L 411 252" fill="none" stroke="#8fe1d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+      '<path d="M 193 343 L 184 340 L 189 331" fill="none" stroke="#8fe1d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+      '</svg>'+
+      '<div class="cycle-core"><span class="cycle-core-top">ONE CONTINUOUS PROCESS</span><div class="cycle-core-title">CBD</div><span class="cycle-core-full">CAPACITY BUILDING<br>& DEVELOPMENT</span><div class="cycle-core-divider"></div><span class="cycle-core-bottom">CONTEXT → SUSTAINABILITY</span></div>'+
+      stageButtons+
+      '</div>'+
+      '<div class="cycle-detail" role="status" aria-live="polite"><div class="cycle-detail-copy"><span id="cycle-caption-phase">THE FULL CURRICULUM</span><strong id="cycle-caption-title">Six phases. One connected journey.</strong><p id="cycle-caption-copy">Select any phase to explore its purpose and available practical activity.</p></div><a id="cycle-caption-action" href="#course-map" class="cycle-detail-action" aria-label="Explore the curriculum">Explore all phases <span aria-hidden="true">↗</span></a></div>'+
+      '</div></section></div><main>'+
+      '<section class="highlights shell curriculum-highlights" aria-label="CBD course and activity availability"><div class="highlight-title"><span class="highlight-kicker">YOUR CBD LEARNING DESK</span><strong>'+(started?'Continue your learning journey.':'Explore the complete curriculum.')+'</strong><span>'+(started?'Lesson 1: '+completed+' of 6 checkpoints passed':'Six phases, each connected to practical application')+'</span></div>'+
+      '<div class="highlight-stat"><strong>06</strong><small>CURRICULUM PHASES</small></div>'+
+      '<div class="highlight-stat"><strong>01<span>/06</span></strong><small>SELF-PACED LESSONS LIVE</small></div>'+
+      '<div class="highlight-stat curriculum-checkpoints"><strong>'+completed+'<span>/06</span></strong><small>LESSON 01 CHECKPOINTS</small></div>'+
+      '<div class="highlight-action"><button id="strip-activities"><span class="strip-icon">↗</span><span><strong>Practical library</strong><small>7 activities · Available now</small></span><span aria-hidden="true">→</span></button></div></section>'+
+      '<section id="course-map" class="lesson-section shell curriculum-lessons"><div class="section-heading"><div><div class="section-eyebrow">01 / THE COMPLETE CBD CURRICULUM</div>'+
+      '<h2>Six phases. <em>One mission: lasting capacity.</em></h2>'+
+      '<p>The CBD process is interconnected. Each phase informs the next, and lessons learned can lead back to renewed analysis and priorities. Explore the full pathway below.</p></div>'+
+      '<div class="curriculum-roadmap-note"><span class="roadmap-dot"></span><strong>ONE LESSON LIVE</strong><small>All six practical workbenches available</small></div></div>'+
+      '<div class="curriculum-route" aria-label="The six phases of the CBD cycle"><span>UNDERSTAND</span><b>›</b><span>PRIORITISE</span><b>›</b><span>PLAN</span><b>›</b><span>DELIVER</span><b>›</b><span>LEARN</span><b>›</b><span>SUSTAIN</span><b class="route-loop">↺</b></div>'+
+      '<div class="curriculum-phase-grid">'+phaseCards+'</div>'+
+      '<div class="curriculum-continuum"><span class="continuum-icon" aria-hidden="true">↺</span><div><strong>The cycle does not end at handover.</strong><p>Evaluation, institutional learning and ownership feed future situational analysis, making capacity development a continuous process rather than a one-off intervention.</p></div><a href="#about">How learning works <span aria-hidden="true">↗</span></a></div></section>'+
+      '<section class="activity-teaser"><div class="shell teaser-inner"><div class="teaser-copy"><span class="section-eyebrow">02 / THE PRACTICAL LIBRARY</span><h2>Knowledge becomes capability<br><em>when you put it to work.</em></h2><p>Six original CARANA CBD workbenches and a 60-minute facilitated group exercise are available for practice now—even before every self-paced lesson is published.</p>'+
+      '<button class="btn primary xl" id="teaser-activities">Open Activities Hub <span aria-hidden="true">↗</span></button></div><div class="teaser-graphic" aria-hidden="true"><div class="teaser-folder"><span>CBD ACTIVITY LIBRARY</span><strong>CARANA</strong><div class="teaser-chart"><i></i><i></i><i></i></div></div><div class="teaser-ticket">06 <small>INTERACTIVE MODULES</small></div></div></div></section>'+
+      '<section class="method-section shell" id="about"><span class="section-eyebrow">03 / THE LEARNING MODEL</span><h2>Learn the process. Practise the decisions.</h2><div class="method-grid">'+[
+       ['01','UNDERSTAND','Work through short, structured learning screens aligned with the corresponding CBD lesson plan.'],
+       ['02','TEST YOUR JUDGEMENT','Answer formative checkpoints, review feedback, and demonstrate understanding before progressing.'],
+       ['03','APPLY','Open the original CARANA exercise and transfer your knowledge to a practical scenario.']
       ].map(x=>'<div class="method-card"><span>'+x[0]+'</span><h3>'+x[1]+'</h3><p>'+x[2]+'</p></div>').join('')+'</div>'+
-      '<p class="course-disclaimer">Independently developed instructional adaptation based on the UNPOL CBD Job-Specific Training curriculum. Not an official United Nations course, certification, or endorsement. Browser-based progress is not a formal training record.</p></section></main>'+
-      '<footer class="footer shell"><span>© 2026 CARANA CBD E-Learning · Prepared by Lt. Col. Maissara Selim</span><span>UN curriculum and CARANA scenario acknowledged as their original institutional sources.</span></footer></div>';
+      '<p class="course-disclaimer">Independent instructional adaptation referencing the UNPOL CBD Job-Specific Training curriculum. Only Lesson 1 is currently available as a self-paced course; all six original workbenches remain accessible. This is not an official United Nations learning platform, certification, or endorsement. Progress is stored locally in this browser.</p></section></main>'+
+      '<footer class="footer shell"><span>© 2026 CARANA CBD E-Learning · Prepared by Lt. Col. Maissara Selim</span><span>UN curriculum and CARANA scenario remain attributed to their institutional sources.</span></footer></div>';
+
     const bindings=[['start-course',resume],['lesson-one',resume],['header-activities',openActivities],['hero-activities',openActivities],['strip-activities',openActivities],['teaser-activities',openActivities]];
     bindings.forEach(([id,fn])=>$(id).addEventListener('click',fn));
     $('brand-home').addEventListener('click',goHome);
+    document.querySelectorAll('[data-cycle-phase]').forEach(button=>button.addEventListener('click',()=>{
+      const i=Number(button.dataset.cyclePhase), phase=CURRICULUM_PHASES[i], action=$('cycle-caption-action');
+      document.querySelectorAll('[data-cycle-phase]').forEach(node=>node.setAttribute('aria-pressed',String(node===button)));
+      $('cycle-caption-phase').textContent='PHASE '+phase.num+' / '+phase.lens;
+      $('cycle-caption-title').textContent=phase.name;
+      $('cycle-caption-copy').textContent=phase.summary;
+      action.setAttribute('href',i===0?'#lesson-1':ACTIVITIES[i].url);
+      if(i===0){
+        action.removeAttribute('target');action.removeAttribute('rel');
+        action.innerHTML='Enter lesson 01 <span aria-hidden="true">↗</span>';
+        action.setAttribute('aria-label','Enter Situational Analysis self-paced lesson');
+      }else{
+        action.setAttribute('target','_blank');action.setAttribute('rel','noopener noreferrer');
+        action.innerHTML='Open phase '+phase.num+' activity <span aria-hidden="true">↗</span>';
+        action.setAttribute('aria-label','Open the '+phase.name+' workbench in a new tab');
+      }
+    }));
   }
   function renderActivities() {
     const openLink = (a,i) =>
