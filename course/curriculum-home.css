@@ -1,0 +1,401 @@
+/* CARANA CBD Learning Experience · Curriculum-wide landing v0.3
+   Extends (does not overwrite) the v0.2 visual foundation.
+   Six phases are represented without implying six self-paced lessons have shipped.
+*/
+.curriculum-opening{
+  background:
+    radial-gradient(ellipse at 82% 34%,rgba(29,99,126,.45),transparent 46%),
+    radial-gradient(ellipse at 55% 130%,rgba(31,89,115,.25),transparent 62%),
+    linear-gradient(120deg,#091a30 4%,#0e2d49 66%,#0b2a43 100%);
+}
+.curriculum-opening:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(90deg,transparent 0%,rgba(130,214,225,.014) 50%,transparent 100%);
+  z-index:-1;
+}
+.curriculum-hero{
+  grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  min-height:675px;gap:clamp(20px,3.6vw,66px);
+  padding-top:76px;padding-bottom:104px;
+}
+.curriculum-hero .hero-copy{padding-top:71px;max-width:680px}
+.curriculum-hero .hero-overline{color:#a4e6e6;font-size:10px}
+.curriculum-hero h1{
+  font-size:clamp(51px,5.2vw,78px);
+  line-height:1.12;letter-spacing:-.052em;
+  margin:30px 0 28px;
+}
+.curriculum-hero h1 em{font-style:italic;color:#b7f0d9}
+.curriculum-hero .hero-lead{
+  color:#bed2df;font-size:16px;
+  line-height:1.87;max-width:600px;
+}
+.curriculum-hero .hero-actions{margin-top:32px;gap:14px}
+.curriculum-hero .main-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:15px;
+  background:#b5f3c1;color:#123d48;
+  border:1px solid rgba(210,255,215,.85);
+  box-shadow:0 11px 26px rgba(49,158,141,.11);
+  padding:16px 23px;
+}
+.curriculum-hero .main-cta:hover{background:#d4ffd4;transform:translateY(-1px)}
+.curriculum-hero .secondary{border-color:rgba(166,205,222,.33)}
+.curriculum-hero .hero-trust{
+  color:#87aabf;margin-top:35px;
+  font-size:9px;gap:13px;letter-spacing:.13em;
+}
+.curriculum-hero-activities{
+  display:inline-flex;align-items:center;gap:10px;
+  background:none;border:0;border-bottom:1px solid rgba(146,201,214,.22);
+  color:#bedce7;padding:0 0 7px;margin-top:23px;
+  font-size:11px;letter-spacing:.015em;cursor:pointer;
+  transition:color .2s,border-color .2s;
+}
+.curriculum-hero-activities:hover{color:#d9f9f6;border-color:#99e1e2}
+.curriculum-hero-activities:focus-visible{outline:2px solid #bbf2cd;outline-offset:5px}
+.curriculum-visual{width:100%;height:auto!important;min-width:0;display:block;overflow:visible}
+.cycle-visual-header{
+  display:flex;align-items:center;gap:12px;
+  color:#84bbcb;letter-spacing:.16em;font-size:9px;font-weight:850;
+  padding:0 15px 0;margin-bottom:8px;
+}
+.cycle-caption-line{display:inline-block;width:26px;height:1px;background:#78c5d1}
+.cycle-header-code{margin-left:auto;color:#678fa3}
+.cycle-orbit{
+  width:min(560px,100%);height:450px;margin:0 auto;
+  position:relative;isolation:isolate;overflow:visible;
+}
+.cycle-grid{
+  position:absolute;inset:8px 0 5px;border-radius:50%;
+  background:
+    linear-gradient(rgba(143,223,226,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(143,223,226,.06) 1px,transparent 1px);
+  background-size:27px 27px;
+  mask-image:radial-gradient(ellipse,#000 24%,transparent 73%);
+  opacity:.5;z-index:0;pointer-events:none;
+}
+.cycle-orbit-svg{
+  position:absolute;inset:0;width:100%;height:100%;z-index:1;
+  pointer-events:none;filter:drop-shadow(0 4px 12px rgba(8,38,60,.1));
+}
+.cycle-core{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:207px;height:207px;border-radius:50%;z-index:2;
+  background:
+    radial-gradient(ellipse at 36% 22%,rgba(91,175,192,.24),transparent 55%),
+    linear-gradient(152deg,#1a5876,#103b59 62%,#0b2f4b);
+  box-shadow:0 0 0 1px rgba(133,224,227,.45),0 0 0 15px rgba(74,166,191,.045),
+    0 22px 48px rgba(3,18,31,.30),inset 0 1px 0 rgba(247,255,255,.10);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  color:#eafcfc;text-align:center;padding:21px;
+}
+.cycle-core:after{
+  content:"";position:absolute;inset:14px;border:1px dashed rgba(171,231,229,.21);
+  border-radius:50%;pointer-events:none;
+}
+.cycle-core-top{font-size:7.5px;font-weight:800;letter-spacing:.14em;color:#a2d6dc}
+.cycle-core-title{
+  margin:4px 0 2px;font:normal 65px/1 Georgia,serif;
+  letter-spacing:-.06em;color:#ecfffa;
+  text-shadow:0 4px 28px rgba(159,245,228,.17);
+}
+.cycle-core-full{font-size:9px;letter-spacing:.11em;line-height:1.55;color:#bde7e7}
+.cycle-core-divider{width:41px;height:1px;background:#70aebd;margin:13px 0 9px}
+.cycle-core-bottom{font-size:7px;letter-spacing:.06em;color:#84b9cc;font-weight:850}
+.cycle-stage{
+  z-index:3;position:absolute;
+  display:flex;align-items:center;gap:11px;
+  width:164px;min-height:74px;padding:12px 13px;
+  background:linear-gradient(143deg,rgba(11,35,57,.97),rgba(16,49,73,.96));
+  border:1px solid rgba(125,205,225,.30);border-radius:12px;
+  box-shadow:0 11px 27px rgba(3,18,33,.31),inset 0 1px rgba(255,255,255,.065);
+  color:#eaf7f8;text-align:left;cursor:pointer;
+  transform:translate(-50%,-50%);
+  transition:background .19s,border-color .19s,box-shadow .19s,transform .19s;
+  font-family:inherit;
+}
+.cycle-stage:hover{
+  background:linear-gradient(140deg,#1a5872,#174461);
+  border-color:rgba(170,242,235,.75);
+  box-shadow:0 14px 33px rgba(3,18,33,.4),0 0 0 3px rgba(131,225,219,.08);
+  transform:translate(-50%,-52%);
+}
+.cycle-stage:focus-visible{outline:3px solid #c7ffd0;outline-offset:3px}
+.cycle-stage[aria-pressed="true"]{
+  border-color:#b2f4dc;background:linear-gradient(140deg,#22617b,#124c69);
+  box-shadow:0 10px 31px rgba(3,18,33,.38),0 0 0 3px rgba(130,236,216,.13);
+}
+.cycle-stage-number{
+  width:32px;height:32px;display:grid;place-items:center;
+  border:1px solid rgba(125,214,218,.29);border-radius:9px;
+  flex-shrink:0;font:normal 19px Georgia,serif;color:#a9e5e1;
+  background:rgba(86,192,200,.08);
+}
+.cycle-stage-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
+.cycle-stage-copy strong{font-size:11.5px;font-weight:750;line-height:1.22;color:#eaf8f8}
+.cycle-stage-copy small{font-size:7.2px;font-weight:800;letter-spacing:.07em;color:#90b6c8;white-space:nowrap}
+.cycle-stage.stage-01 .cycle-stage-copy small{color:#b8e9ba}
+.cycle-stage.stage-01{left:50%;top:9%}
+.cycle-stage.stage-02{left:80.7%;top:30.4%}
+.cycle-stage.stage-03{left:80.7%;top:70.2%}
+.cycle-stage.stage-04{left:50%;top:91.5%}
+.cycle-stage.stage-05{left:19.3%;top:70.2%}
+.cycle-stage.stage-06{left:19.3%;top:30.4%}
+.cycle-detail{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  width:100%;min-height:108px;margin:12px auto 0;padding:18px 20px;
+  border:1px solid rgba(140,215,228,.20);
+  background:linear-gradient(120deg,rgba(22,61,84,.67),rgba(12,41,63,.8));
+  box-shadow:0 13px 26px rgba(5,19,36,.15),inset 0 1px rgba(255,255,255,.07);
+  border-radius:12px;
+}
+.cycle-detail-copy{min-width:0}
+.cycle-detail-copy>span{
+  display:block;font-size:8.5px;font-weight:850;
+  letter-spacing:.14em;color:#9fe8dc;margin-bottom:7px;
+}
+.cycle-detail-copy>strong{display:block;font:normal 20px/1.2 Georgia,serif;color:#f1fffc}
+.cycle-detail-copy>p{
+  font-size:10.5px;line-height:1.55;color:#9ebacb;
+  margin:7px 0 0;max-width:370px;
+}
+.cycle-detail-action{
+  text-decoration:none;color:#c8f8e2;font-size:10px;
+  font-weight:850;white-space:nowrap;flex-shrink:0;
+  border-bottom:1px solid rgba(192,244,221,.4);padding-bottom:7px;
+}
+.cycle-detail-action:hover{color:#fff;border-color:#fff}
+.cycle-detail-action:focus-visible{outline:2px solid #c4efcf;outline-offset:4px}
+/* Learning desk: six curriculum phases and honest lesson-availability metrics. */
+.curriculum-highlights{
+  grid-template-columns:1.55fr .52fr .68fr .68fr 1.03fr;
+  padding:19px 23px;
+  min-height:117px;margin-top:-39px;
+}
+.curriculum-highlights .highlight-title{padding-left:12px;padding-right:6px}
+.curriculum-highlights .highlight-title strong{font-size:19px}
+.curriculum-highlights .highlight-stat>strong{font-size:34px}
+.curriculum-highlights .highlight-stat>strong span{font-size:17px}
+.curriculum-highlights .highlight-stat small{font-size:8.5px;line-height:1.4;text-align:center;padding:0 8px}
+.curriculum-highlights .highlight-action button{height:73px}
+.curriculum-highlights .highlight-action strong{font-size:12px}
+/* A balanced six-phase curriculum map: no oversized Lesson 1 card. */
+.curriculum-lessons{padding-top:101px;padding-bottom:99px}
+.curriculum-lessons .section-heading{align-items:end;gap:25px;margin-bottom:34px}
+.curriculum-lessons .section-heading h2{
+  font:normal clamp(35px,3.6vw,51px)/1.15 Georgia,serif;
+  letter-spacing:-.036em;color:#193249;margin:15px 0;
+}
+.curriculum-lessons .section-heading h2 em{font-weight:400;color:#297d90}
+.curriculum-lessons .section-heading p{
+  font-size:13px;line-height:1.87;color:#71899a;
+  max-width:710px;margin-top:8px;
+}
+.curriculum-roadmap-note{
+  flex-shrink:0;background:#fff;border:1px solid #e3edf0;
+  border-radius:10px;padding:17px 20px;display:flex;gap:6px;
+  flex-direction:column;min-width:207px;box-shadow:0 5px 22px rgba(8,40,60,.03);
+}
+.roadmap-dot{width:6px;height:6px;border-radius:50%;background:#3fa889;box-shadow:0 0 0 4px #e0f6e9;margin:0 0 5px 3px}
+.curriculum-roadmap-note strong{font-size:10px;letter-spacing:.1em;color:#244d61}
+.curriculum-roadmap-note small{font-size:10px;color:#8498a4}
+.curriculum-route{
+  display:flex;align-items:center;justify-content:space-between;gap:9px;
+  padding:21px 22px;margin:0 0 22px;
+  background:#ecf5f5;border:1px solid #dceced;border-radius:12px;
+  color:#245e71;overflow-x:auto;
+}
+.curriculum-route span{font-size:10px;font-weight:850;letter-spacing:.115em;white-space:nowrap}
+.curriculum-route b{color:#64a9b4;font-size:19px;font-weight:normal;white-space:nowrap}
+.curriculum-route b.route-loop{font-size:24px;color:#3e8e99}
+.curriculum-phase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
+.curriculum-phase-card{
+  min-height:378px;padding:26px 25px 21px;position:relative;
+  background:#fff;border:1px solid #e0eaf0;border-radius:14px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 9px 27px rgba(16,49,76,.035);
+  transition:transform .18s,box-shadow .18s,border-color .18s;
+}
+.curriculum-phase-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 39px rgba(19,63,88,.085);border-color:#bbd9df;
+}
+.curriculum-phase-card:before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#51a9b6,#b4e7da);opacity:.78;
+}
+.curriculum-phase-02:before{background:linear-gradient(90deg,#548eac,#b4d7e7)}
+.curriculum-phase-03:before{background:linear-gradient(90deg,#6f92b5,#c3d3e8)}
+.curriculum-phase-04:before{background:linear-gradient(90deg,#779bb1,#badedc)}
+.curriculum-phase-05:before{background:linear-gradient(90deg,#b79a70,#e4cfaa)}
+.curriculum-phase-06:before{background:linear-gradient(90deg,#4a9e92,#bce6c5)}
+.curriculum-card-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:25px}
+.curriculum-card-number{font:normal 39px/1 Georgia,serif;color:#a5bbca;letter-spacing:-.065em}
+.curriculum-phase-01 .curriculum-card-number{color:#2d849b}
+.curriculum-availability{
+  font-size:8.4px;font-weight:850;letter-spacing:.07em;
+  padding:7px 9px;border-radius:20px;white-space:nowrap;
+}
+.curriculum-availability.ready{background:#e3f8eb;color:#237d63}
+.curriculum-availability.planned{background:#f1f5f7;color:#738da1}
+.curriculum-lens{
+  color:#2789a1;font-size:9px;font-weight:850;
+  letter-spacing:.145em;
+}
+.curriculum-phase-card h3{
+  font:normal 26px/1.15 Georgia,serif;letter-spacing:-.027em;
+  color:#19354e;margin:12px 0 12px;
+}
+.curriculum-phase-card>p{
+  font-size:12px;line-height:1.79;color:#708798;
+  margin:0 0 20px;
+}
+.curriculum-key-question{
+  display:flex;flex-direction:column;gap:7px;margin-top:auto;
+  background:#f5f9fa;padding:13px 15px;border-radius:8px;
+  border:1px solid #edf1f2;
+}
+.curriculum-key-question>span{font-size:8px;color:#618ca0;letter-spacing:.14em;font-weight:850}
+.curriculum-key-question>strong{
+  color:#3b6375;font:italic 15px/1.36 Georgia,serif;
+}
+.curriculum-card-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:13px;
+  margin-top:18px;min-height:38px;
+}
+.curriculum-learn{
+  cursor:pointer;color:#fff;background:#205b77;
+  border:1px solid #205b77;padding:10px 14px;border-radius:8px;
+  font-size:11px;font-weight:800;white-space:nowrap;
+  transition:background .17s;
+}
+.curriculum-learn:hover{background:#0e405f}
+.curriculum-learn:focus-visible{outline:3px solid #76cdd2;outline-offset:3px}
+.curriculum-coming{font-size:9px;line-height:1.45;color:#8098a7;max-width:135px}
+.curriculum-activity-link{
+  color:#207b99;text-decoration:none;font-size:11px;
+  font-weight:850;white-space:nowrap;
+}
+.curriculum-activity-link:hover{text-decoration:underline;color:#0a536c}
+.curriculum-activity-link:focus-visible{outline:2px solid #62aec6;outline-offset:3px}
+.curriculum-continuum{
+  display:flex;align-items:center;gap:19px;margin-top:26px;
+  border:1px solid #d5e6e7;border-radius:13px;
+  background:linear-gradient(110deg,#e9f7f2,#f2f9f9);
+  padding:24px 27px;
+}
+.continuum-icon{
+  display:grid;place-items:center;height:52px;width:52px;flex-shrink:0;
+  border:1px solid #abd9d2;background:#d3f1e3;border-radius:50%;
+  color:#257d78;font-size:32px;
+}
+.curriculum-continuum>div{flex:1}
+.curriculum-continuum strong{font:normal 20px Georgia,serif;color:#24475a}
+.curriculum-continuum p{
+  font-size:12px;color:#678897;line-height:1.75;
+  margin:5px 0 0;
+}
+.curriculum-continuum>a{
+  font-size:11px;font-weight:850;text-decoration:none;color:#197e90;
+  white-space:nowrap;padding:9px 0;border-bottom:1px solid rgba(51,131,142,.32);
+}
+.curriculum-continuum>a:hover{border-color:#197e90}
+.curriculum-landing .activity-teaser{background:#eaf4f4}
+.curriculum-landing .teaser-copy h2{max-width:800px}
+.curriculum-landing .method-section h2{font-size:clamp(32px,3.2vw,42px)}
+/* Responsive: retain the full cycle as a graphic on desktop, then switch
+   to a clean 2-column interactive phase navigator on phones. */
+@media(max-width:1280px){
+  .curriculum-hero{gap:20px}
+  .curriculum-hero h1{font-size:clamp(48px,4.6vw,68px)}
+  .curriculum-highlights{grid-template-columns:1.42fr .55fr .67fr .68fr 1.0fr}
+  .curriculum-highlights .highlight-stat>strong{font-size:30px}
+  .curriculum-phase-card{padding:23px 21px 20px}
+}
+@media(max-width:1080px){
+  .curriculum-hero{grid-template-columns:1fr;gap:39px;padding-top:50px;padding-bottom:78px}
+  .curriculum-hero .hero-copy{padding-top:5px;max-width:750px}
+  .curriculum-hero h1{font-size:clamp(50px,6vw,73px)}
+  .curriculum-visual{max-width:630px;margin:0 auto}
+  .cycle-orbit{height:450px}
+  .curriculum-highlights{grid-template-columns:1fr 1fr 1fr}
+  .curriculum-highlights .highlight-title{grid-column:span 2}
+  .curriculum-highlights .highlight-action{grid-column:span 1;border-left:1px solid #e7ecf0;border-top:0;padding:0}
+  .curriculum-highlights .highlight-stat:nth-of-type(2){border-left:1px solid #e7ecf0}
+  .curriculum-phase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .curriculum-route{gap:11px}
+  .curriculum-route span{font-size:9px}
+}
+@media(max-width:800px){
+  .curriculum-hero{padding-top:45px;padding-bottom:69px}
+  .curriculum-visual{transform:none}
+  .curriculum-highlights{grid-template-columns:1fr 1fr;margin-top:-26px}
+  .curriculum-highlights .highlight-title{grid-column:span 2}
+  .curriculum-highlights .highlight-stat{border-left:1px solid #e7ecf0}
+  .curriculum-highlights .highlight-stat:nth-of-type(2){border-left:0}
+  .curriculum-highlights .highlight-action{grid-column:span 2;border-left:0;border-top:1px solid #e7ecf0;padding-top:10px}
+  .curriculum-lessons{padding-top:75px;padding-bottom:74px}
+  .curriculum-lessons .section-heading{flex-direction:column;align-items:flex-start;gap:15px}
+  .curriculum-roadmap-note{flex-direction:row;align-items:center;flex-wrap:wrap;gap:13px}
+  .roadmap-dot{margin:0}
+  .curriculum-roadmap-note small{width:100%;padding-left:19px;margin-top:-10px}
+  .curriculum-route{justify-content:flex-start}
+  .curriculum-phase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .curriculum-phase-card{min-height:388px}
+  .curriculum-continuum{flex-wrap:wrap}
+  .curriculum-continuum>a{margin-left:71px}
+}
+@media(max-width:650px){
+  .curriculum-hero{padding-top:38px;padding-bottom:65px;gap:28px}
+  .curriculum-hero h1{font-size:clamp(42px,9.5vw,60px);letter-spacing:-.045em}
+  .curriculum-hero .hero-lead{font-size:14px;line-height:1.8}
+  .curriculum-hero .hero-actions{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+  .curriculum-hero .hero-actions .btn{justify-content:center;width:100%}
+  .curriculum-hero .hero-trust{gap:9px;font-size:8px;line-height:1.8}
+  .curriculum-visual{width:100%;max-width:540px}
+  .cycle-visual-header{font-size:8px;padding:0 3px}
+  .cycle-orbit{
+    height:auto;width:100%;display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;margin:13px auto 0;
+  }
+  .cycle-grid,.cycle-orbit-svg,.cycle-core{display:none}
+  .cycle-stage,.cycle-stage:hover{
+    position:relative;top:auto!important;left:auto!important;
+    transform:none!important;min-height:83px;width:100%;
+    padding:12px 10px;gap:9px;transition:border-color .18s,background .18s;
+  }
+  .cycle-stage-number{width:28px;height:28px;font-size:18px}
+  .cycle-stage-copy strong{font-size:11px}
+  .cycle-stage-copy small{font-size:7px;white-space:normal}
+  .cycle-detail{flex-direction:column;align-items:flex-start;gap:12px;padding:18px;margin-top:11px}
+  .cycle-detail-action{align-self:flex-start}
+  .curriculum-highlights{padding:17px 14px}
+  .curriculum-highlights .highlight-title strong{font-size:18px}
+  .curriculum-highlights .highlight-stat>strong{font-size:29px}
+  .curriculum-highlights .highlight-stat small{font-size:8px}
+  .curriculum-highlights .highlight-stat.curriculum-checkpoints{grid-column:span 2;border-left:0;border-top:1px solid #e7ecf0;padding-top:12px}
+  .curriculum-lessons .section-heading h2{font-size:36px}
+  .curriculum-phase-grid{grid-template-columns:1fr;gap:13px}
+  .curriculum-phase-card{min-height:340px}
+  .curriculum-phase-card h3{font-size:28px}
+  .curriculum-route{padding:15px}
+  .curriculum-continuum{gap:12px;padding:20px}
+  .continuum-icon{height:44px;width:44px;font-size:27px}
+  .curriculum-continuum>div{flex-basis:calc(100% - 56px)}
+  .curriculum-continuum>a{margin-left:56px}
+}
+@media(max-width:380px){
+  .curriculum-hero h1{font-size:39px}
+  .cycle-stage-copy strong{font-size:10px}
+  .cycle-stage{padding:10px 8px}
+  .cycle-stage-number{width:25px;height:25px;font-size:16px}
+  .curriculum-card-foot{flex-wrap:wrap}
+  .curriculum-coming{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .curriculum-phase-card,.cycle-stage,.curriculum-hero .main-cta{transition:none}
+  .cycle-stage:hover,.curriculum-phase-card:hover,.curriculum-hero .main-cta:hover{transform:none}
+}
