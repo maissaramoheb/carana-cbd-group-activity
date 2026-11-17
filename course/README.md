@@ -72,3 +72,40 @@ Software adaptation by Lt. Col. Maissara Selim. Original scenario and training m
 
 - Development source: `https://github.com/maissaramoheb/carana-cbd-group-activity/tree/course/lesson1-v0/course`
 - Preview URLs are generated per branch commit by the existing Vercel Git integration, and must be verified before sharing as publicly accessible. Production is unchanged.
+
+
+## v0.2 — Premium UX and Activities Hub (2026-11-17)
+
+### Implemented interface changes
+
+- New editorial landing experience: refined navigation, interactive course dashboard, illustrated mission analysis visual, distinctive lesson card, six-phase pathway and responsive activity teaser.
+- Dedicated, bookmarkable Activities Hub at /course/#activities, showing all six original module workbenches and the original 60-minute group exercise.
+- Quick access from course home (header, hero, dashboard strip, teaser), learner header and learner sidebar.
+- A prominent, direct full-window Launch Lesson 1 Activity link after the sixth knowledge checkpoint.
+- In the practical step, a primary direct activity link, optional collapsible embedded workbench and All activities shortcut.
+- On the completed-lesson screen, Reopen Lesson 1 Activity and All activities controls.
+- New premium.css overrides and extends the visual language, without changing the original materials. Responsive states, visible focus styles and reduced-motion handling are supported.
+- Shareable view fragments: #activities, #home and #lesson-1.
+
+### Governance
+
+- The existing source module1.html–module6.html, CARANA_CBD_Group_Activity.html, their JavaScript, storage engine and scenario were not edited.
+- Module activities can be opened freely for practice; direct activity access never marks course checkpoint completion.
+- The six structured checkpoints are still required in the guided course before guided activity completion.
+- Lesson 2–6 courses remain marked Coming later even though their original practical workbenches are available.
+- No sign-in system, analytics tracking or UN endorsement/branding was added.
+- The current branch remains a development pilot. A truly standalone repository, Vercel project and production domain are still required before independent production release.
+- Legal and copyright permissions to distribute UN curriculum and scenario materials require verification before institutional or commercial use.
+
+### v0.2 verification log
+
+- [x] All six module workbench links and the 60-minute original quick exercise link included.
+- [x] Quick access is reachable from the course home and learning interface.
+- [x] End-of-lesson direct workbench link present.
+- [x] Original workbench can be embedded without altering its files.
+- [x] Activities hub does not bypass formal learning checkpoints.
+- [x] Course progress uses a separate local-storage key.
+- [x] JavaScript syntax and simulated end-to-end functional tests passed.
+- [ ] Independent live-browser desktop/mobile visual acceptance and full accessibility audit.
+- [ ] UN curriculum, legal rights, IP and institutional adoption reviews.
+- [ ] Independent repository/project/domain before production release.
