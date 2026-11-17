@@ -1,16 +1,10 @@
 {
-  "name": "carana-cbd-voice-audition",
+  "name": "carana-cbd-elearning",
+  "version": "0.8.1",
   "private": true,
-  "version": "0.5.1",
-  "type": "module",
-  "description": "Static build-time voice auditions for the CARANA CBD instructional preview",
-  "engines": {
-    "node": ">=22"
-  },
+  "engines": { "node": ">=22" },
   "scripts": {
-    "build": "node tools/build-voice-auditions.mjs"
-  },
-  "dependencies": {
-    "ai": "^7.0.0"
+    "build": "node tools/build-course.mjs",
+    "test": "node tests/run-tests.js && node course/tests/v05-smoke.cjs && node --test course/tests/build-integrity.cjs"
   }
 }

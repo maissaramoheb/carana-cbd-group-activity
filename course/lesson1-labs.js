@@ -70,7 +70,7 @@ function html(section,screen) {
  if(id==='05-02'){
   return '<section class="concept-lab matrix-lab" aria-label="Five by six CBD capacity matrix explorer"><div class="concept-lab-top"><span class="concept-lab-eyebrow">THE 5 × 6 CBD MATRIX</span><h2>Explore every intersection</h2><p>Choose a cell to connect an institutional area with a cross-cutting dimension. This is an analytical prompt, not a completed CARANA matrix.</p></div>'+
     '<div class="matrix-scroll" role="region" tabindex="0" aria-label="Scrollable five by six CBD matrix"><table class="matrix-table"><caption>Five CBD areas and six cross-cutting dimensions</caption><thead><tr><th scope="col">CBD area ↓ / Dimension →</th>'+dimensions.map((d,i)=>'<th scope="col"><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(d[0])+'</th>').join('')+'</tr></thead><tbody>'+
-    areas.map((a,i)=>'<tr><th scope="row">'+esc(a[0])+'</th>'+dimensions.map((d,j)=>'<td><button type="button" class="matrix-cell" data-lab-area="'+i+'" data-lab-dimension="'+j+'" aria-label="Explore '+esc(a[0])+' and '+esc(d[0])+'">+</button></td>').join('')+'</tr>').join('')+'</tbody></table></div>'+
+    areas.map((a,i)=>'<tr><th scope="row">'+esc(a[0])+'</th>'+dimensions.map((d,j)=>'<td><button type="button" class="matrix-cell" aria-pressed="false" data-lab-area="'+i+'" data-lab-dimension="'+j+'" aria-label="Explore '+esc(a[0])+' and '+esc(d[0])+'">+</button></td>').join('')+'</tr>').join('')+'</tbody></table></div>'+
     '<div id="lab-response" class="concept-response" role="status" aria-live="polite"><strong>Select any of the 30 intersections</strong><p>Each cell invites a different, evidence-led analytical question.</p></div></section>';
  }
  const e=explorations[id];if(!e)return '';

@@ -2,3 +2,8 @@ tests/
 docs/
 *.md
 .git/
+
+course/tests/
+course/docs/
+dist/
+output/

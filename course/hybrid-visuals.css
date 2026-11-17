@@ -228,3 +228,16 @@
 @media(prefers-reduced-motion:reduce){
   .is-learning .vj-progress>i,.is-learning .vj-micro-answer{transition:none}
 }
+
+/* Readable accents and muted text within the approved palette. */
+.premium-landing :is(.highlight-kicker,.section-eyebrow,.curriculum-lens),
+.is-learning :is(.rail-overline,.context-overline,.small-tag,.quiz-rule>span,.question-card legend>span){color:#226581}
+.premium-landing :is(.highlight-title>span:last-child,.highlight-stat small,.highlight-stat strong>span,
+  .curriculum-checkpoints small,.curriculum-checkpoints strong>span,#strip-activities small,.section-heading p,
+  .curriculum-roadmap-note small,.curriculum-phase-card>p,.teaser-copy>p,.method-card>p,.course-disclaimer,footer>span),
+.is-learning :is(.side-rail>p,.rail-progress-row>span,.rail-note,.rail-activity-cta small,.inline-feedback:not(.warning):not(.success)){color:#425d71}
+.is-learning .voice-availability.live{color:#196047}
+.is-learning .matrix-table thead span{color:#226581}
+.is-learning .takeaway>span{color:#80591f}
+.is-learning .btn.primary{background:#146981}
+.is-learning .btn.primary:hover{background:#10586d}

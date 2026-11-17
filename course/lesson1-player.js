@@ -31,12 +31,12 @@
     return '<section class="trainer-voice" aria-label="English trainer explanation"><div class="trainer-voice-heading">'+
       '<div class="voice-emblem" aria-hidden="true">◉</div><div class="voice-meta"><strong>Trainer explanation</strong><span>English · '+(audition?'AI-generated audition clip':aiNarration?'AI-generated narration':ready?'Recorded narration':'Editorial transcript')+' · Optional</span></div>'+
       (ready?'<div class="voice-availability live">'+(audition?'AI VOICE SAMPLE':aiNarration?'NARRATION READY':'AUDIO AVAILABLE')+'</div>':'<div class="voice-availability pending">AUDIO PENDING REVIEW</div>')+'</div>'+
-      (ready?'<audio id="trainer-audio" preload="metadata" src="'+esc(t.src)+'"></audio><div class="voice-controls">'+
-        '<button type="button" class="voice-button primary" id="voice-play" aria-label="Play narration">▶ Play explanation</button>'+
+      (ready?'<audio id="trainer-audio" preload="none" src="'+esc(t.src)+'"></audio><div class="voice-controls">'+
+        '<button type="button" class="voice-button primary" id="voice-play" aria-label="Play explanation">▶ Play explanation</button>'+
         '<button type="button" class="voice-button" id="voice-replay" aria-label="Replay narration from the beginning">↺ Replay</button>'+
-        '<button type="button" class="voice-button voice-speed" id="voice-speed" aria-label="Set narration playback speed">1× speed</button>'+
+        '<button type="button" class="voice-button voice-speed" id="voice-speed">1× speed</button>'+
         '<span id="voice-time" class="voice-time" role="timer" aria-live="off">0:00 / --:--</span></div>'+
-        '<div class="voice-progress-track" aria-hidden="true"><i id="voice-progress-fill"></i></div>'+(audition?'<p class="voice-production-note">AI-generated voice audition, not a human recording or approved final course narration. <a href="./voice-audition.html">Compare the three audition samples</a>.</p>':aiNarration?'<p class="voice-production-note">AI-generated English explanation · Independent instructional adaptation.</p>':''):
+        '<p id="voice-error" class="voice-production-note" role="status" hidden></p><div class="voice-progress-track" aria-hidden="true"><i id="voice-progress-fill"></i></div>'+(audition?'<p class="voice-production-note">AI-generated voice audition, not a human recording or approved final course narration. <a href="./voice-audition.html">Compare the three audition samples</a>.</p>':aiNarration?'<p class="voice-production-note">AI-generated English explanation · Independent instructional adaptation.</p>':''):
         '<p class="voice-production-note">The natural-voice recording is being prepared. The complete spoken explanation is available as a transcript; no synthetic browser voice will be substituted.</p>')+
       '<button type="button" id="voice-transcript-toggle" class="voice-transcript-toggle" aria-expanded="false" aria-controls="voice-transcript">Read the trainer’s explanation <span aria-hidden="true">＋</span></button>'+
       '<div class="voice-transcript" id="voice-transcript" hidden><p>'+esc(t.script)+'</p><div class="voice-transcript-foot">Narration script · '+esc(t.title)+' · Independent instructional adaptation</div></div></section>';
@@ -72,15 +72,28 @@
         if(!track.isConnected)return;
         const running=!track.paused&&!track.ended;
         play.textContent=running?'Ⅱ Pause narration':'▶ Play explanation';
-        play.setAttribute('aria-label',running?'Pause narration':'Play narration');
+        play.setAttribute('aria-label',running?'Pause narration':'Play explanation');
         if(time)time.textContent=formatTime(track.currentTime)+' / '+formatTime(track.duration);
         if(fill)fill.style.width=(Number.isFinite(track.duration)&&track.duration>0?(track.currentTime/track.duration)*100:0)+'%';
       };
-      play.addEventListener('click',async()=>{try{if(track.paused)await track.play();else track.pause()}catch(_){play.textContent='Audio could not play'}refresh()});
-      replay.addEventListener('click',async()=>{track.currentTime=0;try{await track.play()}catch(_){play.textContent='Audio could not play'}refresh()});
+      const status=$('voice-error');
+      const showError=(unavailable=false)=>{
+        if(!track.isConnected)return;
+        status.hidden=false;
+        status.textContent=unavailable?'Recording unavailable. Read the transcript below.':'Playback did not start. Try again or read the transcript below.';
+        if(unavailable){play.disabled=true;replay.disabled=true;speed.disabled=true;}
+      };
+      const start=async()=>{
+        status.hidden=true;
+        try{await track.play()}catch(_){showError(!!track.error)}
+        refresh();
+      };
+      play.addEventListener('click',()=>{if(track.paused)start();else track.pause()});
+      replay.addEventListener('click',()=>{track.currentTime=0;start()});
       speed.addEventListener('click',()=>{speedIndex=(speedIndex+1)%rates.length;track.playbackRate=rates[speedIndex];speed.textContent=rates[speedIndex]+'× speed'});
       for(const event of ['play','pause','ended','timeupdate','durationchange'])track.addEventListener(event,refresh);
-      track.addEventListener('error',()=>{play.disabled=true;play.textContent='Audio unavailable';time.textContent='Unable to load recording'});
+      track.addEventListener('error',()=>showError(true));
+      if(track.error)showError(true);
       refresh();
     }
     const decision=byDecision.get(key(section,screen)),feedback=$('decision-feedback');

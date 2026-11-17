@@ -11,6 +11,8 @@
   let mode = window.location && window.location.hash === '#activities' ? 'activities' : 'home';
   let position = { section: 0, screen: 0, kind: 'screen' };
   let answers = {};
+  const attempts = new Map();
+  let saveFailed = false;
   let checked = false;
   let missed = [];
   const $ = id => document.getElementById(id);
@@ -26,23 +28,32 @@
     try {
       const raw = JSON.parse(localStorage.getItem(KEY));
       if (!raw || raw.version !== 1 || !Array.isArray(raw.completed)) return initial();
+      const completed = [];
+      while (completed.length < SECTION_COUNT && raw.completed.includes(completed.length)) completed.push(completed.length);
+      const section = Number.isInteger(raw.lastSection) && raw.lastSection >= 0 ? Math.min(raw.lastSection, completed.length, SECTION_COUNT - 1) : 0;
+      const canResume = section === raw.lastSection;
+      const activityOpened = completed.length === SECTION_COUNT && raw.activityOpened === true;
+      const date = value => typeof value === 'string' && Number.isFinite(Date.parse(value)) ? value : null;
       return {
-        ...initial(), ...raw,
-        completed: raw.completed.filter(x => Number.isInteger(x) && x >= 0 && x < SECTION_COUNT),
-        visited: Array.isArray(raw.visited) ? raw.visited.filter(x => typeof x === 'string') : []
+        ...initial(), completed, activityOpened, lessonComplete: activityOpened && raw.lessonComplete === true,
+        visited: Array.isArray(raw.visited) ? [...new Set(raw.visited.filter(x => typeof x === 'string' && /^[0-5]:[0-2]$/.test(x)))] : [],
+        lastSection: section,
+        lastScreen: canResume && Number.isInteger(raw.lastScreen) && raw.lastScreen >= 0 && raw.lastScreen < lesson.sections[section].screens.length ? raw.lastScreen : 0,
+        lastKind: canResume && raw.lastKind === 'quiz' ? 'quiz' : 'screen',
+        startedAt: date(raw.startedAt), updatedAt: date(raw.updatedAt)
       };
     } catch (_) { return initial(); }
   }
   let progress = load();
   function save() {
     progress.updatedAt = new Date().toISOString();
-    try { localStorage.setItem(KEY, JSON.stringify(progress)); }
-    catch (_) { $('save-status').textContent = 'This browser could not save progress. Please export a backup.'; }
+    try { localStorage.setItem(KEY, JSON.stringify(progress)); saveFailed = false; }
+    catch (_) { saveFailed = true; }
     updateStatus();
   }
   function updateStatus() {
     const el = $('save-status');
-    if (el) el.textContent = progress.updatedAt ? 'Saved on this device · ' + new Date(progress.updatedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : 'Progress is stored on this device';
+    if (el) el.textContent = saveFailed ? 'Progress could not be saved. Export your progress record before closing.' : progress.updatedAt ? 'Saved on this device · ' + new Date(progress.updatedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : 'Progress is stored on this device';
   }
   function isCleared(s) { return progress.completed.includes(s); }
   function canOpen(s) { return s === 0 || Array.from({length:s}, (_,i) => i).every(isCleared); }
@@ -51,7 +62,17 @@
     const k = s + ':' + n;
     if (!progress.visited.includes(k)) progress.visited.push(k);
   }
-  function goHome() { mode = 'home'; document.body.classList.remove('is-learning'); if(window.location && window.location.hash !== '#home')window.location.hash='#home'; render(); }
+  function focusHeading() {
+    const heading = document.querySelector('#root main h1, #root h1');
+    if (heading) { heading.tabIndex = -1; heading.focus({preventScroll:true}); }
+  }
+  function restoreAttempt(section) {
+    if (!attempts.has(section)) attempts.set(section, {});
+    answers = attempts.get(section);
+    checked = false;
+    missed = [];
+  }
+  function goHome() { mode = 'home'; document.body.classList.remove('is-learning'); if(window.location && window.location.hash !== '#home')window.location.hash='#home'; render(); focusHeading(); window.scrollTo({top:0,behavior:'instant'}); }
   function resume() {
     mode = 'lesson';
     if(window.location && window.location.hash !== '#lesson-1')window.location.hash='#lesson-1';
@@ -59,12 +80,11 @@
     if (isAllCleared() && progress.activityOpened) {
       position = {section:SECTION_COUNT - 1,screen:2,kind:progress.lessonComplete ? 'complete' : 'activity'};
     } else {
-      const s = Math.min(Math.max(0,Number(progress.lastSection)||0),SECTION_COUNT-1);
-      const allowed = canOpen(s) ? s : Math.max(0,progress.completed.length);
-      position = { section: allowed, screen:Math.min(Math.max(0,Number(progress.lastScreen)||0),2), kind:'screen' };
-      if (progress.lastKind === 'quiz' && canOpen(allowed)) position.kind = 'quiz';
+      const s = progress.lastSection;
+      position = { section: s, screen: progress.lastScreen, kind: progress.lastKind };
+      if (position.kind === 'quiz') restoreAttempt(s);
     }
-    render();
+    render(); focusHeading(); window.scrollTo({top:0,behavior:'instant'});
   }
   function navigate(s,n,kind) {
     if (!canOpen(s)) return;
@@ -72,10 +92,10 @@
     document.body.classList.add('is-learning');
     position = {section:s,screen:n,kind:kind||'screen'};
     if (position.kind==='screen') markVisited(s,n);
-    if (position.kind==='quiz') { answers = {}; checked = false; missed = []; }
+    if (position.kind==='quiz') restoreAttempt(s);
     progress.lastSection=s; progress.lastScreen=n; progress.lastKind=position.kind;
     if (!progress.startedAt) progress.startedAt = new Date().toISOString();
-    save(); render(); window.scrollTo({top:0,behavior:'instant'});
+    save(); render(); focusHeading(); window.scrollTo({top:0,behavior:'instant'});
   }
   function openActivity() {
     if (!isAllCleared()) return;
@@ -84,7 +104,7 @@
     save();
     mode='lesson';
     position={section:SECTION_COUNT-1,screen:2,kind:'activity'};
-    render(); window.scrollTo({top:0,behavior:'instant'});
+    render(); focusHeading(); window.scrollTo({top:0,behavior:'instant'});
   }
   function checkOriginalActivity() {
     try {
@@ -102,7 +122,7 @@
       return;
     }
     progress.lessonComplete=true; progress.lastKind='complete'; save();
-    position.kind='complete'; render();
+    position.kind='complete'; render(); focusHeading();
   }
   function exportProgress() {
     const bundle = {course:'CARANA CBD E-Learning',lesson:lesson.title,progress,source:lesson.source,exportedAt:new Date().toISOString(),note:'Learner-side progress record, not a UN-issued certificate.'};
@@ -127,7 +147,7 @@
   const activityQuickLink = '../CARANA_CBD_Group_Activity.html';
   function openActivities() {
     mode='activities'; if(window.location && window.location.hash !== '#activities')window.location.hash='#activities'; document.body.classList.remove('is-learning');
-    render();window.scrollTo({top:0,behavior:'instant'});
+    render();focusHeading();window.scrollTo({top:0,behavior:'instant'});
   }
   /* Canonical CBD six-phase storyline for the home and curriculum pathway.
    * Each phase's original workbench exists. Only Phase 1 has a self-paced lesson.
@@ -146,7 +166,7 @@
     const completed=progress.completed.length;
     const percent=Math.round(completed / SECTION_COUNT * 100);
     const stageButtons=CURRICULUM_PHASES.map((phase,i)=>
-      '<button class="cycle-stage stage-'+phase.num+'" type="button" data-cycle-phase="'+i+'" aria-pressed="false" aria-label="Explore CBD phase '+phase.num+': '+clean(phase.name)+'">'+
+      '<button class="cycle-stage stage-'+phase.num+'" type="button" data-cycle-phase="'+i+'" aria-pressed="false">'+
       '<span class="cycle-stage-number">'+phase.num+'</span><span class="cycle-stage-copy"><strong>'+phase.lines+'</strong><small>'+(i===0?'SELF-PACED LESSON LIVE':'PRACTICE AVAILABLE')+'</small></span></button>'
     ).join('');
     const phaseCards=CURRICULUM_PHASES.map((phase,i)=>
@@ -163,7 +183,7 @@
     $('root').innerHTML=
       '<div class="landing premium-landing curriculum-landing">'+
       '<div class="opening-gradient curriculum-opening"><header class="topbar shell premium-topbar">'+
-      '<button class="brand brand-button" id="brand-home" aria-label="CARANA CBD course home"><span class="brand-symbol"><span class="brand-mark">C</span></span><span><strong>CARANA</strong><small>CAPACITY BUILDING · LEARNING STUDIO</small></span></button>'+
+      '<button class="brand brand-button" id="brand-home"><span class="brand-symbol" aria-hidden="true"><span class="brand-mark">C</span></span><span><strong>CARANA</strong><small>CAPACITY BUILDING · LEARNING STUDIO</small></span></button>'+
       '<nav class="premium-navigation" aria-label="Main navigation"><a href="#course-map">The CBD cycle</a><button id="header-activities">Activities <span class="nav-count">07</span></button><a href="#about">How it works</a></nav>'+
       '<div class="header-utility"><span class="utility-dot"></span> SELF-PACED · PRACTICE-DRIVEN</div></header>'+
       '<section class="hero shell premium-hero curriculum-hero"><div class="hero-copy">'+
@@ -188,7 +208,7 @@
       '<div class="cycle-core"><div class="cycle-core-title">CBD</div><span class="cycle-core-full">CAPACITY BUILDING<br>& DEVELOPMENT</span></div>'+
       stageButtons+
       '</div>'+
-      '<div class="cycle-detail" role="status" aria-live="polite"><div class="cycle-detail-copy"><span id="cycle-caption-phase">THE FULL CURRICULUM</span><strong id="cycle-caption-title">Six phases. One connected journey.</strong><p id="cycle-caption-copy">Select any phase to explore its purpose and available practical activity.</p></div><a id="cycle-caption-action" href="#course-map" class="cycle-detail-action" aria-label="Explore the curriculum">Explore all phases <span aria-hidden="true">↗</span></a></div>'+
+      '<div class="cycle-detail" role="status" aria-live="polite"><div class="cycle-detail-copy"><span id="cycle-caption-phase">THE FULL CURRICULUM</span><strong id="cycle-caption-title">Six phases. One connected journey.</strong><p id="cycle-caption-copy">Select any phase to explore its purpose and available practical activity.</p></div><a id="cycle-caption-action" href="#course-map" class="cycle-detail-action">Explore all phases <span aria-hidden="true">↗</span></a></div>'+
       '</div></section></div><main>'+
       '<section class="highlights shell curriculum-highlights" aria-label="CBD course and activity availability"><div class="highlight-title"><span class="highlight-kicker">YOUR CBD LEARNING DESK</span><strong>'+(started?'Continue your learning journey.':'Explore the complete curriculum.')+'</strong><span>'+(started?'Lesson 1: '+completed+' of 6 checkpoints passed':'Six phases, each connected to practical application')+'</span></div>'+
       '<div class="highlight-stat"><strong>06</strong><small>CURRICULUM PHASES</small></div>'+
@@ -225,18 +245,16 @@
       if(i===0){
         action.removeAttribute('target');action.removeAttribute('rel');
         action.innerHTML='Enter lesson 01 <span aria-hidden="true">↗</span>';
-        action.setAttribute('aria-label','Enter Situational Analysis self-paced lesson');
       }else{
         action.setAttribute('target','_blank');action.setAttribute('rel','noopener noreferrer');
         action.innerHTML='Open phase '+phase.num+' activity <span aria-hidden="true">↗</span>';
-        action.setAttribute('aria-label','Open the '+phase.name+' workbench in a new tab');
       }
     }));
   }
   function renderActivities() {
     const openLink = (a,i) =>
       '<article class="activity-card activity-'+clean(a.theme)+'"><div class="activity-card-top"><span class="activity-num">MODULE '+a.num+'</span><span class="activity-open-status">AVAILABLE NOW</span></div><div class="activity-card-visual" aria-hidden="true"><div class="activity-emblem">0'+(i+1)+'</div><div class="activity-lines"><i></i><i></i><i></i></div></div><span class="activity-card-tag">'+clean(a.tag)+'</span><h3>'+clean(a.title)+'</h3><p>'+clean(a.desc)+'</p><div class="activity-steps">'+clean(a.steps)+'</div><div class="activity-card-footer"><a href="'+clean(a.url)+'" class="activity-launch" target="_blank" rel="noopener noreferrer">Launch activity <span aria-hidden="true">↗</span></a><span class="activity-external">OPENS IN NEW TAB</span></div></article>';
-    $('root').innerHTML='<div class="activities-page"><header class="activities-header shell"><button class="brand brand-button" id="activities-brand"><span class="brand-symbol"><span class="brand-mark">C</span></span><span><strong>CARANA</strong><small>CAPACITY BUILDING · LEARNING STUDIO</small></span></button><nav class="activity-header-nav" aria-label="Activities navigation"><button id="activities-home">Course home</button><button id="activities-lesson">Go to Lesson 01</button></nav></header>'+
+    $('root').innerHTML='<div class="activities-page"><header class="activities-header shell"><button class="brand brand-button" id="activities-brand"><span class="brand-symbol" aria-hidden="true"><span class="brand-mark">C</span></span><span><strong>CARANA</strong><small>CAPACITY BUILDING · LEARNING STUDIO</small></span></button><nav class="activity-header-nav" aria-label="Activities navigation"><button id="activities-home">Course home</button><button id="activities-lesson">Go to Lesson 01</button></nav></header>'+
       '<main><section class="activities-hero"><div class="shell"><div class="activities-overline"><span class="mini-square"></span> CARANA FIELD LEARNING / PRACTICAL WORKBENCHES</div><div class="activities-hero-main"><div><h1>Practice is where<br><em>analysis becomes action.</em></h1><p>Use the original CARANA interactive activities independently. All six workbenches are available without completing the course first.</p><div class="hub-actions"><button class="btn primary" id="hub-resume">Continue Lesson 01 ↗</button><button class="btn secondary" id="hub-home">Back to course home</button></div></div><div class="hub-summary"><span>THE PRACTICE LIBRARY</span><strong>06 <small>MODULES</small></strong><div class="hub-summary-line"></div><strong>01 <small>GROUP EXERCISE</small></strong><p>Direct access · No login · Original workbenches preserved</p></div></div></div></section>'+
       '<section class="hub-body shell"><div class="hub-heading"><div><span class="section-eyebrow">01 / INTERACTIVE CBD ACTIVITIES</span><h2>Choose a workbench</h2><p>Each activity opens directly in a separate tab. Progress here does not bypass or mark completion of course checkpoints.</p></div><span class="hub-count">06 AVAILABLE</span></div><div class="activities-grid">'+ACTIVITIES.map(openLink).join('')+'</div>'+
       '<section class="quick-exercise-panel"><div class="quick-exercise-icon"><span>60</span><small>MIN</small></div><div class="quick-exercise-copy"><span class="activity-card-tag">FACILITATED LEARNING / SHORT FORMAT</span><h3>CARANA 60-minute Group Exercise</h3><p>The preserved short-format activity for facilitated syndicate discussions, rapid diagnosis, and a condensed CBD assessment.</p></div><a class="btn primary" target="_blank" rel="noopener noreferrer" href="'+activityQuickLink+'">Open quick exercise <span aria-hidden="true">↗</span></a></section>'+
@@ -255,7 +273,7 @@
     const finished=progress.completed.length;
     const value=Math.round((finished/SECTION_COUNT)*100);
     $('root').innerHTML =
-      '<div class="course-shell"><header class="course-header"><button class="back-home" id="back-home"><span aria-hidden="true">←</span> COURSE HOME</button><div class="header-title">CARANA <span>/</span> CBD E-LEARNING <span>/</span> LESSON 01</div><div class="header-right"><button class="header-activities-link" id="course-activities" aria-label="Open activities hub">▦ Activities <span class="nav-count">07</span></button><span id="save-status">Progress is stored on this device</span><button class="export-mini" id="export-mini">Export progress ↗</button></div></header>' +
+      '<div class="course-shell"><header class="course-header"><button class="back-home" id="back-home"><span aria-hidden="true">←</span> COURSE HOME</button><div class="header-title">CARANA <span>/</span> CBD E-LEARNING <span>/</span> LESSON 01</div><div class="header-right"><button class="header-activities-link" id="course-activities">▦ Activities <span class="nav-count">07</span></button><span id="save-status" role="status">Progress is stored on this device</span><button class="export-mini" id="export-mini">Export progress ↗</button></div></header>' +
       '<div class="workspace"><aside class="side-rail"><div class="rail-overline">LESSON 01</div><h2>Situational<br>Analysis</h2><p>Learn to diagnose before designing change.</p><div class="rail-divider"></div><div class="rail-overline">LEARNING PATH</div><nav aria-label="Course sections">'+railHTML()+'</nav><div class="rail-divider"></div><div class="rail-progress"><div class="rail-progress-row"><span>Knowledge checkpoints</span><strong>'+finished+' / 6</strong></div><div class="progress-track"><i style="width:'+value+'%"></i></div></div><div class="rail-note">Correct responses are required at each checkpoint before moving forward.</div><button class="rail-activity-cta" id="rail-activity-cta"><span class="rail-cta-icon">↗</span><span><strong>Practice library</strong><small>All 7 activities · Quick access</small></span></button></aside>' +
       '<main class="learning-content" id="learning-main"><div class="learning-frame"><div class="content-overline">'+clean(heading)+'</div>'+content+'</div></main>' +
       '<aside class="context-panel"><span class="context-overline">WHY THIS MATTERS</span><h3>Evidence before action.</h3><p>Effective capacity-building begins with a shared understanding of the context, existing assistance, and counterpart reality.</p><div class="context-divider"></div><span class="context-overline">LEARNING OUTCOMES</span><ul>'+lesson.objectives.slice(0,4).map(t=>'<li>'+clean(t)+'</li>').join('')+'</ul><div class="context-divider"></div><span class="context-overline">SOURCE</span><p class="source-small">UNPOL CBD Job-Specific Training · Lesson 1, 2021 / July 2023 file.</p></aside></div></div>';
@@ -318,7 +336,7 @@
       html+='<fieldset class="question-card '+(wrong?'question-wrong':'')+'"><legend><span>Q'+(i+1)+'</span> '+clean(q.q)+'</legend><div class="choices">'+q.options.map((opt,j)=>'<label class="choice"><input type="radio" name="q'+i+'" value="'+j+'" '+(answers[i]===j?'checked':'')+'><span>'+clean(opt)+'</span></label>').join('')+'</div>' +
         (wrong?'<p class="answer-hint"><strong>Learning feedback:</strong> '+clean(q.why)+' Review the explanation above, then select the correct response.</p>':'')+'</fieldset>';
     });
-    html+='</form><div id="quiz-feedback" class="inline-feedback '+(checked?'warning':'')+'" role="status" aria-live="polite">'+(checked?missed.length+' answer(s) still need attention. Correct them and check again.':'Your answers stay on this device during this attempt.')+'</div><div class="bottom-actions"><button class="btn outline" id="return-review">← Review learning screens</button><button class="btn primary" id="check-quiz">Check answers →</button></div>';
+    html+='</form><div id="quiz-feedback" class="inline-feedback '+(checked?'warning':'')+'" role="status" aria-live="polite">'+(checked?missed.length+' answer(s) still need attention. Correct them and check again.':'Your choices are kept while you review screens in this tab. Reloading starts a fresh attempt.')+'</div><div class="bottom-actions"><button class="btn outline" id="return-review">← Review learning screens</button><button class="btn primary" id="check-quiz">Check answers →</button></div>';
     layout(html,sec.title+' · Checkpoint');
     document.querySelectorAll('#quiz-form input').forEach(inp=>inp.addEventListener('change',()=>{
       answers[Number(inp.name.slice(1))]=Number(inp.value);
@@ -331,10 +349,13 @@
       checked=true;
       if(!missed.length){
         progress.completed=[...new Set([...progress.completed,s])].sort((a,b)=>a-b);
-        progress.lastKind='quiz';save();render();window.scrollTo({top:0,behavior:'instant'});
+        progress.lastKind='quiz';save();render();focusHeading();window.scrollTo({top:0,behavior:'instant'});
       }else{
         render();
-        $('quiz-feedback').scrollIntoView({block:'center',behavior:'smooth'});
+        const feedback = $('quiz-feedback');
+        feedback.tabIndex = -1;
+        feedback.focus();
+        feedback.scrollIntoView({block:'center'});
       }
     });
   }
@@ -375,6 +396,7 @@
     $('complete-activities').addEventListener('click',openActivities);
   }
   function render() {
+    $('trainer-audio')?.pause();
     if(mode==='home'){renderHome();return;}
     if(mode==='activities'){renderActivities();return;}
     if(position.kind==='quiz')renderQuiz();
@@ -394,5 +416,6 @@
     else if(window.location.hash === '#home' && mode !== 'home')goHome();
     else if(window.location.hash === '#lesson-1' && mode !== 'lesson')resume();
   });
-  render();
+  if (window.location?.hash === '#lesson-1') resume();
+  else render();
 })();

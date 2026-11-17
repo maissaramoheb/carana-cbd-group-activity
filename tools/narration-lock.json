@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "provenance": "Existing deployed AI recordings; paired with byte-matching live transcript source on 2026-11-17. Semantic agreement requires listening review.",
+  "tracks": {
+    "01-01": {
+      "scriptSha256": "3d989c6f8eb7c837e5f791d7a571f8dd3721b1e1e377636a0d6f9621b5e8a79a",
+      "audioSha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d"
+    },
+    "01-02": {
+      "scriptSha256": "29eecee4a445705c5f9af4e6d331948ccbdb8184e8db82647b8d48598182bdf4",
+      "audioSha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b"
+    },
+    "01-03": {
+      "scriptSha256": "deea8c0f2704e305f721490147ef7abcf1a763ee3d1aa335081c262c54a7a26b",
+      "audioSha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2"
+    },
+    "02-01": {
+      "scriptSha256": "2bd43931b6c9f0266d74d42e700b408eb901384b966d626ea6b17ffb151279b7",
+      "audioSha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a"
+    },
+    "02-02": {
+      "scriptSha256": "b4580d9d3cf3492905a13c12f4d9df9f914af50ad05054749897fc03492cd7ea",
+      "audioSha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6"
+    },
+    "02-03": {
+      "scriptSha256": "471b3efcc14edbec5154856315b588bcfb4edc66af02bcf6ffacdf1742989586",
+      "audioSha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b"
+    },
+    "03-01": {
+      "scriptSha256": "daa28bdbb2f22664bc2f70032d33880633b6ed138cbe7995764c74afd748fc17",
+      "audioSha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30"
+    },
+    "03-02": {
+      "scriptSha256": "d3095fd0e28967cc1b264b55cf1f7fb94c1a675e8733c38cae6ca40ec74c24d9",
+      "audioSha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0"
+    },
+    "03-03": {
+      "scriptSha256": "15981e3270a780242a60351d9ea103fe4a221bd212bfb221c1308915c22446c7",
+      "audioSha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513"
+    },
+    "04-01": {
+      "scriptSha256": "8d581c243e26fa4c61ec8fca95c2d492b84fcd6b728f5beaa49af056a3a14450",
+      "audioSha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa"
+    },
+    "04-02": {
+      "scriptSha256": "92666119adc8b5af4ffb415da87872f0eb6b927725eceb1d4a6f39d2a371e57a",
+      "audioSha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb"
+    },
+    "04-03": {
+      "scriptSha256": "97be626a41623b56d16141744b5d87c1a263b3910e20a1227ff885fb34bf25b1",
+      "audioSha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2"
+    },
+    "05-01": {
+      "scriptSha256": "5013e18745279d2de14d215d48728bfa939972dd95a905340b05306f7b57a872",
+      "audioSha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3"
+    },
+    "05-02": {
+      "scriptSha256": "16c0537ff11f723b997916ac34c28ea209b7a69655f28f40732096d571b59b49",
+      "audioSha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b"
+    },
+    "05-03": {
+      "scriptSha256": "adff5ad0edae4e75d72be0af127de31e9d22c564eaf613c68cedcc00d106eb37",
+      "audioSha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f"
+    },
+    "06-01": {
+      "scriptSha256": "07bc9fbd2c65afcf1a85f572cb5cd73a57d9668dd068bad2efbf7fb30ff56fa8",
+      "audioSha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0"
+    },
+    "06-02": {
+      "scriptSha256": "e3412c63468864b1b6dddcdba4026a397e14571f6d25342cfdb34206505ed578",
+      "audioSha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f"
+    },
+    "06-03": {
+      "scriptSha256": "ca7896e6a9420c4cfdbc0f0a521cb97bebebd5783ecb132c001fbdfbf75b712a",
+      "audioSha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c"
+    }
+  }
+}

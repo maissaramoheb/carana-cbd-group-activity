@@ -31,7 +31,7 @@
     if(!item)return '';
     return '<figure class="cbd-storyboard" aria-label="Illustrated learning scenario">'+
       '<div class="cbd-storyboard-head"><span class="cbd-storyboard-eyebrow">ILLUSTRATED CASE / '+escapeHTML(String(section+1)+'.'+String(screen+1))+'</span><span class="cbd-storyboard-type">Fictional CARANA scenario</span></div>'+
-      '<img src="'+escapeHTML(item.image)+'" alt="'+escapeHTML(item.alt)+'" width="1648" height="928" loading="lazy" decoding="async">'+
+      '<img src="'+escapeHTML(item.image)+'" alt="'+escapeHTML(item.alt)+'" width="1672" height="941" loading="lazy" decoding="async">'+
       '<figcaption><strong>'+escapeHTML(item.title)+'</strong><span>'+escapeHTML(item.caption)+'</span></figcaption>'+
       '</figure>';
   }

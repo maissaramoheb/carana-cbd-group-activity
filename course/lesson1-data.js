@@ -24,7 +24,7 @@ window.CARANA_LESSON1 = {
         {
           title: "The decision before the decision",
           kicker: "The adviser’s first responsibility",
-          lead: "You arrive in Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+          lead: "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
           points: [
             "A visible performance problem does not establish its underlying cause.",
             "Examine the mission context, existing assistance, and counterpart capability before selecting an intervention.",
@@ -338,10 +338,10 @@ window.CARANA_LESSON1 = {
             "Build a structured picture using the areas–dimensions matrix, SWOT and an as-is baseline.",
             "Use the findings to identify credible entry points for the next CBD phase."
           ],
-          takeaway: "Pass the final checkpoint to unlock the unchanged original activity.",
+          takeaway: "Pass the final checkpoint to continue to the guided practice step.",
           visualTitle: "Carry your learning into practice",
           visual: ["Context","Actors","Institution","SWOT + baseline","Exercise"],
-          sourcePage: "18–21; Annex A–E"
+          sourcePage: "18–21; participant exercise (Annex A), blank tools (Annex E)"
         }
       ],
       quiz: [
