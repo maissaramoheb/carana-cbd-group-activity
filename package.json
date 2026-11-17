@@ -1,0 +1,16 @@
+{
+  "name": "carana-cbd-voice-audition",
+  "private": true,
+  "version": "0.5.1",
+  "type": "module",
+  "description": "Static build-time voice auditions for the CARANA CBD instructional preview",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node tools/build-voice-auditions.mjs"
+  },
+  "dependencies": {
+    "ai": "^7.0.0"
+  }
+}
