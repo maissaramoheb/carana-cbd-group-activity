@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="./typography-spacing.css">
   <link rel="stylesheet" href="./labs.css">
   <link rel="stylesheet" href="./visual-journey.css">
+  <link rel="stylesheet" href="./illustrations.css">
+  <link rel="stylesheet" href="./hybrid-visuals.css">
   <style>
     *{box-sizing:border-box}
     body{margin:0;background:#f4f8fa;color:#1b364b;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -28,10 +30,13 @@
     .vg-sidebar h2{font-size:11px;letter-spacing:.09em;color:#307e91;margin:0 0 10px}
     .vg-section-title{font-size:11px;font-weight:800;color:#24465a;margin:18px 4px 7px}
     .vg-screen{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:1px solid transparent;border-radius:8px;padding:10px 7px;color:#587284;font-size:11.7px;line-height:1.4;cursor:pointer}
-    .vg-screen span{display:grid;place-items:center;flex:none;background:#eef4f7;border-radius:6px;min-width:33px;padding:6px 4px;color:#397f91;font-weight:800;font-size:10px}
+    .vg-screen>span:first-child{display:grid;place-items:center;flex:none;background:#eef4f7;border-radius:6px;min-width:33px;padding:6px 4px;color:#397f91;font-weight:800;font-size:10px}
+    .vg-screen .vg-screen-text{display:block;min-width:0}
+    .vg-cinema-label{display:block;margin-top:4px;color:#167f8e;font-size:8.8px;letter-spacing:.06em;font-weight:900}
+    .vg-screen[aria-current="true"]>span:first-child{background:#d2ebef}
     .vg-screen:hover{background:#f3faf9}
     .vg-screen[aria-current="true"]{background:#e5f4f7;border-color:#c6e5e9;color:#1c647b;font-weight:800}
-    .vg-screen[aria-current="true"] span{background:#d2ebef}
+
     .vg-main{min-width:0}
     .vg-toolbar{display:flex;gap:13px;justify-content:space-between;flex-wrap:wrap;align-items:center;margin:0 0 14px}
     .vg-location{font-size:11px;font-weight:800;color:#44869a;letter-spacing:.06em}
@@ -56,6 +61,7 @@
   <script src="./lesson1-data.js" defer></script>
   <script src="./lesson1-labs.js" defer></script>
   <script src="./visual-journey.js" defer></script>
+  <script src="./lesson1-illustrations.js" defer></script>
   <script src="./visual-gallery.js" defer></script>
 </head>
 <body class="is-learning">
@@ -63,7 +69,7 @@
   <header class="vg-header">
     <div class="vg-top"><span class="vg-brand">CARANA / CBD E-LEARNING</span><a class="vg-link" href="./">Return to full Lesson 1</a></div>
     <div class="vg-headline"><div class="vg-eyebrow">LESSON 1 · VISUAL LEARNING PREVIEW</div><h1>Explore the illustrations directly.</h1>
-    <p class="vg-description">All 18 instructional concepts in one review gallery. Choose a screen, interact with its visual explanation, and move to another without affecting your course progress.</p></div>
+    <p class="vg-description">Every screen has an interactive educational illustration, and three selected screens also include the cinematic stories you approved. Explore both together without affecting your course progress.</p></div>
   </header>
   <main class="vg-shell">
     <nav class="vg-sidebar" aria-label="Lesson 1 visual screen selection">
