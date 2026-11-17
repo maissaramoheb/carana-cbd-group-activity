@@ -68,23 +68,37 @@ async function main(){
     // Load the SDK only in the environment performing the paid generation.
     const {generateSpeech,gateway}=await import('ai');
     for(const item of selection){
-      try{
-        const started=Date.now();
-        const response=await generateSpeech({
-          model:gateway.speechModel('openai/tts-1-hd'),
-          text:texts[item.id],
-          voice:'onyx',
-          outputFormat:'mp3',
-          abortSignal:AbortSignal.timeout(90000)
-        });
-        const bytes=Buffer.from(response.audio.uint8Array);
-        if(!isMP3(bytes))throw Error('Speech model did not return valid MP3 bytes');
-        const filename=item.id+'.mp3';
-        await fs.writeFile(path.join(destination,filename),bytes);
-        entries[item.id]='./audio/en/lesson1/'+filename;
-        console.log('[AUDITION] '+item.id+' OK '+bytes.length+' bytes ('+Math.round((Date.now()-started)/1000)+'s)');
-      }catch(error){
-        console.warn('[AUDITION] '+item.id+' unavailable: '+String(error?.message||error).slice(0,280));
+      const started=Date.now();
+      const maxAttempts=3;
+      for(let attempt=1; attempt<=maxAttempts; attempt++){
+        try{
+          const response=await generateSpeech({
+            model:gateway.speechModel('openai/tts-1-hd'),
+            text:texts[item.id],
+            voice:'onyx',
+            outputFormat:'mp3',
+            abortSignal:AbortSignal.timeout(90000)
+          });
+          const bytes=Buffer.from(response.audio.uint8Array);
+          if(!isMP3(bytes))throw Error('Speech model did not return valid MP3 bytes');
+          const filename=item.id+'.mp3';
+          await fs.writeFile(path.join(destination,filename),bytes);
+          entries[item.id]='./audio/en/lesson1/'+filename;
+          console.log('[AUDITION] '+item.id+' OK '+bytes.length+' bytes ('+Math.round((Date.now()-started)/1000)+'s)');
+          break;
+        }catch(error){
+          const reason=String(error?.message||error);
+          const limited=/rate limit|429|GatewayRateLimitError/i.test(reason);
+          if(limited&&attempt<maxAttempts){
+            const match=reason.match(/Retry after\s+(\d+)s/i);
+            const delayMs=Math.min(90000,Math.max(65000,(Number(match?.[1])||60)*1000+5000));
+            console.warn('[AUDITION] '+item.id+' rate-limited; waiting '+Math.ceil(delayMs/1000)+' seconds before a safe retry ('+attempt+'/'+maxAttempts+').');
+            await new Promise(resolve=>setTimeout(resolve,delayMs));
+            continue;
+          }
+          console.warn('[AUDITION] '+item.id+' unavailable after '+attempt+' attempt(s): '+reason.slice(0,300));
+          break;
+        }
       }
     }
   }
