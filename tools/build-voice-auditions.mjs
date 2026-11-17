@@ -17,6 +17,9 @@ import { fileURLToPath } from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dest=path.join(root,'dist');
 const SKIP=process.env.SKIP_VOICE_GENERATION==='1';
+// Default: reuse the three already released MP3 files without new TTS spend.
+// Explicitly set CARANA_REGENERATE_SAMPLES=1 only for an intentional new audition.
+const REUSE=process.env.CARANA_REGENERATE_SAMPLES!=='1';
 const selection=[
   {id:'01-01',topic:'The decision before the decision'},
   {id:'02-01',topic:'Structure the context with PESTEL-S'},
@@ -64,6 +67,22 @@ async function main(){
   const entries={};
   if(SKIP){
     console.log('[AUDITION] SKIP_VOICE_GENERATION=1 — static output validated, no audio generated.');
+  } else if(REUSE){
+    // Fetch exactly the already published samples from the verified course
+    // origin. Fail closed rather than silently dropping audio or regenerating it.
+    for(const item of selection){
+      const source='https://cbd.maissara.tech/course/audio/en/lesson1/'+item.id+'.mp3';
+      const response=await fetch(source,{signal:AbortSignal.timeout(20000)});
+      const contentType=response.headers.get('content-type')||'';
+      if(!response.ok||!contentType.includes('audio/')){
+        throw new Error('Cannot reuse published MP3 '+item.id+': HTTP '+response.status+' '+contentType);
+      }
+      const bytes=Buffer.from(await response.arrayBuffer());
+      if(!isMP3(bytes))throw new Error('Previously published MP3 failed validation: '+item.id);
+      await fs.writeFile(path.join(destination,item.id+'.mp3'),bytes);
+      entries[item.id]='./audio/en/lesson1/'+item.id+'.mp3';
+      console.log('[AUDITION] '+item.id+' REUSED '+bytes.length+' bytes — no TTS generation');
+    }
   } else {
     // Load the SDK only in the environment performing the paid generation.
     const {generateSpeech,gateway}=await import('ai');
