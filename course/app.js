@@ -184,7 +184,7 @@
     sec.quiz.forEach((q,i)=>{
       const wrong=checked&&missed.includes(i);
       html+='<fieldset class="question-card '+(wrong?'question-wrong':'')+'"><legend><span>Q'+(i+1)+'</span> '+clean(q.q)+'</legend><div class="choices">'+q.options.map((opt,j)=>'<label class="choice"><input type="radio" name="q'+i+'" value="'+j+'" '+(answers[i]===j?'checked':'')+'><span>'+clean(opt)+'</span></label>').join('')+'</div>' +
-        (wrong?'<p class="answer-hint">Not yet correct. Revisit the relevant screen, consider the distinction carefully, and try a different answer.</p>':'')+'</fieldset>';
+        (wrong?'<p class="answer-hint"><strong>Learning feedback:</strong> '+clean(q.why)+' Review the explanation above, then select the correct response.</p>':'')+'</fieldset>';
     });
     html+='</form><div id="quiz-feedback" class="inline-feedback '+(checked?'warning':'')+'" role="status" aria-live="polite">'+(checked?missed.length+' answer(s) still need attention. Correct them and check again.':'Your answers stay on this device during this attempt.')+'</div><div class="bottom-actions"><button class="btn outline" id="return-review">← Review learning screens</button><button class="btn primary" id="check-quiz">Check answers →</button></div>';
     layout(html,sec.title+' · Checkpoint');
