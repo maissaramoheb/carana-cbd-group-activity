@@ -138,7 +138,7 @@
       '<button class="brand brand-button" id="brand-home" aria-label="CARANA course home"><span class="brand-symbol"><span class="brand-mark">C</span></span><span><strong>CARANA</strong><small>CAPACITY BUILDING · LEARNING STUDIO</small></span></button>'+
       '<nav class="premium-navigation" aria-label="Main navigation"><a href="#course-map">Learning path</a><button id="header-activities">Activities <span class="nav-count">07</span></button><a href="#about">About</a></nav>'+
       '<div class="header-utility"><span class="utility-dot"></span> LEARN INDEPENDENTLY</div></header>'+
-      '<main><section class="hero shell premium-hero"><div class="hero-copy"><div class="hero-overline"><span class="hero-line"></span> AN INTERACTIVE LEARNING EXPERIENCE <span class="hero-overline-number">/ 01—06</span></div>'+
+      '<section class="hero shell premium-hero"><div class="hero-copy"><div class="hero-overline"><span class="hero-line"></span> AN INTERACTIVE LEARNING EXPERIENCE <span class="hero-overline-number">/ 01—06</span></div>'+
       '<h1>Better analysis.<br><em>Stronger institutions.</em></h1>'+
       '<p class="hero-lead">Build the judgement behind effective police capacity development. Explore the evidence. Test your understanding. Put it into practice inside CARANA.</p>'+
       '<div class="hero-actions"><button class="btn primary xl main-cta" id="start-course">'+(started?'Resume Lesson 01':'Begin Lesson 01')+' <span class="cta-arrow" aria-hidden="true">↗</span></button><button class="btn secondary xl" id="hero-activities">Explore activities <span aria-hidden="true">→</span></button></div>'+
@@ -193,12 +193,14 @@
     const finished=progress.completed.length;
     const value=Math.round((finished/SECTION_COUNT)*100);
     $('root').innerHTML =
-      '<div class="course-shell"><header class="course-header"><button class="back-home" id="back-home"><span aria-hidden="true">←</span> COURSE HOME</button><div class="header-title">CARANA <span>/</span> CBD E-LEARNING <span>/</span> LESSON 01</div><div class="header-right"><span id="save-status">Progress is stored on this device</span><button class="export-mini" id="export-mini">Export progress ↗</button></div></header>' +
-      '<div class="workspace"><aside class="side-rail"><div class="rail-overline">LESSON 01</div><h2>Situational<br>Analysis</h2><p>Learn to diagnose before designing change.</p><div class="rail-divider"></div><div class="rail-overline">LEARNING PATH</div><nav aria-label="Course sections">'+railHTML()+'</nav><div class="rail-divider"></div><div class="rail-progress"><div class="rail-progress-row"><span>Knowledge checkpoints</span><strong>'+finished+' / 6</strong></div><div class="progress-track"><i style="width:'+value+'%"></i></div></div><div class="rail-note">Correct responses are required at each checkpoint before moving forward.</div></aside>' +
+      '<div class="course-shell"><header class="course-header"><button class="back-home" id="back-home"><span aria-hidden="true">←</span> COURSE HOME</button><div class="header-title">CARANA <span>/</span> CBD E-LEARNING <span>/</span> LESSON 01</div><div class="header-right"><button class="header-activities-link" id="course-activities" aria-label="Open activities hub">▦ Activities <span class="nav-count">07</span></button><span id="save-status">Progress is stored on this device</span><button class="export-mini" id="export-mini">Export progress ↗</button></div></header>' +
+      '<div class="workspace"><aside class="side-rail"><div class="rail-overline">LESSON 01</div><h2>Situational<br>Analysis</h2><p>Learn to diagnose before designing change.</p><div class="rail-divider"></div><div class="rail-overline">LEARNING PATH</div><nav aria-label="Course sections">'+railHTML()+'</nav><div class="rail-divider"></div><div class="rail-progress"><div class="rail-progress-row"><span>Knowledge checkpoints</span><strong>'+finished+' / 6</strong></div><div class="progress-track"><i style="width:'+value+'%"></i></div></div><div class="rail-note">Correct responses are required at each checkpoint before moving forward.</div><button class="rail-activity-cta" id="rail-activity-cta"><span class="rail-cta-icon">↗</span><span><strong>Practice library</strong><small>All 7 activities · Quick access</small></span></button></aside>' +
       '<main class="learning-content" id="learning-main"><div class="learning-frame"><div class="content-overline">'+clean(heading)+'</div>'+content+'</div></main>' +
       '<aside class="context-panel"><span class="context-overline">WHY THIS MATTERS</span><h3>Evidence before action.</h3><p>Effective capacity-building begins with a shared understanding of the context, existing assistance, and counterpart reality.</p><div class="context-divider"></div><span class="context-overline">LEARNING OUTCOMES</span><ul>'+lesson.objectives.slice(0,4).map(t=>'<li>'+clean(t)+'</li>').join('')+'</ul><div class="context-divider"></div><span class="context-overline">SOURCE</span><p class="source-small">UNPOL CBD Job-Specific Training · Lesson 1, 2021 / July 2023 file.</p></aside></div></div>';
     $('back-home').addEventListener('click',goHome);
     $('export-mini').addEventListener('click',exportProgress);
+    $('course-activities').addEventListener('click',openActivities);
+    $('rail-activity-cta').addEventListener('click',openActivities);
     document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>navigate(+b.dataset.section,0)));
     updateStatus();
   }
@@ -278,6 +280,7 @@
   }
   function render() {
     if(mode==='home'){renderHome();return;}
+    if(mode==='activities'){renderActivities();return;}
     if(position.kind==='quiz')renderQuiz();
     else if(position.kind==='activity')renderActivity();
     else if(position.kind==='complete')renderComplete();
