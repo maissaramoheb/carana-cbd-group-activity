@@ -161,3 +161,42 @@ This release preserves the six-phase curriculum-first landing design established
 - The approved course source still resides on the isolated course/lesson1-v0 branch of maissaramoheb/carana-cbd-group-activity.
 - The original activity repository main must not be replaced or cleaned into an e-learning app: it remains the source and production baseline for the original workbenches.
 - A future independent maissaramoheb/carana-cbd-elearning repository must be created and given its own clean main once repo creation is available. Until that point, Vercel's carana-cbd-elearning production project deploys this isolated course branch, leaving the original activity production untouched.
+
+
+## v0.5 — Lesson 1 Gold Standard instructional prototype (English)
+
+**Status: REVIEW PREVIEW, NOT A FULLY NARRATED RELEASE.** The human-quality recorded audio files have not been produced in this environment. No synthetic browser TTS fallback is used.
+
+### Implemented
+
+- 18 carefully authored natural-language trainer narration scripts, one for each teaching screen; each script is accessible through a collapsible transcript block.
+- A prepared audio player that activates only when an actual reviewed, same-origin recording is listed in the audio manifest. It supports play/pause, replay, 0.85× / 1× / 1.15× / 1.3× speed, accurate transcript and default-off autoplay.
+- Seven optional applied field decisions with formative, option-specific feedback. Decisions do not bypass any of the original checkpoint gates.
+- Five conceptual interactive explorations: three analytical lenses (01-02), PESTEL-S (02-01), stakeholder influence/interest (04-03), complete five-by-six CBD matrix (05-02), and baseline versus target (06-02).
+- No original activity page, workbench JavaScript or storage schema changed. Six 6-of-6 knowledge checkpoints remain intact.
+- Repaired a pre-existing malformed class quote in the passed-checkpoint action container.
+
+### Files
+
+- lesson1-experience.js — 18 narration transcripts and 7 formative scenarios.
+- lesson1-audio-manifest.js — empty until reviewed recordings are produced.
+- lesson1-player.js — safe audio playback + optional transcript + applied decision UI.
+- lesson1-labs.js — five interactive explanatory tools and 30-cell matrix.
+- experience.css and labs.css — responsive and keyboard-friendly visual components.
+- docs/lesson1-v05-gold-standard-blueprint.md — curricular audit, production brief, acceptance gates.
+- tests/v05-smoke.cjs — run using: node course/tests/v05-smoke.cjs.
+
+### Record natural English audio after review
+
+Record or obtain reviewed human-quality clips for the following IDs:
+
+01-01, 01-02, 01-03; 02-01, 02-02, 02-03; 03-01, 03-02, 03-03; 04-01, 04-02, 04-03; 05-01, 05-02, 05-03; 06-01, 06-02, 06-03.
+
+Place each corresponding MP3 in course/audio/en/lesson1/ and explicitly list approved sources in lesson1-audio-manifest.js. Do not list a file that is missing or has not passed quality review. No voice or certification claim should be made until the audio is present and reviewed.
+
+### Pilot caveats
+
+- Each screen can be completed without opening the transcript or answering formative choices; they are teaching aids, not new grading requirements.
+- Curriculum-specific examples distinguish illustrative hypotheticals from official scenario facts. Never insert facilitator-only Annex D model outcomes.
+- Static scripts do not automatically provide time-aligned captions. If regulated caption requirements apply, prepare an approved timed VTT track per recording and conduct an accessibility audit.
+- Real-browser desktop/mobile review, user pilot, voice production and rights approval remain outstanding before adopting v0.5 as a production Gold Standard template.
