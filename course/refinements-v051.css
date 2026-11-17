@@ -1,0 +1,156 @@
+/* CARANA CBD v0.5.1 — approved-design visual refinements.
+ * Scope: typography rhythm, narration controls, formative choices and responsive
+ * legibility. No changes to composition, palette, curriculum or workbench.
+ */
+:root{
+  --refine-focus:#248eac;
+  --refine-ring:0 0 0 3px rgba(36,142,172,.13);
+}
+/* Give the reading surface more consistent vertical rhythm. */
+.is-learning .content-overline{line-height:1.45}
+.is-learning .learning-head{align-items:center}
+.is-learning .content-title h1{letter-spacing:-.031em;text-wrap:balance}
+.is-learning .content-title .lead{max-width:65ch}
+.is-learning .learning-points{margin-top:20px}
+.is-learning .point{border-radius:9px}
+.is-learning .point p{max-width:73ch}
+.is-learning .bottom-actions .btn{min-height:43px}
+/* Narration is a familiar, quietly distinct teaching layer. */
+.is-learning .trainer-voice{
+  position:relative;
+  overflow:hidden;
+  border-color:#cadfe4;
+  background:linear-gradient(135deg,#f1f8f8 0%,#fafdfd 72%);
+  border-radius:14px;
+  box-shadow:0 8px 26px rgba(13,60,80,.045);
+}
+.is-learning .trainer-voice::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:3px;
+  background:linear-gradient(180deg,#62c5b4 0%,#2a93a8 76%,#a9e3d3 100%);
+}
+.is-learning .trainer-voice-heading{column-gap:13px;row-gap:10px}
+.is-learning .voice-emblem{
+  border-color:#b8ddd7;
+  background:#ddf1ed;
+  color:#207884;
+}
+.is-learning .voice-meta{gap:4px}
+.is-learning .voice-meta strong{font-size:14px;letter-spacing:-.012em}
+.is-learning .voice-meta>span{font-size:11.3px;line-height:1.4}
+.is-learning .voice-availability{
+  font-size:9.5px;line-height:1.4;
+  letter-spacing:.06em;padding:7px 11px;
+}
+.is-learning .voice-availability.live{border:1px solid #c2e5d3}
+.is-learning .voice-controls{gap:9px;margin:17px 0 13px}
+.is-learning .voice-button{
+  min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:11.8px;line-height:1.3;padding:9px 13px;
+  border-radius:9px;
+  transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.is-learning .voice-button:not(.primary):hover{
+  background:#eaf6f7;border-color:#9fcbd1;
+}
+.is-learning .voice-button:focus-visible{
+  outline:2px solid var(--refine-focus);
+  outline-offset:3px;
+}
+.is-learning .voice-time{
+  font-size:11.6px;
+  letter-spacing:.015em;
+  color:#456b7d;
+  font-variant-numeric:tabular-nums;
+}
+.is-learning .voice-progress-track{height:5px;background:#d8e8ea;border-radius:5px}
+.is-learning .voice-progress-track i{border-radius:5px;background:#268fa2}
+.is-learning .voice-transcript-toggle{
+  min-height:36px;
+  font-size:12px;
+  line-height:1.45;
+  padding:7px 0;
+  transition:color .16s ease,border-color .16s ease;
+}
+.is-learning .voice-transcript{
+  background:rgba(255,255,255,.56);
+  border-top:1px solid #d8e7ea;
+  border-radius:0 0 8px 8px;
+}
+.is-learning .voice-transcript p{
+  font-size:13.6px;
+  line-height:1.79;
+  max-width:73ch;
+}
+.is-learning .voice-production-note{font-size:11.9px;line-height:1.7}
+.is-learning .voice-production-note a{
+  color:#176a83;text-decoration-thickness:1px;
+  text-underline-offset:3px;
+}
+.is-learning .voice-production-note a:hover{color:#0b4962}
+/* Subtle consistency between instruction, choice and feedback. */
+.is-learning .learner-decision{
+  border-color:#d1e2e8;
+  box-shadow:0 7px 25px rgba(19,57,78,.035);
+}
+.is-learning .decision-options{gap:10px}
+.is-learning .decision-option{
+  min-height:51px;
+  border-color:#d9e8ed;
+  background:#fbfdfd;
+  transition:background-color .17s ease,border-color .17s ease,box-shadow .17s ease;
+}
+.is-learning .decision-option:hover{
+  background:#f1faf9;
+  border-color:#88c6c9;
+}
+.is-learning .decision-option.chosen{
+  background:#e5f5f1;
+  border-color:#6bb5aa;
+  box-shadow:inset 3px 0 0 #3a9b91;
+}
+.is-learning .decision-feedback{line-height:1.6}
+.is-learning .concept-lab{border-color:#d1e3e7}
+.is-learning .concept-option{min-height:55px}
+.is-learning .concept-option.selected{box-shadow:inset 3px 0 0 #399989}
+.is-learning .concept-response{
+  border-left-color:#2a91a0;
+  padding:17px 19px;
+}
+/* Matrix cells are easier to hit with mouse, trackpad and touch. */
+.is-learning .matrix-table th,
+.is-learning .matrix-table td{padding-block:10px}
+.is-learning .matrix-cell{width:43px;height:43px;border-radius:8px}
+.is-learning .matrix-cell:hover{border-color:#8ac5ce}
+.is-learning .matrix-cell.selected{box-shadow:0 0 0 2px rgba(33,124,145,.11)}
+/* Calm focus indication throughout keyboard interaction. */
+.is-learning :is(.decision-option,.concept-option,.matrix-cell):focus-visible{
+  outline:2px solid var(--refine-focus);
+  outline-offset:3px;
+  box-shadow:var(--refine-ring);
+}
+/* Preserve the approved layout while improving narrow-screen breathing room. */
+@media(max-width:680px){
+  .is-learning .trainer-voice{margin:19px 0 22px}
+  .is-learning .voice-controls{gap:8px}
+  .is-learning .voice-button{min-height:44px;padding-inline:11px}
+  .is-learning .voice-time{flex-basis:100%;margin:1px 0 0}
+  .is-learning .voice-transcript p{font-size:13px}
+  .is-learning .concept-response{padding:15px 16px}
+  .is-learning .decision-option{min-height:50px}
+}
+@media(max-width:390px){
+  .is-learning .trainer-voice{padding:15px 14px}
+  .is-learning .voice-availability{font-size:9px}
+  .is-learning .voice-controls>.voice-button.primary{
+    flex-basis:100%;
+  }
+  .is-learning .voice-controls>.voice-button:not(.primary){flex:1}
+  .is-learning .voice-controls>.voice-speed{flex:1}
+}
+@media(prefers-reduced-motion:reduce){
+  .is-learning .voice-button,.is-learning .voice-transcript-toggle,
+  .is-learning .decision-option{transition:none}
+}
