@@ -135,3 +135,29 @@ Software adaptation by Lt. Col. Maissara Selim. Original scenario and training m
 - [x] 38 automated behavioural assertions passed on initial v0.3 code.
 - [ ] Real-browser desktop/mobile visual review, assistive-technology acceptance, and human curricular copy review.
 - [ ] Independent GitHub repository and local Mac OneDrive workspace migration postponed by the project owner.
+
+
+## v0.4 — Typography, spacing and lesson reading experience (2026-11-17)
+
+This release preserves the six-phase curriculum-first landing design established in v0.3. It does not change lesson text, quiz content, scoring, course local-storage keys, or original workbench files.
+
+### Visual and experience changes
+- Added typography-spacing.css as the final CSS layer for non-destructive, reviewable refinements.
+- DM Sans for user-interface and reading text; Source Serif 4 for editorial headings, with system sans and Georgia/Cambria fallbacks. Web font loading is optional and must not block offline use.
+- Tuned the hero typography, letterforms, line length, CTA spacing and curriculum-card hierarchy while preserving the premium design direction.
+- Created a more legible reading rhythm in learning screens, including constrained title measures, moderate paragraph widths, tighter vertical spacing between teaching visual, points, takeaway and navigation.
+- Refined checkpoint cards with accessible choice targets, stronger question hierarchy, consistent response spacing, and clearer keyboard focus, without hiding choices or lowering the six-correct gating.
+- Reduced wasted space in the context panel, lesson sidebar, learning canvas, activity preview and progress panels.
+- Made the lesson header sticky and independently scrollable desktop navigation/context rails to keep orientation readily available during long screens.
+- Tuned tablet/mobile breakpoints and respected reduced-motion preferences.
+
+### Acceptance and preservation
+- [x] Functional regression harness: 32 assertions including all six knowledge checkpoints, activity access, completion and independent storage.
+- [x] Original activity HTML/JS and root-level production files are untouched.
+- [ ] Human browser-based typography and spacing review (Safari desktop and iPhone are particularly important).
+- [ ] Assistive-technology review of sticky header, focus and scrolling regions.
+
+### Repository and production boundary
+- The approved course source still resides on the isolated course/lesson1-v0 branch of maissaramoheb/carana-cbd-group-activity.
+- The original activity repository main must not be replaced or cleaned into an e-learning app: it remains the source and production baseline for the original workbenches.
+- A future independent maissaramoheb/carana-cbd-elearning repository must be created and given its own clean main once repo creation is available. Until that point, Vercel's carana-cbd-elearning production project deploys this isolated course branch, leaving the original activity production untouched.
