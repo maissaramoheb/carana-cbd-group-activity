@@ -32,6 +32,11 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "destination": "/course/",
+      "permanent": false
+    },
+    {
       "source": "/tests/:path*",
       "destination": "/",
       "permanent": false
