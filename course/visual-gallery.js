@@ -14,7 +14,7 @@
   number:(i+1)+'.'+(j+1),section:i,screen:j,title:screen.title,group:section.title
  })));
  const esc=x=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
- const defaultId='02-01';
+ const defaultId='01-01';
  const byId=id=>list.findIndex(x=>x.id===id);
  let index=Math.max(0,byId(location.hash.substring(1)));
  if(!location.hash||byId(location.hash.substring(1))<0)index=byId(defaultId);
