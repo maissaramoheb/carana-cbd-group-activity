@@ -1,0 +1,52 @@
+/* Lesson 1 illustrated scenarios: visual aids, not additional quiz content.
+ * Scoped to the established learning workspace and approved navy/teal palette.
+ */
+.is-learning .cbd-storyboard{
+  margin:23px 0 24px;
+  border:1px solid #d2e3e8;
+  background:#fff;
+  overflow:hidden;
+  border-radius:13px;
+  box-shadow:0 12px 30px rgba(12,47,70,.045);
+}
+.is-learning .cbd-storyboard-head{
+  padding:11px 17px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:7px 17px;
+  border-bottom:1px solid #dbe7ea;
+  background:linear-gradient(100deg,#eff8f8,#f9fcfc);
+}
+.is-learning .cbd-storyboard-eyebrow{
+  font-size:10px;line-height:1.4;
+  font-weight:850;letter-spacing:.105em;
+  color:#287c93;
+}
+.is-learning .cbd-storyboard-type{
+  font-size:10px;
+  color:#668497;line-height:1.45;
+}
+.is-learning .cbd-storyboard img{
+  width:100%;height:auto;aspect-ratio:1648 / 928;
+  object-fit:cover;display:block;
+  background:#d9e7eb;
+}
+.is-learning .cbd-storyboard figcaption{
+  display:flex;flex-direction:column;gap:5px;
+  padding:15px 19px 16px;
+  border-top:1px solid #e0e9ed;
+}
+.is-learning .cbd-storyboard figcaption strong{
+  color:#183d54;font-size:13.5px;line-height:1.4;font-weight:800;
+}
+.is-learning .cbd-storyboard figcaption span{
+  color:#537185;font-size:12px;line-height:1.68;max-width:77ch;
+}
+@media(max-width:560px){
+ .is-learning .cbd-storyboard{margin:19px 0 21px;border-radius:10px}
+ .is-learning .cbd-storyboard-head{padding:10px 13px}
+ .is-learning .cbd-storyboard figcaption{padding:13px 14px 15px}
+ .is-learning .cbd-storyboard figcaption span{font-size:11.8px}
+}
