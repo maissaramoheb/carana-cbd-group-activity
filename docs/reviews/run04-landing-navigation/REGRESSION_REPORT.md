@@ -35,3 +35,7 @@ The independent code review found the new home summary needed `learning-tools.js
 ## Boundaries
 
 No production deployment, alias reassignment, main merge, release-tag replacement, new media generation or instructional redesign. Native VoiceOver/NVDA listening and physical iOS/Android testing remain unverified. Local browser progress is origin-specific: preview starts with a separate record; production records remain on the production origin. Tested export/import is the deliberate transfer path.
+
+## Deployed verification
+
+Deployment `dpl_DmQvvbazGm5LGjCHF8s981GqSxvR` is READY and identifies implementation commit `0a1031f9c63ebf81aa232c558b54d951a60504e3`. All78deployed asset bodies match their release-manifest SHA-256, including18recordings and3images. Root returns307to`/course/`; slashless platform lesson query, original L1 adapter and activity hash adapter passed. The navigation suite was repeated against this deployed URL with a temporary authenticated review session. Initial unauthenticated requests reached Vercel Authentication; application behavior was evaluated only after establishing that session. Existing project access protection was retained. Both production aliases were inspected after preview deployment and remain on their prior deployment IDs.

@@ -7,7 +7,7 @@ async function home(p){await p.waitForSelector('#home-backup-controls #import-pr
 (async()=>{
  for(const [engine,name,size] of [[chromium,'chromium',{width:1440,height:1000}],[webkit,'webkit-mobile',{width:390,height:844}]]){
  const b=await engine.launch();try{
- const p=await b.newPage({viewport:size,reducedMotion:'reduce',hasTouch:size.width<450,isMobile:size.width<450});
+ const p=await b.newPage({storageState:process.env.CBD_TEST_STORAGE_STATE,viewport:size,reducedMotion:'reduce',hasTouch:size.width<450,isMobile:size.width<450});
  p.setDefaultTimeout(9000);const errors=[];p.on('pageerror',e=>errors.push(String(e)));
  await p.route('https://fonts.googleapis.com/**',r=>r.abort());
  for(const route of ['/','/course/','/course/#home','/platform/','/platform/?course=cbd']){
