@@ -1,0 +1,644 @@
+{
+  "recorded_utc": "2026-11-18T13:26:21.294952+00:00",
+  "baseline": "6637437f3be0cdab65e3623208550d598f62b034",
+  "preexpansion_tag": "carana-cbd-v0.8.1-source",
+  "preexpansion_commit": "7e25176cf03a77e1bcc3ec8c3c0eb01dccd4bcc0",
+  "scope": "Final Run 04 working-tree source integrity compared to immutable Run 03B baseline and original approved media tag. Browser operation is reported separately.",
+  "media": [
+    {
+      "path": "course/audio/en/lesson1/01-01.mp3",
+      "original_sha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "run03b_sha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "working_sha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "unchanged": true,
+      "final_sha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/01-02.mp3",
+      "original_sha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "run03b_sha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "working_sha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "unchanged": true,
+      "final_sha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/01-03.mp3",
+      "original_sha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "run03b_sha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "working_sha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "unchanged": true,
+      "final_sha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/02-01.mp3",
+      "original_sha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "run03b_sha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "working_sha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "unchanged": true,
+      "final_sha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/02-02.mp3",
+      "original_sha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "run03b_sha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "working_sha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "unchanged": true,
+      "final_sha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/02-03.mp3",
+      "original_sha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "run03b_sha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "working_sha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "unchanged": true,
+      "final_sha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/03-01.mp3",
+      "original_sha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "run03b_sha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "working_sha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "unchanged": true,
+      "final_sha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/03-02.mp3",
+      "original_sha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "run03b_sha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "working_sha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "unchanged": true,
+      "final_sha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/03-03.mp3",
+      "original_sha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "run03b_sha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "working_sha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "unchanged": true,
+      "final_sha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/04-01.mp3",
+      "original_sha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "run03b_sha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "working_sha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "unchanged": true,
+      "final_sha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/04-02.mp3",
+      "original_sha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "run03b_sha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "working_sha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "unchanged": true,
+      "final_sha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/04-03.mp3",
+      "original_sha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "run03b_sha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "working_sha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "unchanged": true,
+      "final_sha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/05-01.mp3",
+      "original_sha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "run03b_sha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "working_sha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "unchanged": true,
+      "final_sha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/05-02.mp3",
+      "original_sha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "run03b_sha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "working_sha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "unchanged": true,
+      "final_sha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/05-03.mp3",
+      "original_sha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "run03b_sha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "working_sha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "unchanged": true,
+      "final_sha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/06-01.mp3",
+      "original_sha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "run03b_sha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "working_sha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "unchanged": true,
+      "final_sha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/06-02.mp3",
+      "original_sha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "run03b_sha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "working_sha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "unchanged": true,
+      "final_sha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/06-03.mp3",
+      "original_sha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "run03b_sha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "working_sha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "unchanged": true,
+      "final_sha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+      "original_sha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "run03b_sha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "working_sha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "unchanged": true,
+      "final_sha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg",
+      "original_sha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "run03b_sha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "working_sha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "unchanged": true,
+      "final_sha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/illustrations/lesson1/04-02-triangulation.jpg",
+      "original_sha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "run03b_sha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "working_sha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "unchanged": true,
+      "final_sha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "final_unchanged": true
+    }
+  ],
+  "protected_files": [
+    {
+      "path": "CARANA_CBD_Group_Activity.html",
+      "run03b_sha256": "b1ff9a705c3faeee59000b629ae3db4aa23f9d2d7d5c8a2cef1a9872532e26d4",
+      "working_sha256": "b1ff9a705c3faeee59000b629ae3db4aa23f9d2d7d5c8a2cef1a9872532e26d4",
+      "unchanged": true,
+      "final_sha256": "b1ff9a705c3faeee59000b629ae3db4aa23f9d2d7d5c8a2cef1a9872532e26d4",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/01-01.mp3",
+      "run03b_sha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "working_sha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "unchanged": true,
+      "final_sha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/01-02.mp3",
+      "run03b_sha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "working_sha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "unchanged": true,
+      "final_sha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/01-03.mp3",
+      "run03b_sha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "working_sha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "unchanged": true,
+      "final_sha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/02-01.mp3",
+      "run03b_sha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "working_sha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "unchanged": true,
+      "final_sha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/02-02.mp3",
+      "run03b_sha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "working_sha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "unchanged": true,
+      "final_sha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/02-03.mp3",
+      "run03b_sha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "working_sha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "unchanged": true,
+      "final_sha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/03-01.mp3",
+      "run03b_sha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "working_sha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "unchanged": true,
+      "final_sha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/03-02.mp3",
+      "run03b_sha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "working_sha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "unchanged": true,
+      "final_sha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/03-03.mp3",
+      "run03b_sha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "working_sha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "unchanged": true,
+      "final_sha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/04-01.mp3",
+      "run03b_sha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "working_sha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "unchanged": true,
+      "final_sha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/04-02.mp3",
+      "run03b_sha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "working_sha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "unchanged": true,
+      "final_sha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/04-03.mp3",
+      "run03b_sha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "working_sha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "unchanged": true,
+      "final_sha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/05-01.mp3",
+      "run03b_sha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "working_sha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "unchanged": true,
+      "final_sha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/05-02.mp3",
+      "run03b_sha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "working_sha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "unchanged": true,
+      "final_sha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/05-03.mp3",
+      "run03b_sha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "working_sha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "unchanged": true,
+      "final_sha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/06-01.mp3",
+      "run03b_sha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "working_sha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "unchanged": true,
+      "final_sha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/06-02.mp3",
+      "run03b_sha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "working_sha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "unchanged": true,
+      "final_sha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/audio/en/lesson1/06-03.mp3",
+      "run03b_sha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "working_sha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "unchanged": true,
+      "final_sha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+      "run03b_sha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "working_sha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "unchanged": true,
+      "final_sha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg",
+      "run03b_sha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "working_sha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "unchanged": true,
+      "final_sha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/illustrations/lesson1/04-02-triangulation.jpg",
+      "run03b_sha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "working_sha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "unchanged": true,
+      "final_sha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/lesson1-audio-manifest.js",
+      "run03b_sha256": "b32a148c72fee5c9817add4d06ec7b111cf645a66ff8702c8c97000ee9fd7e84",
+      "working_sha256": "b32a148c72fee5c9817add4d06ec7b111cf645a66ff8702c8c97000ee9fd7e84",
+      "unchanged": true,
+      "final_sha256": "b32a148c72fee5c9817add4d06ec7b111cf645a66ff8702c8c97000ee9fd7e84",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/lesson1-data.js",
+      "run03b_sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+      "working_sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+      "unchanged": true,
+      "final_sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/lesson1-experience.js",
+      "run03b_sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df",
+      "working_sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df",
+      "unchanged": true,
+      "final_sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/lesson1-illustrations.js",
+      "run03b_sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de",
+      "working_sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de",
+      "unchanged": true,
+      "final_sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/lesson1-labs.js",
+      "run03b_sha256": "9f08f970db2948f74b553ebdae4d07b0245ea1de0aa2019771e2bee300a09dc2",
+      "working_sha256": "9f08f970db2948f74b553ebdae4d07b0245ea1de0aa2019771e2bee300a09dc2",
+      "unchanged": true,
+      "final_sha256": "9f08f970db2948f74b553ebdae4d07b0245ea1de0aa2019771e2bee300a09dc2",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/lesson1-player.js",
+      "run03b_sha256": "7bcabe01558bfc9365fae6c320c42bbfe94374c822a7019635430a3858d472a5",
+      "working_sha256": "7bcabe01558bfc9365fae6c320c42bbfe94374c822a7019635430a3858d472a5",
+      "unchanged": true,
+      "final_sha256": "7bcabe01558bfc9365fae6c320c42bbfe94374c822a7019635430a3858d472a5",
+      "final_unchanged": true
+    },
+    {
+      "path": "course/visual-journey.js",
+      "run03b_sha256": "adb0687f4bbb51f47e714e3dd57fb88959b26aa96a7b5cb75b425f8cf4f0a124",
+      "working_sha256": "adb0687f4bbb51f47e714e3dd57fb88959b26aa96a7b5cb75b425f8cf4f0a124",
+      "unchanged": true,
+      "final_sha256": "adb0687f4bbb51f47e714e3dd57fb88959b26aa96a7b5cb75b425f8cf4f0a124",
+      "final_unchanged": true
+    },
+    {
+      "path": "css/design-system.css",
+      "run03b_sha256": "2118057b0c789afbadee69e0440d91a7650bf89ebc321437075bd28438a3e2d3",
+      "working_sha256": "2118057b0c789afbadee69e0440d91a7650bf89ebc321437075bd28438a3e2d3",
+      "unchanged": true,
+      "final_sha256": "2118057b0c789afbadee69e0440d91a7650bf89ebc321437075bd28438a3e2d3",
+      "final_unchanged": true
+    },
+    {
+      "path": "curricula/cbd/lessons-2-3.json",
+      "run03b_sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+      "working_sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+      "unchanged": true,
+      "final_sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+      "final_unchanged": true
+    },
+    {
+      "path": "curricula/cbd/lessons-4-6.json",
+      "run03b_sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+      "working_sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+      "unchanged": true,
+      "final_sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+      "final_unchanged": true
+    },
+    {
+      "path": "index.html",
+      "run03b_sha256": "cf9a6c4935e54a3ba4af1ae6468167ddc68fe3a90230cf01894b5e51f7cebee7",
+      "working_sha256": "cf9a6c4935e54a3ba4af1ae6468167ddc68fe3a90230cf01894b5e51f7cebee7",
+      "unchanged": true,
+      "final_sha256": "cf9a6c4935e54a3ba4af1ae6468167ddc68fe3a90230cf01894b5e51f7cebee7",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/data/carana-scenario.js",
+      "run03b_sha256": "c3e46da40d89f5e2a00890c83bd7e79885512d218526d0a7dfed73059cc10b1e",
+      "working_sha256": "c3e46da40d89f5e2a00890c83bd7e79885512d218526d0a7dfed73059cc10b1e",
+      "unchanged": true,
+      "final_sha256": "c3e46da40d89f5e2a00890c83bd7e79885512d218526d0a7dfed73059cc10b1e",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/data/curriculum-glossary.js",
+      "run03b_sha256": "5db4ceafdfec2132bc1ebc44b9528305b8b178a10899dba5eb0eca12242e01b0",
+      "working_sha256": "5db4ceafdfec2132bc1ebc44b9528305b8b178a10899dba5eb0eca12242e01b0",
+      "unchanged": true,
+      "final_sha256": "5db4ceafdfec2132bc1ebc44b9528305b8b178a10899dba5eb0eca12242e01b0",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/modules/module1.js",
+      "run03b_sha256": "63dfd807104db2dfe0464042d61e946247d3ff64c86a41a303f07db1e6beccbf",
+      "working_sha256": "63dfd807104db2dfe0464042d61e946247d3ff64c86a41a303f07db1e6beccbf",
+      "unchanged": true,
+      "final_sha256": "63dfd807104db2dfe0464042d61e946247d3ff64c86a41a303f07db1e6beccbf",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/modules/module2.js",
+      "run03b_sha256": "0ddf82a7da902494ad67cbcb981640774c1372ac772000bff99e4a31fcfa7302",
+      "working_sha256": "0ddf82a7da902494ad67cbcb981640774c1372ac772000bff99e4a31fcfa7302",
+      "unchanged": true,
+      "final_sha256": "0ddf82a7da902494ad67cbcb981640774c1372ac772000bff99e4a31fcfa7302",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/modules/module3.js",
+      "run03b_sha256": "e5638a345e6e73bb2f87aa8fae68d4b7a74eabd6bc2f4a0695fd489509383693",
+      "working_sha256": "e5638a345e6e73bb2f87aa8fae68d4b7a74eabd6bc2f4a0695fd489509383693",
+      "unchanged": true,
+      "final_sha256": "e5638a345e6e73bb2f87aa8fae68d4b7a74eabd6bc2f4a0695fd489509383693",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/modules/module4.js",
+      "run03b_sha256": "8eadf9ec21bcc86cf8b93c946ee9459b2781a55ba34a7a3a88ef31540635745a",
+      "working_sha256": "8eadf9ec21bcc86cf8b93c946ee9459b2781a55ba34a7a3a88ef31540635745a",
+      "unchanged": true,
+      "final_sha256": "8eadf9ec21bcc86cf8b93c946ee9459b2781a55ba34a7a3a88ef31540635745a",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/modules/module5.js",
+      "run03b_sha256": "54f4a70f3440a5a337aec9bb16b8a8161c990fc05d7a463d7b31279edf40dfc5",
+      "working_sha256": "54f4a70f3440a5a337aec9bb16b8a8161c990fc05d7a463d7b31279edf40dfc5",
+      "unchanged": true,
+      "final_sha256": "54f4a70f3440a5a337aec9bb16b8a8161c990fc05d7a463d7b31279edf40dfc5",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/modules/module6.js",
+      "run03b_sha256": "277007676acf04694997ba9e1e82a95d382443aba782cf7a4f5842e79d1bd13b",
+      "working_sha256": "277007676acf04694997ba9e1e82a95d382443aba782cf7a4f5842e79d1bd13b",
+      "unchanged": true,
+      "final_sha256": "277007676acf04694997ba9e1e82a95d382443aba782cf7a4f5842e79d1bd13b",
+      "final_unchanged": true
+    },
+    {
+      "path": "js/storage/lab-storage.js",
+      "run03b_sha256": "69797cea9433bab75a9c8cff2441f18a67a4f355676178b4a2a4791a4c794024",
+      "working_sha256": "69797cea9433bab75a9c8cff2441f18a67a4f355676178b4a2a4791a4c794024",
+      "unchanged": true,
+      "final_sha256": "69797cea9433bab75a9c8cff2441f18a67a4f355676178b4a2a4791a4c794024",
+      "final_unchanged": true
+    },
+    {
+      "path": "module1.html",
+      "run03b_sha256": "10dca83c083d23be223777663dcd4099c0914121e2c358e9dc9fc7b934e0b39b",
+      "working_sha256": "10dca83c083d23be223777663dcd4099c0914121e2c358e9dc9fc7b934e0b39b",
+      "unchanged": true,
+      "final_sha256": "10dca83c083d23be223777663dcd4099c0914121e2c358e9dc9fc7b934e0b39b",
+      "final_unchanged": true
+    },
+    {
+      "path": "module2.html",
+      "run03b_sha256": "e98bed3a6359b88079fa9761e0e58dd08e573487cc7d6e809dd277b3e54e6e7f",
+      "working_sha256": "e98bed3a6359b88079fa9761e0e58dd08e573487cc7d6e809dd277b3e54e6e7f",
+      "unchanged": true,
+      "final_sha256": "e98bed3a6359b88079fa9761e0e58dd08e573487cc7d6e809dd277b3e54e6e7f",
+      "final_unchanged": true
+    },
+    {
+      "path": "module3.html",
+      "run03b_sha256": "5f3c9bb77d74f180f34043923999b9f1f294e7e285c117c8631c0692efd3b568",
+      "working_sha256": "5f3c9bb77d74f180f34043923999b9f1f294e7e285c117c8631c0692efd3b568",
+      "unchanged": true,
+      "final_sha256": "5f3c9bb77d74f180f34043923999b9f1f294e7e285c117c8631c0692efd3b568",
+      "final_unchanged": true
+    },
+    {
+      "path": "module4.html",
+      "run03b_sha256": "56c32b9adaf1e84057f2df6ce6c11ac657ddbdf9644b7364f348506aa867cf87",
+      "working_sha256": "56c32b9adaf1e84057f2df6ce6c11ac657ddbdf9644b7364f348506aa867cf87",
+      "unchanged": true,
+      "final_sha256": "56c32b9adaf1e84057f2df6ce6c11ac657ddbdf9644b7364f348506aa867cf87",
+      "final_unchanged": true
+    },
+    {
+      "path": "module5.html",
+      "run03b_sha256": "bd9dda19e085a1b286c36bf4be31b7bba4883120860f65746706c8a39095972e",
+      "working_sha256": "bd9dda19e085a1b286c36bf4be31b7bba4883120860f65746706c8a39095972e",
+      "unchanged": true,
+      "final_sha256": "bd9dda19e085a1b286c36bf4be31b7bba4883120860f65746706c8a39095972e",
+      "final_unchanged": true
+    },
+    {
+      "path": "module6.html",
+      "run03b_sha256": "9695f964b0058c6b1aeac13748a717f9138f7ec600cd7764b40f59b457e678c5",
+      "working_sha256": "9695f964b0058c6b1aeac13748a717f9138f7ec600cd7764b40f59b457e678c5",
+      "unchanged": true,
+      "final_sha256": "9695f964b0058c6b1aeac13748a717f9138f7ec600cd7764b40f59b457e678c5",
+      "final_unchanged": true
+    },
+    {
+      "path": "platform/handoff.js",
+      "run03b_sha256": "a87f2ac966c4886212609f162020e579c499cace7643eebe0bf5c4dc251fd622",
+      "working_sha256": "a87f2ac966c4886212609f162020e579c499cace7643eebe0bf5c4dc251fd622",
+      "unchanged": true,
+      "final_sha256": "a87f2ac966c4886212609f162020e579c499cace7643eebe0bf5c4dc251fd622",
+      "final_unchanged": true
+    },
+    {
+      "path": "platform/learning-tools.js",
+      "run03b_sha256": "dc4ec34a254cb88d6516016c798991b9b6ab988044dea6ec2fec61f2fc7a5253",
+      "working_sha256": "dc4ec34a254cb88d6516016c798991b9b6ab988044dea6ec2fec61f2fc7a5253",
+      "unchanged": true,
+      "final_sha256": "dc4ec34a254cb88d6516016c798991b9b6ab988044dea6ec2fec61f2fc7a5253",
+      "final_unchanged": true
+    },
+    {
+      "path": "platform/notebook-core.js",
+      "run03b_sha256": "d8631f109892cb4840ae2b154e35000c49b78ae84666077221f00db11f6f0272",
+      "working_sha256": "d8631f109892cb4840ae2b154e35000c49b78ae84666077221f00db11f6f0272",
+      "unchanged": true,
+      "final_sha256": "d8631f109892cb4840ae2b154e35000c49b78ae84666077221f00db11f6f0272",
+      "final_unchanged": true
+    },
+    {
+      "path": "platform/notebook.js",
+      "run03b_sha256": "7397fe335dd34b5633784cabec8d663767020ceaa01358b1241cec475ff77129",
+      "working_sha256": "7397fe335dd34b5633784cabec8d663767020ceaa01358b1241cec475ff77129",
+      "unchanged": true,
+      "final_sha256": "7397fe335dd34b5633784cabec8d663767020ceaa01358b1241cec475ff77129",
+      "final_unchanged": true
+    },
+    {
+      "path": "platform/progress-core.js",
+      "run03b_sha256": "4f5391f5d64958c7cc12d123cd1361a15e9f813e15c362d9bed6827a52df0eb9",
+      "working_sha256": "4f5391f5d64958c7cc12d123cd1361a15e9f813e15c362d9bed6827a52df0eb9",
+      "unchanged": true,
+      "final_sha256": "4f5391f5d64958c7cc12d123cd1361a15e9f813e15c362d9bed6827a52df0eb9",
+      "final_unchanged": true
+    },
+    {
+      "path": "tools/narration-lock.json",
+      "run03b_sha256": "138e50e34eec699b49291180b2a26ccdeb65d367de41cea71345e7073682bf15",
+      "working_sha256": "138e50e34eec699b49291180b2a26ccdeb65d367de41cea71345e7073682bf15",
+      "unchanged": true,
+      "final_sha256": "138e50e34eec699b49291180b2a26ccdeb65d367de41cea71345e7073682bf15",
+      "final_unchanged": true
+    }
+  ],
+  "summary": {
+    "mp3": 18,
+    "cinematic_jpg": 3,
+    "all_media_identical": true,
+    "protected_count": 54,
+    "protected_all_identical": true,
+    "final_media_all_identical": true,
+    "final_protected_all_identical": true,
+    "final_status": "PASS"
+  },
+  "final_verification_utc": "2026-11-18T13:35:42.911632+00:00",
+  "final_working_head": "6637437f3be0cdab65e3623208550d598f62b034"
+}

@@ -2,13 +2,14 @@
 (function () {
   'use strict';
   const catalog = window.CARANA_CATALOG;
-  const root = document.getElementById('app');
+  const homeMode = document.body.dataset.cbdHome === 'true';
+  let root = document.getElementById('app');
   const learningTools = window.CARANA_LEARNING_TOOLS;
   const progressCore = window.CARANA_PROGRESS_CORE;
   const handoff = window.CARANA_WORKBENCH_HANDOFF;
   const esc = progressCore.esc;
   const parameters = new URLSearchParams(location.search);
-  const course = catalog.find(x => x.id === parameters.get('course'));
+  const course = catalog.find(x => x.id === (homeMode ? 'cbd' : parameters.get('course')));
   const ref = course?.lessons.find(x => x.id === parameters.get('lesson'));
   const KEY = 'carana_learning_v1';
   const PRE_RESTORE_KEY = 'carana_learning_v1_pre_restore';
@@ -326,7 +327,7 @@
       : '<section class="panel"><h2>Sources verified; conversion not yet released.</h2><p>The official 2023 curriculum has been inventoried. No complete digital course is claimed here. Content review, activity integration, media and learner validation remain separate work.</p><p><a href="./demo.html#partnership">Explore the conversion programme</a></p></section>';
 
     root.innerHTML =
-      '<a href="./">← All curricula</a>' +
+      '<a href="./?view=curricula">← All curricula</a>' +
       '<h1>' + esc(course.title) + '</h1>' +
       '<p class="lead">' + esc(course.description) + '</p>' +
       '<div class="banner">' + esc(course.status) + '. ' + esc(course.source) + '.</div>' +
@@ -344,7 +345,7 @@
       '<div class="workspace">' +
       '<aside class="rail panel">' +
       '<div class="rail-mobile-bar">' +
-      '<a class="rail-back" href="./?course=' + esc(course.id) + '">← ' + esc(course.short) + ' lessons</a>' +
+      '<a class="rail-back" href="' + (course.id === 'cbd' ? '../course/#home' : './?course=' + esc(course.id)) + '">← ' + (course.id === 'cbd' ? 'CBD home' : esc(course.short) + ' lessons') + '</a>' +
       '<button type="button" class="rail-toggle" id="rail-toggle" aria-expanded="' + String(railExpanded) + '" aria-controls="rail-nav-panel">' + esc(mobileLabel) + ' ▾</button>' +
       '</div>' +
       '<div id="rail-nav-panel" class="rail-panel-body" data-collapsed="' + String(!railExpanded) + '">' +
@@ -636,7 +637,7 @@
         quizHandoff +
         (last && lesson.number < 6 ? '<p><a class="action" href="./?course=cbd&lesson=cbd-' + (lesson.number + 1) + '">Continue to Lesson ' + (lesson.number + 1) + ' →</a></p>' : '') +
         '<div class="actions"><button type="button" id="review">Review this section</button>' +
-        (last ? '<a class="action" href="./?course=' + esc(course.id) + '">Return to CBD catalog</a>' : '<button type="button" id="continue" class="primary">Next section →</button>') +
+        (last ? '<a class="action" href="../course/#home">Return to CBD home</a>' : '<button type="button" id="continue" class="primary">Next section →</button>') +
         '</div>',
         statusMessage
       );
@@ -697,6 +698,14 @@
   }
 
   async function start() {
+    if (homeMode) { ready = true; return; }
+    if (ref?.href) { location.replace(new URL(ref.href, location.href).href); return; }
+    if (!ref && ((!parameters.get('course') && parameters.get('view') !== 'curricula') || course?.id === 'cbd')) {
+      const destination = new URL('../course/', location.href);
+      destination.hash = location.hash || '#home';
+      location.replace(destination.href);
+      return;
+    }
     if (!ref?.file) {
       catalogHTML();
       ready = true;
@@ -718,12 +727,51 @@
       ready = true;
     } catch (_) {
       root.classList.remove('app-boot');
-      root.innerHTML = '<h1>This lesson could not open.</h1><p>Check your connection and try again. Your existing progress has not been changed.</p><a class="action" href="./?course=' + esc(course.id) + '">Return to lessons</a>';
+      root.innerHTML = '<h1>This lesson could not open.</h1><p>Check your connection and try again. Your existing progress has not been changed.</p><a class="action" href="../course/#home">Return to CBD home</a>';
       ready = true;
     }
   }
 
+  function mountHome(container, bannerMessage) {
+    if (!homeMode || !container) return;
+    root = container;
+    store = load();
+    for (const entry of course.lessons) {
+      const desc = entry.href
+        ? progressCore.readLesson1Summary(readJsonKey(L1_KEY), readJsonKey(LAB_KEY))
+        : progressCore.describeCatalogLesson(entry, store.lessons[entry.id]);
+      const status = document.querySelector('[data-home-progress="' + entry.id + '"]');
+      const action = document.querySelector('[data-home-lesson="' + entry.id + '"]');
+      if (status) status.textContent = desc.statusText;
+      if (action) action.textContent = desc.actionText + ' ↗';
+    }
+    container.innerHTML =
+      '<p>Progress and drafts stay in this browser. Keep a backup before clearing browser data.</p>' +
+      '<div class="backup-actions"><button class="btn outline small" id="export-progress">Export Lessons 2–6 (JSON)</button>' +
+      '<button class="btn outline small" id="import-progress">Restore Lessons 2–6</button>' +
+      '<button class="btn outline small" id="export-study-sheet">Print / view study summary</button>' +
+      '<input type="file" id="import-file" accept=".json,application/json" hidden></div>' +
+      '<p id="backup-status" role="status">' + esc(bannerMessage || '') + '</p>' +
+      '<div id="restore-preview" class="restore-preview" hidden></div>' +
+      '<div class="backup-actions"><button class="btn outline small" id="home-export-l1">Export Lesson 1 (JSON)</button>' +
+      '<button class="btn outline small" id="home-restore-l1">Restore Lesson 1 backup (JSON)</button>' +
+      '<input type="file" id="home-import-l1-file" accept=".json,application/json" hidden></div>' +
+      '<div id="l1-restore-preview" class="l1-restore-preview" hidden></div>';
+    wireBackupControls(container, message => {
+      // Preserve Lesson 1 listeners when refreshing expanded progress.
+      for (const entry of course.lessons.filter(x => !x.href)) {
+        const desc = progressCore.describeCatalogLesson(entry, store.lessons[entry.id]);
+        const status = document.querySelector('[data-home-progress="' + entry.id + '"]');
+        const action = document.querySelector('[data-home-lesson="' + entry.id + '"]');
+        if (status) status.textContent = desc.statusText;
+        if (action) action.textContent = desc.actionText + ' ↗';
+      }
+      document.getElementById('backup-status').textContent = message;
+    });
+  }
+
   window.CARANA_PLATFORM = {
+    mountHome,
     get lesson() { return lesson; },
     get ready() { return ready; }
   };

@@ -63,7 +63,7 @@ function validate(root=path.resolve(__dirname,'..')){
  const allPrompts=lessons.flatMap(l=>l.artwork.map(a=>a.teachingPrompt));
  assert.equal(new Set(allPrompts).size,allPrompts.length,'Artwork teaching prompts must be unique across all 14 specifications');
  const courseApp=fs.readFileSync(path.join(root,'course/app.js'),'utf8');
- assert(courseApp.includes('../platform/?course=cbd'),'Lesson 1 return navigation must link to canonical platform catalog');
+ assert(courseApp.includes('id="back-home" href="#home"'),'Lesson 1 must return to the approved CBD home');
  for(const c of courses.slice(1))assert.equal(c.lessons.length,0,'Readiness curriculum must not be presented as an available course');
  return {lessons:lessons.length,screens,quizzes};
 }

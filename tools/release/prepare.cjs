@@ -12,7 +12,7 @@ const target=path.join(root,'.vercel/output');
 fs.rmSync(target,{recursive:true,force:true});fs.mkdirSync(target,{recursive:true});
 fs.cpSync(path.join(root,'dist'),path.join(target,'static'),{recursive:true});
 const config={version:3,routes:[
- {src:'^/$',status:307,headers:{Location:'/platform/'}},
+ {src:'^/$',status:307,headers:{Location:'/course/'}},
  {src:'^/platform$',status:308,headers:{Location:'/platform/'}},
  {src:'^/platform/$',dest:'/platform/index.html'},
  {src:'^/course$',status:308,headers:{Location:'/course/'}},
