@@ -58,7 +58,8 @@ async function flow(browser,size,name){
     }
     await page.locator('[data-choice]').nth((screen.decision.answer+1)%3).click();
     assert(await page.locator('#decision-feedback').isVisible());
-    await page.locator('[data-choice]').nth(screen.decision.answer).click();
+    if(name==='webkit-mobile')await page.locator('[data-choice]').nth(screen.decision.answer).tap();
+    else await page.locator('[data-choice]').nth(screen.decision.answer).click();
     assert.match(await page.locator('#decision-feedback').innerText(),/defensible/);
     const transcript=page.locator('details:has(.transcript)');
     await transcript.locator('summary').click();assert((await transcript.locator('.transcript').innerText()).length>300);
@@ -89,6 +90,7 @@ async function flow(browser,size,name){
    }
   }
   await page.reload();await ready(page);
+  assert.match(await page.locator('h1').innerText(),/Carry your work/);
   assert.match(await page.locator('.rail .status').first().innerText(),new RegExp(lesson.sections.length+' / '+lesson.sections.length));
  }
  await page.goto(base+'/platform/?course=cbd');await ready(page);
@@ -100,9 +102,21 @@ async function flow(browser,size,name){
 const sectionCount=l=>l.sections.length;
 async function edgeCases(browser){
  let page=await pageFor(browser,{width:320,height:800});
- await page.addInitScript(()=>{localStorage.setItem('carana_learning_v1',JSON.stringify({version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run01',completed:[2,2],section:Infinity,screen:4.5}}}));Storage.prototype.setItem=()=>{throw Error('Write denied')};});
+ await page.addInitScript(()=>{localStorage.setItem('carana_learning_v1',JSON.stringify({version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run02',completed:[2,2],section:Infinity,screen:4.5}}}));Storage.prototype.setItem=()=>{throw Error('Write denied')};});
  await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);assert.equal(await page.locator('h1').innerText(),data[0].sections[0].screens[0].title);
  await page.locator('#next').click();assert.match(await page.locator('#save-status').innerText(),/Could not save/);
+ await page.context().close();
+ page=await pageFor(browser,{width:768,height:1024});
+ await page.addInitScript(()=>localStorage.setItem('carana_learning_v1',JSON.stringify({version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run01',completed:[0,1,2],section:2,screen:1}}})));
+ await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);
+ assert.match(await page.locator('.version-note').innerText(),/Earlier checkpoint records/);
+ assert.match(await page.locator('.rail .status').first().innerText(),/0 \/ 3/);
+ await page.locator('#next').click();
+ const history=await page.evaluate(()=>JSON.parse(localStorage.getItem('carana_learning_v1')).lessons['cbd-2'].previousProgress);
+ assert.deepEqual(history[0].completed,[0,1,2]);assert.equal(history[0].contentVersion,'2026.11-run01');
+ const download=page.waitForEvent('download');await page.locator('#export-progress').click();const file=await download;
+ const exported=JSON.parse(fs.readFileSync(await file.path(),'utf8'));
+ assert.deepEqual(exported.progress.lessons['cbd-2'].previousProgress[0].completed,[0,1,2]);
  await page.context().close();
  page=await pageFor(browser,{width:768,height:1024});
  await page.route('**/curricula/cbd/*.json',r=>r.abort());
@@ -110,6 +124,8 @@ async function edgeCases(browser){
  await page.context().close();
  page=await pageFor(browser,{width:768,height:1024});
  await page.goto(base+'/platform/demo.html');
+ await page.locator('#scene').selectOption('cbd2');
+ assert.match(await page.locator('#learning-demo').getAttribute('src'),/lesson=cbd-2/);
  await page.locator('#scene').selectOption('02-01');
  assert.match(await page.locator('#learning-demo').getAttribute('src'),/02-01$/);
  await page.screenshot({path:path.join(output,'demo-tablet.png'),fullPage:true});

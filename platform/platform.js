@@ -25,17 +25,17 @@ function safeProgress(data){
  const oldRecord=raw&&typeof raw.contentVersion==='string'&&Array.isArray(raw.completed)?{
   contentVersion:raw.contentVersion.slice(0,80),completed:raw.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<100),
   section:Number.isInteger(raw.section)?raw.section:0,screen:Number.isInteger(raw.screen)?raw.screen:0}:null;
- if(!raw || raw.contentVersion!==data.version) return {contentVersion:data.version,completed:[],section:0,screen:0,drafts:{},previousProgress:oldRecord?[...previous,oldRecord].slice(-5):previous};
+ if(!raw || raw.contentVersion!==data.version) return {contentVersion:data.version,completed:[],section:0,screen:0,view:'screen',drafts:{},previousProgress:oldRecord?[...previous,oldRecord].slice(-5):previous};
  const completed=[];
  while(completed.length<data.sections.length && Array.isArray(raw.completed) && raw.completed.includes(completed.length))completed.push(completed.length);
  const section=Number.isInteger(raw.section)&&raw.section>=0?Math.min(raw.section,completed.length,data.sections.length-1):0;
  const screen=Number.isInteger(raw.screen)&&raw.screen>=0?Math.min(raw.screen,data.sections[section].screens.length-1):0;
  const drafts={};
  for(const part of data.sections)for(const item of part.screens)if(item.lab&&learningTools)drafts[item.id]=learningTools.validDraft(item.lab,raw.drafts?.[item.id]);
- return {contentVersion:data.version,completed,section,screen,drafts,previousProgress:previous};
+ return {contentVersion:data.version,completed,section,screen,view:raw.view==='quiz'?'quiz':'screen',drafts,previousProgress:previous};
 }
 function save(){
- state.section=selected;state.screen=index;store.lessons[lesson.id]=state;
+ state.section=selected;state.screen=index;state.view=quiz?'quiz':'screen';store.lessons[lesson.id]=state;
  try{localStorage.setItem(key,JSON.stringify(store));storageFailed=false;}catch(_){storageFailed=true;}
  const el=document.getElementById('save-status');if(el)el.textContent=storageFailed?'Could not save progress. Export before closing.':'Progress saved in this browser.';
 }
@@ -95,13 +95,13 @@ function renderQuiz(section,banner) {
   layout(banner+'<span class="eyebrow">Checkpoint passed</span><h1>'+esc(last?'Carry your work into practice.':'Understanding checked.')+'</h1><p>You corrected all '+section.quiz.length+' questions. This records guided study, not professional certification.</p>'+
   (last?'<p>Apply your own analysis in the original practical activity, and ask a peer or facilitator to challenge your reasoning. The digital checkpoint does not assess your workbench output.</p><a class="action primary" href="'+esc(lesson.activity)+'" target="_blank" rel="noopener noreferrer">Open original Lesson '+lesson.number+' activity ↗</a><p class="status">Cinematic artwork is specified for this lesson; new images and narration are pending authorised production and review.</p>':'')+
   (last&&lesson.number<6?'<p><a class="action" href="./?course=cbd&lesson=cbd-'+(lesson.number+1)+'">Continue to Lesson '+(lesson.number+1)+' →</a></p>':'')+'<div class="actions"><button id="review">Review this section</button>'+(last?'<a class="action" href="./?course='+course.id+'">Return to CBD catalog</a>':'<button id="continue" class="primary">Next section →</button>')+'</div>');
-  document.getElementById('review').onclick=()=>{quiz=false;index=0;render();focus();};
+  document.getElementById('review').onclick=()=>{quiz=false;index=0;save();render();focus();};
   if(!last)document.getElementById('continue').onclick=()=>{selected++;index=0;quiz=false;answers={};checked=false;save();render();focus();};
   return;
  }
  layout(banner+'<span class="eyebrow">Formative knowledge checkpoint</span><h1>'+esc(section.title)+'</h1><p>Correct all '+section.quiz.length+' questions to continue. Retry without penalty. This is the adaptation’s study rule, not an official UN qualification standard.</p><form id="quiz">'+section.quiz.map((q,i)=>'<fieldset><legend>'+esc(q.prompt)+'</legend>'+q.options.map((option,j)=>'<label class="choice"><input type="radio" name="q'+i+'" value="'+j+'" '+(answers[i]===j?'checked':'')+'><span>'+esc(option)+'</span></label>').join('')+(checked&&answers[i]!==q.answer?'<p class="quiz-hint">'+esc((q.optionFeedback?.[answers[i]]||'')+' '+q.feedback)+'</p>':'')+'</fieldset>').join('')+'</form><p id="quiz-status" role="status">'+(checked?'Review the feedback and correct the remaining answers.':'Select an answer for every question.')+'</p><div class="actions"><button id="review">Review learning screens</button><button id="check" class="primary">Check answers</button></div>');
  root.querySelectorAll('#quiz input').forEach(inp=>inp.onchange=()=>answers[+inp.name.slice(1)]=+inp.value);
- document.getElementById('review').onclick=()=>{quiz=false;render();focus();};
+ document.getElementById('review').onclick=()=>{quiz=false;save();render();focus();};
  document.getElementById('check').onclick=()=>{
   const missing=section.quiz.some((_,i)=>answers[i]===undefined);
   if(missing){document.getElementById('quiz-status').textContent='Answer every question before checking.';return;}
@@ -116,7 +116,7 @@ async function start(){
   const response=await fetch(ref.file);if(!response.ok)throw Error('Lesson file unavailable.');
   const data=await response.json();lesson=data.find(x=>x.id===ref.id);
   if(!lesson?.sections?.length || !lesson.sections.every(s=>s.screens?.length&&s.quiz?.length))throw Error('Lesson structure is invalid.');
-  state=safeProgress(lesson);selected=state.section;index=state.screen;
+  state=safeProgress(lesson);selected=state.section;index=state.screen;quiz=state.view==='quiz';
   render();ready=true;
  }catch(error){
   root.innerHTML='<h1>This lesson could not open.</h1><p>Check your connection and try again. Your existing progress has not been changed.</p><a class="action" href="./?course='+esc(course.id)+'">Return to lessons</a>';

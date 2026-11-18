@@ -30,16 +30,24 @@ function validate(root=path.resolve(__dirname,'..')){
     assert(s.decision.options.length>=3);
     assert(Number.isInteger(s.decision.answer)&&s.decision.options[s.decision.answer]);
     assert(s.decision.options.every(o=>o.label&&o.feedback));
+    if(s.lab){
+     const x=s.lab;assert(['builder','classify','priority','risk'].includes(x.type));assert(x.title&&x.context);
+     if(x.type==='builder'){assert(x.fields.length>=3&&x.fields.length<=6);assert(x.fields.every(f=>f.label&&f.prompt));assert(x.review&&x.example&&x.debrief);}
+     if(x.type==='classify'){assert(x.categories.length>=2&&x.items.length>=3);assert(x.items.every(i=>i.text&&i.feedback&&Number.isInteger(i.answer)&&i.answer>=0&&i.answer<x.categories.length));}
+     if(x.type==='priority'){assert(x.criteria.length>=3);assert(x.alternatives.every(a=>a.constraint&&a.ratings.length===x.criteria.length&&a.ratings.every(r=>Number.isInteger(r)&&r>=1&&r<=3)));}
+     if(x.type==='risk')assert(x.debrief);
+    }
     screens++;
    }
    for(const q of section.quiz){
     assert(q.prompt && q.feedback && q.options.length>=3);
     assert(Number.isInteger(q.answer)&&q.answer>=0&&q.answer<q.options.length);
     assert.equal(new Set(q.options).size,q.options.length);
+    assert(q.optionFeedback?.length===q.options.length && q.optionFeedback.every(f=>f.length>25),'Missing option-specific feedback');
     quizzes++;
    }
   }
-  for(const art of lesson.artwork)assert(ids.has(art.screenId)&&art.status==='specification-only');
+  for(const art of lesson.artwork)assert(ids.has(art.screenId)&&art.status==='specification-only'&&art.alt&&art.brief&&art.composition&&art.teachingPrompt&&art.constraints&&art.styleReferences?.length);
  }
  for(const c of courses.slice(1))assert.equal(c.lessons.length,0,'Readiness curriculum must not be presented as an available course');
  return {lessons:lessons.length,screens,quizzes};

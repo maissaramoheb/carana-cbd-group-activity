@@ -1,6 +1,6 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),validate=require('../../tools/validate-content.cjs');
 test('additional CBD lessons have variable source-mapped sections, media specifications and assessments',()=>{
- assert.deepEqual(validate(),{lessons:5,screens:32,quizzes:42});
+ assert.deepEqual(validate(),{lessons:5,screens:38,quizzes:42});
 });
 test('sponsor budget reconciles every item and demo uses the same totals',()=>{
  const fs=require('node:fs'),path=require('node:path'),root=path.resolve(__dirname,'../..');

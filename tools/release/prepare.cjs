@@ -30,6 +30,6 @@ const entries=files(path.join(target,'static')).sort().map(file=>{
  const bytes=fs.readFileSync(path.join(target,'static',file));
  return {file,bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')};
 });
-const manifest={version:1,sourceCommit:sha,target:'isolated-preview',fieldPilot:'deferred',originalBaseline:'337246f3b8731029ed3498fe33d0f19841bb687b',lessonStatus:'CBD 2–6 review adaptations; MMA/COP readiness only',files:entries};
+const manifest={version:1,sourceCommit:sha,target:'isolated-preview',fieldPilot:'deferred',originalBaseline:'337246f3b8731029ed3498fe33d0f19841bb687b',lessonStatus:'Run02 CBD 2–6 instructional review; new media and expert validation pending; MMA/COP readiness only',files:entries};
 fs.writeFileSync(path.join(target,'static/release-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
 console.log('Prepared static-only preview for',sha,'with',entries.length,'hashed assets. Production promotion requires owner acceptance.');
