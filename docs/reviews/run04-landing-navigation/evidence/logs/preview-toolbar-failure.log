@@ -1,0 +1,26 @@
+chromium navigation, all six resume paths, storage isolation, backup dry runs, notebook, standalone routes and home reflow passed
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-2 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-3 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-4 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-6 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-6 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/notebook.html due to access control checks.'
++ ]
+- []
+
+    at /Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/tests/platform/navigation.cjs:63:9 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

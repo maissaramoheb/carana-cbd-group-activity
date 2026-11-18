@@ -10,6 +10,7 @@ async function home(p){await p.waitForSelector('#home-backup-controls #import-pr
  const p=await b.newPage({storageState:process.env.CBD_TEST_STORAGE_STATE,viewport:size,reducedMotion:'reduce',hasTouch:size.width<450,isMobile:size.width<450});
  p.setDefaultTimeout(9000);const errors=[];p.on('pageerror',e=>errors.push(String(e)));
  await p.route('https://fonts.googleapis.com/**',r=>r.abort());
+ if(process.env.CBD_TEST_DISABLE_HOST_TOOLBAR==='1')await p.route('https://vercel.live/_next-live/feedback/feedback.js',r=>r.abort());
  for(const route of ['/','/course/','/course/#home','/platform/','/platform/?course=cbd']){
   await p.goto(base+route);await home(p);assert.equal(await p.locator('.curriculum-phase-card').count(),6);
   assert.equal(await p.locator('.main-cta').getAttribute('href'),'#course-map');
