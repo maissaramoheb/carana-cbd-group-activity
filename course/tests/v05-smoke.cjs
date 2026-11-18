@@ -26,6 +26,7 @@ ok(lesson.sections.length===6,'Expected six CBD analysis blocks');
 ok(lesson.sections.every(s=>s.screens.length===3),'Expected 18 teaching screens');
 ok(lesson.sections.every(s=>s.quiz.length===6),'Expected six checkpoint questions per block');
 ok(lesson.sections.every(s=>s.quiz.every(q=>q.answer>=0&&q.answer<q.options.length)),'Quiz answer indexes valid');
+ok(lesson.sections.every(s=>s.quiz.every(q=>Array.isArray(q.optionFeedback)&&q.optionFeedback.length===q.options.length&&q.optionFeedback.every(f=>typeof f==='string'&&f.trim().length>=15))),'Every Lesson 1 quiz question provides option-specific feedback');
 ok(lesson.sections.every(s=>s.screens.every(screen=>screen.sourcePage&&screen.points.length>0)),'Every screen has documented curricular source page');
 const tracks=experience.narration.tracks;
 ok(tracks.length===18,'Expected 18 English narration scripts');

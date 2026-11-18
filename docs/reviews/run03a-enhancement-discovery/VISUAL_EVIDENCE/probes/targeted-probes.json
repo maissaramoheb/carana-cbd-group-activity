@@ -1,0 +1,34 @@
+{
+  "nonsenseDraftFeedback": "Your draft is ready for self-review, not automatically approved. Does the draft describe a result rather than an activity? Check all five SMART aspects, who has agreed them, and where uncertainty remains.",
+  "importControls": 0,
+  "zeroWeightFeedback": "Establish a shared records routine: 0 weighted points. Needs an agreed records owner before implementation. Run an advanced case workshop: 0 weighted points. Learning may not transfer while the records process is unresolved.",
+  "versionChangeExport": {
+    "contentVersion": "2026.11-run02",
+    "completed": [],
+    "section": 0,
+    "screen": 1,
+    "view": "screen",
+    "drafts": {},
+    "previousProgress": [
+      {
+        "contentVersion": "previous-fixture",
+        "completed": [
+          0
+        ],
+        "section": 1,
+        "screen": 0
+      }
+    ]
+  },
+  "oldDraftRetained": false,
+  "homeCopyComingLater": 5,
+  "hasPlatformReturnLink": 0,
+  "mobileLeadDistance390": 785,
+  "mobileLeadDistance768": 716,
+  "demoFrameSource": "./?course=cbd&lesson=cbd-2",
+  "singleLocalDemoNavigation": {
+    "domContentLoaded": 4,
+    "load": 5,
+    "transfer": 6446
+  }
+}

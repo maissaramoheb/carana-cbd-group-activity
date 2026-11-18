@@ -240,6 +240,7 @@
 }
 .curriculum-availability.ready{background:#e3f8eb;color:#237d63}
 .curriculum-availability.planned{background:#f1f5f7;color:#738da1}
+.curriculum-availability.review{background:#e6f4f8;color:#146981}
 .curriculum-lens{
   color:#2789a1;font-size:9px;font-weight:850;
   letter-spacing:.145em;
@@ -268,11 +269,14 @@
 .curriculum-learn{
   cursor:pointer;color:#fff;background:#205b77;
   border:1px solid #205b77;padding:10px 14px;border-radius:8px;
-  font-size:11px;font-weight:800;white-space:nowrap;
+  font-size:11px;font-weight:800;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px;
   transition:background .17s;
 }
 .curriculum-learn:hover{background:#0e405f}
+.curriculum-learn.secondary-link{background:#eff7fa;color:#145873;border-color:#a9d2de}
+.curriculum-learn.secondary-link:hover{background:#dfeff5}
 .curriculum-learn:focus-visible{outline:3px solid #76cdd2;outline-offset:3px}
+.premium-navigation a.nav-platform-link,.activity-header-nav a.nav-platform-link{display:inline-flex!important;align-items:center;font-size:12px;color:#c9dce8;text-decoration:none;padding:12px 4px}
 .curriculum-coming{font-size:9px;line-height:1.45;color:#8098a7;max-width:135px}
 .curriculum-activity-link{
   color:#207b99;text-decoration:none;font-size:11px;

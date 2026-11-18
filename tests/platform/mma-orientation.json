@@ -1,0 +1,26 @@
+{
+  "id":"mma-orientation-rehearsal",
+  "number":0,
+  "title":"MMA course orientation rehearsal",
+  "version":"test-2026.11",
+  "source":{"file":"JSTC_MMA_L00_LP_Introduction_072023.pdf","pages":"2–4"},
+  "objectives":["Describe the purpose and structure of MMA preparation","Recognise participation and evaluation expectations","Identify questions for facilitated orientation"],
+  "activity":"./?course=mma",
+  "sections":[{
+    "id":"orientation",
+    "title":"Prepare for active participation",
+    "screens":[{
+      "id":"mma-0-1",
+      "title":"Know the learning process before beginning",
+      "sourcePages":"2–4",
+      "lead":"The official MMA introduction helps participants understand course structure, participation and evaluation.",
+      "points":["Course purpose and learning outcomes orient participation.","Learning methods include interactive exchanges and pre-work discussion.","Expectations, concerns and evaluation tools are discussed with the facilitator."],
+      "takeaway":"An orientation supports informed participation; it is not evidence of MMA competence.",
+      "transcript":"The official MMA introduction provides an overview so participants can take an informed and active role in the course. Its objectives include describing the purpose and learning outcomes, discussing methods, identifying evaluation tools, and discussing expectations and concerns. This unpublished rehearsal uses those orientation relationships to test the shared renderer. It does not convert the MMA course, claim readiness for mission duties, or supply answers to a role-play. A source expert would still decide how to facilitate the actual orientation and evaluate participation.",
+      "visual":{"title":"Orientation connects participation and evaluation","nodes":[{"label":"Purpose","detail":"Understand what the course prepares participants to learn."},{"label":"Methods","detail":"Discuss interactive exchanges and pre-work with the facilitator."},{"label":"Expectations","detail":"Raise concerns and clarify how learning will be evaluated."}]},
+      "decision":{"prompt":"What should an orientation make clear?","answer":0,"options":[{"label":"Learning purpose, participation and evaluation expectations","feedback":"These relationships are explicit in the course introduction."},{"label":"A guarantee of competence after attendance","feedback":"Orientation and attendance do not demonstrate competence."},{"label":"A substitute for later role-play","feedback":"Orientation prepares participation; it does not replace practice."}]}
+    }],
+    "quiz":[{"prompt":"What does orientation support?","options":["Informed and active participation","Automatic qualification","Replacement of facilitated practice"],"answer":0,"feedback":"The lesson introduces course purpose, structure and expectations."}]
+  }],
+  "artwork":[]
+}

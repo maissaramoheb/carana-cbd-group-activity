@@ -1,0 +1,1667 @@
+[
+  {
+    "id": "cbd-2",
+    "number": 2,
+    "title": "Objective Setting, Prioritisation and Performance Framework",
+    "version": "2026.11-run02",
+    "status": "review-adaptation",
+    "source": {
+      "file": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+      "pages": "1–22, 29–30",
+      "sha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534",
+      "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)"
+    },
+    "objectives": [
+      "Relate police objectives to the mission and wider security-sector framework",
+      "Use transparent prioritisation and maintain national ownership",
+      "Frame SMART objectives and useful performance indicators"
+    ],
+    "activity": "../../module2.html",
+    "sections": [
+      {
+        "id": "alignment",
+        "title": "Align before selecting",
+        "screens": [
+          {
+            "id": "02-01",
+            "title": "A police objective sits within a larger system",
+            "sourcePages": "5–13",
+            "lead": "An investigation reform can fail if it improves police output while overwhelming the next part of the justice system.",
+            "points": [
+              "Start with the authorised mission mandate, the host-State capacity-building framework and the national security framework.",
+              "The 2023 lesson links this alignment to UNSCR 2151, SDG 16, the SGF UN Police policy and CBD guidelines. These references connect peace, rule of law, inclusive and accountable institutions, and police development; they are historical teaching references, not a statement that mission guidance is unchanged.",
+              "Consider security providers and governance or oversight actors, including State and non-State stakeholders. A counterpart’s concern may reveal a missing dependency."
+            ],
+            "takeaway": "Alignment requires considering how reform affects the wider justice and oversight system.",
+            "transcript": "A request to strengthen police investigations can sound like a self-contained technical task. In practice, more cases may also affect prosecutors, courts, detention and oversight. Start by asking what change is authorised and how it fits the host-State framework. The lesson places police development within the wider security-sector architecture. That connection is not paperwork added after choosing an activity; it can change the objective itself. Use the map to consider each relationship, then decide which dependency would need discussion. You are testing the coherence of a proposed change, not choosing an institutional reform on someone else’s behalf.",
+            "visual": {
+              "title": "How police capacity shifts affect the wider justice system",
+              "nodes": [
+                {
+                  "label": "Mandate",
+                  "detail": "Establish what support is authorised."
+                },
+                {
+                  "label": "National framework",
+                  "detail": "Discuss how the intended result supports nationally determined priorities."
+                },
+                {
+                  "label": "Justice relationships",
+                  "detail": "Check implications for prosecution, courts, corrections and oversight."
+                }
+              ],
+              "kind": "chain",
+              "layout": "system-deps"
+            },
+            "decision": {
+              "prompt": "In an invented programme, police propose more arrests while case review is already stalled. What should happen before agreeing the objective?",
+              "options": [
+                {
+                  "label": "Reduce consultation so the police can act independently",
+                  "feedback": "Reconsider the relationship shown above. Alignment requires considering how reform affects the wider justice and oversight system."
+                },
+                {
+                  "label": "Approve an arrest target and fix the backlog later",
+                  "feedback": "This response misses an important constraint. Alignment requires considering how reform affects the wider justice and oversight system."
+                },
+                {
+                  "label": "Discuss the intended result and dependencies with relevant national and justice actors",
+                  "feedback": "Alignment requires considering how reform affects the wider justice and oversight system."
+                }
+              ],
+              "answer": 2
+            },
+            "sourceNote": "Consult the applicable mission mandate and current institutional guidance when applying the historical source.",
+            "rhythm": "explain"
+          },
+          {
+            "id": "02-02",
+            "title": "Ownership is maintained through participation",
+            "sourcePages": "16–19",
+            "lead": "A signature on a project document is useful evidence of agreement, but it does not by itself establish enduring ownership.",
+            "points": [
+              "Invite counterparts into analysis and objective setting, then maintain dialogue as conditions change.",
+              "Document agreements and connect CBD priorities with counterpart priorities without treating consultation as a substitute for rights and mandate obligations.",
+              "Sustainability includes affordability, capability, relevance, the enabling environment and continued commitment. Reform can shift power and privileges; acknowledge concerns respectfully."
+            ],
+            "takeaway": "Ownership needs continuing engagement and cannot be inferred once for the entire programme.",
+            "transcript": "Imagine that the original counterpart champion leaves midway through an initiative. A signed agreement still exists, yet participation becomes uncertain. It would be easy to call this resistance and carry on. A more useful response is to explore what has changed: responsibilities, resources, incentives or the interpretation of the objective. Ownership is maintained through participation, dialogue and documented agreements. It also involves the people affected by the change, not only the person who signs. Consider whether the process could continue without the adviser’s daily encouragement. That question connects ownership with sustainability and may reveal a decision that needs to be revisited.",
+            "visual": {
+              "title": "External blueprint vs counterpart-owned diagnosis",
+              "nodes": [
+                {
+                  "label": "Participation",
+                  "detail": "Ask who helps define the problem and intended result."
+                },
+                {
+                  "label": "Agreement",
+                  "detail": "Record responsibilities and the reasoning behind priorities."
+                },
+                {
+                  "label": "Review",
+                  "detail": "Reconfirm ownership when leaders, incentives or resources change."
+                }
+              ],
+              "kind": "compare"
+            },
+            "decision": {
+              "prompt": "A new counterpart leader questions an agreed project. Which response best maintains ownership?",
+              "options": [
+                {
+                  "label": "Treat the earlier signature as permanent consent",
+                  "feedback": "This response misses an important constraint. Ownership needs continuing engagement and cannot be inferred once for the entire programme."
+                },
+                {
+                  "label": "Revisit evidence and commitments through constructive dialogue",
+                  "feedback": "Ownership needs continuing engagement and cannot be inferred once for the entire programme."
+                },
+                {
+                  "label": "Restart without consulting people affected",
+                  "feedback": "Reconsider the relationship shown above. Ownership needs continuing engagement and cannot be inferred once for the entire programme."
+                }
+              ],
+              "answer": 1
+            },
+            "rhythm": "explain"
+          }
+        ],
+        "quiz": [
+          {
+            "prompt": "Which check best reveals strategic alignment?",
+            "options": [
+              "Whether the proposal matches the most urgent request from a single counterpart.",
+              "Whether each proposed activity can be funded within the current budget.",
+              "How the objective fits the mandate, national priorities and wider justice system"
+            ],
+            "answer": 2,
+            "feedback": "An authorised and contextually coherent result must guide activity selection.",
+            "optionFeedback": [
+              "Urgency matters, but a single request does not establish fit with the mandate, national priorities or justice-system dependencies.",
+              "Affordability is necessary but does not by itself establish strategic alignment.",
+              "This is the strongest response within the stated teaching situation."
+            ]
+          },
+          {
+            "prompt": "A signed agreement exists but counterpart participation has faded. What next?",
+            "options": [
+              "Continue the agreed timetable while waiting for the next formal review.",
+              "Explore changed concerns and reconfirm responsibilities",
+              "Seek a replacement signature without discussing the reasons for reduced participation."
+            ],
+            "answer": 1,
+            "feedback": "Commitment can change; productive dialogue helps diagnose the change.",
+            "optionFeedback": [
+              "An existing agreement does not resolve changed participation now; investigate what has changed.",
+              "This is the strongest response within the stated teaching situation.",
+              "A new signature may document approval but cannot substitute for understanding concerns and responsibilities."
+            ]
+          },
+          {
+            "prompt": "Which sustainability question goes beyond purchase cost?",
+            "options": [
+              "Can local capability, recurrent resources and support maintain the process?",
+              "Can a donor cover the full acquisition cost before the funding window closes?",
+              "Can the project complete its scheduled outputs without requesting extra funds?"
+            ],
+            "answer": 0,
+            "feedback": "Sustainability includes capability, ownership, affordability, relevance and enabling conditions.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "This answers an initial funding question; recurrent capability and commitment can remain unresolved.",
+              "Finishing outputs is not the same as maintaining the process afterward."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "priority",
+        "title": "Choose and sequence objectives",
+        "screens": [
+          {
+            "id": "02-03",
+            "title": "Make trade-offs visible",
+            "sourcePages": "14–15",
+            "lead": "More reform needs may exist than available time, people or funding can address.",
+            "points": [
+              "Compare alternatives consistently rather than selecting the most visible request.",
+              "The lesson suggests beneficiary importance, strategic importance, complementarity and implementability as comparison lenses.",
+              "Record reasoning and assumptions so choices are transparent and defensible. Revisit priorities when evidence changes, while avoiding endless review that prevents action."
+            ],
+            "takeaway": "A scoring aid supports judgement; it cannot remove the need to understand prerequisites.",
+            "transcript": "Two proposals can both be worthwhile while only one can be supported now. A comparison method makes your reasoning visible, but the method contains choices of its own. Which perspectives count, how strongly are they weighted, and what information supports each rating? Try changing the weights in the invented comparison. A different ranking should prompt discussion rather than surprise. Then look beyond the total: a dependency may require foundational work first. The official participant chart is more detailed than this illustration. Use this exercise to understand judgement under constraints before applying the actual chart to your own analytical findings.",
+            "visual": {
+              "title": "Weighting priorities without concealing hard constraints",
+              "nodes": [
+                {
+                  "label": "Beneficiary value",
+                  "detail": "Whose safety or service experience improves?"
+                },
+                {
+                  "label": "Strategic fit",
+                  "detail": "How does the proposal support agreed reform aims?"
+                },
+                {
+                  "label": "Complementarity",
+                  "detail": "Does it reinforce other initiatives or depend on them?"
+                },
+                {
+                  "label": "Implementability",
+                  "detail": "Can it be carried out with the relevant capacity and resources?"
+                }
+              ],
+              "kind": "compare"
+            },
+            "decision": {
+              "prompt": "Two invented proposals have the same score but one depends on a records process that does not yet exist. What is the best response?",
+              "options": [
+                {
+                  "label": "Examine the dependency and sequence the enabling work first",
+                  "feedback": "A scoring aid supports judgement; it cannot remove the need to understand prerequisites."
+                },
+                {
+                  "label": "Ignore dependencies to preserve a neutral-looking ranking",
+                  "feedback": "Reconsider the relationship shown above. A scoring aid supports judgement; it cannot remove the need to understand prerequisites."
+                },
+                {
+                  "label": "Treat the totals as an automatic decision",
+                  "feedback": "This response misses an important constraint. A scoring aid supports judgement; it cannot remove the need to understand prerequisites."
+                }
+              ],
+              "answer": 0
+            },
+            "lab": {
+              "type": "priority",
+              "title": "Test how a priority changes",
+              "context": "Invented comparison: a records routine and an advanced workshop both seek better case handling. Ratings are illustrative 1–3 values; weights reflect assumptions you can challenge.",
+              "criteria": [
+                "Beneficiary importance",
+                "Strategic fit",
+                "Complementarity",
+                "Implementability"
+              ],
+              "alternatives": [
+                {
+                  "label": "Establish a shared records routine",
+                  "ratings": [
+                    3,
+                    2,
+                    3,
+                    1
+                  ],
+                  "constraint": "Needs an agreed records owner before implementation."
+                },
+                {
+                  "label": "Run an advanced case workshop",
+                  "ratings": [
+                    2,
+                    3,
+                    1,
+                    3
+                  ],
+                  "constraint": "Learning may not transfer while the records process is unresolved."
+                }
+              ],
+              "debrief": "Which weighting changes the ranking? Which prerequisite still matters? Explain why your preference remains defensible even if its weighted total is lower."
+            },
+            "rhythm": "investigate"
+          },
+          {
+            "id": "02-04",
+            "title": "Turn an intention into a testable objective",
+            "sourcePages": "18–19",
+            "lead": "“Improve investigations” names a worthwhile direction but leaves the expected change unclear.",
+            "points": [
+              "Specify the change and who or what it concerns. Make progress measurable and time-bound.",
+              "Check achievability with those responsible and relevance to the diagnosed need and strategic framework.",
+              "Agree a realistic scope before selecting the exact target. A numerical target invented without baseline evidence is not a sound objective."
+            ],
+            "takeaway": "SMART wording should make an agreed and feasible result testable; it should not disguise missing evidence.",
+            "transcript": "SMART is most useful as a conversation about meaning and feasibility. If an objective says that a process will improve, ask what change would be visible, who is responsible, and when it could reasonably be reviewed. Do not fill a gap in baseline evidence with a confident-looking percentage. Record what is known and what still needs agreement. The drafting scaffold asks you to separate these decisions so that a counterpart can challenge them. It will check only whether you have written something, not whether your professional judgement is sound. Take the revised objective into the practical workbench for further scrutiny.",
+            "visual": {
+              "title": "Five test questions that turn intent into a SMART objective",
+              "nodes": [
+                {
+                  "label": "Specific",
+                  "detail": "Define the intended change and scope."
+                },
+                {
+                  "label": "Measurable",
+                  "detail": "Specify how progress can be observed."
+                },
+                {
+                  "label": "Achievable and relevant",
+                  "detail": "Check capability, constraints and connection to the diagnosed need."
+                },
+                {
+                  "label": "Time-bound",
+                  "detail": "State when the result will be reviewed."
+                }
+              ],
+              "kind": "compare"
+            },
+            "decision": {
+              "prompt": "A proposed objective promises faster case review but has no baseline or deadline. Which revision process is strongest?",
+              "options": [
+                {
+                  "label": "Count workshops as evidence that review is faster",
+                  "feedback": "Reconsider the relationship shown above. SMART wording should make an agreed and feasible result testable; it should not disguise missing evidence."
+                },
+                {
+                  "label": "Add an ambitious percentage immediately",
+                  "feedback": "This response misses an important constraint. SMART wording should make an agreed and feasible result testable; it should not disguise missing evidence."
+                },
+                {
+                  "label": "Confirm the initial process, agree a feasible measure and target, and set a review date",
+                  "feedback": "SMART wording should make an agreed and feasible result testable; it should not disguise missing evidence."
+                }
+              ],
+              "answer": 2
+            },
+            "lab": {
+              "type": "builder",
+              "title": "Draft an objective you can defend",
+              "context": "Invented context: supervisors report inconsistent file review. You have not yet agreed a baseline or target. Make the unresolved parts visible rather than inventing certainty.",
+              "fields": [
+                {
+                  "label": "Intended change and scope",
+                  "prompt": "Whose practice or service should change, and in which setting?",
+                  "check": "Check: does this name an operational practice change in a defined unit rather than merely scheduling a workshop?"
+                },
+                {
+                  "label": "Evidence and measure",
+                  "prompt": "What observable definition and baseline would support comparison?",
+                  "check": "Check: is the observation clearly defined and anchored to a baseline method instead of counting attendance?"
+                },
+                {
+                  "label": "Achievability and ownership",
+                  "prompt": "Who must agree feasibility, capability and recurrent support?",
+                  "check": "Check: are specific national counterparts, supervisors, and recurring support requirements named?"
+                },
+                {
+                  "label": "Relevance",
+                  "prompt": "Which diagnosed need and authorised objective does this address?",
+                  "check": "Check: does this connect back to a verified capacity gap and authorised mandate/SSR priority?"
+                },
+                {
+                  "label": "Review date and unresolved target",
+                  "prompt": "What date could be agreed? What evidence is needed before fixing the target?",
+                  "check": "Check: did you separate a realistic review date from any target still awaiting baseline verification?"
+                }
+              ],
+              "example": "Illustrative structure: by an agreed review date, the designated review team applies a jointly defined case-file review routine in the agreed unit; compare a consistent sample against the initial observation. Target and sampling details remain to be agreed after baseline and feasibility checks.",
+              "review": "Does the draft describe a result rather than an activity? Check all five SMART aspects, who has agreed them, and where uncertainty remains.",
+              "debrief": "Ask a counterpart or peer which phrase could be interpreted differently and revise it before transferring it to the workbench."
+            },
+            "rhythm": "construct"
+          },
+          {
+            "id": "02-07",
+            "title": "Test the objective in a counterpart briefing",
+            "sourcePages": "16–19",
+            "lead": "A clear-looking objective can still hide different assumptions about whose service should improve.",
+            "points": [
+              "Read the result from the counterpart’s perspective: who is responsible and who experiences the change?",
+              "Explain the intended change in plain language before agreeing the number. A target without a shared definition can create misleading agreement.",
+              "Invite a challenge about capability, inclusion and continuing support. Document the decision and its unresolved assumptions."
+            ],
+            "takeaway": "Shared wording is useful only when the parties share its operational meaning.",
+            "transcript": "Picture a briefing where everyone agrees to improve case handling. One person means faster processing; another means more complete documentation. A shared phrase has hidden two different intentions. Before choosing a target, invite the counterpart to describe what successful practice would look like and who would maintain it. Then check whether the measure captures that intention. You may need several perspectives, but not an unlimited number of indicators. A useful objective makes discussion more precise. It does not eliminate disagreement by sounding technical. The example is invented and does not supply the CARANA activity’s priorities.",
+            "visual": {
+              "title": "Reading beneath polite surface agreement in a counterpart briefing",
+              "kind": "compare",
+              "nodes": [
+                {
+                  "label": "Proposed result",
+                  "detail": "Identify the service change, not just the event."
+                },
+                {
+                  "label": "Counterpart interpretation",
+                  "detail": "Check who will act and how the change fits existing responsibilities."
+                },
+                {
+                  "label": "Agreed revision",
+                  "detail": "Record scope, evidence and remaining decisions."
+                }
+              ]
+            },
+            "decision": {
+              "prompt": "A counterpart agrees to a faster process but is concerned that file quality may decline. What should you discuss next?",
+              "options": [
+                {
+                  "label": "Keep the speed target and review quality only if complaints emerge.",
+                  "feedback": "This delays an already identified concern; the agreed result and measures may need to include quality now."
+                },
+                {
+                  "label": "Clarify the intended service change and agree how both timeliness and quality will be assessed.",
+                  "feedback": "This makes the trade-off explicit and checks that the objective reflects the actual need."
+                },
+                {
+                  "label": "Replace every measure with a broad statement of professional standards.",
+                  "feedback": "This recognises quality but loses the testable result needed for later evaluation."
+                }
+              ],
+              "answer": 1
+            },
+            "worked": {
+              "before": "Conduct a file-review workshop by June.",
+              "beforeWhy": "This specifies delivery and a date but does not define the change in practice.",
+              "after": "Agree a defined review routine and evidence of its use in the selected unit, with a feasible target and review date established from the baseline.",
+              "afterWhy": "This links the activity to a result and exposes what must still be agreed. It is a structure for discussion, not a completed SMART objective."
+            },
+            "rhythm": "investigate"
+          }
+        ],
+        "quiz": [
+          {
+            "prompt": "Why record prioritisation assumptions?",
+            "options": [
+              "To make choices explainable and revisable when context changes",
+              "To make the resulting ranking binding until the next annual planning cycle.",
+              "To show that the option with the highest total should always be implemented first."
+            ],
+            "answer": 0,
+            "feedback": "Transparent comparison supports accountable judgement.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "Recorded reasoning supports revisiting choices when evidence changes, not making them permanently binding.",
+              "A total does not remove dependencies or the need for professional judgement."
+            ]
+          },
+          {
+            "prompt": "Which constraint most directly affects sequencing?",
+            "options": [
+              "An alternative option attracts more visible donor support this month.",
+              "Two activities have similar costs but different presentational appeal.",
+              "A planned result depends on capability not yet established"
+            ],
+            "answer": 2,
+            "feedback": "Foundational work must be considered before dependent activities.",
+            "optionFeedback": [
+              "Support can matter, but a missing prerequisite directly constrains whether the planned result can follow.",
+              "Presentation does not establish the causal or practical dependency that should govern sequencing.",
+              "This is the strongest response within the stated teaching situation."
+            ]
+          },
+          {
+            "prompt": "What is the best next step for “improve service quality”?",
+            "options": [
+              "Choose a performance percentage first so stakeholders can negotiate around a clear number.",
+              "Agree a specific, measurable, achievable, relevant and time-bound result with counterparts",
+              "Use the existing training calendar as the measurable objective."
+            ],
+            "answer": 1,
+            "feedback": "An objective needs operational meaning and a defensible basis for its measure.",
+            "optionFeedback": [
+              "A concrete number can conceal missing baseline evidence, feasibility or agreement about the result.",
+              "This is the strongest response within the stated teaching situation.",
+              "A calendar measures delivery, not necessarily the change in service quality."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "performance",
+        "title": "Connect objectives with evidence",
+        "screens": [
+          {
+            "id": "02-05",
+            "title": "Choose indicators that inform decisions",
+            "sourcePages": "20–21",
+            "lead": "The number of delivered workshops may be easy to count without telling you whether policing practice improved.",
+            "points": [
+              "Choose measures that reflect the intended result and can be gathered and managed.",
+              "The source emphasises countable indicators while allowing more than one perspective on a complex objective.",
+              "Specify the observation and compare it with the baseline and intended result. Keep the number of indicators proportionate to the collection effort."
+            ],
+            "takeaway": "An activity count does not establish the quality of the intended result.",
+            "transcript": "A workshop register answers a delivery question. A review of work products may answer a practice question. Neither automatically explains why a change occurred. Begin with the intended result and ask what evidence would be useful for the next decision. You may need more than one perspective, but each measure creates work for someone. Choose a manageable set, define the observations and explain their limits. In the classification exercise, distinguish a delivered activity from evidence about practice and from a weakness in the evidence. The aim is not to reject numbers; it is to make them meaningful.",
+            "visual": {
+              "title": "What an output count shows vs what stays unmeasured",
+              "nodes": [
+                {
+                  "label": "Result",
+                  "detail": "What change does the objective seek?"
+                },
+                {
+                  "label": "Indicator",
+                  "detail": "What observation would suggest progress?"
+                },
+                {
+                  "label": "Collection",
+                  "detail": "Who can obtain comparable evidence and how?"
+                },
+                {
+                  "label": "Use",
+                  "detail": "What decision would this evidence inform?"
+                }
+              ],
+              "kind": "compare"
+            },
+            "decision": {
+              "prompt": "A programme reports only attendance for an objective about better case documentation. What would strengthen its framework?",
+              "options": [
+                {
+                  "label": "Increase the attendance target",
+                  "feedback": "This response misses an important constraint. An activity count does not establish the quality of the intended result."
+                },
+                {
+                  "label": "Add a feasible measure of documented practice connected to the objective",
+                  "feedback": "An activity count does not establish the quality of the intended result."
+                },
+                {
+                  "label": "Report attendance as demonstrated operational improvement",
+                  "feedback": "Reconsider the relationship shown above. An activity count does not establish the quality of the intended result."
+                }
+              ],
+              "answer": 1
+            },
+            "lab": {
+              "type": "classify",
+              "title": "Separate delivery, results and uncertainty",
+              "context": "These invented records describe a documentation initiative. Classify what each record can establish before treating it as evidence of improvement.",
+              "categories": [
+                "Delivery information",
+                "Evidence about practice",
+                "Limitation to investigate"
+              ],
+              "items": [
+                {
+                  "text": "A register records that three learning sessions were held.",
+                  "answer": 0,
+                  "feedback": "This establishes delivery, not whether documentation practices changed."
+                },
+                {
+                  "text": "A defined file sample records whether the agreed review steps are documented.",
+                  "answer": 1,
+                  "feedback": "This can address practice, provided the sample and criteria are defensible."
+                },
+                {
+                  "text": "Only files chosen by the team delivering the initiative were reviewed.",
+                  "answer": 2,
+                  "feedback": "Selection could bias the picture. Explain how the sample will be selected and its limits."
+                },
+                {
+                  "text": "The initial review and later review use different definitions of a complete file.",
+                  "answer": 2,
+                  "feedback": "A changed definition weakens comparison even if the reported percentage rises."
+                }
+              ]
+            },
+            "rhythm": "investigate"
+          },
+          {
+            "id": "02-08",
+            "title": "A stronger number needs a defensible method",
+            "sourcePages": "20–21",
+            "lead": "An indicator is only as useful as the observation and comparison behind it.",
+            "points": [
+              "State what is counted and the relevant population or denominator. Keep the definition stable across observations.",
+              "Plan a feasible evidence source, collection responsibility and review schedule. Consider missing records and whose experience may be absent.",
+              "Use the indicator to support a decision. Explain uncertainty rather than treating a favourable number as proof that the intervention caused the change."
+            ],
+            "takeaway": "A repeatable measurement plan turns a number into evidence that can be questioned.",
+            "transcript": "Suppose a report says that review quality improved from half of files to four fifths. Before celebrating, ask whether the same definition was used, whether the files came from comparable work and how they were selected. Perhaps the second sample contained only simpler files. That does not make measurement useless; it tells you what to investigate before drawing a conclusion. The lesson links indicators with later evaluation. Keep the collection burden proportionate, but make the method understandable enough for another adviser to repeat. The figures in this example are invented and are not findings from CARANA.",
+            "visual": {
+              "title": "Why denominators and sampling rules determine whether numbers mislead",
+              "kind": "chain",
+              "nodes": [
+                {
+                  "label": "Definition",
+                  "detail": "What exactly is observed and what does the number refer to?"
+                },
+                {
+                  "label": "Collection",
+                  "detail": "How, when and by whom will comparable evidence be obtained?"
+                },
+                {
+                  "label": "Interpretation",
+                  "detail": "What decision is supported, and which alternative explanation remains?"
+                }
+              ]
+            },
+            "decision": {
+              "prompt": "A later sample shows improvement, but it excludes complex cases included at baseline. What is the strongest interpretation?",
+              "options": [
+                {
+                  "label": "The programme succeeded because the percentage increased.",
+                  "feedback": "The direction looks favourable, but the changed sample prevents a straightforward conclusion."
+                },
+                {
+                  "label": "Discard the indicator and use workshop attendance instead.",
+                  "feedback": "Attendance does not resolve whether the intended practice changed."
+                },
+                {
+                  "label": "Investigate comparability and report the limitation before interpreting the difference.",
+                  "feedback": "A measured change needs a defensible basis of comparison and a clear statement of limits."
+                }
+              ],
+              "answer": 2
+            },
+            "lab": {
+              "type": "builder",
+              "title": "Design a usable indicator",
+              "context": "Use the invented review-routine example or another non-sensitive teaching situation.",
+              "fields": [
+                {
+                  "label": "Definition and population",
+                  "prompt": "What observation is counted, and which files, people or processes are included?",
+                  "check": "Check: are both the numerator (what counts) and denominator/population explicitly defined?"
+                },
+                {
+                  "label": "Baseline and repeat observation",
+                  "prompt": "What method and timing would make the comparison defensible?",
+                  "check": "Check: will the same definition and sampling approach be used at baseline and repeat review?"
+                },
+                {
+                  "label": "Collection responsibility and limits",
+                  "prompt": "Who collects it? What missing evidence or sampling limitation should be reported?",
+                  "check": "Check: is the collection burden proportionate, and are missing records or selection biases stated?"
+                },
+                {
+                  "label": "Decision and explanation",
+                  "prompt": "What would this observation help decide, and what could it not establish?",
+                  "check": "Check: did you distinguish what this measure informs from causal claims it cannot prove alone?"
+                }
+              ],
+              "example": "One illustrative plan defines the review steps, samples comparable files at agreed times, records the selection method and missing records, and asks whether observed practice supports the intended result. It does not infer causation from a percentage alone.",
+              "review": "Would another adviser obtain a comparable observation from this description? Is the effort proportionate to the decision?",
+              "debrief": "Compare the observation with your original objective. If they do not match, revise the measure or clarify the objective."
+            },
+            "rhythm": "construct"
+          },
+          {
+            "id": "02-06",
+            "title": "Carry defensible choices into practice",
+            "sourcePages": "22, 29–30",
+            "lead": "Your analytical findings now need to become a manageable set of justified objectives.",
+            "points": [
+              "Use your own Lesson 1 findings to identify candidate objectives, then compare their importance and feasibility.",
+              "The official group task identifies 6–10 candidate objectives, uses the participant comparison chart while leaving its risk category aside at this stage, then phrases the top two objectives using SMART. The chart also considers donor interest; the four preceding teaching lenses are a concise introduction, not the complete chart.",
+              "Prepare to explain why a choice is prioritised, which prerequisite matters and how its result could be measured."
+            ],
+            "takeaway": "Planning needs a reasoned objective rather than a ranked list alone.",
+            "transcript": "Your Lesson 1 findings are the starting point for the official objective-setting activity. The task is not to recover a hidden ideal list. Identify six to ten candidate objectives, compare them using the participant chart while leaving its risk category aside at this stage, and phrase the top two using SMART. Keep the distinction between that chart and our simpler teaching comparison clear. Before moving to planning, explain why your choices matter, which dependencies affect their sequence and how progress could be observed. Another participant may make a defensible different choice. The discussion of evidence and assumptions is part of the learning.",
+            "visual": {
+              "title": "Preparing evidence and questions for the Module 2 workbench",
+              "nodes": [
+                {
+                  "label": "Evidence",
+                  "detail": "Carry forward your own diagnosis."
+                },
+                {
+                  "label": "Priorities",
+                  "detail": "Explain trade-offs and dependencies."
+                },
+                {
+                  "label": "Objectives",
+                  "detail": "Make the selected result testable."
+                },
+                {
+                  "label": "Reflection",
+                  "detail": "Ask a peer what could invalidate your reasoning."
+                }
+              ],
+              "kind": "chain"
+            },
+            "decision": {
+              "prompt": "A team has a ranked list but cannot explain the top choice. What should it do before handing over to planning?",
+              "options": [
+                {
+                  "label": "Revisit the evidence and assumptions with counterparts and document the rationale",
+                  "feedback": "Planning needs a reasoned objective rather than a ranked list alone."
+                },
+                {
+                  "label": "Write a logframe first and derive the rationale afterward",
+                  "feedback": "Reconsider the relationship shown above. Planning needs a reasoned objective rather than a ranked list alone."
+                },
+                {
+                  "label": "Treat the ranking order as sufficient justification",
+                  "feedback": "This response misses an important constraint. Planning needs a reasoned objective rather than a ranked list alone."
+                }
+              ],
+              "answer": 0
+            },
+            "rhythm": "explain"
+          }
+        ],
+        "quiz": [
+          {
+            "prompt": "Which measure best addresses improved file quality?",
+            "options": [
+              "The proportion of staff attending a documentation briefing.",
+              "A defined, consistently sampled measure of documentation quality",
+              "The number of new review forms issued to the unit."
+            ],
+            "answer": 1,
+            "feedback": "The indicator must address the intended result and have a feasible collection method.",
+            "optionFeedback": [
+              "Attendance can help explain delivery but does not directly assess file quality.",
+              "This is the strongest response within the stated teaching situation.",
+              "Issued forms are an output; their use and quality still need evidence."
+            ]
+          },
+          {
+            "prompt": "A complex objective has twenty candidate indicators. What should guide selection?",
+            "options": [
+              "Keep the smallest useful set covering needed perspectives and collection feasibility",
+              "Retain every indicator so no stakeholder perspective is lost.",
+              "Choose the indicator with the most complete existing records, even if it reflects only delivery."
+            ],
+            "answer": 0,
+            "feedback": "Measurement burden and relevance both matter.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "Coverage matters, but an unmanageable collection burden can undermine useful measurement.",
+              "Availability alone does not make a measure relevant to the objective."
+            ]
+          },
+          {
+            "prompt": "What should a handoff to planning contain?",
+            "options": [
+              "A ranked activity list with indicative costs, leaving the objective wording until planning.",
+              "A detailed training schedule with attendance targets and a note that counterparts support it.",
+              "Prioritised SMART objectives, reasoning and a performance framework"
+            ],
+            "answer": 2,
+            "feedback": "The learner must make and justify their own choices from evidence.",
+            "optionFeedback": [
+              "Planning needs an agreed and testable result; a ranking of activities is insufficient.",
+              "A schedule and attendance do not supply the prioritised result, rationale and performance framework.",
+              "This is the strongest response within the stated teaching situation."
+            ]
+          }
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "screenId": "02-01",
+        "purpose": "Show system dependencies",
+        "status": "specification-only",
+        "brief": "Police adviser and counterpart review a process handoff with a prosecutor; the visual emphasis is the discussion across institutional boundaries, with blank working materials.",
+        "alt": "Fictional police and justice counterparts discuss how a case-handling change affects their shared process.",
+        "composition": "1672 × 941 landscape, editorial cinematic style matching the three approved Lesson 1 scenes. Keep the interaction and all diagram labels in accessible HTML outside the image.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional professional setting; diverse counterparts with agency; no UN insignia, real person likeness, readable model answers or decorative text. No generation authorised.",
+        "teachingPrompt": "Whose work changes when police output increases?"
+      },
+      {
+        "screenId": "02-07",
+        "purpose": "Make apparently shared agreement questionable",
+        "status": "specification-only",
+        "brief": "A small counterpart briefing shows two professionals comparing distinct interpretations of one proposed objective; use attentive expressions, not conflict stereotypes.",
+        "alt": "Fictional counterparts compare what successful reform would mean for their different responsibilities.",
+        "composition": "1672 × 941 landscape, editorial cinematic style matching the three approved Lesson 1 scenes. Keep the interaction and all diagram labels in accessible HTML outside the image.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional professional setting; diverse counterparts with agency; no UN insignia, real person likeness, readable model answers or decorative text. No generation authorised.",
+        "teachingPrompt": "What agreement is still missing behind the shared wording?"
+      },
+      {
+        "screenId": "02-08",
+        "purpose": "Introduce evidence uncertainty",
+        "status": "specification-only",
+        "brief": "A review team compares two sets of files, noticing that selection differs; avoid any visible percentage or correct classification.",
+        "alt": "Fictional reviewers examine whether two file samples are comparable.",
+        "composition": "1672 × 941 landscape, editorial cinematic style matching the three approved Lesson 1 scenes. Keep the interaction and all diagram labels in accessible HTML outside the image.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional professional setting; diverse counterparts with agency; no UN insignia, real person likeness, readable model answers or decorative text. No generation authorised.",
+        "teachingPrompt": "What would you check before interpreting a reported improvement?"
+      }
+    ]
+  },
+  {
+    "id": "cbd-3",
+    "number": 3,
+    "title": "Planning Activities",
+    "version": "2026.11-run02",
+    "status": "review-adaptation",
+    "source": {
+      "file": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+      "pages": "1–21, 33–40",
+      "sha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca",
+      "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)"
+    },
+    "objectives": [
+      "Connect goals, outcomes, outputs and activities in a logframe",
+      "Explain results-based budgeting and a contextual theory of change",
+      "Choose suitable CBD tools and plan for risk and disruption"
+    ],
+    "activity": "../../module3.html",
+    "sections": [
+      {
+        "id": "logic",
+        "title": "Build a results logic",
+        "screens": [
+          {
+            "id": "03-01",
+            "title": "Begin with the result, then test the chain",
+            "sourcePages": "4–7",
+            "lead": "A familiar activity is not a sufficient starting point for a reform plan.",
+            "points": [
+              "Work from the agreed goal and outcomes toward the outputs and activities needed to support them.",
+              "For each intended result, a logframe row states the result, how it will be measured or verified, where evidence will come from, and the external factors or assumptions that could prevent achievement. The reveal below explains the result hierarchy; construct the four-column plan in the linked workbench.",
+              "After designing from the intended result, check the chain upward: can the inputs and activities plausibly deliver outputs that support the outcome?"
+            ],
+            "takeaway": "Goals should guide the required activities; a bottom-up check then tests their plausibility.",
+            "transcript": "Begin with the change that the agreed objective seeks. Familiar activities are easier to describe, but choosing them first can make the plan serve the activity rather than the result. Work downward from the goal and outcomes, then check upward whether the activities and inputs can support the chain. This is not a guarantee of causation. It is a way to expose what needs to be true and what evidence could challenge the plan. In the next practice row, test the horizontal connection as well: a result needs a relevant measure, a credible evidence source and explicit external conditions.",
+            "visual": {
+              "title": "Tracing backward from the intended outcome to inputs",
+              "nodes": [
+                {
+                  "label": "Goal",
+                  "detail": "State the wider intent."
+                },
+                {
+                  "label": "Outcome",
+                  "detail": "Describe the change the intervention seeks to support."
+                },
+                {
+                  "label": "Output",
+                  "detail": "Identify what the activity will directly deliver."
+                },
+                {
+                  "label": "Activity and input",
+                  "detail": "Plan the work and resources needed."
+                }
+              ],
+              "kind": "chain"
+            },
+            "decision": {
+              "prompt": "An adviser begins with an available training package and writes objectives to fit it. What is the stronger planning approach?",
+              "options": [
+                {
+                  "label": "Retain the package because resources are already available",
+                  "feedback": "This response misses an important constraint. Goals should guide the required activities; a bottom-up check then tests their plausibility."
+                },
+                {
+                  "label": "Start from the agreed objective and compare possible activities",
+                  "feedback": "Goals should guide the required activities; a bottom-up check then tests their plausibility."
+                },
+                {
+                  "label": "Use the package’s attendance total as the outcome",
+                  "feedback": "Reconsider the relationship shown above. Goals should guide the required activities; a bottom-up check then tests their plausibility."
+                }
+              ],
+              "answer": 1
+            },
+            "rhythm": "explain"
+          },
+          {
+            "id": "03-10",
+            "title": "Check one logframe row across four columns",
+            "sourcePages": "5–7",
+            "lead": "A result, its measure, its evidence source and its assumptions must refer to the same intended change.",
+            "points": [
+              "Describe a result at a clear level: do not call a delivered session an institutional outcome.",
+              "Choose a measure that speaks to that result, then identify where credible evidence can be obtained.",
+              "Make external conditions explicit. Test the row horizontally as well as the result chain vertically."
+            ],
+            "takeaway": "A coherent row asks one connected result-and-evidence question.",
+            "transcript": "A logframe can look complete when every cell contains words, yet the row may not make sense. Suppose the result concerns the use of a review routine, the indicator counts delivered workshops and the evidence source is a procurement register. Each cell sounds measurable, but they do not address the same result. Read the row across and ask what the evidence would actually tell you. Then read the hierarchy to see how this result contributes to the next level. The scaffold supports a single row for an invented example. It does not complete the official exercise or establish that your proposed reform is feasible.",
+            "visual": {
+              "title": "Horizontal logic across the four logical-framework columns",
+              "kind": "chain",
+              "nodes": [
+                {
+                  "label": "Result",
+                  "detail": "What change or direct deliverable is this row about?"
+                },
+                {
+                  "label": "Verification measure",
+                  "detail": "What observation addresses that result?"
+                },
+                {
+                  "label": "Evidence source",
+                  "detail": "How will that observation be obtained?"
+                },
+                {
+                  "label": "External condition",
+                  "detail": "What necessary condition is outside this activity’s direct control?"
+                }
+              ],
+              "layout": "logframe-row"
+            },
+            "decision": {
+              "prompt": "An outcome row about a review routine is measured only by attendance at its launch. What is the strongest revision?",
+              "options": [
+                {
+                  "label": "Keep attendance because it is easy to verify.",
+                  "feedback": "Feasibility of collection does not make attendance a measure of routine use."
+                },
+                {
+                  "label": "Change the intended outcome to attendance so that all cells agree.",
+                  "feedback": "Changing the result to fit the available measure can abandon the diagnosed need."
+                },
+                {
+                  "label": "Choose an observation of routine use and a feasible source while retaining attendance as delivery information if useful.",
+                  "feedback": "This repairs the horizontal relationship without losing the purpose of the outcome."
+                }
+              ],
+              "answer": 2
+            },
+            "lab": {
+              "type": "builder",
+              "title": "Construct a connected logframe row",
+              "context": "Use the invented review-routine example; this is a practice row, not the official completed logframe.",
+              "fields": [
+                {
+                  "label": "Intended result and level",
+                  "prompt": "State the result and whether it is an output or outcome.",
+                  "check": "Check: is the result level explicit (direct deliverable output vs behavioural/institutional outcome)?"
+                },
+                {
+                  "label": "Measure",
+                  "prompt": "What observation would indicate this result?",
+                  "check": "Check: does this measure actually test the same result stated in column 1 rather than just launch attendance?"
+                },
+                {
+                  "label": "Evidence source and method",
+                  "prompt": "Where and how would comparable evidence be obtained?",
+                  "check": "Check: is the source realistic, accessible, and consistent with the measure in column 2?"
+                },
+                {
+                  "label": "External condition or assumption",
+                  "prompt": "What must hold beyond the direct deliverable? How will you notice a problem?",
+                  "check": "Check: does this name an outside prerequisite and how you would detect if it fails?"
+                }
+              ],
+              "example": "Illustrative outline: an agreed review routine is used in the selected unit; a defined observation of routine use is taken from comparable work samples; the selection method and missing records are documented; the responsible staff have time and authority to use the routine. No target is assumed without evidence.",
+              "review": "Read the row across: do all four fields address the same result? Then ask whether the proposed activities could plausibly support it.",
+              "debrief": "Ask a peer to propose a favourable indicator that would nevertheless fail to demonstrate your result."
+            },
+            "rhythm": "construct"
+          },
+          {
+            "id": "03-02",
+            "title": "Explain the missing middle",
+            "sourcePages": "10–11",
+            "lead": "A theory of change asks how and why an activity is expected to contribute to change in its context.",
+            "points": [
+              "State the expected change before listing actions.",
+              "Explain the causal reasoning: if the action occurs, what should follow, and why?",
+              "Identify assumptions about people, institutions and politics that could break the connection. This reasoning should influence the plan rather than become a separate diagram."
+            ],
+            "takeaway": "Outputs need a plausible mechanism and conditions to contribute to an outcome.",
+            "transcript": "A theory of change makes a professional claim open to scrutiny. If we support this action, what change is expected, and why should it follow in this setting? The word because matters. It identifies the mechanism rather than simply connecting boxes with arrows. Now ask what could prevent the mechanism from working: incentives, authority, time or another institutional dependency. Some conditions may be influenced by the programme and others may need to be monitored. Use the classification exercise to separate what is delivered from what should change and what remains an assumption. That distinction helps improve the plan before implementation.",
+            "visual": {
+              "title": "Testing the causal bridge inside your Theory of Change",
+              "nodes": [
+                {
+                  "label": "If",
+                  "detail": "Name the action or condition."
+                },
+                {
+                  "label": "Then",
+                  "detail": "Describe the expected change."
+                },
+                {
+                  "label": "Because",
+                  "detail": "Explain the mechanism and evidence behind it."
+                },
+                {
+                  "label": "Provided that",
+                  "detail": "Surface assumptions that require checking."
+                }
+              ],
+              "kind": "compare",
+              "layout": "toc-bridge"
+            },
+            "decision": {
+              "prompt": "New guidance is distributed but practice remains unchanged. Which question best tests the theory of change?",
+              "options": [
+                {
+                  "label": "What mechanism and enabling conditions were expected to turn guidance into changed practice?",
+                  "feedback": "Outputs need a plausible mechanism and conditions to contribute to an outcome."
+                },
+                {
+                  "label": "Can the publication be reclassified as an outcome?",
+                  "feedback": "Reconsider the relationship shown above. Outputs need a plausible mechanism and conditions to contribute to an outcome."
+                },
+                {
+                  "label": "How many copies can be printed next month?",
+                  "feedback": "This response misses an important constraint. Outputs need a plausible mechanism and conditions to contribute to an outcome."
+                }
+              ],
+              "answer": 0
+            },
+            "lab": {
+              "type": "classify",
+              "title": "Separate a deliverable from its causal claim",
+              "context": "Invented statements about introducing a review routine. The distinctions help expose the missing middle.",
+              "categories": [
+                "Direct output",
+                "Intended outcome",
+                "Assumption to test"
+              ],
+              "items": [
+                {
+                  "text": "A review guide and briefing have been delivered.",
+                  "answer": 0,
+                  "feedback": "This is directly delivered; it does not yet establish use."
+                },
+                {
+                  "text": "Staff use the agreed routine in daily work.",
+                  "answer": 1,
+                  "feedback": "This describes a change in practice that the outputs seek to support."
+                },
+                {
+                  "text": "Supervisors have the authority and time to support the routine.",
+                  "answer": 2,
+                  "feedback": "This enabling condition needs investigation; writing it in a plan does not make it true."
+                }
+              ]
+            },
+            "rhythm": "investigate"
+          },
+          {
+            "id": "03-03",
+            "title": "Budget for results",
+            "sourcePages": "8–9",
+            "lead": "Resource planning should follow the results a programme seeks, rather than repeat last year’s list of activities.",
+            "points": [
+              "The lesson introduces results-based budgeting as linking objectives and expected results to resource requirements and performance measures.",
+              "Check whether the required people, time, tools and recurrent support are affordable and coherent with the logframe.",
+              "Make trade-offs explicit: adding a resource is justified by its contribution to a result, not merely by its availability."
+            ],
+            "takeaway": "Results-oriented resource planning must consider what is needed to sustain the intended capability.",
+            "transcript": "A budget can be internally accurate yet poorly connected to the objective. Consider a plan that funds a useful tool but leaves out the people or support required to use it. The resource list may be affordable while the result remains infeasible. The lesson introduces results-based budgeting as deriving resource requirements from predefined objectives and expected results, then connecting performance with measures. Use that logic to challenge a resource request. Which result does it support, what continuing requirement accompanies it, and what trade-off is being made? This is instructional reasoning about a plan, not an approved UN budget or funding decision.",
+            "visual": {
+              "title": "Matching resource lines to each planned operational step",
+              "nodes": [
+                {
+                  "label": "Expected result",
+                  "detail": "Clarify the result being resourced."
+                },
+                {
+                  "label": "Requirements",
+                  "detail": "Derive resources from the planned route to that result."
+                },
+                {
+                  "label": "Performance",
+                  "detail": "Use indicators to assess progress."
+                },
+                {
+                  "label": "Revision",
+                  "detail": "Review assumptions when costs or conditions change."
+                }
+              ],
+              "kind": "compare"
+            },
+            "decision": {
+              "prompt": "A plan has enough funds for equipment but none for its use or maintenance. What is the best next step?",
+              "options": [
+                {
+                  "label": "Treat maintenance as outside the results framework",
+                  "feedback": "Reconsider the relationship shown above. Results-oriented resource planning must consider what is needed to sustain the intended capability."
+                },
+                {
+                  "label": "Purchase it before funds expire",
+                  "feedback": "This response misses an important constraint. Results-oriented resource planning must consider what is needed to sustain the intended capability."
+                },
+                {
+                  "label": "Reassess requirements and affordability against the intended result",
+                  "feedback": "Results-oriented resource planning must consider what is needed to sustain the intended capability."
+                }
+              ],
+              "answer": 2
+            },
+            "worked": {
+              "before": "Purchase the available equipment and schedule the same activities as last year.",
+              "beforeWhy": "This starts with resources and familiar actions rather than the result being sought.",
+              "after": "Derive people, equipment, support and continuing requirements from the agreed result, then use performance measures to review delivery and progress.",
+              "afterWhy": "Results-based budgeting connects strategic intent, resource choices and measurement; the example is not an approved budget."
+            },
+            "rhythm": "investigate"
+          }
+        ],
+        "quiz": [
+          {
+            "prompt": "Which logframe review is most useful?",
+            "options": [
+              "Whether each row contains a numeric target, regardless of which result it addresses.",
+              "Whether results, measures, evidence and external assumptions connect logically",
+              "Whether the available activity package fits within the existing budget."
+            ],
+            "answer": 1,
+            "feedback": "The plan must relate activities to the intended results.",
+            "optionFeedback": [
+              "Numbers can be precise without being relevant to the result or connected to credible evidence.",
+              "This is the strongest response within the stated teaching situation.",
+              "This is a feasibility consideration, but not a test of the result-and-evidence logic."
+            ]
+          },
+          {
+            "prompt": "What does a theory of change add?",
+            "options": [
+              "An explanation of how and why change should occur in context",
+              "A description of the planned outputs, without discussing how people would use them.",
+              "A justification for retaining the original activities when conditions change."
+            ],
+            "answer": 0,
+            "feedback": "A causal explanation exposes assumptions that can be tested.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "Listing outputs leaves the missing mechanism unexplained.",
+              "The causal explanation should be tested and revised, not used to protect a fixed activity list."
+            ]
+          },
+          {
+            "prompt": "What best characterises results-based budgeting here?",
+            "options": [
+              "The annual allocation is distributed evenly across familiar activities.",
+              "The most readily funded resources are selected and the expected results adjusted to match.",
+              "Resources are derived from defined objectives and expected results"
+            ],
+            "answer": 2,
+            "feedback": "The source connects strategic intent, resources and performance measurement.",
+            "optionFeedback": [
+              "Equal distribution does not derive requirements from the intended results.",
+              "That reverses the results-first reasoning taught in the source.",
+              "This is the strongest response within the stated teaching situation."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tools",
+        "title": "Select the appropriate support",
+        "screens": [
+          {
+            "id": "03-04",
+            "title": "Census and vetting require a distinct mandate",
+            "sourcePages": "12–13",
+            "lead": "Identifying the personnel body and assessing eligibility are sensitive institutional processes, not general substitutes for training or supervision.",
+            "points": [
+              "Census and vetting define the relevant personnel body and eligibility under the applicable criteria.",
+              "National ownership, law, due process, individual rights, risk management and relevant expertise are essential to the source’s treatment.",
+              "A mandate determines the adviser’s role. Vetting does not replace criminal prosecution of human-rights violations. This teaching overview does not qualify a learner to conduct the process."
+            ],
+            "takeaway": "Choose tools for the verified problem and the required expertise, safeguards and implementation conditions.",
+            "transcript": "Imagine an institution wants to address serious concerns about personnel eligibility. That is a different task from improving a team’s daily competence. The lesson treats census and vetting as professional tools with significant conditions: national ownership, a legal basis, due process, individual rights and proper risk management. The mission mandate also affects whether an adviser supports or leads a process. Do not turn these safeguards into a short checklist that appears to authorise a programme. Identify the relevant authority and expertise before proceeding. The distinction matters because using a powerful tool for the wrong problem can damage both people and the reform process.",
+            "visual": {
+              "title": "Separating UNPOL technical advice from sovereign host-State mandates",
+              "kind": "compare",
+              "nodes": [
+                {
+                  "label": "Personnel question",
+                  "detail": "Identify the actual eligibility or personnel-body question."
+                },
+                {
+                  "label": "Authority and safeguards",
+                  "detail": "Establish applicable mandate, law, national ownership, rights and due process."
+                },
+                {
+                  "label": "Professional implementation",
+                  "detail": "Identify competent actors and risks; an instructional overview is not authorisation."
+                }
+              ]
+            },
+            "decision": {
+              "prompt": "A manager proposes a rapid eligibility review to solve weak daily supervision. What is the strongest first response?",
+              "answer": 2,
+              "options": [
+                {
+                  "label": "Begin the review and clarify safeguards once the personnel list is ready.",
+                  "feedback": "Safeguards and authority cannot be left until after implementation has begun."
+                },
+                {
+                  "label": "Replace the review with the same training for all personnel.",
+                  "feedback": "This changes the tool without establishing what causes the supervision problem."
+                },
+                {
+                  "label": "Clarify the actual problem, applicable authority and needed expertise before selecting a tool.",
+                  "feedback": "Diagnosis and authority must guide the tool; an eligibility process is not a general remedy for weak supervision."
+                }
+              ]
+            },
+            "rhythm": "explain"
+          },
+          {
+            "id": "03-08",
+            "title": "Match training and MMA to the diagnosed need",
+            "sourcePages": "14–15",
+            "lead": "Different support needs can coexist within the same unit; one activity may not address them all.",
+            "points": [
+              "Training helps close a competence gap when learning conditions, audience needs and motivation support it.",
+              "Monitoring develops an informed picture of practice. Advising supports situational assistance; mentoring supports personal development.",
+              "MMA needs subject expertise and interpersonal skills, with awareness of the adviser’s limits. The source highlights co-location as an especially effective setting."
+            ],
+            "takeaway": "Specify the support need before naming the activity.",
+            "transcript": "An officer may understand a procedure yet need help applying it to a difficult situation. Another may need to learn a skill, while a supervisor may benefit from a longer developmental relationship. These are related but different needs. The lesson presents training and MMA as tools that should be selected with care, not as interchangeable programme labels. Think about both the recipient’s needs and your own professional limits. A co-located setting may support continuing contact, but proximity alone does not provide expertise or trust. Use the distinctions to justify a support choice before planning its details.",
+            "visual": {
+              "title": "Selecting training vs MMA around the actual capability bottleneck",
+              "kind": "compare",
+              "nodes": [
+                {
+                  "label": "Competence gap",
+                  "detail": "Ask what a person needs to learn and whether training can address it."
+                },
+                {
+                  "label": "Situational support",
+                  "detail": "Consider advice for a specific decision or practice challenge."
+                },
+                {
+                  "label": "Development relationship",
+                  "detail": "Consider mentoring and continuing observation of how practice develops."
+                }
+              ]
+            },
+            "decision": {
+              "prompt": "An officer knows the procedure but seeks help with a specific unfamiliar application. Which starting response best matches the stated need?",
+              "options": [
+                {
+                  "label": "Offer situation-specific advice within your expertise and check what further support is needed.",
+                  "feedback": "This responds to the immediate application question without assuming that all competence is missing."
+                },
+                {
+                  "label": "Schedule a complete introductory course before discussing the application.",
+                  "feedback": "Training may be useful if a gap emerges, but the stated need is more specific."
+                },
+                {
+                  "label": "Begin a mentoring arrangement without clarifying the immediate question.",
+                  "feedback": "Mentoring may support development, but it should not obscure a concrete need for situational assistance."
+                }
+              ],
+              "answer": 0
+            },
+            "lab": {
+              "type": "classify",
+              "title": "Select a support starting point",
+              "context": "Invented needs, simplified for discussion. Several tools may later combine; choose the strongest starting fit.",
+              "categories": [
+                "Training need",
+                "Advisory support",
+                "Mentoring relationship"
+              ],
+              "items": [
+                {
+                  "text": "A person has not yet learned a required interviewing technique and suitable learning support is available.",
+                  "answer": 0,
+                  "feedback": "A defined competence gap can justify tailored training."
+                },
+                {
+                  "text": "A qualified counterpart asks for help analysing a particular implementation choice.",
+                  "answer": 1,
+                  "feedback": "This is situational assistance; establish the question and limits of your expertise."
+                },
+                {
+                  "text": "A counterpart seeks continuing support to develop professional judgement over time.",
+                  "answer": 2,
+                  "feedback": "A developmental relationship differs from a one-off recommendation."
+                }
+              ]
+            },
+            "rhythm": "investigate"
+          },
+          {
+            "id": "03-09",
+            "title": "A new policy needs a route into practice",
+            "sourcePages": "16",
+            "lead": "Issuing a standard can establish direction without ensuring that anyone can apply it.",
+            "points": [
+              "Policy development can introduce coherent standards and contribute to reform direction.",
+              "Connect appropriate legislative and policy work with dissemination, explanation, training or advice where needed.",
+              "Monitor implementation and compliance. A published document is an output, not proof that practice conforms to it."
+            ],
+            "takeaway": "Plan for the use of a standard, not just its publication.",
+            "transcript": "Picture a carefully written procedure sitting on a shelf while staff continue their old routine. The document may be sound, yet its implementation is incomplete. The lesson connects policy work with further actions such as communication, training, advice and compliance monitoring. Ask what changes for the person who must use the policy and how that person will obtain support. Then plan what observation would show use or reveal a difficulty. This is the same results logic used in a logframe: a useful output contributes through a mechanism, not through its existence alone. The situation is invented, not a CARANA solution.",
+            "visual": {
+              "title": "How a signed policy moves or stalls between headquarters and desks",
+              "kind": "chain",
+              "nodes": [
+                {
+                  "label": "Standard",
+                  "detail": "Clarify the intended practice and the applicable authority."
+                },
+                {
+                  "label": "Implementation support",
+                  "detail": "Enable people to understand and apply the standard."
+                },
+                {
+                  "label": "Observed use",
+                  "detail": "Check practice and feed findings back into support."
+                }
+              ]
+            },
+            "decision": {
+              "prompt": "A revised policy has been distributed but staff interpret it inconsistently. What should the plan examine?",
+              "options": [
+                {
+                  "label": "Whether publication can be counted as the intended outcome.",
+                  "feedback": "That would confuse an issued document with its effect on practice."
+                },
+                {
+                  "label": "How explanation, application support and monitoring will connect the policy with consistent practice.",
+                  "feedback": "The plan needs an implementation route and evidence of use."
+                },
+                {
+                  "label": "Whether another distribution round can replace consultation.",
+                  "feedback": "Wider distribution may help access but does not resolve the interpretation problem."
+                }
+              ],
+              "answer": 1
+            },
+            "worked": {
+              "before": "Publish a new review procedure.",
+              "beforeWhy": "This states a deliverable without describing how staff will apply it.",
+              "after": "Explain the procedure with responsible counterparts, provide needed application support, and examine evidence of its use.",
+              "afterWhy": "This links the output to practice while keeping implementation assumptions open to review."
+            },
+            "rhythm": "investigate"
+          },
+          {
+            "id": "03-05",
+            "title": "Distinguish momentum from structural reform",
+            "sourcePages": "17–18",
+            "lead": "A small community project may build confidence while leaving deeper institutional constraints unresolved.",
+            "points": [
+              "The source presents quick impact projects as small-scale, low-cost and short-duration confidence-building tools.",
+              "Connect an incentive to a verified community need and a responsible implementation arrangement. Do not claim a short project establishes lasting reform.",
+              "The lesson discusses trust funds as possible support; availability and eligibility need current verification rather than assumptions about funding access."
+            ],
+            "takeaway": "A useful incentive can create momentum without establishing long-term institutional change.",
+            "transcript": "A small project may help demonstrate responsiveness and build confidence. It should not be asked to prove a deeper institutional transformation that it was never designed to achieve. The lesson presents quick impact projects within this limited purpose and discusses trust funds as potential support. Keep both the opportunity and the limits visible. Begin with a community need, check the implementation arrangement and ask what would show the immediate output. Then distinguish that from the longer change the CBD process seeks. Funding availability must be established through the relevant current arrangements; a teaching reference does not establish eligibility or a commitment.",
+            "visual": {
+              "title": "Activity volume vs structural institutional change",
+              "nodes": [
+                {
+                  "label": "Need",
+                  "detail": "What locally expressed need does the project address?"
+                },
+                {
+                  "label": "Confidence",
+                  "detail": "How might it support trust in the process?"
+                },
+                {
+                  "label": "Limits",
+                  "detail": "What institutional change remains outside its scope?"
+                },
+                {
+                  "label": "Resources",
+                  "detail": "What authorised funding and implementation arrangements are actually available?"
+                }
+              ],
+              "kind": "compare"
+            },
+            "decision": {
+              "prompt": "A short project is completed on schedule. What can the adviser responsibly conclude?",
+              "options": [
+                {
+                  "label": "It delivered the specified output; sustained reform still requires evidence",
+                  "feedback": "A useful incentive can create momentum without establishing long-term institutional change."
+                },
+                {
+                  "label": "It guarantees further donor funding",
+                  "feedback": "Reconsider the relationship shown above. A useful incentive can create momentum without establishing long-term institutional change."
+                },
+                {
+                  "label": "It proves the reform objective has been achieved",
+                  "feedback": "This response misses an important constraint. A useful incentive can create momentum without establishing long-term institutional change."
+                }
+              ],
+              "answer": 0
+            },
+            "rhythm": "explain"
+          }
+        ],
+        "quiz": [
+          {
+            "prompt": "When is training an appropriate choice?",
+            "options": [
+              "When the partner requests a course and funding is available, before checking the problem.",
+              "When a verified competence gap and feasible learning conditions support it",
+              "When a process is unclear, provided the same training can be delivered to everyone."
+            ],
+            "answer": 1,
+            "feedback": "Tool selection follows diagnosis and feasibility.",
+            "optionFeedback": [
+              "A request and a budget do not establish a competence gap or suitable learning conditions.",
+              "This is the strongest response within the stated teaching situation.",
+              "Process and institutional constraints may need policy or other support, not an undifferentiated course."
+            ]
+          },
+          {
+            "prompt": "Which safeguard applies to vetting in the lesson?",
+            "options": [
+              "Law, due process, rights and suitable expertise; no substitution for prosecution",
+              "A documented eligibility criterion applied quickly, with review rights considered later.",
+              "National ownership and a personnel list, without establishing the applicable authority."
+            ],
+            "answer": 0,
+            "feedback": "The tool has serious rights implications and cannot be improvised.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "Speed and documentation cannot replace due process and rights safeguards from the outset.",
+              "Ownership matters but does not supply every legal, mandate and professional requirement."
+            ]
+          },
+          {
+            "prompt": "What distinguishes a QIP from comprehensive reform?",
+            "options": [
+              "A short project can be treated as completed institutional reform once its output is delivered.",
+              "A project becomes comprehensive reform when it attracts support from more than one donor.",
+              "Its short-term confidence-building purpose and limited scope"
+            ],
+            "answer": 2,
+            "feedback": "Confidence and structural capacity are related but distinct.",
+            "optionFeedback": [
+              "Delivery does not establish the sustained institutional change of broader reform.",
+              "The number of supporters does not change its limited purpose or establish lasting effects.",
+              "This is the strongest response within the stated teaching situation."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "risk",
+        "title": "Prepare for uncertainty",
+        "screens": [
+          {
+            "id": "03-06",
+            "title": "Make risks actionable",
+            "sourcePages": "18–19",
+            "lead": "A list of threats is useful only if it informs decisions and responsibilities.",
+            "points": [
+              "Identify risks with counterparts, then analyse likelihood and impact.",
+              "Evaluate which risks need a response and record mitigation or preventive actions in a risk log.",
+              "Assign review responsibilities and revisit the log as conditions change. A high score alone does not specify the action required."
+            ],
+            "takeaway": "Risk management requires a response and continuing review, not just classification.",
+            "transcript": "When a risk is identified, it is tempting to focus on its colour or score. The useful question is what the judgement changes. Consider likelihood and consequence separately, then decide what can prevent the event, reduce its effect or provide an alternative if it occurs. In the matrix, a low likelihood does not erase a severe consequence. The illustrative product is a discussion aid, not an authorised threshold. Your risk log also needs responsibility and review. Explain who will notice changed conditions and who can act. This converts uncertainty into an operational conversation rather than a list of warnings.",
+            "visual": {
+              "title": "Separating probability, consequence, and response strategy",
+              "nodes": [
+                {
+                  "label": "Identify",
+                  "detail": "Describe a possible event and how it affects the objective."
+                },
+                {
+                  "label": "Analyse and rank",
+                  "detail": "Consider likelihood and consequences."
+                },
+                {
+                  "label": "Respond",
+                  "detail": "Choose prevention, mitigation or a contingency response."
+                },
+                {
+                  "label": "Monitor",
+                  "detail": "Track changes and whether the response is working."
+                }
+              ],
+              "kind": "cycle"
+            },
+            "decision": {
+              "prompt": "A critical risk is recorded but nobody owns the response. What is the best correction?",
+              "options": [
+                {
+                  "label": "Remove it to avoid delaying the plan",
+                  "feedback": "Reconsider the relationship shown above. Risk management requires a response and continuing review, not just classification."
+                },
+                {
+                  "label": "Raise its score so it attracts attention",
+                  "feedback": "This response misses an important constraint. Risk management requires a response and continuing review, not just classification."
+                },
+                {
+                  "label": "Agree an action, responsible person and review point with relevant counterparts",
+                  "feedback": "Risk management requires a response and continuing review, not just classification."
+                }
+              ],
+              "answer": 2
+            },
+            "lab": {
+              "type": "risk",
+              "title": "Explore likelihood and consequence separately",
+              "context": "Invented risk: key staff may be unavailable when the activity begins. Select a likelihood and impact to examine the matrix. The illustrative product is not an official acceptance rule.",
+              "debrief": "Which action could reduce likelihood, which could limit impact, and who would monitor the assumption? An unlikely but severe event may still require contingency planning."
+            },
+            "rhythm": "investigate"
+          },
+          {
+            "id": "03-07",
+            "title": "Prepare an alternative path before disruption",
+            "sourcePages": "20–21",
+            "lead": "A contingency plan prepares for an outcome that differs from the expected course.",
+            "points": [
+              "Identify and prioritise disruption scenarios, then plan how essential activity can continue or recover.",
+              "Specify key people, resources and responsibilities; share the plan with those who may need to act.",
+              "Keep it current. Use your own Lesson 2 objective to construct a logframe and risk analysis in the original workbench, then seek a peer’s challenge to your assumptions."
+            ],
+            "takeaway": "A contingency plan must be understood, assigned and maintained to be usable.",
+            "transcript": "A contingency plan is useful when people can recognise its trigger and carry out their responsibilities. Imagine the original venue becomes unavailable. Repeating the timetable in a document does not identify what should happen next. Decide what essential function must continue, who can choose an alternative and which resources or safeguards are necessary. Share the arrangement with the people affected and check that it remains current. The same reasoning belongs in the practical planning work, alongside your logframe and risk analysis. A colleague should be able to question the response without needing to guess what its author intended.",
+            "visual": {
+              "title": "Linking early disruption signals to pre-agreed fallback paths",
+              "nodes": [
+                {
+                  "label": "Trigger",
+                  "detail": "What event requires the alternative response?"
+                },
+                {
+                  "label": "Continuity",
+                  "detail": "Which functions and resources need protecting?"
+                },
+                {
+                  "label": "Responsibility",
+                  "detail": "Who decides, acts and communicates?"
+                },
+                {
+                  "label": "Review",
+                  "detail": "When will the alternative plan be checked?"
+                }
+              ],
+              "kind": "cycle"
+            },
+            "decision": {
+              "prompt": "A programme has a backup plan known only to its author. What should happen before implementation?",
+              "options": [
+                {
+                  "label": "File it until a disruption happens",
+                  "feedback": "This response misses an important constraint. A contingency plan must be understood, assigned and maintained to be usable."
+                },
+                {
+                  "label": "Share responsibilities and test whether relevant stakeholders can act on it",
+                  "feedback": "A contingency plan must be understood, assigned and maintained to be usable."
+                },
+                {
+                  "label": "Replace the risk log with the backup plan",
+                  "feedback": "Reconsider the relationship shown above. A contingency plan must be understood, assigned and maintained to be usable."
+                }
+              ],
+              "answer": 1
+            },
+            "lab": {
+              "type": "builder",
+              "title": "Prepare a response people can use",
+              "context": "Invented disruption: access to the planned training location becomes unavailable. Keep the response proportionate to essential work.",
+              "fields": [
+                {
+                  "label": "Trigger and essential function",
+                  "prompt": "What event activates the alternative, and what must continue?",
+                  "check": "Check: can another person recognize the exact trigger and see which core function is protected?"
+                },
+                {
+                  "label": "Alternative and responsible actors",
+                  "prompt": "Who decides, who acts and who must be informed?",
+                  "check": "Check: are decision authority, execution roles, and communication channels explicitly assigned?"
+                },
+                {
+                  "label": "Resources and safeguards",
+                  "prompt": "What is needed to act without creating a new problem?",
+                  "check": "Check: does the backup arrangement remain feasible, safe, and free of new operational risks?"
+                },
+                {
+                  "label": "Review point",
+                  "prompt": "How will stakeholders know the plan remains current and usable?",
+                  "check": "Check: is there a clear check-in date or condition to test that the backup option still works?"
+                }
+              ],
+              "example": "An illustrative alternative identifies who confirms the access problem, which essential learning or operational work must continue, who can authorise a feasible replacement arrangement, and how affected counterparts will be informed. The plan is checked again before it is needed.",
+              "review": "Can a person other than the author identify when to act and what they are responsible for?",
+              "debrief": "Explain how the alternative preserves the intended result rather than simply preserving the original timetable."
+            },
+            "rhythm": "construct"
+          }
+        ],
+        "quiz": [
+          {
+            "prompt": "What makes a risk response operational?",
+            "options": [
+              "A likelihood/impact score and a recommendation to revisit it at the end of the project.",
+              "An assigned owner without specifying what event or effect they should address.",
+              "A specified action, responsible actor and review arrangement"
+            ],
+            "answer": 2,
+            "feedback": "A usable risk log connects uncertainty to action.",
+            "optionFeedback": [
+              "The record still needs an action, responsibility and timely review.",
+              "Responsibility needs a defined risk and response to become operational.",
+              "This is the strongest response within the stated teaching situation."
+            ]
+          },
+          {
+            "prompt": "How does contingency differ from the normal plan?",
+            "options": [
+              "It provides a second timetable for the same expected conditions.",
+              "It prepares for an outcome other than the expected one",
+              "It assumes that a high-ranked risk will be prevented and removes the recovery arrangements."
+            ],
+            "answer": 1,
+            "feedback": "An alternative path prepares for disruption and recovery.",
+            "optionFeedback": [
+              "A contingency prepares for a different outcome, not just a duplicate schedule.",
+              "This is the strongest response within the stated teaching situation.",
+              "Prevention may fail; an alternative response can still be necessary."
+            ]
+          },
+          {
+            "prompt": "What should be taken into the planning exercise?",
+            "options": [
+              "An agreed objective, plausible result chain, measures and risk reasoning",
+              "A complete activity calendar, with assumptions left to the implementing team.",
+              "A detailed budget for an available course, with the objective chosen afterward."
+            ],
+            "answer": 0,
+            "feedback": "The learner’s own analysis and objectives should guide the plan.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "The calendar does not supply the result chain or expose assumptions before implementation.",
+              "The agreed result should guide activity and resource selection, not follow it."
+            ]
+          }
+        ]
+      }
+    ],
+    "artwork": [
+      {
+        "screenId": "03-10",
+        "purpose": "Introduce a plan whose columns do not connect",
+        "brief": "Fictional adviser and counterpart compare blank planning materials with work records; emphasise careful joint questioning rather than completed charts.",
+        "alt": "Fictional counterparts examine whether a plan and its evidence refer to the same result.",
+        "status": "specification-only",
+        "composition": "1672 × 941 landscape; approved Lesson1 cinematic editorial style, navy/teal/mint continuity, restrained contextual detail and counterpart agency. Keep all diagram labels and teaching answers in accessible HTML.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
+        "teachingPrompt": "Which logframe column breaks the causal link if verification and evidence sources do not align?"
+      },
+      {
+        "screenId": "03-04",
+        "purpose": "Show professional limits and safeguards",
+        "brief": "A thoughtful multi-professional discussion about roles and safeguards using closed folders; no identifiable personnel allegations, exclusion labels or implied real case.",
+        "alt": "Fictional professionals clarify responsibilities and safeguards before choosing a specialist reform tool.",
+        "status": "specification-only",
+        "composition": "1672 × 941 landscape; approved Lesson1 cinematic editorial style, navy/teal/mint continuity, restrained contextual detail and counterpart agency. Keep all diagram labels and teaching answers in accessible HTML.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
+        "teachingPrompt": "Where does UNPOL technical assistance stop and sovereign host-State vetting authority begin?"
+      },
+      {
+        "screenId": "03-07",
+        "purpose": "Introduce shared contingency responsibility",
+        "brief": "Counterparts discuss an alternative arrangement after a planned facility becomes unavailable, with a quiet focus on who will act and what must continue.",
+        "alt": "Fictional counterparts coordinate an alternative arrangement for continuing essential work.",
+        "status": "specification-only",
+        "composition": "1672 × 941 landscape; approved Lesson1 cinematic editorial style, navy/teal/mint continuity, restrained contextual detail and counterpart agency. Keep all diagram labels and teaching answers in accessible HTML.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
+        "teachingPrompt": "What observable signal should move both partners from routine plans into an agreed fallback?"
+      }
+    ]
+  }
+]

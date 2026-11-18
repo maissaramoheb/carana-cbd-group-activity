@@ -1,0 +1,11 @@
+# Sustainability and operating cost note
+
+A reusable platform needs curriculum ownership and an update process as well as hosting. Nominate a curriculum steward for each programme and one technical maintainer for shared components. Keep official source versions, adaptation decisions, reviewed media, test evidence, release manifests and recoverable copies together. A policy change should trigger source comparison, affected lesson/script/media review, targeted regression checks and a new version.
+
+The scenario budget uses a hosting/support allowance of $125 per month ($1,500 annually). This is a planning input, not a vendor quotation or guaranteed capacity. Audio delivery, bandwidth, protected previews, backups, support hours and procurement terms need explicit sizing. The present static architecture has no required account database or paid AI runtime. Existing recordings are local release inputs; builds must never silently generate paid media.
+
+Annual planned maintenance in the model is 12 days/$4,800 for A, 18 days/$7,200 for B and 30 days/$12,000 for C. Hosting plus these maintenance allowances totals $6,300, $8,700 and $13,500 respectively before taxes, exceptional content changes, new media, translation, evaluation, accessibility recertification or institutional helpdesk costs. These lines already appear in the first-year scenario totals; do not add them again. A subsequent-year contract should separately agree service levels, response times, ownership and escalation.
+
+Suggested operating cycle: monthly basic link/media/build checks; review browser/accessibility changes quarterly; review curriculum annually or immediately after authoritative revisions; perform a restoration exercise on each release and periodically between releases. Retain at least one independent backup copy under an approved storage policy. OneDrive synchronization and local existence are different assurances.
+
+Avoid sustainability claims based on an unfunded volunteer maintainer. Agree an owner for support, budget and source/rights decisions before institutional adoption. If funding ends, preserve the last accepted release and its materials, document the support end date and avoid presenting abandoned content as current.

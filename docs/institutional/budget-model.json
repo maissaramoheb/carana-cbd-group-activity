@@ -1,0 +1,232 @@
+{
+  "currency": "USD",
+  "asOf": "2026-11-18",
+  "status": "Hypothetical planning allowances; not supplier quotations, commitments or approved budgets",
+  "pricingEvidence": "Internal bottom-up assumptions only; validate through scoping and procurement",
+  "taxes": "Excluded; to be assessed in the contracting jurisdiction",
+  "travel": "Excluded",
+  "scenarios": [
+    {
+      "id": "A",
+      "title": "CBD Completion",
+      "scope": "Five remaining CBD lesson adaptations; existing Lesson 1 preserved. Human review, media allowance, accessibility and later validation included.",
+      "items": [
+        {
+          "category": "Development",
+          "unit": "day",
+          "unitRateUSD": 450,
+          "quantity": 60,
+          "subtotalUSD": 27000
+        },
+        {
+          "category": "Instructional design",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 25,
+          "subtotalUSD": 10000
+        },
+        {
+          "category": "Curriculum expertise",
+          "unit": "day",
+          "unitRateUSD": 500,
+          "quantity": 15,
+          "subtotalUSD": 7500
+        },
+        {
+          "category": "Media and narration",
+          "unit": "allowance",
+          "unitRateUSD": 1,
+          "quantity": 5000,
+          "subtotalUSD": 5000
+        },
+        {
+          "category": "Quality assurance",
+          "unit": "day",
+          "unitRateUSD": 350,
+          "quantity": 20,
+          "subtotalUSD": 7000
+        },
+        {
+          "category": "Accessibility review and remediation",
+          "unit": "day",
+          "unitRateUSD": 500,
+          "quantity": 8,
+          "subtotalUSD": 4000
+        },
+        {
+          "category": "Hosting and operational support",
+          "unit": "month",
+          "unitRateUSD": 125,
+          "quantity": 12,
+          "subtotalUSD": 1500
+        },
+        {
+          "category": "Maintenance",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 12,
+          "subtotalUSD": 4800
+        },
+        {
+          "category": "Evaluation preparation and later validation",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 10,
+          "subtotalUSD": 4000
+        }
+      ],
+      "subtotalUSD": 70800,
+      "contingencyRate": 0.1,
+      "contingencyUSD": 7080,
+      "totalUSD": 77880
+    },
+    {
+      "id": "B",
+      "title": "Multi-Curriculum Pilot",
+      "scope": "Option A plus one bounded conversion example each for MMA and COP. Not full MMA/COP conversion.",
+      "items": [
+        {
+          "category": "Development",
+          "unit": "day",
+          "unitRateUSD": 450,
+          "quantity": 90,
+          "subtotalUSD": 40500
+        },
+        {
+          "category": "Instructional design",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 40,
+          "subtotalUSD": 16000
+        },
+        {
+          "category": "Curriculum expertise",
+          "unit": "day",
+          "unitRateUSD": 500,
+          "quantity": 25,
+          "subtotalUSD": 12500
+        },
+        {
+          "category": "Media and narration",
+          "unit": "allowance",
+          "unitRateUSD": 1,
+          "quantity": 8000,
+          "subtotalUSD": 8000
+        },
+        {
+          "category": "Quality assurance",
+          "unit": "day",
+          "unitRateUSD": 350,
+          "quantity": 30,
+          "subtotalUSD": 10500
+        },
+        {
+          "category": "Accessibility review and remediation",
+          "unit": "day",
+          "unitRateUSD": 500,
+          "quantity": 12,
+          "subtotalUSD": 6000
+        },
+        {
+          "category": "Hosting and operational support",
+          "unit": "month",
+          "unitRateUSD": 125,
+          "quantity": 12,
+          "subtotalUSD": 1500
+        },
+        {
+          "category": "Maintenance",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 18,
+          "subtotalUSD": 7200
+        },
+        {
+          "category": "Evaluation preparation and later validation",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 18,
+          "subtotalUSD": 7200
+        }
+      ],
+      "subtotalUSD": 109400,
+      "contingencyRate": 0.1,
+      "contingencyUSD": 10940,
+      "totalUSD": 120340
+    },
+    {
+      "id": "C",
+      "title": "Institutional Digital Learning Capability",
+      "scope": "Platform stewardship, an assumed 12 lesson-equivalent conversion units across agreed curricula, quality system and first-year operations. Unit count is an estimating device, not an official lesson count or promise to complete both curricula.",
+      "items": [
+        {
+          "category": "Development",
+          "unit": "day",
+          "unitRateUSD": 450,
+          "quantity": 150,
+          "subtotalUSD": 67500
+        },
+        {
+          "category": "Instructional design",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 65,
+          "subtotalUSD": 26000
+        },
+        {
+          "category": "Curriculum expertise",
+          "unit": "day",
+          "unitRateUSD": 500,
+          "quantity": 45,
+          "subtotalUSD": 22500
+        },
+        {
+          "category": "Media and narration",
+          "unit": "allowance",
+          "unitRateUSD": 1,
+          "quantity": 15000,
+          "subtotalUSD": 15000
+        },
+        {
+          "category": "Quality assurance",
+          "unit": "day",
+          "unitRateUSD": 350,
+          "quantity": 50,
+          "subtotalUSD": 17500
+        },
+        {
+          "category": "Accessibility review and remediation",
+          "unit": "day",
+          "unitRateUSD": 500,
+          "quantity": 20,
+          "subtotalUSD": 10000
+        },
+        {
+          "category": "Hosting and operational support",
+          "unit": "month",
+          "unitRateUSD": 125,
+          "quantity": 12,
+          "subtotalUSD": 1500
+        },
+        {
+          "category": "Maintenance",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 30,
+          "subtotalUSD": 12000
+        },
+        {
+          "category": "Evaluation preparation and later validation",
+          "unit": "day",
+          "unitRateUSD": 400,
+          "quantity": 30,
+          "subtotalUSD": 12000
+        }
+      ],
+      "subtotalUSD": 184000,
+      "contingencyRate": 0.1,
+      "contingencyUSD": 18400,
+      "totalUSD": 202400
+    }
+  ]
+}
