@@ -1,0 +1,13 @@
+Category,Unit,Unit rate USD,A quantity,A subtotal USD,B quantity,B subtotal USD,C quantity,C subtotal USD
+Development,day,450,60,27000,90,40500,150,67500
+Instructional design,day,400,25,10000,40,16000,65,26000
+Curriculum expertise,day,500,15,7500,25,12500,45,22500
+Media and narration,allowance,1,5000,5000,8000,8000,15000,15000
+Quality assurance,day,350,20,7000,30,10500,50,17500
+Accessibility review and remediation,day,500,8,4000,12,6000,20,10000
+Hosting and operational support,month,125,12,1500,12,1500,12,1500
+Maintenance,day,400,12,4800,18,7200,30,12000
+Evaluation preparation and later validation,day,400,10,4000,18,7200,30,12000
+Subtotal,,,,70800,,109400,,184000
+Contingency at 10 percent,,,,7080,,10940,,18400
+Total,,,,77880,,120340,,202400

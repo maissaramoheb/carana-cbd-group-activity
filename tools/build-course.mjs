@@ -1,3 +1,4 @@
+import validateContent from './validate-content.cjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -12,6 +13,7 @@ const audio = 'course/audio/en/lesson1';
 const ids = Array.from({ length: 18 }, (_, i) => `0${1 + Math.floor(i / 3)}-0${1 + i % 3}`);
 const sandbox = { window: {} };
 
+validateContent(root);
 await fs.rm(dist, { recursive: true, force: true });
 vm.runInNewContext((await read('course/lesson1-experience.js')).toString(), sandbox, { timeout: 3000 });
 const tracks = sandbox.window.CARANA_EXPERIENCE_V05.narration.tracks;
@@ -33,7 +35,7 @@ const validated = await Promise.all(ids.map(async (id, i) => {
 }));
 
 // Stage only known public assets. Do not publish docs, tests or arbitrary workspace files.
-const original = ['index.html', 'CARANA_CBD_Group_Activity.html', 'css', 'js',
+const original = ['platform', 'curricula', 'index.html', 'CARANA_CBD_Group_Activity.html', 'css', 'js',
   ...Array.from({ length: 6 }, (_, i) => `module${i + 1}.html`)];
 await fs.mkdir(path.join(dist, 'course'), { recursive: true });
 for (const name of original) await fs.cp(path.join(root, name), path.join(dist, name), { recursive: true });
