@@ -1,0 +1,38 @@
+Vercel CLI 59.1.3 (Node.js 26.9.0)
+Deploying carana-cbd-elearning
+Uploading [--------------------] (0.0B/164.5KB)
+Uploading [=====---------------] (45.5KB/164.5KB)
+Uploading [===========---------] (93.5KB/164.5KB)
+Uploading [===============-----] (128.2KB/164.5KB)
+Uploading [====================] (164.5KB/164.5KB)
+  Inspect         https://vercel.com/delta4ce20-5830s-projects/carana-cbd-elearning/2CJJUz91K7sedJ9emDbMgK6kfrrE
+  Preview         https://carana-cbd-elearning-jx71dfzr1-delta4ce20-5830s-projects.vercel.app
+Building…
+[2K[1A[2K[G  Preview         https://carana-cbd-elearning-jx71dfzr1-delta4ce20-5830s-projects.vercel.app
+Running Checks…
+{
+  "status": "ok",
+  "deployment": {
+    "id": "dpl_2CJJUz91K7sedJ9emDbMgK6kfrrE",
+    "url": "https://carana-cbd-elearning-jx71dfzr1-delta4ce20-5830s-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/delta4ce20-5830s-projects/carana-cbd-elearning/2CJJUz91K7sedJ9emDbMgK6kfrrE",
+    "readyState": "READY",
+    "target": null,
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_2CJJUz91K7sedJ9emDbMgK6kfrrE"
+  },
+  "message": "Deployment carana-cbd-elearning-jx71dfzr1-delta4ce20-5830s-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel curl https://carana-cbd-elearning-jx71dfzr1-delta4ce20-5830s-projects.vercel.app",
+      "when": "Verify deployment, including when Deployment Protection is enabled"
+    },
+    {
+      "command": "vercel inspect carana-cbd-elearning-jx71dfzr1-delta4ce20-5830s-projects.vercel.app --scope delta4ce20-5830s-projects",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod --scope delta4ce20-5830s-projects",
+      "when": "Promote to production"
+    }
+  ]
+}

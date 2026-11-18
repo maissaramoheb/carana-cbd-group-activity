@@ -31,3 +31,7 @@ Logs: evidence/logs/. Full56-screen inventory and raw zero-finding scan: evidenc
 ## Limits and approval boundary
 
 Native VoiceOver/NVDA listening, physical iOS/Android operation and human learner comprehension are NOT VERIFIED. Automated scans do not certify full accessibility or professional competence. The source-based English learning content and formative assessment requirements remain unchanged. Engineering evidence supports owner review; owner visual acceptance is pending. No production alias, release tag, main branch or original learner data was changed by this run. Preview deployment hashes/route checks and local backup restore receipt are recorded separately.
+
+## Deployed verification
+
+Combined candidate `dpl_2CJJUz91K7sedJ9emDbMgK6kfrrE` is READY and identifies8ddb482. All80published asset bodies match their release-manifest SHA-256, including18recordings and3cinematic images. Root307to/course/, slashless lesson query, original L1adapter and activity bookmark are preserved. New progress/recovery and Run04navigation suites were repeated against the deployed URL in Chromium and mobile WebKit using a temporary authenticated review session. Only Vercel's separate injected review-toolbar script was blocked for these browser checks, consistent with the documented Run04hosting-toolbar limitation; application resources/assertions were not excluded. Access protection and both production aliases remain unchanged. Logs and screenshots are under evidence/preview-progress, preview-navigation and logs/.
