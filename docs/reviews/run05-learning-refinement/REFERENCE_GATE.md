@@ -1,0 +1,5 @@
+# Reference gate
+
+Technical reference gate PASS: Diagnostic Decision Path at1440/768/390px, nonblocking review/continue choices, persistence/resume, explicit skip remembered, keyboard selection and reminder focus, source/context visibility, no horizontal overflow, scoped Axe zero violations. Core tests cover semantic identity/reordering, changed content, malformed history, bounded revisions, import merge/replace isolation and denied storage. See logs and actual before/after screenshots. Contrast failures during refinement were retained in Git history; the final reference scan is clean. The final fix raises the exploration counter contrast with a selector matching the existing override specificity.
+
+Rendered review: original illustration, explanatory path and lesson structure retained. Added text state badges and calmer support hierarchy; actual correctness feedback remains distinct. This gate permits controlled extension under the Run05 brief; it does not claim owner visual approval or native screen-reader acceptance.

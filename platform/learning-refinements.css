@@ -53,3 +53,4 @@ body:not(.is-learning) .screen{font-size:16px;line-height:1.7}
 .is-learning .vj-stage .vj-node .vj-node-mark{color:#14556e}
 .is-learning .vj-stage .vj-node.chosen .vj-node-mark{color:white;background:#146981}
 .is-learning #vj-count,.is-learning .decision-eyebrow,.is-learning .learning-outcomes>h2{color:#146981}
+.is-learning .vj-foot #vj-count{color:#146981}

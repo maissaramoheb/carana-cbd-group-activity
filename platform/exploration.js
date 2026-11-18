@@ -46,7 +46,7 @@
         const screen = k.slice(0, k.lastIndexOf('/')), count = grouped.get(screen) || 0;
         if (count >= 3) delete state.records[k]; else grouped.set(screen, count + 1);
       }
-      const keys = Object.keys(state.records); while (keys.length > LIMIT) delete state.records[keys.shift()];
+      const keys = Object.keys(state.records); while (keys.length > LIMIT || JSON.stringify(state).length > MAX_BYTES) delete state.records[keys.shift()];
       try { if (!storage) throw Error('Storage unavailable'); storage.setItem(KEY, JSON.stringify(state)); failure = false; return true; }
       catch (_) { failure = true; return false; }
     }
@@ -54,7 +54,7 @@
       const r = state.records[d.key] || { seen: [], selected: null, dismissed: false, practice: false };
       return { ...r, seen: r.seen.filter(n => d.ids.includes(n)), selected: d.ids.includes(r.selected) ? r.selected : null };
     }
-    function update(d, change) { state.records[d.key] = { ...get(d), ...change }; return save(); }
+    function update(d, change) { if (!recordKey.test(d.key) || d.ids.some(id => !nodeKey.test(id))) return false; state.records[d.key] = { ...get(d), ...change }; return save(); }
     function exportFor(ids) {
       return { version: 1, records: Object.fromEntries(Object.entries(state.records).filter(([k]) => ids.includes(k.split('/')[0])).map(([k, v]) => [k, { ...v, seen: [...v.seen] }])) };
     }
@@ -64,7 +64,7 @@
       for (const [k, incoming] of Object.entries(v.value.records)) {
         if (!ids.includes(k.split('/')[0])) continue;
         const old = state.records[k];
-        state.records[k] = mode === 'merge' && old ? { seen: [...new Set([...old.seen, ...incoming.seen])], selected: old.selected || incoming.selected, dismissed: old.dismissed || incoming.dismissed, practice: old.practice || incoming.practice } : incoming;
+        state.records[k] = mode === 'merge' && old ? { seen: [...new Set([...old.seen, ...incoming.seen])].slice(-80), selected: old.selected || incoming.selected, dismissed: old.dismissed || incoming.dismissed, practice: old.practice || incoming.practice } : incoming;
       }
       return save();
     }
