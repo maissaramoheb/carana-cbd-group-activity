@@ -248,6 +248,26 @@ async function stage2Checks(browser){
  await page.goto(base+'/platform/demo-showcase.html');
  await runAxe(page,'demo-showcase');
 
+ // E08 Isolated Connected Notebook interactive workflow, upstream alignment propagation & Axe check
+ await page.goto(base+'/platform/?course=cbd');await ready(page);
+ await page.locator('#open-e08-notebook').click();
+ await page.waitForFunction(()=>window.CARANA_NOTEBOOK_PROTOTYPE?.ready);
+ await runAxe(page,'e08-notebook');
+ await page.fill('#nb-observed','Phase 1 observed evidence: custody book audit completed.');
+ await page.fill('#nb-assumptions','Night shift reporting accuracy unverified.');
+ await page.locator('#nb-save-snapshot').click();
+ await page.locator('[data-phase="phase2"]').click();
+ await page.fill('#nb-observed','Phase 2 objective: standardise intake log across 2 stations.');
+ await page.locator('#nb-save-draft').click();
+ await page.locator('[data-phase="phase1"]').click();
+ await page.fill('#nb-observed','Phase 1 updated observed evidence: night shift audit added.');
+ await page.locator('#nb-save-draft').click();
+ await page.locator('[data-phase="phase2"]').click();
+ assert.match(await page.locator('.nb-align-alert').innerText(),/Upstream Phase 1 was updated/);
+ await page.locator('#nb-mark-aligned').click();
+ assert.equal(await page.locator('.nb-align-alert').count(),0);
+ assert.equal(await page.evaluate(()=>localStorage.getItem('carana_cbd_lab_v1')),null,'E08 notebook must never alter practical workbench data');
+
  // E16 Lesson 1 option-specific quiz feedback
  await page.goto(base+'/course/');
  await page.locator('#start-course').click();

@@ -314,7 +314,15 @@
         '</div>' +
         (bannerMessage ? '<p id="backup-status" class="feedback self-review" role="status">' + esc(bannerMessage) + '</p>' : '<p id="backup-status" class="status" role="status"></p>') +
         '<div id="restore-preview" class="restore-preview" hidden></div>' +
-        '</section>'
+        '</section>' +
+        (course.id === 'cbd'
+          ? '<section class="panel backup-panel" aria-labelledby="e08-proto-heading">' +
+            '<span class="eyebrow">Separate Prototype Candidate · E08</span>' +
+            '<h2 id="e08-proto-heading">Connected Evidence-to-Decision Notebook</h2>' +
+            '<p class="status">Isolated prototype: carry verified observations and explicit assumptions across Lessons 1–6 under dedicated local storage (<code>carana_notebook_v1</code>) without changing course checkpoints or practical workbenches.</p>' +
+            '<p><a class="action" id="open-e08-notebook" href="./notebook.html">Open Connected Notebook prototype →</a></p>' +
+            '</section>'
+          : '')
       : '<section class="panel"><h2>Sources verified; conversion not yet released.</h2><p>The official 2023 curriculum has been inventoried. No complete digital course is claimed here. Content review, activity integration, media and learner validation remain separate work.</p><p><a href="./demo.html#partnership">Explore the conversion programme</a></p></section>';
 
     root.innerHTML =

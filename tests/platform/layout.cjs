@@ -30,6 +30,11 @@ const data=['lessons-2-3','lessons-4-6'].flatMap(f=>require(process.cwd()+'/curr
   await page.goto(base+'/platform/demo.html');
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
   await page.screenshot({path:output+'/demo-'+width+'.png',fullPage:true});
+  await page.goto(base+'/platform/notebook.html');
+  for(const dir of ['ltr','rtl']){
+   await page.evaluate(dir=>document.documentElement.dir=dir,dir);
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'notebook reflow '+width+' '+dir);
+  }
   await page.close();
  }
  console.log('All 38 enhanced screens reflow at 320/768px in LTR/RTL; demo reflow and screenshots passed. English content only.');
