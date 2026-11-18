@@ -1,12 +1,13 @@
-✔ semantic IDs survive order changes; content revisions preserve separate review histories (0.741083ms)
-✔ legacy absence, corruption, malformed or oversized supplemental history cannot write other domains (0.579584ms)
-✔ merge unions exploration and skip choice; replace only affects selected lessons; no sensitive draft fields copied (0.218667ms)
-✔ storage denial retains in-memory history for export and reports failure; records/revisions remain bounded (0.158459ms)
-ℹ tests 4
+✔ semantic IDs survive order changes; content revisions preserve separate review histories (1.216416ms)
+✔ legacy absence, corruption, malformed or oversized supplemental history cannot write other domains (0.691041ms)
+✔ merge unions exploration and skip choice; replace only affects selected lessons; no sensitive draft fields copied (0.408166ms)
+✔ storage denial retains in-memory history for export and reports failure; records/revisions remain bounded (0.3255ms)
+✔ two browser tabs preserve one another's explanatory history without touching other stores (0.125541ms)
+ℹ tests 5
 ℹ suites 0
-ℹ pass 4
+ℹ pass 5
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 33.639208
+ℹ duration_ms 51.854875

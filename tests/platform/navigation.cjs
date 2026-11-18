@@ -1,3 +1,4 @@
+const advance=require('../helpers/progression.cjs');
 /* Run04 integration contract: real links, unchanged storage domains, review-first restore. */
 const {chromium,webkit}=require(process.env.CBD_TEST_MODULES+'/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
@@ -16,13 +17,13 @@ async function home(p){await p.waitForSelector('#home-backup-controls #import-pr
   assert.equal(await p.locator('.main-cta').getAttribute('href'),'#course-map');
  }
  await p.screenshot({path:path.join(output,name+'-corrected.png'),fullPage:true});
- await p.locator('#start-course').focus();await p.keyboard.press('Enter');await p.locator('#next-screen').click();
+ await p.locator('#start-course').focus();await p.keyboard.press('Enter');await advance(p,'#next-screen');
  await p.screenshot({path:path.join(output,name+'-lesson-1.png')});const l1=await p.locator('h1').innerText();await p.locator('#back-home').click();await home(p);
  await p.locator('#start-course').click();assert.equal(await p.locator('h1').innerText(),l1);
  await p.locator('#back-home').click();await home(p);
  for(let n=2;n<=6;n++){
   await p.locator('[data-home-lesson="cbd-'+n+'"]').click();await p.waitForFunction(()=>window.CARANA_PLATFORM?.ready);
-  await p.locator('#next').click();const heading=await p.locator('h1').innerText();await p.screenshot({path:path.join(output,name+'-lesson-'+n+'.png')});
+  await advance(p,'#next');const heading=await p.locator('h1').innerText();await p.screenshot({path:path.join(output,name+'-lesson-'+n+'.png')});
   await p.locator('.rail-back').click();await home(p);
   assert.match(await p.locator('[data-home-lesson="cbd-'+n+'"]').innerText(),/Resume/);
   await p.locator('[data-home-lesson="cbd-'+n+'"]').click();await p.waitForFunction(()=>window.CARANA_PLATFORM?.ready);

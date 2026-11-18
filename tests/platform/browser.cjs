@@ -1,3 +1,4 @@
+const advance=require('../helpers/progression.cjs');
 const {chromium,webkit}=require(process.env.CBD_TEST_MODULES+'/playwright');
 const axePath=require.resolve(process.env.CBD_TEST_MODULES+'/axe-core/axe.min.js');
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
@@ -75,13 +76,13 @@ async function flow(browser,size,name){
       fs.writeFileSync(path.join(output,lesson.id+'-axe.json'),JSON.stringify(violations,null,2));assert.equal(violations.length,0,JSON.stringify(violations));
      }
     }
-    await page.locator('#next').click();
+    await advance(page,'#next');
     assert(await page.locator('h1').evaluate(e=>document.activeElement===e));
    }
    await page.locator('#check').click();assert.match(await page.locator('#quiz-status').innerText(),/Answer every/);
    for(let i=0;i<section.quiz.length;i++)await page.locator('input[name="q'+i+'"][value="'+((section.quiz[i].answer+1)%3)+'"]').check();
    await page.locator('#check').click();assert.equal(await page.locator('.quiz-hint').count(),section.quiz.length);
-   await page.locator('#review').click();await page.locator('#next').click();
+   await page.locator('#review').click();await advance(page,'#next');
    assert.equal(await page.locator('input:checked').count(),section.quiz.length);
    for(let i=0;i<section.quiz.length;i++)await page.locator('input[name="q'+i+'"][value="'+section.quiz[i].answer+'"]').check();
    await page.locator('#check').click();
@@ -108,7 +109,7 @@ async function edgeCases(browser){
  let page=await pageFor(browser,{width:320,height:800});
  await page.addInitScript(()=>{localStorage.setItem('carana_learning_v1',JSON.stringify({version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run02',completed:[2,2],section:Infinity,screen:4.5}}}));Storage.prototype.setItem=()=>{throw Error('Write denied')};});
  await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);assert.equal(await page.locator('h1').innerText(),data[0].sections[0].screens[0].title);
- await page.locator('#next').click();assert.match(await page.locator('#save-status').innerText(),/Could not save/);
+ await advance(page,'#next');assert.match(await page.locator('#save-status').innerText(),/Could not save/);
  await page.context().close();
  page=await pageFor(browser,{width:768,height:1024});
  await page.addInitScript(()=>localStorage.setItem('carana_learning_v1',JSON.stringify({version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run01',completed:[0,1,2],section:2,screen:1,drafts:{'02-04':{0:'Archived prior SMART objective'}}}}})));
@@ -116,7 +117,7 @@ async function edgeCases(browser){
  assert.match(await page.locator('.version-note').innerText(),/Earlier checkpoint records/);
  assert.match(await page.locator('.rail .status').first().innerText(),/0 \/ 3/);
  await page.locator('#ack-revision').click();assert.equal(await page.locator('.version-note').count(),0);
- await page.locator('#next').click();
+ await advance(page,'#next');
  const history=await page.evaluate(()=>JSON.parse(localStorage.getItem('carana_learning_v1')).lessons['cbd-2'].previousProgress);
  assert.deepEqual(history[0].completed,[0,1,2]);assert.equal(history[0].contentVersion,'2026.11-run01');
  assert.equal(history[0].drafts['02-04'][0],'Archived prior SMART objective');
@@ -144,10 +145,10 @@ async function edgeCases(browser){
  // Test E02 read-only archived draft copy-forward inside 02-04 (complete section 0 honestly first)
  await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);
  assert(await page.locator('.revision-badge').isVisible());
- await page.locator('#next').click();
+ await advance(page,'#next');
  for(let i=0;i<data[0].sections[0].quiz.length;i++)await page.locator('input[name="q'+i+'"][value="'+data[0].sections[0].quiz[i].answer+'"]').check();
  await page.locator('#check').click();await page.locator('#continue').click();
- await page.locator('#next').click();
+ await advance(page,'#next');
  assert(await page.locator('.archived-drafts').isVisible());
  await page.locator('.archived-drafts summary').click();
  await page.locator('.archived-fill-empty').click();
@@ -272,7 +273,7 @@ async function stage2Checks(browser){
  // E16 Lesson 1 option-specific quiz feedback
  await page.goto(base+'/course/');
  await page.locator('#start-course').click();
- for(let step=0;step<3;step++)await page.locator('#next-screen').click();
+ for(let step=0;step<3;step++)await advance(page,'#next-screen');
  await page.locator('input[name="q0"][value="0"]').check();
  for(let q=1;q<6;q++)await page.locator('input[name="q'+q+'"][value="0"]').check();
  await page.locator('#check-quiz').click();
@@ -290,7 +291,7 @@ async function secondCurriculum(browser){
  await page.goto(base+'/platform/?course=mma&lesson=mma-orientation-rehearsal');await ready(page);
  assert.equal(await page.locator('h1').innerText(),'Know the learning process before beginning');
  await page.locator('[data-node]').nth(1).click();assert.match(await page.locator('#concept-feedback').innerText(),/pre-work/);
- await page.locator('#next').click();await page.locator('input[value="0"]').check();await page.locator('#check').click();
+ await advance(page,'#next');await page.locator('input[value="0"]').check();await page.locator('#check').click();
  assert.match(await page.locator('h1').innerText(),/Carry your work/);
  await page.reload();await ready(page);assert.match(await page.locator('.rail .status').first().innerText(),/1 \/ 1/);
  await page.context().close();

@@ -1,0 +1,33 @@
+{
+  "routing_version": "1.0.1",
+  "gates": [
+    "accessibility",
+    "browser",
+    "build",
+    "docs",
+    "learning-alignment",
+    "lint",
+    "negative",
+    "real-world-experience",
+    "reliability",
+    "responsive",
+    "rtl",
+    "security",
+    "source-provenance",
+    "unit"
+  ],
+  "skills": [
+    "maide-engineering",
+    "maide-evidence"
+  ],
+  "specialist_skills": [
+    "impeccable",
+    "playwright"
+  ],
+  "contexts": [
+    "learning-content",
+    "storage",
+    "ui"
+  ],
+  "selection_only": true
+}

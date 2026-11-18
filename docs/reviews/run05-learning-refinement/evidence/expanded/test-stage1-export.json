@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "exportedAt": "2026-11-18T15:47:19.565Z",
+  "progress": {
+    "version": 1,
+    "lessons": {
+      "cbd-2": {
+        "contentVersion": "2026.11-run02",
+        "completed": [],
+        "section": 0,
+        "screen": 1,
+        "view": "screen",
+        "drafts": {},
+        "revisionAck": true,
+        "previousProgress": [
+          {
+            "contentVersion": "2026.11-run01",
+            "completed": [
+              0,
+              1,
+              2
+            ],
+            "section": 2,
+            "screen": 1,
+            "archivedAt": "2026-11-18T15:47:19.363Z",
+            "drafts": {
+              "02-04": {
+                "0": "Archived prior SMART objective"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "exploration": {
+    "version": 1,
+    "records": {
+      "cbd-2/02-01/19c9b04d": {
+        "seen": [],
+        "selected": null,
+        "dismissed": true,
+        "practice": false
+      }
+    }
+  },
+  "note": "Formative browser-local record; no certificate or demonstrated competence."
+}

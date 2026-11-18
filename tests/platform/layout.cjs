@@ -1,3 +1,4 @@
+const advance=require('../helpers/progression.cjs');
 const {chromium}=require(process.env.CBD_TEST_MODULES+'/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs');
 const base=process.env.CBD_TEST_URL||'http://127.0.0.1:8661';
@@ -23,7 +24,7 @@ const data=['lessons-2-3','lessons-4-6'].flatMap(f=>require(process.cwd()+'/curr
       await page.evaluate(dir=>document.documentElement.dir=dir,dir);
       assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),lesson.id+' '+s+' '+n+' '+width+' '+dir);
      }
-     await page.locator('#next').click();
+     await advance(page,'#next');
     }
    }
   }

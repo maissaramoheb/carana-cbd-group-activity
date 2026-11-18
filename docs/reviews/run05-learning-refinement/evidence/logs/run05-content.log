@@ -1,0 +1,5 @@
+
+> carana-cbd-elearning@0.10.0 check:content
+> node tools/validate-content.cjs
+
+Content structure verified { lessons: 5, screens: 38, quizzes: 42 }

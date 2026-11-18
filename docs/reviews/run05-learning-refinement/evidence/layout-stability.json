@@ -1,0 +1,47 @@
+{
+  "protocol": "Local frozen build; Chromium; fresh context;1440/390px×950; web fonts blocked; no throttle;400ms after loaded content; no field CWV claim",
+  "results": [
+    {
+      "width": 1440,
+      "trial": 1,
+      "initialCLS": 0.0423195829335709,
+      "reducedMotionNodeTransition": "0s",
+      "diagramWidth": 932
+    },
+    {
+      "width": 1440,
+      "trial": 2,
+      "initialCLS": 0.0423195829335709,
+      "reducedMotionNodeTransition": "0s",
+      "diagramWidth": 932
+    },
+    {
+      "width": 1440,
+      "trial": 3,
+      "initialCLS": 0.0423195829335709,
+      "reducedMotionNodeTransition": "0s",
+      "diagramWidth": 932
+    },
+    {
+      "width": 390,
+      "trial": 1,
+      "initialCLS": 0,
+      "reducedMotionNodeTransition": "0s",
+      "diagramWidth": 358
+    },
+    {
+      "width": 390,
+      "trial": 2,
+      "initialCLS": 0,
+      "reducedMotionNodeTransition": "0s",
+      "diagramWidth": 358
+    },
+    {
+      "width": 390,
+      "trial": 3,
+      "initialCLS": 0,
+      "reducedMotionNodeTransition": "0s",
+      "diagramWidth": 358
+    }
+  ]
+}

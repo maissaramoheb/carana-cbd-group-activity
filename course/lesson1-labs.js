@@ -80,9 +80,17 @@ function html(section,screen) {
 }
 function mount(section,screen){
  const id=key(section,screen),reply=$('lab-response');
+ window.CARANA_LESSON1_LABS.active=null;
  if(!reply)return;
  if(id==='05-02'){
   const buttons=Array.from(document.querySelectorAll('[data-lab-area]'));
+  if(window.CARANA_EXPLORATION && document.body.classList.contains('is-learning')) {
+   const items=buttons.map(button=>{const i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);return {label:areas[i][0]+' × '+dimensions[j][0],detail:areas[i][1]+dimensions[j][1]};});
+   const count=reply.ownerDocument.createElement('p');count.className='matrix-exploration-count';reply.after(count);
+   window.CARANA_LESSON1_LABS.active=window.CARANA_EXPLORATION.bind({lessonId:'cbd-1',screenId:id,items,buttons,feedback:reply,count,container:reply.parentElement,remind:false,
+    onSelect:n=>{const button=buttons[n],i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);reply.innerHTML='<strong>'+esc(areas[i][0])+' × '+esc(dimensions[j][0])+'</strong><p>'+esc(areas[i][1])+'. '+esc(dimensions[j][1])+' Ask which verified issue, if any, genuinely belongs at this intersection.</p>';},practiceButtons:[]});
+   return;
+  }
   for(const button of buttons)button.addEventListener('click',()=>{
    const i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);
    if(!areas[i]||!dimensions[j])return;

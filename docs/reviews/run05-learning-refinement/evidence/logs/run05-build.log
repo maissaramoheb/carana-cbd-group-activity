@@ -1,0 +1,5 @@
+
+> carana-cbd-elearning@0.10.0 build
+> node tools/build-course.mjs
+
+Course built with 18 verified local recordings; no generation or network required.

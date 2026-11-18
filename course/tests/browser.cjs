@@ -1,3 +1,4 @@
+const advance=require('../../tests/helpers/progression.cjs');
 /* Run against the built site or preview with an existing Playwright + axe-core installation.
  * CBD_TEST_MODULES=/path/to/node_modules CBD_TEST_URL=http://127.0.0.1:8642 node course/tests/browser.cjs
  */
@@ -85,7 +86,7 @@ async function journey(browser, settings, name) {
         await page.locator('#voice-replay').click();
         await page.waitForFunction(()=>!document.querySelector('audio').paused);
       }
-      await page.locator('#next-screen').click();
+      await advance(page,'#next-screen');
       assert(await page.locator('h1').evaluate(e=>e===document.activeElement));
     }
     if(name==='chromium' && s===0)await accessibility(page,'checkpoint');
@@ -97,13 +98,13 @@ async function journey(browser, settings, name) {
       await page.locator('#check-quiz').click();
       assert.match(await page.locator('#quiz-feedback').innerText(),/6 answer/);
       await page.locator('#return-review').click();
-      await page.locator('#next-screen').click();
+      await advance(page,'#next-screen');
       assert.equal(await page.locator('input:checked').count(),6);
     }
     for (const [i,q] of lesson[s].quiz.entries()) await select(i,q.answer);
     await page.locator('#check-quiz').click();
     await page.reload();
-    assert.match(await page.locator('h1').textContent(),/Understanding confirmed/);
+    assert.match(await page.locator('h1').textContent(),/Checkpoint passed/);
     await page.locator('#continue-after-quiz').click();
   }
   assert.equal(cinematic,3);
@@ -157,7 +158,7 @@ async function failures(browser) {
   assert.match(await page.locator('#voice-error').innerText(),/transcript/);
   await page.locator('#voice-transcript-toggle').click();
   assert(await page.locator('#voice-transcript').isVisible());
-  await page.locator('#next-screen').click();
+  await advance(page,'#next-screen');
   assert.match(await page.locator('#save-status').textContent(),/could not be saved/);
   await page.context().close();
   console.log('Failure cases passed: invalid saved progress, media unavailable, storage write denied');

@@ -191,6 +191,7 @@ function mount(section,screen){
  if(!root||!e)return;
  const response=root.querySelector('#vj-result');
  if(e.cases){
+  window.CARANA_EXPLORATION?.trackPractice({lessonId:'cbd-1',screenId:id,items:e.options.map(label=>({label,detail:JSON.stringify(e.cases)})),buttons:root.querySelectorAll('[data-vj-answer]'),container:root});
   let current=0,answered=false;
   const answers=[...root.querySelectorAll('[data-vj-answer]')];
   const next=root.querySelector('#vj-next'),label=root.querySelector('#vj-case-number'),question=root.querySelector('#vj-case-text');
@@ -215,7 +216,7 @@ function mount(section,screen){
   });
   return;
  }
- if(id==='01-01' && window.CARANA_EXPLORATION && document.body.classList.contains('is-learning')) {
+ if(window.CARANA_EXPLORATION && document.body.classList.contains('is-learning')) {
   window.CARANA_VISUAL_JOURNEY.active=window.CARANA_EXPLORATION.bind({
    lessonId:'cbd-1',screenId:id,items:e.nodes,buttons:root.querySelectorAll('[data-vj-item]'),
    feedback:response,count:root.querySelector('#vj-count'),fill:root.querySelector('#vj-progress-fill'),container:root,

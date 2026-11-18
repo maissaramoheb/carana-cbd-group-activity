@@ -1,0 +1,23 @@
+[
+  {
+    "width": 1440,
+    "headingY": 231,
+    "columns": "220px 1000px 220px",
+    "contextVisible": "block",
+    "bodyText": "14px"
+  },
+  {
+    "width": 768,
+    "headingY": 442,
+    "columns": "210px minmax(0px, 1fr)",
+    "contextVisible": "block",
+    "bodyText": "14px"
+  },
+  {
+    "width": 390,
+    "headingY": 478,
+    "columns": "210px minmax(0px, 1fr)",
+    "contextVisible": "block",
+    "bodyText": "14px"
+  }
+]

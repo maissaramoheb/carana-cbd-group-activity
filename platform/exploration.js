@@ -54,12 +54,24 @@
       const r = state.records[d.key] || { seen: [], selected: null, dismissed: false, practice: false };
       return { ...r, seen: r.seen.filter(n => d.ids.includes(n)), selected: d.ids.includes(r.selected) ? r.selected : null };
     }
-    function update(d, change) { if (!recordKey.test(d.key) || d.ids.some(id => !nodeKey.test(id))) return false; state.records[d.key] = { ...get(d), ...change }; return save(); }
+    function sync() {
+      try { const raw=storage?.getItem(KEY);if(!raw)return;const latest=validate(JSON.parse(raw));if(!latest.ok)return;
+        for(const [k,r] of Object.entries(latest.value.records)) {const local=state.records[k];state.records[k]=local?{seen:[...new Set([...r.seen,...local.seen])].slice(-80),selected:local.selected||r.selected,dismissed:local.dismissed||r.dismissed,practice:local.practice||r.practice}:r;}
+      }catch(_) { /* Keep the usable in-memory record if reading is denied. */ }
+    }
+    function update(d, change) {
+      if (!recordKey.test(d.key) || d.ids.some(id => !nodeKey.test(id))) return false;
+      sync();const old=get(d);state.records[d.key]={...old,...change,seen:[...new Set([...old.seen,...(change.seen||[])])].slice(-80),dismissed:old.dismissed||change.dismissed===true,practice:old.practice||change.practice===true};return save();
+    }
     function exportFor(ids) {
-      return { version: 1, records: Object.fromEntries(Object.entries(state.records).filter(([k]) => ids.includes(k.split('/')[0])).map(([k, v]) => [k, { ...v, seen: [...v.seen] }])) };
+      sync();
+      const result={ version: 1, records: Object.fromEntries(Object.entries(state.records).filter(([k]) => ids.includes(k.split('/')[0])).map(([k, v]) => [k, { ...v, seen: [...v.seen] }])) };
+      const keys=Object.keys(result.records);while(keys.length>LIMIT||JSON.stringify(result).length>MAX_BYTES)delete result.records[keys.shift()];
+      return result;
     }
     function importFor(raw, ids, mode) {
       const v = validate(raw); if (!v.ok) return false;
+      sync();
       if (mode === 'replace') for (const k of Object.keys(state.records)) if (ids.includes(k.split('/')[0])) delete state.records[k];
       for (const [k, incoming] of Object.entries(v.value.records)) {
         if (!ids.includes(k.split('/')[0])) continue;
@@ -77,6 +89,7 @@
     const d = descriptor(lessonId, screenId, items), all = [...buttons];
     if (!container || !all.length || all.length !== items.length) return null;
     let state = store.get(d), reminder, nextAction;
+
     const doc = container.ownerDocument;
     const storageNote = doc.createElement('p'); storageNote.className = 'exploration-storage'; storageNote.setAttribute('role', 'status'); container.append(storageNote);
     const practiceNote = doc.createElement('p'); practiceNote.className = 'practice-history'; container.append(practiceNote);
@@ -86,11 +99,13 @@
         button.dataset.explored = String(seen); button.dataset.explorationId = d.ids[i];
         button.classList.toggle('chosen', selected); button.classList.toggle('selected', selected);
         button.setAttribute('aria-pressed', String(selected));
-        button.setAttribute('aria-label', items[i].label + ' — ' + (selected ? 'currently selected explanation' : seen ? 'explored previously' : 'not explored'));
+
         if (feedback?.id) button.setAttribute('aria-controls', feedback.id);
         let badge = button.querySelector('.exploration-state');
-        if (!badge) { badge = doc.createElement('span'); badge.className = 'exploration-state'; badge.setAttribute('aria-hidden', 'true'); button.append(badge); }
-        badge.textContent = selected ? 'Viewing' : seen ? 'Explored' : 'Explore';
+        if (!badge) { badge = doc.createElement('span'); badge.className = 'exploration-state'; button.append(badge); }
+        badge.textContent = ' '+(selected ? 'Viewing' : seen ? 'Explored' : 'Explore');
+        button.removeAttribute('aria-label');
+        if(button.hasAttribute('data-lab-area')&&!button.querySelector('.exploration-cell-name')){const name=doc.createElement('span');name.className='exploration-cell-name';name.textContent=items[i].label+' ';button.prepend(name);}
       });
       if (count) { count.textContent = 'Explanations ' + state.seen.length + ' of ' + all.length + ' explored'; count.setAttribute('aria-live', 'polite'); }
       if (fill) fill.style.width = (100 * state.seen.length / all.length) + '%';
@@ -127,5 +142,12 @@
     }
     return { advance, descriptor: d };
   }
-  return { KEY, MAX_BYTES, descriptor, validate, createStore, store, bind };
+  function trackPractice({lessonId, screenId, items, buttons, container}) {
+    if (!container) return;
+    const d=descriptor(lessonId,screenId,items), note=container.ownerDocument.createElement('p');
+    note.className='practice-history';note.setAttribute('role','status');container.append(note);
+    const paint=()=>{note.textContent=store.get(d).practice?'Practice attempted · separate from checkpoint achievement':'';};
+    [...buttons].forEach(button=>button.addEventListener('click',()=>{store.update(d,{practice:true});paint();if(store.failed)note.textContent+=' · History could not save; export before closing.';}));paint();
+  }
+  return { KEY, MAX_BYTES, descriptor, validate, createStore, store, bind, trackPractice };
 });

@@ -16,6 +16,8 @@
   let checked = false;
   let missed = [];
   const $ = id => document.getElementById(id);
+  const pathMedia=window.matchMedia?.('(min-width:901px)');
+  pathMedia?.addEventListener?.('change',e=>{const menu=document.querySelector('.l1-path-menu');if(menu)menu.open=e.matches;});
   const clean = value => String(value == null ? '' : value)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -125,7 +127,7 @@
     position.kind='complete'; render(); focusHeading();
   }
   function exportProgress(filename = 'carana-cbd-lesson1-progress.json', data = progress) {
-    const bundle = {course:'CARANA CBD E-Learning',lesson:lesson.title,progress:data,source:lesson.source,exportedAt:new Date().toISOString(),note:'Learner-side progress record, not a UN-issued certificate.'};
+    const bundle = {course:'CARANA CBD E-Learning',lesson:lesson.title,progress:data,exploration:window.CARANA_EXPLORATION?.store.exportFor(['cbd-1']),source:lesson.source,exportedAt:new Date().toISOString(),note:'Learner-side progress record, not a UN-issued certificate.'};
     const link=document.createElement('a');
     const blob=new Blob([JSON.stringify(bundle,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob);
@@ -142,6 +144,8 @@
     if(parsed.version===1&&parsed.progress?.version===1&&parsed.progress?.lessons)return {ok:false,message:'This file is a Lessons 2–6 platform export (carana_learning_v1). Use Restore progress in the CBD home study support section or Lessons 2–6 rail.'};
     const p=parsed.progress;
     if(parsed.course!=='CARANA CBD E-Learning'||!p||typeof p!=='object'||p.version!==1||!Array.isArray(p.completed))return {ok:false,message:'Unrecognized Lesson 1 export schema. Expected a CARANA CBD Lesson 1 progress JSON file.'};
+    const exploration=parsed.exploration===undefined?null:window.CARANA_EXPLORATION?.validate(parsed.exploration);
+    if(parsed.exploration!==undefined&&!exploration?.ok)return {ok:false,message:'Invalid exploration history. Existing Lesson 1 progress was not changed.'};
     const completed=[];while(completed.length<SECTION_COUNT&&p.completed.includes(completed.length))completed.push(completed.length);
     const visited=Array.isArray(p.visited)?[...new Set(p.visited.filter(x=>typeof x==='string'&&/^[0-5]:[0-2]$/.test(x)))]:[];
     const lastSection=Number.isInteger(p.lastSection)&&p.lastSection>=0?Math.min(p.lastSection,completed.length,SECTION_COUNT-1):0;
@@ -150,9 +154,9 @@
     const activityOpened=completed.length===SECTION_COUNT&&p.activityOpened===true;
     const lessonComplete=activityOpened&&p.lessonComplete===true;
     const dateOrNull=v=>typeof v==='string'&&Number.isFinite(Date.parse(v))?v:null;
-    return {ok:true,exportedAt:typeof parsed.exportedAt==='string'?parsed.exportedAt:null,sanitized:{version:1,completed,visited,activityOpened,lessonComplete,lastSection,lastScreen,lastKind,startedAt:dateOrNull(p.startedAt),updatedAt:dateOrNull(p.updatedAt)}};
+    return {ok:true,exploration:exploration?.value,exportedAt:typeof parsed.exportedAt==='string'?parsed.exportedAt:null,sanitized:{version:1,completed,visited,activityOpened,lessonComplete,lastSection,lastScreen,lastKind,startedAt:dateOrNull(p.startedAt),updatedAt:dateOrNull(p.updatedAt)}};
   }
-  function applyL1Restore(sanitized, restoreMode) {
+  function applyL1Restore(sanitized, restoreMode, exploration) {
     if(progress.startedAt||progress.completed.length>0||progress.visited.length>0){
       try{localStorage.setItem(KEY+'_pre_restore',JSON.stringify(progress));}catch(_){}
       exportProgress('carana-cbd-lesson1-pre-restore.json',progress);
@@ -175,6 +179,7 @@
       };
     }
     save();
+    if(exploration)window.CARANA_EXPLORATION.store.importFor(exploration,['cbd-1'],restoreMode);
     if(mode==='lesson'){
       if(isAllCleared()&&progress.activityOpened){position={section:SECTION_COUNT-1,screen:2,kind:progress.lessonComplete?'complete':'activity'};}
       else{position={section:progress.lastSection,screen:progress.lastScreen,kind:progress.lastKind};if(position.kind==='quiz')restoreAttempt(position.section);}
@@ -197,11 +202,12 @@
       const inc=plan.sanitized;
       previewEl.className='l1-restore-preview';
       previewEl.innerHTML='<strong>Dry-run restore preview · '+clean(file.name)+'</strong>'+
+        (plan.exploration?'<p class="fine-print">Includes explanatory history for '+Object.keys(plan.exploration.records).filter(k=>k.startsWith('cbd-1/')).length+' saved diagram revision(s), separate from checkpoint achievement.</p>':'')+
         '<p>File contains <strong>'+inc.completed.length+' / 6</strong> checkpoints, '+inc.visited.length+' visited screen(s)'+(inc.lessonComplete?', and confirmed practical completion.':'.')+' Current browser has <strong>'+progress.completed.length+' / 6</strong> checkpoints.</p>'+
         (progress.completed.length||progress.visited.length?'<p class="fine-print">An automatic pre-restore backup JSON will download before applying changes.</p>':'')+
         '<div class="l1-restore-actions"><button type="button" class="btn primary small" id="l1-restore-merge">Merge with current progress</button><button type="button" class="btn outline small" id="l1-restore-replace">Replace Lesson 1 progress</button><button type="button" class="btn outline small" id="l1-restore-cancel">Cancel</button></div>';
-      $('l1-restore-merge').onclick=()=>{applyL1Restore(inc,'merge');previewEl.hidden=true;render();focusHeading();};
-      $('l1-restore-replace').onclick=()=>{applyL1Restore(inc,'replace');previewEl.hidden=true;render();focusHeading();};
+      $('l1-restore-merge').onclick=()=>{applyL1Restore(inc,'merge',plan.exploration);previewEl.hidden=true;render();focusHeading();};
+      $('l1-restore-replace').onclick=()=>{applyL1Restore(inc,'replace',plan.exploration);previewEl.hidden=true;render();focusHeading();};
       $('l1-restore-cancel').onclick=()=>{previewEl.hidden=true;previewEl.innerHTML='';};
     };
     fileInput.click();
@@ -341,7 +347,7 @@
   function railHTML() {
     return lesson.sections.map((sec,i)=>{
       const locked=!canOpen(i), done=isCleared(i), active=position.section===i;
-      return '<button class="rail-item ' + (active?'active ':'')+(done?'done ':'') + '" data-section="'+i+'" '+(locked?'disabled':'')+' aria-current="'+(active?'step':'false')+'"><span class="rail-number">'+(done?'✓':String(i+1).padStart(2,'0'))+'</span><span class="rail-label">'+clean(sec.title)+'</span>'+(locked?'<span class="lock-icon" aria-label="Locked">⌁</span>':'')+'</button>';
+      return '<button class="rail-item ' + (active?'active ':'')+(done?'done ':'') + '" data-section="'+i+'" '+(locked?'disabled':'')+' aria-current="'+(active?'step':'false')+'"><span class="rail-number">'+(done?'✓':String(i+1).padStart(2,'0'))+'</span><span class="rail-label">'+clean(sec.title)+'<small class="section-state">'+(active?'Current · ':'')+(done?'Checkpoint passed':locked?'Not yet available':'Available to study')+'</small></span>'+(locked?'<span class="lock-icon" aria-label="Locked">⌁</span>':'')+'</button>';
     }).join('');
   }
   function layout(content,heading) {
@@ -397,7 +403,7 @@
       else if(section<5) navigate(section+1,0);
       else openActivity();
       };
-      const exploration=window.CARANA_VISUAL_JOURNEY?.active;
+      const exploration=window.CARANA_VISUAL_JOURNEY?.active||window.CARANA_LESSON1_LABS?.active;
       if(exploration)exploration.advance(advance);else advance();
     });
   }

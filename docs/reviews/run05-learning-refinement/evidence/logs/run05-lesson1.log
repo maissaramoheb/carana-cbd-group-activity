@@ -1,0 +1,9 @@
+home axe violations: none
+checkpoint axe violations: none
+matrix axe violations: none
+chromium passed full 18-screen journey, narration playback, 36 checkpoint items, same-origin workbench confirmation and resume
+Gallery all 18 visuals keyboard exercised at width 320
+Gallery all 18 visuals keyboard exercised at width 768
+Failure cases passed: invalid saved progress, media unavailable, storage write denied
+webkit-desktop passed full 18-screen journey, narration playback, 36 checkpoint items, same-origin workbench confirmation and resume
+webkit-mobile passed full 18-screen journey, narration playback, 36 checkpoint items, same-origin workbench confirmation and resume

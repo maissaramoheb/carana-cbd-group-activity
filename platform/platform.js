@@ -7,6 +7,8 @@
   const learningTools = window.CARANA_LEARNING_TOOLS;
   const progressCore = window.CARANA_PROGRESS_CORE;
   const handoff = window.CARANA_WORKBENCH_HANDOFF;
+  const exploration = window.CARANA_EXPLORATION;
+  const expandedIds = ['cbd-2','cbd-3','cbd-4','cbd-5','cbd-6'];
   const esc = progressCore.esc;
   const parameters = new URLSearchParams(location.search);
   const course = catalog.find(x => x.id === (homeMode ? 'cbd' : parameters.get('course')));
@@ -91,6 +93,7 @@
       version: 1,
       exportedAt: new Date().toISOString(),
       progress: store,
+      exploration: exploration?.store.exportFor(expandedIds),
       note: 'Formative browser-local record; no certificate or demonstrated competence.'
     };
     downloadFile(filename, JSON.stringify(payload, null, 2), 'application/json');
@@ -103,6 +106,7 @@
       exportedAt: new Date().toISOString(),
       backupReason: 'automatic-pre-restore-safety-copy',
       progress: store,
+      exploration: exploration?.store.exportFor(expandedIds),
       note: 'Automatic pre-restore safety backup generated before importing progress.'
     };
     const json = JSON.stringify(backup, null, 2);
@@ -173,6 +177,14 @@
 
   function renderRestorePreview(container, fileName, text, onRestored) {
     const plan = progressCore.validatePlatformImport(text, store, allPlatformCatalogLessons());
+    if(plan.ok){
+      const parsed=JSON.parse(text);
+      if(parsed.exploration!==undefined){
+        const history=exploration?.validate(parsed.exploration);
+        if(!history?.ok){plan.ok=false;plan.message='Invalid exploration history. Existing progress was not changed.';}
+        else plan.exploration=history.value;
+      }
+    }
     container.hidden = false;
     if (!plan.ok) {
       container.className = 'restore-preview warning';
@@ -203,6 +215,7 @@
     container.className = 'restore-preview';
     container.innerHTML =
       '<strong>Dry-run restore preview · ' + esc(fileName) + '</strong>' +
+      (plan.exploration ? '<p class="status">Includes explanatory history for '+Object.keys(plan.exploration.records).filter(k=>expandedIds.includes(k.split('/')[0])).length+' saved diagram revision(s). This is separate from checkpoint achievement.</p>' : '') +
       (plan.exportedAt ? '<p class="status">Exported: ' + esc(plan.exportedAt) + '</p>' : '') +
       (plan.items.length ? '<ul class="restore-list">' + rowsHtml + '</ul>' : '<p>This backup contains 0 recorded lessons.</p>') +
       (hasLocal ? '<p class="status">Safety notice: an automatic pre-restore backup of your current browser progress will download before applying.</p>' : '') +
@@ -222,11 +235,12 @@
         quiz = state.view === 'quiz';
       }
       save(store);
+      if(plan.exploration)exploration.store.importFor(plan.exploration,expandedIds,mode);
       container.hidden = true;
       container.innerHTML = '';
       onRestored(
         'Progress restored (' + (mode === 'merge' ? 'merged cleanly without losing conflicting drafts' : 'replaced from file') + ')' +
-        (backedUp ? '; pre-restore backup downloaded.' : '.')
+        (backedUp ? '; pre-restore backup downloaded.' : '.') + (exploration?.store.failed ? ' Exploration history could not save; export before closing.' : '')
       );
     };
 
@@ -353,7 +367,7 @@
       '<p>' + esc(lesson.title) + '</p>' +
       '<nav aria-label="Lesson sections">' + lesson.sections.map((s, i) =>
         '<button type="button" data-section="' + i + '" ' + (i > state.completed.length ? 'disabled' : '') + ' ' + (i === selected ? 'aria-current="step"' : '') + '>' +
-        esc((state.completed.includes(i) ? '✓ ' : '') + s.title) + '</button>'
+        esc((state.completed.includes(i) ? '✓ ' : '') + s.title) + '<small class="section-state">'+esc((i===selected?'Current · ':'')+(state.completed.includes(i)?'Checkpoint passed':i>state.completed.length?'Not yet available':'Available to study'))+'</small></button>'
       ).join('') + '</nav>' +
       '<p class="status">' + state.completed.length + ' / ' + lesson.sections.length + ' checkpoints passed</p>' +
       '<div class="rail-backup">' +
@@ -561,8 +575,12 @@
         state.drafts = state.drafts || {};
         state.drafts[screen.id] = draft;
         save();
+        const draftStatus=root.querySelector('#draft-save-status');
+        if(draftStatus)draftStatus.textContent=storageFailed?'Draft remains in this page; saving failed. Export before closing.':'Practice draft saved on this device · separate from checkpoints';
       }, document, { archivedDrafts });
     }
+
+    if(screen.lab){const note=document.createElement('p');note.id='draft-save-status';note.className='practice-history';note.setAttribute('role','status');note.textContent=state.drafts?.[screen.id]?'Saved practice draft available · separate from checkpoints':'';root.querySelector('.applied-lab')?.append(note);}
 
     if (handoff && handoff.shouldShowOnScreen(lesson.number, screen.id)) {
       handoff.mountHandoffSection({
@@ -575,15 +593,12 @@
       });
     }
 
-    const exploredSet = new Set();
-    root.querySelectorAll('[data-node]').forEach(b => b.onclick = () => {
-      root.querySelectorAll('[data-node]').forEach(n => n.setAttribute('aria-pressed', String(n === b)));
-      const nodeIdx = +b.dataset.node;
-      document.getElementById('concept-feedback').textContent = screen.visual.nodes[nodeIdx].detail;
-      exploredSet.add(nodeIdx);
-      const vp = document.getElementById('visual-progress');
-      if (vp) vp.textContent = exploredSet.size + ' of ' + screen.visual.nodes.length + ' components explored';
-    });
+    root.querySelectorAll('.table-scroll').forEach(el=>{el.tabIndex=0;el.setAttribute('role','region');el.setAttribute('aria-label','Scrollable learning table');});
+    const explanation = exploration?.bind({lessonId:lesson.id,screenId:screen.id,items:screen.visual.nodes,
+      buttons:root.querySelectorAll('[data-node]'),feedback:document.getElementById('concept-feedback'),count:document.getElementById('visual-progress'),container:root.querySelector('.visual'),
+      onSelect:i=>{document.getElementById('concept-feedback').textContent=screen.visual.nodes[i].detail;},practiceButtons:[...root.querySelectorAll('[data-choice]')]});
+
+    if(!explanation){const seen=new Set();root.querySelectorAll('[data-node]').forEach(b=>b.onclick=()=>{root.querySelectorAll('[data-node]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));const i=+b.dataset.node;seen.add(i);document.getElementById('concept-feedback').textContent=screen.visual.nodes[i].detail;document.getElementById('visual-progress').textContent='Explanations '+seen.size+' of '+screen.visual.nodes.length+' explored';});}
 
     root.querySelectorAll('[data-choice]').forEach(b => b.onclick = () => {
       root.querySelectorAll('[data-choice]').forEach(n => n.setAttribute('aria-pressed', String(n === b)));
@@ -595,6 +610,7 @@
     });
 
     document.getElementById('next').onclick = () => {
+      const advance=()=>{
       if (index < section.screens.length - 1) index++;
       else {
         quiz = true;
@@ -605,6 +621,8 @@
       save();
       render();
       focus();
+      };
+      if(explanation)explanation.advance(advance);else advance();
     };
 
     document.getElementById('back').onclick = () => {
@@ -751,7 +769,7 @@
       '<button class="btn outline small" id="import-progress">Restore Lessons 2–6</button>' +
       '<button class="btn outline small" id="export-study-sheet">Print / view study summary</button>' +
       '<input type="file" id="import-file" accept=".json,application/json" hidden></div>' +
-      '<p id="backup-status" role="status">' + esc(bannerMessage || '') + '</p>' +
+      '<p id="backup-status" role="status">' + esc(bannerMessage || (exploration?.store.failed ? 'Exploration history could not save. Export a backup before closing.' : '')) + '</p>' +
       '<div id="restore-preview" class="restore-preview" hidden></div>' +
       '<div class="backup-actions"><button class="btn outline small" id="home-export-l1">Export Lesson 1 (JSON)</button>' +
       '<button class="btn outline small" id="home-restore-l1">Restore Lesson 1 backup (JSON)</button>' +
