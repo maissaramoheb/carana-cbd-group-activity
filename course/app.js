@@ -408,8 +408,9 @@
       '<div class="content-title"><span class="small-tag">Demonstrate understanding</span><h1>Checkpoint: '+clean(sec.title)+'</h1><p class="lead">Answer all six questions correctly to unlock the next section. Review the previous screens whenever needed.</p></div><div class="quiz-rule"><span>PASS REQUIREMENT</span><strong>6 out of 6 correct</strong></div><form id="quiz-form" novalidate>';
     sec.quiz.forEach((q,i)=>{
       const wrong=checked&&missed.includes(i);
+      const chosenNote=wrong&&Array.isArray(q.optionFeedback)&&Number.isInteger(answers[i])?q.optionFeedback[answers[i]]:'';
       html+='<fieldset class="question-card '+(wrong?'question-wrong':'')+'"><legend><span>Q'+(i+1)+'</span> '+clean(q.q)+'</legend><div class="choices">'+q.options.map((opt,j)=>'<label class="choice"><input type="radio" name="q'+i+'" value="'+j+'" '+(answers[i]===j?'checked':'')+'><span>'+clean(opt)+'</span></label>').join('')+'</div>' +
-        (wrong?'<p class="answer-hint"><strong>Learning feedback:</strong> '+clean(q.why)+' Review the explanation above, then select the correct response.</p>':'')+'</fieldset>';
+        (wrong?'<p class="answer-hint"><strong>Learning feedback:</strong> '+(chosenNote?clean(chosenNote)+' ':'')+clean(q.why)+' Review the explanation above, then select the correct response.</p>':'')+'</fieldset>';
     });
     html+='</form><div id="quiz-feedback" class="inline-feedback '+(checked?'warning':'')+'" role="status" aria-live="polite">'+(checked?missed.length+' answer(s) still need attention. Correct them and check again.':'Your choices are kept while you review screens in this tab. Reloading starts a fresh attempt.')+'</div><div class="bottom-actions"><button class="btn outline" id="return-review">← Review learning screens</button><button class="btn primary" id="check-quiz">Check answers →</button></div>';
     layout(html,sec.title+' · Checkpoint');

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CARANA Interactive Learning Showcase (Ungated Institutional Preview)</title>
+  <link rel="stylesheet" href="./platform.css">
+  <style>
+    body { background: #fff; margin: 0; padding: 18px; }
+    .showcase-wrap { max-width: 980px; margin: 0 auto; }
+    .showcase-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 20px; }
+    .showcase-tabs button[aria-selected="true"] { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .showcase-note { font-size: 13px; margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+  <main class="showcase-wrap" id="showcase-main">
+    <span class="eyebrow">Ungated Institutional Preview · Lessons 2–3 Samples</span>
+    <h1 style="font-size: clamp(24px, 3vw, 34px); margin: 8px 0 10px;">Explore interactive tools without section gating</h1>
+    <p class="showcase-note status">Scratch demonstration sandbox only — changes here stay temporary and do not overwrite your saved course progress.</p>
+    <div class="showcase-tabs" role="tablist" aria-label="Ungated demonstration modules">
+      <button type="button" role="tab" id="tab-priority" aria-selected="true" data-tab="priority">1. Priority Trade-Offs (02-03)</button>
+      <button type="button" role="tab" id="tab-smart" aria-selected="false" data-tab="smart">2. SMART Drafting &amp; Self-Check (02-04)</button>
+      <button type="button" role="tab" id="tab-logframe" aria-selected="false" data-tab="logframe">3. Logframe 4-Column Logic (03-10)</button>
+    </div>
+    <section id="showcase-stage" role="tabpanel" aria-live="polite"></section>
+  </main>
+  <script src="./learning-tools.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      const tools = window.CARANA_LEARNING_TOOLS;
+      const stage = document.getElementById('showcase-stage');
+      const tabs = [...document.querySelectorAll('[data-tab]')];
+      const scratchDrafts = { priority: {}, smart: {} };
+
+      const SAMPLE_PRIORITY = {
+        type: 'priority',
+        title: 'Test criteria sensitivity against constraints',
+        context: 'Compare three illustrative policing reform options when counterpart time, human-rights safeguards, and operational feasibility compete.',
+        criteria: ['Urgency of public safety risk', 'Human-rights & accountability fit', 'Counterpart absorption capacity', 'Prerequisite legal mandate'],
+        alternatives: [
+          { label: 'Option A: Quick-impact custody register audit', ratings: [3, 3, 3, 2], constraint: 'Requires access to station ledgers before pilot expansion.' },
+          { label: 'Option B: High-visibility joint patrol surge', ratings: [3, 1, 2, 1], constraint: 'Prerequisite check: oversight and rules-of-engagement gaps remain unresolved.' },
+          { label: 'Option C: Specialist forensic lab procurement', ratings: [1, 2, 1, 3], constraint: 'Long lead time and maintenance cost exceed current counterpart budget.' }
+        ],
+        debrief: 'A higher weighted score never excuses an unmet prerequisite or human-rights risk. Try setting all weights to 0 or saving Snapshot A to compare weight shifts.'
+      };
+
+      const SAMPLE_BUILDER = {
+        type: 'builder',
+        title: 'Draft one testable objective step (sandbox)',
+        context: 'Draft a small institutional improvement step using invented non-sensitive figures, then open self-review prompts to check your own reasoning.',
+        fields: [
+          { label: 'Intended change and scope', prompt: 'What specific institutional practice or unit workflow is expected to shift?', check: 'Check: have you named one observable institutional change rather than a broad aspiration?' },
+          { label: 'Evidence and measure', prompt: 'Which existing records or observation sources will verify whether practice changed?', check: 'Check: can the measure be verified through realistic records without heavy new bureaucracy?' },
+          { label: 'Review date and unresolved target', prompt: 'When will partners jointly review progress before fixing numeric targets?', check: 'Check: did you separate a realistic review milestone from an unverified numeric target?' }
+        ],
+        review: 'Compare your draft against concrete scope, verifiable evidence sources, and realistic counterpart review milestones.',
+        example: 'Illustrative draft: Within six months, two pilot stations consistently complete daily custody intake entries with supervisor sign-off, verified through fortnightly register reviews prior to setting force-wide percentage targets.',
+        debrief: 'Strong early drafting stays honest about what evidence still needs checking instead of inventing premature numbers.'
+      };
+
+      const LOGFRAME_NODES = [
+        { role: 'Col 1 · Intended Result', label: 'Result', detail: 'Example Outcome: Frontline investigators log and follow custody safeguards accurately during initial detention.' },
+        { role: 'Col 2 · Indicator / Measure', label: 'Verification measure', detail: 'Example Indicator: Share of sampled intake files showing complete custody timeline, medical check, and supervisor review.' },
+        { role: 'Col 3 · Evidence Source', label: 'Evidence source', detail: 'Example Source: Joint fortnightly physical register check combined with prosecutor referral sampling.' },
+        { role: 'Col 4 · Assumption / Risk', label: 'External condition', detail: 'Key Assumption: Counterpart station commanders maintain shift handover time and protect reviewer independence.' }
+      ];
+
+      function renderTab(tabId) {
+        tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === tabId)));
+        if (tabId === 'priority') {
+          stage.innerHTML = tools.html(SAMPLE_PRIORITY);
+          tools.mount(SAMPLE_PRIORITY, scratchDrafts.priority, d => { scratchDrafts.priority = d; }, document);
+        } else if (tabId === 'smart') {
+          stage.innerHTML = tools.html(SAMPLE_BUILDER);
+          tools.mount(SAMPLE_BUILDER, scratchDrafts.smart, d => { scratchDrafts.smart = d; }, document);
+        } else {
+          stage.innerHTML =
+            '<div class="visual" data-kind="chain" data-layout="logframe-row">' +
+            '<span class="eyebrow">Explore horizontal alignment · Screen 03-10</span>' +
+            '<h2>Horizontal logic across the four logical-framework columns</h2>' +
+            '<div class="nodes nodes-logframe">' +
+            LOGFRAME_NODES.map((n, i) =>
+              '<button type="button" data-node="' + i + '" aria-pressed="false">' +
+              '<span class="node-role">' + n.role + '</span><span class="node-label">' + n.label + '</span></button>'
+            ).join('') +
+            '</div>' +
+            '<p class="diagram-caption">Read left to right: Result requires Verification and Source, contingent on External Conditions.</p>' +
+            '<div id="concept-feedback" class="reveal" role="status">Select any logframe column above to inspect how one planning row connects.</div>' +
+            '</div>';
+          stage.querySelectorAll('[data-node]').forEach(btn => {
+            btn.onclick = () => {
+              stage.querySelectorAll('[data-node]').forEach(n => n.setAttribute('aria-pressed', String(n === btn)));
+              document.getElementById('concept-feedback').textContent = LOGFRAME_NODES[+btn.dataset.node].detail;
+            };
+          });
+        }
+      }
+
+      tabs.forEach(t => { t.onclick = () => renderTab(t.dataset.tab); });
+      renderTab('priority');
+    })();
+  </script>
+</body>
+</html>

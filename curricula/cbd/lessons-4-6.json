@@ -8,7 +8,8 @@
     "source": {
       "file": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
       "pages": "1–12; participant handout 16",
-      "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+      "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a",
+      "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)"
     },
     "objectives": [
       "Explain how local policing context and organisational culture shape implementation",
@@ -35,7 +36,7 @@
             "takeaway": "Implementation begins with understanding how a proposed change will work here.",
             "transcript": "Imagine introducing a case-review routine that worked well in your own police service. The document may be sound, but the way authority, trust and daily work operate in another institution can be different. Ask counterparts how the routine would affect their responsibilities and the people they serve. Consider whose concerns have not yet been heard, including different experiences of women and men. The lesson asks advisers to develop local solutions with stakeholders. That requires listening to organisational practice rather than assuming a translated procedure will be adopted. The example is invented; it is a prompt for inquiry, not a finding about CARANA.",
             "visual": {
-              "title": "A sound plan still needs a local fit",
+              "title": "Headquarters design assumptions vs daily station realities",
               "nodes": [
                 {
                   "label": "Proposed change",
@@ -73,7 +74,8 @@
                 }
               ],
               "answer": 2
-            }
+            },
+            "rhythm": "explain"
           },
           {
             "id": "04-02",
@@ -89,7 +91,7 @@
             "takeaway": "Clear communication connects accurate information with the people who need to act.",
             "transcript": "Imagine explaining a new reporting routine to a commander and to officers who must use it during a busy shift. The purpose is the same, but each audience needs different operational detail. A clear message tells people what is changing and why. Correctness and completeness keep it factual and sufficient. Conciseness, concreteness and coherence make it usable. Courtesy keeps the discussion respectful. These seven communication principles work together; brevity should not remove information needed to act safely. Ask a counterpart to describe what the change would mean in practice. This short exchange can reveal confusion that a formal announcement would miss.",
             "visual": {
-              "title": "Communicate for understanding and participation",
+              "title": "Four communication checks before launching an implementation step",
               "nodes": [
                 {
                   "label": "Know the audience",
@@ -152,7 +154,8 @@
               "example": "Illustrative approach: “The review record shows several planned checks are not documented. Can we examine how the routine works during a shift, clarify responsibilities and agree what support is needed?” This describes an observation and invites explanation instead of assuming motive.",
               "review": "Use the seven Cs to check factual accuracy, necessary information, clarity and courtesy. A completed field is not a communication-skill pass.",
               "debrief": "How might the message differ for a commander and a person using the routine, while keeping the facts consistent?"
-            }
+            },
+            "rhythm": "construct"
           }
         ],
         "quiz": [
@@ -221,7 +224,7 @@
             "takeaway": "Manage the human and institutional change alongside the CBD activities.",
             "transcript": "Imagine a unit receives a useful tool and completes the planned training. Weeks later, daily routines have barely changed. This does not by itself tell you that staff cannot learn. The lesson distinguishes building capability from guiding the change that allows it to be used. Leadership may not support the new routine, responsibilities may be unclear, or people may not see themselves as owners of the change. Several constraints can operate together. Discuss the drivers and barriers with counterparts, and consider how support will continue after the initial activity. Adoption and sustainment are longer-term objectives, not automatic consequences of delivering a workshop or distributing equipment.",
             "visual": {
-              "title": "A delivered activity is not sustained change",
+              "title": "Tracking delivered workshops alongside changed institutional habits",
               "nodes": [
                 {
                   "label": "Capability",
@@ -286,7 +289,8 @@
                   "feedback": "The cause is assumed. Investigate several constraints with counterparts before selecting a response."
                 }
               ]
-            }
+            },
+            "rhythm": "investigate"
           },
           {
             "id": "04-04",
@@ -302,7 +306,7 @@
             "takeaway": "Notice emerging constraints early enough to act with counterparts.",
             "transcript": "Imagine that a planned activity is progressing on schedule while participation by a key group is falling. A completion calendar alone would miss this signal. The lesson calls for systematic review and environmental scanning throughout implementation. Check what is progressing, what is changing and what unintended effects may be emerging. Monitoring can highlight the need to revisit activities or objectives, but it should not be presented as a full assessment of outcomes or impact. Discuss the signal and its possible causes with counterparts. Responsible resilience means remaining engaged and adapting to evidence; it does not mean continuing an ineffective approach simply because the original plan was approved.",
             "visual": {
-              "title": "Monitor implementation and respond early",
+              "title": "Early implementation signals vs end-of-cycle surprises",
               "nodes": [
                 {
                   "label": "Progress check",
@@ -340,7 +344,8 @@
                 }
               ],
               "answer": 2
-            }
+            },
+            "rhythm": "explain"
           }
         ],
         "quiz": [
@@ -410,7 +415,7 @@
             "takeaway": "The value of a model is consistent reasoning, not rigidly completing boxes.",
             "transcript": "Imagine repeated late case reviews are initially described as a motivation problem. During analysis, counterparts show that the review rota conflicts with another duty. The responsible action is to revise the problem definition, not protect the original diagnosis. The lesson presents a six-step process from definition through monitoring, while warning that real problem-solving moves back and forth. It also introduces SARA as an alternative structure. The particular model matters less than using a consistent method to identify, deconstruct and address the issue. Compare possible responses with the people who will implement them, and monitor whether the response changes the problem rather than only completing a task.",
             "visual": {
-              "title": "Use a structure, then revisit your diagnosis",
+              "title": "Re-entering problem diagnosis when implementation stalls",
               "nodes": [
                 {
                   "label": "Define and analyse",
@@ -429,7 +434,8 @@
                   "detail": "Assess effectiveness and return to definition or analysis if the evidence changes."
                 }
               ],
-              "kind": "cycle"
+              "kind": "cycle",
+              "layout": "problem-loop"
             },
             "decision": {
               "prompt": "In an invented problem-solving exercise, new evidence contradicts your original explanation. What should the adviser do?",
@@ -448,7 +454,8 @@
                 }
               ],
               "answer": 1
-            }
+            },
+            "rhythm": "explain"
           },
           {
             "id": "04-07",
@@ -463,7 +470,7 @@
             "takeaway": "A response teaches you about the problem when you examine its effects.",
             "transcript": "Imagine you initially explain late reviews as low motivation. A counterpart then shows that the roster gives the same person two essential duties at once. The new evidence does not settle every question, but it changes the problem you should investigate. A consistent method creates space to revise the diagnosis. Compare a response directed at motivation with one directed at conflicting responsibilities, and decide what observation would help distinguish them. The source describes problem-solving as moving back and forth rather than following a rigid line. The invented example prepares you to hear another group’s perspective in the official activity.",
             "visual": {
-              "title": "New evidence can change the problem you are solving",
+              "title": "How new operational evidence reshapes the problem definition",
               "kind": "chain",
               "nodes": [
                 {
@@ -478,7 +485,8 @@
                   "label": "Revised response",
                   "detail": "Test an agreed scheduling change and examine its effect."
                 }
-              ]
+              ],
+              "layout": "problem-loop"
             },
             "decision": {
               "prompt": "After a scheduling change, reviews remain late on only one shift. What is the best next step?",
@@ -503,7 +511,8 @@
               "beforeWhy": "This assigns motive from an observed delay.",
               "after": "Reviews are late; compare duties, authority, resources and understanding with the staff affected.",
               "afterWhy": "This preserves the concern while opening the causal explanation to evidence."
-            }
+            },
+            "rhythm": "investigate"
           },
           {
             "id": "04-06",
@@ -520,7 +529,7 @@
             "takeaway": "The exercise develops perspective-taking and shared problem-solving.",
             "transcript": "The official activity builds on the plans prepared in Lesson 3. Groups exchange their work and consider how the plan would affect them as counterparts or beneficiaries. They then discuss concerns with the group that prepared the plan and explore possible responses. The workbench provides a place to organise your thinking, but it cannot reproduce the other person’s perspective or a facilitated discussion by itself. If you are studying independently, draft your concerns and the questions you would ask before selecting a response. Treat these as your own analysis, then seek feedback when a facilitator or colleague is available. Self-confirmation records participation, not independently assessed implementation skill.",
             "visual": {
-              "title": "Test your plan from the counterpart’s position",
+              "title": "Examining change friction from the counterpart chair",
               "nodes": [
                 {
                   "label": "Review the plan",
@@ -558,7 +567,8 @@
                 }
               ],
               "answer": 0
-            }
+            },
+            "rhythm": "explain"
           }
         ],
         "quiz": [
@@ -624,7 +634,7 @@
           "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
         ],
         "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
-        "teachingPrompt": "Whose interpretation of the proposed change is missing?"
+        "teachingPrompt": "How does the proposed workflow fit or strain everyday desk routines inside this unit?"
       },
       {
         "screenId": "04-03",
@@ -638,7 +648,7 @@
           "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
         ],
         "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
-        "teachingPrompt": "Whose interpretation of the proposed change is missing?"
+        "teachingPrompt": "What everyday workplace evidence separates completed training delivery from lasting adoption?"
       },
       {
         "screenId": "04-06",
@@ -652,7 +662,7 @@
           "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
         ],
         "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
-        "teachingPrompt": "Whose interpretation of the proposed change is missing?"
+        "teachingPrompt": "Whose operational pressures and incentives look different from across the counterpart table?"
       }
     ],
     "version": "2026.11-run02"
@@ -666,7 +676,8 @@
     "source": {
       "file": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
       "pages": "1–10; participant handouts 15–17",
-      "sha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400"
+      "sha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400",
+      "label": "UNPOL Job-Specific Training: CBD Lesson 5 — Evaluation & Adjustment (July 2023)"
     },
     "objectives": [
       "Explain why evaluation connects outcomes to the original plan",
@@ -693,7 +704,7 @@
             "takeaway": "Evaluation is valuable when it informs a defensible decision.",
             "transcript": "Imagine a project delivered every scheduled workshop, yet the institution is unsure whether the intended practice improved. Evaluation starts from the objective and the evidence needed to judge progress, not from a desire to produce a favourable story. The lesson connects evaluation to planning because a clear plan supplies the reference for the questions being asked. Consider what changed, what did not change and why, while being clear about the limits of the available evidence. Findings should support learning and practical decisions. This invented example does not establish that training succeeded or failed; it shows why a delivery record alone cannot answer the outcome question.",
             "visual": {
-              "title": "Ask what changed and why",
+              "title": "Separating planned activity completion from observable change",
               "nodes": [
                 {
                   "label": "Planned objective",
@@ -731,7 +742,8 @@
                 }
               ],
               "answer": 1
-            }
+            },
+            "rhythm": "explain"
           },
           {
             "id": "05-06",
@@ -746,7 +758,7 @@
             "takeaway": "Report the pattern and its limits, including whose experience the pattern conceals.",
             "transcript": "An invented report says documentation improved after a new routine was introduced. That is worth investigating, but the sequence alone does not establish cause. Perhaps the sample changed, another initiative began or some shifts experienced improvement while others faced new barriers. Ask what the comparison supports and what it leaves uncertain. Qualitative information can help explain patterns, while a clear sampling method helps you judge the numerical evidence. The lesson asks for honest, impartial and rights- and gender-sensitive evaluation. That means reporting relevant limitations and unequal effects even when the headline looks favourable.",
             "visual": {
-              "title": "A favourable comparison is not the whole explanation",
+              "title": "Testing alternative explanations behind an apparently positive trend",
               "kind": "chain",
               "nodes": [
                 {
@@ -813,7 +825,8 @@
               "beforeWhy": "This moves from sequence to a causal claim without examining alternatives.",
               "after": "The observed measure improved; examine comparability, other influences and differences between groups before explaining the change.",
               "afterWhy": "This retains the observation while making its interpretation accountable."
-            }
+            },
+            "rhythm": "investigate"
           },
           {
             "id": "05-02",
@@ -830,7 +843,7 @@
             "takeaway": "Credibility requires sound methods, appropriate roles and openness to inconvenient evidence.",
             "transcript": "Imagine an adviser is proud of an activity and is asked to review its results. Familiarity can help explain the context, but it can also shape what the adviser notices or overlooks. The lesson suggests engaging evaluators who were not involved as one way to reduce undue influence and bias. It also names several UN and external evaluation roles. These references describe the July 2023 teaching source; they are not instructions to bypass current mission arrangements. Whatever the arrangement, the work should be professional, honest, impartial and sensitive to human rights and gender. Include relevant experiences instead of allowing the most convenient voices to define the result.",
             "visual": {
-              "title": "Protect credibility and choose appropriate roles",
+              "title": "Balancing independence, access, and counterpart participation in roles",
               "nodes": [
                 {
                   "label": "Evaluation roles",
@@ -868,7 +881,8 @@
                 }
               ],
               "answer": 0
-            }
+            },
+            "rhythm": "explain"
           }
         ],
         "quiz": [
@@ -938,7 +952,7 @@
             "takeaway": "Collect evidence because it answers an evaluation question.",
             "transcript": "Imagine being asked to evaluate a project with little time and no large evaluation team. Collecting every available document is unlikely to solve the problem. The lesson recommends planning the scope, topics and indicators, then selecting methods, instruments and sampling. Decide what quantitative and qualitative information can answer the questions and what limitations affect its interpretation. Engage the people being evaluated so they understand the purpose and process. Partnerships may help address resource constraints, but roles and communication still need to be clear. Plan how findings will be discussed and used from the beginning; a technically competent report has little value if nobody can act on it.",
             "visual": {
-              "title": "Design the evaluation before collecting more data",
+              "title": "Matching evaluation questions to defensible evidence sources",
               "nodes": [
                 {
                   "label": "Purpose and engagement",
@@ -1006,7 +1020,8 @@
               "example": "An illustrative plan compares defined observations of routine use with the baseline and asks participants about constraints, using a stated sample and recording missing perspectives. Findings are discussed with responsible counterparts before a reasoned response is documented.",
               "review": "Does the evidence answer the question, and does the plan explain how limits and unequal effects will be considered?",
               "debrief": "Which finding could challenge the delivery team’s preferred account, and how would it be reported?"
-            }
+            },
+            "rhythm": "construct"
           },
           {
             "id": "05-04",
@@ -1023,7 +1038,7 @@
             "takeaway": "Accountability includes explaining what you will do with the findings.",
             "transcript": "Imagine an evaluation recommends changing an activity and its reporting arrangement. The implementation team agrees with the activity change but believes part of the reporting proposal would not answer the evaluation concern. The lesson allows full acceptance, partial acceptance or rejection, but each response carries responsibility. Partial acceptance should identify what is agreed, what is disputed and why. Rejection also requires reasons. An unfavourable finding should not disappear simply because it is uncomfortable. Make the proposed action and the rationale understandable to those who need to follow it. This is a way to turn evaluation into a transparent management decision rather than a report that is merely filed.",
             "visual": {
-              "title": "Explain your response to recommendations",
+              "title": "Documenting Accept, Partially Accept, or Reject management responses",
               "nodes": [
                 {
                   "label": "Fully accept",
@@ -1086,7 +1101,8 @@
               "example": "Illustrative partial acceptance: accept the need to address unequal shift coverage, explain why one proposed timetable is impractical, and propose a supported alternative with a named review point. Disagreement with the proposed remedy does not remove the finding.",
               "review": "Have you distinguished disagreement with evidence from disagreement with a remedy? Is an action and review arrangement explicit?",
               "debrief": "Ask whether a person affected by the problem could understand how the response addresses their concern."
-            }
+            },
+            "rhythm": "construct"
           },
           {
             "id": "05-05",
@@ -1103,7 +1119,7 @@
             "takeaway": "Explain how evidence supports both your recommendation and your reflection.",
             "transcript": "The official exercise asks participants to evaluate progress in a changed situation, prepare recommendations and examine the effect on the initial plan. Use the participant information and your own earlier objectives rather than trying to reproduce a model response. A recommendation should connect a finding to an action and explain its implications. Reflection then asks what your earlier planning assumed and what you would investigate or handle differently. The workbench can hold that reasoning, but it does not independently establish evaluation competence. If you study alone, prepare your work for later discussion. The scenario-specific expected responses remain facilitator material and are not supplied as feedback here.",
             "visual": {
-              "title": "Practise evaluation without borrowing an answer",
+              "title": "Structuring objective variance before using the Module 5 workbench",
               "nodes": [
                 {
                   "label": "Read the situation",
@@ -1141,7 +1157,8 @@
                 }
               ],
               "answer": 0
-            }
+            },
+            "rhythm": "explain"
           }
         ],
         "quiz": [
@@ -1207,7 +1224,7 @@
           "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
         ],
         "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
-        "teachingPrompt": "What could the available evidence fail to show?"
+        "teachingPrompt": "What unintended consequences or excluded groups remain invisible if only activity counts are reviewed?"
       },
       {
         "screenId": "05-03",
@@ -1221,7 +1238,7 @@
           "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
         ],
         "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
-        "teachingPrompt": "What could the available evidence fail to show?"
+        "teachingPrompt": "What independent evidence source can still test an initial conclusion when interviews sound positive?"
       }
     ],
     "version": "2026.11-run02"
@@ -1235,7 +1252,8 @@
     "source": {
       "file": "JSTC_CBD_L06_LP_Transition_072023.pdf",
       "pages": "1–13; participant handout 17",
-      "sha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+      "sha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3",
+      "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)"
     },
     "objectives": [
       "Distinguish CBD activity transition from mission drawdown",
@@ -1263,7 +1281,7 @@
             "takeaway": "Define what is being handed over, to whom and in what continuing context.",
             "transcript": "Imagine your deployment is ending while an institutional improvement activity is still under way. Your departure does not establish that the objective has been achieved or that the national counterpart is ready to carry every responsibility. The lesson uses transition for a particular CBD activity, not as another term for mission drawdown. A handover may involve a counterpart, another adviser or another actor, depending on the activity and the situation. Begin by identifying the work and responsibilities that will continue. This keeps the discussion focused on continuity and ownership rather than on an administrative date alone. The example is invented and does not describe a CARANA outcome.",
             "visual": {
-              "title": "An activity transition is a new responsibility",
+              "title": "Handover as phased continuity rather than sudden departure",
               "nodes": [
                 {
                   "label": "Activity",
@@ -1301,7 +1319,8 @@
                 }
               ],
               "answer": 0
-            }
+            },
+            "rhythm": "explain"
           },
           {
             "id": "06-02",
@@ -1317,7 +1336,7 @@
             "takeaway": "A trigger starts a reasoned decision process; it does not replace assessment.",
             "transcript": "Imagine an evaluation indicates progress toward an objective at the same time that the operating environment changes. These are different kinds of information, both potentially relevant to transition. The lesson identifies achievement of objectives as an ideal trigger, while recognising that major contextual changes can prevent the original activity from continuing. National counterpart decisions and mandate changes may also matter. Explain what has changed, why it affects the activity and what responsibilities remain. Do not imply that an activity ended because it succeeded when the actual reason is that conditions prevented completion. Honest framing helps stakeholders plan the next step and understand unresolved needs.",
             "visual": {
-              "title": "Use evidence and context to recognise a trigger",
+              "title": "Mandate timelines vs readiness and context transition triggers",
               "nodes": [
                 {
                   "label": "Progress evidence",
@@ -1382,7 +1401,8 @@
                   "feedback": "Plan continuity without declaring the activity complete because the adviser is leaving."
                 }
               ]
-            }
+            },
+            "rhythm": "investigate"
           }
         ],
         "quiz": [
@@ -1451,7 +1471,7 @@
             "takeaway": "Transition readiness grows through coordinated preparation, not a final ceremony.",
             "transcript": "Imagine a handover meeting is scheduled, but the receiving institution has not helped plan it and several partners expect different things to continue. The meeting itself cannot resolve those gaps. The lesson’s four principles ask you to start earlier, coordinate across relevant UN actors, develop local ownership and manage expectations through communication. These principles reinforce one another. Communication without ownership may describe a decision people cannot sustain. Early planning without integration may leave another actor’s obligations unresolved. Ask which principle is least supported in your plan and what evidence would show progress. A useful answer identifies a practical gap rather than simply repeating the four labels.",
             "visual": {
-              "title": "Four principles make transition a process",
+              "title": "How the four Lesson 6 principles reinforce sustainable handover",
               "nodes": [
                 {
                   "label": "Early planning",
@@ -1470,7 +1490,8 @@
                   "detail": "Manage expectations with clear, consistent messages about what will change."
                 }
               ],
-              "kind": "cycle"
+              "kind": "cycle",
+              "layout": "principle-hub"
             },
             "decision": {
               "prompt": "The receiving institution first sees the transition plan at the final meeting. Which concern is most significant?",
@@ -1489,7 +1510,8 @@
                 }
               ],
               "answer": 1
-            }
+            },
+            "rhythm": "explain"
           },
           {
             "id": "06-04",
@@ -1506,7 +1528,7 @@
             "takeaway": "Advice, decision authority and coordination are related responsibilities, not interchangeable ones.",
             "transcript": "Imagine you have assembled evidence that an activity could transition. The lesson does not treat that analysis as permission for an adviser to make every decision alone. It assigns the decision to initiate the process to the Head of Police Component, taking the responsible adviser’s advice into account. Assigned transition responsibilities then require proactive dialogue and coordination. Relevant actors may include national law enforcement, civil society, donors and other partners as well as UN entities. This is the arrangement described in the July 2023 plan; real application must follow current mission authority. Make clear who advises, who decides and who will carry the resulting responsibilities.",
             "visual": {
-              "title": "Distinguish authority from coordination",
+              "title": "Deciding accountability vs coordinating partner roles",
               "nodes": [
                 {
                   "label": "Advice",
@@ -1544,7 +1566,8 @@
                 }
               ],
               "answer": 0
-            }
+            },
+            "rhythm": "explain"
           }
         ],
         "quiz": [
@@ -1614,7 +1637,7 @@
             "takeaway": "The pace of handover should follow assessed responsibilities and capability.",
             "transcript": "Imagine a counterpart can lead one part of an activity but still needs support for another. A phased handover can reflect that difference more responsibly than an all-at-once transfer. The lesson connects transition planning to objectives, performance measures and an integrated assessment involving counterparts and relevant UN actors. Human rights and gender analysis belong in that assessment, not as an afterthought. Consider alternative scenarios if political conditions, security or funding change. Monitor the ability to assume residual responsibilities as external involvement reduces. Sustainable support may require continued political commitment and predictable funding, with resources allocated in ways that address women’s needs and priorities.",
             "visual": {
-              "title": "Phase responsibility and test readiness",
+              "title": "Staging shared benchmarks before formal transition readiness",
               "nodes": [
                 {
                   "label": "Assess readiness",
@@ -1682,7 +1705,8 @@
               "example": "An illustrative approach phases a task for which responsibility and capability are evidenced, retains agreed support for the unresolved task, identifies relevant rights/gender and resource questions, and reviews the arrangement with responsible counterparts and UN actors.",
               "review": "Can each actor see their responsibility, the evidence behind the phase and the response if support or conditions change?",
               "debrief": "Which unresolved issue could make a fixed date irresponsible even when the administrative handover is ready?"
-            }
+            },
+            "rhythm": "construct"
           },
           {
             "id": "06-07",
@@ -1697,7 +1721,7 @@
             "takeaway": "Test understanding of continuing responsibility before treating agreement as readiness.",
             "transcript": "Imagine a counterpart says they agree to the handover date but later explains that one necessary support function has no continuing resource. It would be easy to treat the first statement as consent and the second as resistance. Instead, ask what responsibility they understood they were accepting. A useful conversation makes the evidence, support and uncertainty visible to both sides. It also recognises the limits of the adviser’s authority. The official exercise uses paired perspectives under an assumption that objectives have been achieved. Our invented conversation adds preparation for that dialogue; it is not a model answer to the exercise.",
             "visual": {
-              "title": "Rehearse the conversation behind the handover",
+              "title": "Walking through critical dialogue steps for handover confirmation",
               "kind": "chain",
               "nodes": [
                 {
@@ -1756,7 +1780,8 @@
               "example": "Illustrative opening: “The review suggests this task may be transferred with agreed support. How would your team sustain it, and what responsibility or resource have we not clarified?” Record the answer and the decision needed rather than treating the question as a formality.",
               "review": "Would the other person be able to disagree or reveal a practical constraint without being labelled uncooperative?",
               "debrief": "Ask a peer to take the counterpart role and explain which part of the proposal remains ambiguous."
-            }
+            },
+            "rhythm": "construct"
           },
           {
             "id": "06-06",
@@ -1773,7 +1798,7 @@
             "takeaway": "A defensible handover explains continuity, ownership and unresolved conditions.",
             "transcript": "The official exercise asks participants to work in pairs, one as the adviser and the other as the local counterpart. Under its stated assumption that objectives have been achieved, they outline a transition and examine challenges and possible remedies. The pair then returns to discussion and reflection. The workbench supports individual preparation, but it cannot make the counterpart’s judgement or authorise a transition. If working alone, record what you would need to ask the receiving actor, what you expect them to continue and what remains uncertain. Use the plan as a basis for dialogue. The facilitator’s expected response is deliberately not provided in this learner adaptation.",
             "visual": {
-              "title": "Prepare a transition you can explain to both sides",
+              "title": "Clarifying mutual obligations for both incoming and outgoing teams",
               "nodes": [
                 {
                   "label": "State the exercise assumption",
@@ -1811,7 +1836,8 @@
                 }
               ],
               "answer": 1
-            }
+            },
+            "rhythm": "explain"
           }
         ],
         "quiz": [
@@ -1877,7 +1903,7 @@
           "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
         ],
         "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
-        "teachingPrompt": "What continuing responsibility or support is not yet agreed?"
+        "teachingPrompt": "Which continuing responsibility stays vulnerable if incoming and outgoing teams do not align early?"
       },
       {
         "screenId": "06-05",
@@ -1891,7 +1917,7 @@
           "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
         ],
         "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
-        "teachingPrompt": "What continuing responsibility or support is not yet agreed?"
+        "teachingPrompt": "What observable milestone demonstrates genuine counterpart leadership rather than temporary shadowing?"
       },
       {
         "screenId": "06-06",
@@ -1905,7 +1931,7 @@
           "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
         ],
         "constraints": "Fictional scene, no UN insignia, no real-person likeness or identifiable confidential record, no readable model outcomes, no generic decorative stock substitute. Generation and publication review remain pending.",
-        "teachingPrompt": "What continuing responsibility or support is not yet agreed?"
+        "teachingPrompt": "Which practical expectations and residual support still need explicit bilateral agreement before handover?"
       }
     ],
     "version": "2026.11-run02"

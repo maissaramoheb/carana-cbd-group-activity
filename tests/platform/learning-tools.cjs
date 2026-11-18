@@ -21,3 +21,28 @@ test('authored tool HTML escapes content rather than interpreting it as markup',
  assert(!html.includes('<img src=x>'));assert(html.includes('&lt;img src=x&gt;'));
  assert(!html.includes('<script>bad'));assert(html.includes('&amp; hint'));
 });
+test('E14: priority ranking exposes ties explicitly and pauses numeric ordering when all weights are zero',()=>{
+ const synth={type:'priority',criteria:['A','B'],alternatives:[{label:'Alpha',ratings:[2,2],constraint:'Req A'},{label:'Beta',ratings:[1,3],constraint:'Req B'},{label:'Gamma',ratings:[1,1],constraint:'Req C'}]};
+ const tiedSummary=tools.summarizePriority(synth,[1,1]);
+ assert.equal(tiedSummary.hasTies,true);
+ assert.equal(tiedSummary.ranked[0].rankPosition,1);
+ assert.equal(tiedSummary.ranked[1].rankPosition,1);
+ assert.equal(tiedSummary.ranked[1].tied,true);
+ assert.equal(tiedSummary.ranked[2].rankPosition,3);
+ assert.equal(tiedSummary.ranked[2].tied,false);
+ assert.match(tiedSummary.text,/Tie at rank #1/);
+ const zeroSummary=tools.summarizePriority(synth,[0,0]);
+ assert.equal(zeroSummary.allZero,true);
+ assert.match(zeroSummary.text,/paused/i);
+ assert(!zeroSummary.text.includes('weighted points'));
+ assert.deepEqual(tools.validDraft(synth,{0:2,snapshot:[1,9]}),{0:2});
+ assert.deepEqual(tools.validDraft(synth,{0:2,snapshot:[1,4]}),{0:2,snapshot:[1,4]});
+});
+test('E15: risk validation and analysis distinguish response strategies and asymmetric likelihood/impact pairs',()=>{
+ assert.deepEqual(tools.validDraft({type:'risk'},{likelihood:1,impact:3,strategy:'contingency'}),{likelihood:1,impact:3,strategy:'contingency'});
+ assert.deepEqual(tools.validDraft({type:'risk'},{likelihood:2,impact:2,strategy:'unknown_hack'}),{likelihood:2,impact:2});
+ const r13=tools.formatRiskAnalysis(1,3,'contingency');
+ assert.match(r13,/severe consequence/i);
+ assert.match(r13,/\(1,3\) differs from \(3,1\)/);
+ assert.match(r13,/Prepare contingency & escalation trigger/);
+});

@@ -22,6 +22,7 @@ function validate(root=path.resolve(__dirname,'..')){
   assert.equal(lesson.status,'review-adaptation');
   assert(lesson.objectives.length>=3);
   assert(lesson.source.file.endsWith('.pdf'));
+  assert(typeof lesson.source.label==='string' && lesson.source.label.length>15,'Missing human-readable source.label on '+lesson.id);
   assert.match(lesson.source.sha256,/^[a-f0-9]{64}$/);
   assert.equal(lesson.activity,'../../module'+lesson.number+'.html');
   assert(fs.existsSync(path.join(root,'module'+lesson.number+'.html')));
@@ -31,6 +32,8 @@ function validate(root=path.resolve(__dirname,'..')){
    assert(section.screens.length>0 && section.quiz.length>0);
    for(const s of section.screens){
     assert(!ids.has(s.id));ids.add(s.id);
+    assert(['explain','investigate','construct'].includes(s.rhythm),'Missing or invalid rhythm on '+s.id);
+    assert(s.visual.title && s.visual.title!==s.title,'Visual title must differ from screen title on '+s.id);
     assert(s.sourcePages && s.lead.length>40 && s.points.length>=3 && s.takeaway.length>30);
     assert(s.transcript.split(/\s+/).length>=65,'Missing substantive transcript '+s.id);
     assert(s.visual.nodes.length>=3);
@@ -57,6 +60,10 @@ function validate(root=path.resolve(__dirname,'..')){
   }
   for(const art of lesson.artwork)assert(ids.has(art.screenId)&&art.status==='specification-only'&&art.alt&&art.brief&&art.composition&&art.teachingPrompt&&art.constraints&&art.styleReferences?.length);
  }
+ const allPrompts=lessons.flatMap(l=>l.artwork.map(a=>a.teachingPrompt));
+ assert.equal(new Set(allPrompts).size,allPrompts.length,'Artwork teaching prompts must be unique across all 14 specifications');
+ const courseApp=fs.readFileSync(path.join(root,'course/app.js'),'utf8');
+ assert(courseApp.includes('../platform/?course=cbd'),'Lesson 1 return navigation must link to canonical platform catalog');
  for(const c of courses.slice(1))assert.equal(c.lessons.length,0,'Readiness curriculum must not be presented as an available course');
  return {lessons:lessons.length,screens,quizzes};
 }

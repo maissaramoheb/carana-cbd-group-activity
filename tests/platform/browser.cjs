@@ -1,4 +1,5 @@
 const {chromium,webkit}=require(process.env.CBD_TEST_MODULES+'/playwright');
+const axePath=require.resolve(process.env.CBD_TEST_MODULES+'/axe-core/axe.min.js');
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const base=process.env.CBD_TEST_URL||'http://127.0.0.1:8650';
 const output=process.env.CBD_TEST_OUTPUT||'/tmp/carana-run01-browser';
@@ -167,13 +168,97 @@ async function edgeCases(browser){
  await page.context().close();
  page=await pageFor(browser,{width:768,height:1024});
  await page.goto(base+'/platform/demo.html');
+ assert.match(await page.locator('#learning-demo').getAttribute('src'),/demo-showcase\.html/);
+ const frame=page.frameLocator('#learning-demo');
+ await frame.locator('#tab-logframe').waitFor();
+ await frame.locator('#tab-logframe').click();
+ assert.equal(await frame.locator('[data-node]').count(),4);
+ await frame.locator('[data-node]').nth(1).click();
+ assert.match(await frame.locator('#concept-feedback').innerText(),/Verification|Indicator/);
  await page.locator('#scene').selectOption('cbd2');
  assert.match(await page.locator('#learning-demo').getAttribute('src'),/lesson=cbd-2/);
  await page.locator('#scene').selectOption('02-01');
  assert.match(await page.locator('#learning-demo').getAttribute('src'),/02-01$/);
+ await page.locator('#scene').selectOption('showcase');
+ assert.match(await page.locator('#learning-demo').getAttribute('src'),/demo-showcase\.html/);
  await page.screenshot({path:path.join(output,'demo-tablet.png'),fullPage:true});
  await page.context().close();
  console.log('Malformed progress, storage denial, missing content and live demo switching passed');
+}
+async function runAxe(page,label){
+ await page.addScriptTag({path:axePath});
+ const res=await page.evaluate(()=>axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}));
+ assert.equal(res.violations.length,0,'Axe violations on '+label+': '+JSON.stringify(res.violations.map(v=>v.id)));
+}
+async function stage2Checks(browser){
+ const page=await pageFor(browser,{width:1280,height:900});
+ await page.goto(base+'/platform/?course=cbd');await ready(page);
+ await runAxe(page,'platform-catalog');
+
+ // Keyboard modal open, Escape close & focus return check (E22)
+ await page.locator('#export-study-sheet').focus();
+ await page.keyboard.press('Enter');
+ await page.locator('#study-summary-modal').waitFor();
+ await page.keyboard.press('Escape');
+ await page.waitForSelector('#study-summary-modal',{state:'detached'});
+ const focusedId=await page.evaluate(()=>document.activeElement?.id);
+ assert.equal(focusedId,'export-study-sheet','Expected Escape from Study Summary to return focus to trigger button');
+
+ // E14 all-zero pause & snapshot compare + E10 + E09 + Axe on cbd-2
+ await page.goto(base+'/platform/');
+ await page.evaluate(()=>localStorage.setItem('carana_learning_v1',JSON.stringify({
+  version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run02',completed:[0,1,2],section:1,screen:0,view:'screen',drafts:{'02-04':{0:'Sample verified baseline scope',1:'Sample intake log measure'}}}}
+ })));
+ await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);
+ await runAxe(page,'cbd2-priority-investigate');
+ assert.equal(await page.locator('article.screen').getAttribute('data-rhythm'),'investigate');
+ for(const sl of await page.locator('[data-weight]').all()){await sl.fill('0');}
+ assert.match(await page.locator('#priority-result').innerText(),/paused/);
+ await page.locator('#priority-reset').click();
+ await page.locator('#priority-save-snapshot').click();
+ await page.locator('[data-weight]').first().fill('5');
+ assert.match(await page.locator('#priority-compare').innerText(),/Snapshot A vs Current/);
+
+ // Jump to 02-06 -> verify E09 handoff staging & rollback
+ await page.evaluate(()=>{const s=JSON.parse(localStorage.getItem('carana_learning_v1'));s.lessons['cbd-2'].section=2;s.lessons['cbd-2'].screen=2;localStorage.setItem('carana_learning_v1',JSON.stringify(s));});
+ await page.reload();await ready(page);
+ await page.locator('#handoff-preview-btn').click();
+ await page.locator('#handoff-confirm').click();
+ const storedLab=await page.evaluate(()=>JSON.parse(localStorage.getItem('carana_cbd_lab_v1')));
+ assert.equal(storedLab.module2.smartObjectives[0].specific,'Sample verified baseline scope');
+ assert.equal(storedLab.module2.smartObjectives[0].measurable,'Sample intake log measure');
+ await page.locator('#handoff-preview-btn').click();
+ await page.locator('#handoff-undo').click();
+ const rolledBack=await page.evaluate(()=>localStorage.getItem('carana_cbd_lab_v1'));
+ assert.equal(rolledBack,null,'Expected handoff rollback to restore clean prior empty state');
+
+ // E11 bespoke Logframe row + E20 source disclosure on cbd-3 03-10
+ await page.evaluate(()=>localStorage.setItem('carana_learning_v1',JSON.stringify({
+  version:1,lessons:{'cbd-3':{contentVersion:'2026.11-run02',completed:[0,1,2],section:0,screen:1,view:'screen',drafts:{}}}
+ })));
+ await page.goto(base+'/platform/?course=cbd&lesson=cbd-3');await ready(page);
+ await runAxe(page,'cbd3-logframe-construct');
+ assert.equal(await page.locator('article.screen').getAttribute('data-rhythm'),'construct');
+ assert.equal(await page.locator('.visual').getAttribute('data-layout'),'logframe-row');
+ assert.match(await page.locator('.source-summary').innerText(),/UNPOL Job-Specific Training/);
+
+ // E18 Demo & Showcase Axe checks
+ await page.goto(base+'/platform/demo.html');
+ await runAxe(page,'demo');
+ await page.goto(base+'/platform/demo-showcase.html');
+ await runAxe(page,'demo-showcase');
+
+ // E16 Lesson 1 option-specific quiz feedback
+ await page.goto(base+'/course/');
+ await page.locator('#start-course').click();
+ for(let step=0;step<3;step++)await page.locator('#next-screen').click();
+ await page.locator('input[name="q0"][value="0"]').check();
+ for(let q=1;q<6;q++)await page.locator('input[name="q'+q+'"][value="0"]').check();
+ await page.locator('#check-quiz').click();
+ assert.match(await page.locator('.answer-hint').first().innerText(),/Approving training immediately/);
+
+ await page.context().close();
+ console.log('Stage 2 checks passed: E09 handoff/rollback, E10/E11/E20, E14/E15, E16 optionFeedback, E18 ungated demo, E22 zero Axe WCAG 2.1 AA violations');
 }
 async function secondCurriculum(browser){
  const page=await pageFor(browser,{width:1024,height:800});
@@ -192,6 +277,6 @@ async function secondCurriculum(browser){
 }
 (async()=>{
  for(const [engine,size,name] of [[webkit,{width:1366,height:950},'webkit-desktop'],[chromium,{width:1440,height:950},'chromium'],[webkit,{width:390,height:844},'webkit-mobile']]){
-  const b=await engine.launch();try{await flow(b,size,name);if(name==='chromium'){await edgeCases(b);await secondCurriculum(b);}}finally{await b.close();}
+  const b=await engine.launch();try{await flow(b,size,name);if(name==='chromium'){await edgeCases(b);await stage2Checks(b);await secondCurriculum(b);}}finally{await b.close();}
  }
 })().catch(e=>{console.error(e);process.exitCode=1});

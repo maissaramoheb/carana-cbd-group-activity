@@ -5,6 +5,7 @@
   const root = document.getElementById('app');
   const learningTools = window.CARANA_LEARNING_TOOLS;
   const progressCore = window.CARANA_PROGRESS_CORE;
+  const handoff = window.CARANA_WORKBENCH_HANDOFF;
   const esc = progressCore.esc;
   const parameters = new URLSearchParams(location.search);
   const course = catalog.find(x => x.id === parameters.get('course'));
@@ -328,7 +329,7 @@
     }
   }
 
-  function layout(content, headingNote) {
+  function layout(content, headingNote, screenAttrs) {
     root.classList.remove('app-boot');
     const mobileLabel = 'Sections (' + state.completed.length + '/' + lesson.sections.length + ')';
     root.innerHTML =
@@ -357,7 +358,7 @@
       (headingNote ? esc(headingNote) : (storageFailed ? 'Could not save progress. Export before closing.' : 'Progress stays in this browser.')) +
       '</p>' +
       '</div></aside>' +
-      '<article class="screen">' + content + '</article>' +
+      '<article class="screen" ' + (screenAttrs || '') + '>' + content + '</article>' +
       '</div>';
 
     const toggleBtn = document.getElementById('rail-toggle');
@@ -409,6 +410,75 @@
       '</div>';
   }
 
+  const RHYTHM_META = {
+    explain: 'Explain · Conceptual structure & context',
+    investigate: 'Investigate · Diagnostic analysis & contrast',
+    construct: 'Construct · Applied drafting & self-check'
+  };
+
+  function buildVisualHTML(screen) {
+    const v = screen.visual || {};
+    const kind = v.kind || 'explore';
+    const layoutKind = v.layout || kind;
+    const nodes = Array.isArray(v.nodes) ? v.nodes : [];
+    const btn = (n, i, extraLabel) =>
+      '<button type="button" data-node="' + i + '" aria-pressed="false">' +
+      (extraLabel ? '<span class="node-role">' + esc(extraLabel) + '</span>' : '') +
+      '<span class="node-label">' + esc(n.label) + '</span></button>';
+
+    let inner = '';
+    if (layoutKind === 'logframe-row' && nodes.length === 4) {
+      const roles = ['Col 1 · Intended Result', 'Col 2 · Indicator / Measure', 'Col 3 · Verification Source', 'Col 4 · Assumption / Risk'];
+      inner = '<div class="nodes nodes-logframe">' + nodes.map((n, i) => btn(n, i, roles[i])).join('') + '</div>' +
+        '<p class="diagram-caption">Read left to right: Result requires Verification and Source, contingent on External Conditions.</p>';
+    } else if (layoutKind === 'system-deps' && nodes.length === 3) {
+      inner = '<div class="nodes nodes-system">' +
+        '<div class="sys-top">' + btn(nodes[0], 0, 'Authorising Tier') + '</div>' +
+        '<div class="sys-arrow" aria-hidden="true">↓ frames & coordinates with</div>' +
+        '<div class="sys-peers">' + btn(nodes[1], 1, 'Legal & Policy Context') + btn(nodes[2], 2, 'Justice Sector Chain') + '</div>' +
+        '</div>';
+    } else if (layoutKind === 'toc-bridge' && nodes.length === 4) {
+      const roles = ['Condition (IF)', 'Projected Shift (THEN)', 'Mechanism (BECAUSE)', 'Precondition (PROVIDED THAT)'];
+      inner = '<div class="nodes nodes-toc">' + nodes.map((n, i) => btn(n, i, roles[i])).join('') + '</div>';
+    } else if (layoutKind === 'problem-loop') {
+      inner = '<div class="nodes nodes-loop">' +
+        nodes.map((n, i) => btn(n, i, 'Step ' + (i + 1))).join('') +
+        '</div><div class="loop-return" aria-hidden="true">↺ Re-enter Step 1 whenever operational evidence or counterpart conditions shift</div>';
+    } else if (layoutKind === 'principle-hub' && nodes.length === 4) {
+      inner = '<div class="nodes nodes-hub">' +
+        btn(nodes[0], 0, 'Principle 1') + btn(nodes[1], 1, 'Principle 2') +
+        '<div class="hub-core" aria-hidden="true">Sustainable Handover</div>' +
+        btn(nodes[2], 2, 'Principle 3') + btn(nodes[3], 3, 'Principle 4') +
+        '</div>';
+    } else if (kind === 'chain') {
+      inner = '<div class="nodes">' + nodes.map((n, i) => btn(n, i, 'Step ' + (i + 1))).join('') + '</div>';
+    } else if (kind === 'compare') {
+      inner = '<div class="nodes">' + nodes.map((n, i) => btn(n, i, nodes.length <= 2 ? (i === 0 ? 'Lens A' : 'Lens B') : 'Compare ' + (i + 1))).join('') + '</div>';
+    } else if (kind === 'cycle') {
+      inner = '<div class="nodes">' + nodes.map((n, i) => btn(n, i, 'Phase ' + (i + 1))).join('') + '</div>' +
+        '<div class="loop-return" aria-hidden="true">↺ Iterative cycle: return and adjust as field evidence updates</div>';
+    } else {
+      inner = '<div class="nodes">' + nodes.map((n, i) => btn(n, i, '')).join('') + '</div>';
+    }
+
+    return '<div class="visual" data-kind="' + esc(kind) + '" data-layout="' + esc(layoutKind) + '">' +
+      '<div class="visual-head"><span class="eyebrow">Explore the relationship</span>' +
+      '<span class="visual-progress" id="visual-progress">0 of ' + nodes.length + ' components explored</span></div>' +
+      '<h2>' + esc(v.title) + '</h2>' + inner +
+      '<div id="concept-feedback" class="reveal" role="status">Select a component to explore its meaning and relationship to the whole.</div></div>';
+  }
+
+  function buildSourceHTML(screen) {
+    const src = lesson.source || {};
+    const label = src.label || src.file || 'Curriculum source reference';
+    const sha = typeof src.sha256 === 'string' && src.sha256.length >= 12 ? src.sha256.slice(0, 12) + '…' : '';
+    return '<p class="status source-summary">Source: ' + esc(label) + ' · pages ' + esc(screen.sourcePages) + '.</p>' +
+      (src.file
+        ? '<details class="source-details"><summary>Technical curriculum source & verification record</summary><p class="status">Source file: <code>' + esc(src.file) + '</code> · Lesson scope: pp. ' + esc(src.pages || screen.sourcePages) +
+          (sha ? ' · SHA-256 prefix: <code>' + esc(sha) + '</code>' : '') + '</p></details>'
+        : '');
+  }
+
   function render(statusMessage) {
     const section = lesson.sections[selected];
     const count = lesson.sections.reduce((n, s) => n + s.screens.length, 0);
@@ -421,32 +491,50 @@
     }
 
     const screen = section.screens[index];
+    const rhythm = RHYTHM_META[screen.rhythm] ? screen.rhythm : 'explain';
+    const orientationMarkup = selected === 0 && index === 0
+      ? '<details open><summary>Learning orientation</summary><ul>' + lesson.objectives.map(o => '<li>' + esc(o) + '</li>').join('') + '</ul><p>Explore the relationships, make a decision, check your understanding and apply your own reasoning in the original practical activity. English text is the current review language.</p></details>'
+      : '';
+    const visualMarkup = buildVisualHTML(screen);
+    const workedMarkup = screen.worked
+      ? '<div class="worked-contrast"><div><h3>Initial proposal</h3><p>' + esc(screen.worked.before) + '</p><p class="status">' + esc(screen.worked.beforeWhy) + '</p></div><div class="improved"><h3>A more defensible approach</h3><p>' + esc(screen.worked.after) + '</p><p class="status">' + esc(screen.worked.afterWhy) + '</p></div></div>'
+      : '';
+    const pointsListMarkup = '<ul class="points">' + screen.points.map(p => '<li>' + esc(p) + '</li>').join('') + '</ul>';
+    const pointsMarkup = rhythm === 'construct'
+      ? '<details class="points-reference"><summary>Reference criteria & key takeaways (' + screen.points.length + ')</summary>' + pointsListMarkup + '</details>'
+      : pointsListMarkup;
+    const transcriptMarkup = '<details><summary>Read the trainer explanation</summary><p class="transcript">' + esc(screen.transcript) + '</p><p class="status">Recording pending review. No synthetic playback has been substituted.</p></details>';
+    const labMarkup = screen.lab && learningTools ? learningTools.html(screen.lab) : '';
+    const decisionMarkup = '<section class="decision"><span class="eyebrow">Decide · invented teaching example</span><h2>' + esc(screen.decision.prompt) + '</h2><div class="choices">' +
+      screen.decision.options.map((o, i) => '<button type="button" data-choice="' + i + '" aria-pressed="false">' + esc(o.label) + '</button>').join('') +
+      '</div><div id="decision-feedback" class="feedback" role="status" hidden></div></section>';
+    const takeawayMarkup = '<div class="banner"><strong>Carry this forward</strong><p>' + esc(screen.takeaway) + '</p></div>';
+    const handoffMarkup = handoff && handoff.shouldShowOnScreen(lesson.number, screen.id)
+      ? handoff.renderHandoffSection(lesson, state.drafts, readJsonKey(LAB_KEY))
+      : '';
+    const sourceMarkup = buildSourceHTML(screen);
+
+    let orderedBody = '';
+    if (rhythm === 'investigate') {
+      orderedBody = orientationMarkup + labMarkup + workedMarkup + visualMarkup + pointsMarkup + transcriptMarkup + decisionMarkup + takeawayMarkup + handoffMarkup + sourceMarkup;
+    } else if (rhythm === 'construct') {
+      orderedBody = orientationMarkup + visualMarkup + labMarkup + workedMarkup + pointsMarkup + transcriptMarkup + decisionMarkup + takeawayMarkup + handoffMarkup + sourceMarkup;
+    } else {
+      orderedBody = orientationMarkup + visualMarkup + workedMarkup + pointsMarkup + transcriptMarkup + labMarkup + decisionMarkup + takeawayMarkup + handoffMarkup + sourceMarkup;
+    }
+
     layout(
       banner +
       '<div class="progress"><span>' + esc(section.title) + '</span><span>Screen ' + ordinal + ' of ' + count + '</span>' +
       '<progress value="' + ordinal + '" max="' + count + '" aria-label="Current screen"></progress></div>' +
+      '<span class="rhythm-tag rhythm-' + esc(rhythm) + '">' + esc(RHYTHM_META[rhythm]) + '</span>' +
       '<h1>' + esc(screen.title) + '</h1>' +
       '<p class="lead">' + esc(screen.lead) + '</p>' +
-      (selected === 0 && index === 0
-        ? '<details open><summary>Learning orientation</summary><ul>' + lesson.objectives.map(o => '<li>' + esc(o) + '</li>').join('') + '</ul><p>Explore the relationships, make a decision, check your understanding and apply your own reasoning in the original practical activity. English text is the current review language.</p></details>'
-        : '') +
-      '<div class="visual" data-kind="' + esc(screen.visual.kind || 'explore') + '"><span class="eyebrow">Explore the relationship</span><h2>' + esc(screen.visual.title) + '</h2><div class="nodes">' +
-      screen.visual.nodes.map((n, i) => '<button type="button" data-node="' + i + '" aria-pressed="false">' + esc(n.label) + '</button>').join('') +
-      '</div><div id="concept-feedback" class="reveal" role="status">Select a component to explore its meaning and relationship to the whole.</div></div>' +
-      (screen.worked
-        ? '<div class="worked-contrast"><div><h3>Initial proposal</h3><p>' + esc(screen.worked.before) + '</p><p class="status">' + esc(screen.worked.beforeWhy) + '</p></div><div class="improved"><h3>A more defensible approach</h3><p>' + esc(screen.worked.after) + '</p><p class="status">' + esc(screen.worked.afterWhy) + '</p></div></div>'
-        : '') +
-      '<ul class="points">' + screen.points.map(p => '<li>' + esc(p) + '</li>').join('') + '</ul>' +
-      '<details><summary>Read the trainer explanation</summary><p class="transcript">' + esc(screen.transcript) + '</p><p class="status">Recording pending review. No synthetic playback has been substituted.</p></details>' +
-      (screen.lab && learningTools ? learningTools.html(screen.lab) : '') +
-      '<section class="decision"><span class="eyebrow">Decide · invented teaching example</span><h2>' + esc(screen.decision.prompt) + '</h2><div class="choices">' +
-      screen.decision.options.map((o, i) => '<button type="button" data-choice="' + i + '" aria-pressed="false">' + esc(o.label) + '</button>').join('') +
-      '</div><div id="decision-feedback" class="feedback" role="status" hidden></div></section>' +
-      '<div class="banner"><strong>Carry this forward</strong><p>' + esc(screen.takeaway) + '</p></div>' +
-      '<p class="status">Source: ' + esc(lesson.source.file) + ' · printed pages ' + esc(screen.sourcePages) + '.</p>' +
+      orderedBody +
       '<div class="actions"><button type="button" id="back" ' + (selected === 0 && index === 0 ? 'disabled' : '') + '>← Back</button><button type="button" id="next" class="primary">' +
       (index === section.screens.length - 1 ? 'Knowledge checkpoint →' : 'Continue →') + '</button></div>',
-      statusMessage
+      statusMessage,
+      'data-rhythm="' + esc(rhythm) + '"'
     );
 
     const ackBtn = document.getElementById('ack-revision');
@@ -467,9 +555,25 @@
       }, document, { archivedDrafts });
     }
 
+    if (handoff && handoff.shouldShowOnScreen(lesson.number, screen.id)) {
+      handoff.mountHandoffSection({
+        doc: document,
+        storage: localStorage,
+        lesson,
+        lessonDrafts: state.drafts,
+        downloadFile,
+        onRefresh: msg => render(msg)
+      });
+    }
+
+    const exploredSet = new Set();
     root.querySelectorAll('[data-node]').forEach(b => b.onclick = () => {
       root.querySelectorAll('[data-node]').forEach(n => n.setAttribute('aria-pressed', String(n === b)));
-      document.getElementById('concept-feedback').textContent = screen.visual.nodes[+b.dataset.node].detail;
+      const nodeIdx = +b.dataset.node;
+      document.getElementById('concept-feedback').textContent = screen.visual.nodes[nodeIdx].detail;
+      exploredSet.add(nodeIdx);
+      const vp = document.getElementById('visual-progress');
+      if (vp) vp.textContent = exploredSet.size + ' of ' + screen.visual.nodes.length + ' components explored';
     });
 
     root.querySelectorAll('[data-choice]').forEach(b => b.onclick = () => {
@@ -509,6 +613,9 @@
   function renderQuiz(section, banner, statusMessage) {
     if (state.completed.includes(selected)) {
       const last = selected === lesson.sections.length - 1;
+      const quizHandoff = last && handoff
+        ? handoff.renderHandoffSection(lesson, state.drafts, readJsonKey(LAB_KEY))
+        : '';
       layout(
         banner +
         '<span class="eyebrow">Checkpoint passed</span><h1>' + esc(last ? 'Carry your work into practice.' : 'Understanding checked.') + '</h1>' +
@@ -518,6 +625,7 @@
             '<a class="action primary" href="' + esc(lesson.activity) + '" target="_blank" rel="noopener noreferrer">Open original Lesson ' + lesson.number + ' activity ↗</a>' +
             '<p class="status">Cinematic artwork is specified for this lesson; new images and narration are pending authorised production and review.</p>'
           : '') +
+        quizHandoff +
         (last && lesson.number < 6 ? '<p><a class="action" href="./?course=cbd&lesson=cbd-' + (lesson.number + 1) + '">Continue to Lesson ' + (lesson.number + 1) + ' →</a></p>' : '') +
         '<div class="actions"><button type="button" id="review">Review this section</button>' +
         (last ? '<a class="action" href="./?course=' + esc(course.id) + '">Return to CBD catalog</a>' : '<button type="button" id="continue" class="primary">Next section →</button>') +
@@ -526,6 +634,16 @@
       );
       const ackBtn = document.getElementById('ack-revision');
       if (ackBtn) ackBtn.onclick = () => { state.revisionAck = true; save(); render(); };
+      if (last && handoff) {
+        handoff.mountHandoffSection({
+          doc: document,
+          storage: localStorage,
+          lesson,
+          lessonDrafts: state.drafts,
+          downloadFile,
+          onRefresh: msg => render(msg)
+        });
+      }
       document.getElementById('review').onclick = () => { quiz = false; index = 0; save(); render(); focus(); };
       if (!last) {
         document.getElementById('continue').onclick = () => {

@@ -6,12 +6,46 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[c]));
 
+  const RISK_STRATEGIES = {
+    prevent: {
+      label: 'Prevent / reduce likelihood',
+      guidance: 'Address preconditions, mandate clarity, or counterpart bottlenecks early so disruption is less likely to occur.'
+    },
+    mitigate: {
+      label: 'Mitigate operational impact',
+      guidance: 'Protect essential public-safety and human-rights safeguards so critical progress survives partial disruption.'
+    },
+    contingency: {
+      label: 'Prepare contingency & escalation trigger',
+      guidance: 'Define the observable trigger, pre-agreed fallback path, and responsible owner before committing irreversible resources.'
+    }
+  };
+
   function rank(exercise, weights) {
-    return exercise.alternatives.map(a => ({
+    const normalized = exercise.criteria.map((_, i) => {
+      const n = Number(weights && weights[i] !== undefined ? weights[i] : 1);
+      return Number.isFinite(n) ? Math.max(0, Math.min(5, n)) : 1;
+    });
+    const rows = exercise.alternatives.map((a, idx) => ({
       label: a.label,
-      score: a.ratings.reduce((n, r, i) => n + r * Number(weights[i] ?? 1), 0),
-      constraint: a.constraint
-    })).sort((a, b) => b.score - a.score || a.label.localeCompare(b.label));
+      score: a.ratings.reduce((n, r, i) => n + r * (normalized[i] ?? 1), 0),
+      constraint: a.constraint,
+      _idx: idx
+    }));
+    rows.sort((a, b) => b.score - a.score || a._idx - b._idx);
+    const counts = new Map();
+    rows.forEach(r => counts.set(r.score, (counts.get(r.score) || 0) + 1));
+    let currentRank = 1;
+    return rows.map((r, idx) => {
+      if (idx > 0 && r.score < rows[idx - 1].score) currentRank = idx + 1;
+      return {
+        label: r.label,
+        score: r.score,
+        constraint: r.constraint,
+        rankPosition: currentRank,
+        tied: counts.get(r.score) > 1
+      };
+    });
   }
 
   function validDraft(exercise, draft = {}) {
@@ -31,10 +65,17 @@
       exercise.criteria.forEach((_, i) => {
         if (Number.isInteger(draft[i]) && draft[i] >= 0 && draft[i] <= 5) result[i] = draft[i];
       });
+      if (Array.isArray(draft.snapshot) && draft.snapshot.length === exercise.criteria.length &&
+          draft.snapshot.every(v => Number.isInteger(v) && v >= 0 && v <= 5)) {
+        result.snapshot = draft.snapshot.slice();
+      }
     }
     if (exercise.type === 'risk') {
       for (const k of ['likelihood', 'impact']) {
         if (Number.isInteger(draft[k]) && draft[k] >= 1 && draft[k] <= 3) result[k] = draft[k];
+      }
+      if (typeof draft.strategy === 'string' && RISK_STRATEGIES[draft.strategy]) {
+        result.strategy = draft.strategy;
       }
     }
     return result;
@@ -72,22 +113,33 @@
     }
     if (x.type === 'priority') {
       return prefix +
-        '<p class="status">Invented ratings, not the official participant scoring chart. Move a weighting to examine sensitivity; a high total never overrides a prerequisite.</p>' +
+        '<p class="status">Invented ratings, not the official participant scoring chart. Move a weighting to examine sensitivity; a high total never overrides a prerequisite or tie.</p>' +
         '<div class="weights">' + x.criteria.map((c, i) =>
           '<label>' + esc(c) + ' <output id="weight-' + i + '">1</output><input aria-label="' + esc(c) + ' weighting" type="range" min="0" max="5" value="1" data-weight="' + i + '"></label>'
         ).join('') + '</div>' +
+        '<div class="priority-actions">' +
+        '<button type="button" id="priority-save-snapshot" class="small-btn">Save current weights as Snapshot A</button>' +
+        '<button type="button" id="priority-reset" class="small-btn">Reset to equal weights (1)</button>' +
+        '<button type="button" id="priority-clear-snapshot" class="small-btn" hidden>Clear Snapshot A</button>' +
+        '</div>' +
         '<div class="table-scroll"><table><caption>Illustrative options, ratings and constraints</caption><thead><tr><th scope="col">Option</th>' +
         x.criteria.map(c => '<th scope="col">' + esc(c) + '</th>').join('') +
         '<th scope="col">Constraint</th></tr></thead><tbody>' +
         x.alternatives.map(a => '<tr><th scope="row">' + esc(a.label) + '</th>' + a.ratings.map(r => '<td>' + r + '</td>').join('') + '<td>' + esc(a.constraint) + '</td></tr>').join('') +
         '</tbody></table></div>' +
-        '<div id="priority-result" class="reveal" role="status"></div>' +
+        '<div id="priority-result" class="reveal" aria-live="off"></div>' +
+        '<p id="priority-live" class="status" role="status"></p>' +
+        '<div id="priority-compare" class="priority-compare" hidden></div>' +
         '<div id="lab-archive-slot"></div>' +
         '<p><strong>Discuss:</strong> ' + esc(x.debrief) + '</p></section>';
     }
     if (x.type === 'risk') {
       return prefix +
-        '<div class="risk-inputs"><label>Likelihood<select id="risk-likelihood"><option value="1">1 · low</option><option value="2" selected>2 · medium</option><option value="3">3 · high</option></select></label><label>Impact<select id="risk-impact"><option value="1">1 · low</option><option value="2" selected>2 · medium</option><option value="3">3 · high</option></select></label></div>' +
+        '<div class="risk-inputs"><label>Likelihood<select id="risk-likelihood"><option value="1">1 · low</option><option value="2" selected>2 · medium</option><option value="3">3 · high</option></select></label>' +
+        '<label>Impact<select id="risk-impact"><option value="1">1 · low</option><option value="2" selected>2 · medium</option><option value="3">3 · high</option></select></label>' +
+        '<label>Primary response strategy<select id="risk-strategy">' +
+        Object.keys(RISK_STRATEGIES).map(k => '<option value="' + k + '">' + esc(RISK_STRATEGIES[k].label) + '</option>').join('') +
+        '</select></label></div>' +
         '<div id="risk-grid" class="risk-grid" aria-label="Three by three likelihood and impact matrix">' +
         [3, 2, 1].flatMap(impact => [1, 2, 3].map(likelihood => '<span data-risk="' + likelihood + '-' + impact + '">Likelihood ' + likelihood + '<br>Impact ' + impact + '</span>')).join('') +
         '</div><div id="risk-result" class="reveal" role="status"></div>' +
@@ -108,13 +160,67 @@
       return { label: itemText, display: catText };
     }
     if (x.type === 'priority') {
+      if (key === 'snapshot') return { label: 'Saved snapshot weights', display: Array.isArray(val) ? val.join(', ') : String(val) };
       const crit = x.criteria?.[Number(key)] || ('Criterion ' + (Number(key) + 1));
       return { label: crit + ' weighting', display: String(val) + ' / 5' };
     }
     if (x.type === 'risk') {
+      if (key === 'strategy') return { label: 'Response strategy', display: RISK_STRATEGIES[val]?.label || String(val) };
       return { label: key === 'likelihood' ? 'Likelihood' : 'Impact', display: String(val) + ' / 3' };
     }
     return { label: String(key), display: String(val) };
+  }
+
+  function summarizePriority(x, weights) {
+    const cleanWeights = x.criteria.map((_, i) => {
+      const n = Number(weights && weights[i] !== undefined ? weights[i] : 1);
+      return Number.isFinite(n) ? Math.max(0, Math.min(5, n)) : 1;
+    });
+    const allZero = cleanWeights.every(w => w === 0);
+    const ranked = rank(x, cleanWeights);
+    if (allZero) {
+      return {
+        allZero: true,
+        hasTies: false,
+        ranked,
+        text: 'All criterion weightings are set to 0. Weighted ranking is paused because no criterion carries weight; raise at least one weighting above 0 or compare prerequisites and constraints directly.'
+      };
+    }
+    const tiedGroups = [];
+    const seenTieScore = new Set();
+    ranked.forEach(item => {
+      if (item.tied && !seenTieScore.has(item.score)) {
+        seenTieScore.add(item.score);
+        const names = ranked.filter(r => r.score === item.score).map(r => r.label).join(' and ');
+        tiedGroups.push('Tie at rank #' + item.rankPosition + ' (' + item.score + ' weighted points): ' + names + ' — decide on prerequisites and constraints.');
+      }
+    });
+    const linesText = ranked
+      .map(a => (a.tied ? 'Tie #' + a.rankPosition : '#' + a.rankPosition) + ' ' + a.label + ': ' + a.score + ' weighted points. ' + a.constraint)
+      .join(' ');
+    return {
+      allZero: false,
+      hasTies: tiedGroups.length > 0,
+      tieSummary: tiedGroups.join(' '),
+      ranked,
+      text: (tiedGroups.length > 0 ? tiedGroups.join(' ') + ' ' : '') + linesText
+    };
+  }
+
+  function formatRiskAnalysis(likelihood, impact, strategyKey) {
+    const l = Math.max(1, Math.min(3, Number(likelihood) || 2));
+    const i = Math.max(1, Math.min(3, Number(impact) || 2));
+    const strat = RISK_STRATEGIES[strategyKey] || RISK_STRATEGIES.prevent;
+    const asymmetry = l !== i
+      ? ' Note why (' + l + ',' + i + ') differs from (' + i + ',' + l + ') despite product ' + (l * i) + ': high impact requires contingency readiness even when likelihood is low, while high likelihood requires upstream prevention.'
+      : '';
+    return 'Selected likelihood ' + l + ', impact ' + i + '. Illustrative product ' + (l * i) +
+      '; this is a discussion aid, not an authorised acceptance threshold. ' +
+      (i === 3
+        ? 'A severe consequence still needs attention even if unlikely.'
+        : 'Consider both prevention and impact reduction, and identify who will review the response.') +
+      asymmetry + ' Selected response focus (' + strat.label + '): ' + strat.guidance +
+      ' Carry trigger thresholds and ownership into your contingency plan.';
   }
 
   function renderArchivedDrafts(x, saved, archivedDrafts, doc, applyHandler) {
@@ -357,25 +463,94 @@
 
     if (x.type === 'priority') {
       const inputs = [...doc.querySelectorAll('[data-weight]')];
-      const refresh = () => {
+      const resultEl = doc.getElementById('priority-result');
+      const liveEl = doc.getElementById('priority-live');
+      const compareEl = doc.getElementById('priority-compare');
+      const saveSnapBtn = doc.getElementById('priority-save-snapshot');
+      const clearSnapBtn = doc.getElementById('priority-clear-snapshot');
+      const resetBtn = doc.getElementById('priority-reset');
+
+      const renderCompare = currentSummary => {
+        if (!compareEl || !clearSnapBtn) return;
+        const snapWeights = Array.isArray(saved.snapshot) && saved.snapshot.length === x.criteria.length ? saved.snapshot : null;
+        clearSnapBtn.hidden = !snapWeights;
+        if (!snapWeights) {
+          compareEl.hidden = true;
+          compareEl.innerHTML = '';
+          return;
+        }
+        const snapSummary = summarizePriority(x, snapWeights);
+        compareEl.hidden = false;
+        compareEl.innerHTML =
+          '<h3>Snapshot A vs Current weightings</h3>' +
+          '<p class="status">Snapshot A: [' + esc(snapWeights.join(', ')) + '] · Current: [' + esc(inputs.map(el => el.value).join(', ')) + ']</p>' +
+          '<div class="table-scroll"><table><thead><tr><th scope="col">Option</th><th scope="col">Snapshot A</th><th scope="col">Current</th><th scope="col">Shift</th></tr></thead><tbody>' +
+          currentSummary.ranked.map(cur => {
+            const prev = snapSummary.ranked.find(p => p.label === cur.label) || cur;
+            const delta = prev.rankPosition - cur.rankPosition;
+            const shiftText = currentSummary.allZero || snapSummary.allZero
+              ? 'Zero weight pause'
+              : (delta > 0 ? '↑ Up ' + delta : delta < 0 ? '↓ Down ' + Math.abs(delta) : 'Unchanged');
+            return '<tr><th scope="row">' + esc(cur.label) + '</th><td>' +
+              (snapSummary.allZero ? 'Paused (all 0)' : '#' + prev.rankPosition + (prev.tied ? ' (Tie)' : '') + ' · ' + prev.score + ' pts') +
+              '</td><td>' +
+              (currentSummary.allZero ? 'Paused (all 0)' : '#' + cur.rankPosition + (cur.tied ? ' (Tie)' : '') + ' · ' + cur.score + ' pts') +
+              '</td><td>' + esc(shiftText) + '</td></tr>';
+          }).join('') +
+          '</tbody></table></div>';
+      };
+
+      const refresh = announceLive => {
         const weights = inputs.map(el => +el.value);
         inputs.forEach((el, i) => {
           doc.getElementById('weight-' + i).textContent = weights[i];
           saved[i] = weights[i];
         });
-        doc.getElementById('priority-result').textContent = rank(x, weights)
-          .map(a => a.label + ': ' + a.score + ' weighted points. ' + a.constraint).join(' ');
+        const summary = summarizePriority(x, weights);
+        resultEl.textContent = summary.text;
+        resultEl.classList.toggle('warning', summary.allZero || summary.hasTies);
+        if (announceLive && liveEl) {
+          liveEl.textContent = summary.allZero
+            ? 'All criteria weightings are 0; numeric ranking is paused.'
+            : (summary.hasTies
+              ? summary.tieSummary
+              : 'Top weighted option is now ' + summary.ranked[0].label + ' at ' + summary.ranked[0].score + ' weighted points.');
+        }
+        renderCompare(summary);
       };
+
       inputs.forEach(el => {
         el.value = saved[el.dataset.weight] ?? 1;
-        el.oninput = () => { refresh(); onSave(saved); };
+        el.oninput = () => { refresh(false); onSave(saved); };
+        el.onchange = () => { refresh(true); onSave(saved); };
       });
-      refresh();
+      if (saveSnapBtn) {
+        saveSnapBtn.onclick = () => {
+          saved.snapshot = inputs.map(el => +el.value);
+          refresh(true);
+          onSave(saved);
+        };
+      }
+      if (clearSnapBtn) {
+        clearSnapBtn.onclick = () => {
+          delete saved.snapshot;
+          refresh(true);
+          onSave(saved);
+        };
+      }
+      if (resetBtn) {
+        resetBtn.onclick = () => {
+          inputs.forEach((el, i) => { el.value = 1; saved[i] = 1; });
+          refresh(true);
+          onSave(saved);
+        };
+      }
+      refresh(false);
       renderArchivedDrafts(x, saved, opts?.archivedDrafts, doc, patch => {
         const clean = validDraft(x, patch);
         Object.assign(saved, clean);
         inputs.forEach(el => { el.value = saved[el.dataset.weight] ?? 1; });
-        refresh();
+        refresh(true);
         onSave(saved);
       });
     }
@@ -383,26 +558,25 @@
     if (x.type === 'risk') {
       const likelihood = doc.getElementById('risk-likelihood');
       const impact = doc.getElementById('risk-impact');
+      const strategy = doc.getElementById('risk-strategy');
       likelihood.value = saved.likelihood ?? 2;
       impact.value = saved.impact ?? 2;
+      if (strategy) strategy.value = saved.strategy || 'prevent';
       const refresh = () => {
         const l = +likelihood.value, i = +impact.value;
+        const stratKey = strategy && RISK_STRATEGIES[strategy.value] ? strategy.value : 'prevent';
         saved.likelihood = l;
         saved.impact = i;
+        saved.strategy = stratKey;
         doc.querySelectorAll('[data-risk]').forEach(el => {
           const active = el.dataset.risk === l + '-' + i;
           el.classList.toggle('selected', active);
           if (active) el.setAttribute('aria-current', 'true');
           else el.removeAttribute('aria-current');
         });
-        doc.getElementById('risk-result').textContent =
-          'Selected likelihood ' + l + ', impact ' + i + '. Illustrative product ' + (l * i) +
-          '; this is a discussion aid, not an authorised acceptance threshold. ' +
-          (i === 3
-            ? 'A severe consequence still needs attention even if unlikely.'
-            : 'Consider both prevention and impact reduction, and identify who will review the response.');
+        doc.getElementById('risk-result').textContent = formatRiskAnalysis(l, i, stratKey);
       };
-      for (const input of [likelihood, impact]) {
+      for (const input of [likelihood, impact, strategy].filter(Boolean)) {
         input.onchange = () => { refresh(); onSave(saved); };
       }
       refresh();
@@ -411,13 +585,14 @@
         Object.assign(saved, clean);
         likelihood.value = saved.likelihood ?? 2;
         impact.value = saved.impact ?? 2;
+        if (strategy && clean.strategy) strategy.value = clean.strategy;
         refresh();
         onSave(saved);
       });
     }
   }
 
-  const api = { html, mount, validDraft, rank, MAX_CHARS };
+  const api = { html, mount, validDraft, rank, summarizePriority, formatRiskAnalysis, MAX_CHARS };
   global.CARANA_LEARNING_TOOLS = api;
   if (typeof module !== 'undefined') module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
