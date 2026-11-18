@@ -3,13 +3,45 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const base=process.env.CBD_TEST_URL||'http://127.0.0.1:8650';
 const output=process.env.CBD_TEST_OUTPUT||'/tmp/carana-run01-browser';
 fs.mkdirSync(output,{recursive:true});
-const data=['lessons-2-3','lessons-4-6'].flatMap(x=>require('../../curricula/cbd/'+x+'.json'));
+const data=['lessons-2-3','lessons-4-6'].flatMap(x=>require('../../curricula/cbd/'+x+'.json')).filter(l=>!process.env.CBD_LESSON_FILTER||l.id===process.env.CBD_LESSON_FILTER);
 async function pageFor(browser,size){
- const context=await browser.newContext({viewport:size,reducedMotion:'reduce'});
+ const context=await browser.newContext({viewport:size,reducedMotion:'reduce',hasTouch:size.width<450,isMobile:size.width<450});
  const page=await context.newPage();page.setDefaultTimeout(7000);
  return page;
 }
 async function ready(page){await page.waitForFunction(()=>window.CARANA_PLATFORM?.ready);}
+async function exercise(page,screen,name){
+ const x=screen.lab;
+ if(x.type==='builder'){
+  await page.locator('#lab-check').click();assert.match(await page.locator('#lab-feedback').innerText(),/fields still open/);
+  for(let i=0;i<x.fields.length;i++)await page.locator('[data-field]').nth(i).fill('Invented draft '+i+': evidence, responsibility and uncertainty for review.');
+  await page.locator('#lab-check').click();assert.match(await page.locator('#lab-feedback').innerText(),/not automatically approved/);
+  await page.reload();await ready(page);assert.match(await page.locator('[data-field]').first().inputValue(),/Invented draft/);
+ }
+ if(x.type==='classify'){
+  await page.locator('#lab-check').click();assert.match(await page.locator('#lab-feedback').innerText(),/need a choice/);
+  for(let i=0;i<x.items.length;i++)await page.locator('[data-class]').nth(i).selectOption(String((x.items[i].answer+1)%x.categories.length));
+  await page.locator('#lab-check').click();assert.match(await page.locator('#lab-feedback').innerText(),/0 of/);
+  for(let i=0;i<x.items.length;i++)await page.locator('[data-class]').nth(i).selectOption(String(x.items[i].answer));
+  await page.locator('#lab-check').click();assert.match(await page.locator('#lab-feedback').innerText(),new RegExp(x.items.length+' of '+x.items.length));
+ }
+ if(x.type==='priority'){
+  const first=page.locator('[data-weight]').first();await first.focus();await page.keyboard.press('End');
+  assert.equal(await first.inputValue(),'5');assert.match(await page.locator('#priority-result').innerText(),/weighted points/);
+  await page.reload();await ready(page);assert.equal(await page.locator('[data-weight]').first().inputValue(),'5');
+ }
+ if(x.type==='risk'){
+  await page.locator('#risk-likelihood').selectOption('1');await page.locator('#risk-impact').selectOption('3');
+  assert.match(await page.locator('#risk-result').innerText(),/severe consequence/);
+  assert.equal(await page.locator('[data-risk="1-3"]').getAttribute('aria-current'),'true');
+ }
+ await page.locator('.applied-lab').screenshot({path:path.join(output,name+'-tool-'+screen.id+'.png')});
+ if(name==='chromium'){
+  await page.addScriptTag({path:require.resolve(process.env.CBD_TEST_MODULES+'/axe-core/axe.min.js')});
+  const v=await page.evaluate(async()=> (await axe.run('.applied-lab',{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}})).violations.map(x=>({id:x.id,targets:x.nodes.map(n=>n.target)})));
+  fs.writeFileSync(path.join(output,screen.id+'-tool-axe.json'),JSON.stringify(v,null,2));assert.deepEqual(v,[]);
+ }
+}
 async function flow(browser,size,name){
  const page=await pageFor(browser,size);let errors=[];page.on('pageerror',e=>errors.push(String(e)));
  for(const lesson of data){
@@ -28,8 +60,9 @@ async function flow(browser,size,name){
     assert(await page.locator('#decision-feedback').isVisible());
     await page.locator('[data-choice]').nth(screen.decision.answer).click();
     assert.match(await page.locator('#decision-feedback').innerText(),/defensible/);
-    const transcript=page.locator('details').last();
+    const transcript=page.locator('details:has(.transcript)');
     await transcript.locator('summary').click();assert((await transcript.locator('.transcript').innerText()).length>300);
+    if(screen.lab)await exercise(page,screen,name);
     if(i===0&&s===0){
      await page.screenshot({path:path.join(output,name+'-'+lesson.id+'.png'),fullPage:true});
      if(name==='chromium'){
@@ -62,7 +95,7 @@ async function flow(browser,size,name){
  assert.equal(await page.locator('.lesson-row').count(),6);
  await page.goto(base+'/platform/?course=mma');await ready(page);assert.equal(await page.locator('.lesson-row').count(),0);assert.match(await page.locator('main').innerText(),/no digital course available/i);
  assert.deepEqual(errors,[]);
- await page.context().close();console.log(name,'all 5 lessons: 30 screens, 42 checkpoint questions, reveal nodes, decisions, review/retake, reload, activity links passed');
+ await page.context().close();console.log(name,'selected lessons passed: content, applied tools, decisions, checkpoints, resume and practical links');
 }
 const sectionCount=l=>l.sections.length;
 async function edgeCases(browser){
@@ -99,7 +132,7 @@ async function secondCurriculum(browser){
  console.log('Unpublished verified MMA orientation fixture passed on the unchanged shared runtime; not a released MMA course');
 }
 (async()=>{
- for(const [engine,size,name] of [[chromium,{width:1440,height:950},'chromium'],[webkit,{width:390,height:844},'webkit-mobile']]){
+ for(const [engine,size,name] of [[webkit,{width:1366,height:950},'webkit-desktop'],[chromium,{width:1440,height:950},'chromium'],[webkit,{width:390,height:844},'webkit-mobile']]){
   const b=await engine.launch();try{await flow(b,size,name);if(name==='chromium'){await edgeCases(b);await secondCurriculum(b);}}finally{await b.close();}
  }
 })().catch(e=>{console.error(e);process.exitCode=1});

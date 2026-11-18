@@ -3,7 +3,7 @@
     "id": "cbd-2",
     "number": 2,
     "title": "Objective Setting, Prioritisation and Performance Framework",
-    "version": "2026.11-run01",
+    "version": "2026.11-run02",
     "status": "review-adaptation",
     "source": {
       "file": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
@@ -32,7 +32,7 @@
               "Consider security providers and governance or oversight actors, including State and non-State stakeholders. A counterpart’s concern may reveal a missing dependency."
             ],
             "takeaway": "Alignment requires considering how reform affects the wider justice and oversight system.",
-            "transcript": "An investigation reform can fail if it improves police output while overwhelming the next part of the justice system. Start with the authorised mission mandate, the host-State capacity-building framework and the national security framework. The lesson links police development with SSR, rule of law and SDG 16; political legitimacy and accountability matter alongside technical capability. Consider security providers and governance or oversight actors, including State and non-State stakeholders. A counterpart’s concern may reveal a missing dependency. Alignment requires considering how reform affects the wider justice and oversight system. Consider what evidence and whose agreement would be needed before applying this approach in your own setting. The example is an invented teaching situation, not an expected CARANA exercise outcome.",
+            "transcript": "A request to strengthen police investigations can sound like a self-contained technical task. In practice, more cases may also affect prosecutors, courts, detention and oversight. Start by asking what change is authorised and how it fits the host-State framework. The lesson places police development within the wider security-sector architecture. That connection is not paperwork added after choosing an activity; it can change the objective itself. Use the map to consider each relationship, then decide which dependency would need discussion. You are testing the coherence of a proposed change, not choosing an institutional reform on someone else’s behalf.",
             "visual": {
               "title": "A police objective sits within a larger system",
               "nodes": [
@@ -48,7 +48,8 @@
                   "label": "Justice relationships",
                   "detail": "Check implications for prosecution, courts, corrections and oversight."
                 }
-              ]
+              ],
+              "kind": "chain"
             },
             "decision": {
               "prompt": "In an invented programme, police propose more arrests while case review is already stalled. What should happen before agreeing the objective?",
@@ -80,7 +81,7 @@
               "Sustainability includes affordability, capability, relevance, the enabling environment and continued commitment. Reform can shift power and privileges; acknowledge concerns respectfully."
             ],
             "takeaway": "Ownership needs continuing engagement and cannot be inferred once for the entire programme.",
-            "transcript": "A signature on a project document is useful evidence of agreement, but it does not by itself establish enduring ownership. Invite counterparts into analysis and objective setting, then maintain dialogue as conditions change. Document agreements and connect CBD priorities with counterpart priorities without treating consultation as a substitute for rights and mandate obligations. Sustainability includes affordability, capability, relevance, the enabling environment and continued commitment. Reform can shift power and privileges; acknowledge concerns respectfully. Ownership needs continuing engagement and cannot be inferred once for the entire programme. Consider what evidence and whose agreement would be needed before applying this approach in your own setting. The example is an invented teaching situation, not an expected CARANA exercise outcome.",
+            "transcript": "Imagine that the original counterpart champion leaves midway through an initiative. A signed agreement still exists, yet participation becomes uncertain. It would be easy to call this resistance and carry on. A more useful response is to explore what has changed: responsibilities, resources, incentives or the interpretation of the objective. Ownership is maintained through participation, dialogue and documented agreements. It also involves the people affected by the change, not only the person who signs. Consider whether the process could continue without the adviser’s daily encouragement. That question connects ownership with sustainability and may reveal a decision that needs to be revisited.",
             "visual": {
               "title": "Ownership is maintained through participation",
               "nodes": [
@@ -96,7 +97,8 @@
                   "label": "Review",
                   "detail": "Reconfirm ownership when leaders, incentives or resources change."
                 }
-              ]
+              ],
+              "kind": "compare"
             },
             "decision": {
               "prompt": "A new counterpart leader questions an agreed project. Which response best maintains ownership?",
@@ -122,32 +124,47 @@
           {
             "prompt": "Which check best reveals strategic alignment?",
             "options": [
-              "Whether the activity fills the annual calendar",
-              "Whether it resembles the adviser’s previous assignment",
+              "Whether the proposal matches the most urgent request from a single counterpart.",
+              "Whether each proposed activity can be funded within the current budget.",
               "How the objective fits the mandate, national priorities and wider justice system"
             ],
             "answer": 2,
-            "feedback": "An authorised and contextually coherent result must guide activity selection."
+            "feedback": "An authorised and contextually coherent result must guide activity selection.",
+            "optionFeedback": [
+              "Urgency matters, but a single request does not establish fit with the mandate, national priorities or justice-system dependencies.",
+              "Affordability is necessary but does not by itself establish strategic alignment.",
+              "This is the strongest response within the stated teaching situation."
+            ]
           },
           {
             "prompt": "A signed agreement exists but counterpart participation has faded. What next?",
             "options": [
-              "Count the signature as proof of continuing ownership",
+              "Continue the agreed timetable while waiting for the next formal review.",
               "Explore changed concerns and reconfirm responsibilities",
-              "Replace counterpart staff with external implementers"
+              "Seek a replacement signature without discussing the reasons for reduced participation."
             ],
             "answer": 1,
-            "feedback": "Commitment can change; productive dialogue helps diagnose the change."
+            "feedback": "Commitment can change; productive dialogue helps diagnose the change.",
+            "optionFeedback": [
+              "An existing agreement does not resolve changed participation now; investigate what has changed.",
+              "This is the strongest response within the stated teaching situation.",
+              "A new signature may document approval but cannot substitute for understanding concerns and responsibilities."
+            ]
           },
           {
             "prompt": "Which sustainability question goes beyond purchase cost?",
             "options": [
               "Can local capability, recurrent resources and support maintain the process?",
-              "Can the launch event be delivered on time?",
-              "Can the donor buy the equipment this year?"
+              "Can a donor cover the full acquisition cost before the funding window closes?",
+              "Can the project complete its scheduled outputs without requesting extra funds?"
             ],
             "answer": 0,
-            "feedback": "Sustainability includes capability, ownership, affordability, relevance and enabling conditions."
+            "feedback": "Sustainability includes capability, ownership, affordability, relevance and enabling conditions.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "This answers an initial funding question; recurrent capability and commitment can remain unresolved.",
+              "Finishing outputs is not the same as maintaining the process afterward."
+            ]
           }
         ]
       },
@@ -166,7 +183,7 @@
               "Record reasoning and assumptions so choices are transparent and defensible. Revisit priorities when evidence changes, while avoiding endless review that prevents action."
             ],
             "takeaway": "A scoring aid supports judgement; it cannot remove the need to understand prerequisites.",
-            "transcript": "More reform needs may exist than available time, people or funding can address. Compare alternatives consistently rather than selecting the most visible request. The lesson suggests beneficiary importance, strategic importance, complementarity and implementability as comparison lenses. Record reasoning and assumptions so choices are transparent and defensible. Revisit priorities when evidence changes, while avoiding endless review that prevents action. A scoring aid supports judgement; it cannot remove the need to understand prerequisites. Consider what evidence and whose agreement would be needed before applying this approach in your own setting. The example is an invented teaching situation, not an expected CARANA exercise outcome.",
+            "transcript": "Two proposals can both be worthwhile while only one can be supported now. A comparison method makes your reasoning visible, but the method contains choices of its own. Which perspectives count, how strongly are they weighted, and what information supports each rating? Try changing the weights in the invented comparison. A different ranking should prompt discussion rather than surprise. Then look beyond the total: a dependency may require foundational work first. The official participant chart is more detailed than this illustration. Use this exercise to understand judgement under constraints before applying the actual chart to your own analytical findings.",
             "visual": {
               "title": "Make trade-offs visible",
               "nodes": [
@@ -186,7 +203,8 @@
                   "label": "Implementability",
                   "detail": "Can it be carried out with the relevant capacity and resources?"
                 }
-              ]
+              ],
+              "kind": "compare"
             },
             "decision": {
               "prompt": "Two invented proposals have the same score but one depends on a records process that does not yet exist. What is the best response?",
@@ -205,6 +223,40 @@
                 }
               ],
               "answer": 0
+            },
+            "lab": {
+              "type": "priority",
+              "title": "Test how a priority changes",
+              "context": "Invented comparison: a records routine and an advanced workshop both seek better case handling. Ratings are illustrative 1–3 values; weights reflect assumptions you can challenge.",
+              "criteria": [
+                "Beneficiary importance",
+                "Strategic fit",
+                "Complementarity",
+                "Implementability"
+              ],
+              "alternatives": [
+                {
+                  "label": "Establish a shared records routine",
+                  "ratings": [
+                    3,
+                    2,
+                    3,
+                    1
+                  ],
+                  "constraint": "Needs an agreed records owner before implementation."
+                },
+                {
+                  "label": "Run an advanced case workshop",
+                  "ratings": [
+                    2,
+                    3,
+                    1,
+                    3
+                  ],
+                  "constraint": "Learning may not transfer while the records process is unresolved."
+                }
+              ],
+              "debrief": "Which weighting changes the ranking? Which prerequisite still matters? Explain why your preference remains defensible even if its weighted total is lower."
             }
           },
           {
@@ -218,7 +270,7 @@
               "Agree a realistic scope before selecting the exact target. A numerical target invented without baseline evidence is not a sound objective."
             ],
             "takeaway": "SMART wording should make an agreed and feasible result testable; it should not disguise missing evidence.",
-            "transcript": "“Improve investigations” names a worthwhile direction but leaves the expected change unclear. Specify the change and who or what it concerns. Make progress measurable and time-bound. Check achievability with those responsible and relevance to the diagnosed need and strategic framework. Agree a realistic scope before selecting the exact target. A numerical target invented without baseline evidence is not a sound objective. SMART wording should make an agreed and feasible result testable; it should not disguise missing evidence. Consider what evidence and whose agreement would be needed before applying this approach in your own setting. The example is an invented teaching situation, not an expected CARANA exercise outcome.",
+            "transcript": "SMART is most useful as a conversation about meaning and feasibility. If an objective says that a process will improve, ask what change would be visible, who is responsible, and when it could reasonably be reviewed. Do not fill a gap in baseline evidence with a confident-looking percentage. Record what is known and what still needs agreement. The drafting scaffold asks you to separate these decisions so that a counterpart can challenge them. It will check only whether you have written something, not whether your professional judgement is sound. Take the revised objective into the practical workbench for further scrutiny.",
             "visual": {
               "title": "Turn an intention into a testable objective",
               "nodes": [
@@ -238,7 +290,8 @@
                   "label": "Time-bound",
                   "detail": "State when the result will be reviewed."
                 }
-              ]
+              ],
+              "kind": "compare"
             },
             "decision": {
               "prompt": "A proposed objective promises faster case review but has no baseline or deadline. Which revision process is strongest?",
@@ -257,6 +310,91 @@
                 }
               ],
               "answer": 2
+            },
+            "lab": {
+              "type": "builder",
+              "title": "Draft an objective you can defend",
+              "context": "Invented context: supervisors report inconsistent file review. You have not yet agreed a baseline or target. Make the unresolved parts visible rather than inventing certainty.",
+              "fields": [
+                {
+                  "label": "Intended change and scope",
+                  "prompt": "Whose practice or service should change, and in which setting?"
+                },
+                {
+                  "label": "Evidence and measure",
+                  "prompt": "What observable definition and baseline would support comparison?"
+                },
+                {
+                  "label": "Achievability and ownership",
+                  "prompt": "Who must agree feasibility, capability and recurrent support?"
+                },
+                {
+                  "label": "Relevance",
+                  "prompt": "Which diagnosed need and authorised objective does this address?"
+                },
+                {
+                  "label": "Review date and unresolved target",
+                  "prompt": "What date could be agreed? What evidence is needed before fixing the target?"
+                }
+              ],
+              "example": "Illustrative structure: by an agreed review date, the designated review team applies a jointly defined case-file review routine in the agreed unit; compare a consistent sample against the initial observation. Target and sampling details remain to be agreed after baseline and feasibility checks.",
+              "review": "Does the draft describe a result rather than an activity? Check all five SMART aspects, who has agreed them, and where uncertainty remains.",
+              "debrief": "Ask a counterpart or peer which phrase could be interpreted differently and revise it before transferring it to the workbench."
+            }
+          },
+          {
+            "id": "02-07",
+            "title": "Test the objective in a counterpart briefing",
+            "sourcePages": "16–19",
+            "lead": "A clear-looking objective can still hide different assumptions about whose service should improve.",
+            "points": [
+              "Read the result from the counterpart’s perspective: who is responsible and who experiences the change?",
+              "Explain the intended change in plain language before agreeing the number. A target without a shared definition can create misleading agreement.",
+              "Invite a challenge about capability, inclusion and continuing support. Document the decision and its unresolved assumptions."
+            ],
+            "takeaway": "Shared wording is useful only when the parties share its operational meaning.",
+            "transcript": "Picture a briefing where everyone agrees to improve case handling. One person means faster processing; another means more complete documentation. A shared phrase has hidden two different intentions. Before choosing a target, invite the counterpart to describe what successful practice would look like and who would maintain it. Then check whether the measure captures that intention. You may need several perspectives, but not an unlimited number of indicators. A useful objective makes discussion more precise. It does not eliminate disagreement by sounding technical. The example is invented and does not supply the CARANA activity’s priorities.",
+            "visual": {
+              "title": "Test the objective in a counterpart briefing",
+              "kind": "compare",
+              "nodes": [
+                {
+                  "label": "Proposed result",
+                  "detail": "Identify the service change, not just the event."
+                },
+                {
+                  "label": "Counterpart interpretation",
+                  "detail": "Check who will act and how the change fits existing responsibilities."
+                },
+                {
+                  "label": "Agreed revision",
+                  "detail": "Record scope, evidence and remaining decisions."
+                }
+              ]
+            },
+            "decision": {
+              "prompt": "A counterpart agrees to a faster process but is concerned that file quality may decline. What should you discuss next?",
+              "options": [
+                {
+                  "label": "Keep the speed target and review quality only if complaints emerge.",
+                  "feedback": "This delays an already identified concern; the agreed result and measures may need to include quality now."
+                },
+                {
+                  "label": "Clarify the intended service change and agree how both timeliness and quality will be assessed.",
+                  "feedback": "This makes the trade-off explicit and checks that the objective reflects the actual need."
+                },
+                {
+                  "label": "Replace every measure with a broad statement of professional standards.",
+                  "feedback": "This recognises quality but loses the testable result needed for later evaluation."
+                }
+              ],
+              "answer": 1
+            },
+            "worked": {
+              "before": "Conduct a file-review workshop by June.",
+              "beforeWhy": "This specifies delivery and a date but does not define the change in practice.",
+              "after": "Agree a defined review routine and evidence of its use in the selected unit, with a feasible target and review date established from the baseline.",
+              "afterWhy": "This links the activity to a result and exposes what must still be agreed. It is a structure for discussion, not a completed SMART objective."
             }
           }
         ],
@@ -265,31 +403,46 @@
             "prompt": "Why record prioritisation assumptions?",
             "options": [
               "To make choices explainable and revisable when context changes",
-              "To convert a score into an objective fact",
-              "To prevent counterparts from changing priorities"
+              "To make the resulting ranking binding until the next annual planning cycle.",
+              "To show that the option with the highest total should always be implemented first."
             ],
             "answer": 0,
-            "feedback": "Transparent comparison supports accountable judgement."
+            "feedback": "Transparent comparison supports accountable judgement.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "Recorded reasoning supports revisiting choices when evidence changes, not making them permanently binding.",
+              "A total does not remove dependencies or the need for professional judgement."
+            ]
           },
           {
             "prompt": "Which constraint most directly affects sequencing?",
             "options": [
-              "A donor prefers identical start dates",
-              "One proposal has a more persuasive title",
+              "An alternative option attracts more visible donor support this month.",
+              "Two activities have similar costs but different presentational appeal.",
               "A planned result depends on capability not yet established"
             ],
             "answer": 2,
-            "feedback": "Foundational work must be considered before dependent activities."
+            "feedback": "Foundational work must be considered before dependent activities.",
+            "optionFeedback": [
+              "Support can matter, but a missing prerequisite directly constrains whether the planned result can follow.",
+              "Presentation does not establish the causal or practical dependency that should govern sequencing.",
+              "This is the strongest response within the stated teaching situation."
+            ]
           },
           {
             "prompt": "What is the best next step for “improve service quality”?",
             "options": [
-              "Rename it a strategic target without changing its meaning",
+              "Choose a performance percentage first so stakeholders can negotiate around a clear number.",
               "Agree a specific, measurable, achievable, relevant and time-bound result with counterparts",
-              "Choose a percentage before examining present performance"
+              "Use the existing training calendar as the measurable objective."
             ],
             "answer": 1,
-            "feedback": "An objective needs operational meaning and a defensible basis for its measure."
+            "feedback": "An objective needs operational meaning and a defensible basis for its measure.",
+            "optionFeedback": [
+              "A concrete number can conceal missing baseline evidence, feasibility or agreement about the result.",
+              "This is the strongest response within the stated teaching situation.",
+              "A calendar measures delivery, not necessarily the change in service quality."
+            ]
           }
         ]
       },
@@ -308,7 +461,7 @@
               "Specify the observation and compare it with the baseline and intended result. Keep the number of indicators proportionate to the collection effort."
             ],
             "takeaway": "An activity count does not establish the quality of the intended result.",
-            "transcript": "The number of delivered workshops may be easy to count without telling you whether policing practice improved. Choose measures that reflect the intended result and can be gathered and managed. The source emphasises countable indicators while allowing more than one perspective on a complex objective. Specify the observation and compare it with the baseline and intended result. Keep the number of indicators proportionate to the collection effort. An activity count does not establish the quality of the intended result. Consider what evidence and whose agreement would be needed before applying this approach in your own setting. The example is an invented teaching situation, not an expected CARANA exercise outcome.",
+            "transcript": "A workshop register answers a delivery question. A review of work products may answer a practice question. Neither automatically explains why a change occurred. Begin with the intended result and ask what evidence would be useful for the next decision. You may need more than one perspective, but each measure creates work for someone. Choose a manageable set, define the observations and explain their limits. In the classification exercise, distinguish a delivered activity from evidence about practice and from a weakness in the evidence. The aim is not to reject numbers; it is to make them meaningful.",
             "visual": {
               "title": "Choose indicators that inform decisions",
               "nodes": [
@@ -328,7 +481,8 @@
                   "label": "Use",
                   "detail": "What decision would this evidence inform?"
                 }
-              ]
+              ],
+              "kind": "compare"
             },
             "decision": {
               "prompt": "A programme reports only attendance for an objective about better case documentation. What would strengthen its framework?",
@@ -347,6 +501,113 @@
                 }
               ],
               "answer": 1
+            },
+            "lab": {
+              "type": "classify",
+              "title": "Separate delivery, results and uncertainty",
+              "context": "These invented records describe a documentation initiative. Classify what each record can establish before treating it as evidence of improvement.",
+              "categories": [
+                "Delivery information",
+                "Evidence about practice",
+                "Limitation to investigate"
+              ],
+              "items": [
+                {
+                  "text": "A register records that three learning sessions were held.",
+                  "answer": 0,
+                  "feedback": "This establishes delivery, not whether documentation practices changed."
+                },
+                {
+                  "text": "A defined file sample records whether the agreed review steps are documented.",
+                  "answer": 1,
+                  "feedback": "This can address practice, provided the sample and criteria are defensible."
+                },
+                {
+                  "text": "Only files chosen by the team delivering the initiative were reviewed.",
+                  "answer": 2,
+                  "feedback": "Selection could bias the picture. Explain how the sample will be selected and its limits."
+                },
+                {
+                  "text": "The initial review and later review use different definitions of a complete file.",
+                  "answer": 2,
+                  "feedback": "A changed definition weakens comparison even if the reported percentage rises."
+                }
+              ]
+            }
+          },
+          {
+            "id": "02-08",
+            "title": "A stronger number needs a defensible method",
+            "sourcePages": "20–21",
+            "lead": "An indicator is only as useful as the observation and comparison behind it.",
+            "points": [
+              "State what is counted and the relevant population or denominator. Keep the definition stable across observations.",
+              "Plan a feasible evidence source, collection responsibility and review schedule. Consider missing records and whose experience may be absent.",
+              "Use the indicator to support a decision. Explain uncertainty rather than treating a favourable number as proof that the intervention caused the change."
+            ],
+            "takeaway": "A repeatable measurement plan turns a number into evidence that can be questioned.",
+            "transcript": "Suppose a report says that review quality improved from half of files to four fifths. Before celebrating, ask whether the same definition was used, whether the files came from comparable work and how they were selected. Perhaps the second sample contained only simpler files. That does not make measurement useless; it tells you what to investigate before drawing a conclusion. The lesson links indicators with later evaluation. Keep the collection burden proportionate, but make the method understandable enough for another adviser to repeat. The figures in this example are invented and are not findings from CARANA.",
+            "visual": {
+              "title": "A stronger number needs a defensible method",
+              "kind": "chain",
+              "nodes": [
+                {
+                  "label": "Definition",
+                  "detail": "What exactly is observed and what does the number refer to?"
+                },
+                {
+                  "label": "Collection",
+                  "detail": "How, when and by whom will comparable evidence be obtained?"
+                },
+                {
+                  "label": "Interpretation",
+                  "detail": "What decision is supported, and which alternative explanation remains?"
+                }
+              ]
+            },
+            "decision": {
+              "prompt": "A later sample shows improvement, but it excludes complex cases included at baseline. What is the strongest interpretation?",
+              "options": [
+                {
+                  "label": "The programme succeeded because the percentage increased.",
+                  "feedback": "The direction looks favourable, but the changed sample prevents a straightforward conclusion."
+                },
+                {
+                  "label": "Discard the indicator and use workshop attendance instead.",
+                  "feedback": "Attendance does not resolve whether the intended practice changed."
+                },
+                {
+                  "label": "Investigate comparability and report the limitation before interpreting the difference.",
+                  "feedback": "A measured change needs a defensible basis of comparison and a clear statement of limits."
+                }
+              ],
+              "answer": 2
+            },
+            "lab": {
+              "type": "builder",
+              "title": "Design a usable indicator",
+              "context": "Use the invented review-routine example or another non-sensitive teaching situation.",
+              "fields": [
+                {
+                  "label": "Definition and population",
+                  "prompt": "What observation is counted, and which files, people or processes are included?"
+                },
+                {
+                  "label": "Baseline and repeat observation",
+                  "prompt": "What method and timing would make the comparison defensible?"
+                },
+                {
+                  "label": "Collection responsibility and limits",
+                  "prompt": "Who collects it? What missing evidence or sampling limitation should be reported?"
+                },
+                {
+                  "label": "Decision and explanation",
+                  "prompt": "What would this observation help decide, and what could it not establish?"
+                }
+              ],
+              "example": "One illustrative plan defines the review steps, samples comparable files at agreed times, records the selection method and missing records, and asks whether observed practice supports the intended result. It does not infer causation from a percentage alone.",
+              "review": "Would another adviser obtain a comparable observation from this description? Is the effort proportionate to the decision?",
+              "debrief": "Compare the observation with your original objective. If they do not match, revise the measure or clarify the objective."
             }
           },
           {
@@ -360,7 +621,7 @@
               "Prepare to explain why a choice is prioritised, which prerequisite matters and how its result could be measured."
             ],
             "takeaway": "Planning needs a reasoned objective rather than a ranked list alone.",
-            "transcript": "Your analytical findings now need to become a manageable set of justified objectives. Use your own Lesson 1 findings to identify candidate objectives, then compare their importance and feasibility. The official group task identifies 6–10 candidate objectives, uses the participant comparison chart while leaving its risk category aside at this stage, then phrases the top two objectives using SMART. The chart also considers donor interest; the four preceding teaching lenses are a concise introduction, not the complete chart. Prepare to explain why a choice is prioritised, which prerequisite matters and how its result could be measured. Planning needs a reasoned objective rather than a ranked list alone.",
+            "transcript": "Your Lesson 1 findings are the starting point for the official objective-setting activity. The task is not to recover a hidden ideal list. Identify six to ten candidate objectives, compare them using the participant chart while leaving its risk category aside at this stage, and phrase the top two using SMART. Keep the distinction between that chart and our simpler teaching comparison clear. Before moving to planning, explain why your choices matter, which dependencies affect their sequence and how progress could be observed. Another participant may make a defensible different choice. The discussion of evidence and assumptions is part of the learning.",
             "visual": {
               "title": "Carry defensible choices into practice",
               "nodes": [
@@ -380,7 +641,8 @@
                   "label": "Reflection",
                   "detail": "Ask a peer what could invalidate your reasoning."
                 }
-              ]
+              ],
+              "kind": "chain"
             },
             "decision": {
               "prompt": "A team has a ranked list but cannot explain the top choice. What should it do before handing over to planning?",
@@ -406,32 +668,47 @@
           {
             "prompt": "Which measure best addresses improved file quality?",
             "options": [
-              "Number of presentations delivered",
+              "The proportion of staff attending a documentation briefing.",
               "A defined, consistently sampled measure of documentation quality",
-              "Number of officers invited"
+              "The number of new review forms issued to the unit."
             ],
             "answer": 1,
-            "feedback": "The indicator must address the intended result and have a feasible collection method."
+            "feedback": "The indicator must address the intended result and have a feasible collection method.",
+            "optionFeedback": [
+              "Attendance can help explain delivery but does not directly assess file quality.",
+              "This is the strongest response within the stated teaching situation.",
+              "Issued forms are an output; their use and quality still need evidence."
+            ]
           },
           {
             "prompt": "A complex objective has twenty candidate indicators. What should guide selection?",
             "options": [
               "Keep the smallest useful set covering needed perspectives and collection feasibility",
-              "Use only the one that already improved",
-              "Use all of them because more data always means stronger evaluation"
+              "Retain every indicator so no stakeholder perspective is lost.",
+              "Choose the indicator with the most complete existing records, even if it reflects only delivery."
             ],
             "answer": 0,
-            "feedback": "Measurement burden and relevance both matter."
+            "feedback": "Measurement burden and relevance both matter.",
+            "optionFeedback": [
+              "This is the strongest response within the stated teaching situation.",
+              "Coverage matters, but an unmanageable collection burden can undermine useful measurement.",
+              "Availability alone does not make a measure relevant to the objective."
+            ]
           },
           {
             "prompt": "What should a handoff to planning contain?",
             "options": [
-              "The facilitator’s model prioritisation answer",
-              "Only a preferred activity timetable",
+              "A ranked activity list with indicative costs, leaving the objective wording until planning.",
+              "A detailed training schedule with attendance targets and a note that counterparts support it.",
               "Prioritised SMART objectives, reasoning and a performance framework"
             ],
             "answer": 2,
-            "feedback": "The learner must make and justify their own choices from evidence."
+            "feedback": "The learner must make and justify their own choices from evidence.",
+            "optionFeedback": [
+              "Planning needs an agreed and testable result; a ranking of activities is insufficient.",
+              "A schedule and attendance do not supply the prioritised result, rationale and performance framework.",
+              "This is the strongest response within the stated teaching situation."
+            ]
           }
         ]
       }
@@ -439,17 +716,45 @@
     "artwork": [
       {
         "screenId": "02-01",
-        "purpose": "Introduce the central professional dilemma",
-        "brief": "Approved cinematic editorial style: fictional police adviser and counterpart jointly examine evidence and planning choices. Navy, teal, mint continuity; no UN insignia or model exercise outcomes.",
-        "alt": "Fictional counterpart and adviser examine the relationship between evidence and a reform plan.",
-        "status": "specification-only"
+        "purpose": "Show system dependencies",
+        "status": "specification-only",
+        "brief": "Police adviser and counterpart review a process handoff with a prosecutor; the visual emphasis is the discussion across institutional boundaries, with blank working materials.",
+        "alt": "Fictional police and justice counterparts discuss how a case-handling change affects their shared process.",
+        "composition": "1672 × 941 landscape, editorial cinematic style matching the three approved Lesson 1 scenes. Keep the interaction and all diagram labels in accessible HTML outside the image.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional professional setting; diverse counterparts with agency; no UN insignia, real person likeness, readable model answers or decorative text. No generation authorised.",
+        "teachingPrompt": "Whose work changes when police output increases?"
       },
       {
-        "screenId": "02-05",
-        "purpose": "Show shared judgement under constraints",
-        "brief": "Same approved artistic direction: counterparts compare alternative priorities or risks using blank planning materials; avoid visible correct answers and stereotyped portrayals.",
-        "alt": "Fictional professionals discuss alternative decisions and resource constraints.",
-        "status": "specification-only"
+        "screenId": "02-07",
+        "purpose": "Make apparently shared agreement questionable",
+        "status": "specification-only",
+        "brief": "A small counterpart briefing shows two professionals comparing distinct interpretations of one proposed objective; use attentive expressions, not conflict stereotypes.",
+        "alt": "Fictional counterparts compare what successful reform would mean for their different responsibilities.",
+        "composition": "1672 × 941 landscape, editorial cinematic style matching the three approved Lesson 1 scenes. Keep the interaction and all diagram labels in accessible HTML outside the image.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional professional setting; diverse counterparts with agency; no UN insignia, real person likeness, readable model answers or decorative text. No generation authorised.",
+        "teachingPrompt": "What agreement is still missing behind the shared wording?"
+      },
+      {
+        "screenId": "02-08",
+        "purpose": "Introduce evidence uncertainty",
+        "status": "specification-only",
+        "brief": "A review team compares two sets of files, noticing that selection differs; avoid any visible percentage or correct classification.",
+        "alt": "Fictional reviewers examine whether two file samples are comparable.",
+        "composition": "1672 × 941 landscape, editorial cinematic style matching the three approved Lesson 1 scenes. Keep the interaction and all diagram labels in accessible HTML outside the image.",
+        "styleReferences": [
+          "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+          "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg"
+        ],
+        "constraints": "Fictional professional setting; diverse counterparts with agency; no UN insignia, real person likeness, readable model answers or decorative text. No generation authorised.",
+        "teachingPrompt": "What would you check before interpreting a reported improvement?"
       }
     ]
   },
