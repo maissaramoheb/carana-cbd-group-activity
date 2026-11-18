@@ -186,6 +186,7 @@ function html(section,screen){
 }
 function mount(section,screen){
  const id=key(section,screen),e=scenes[id]||exercises[id];
+ window.CARANA_VISUAL_JOURNEY.active=null;
  const root=document.querySelector('.vj-stage');
  if(!root||!e)return;
  const response=root.querySelector('#vj-result');
@@ -214,6 +215,14 @@ function mount(section,screen){
   });
   return;
  }
+ if(id==='01-01' && window.CARANA_EXPLORATION && document.body.classList.contains('is-learning')) {
+  window.CARANA_VISUAL_JOURNEY.active=window.CARANA_EXPLORATION.bind({
+   lessonId:'cbd-1',screenId:id,items:e.nodes,buttons:root.querySelectorAll('[data-vj-item]'),
+   feedback:response,count:root.querySelector('#vj-count'),fill:root.querySelector('#vj-progress-fill'),container:root,
+   onSelect:i=>{const n=e.nodes[i];response.innerHTML='<strong>'+esc(n.question)+'</strong><p>'+esc(n.explain)+'</p>';},
+   practiceButtons:[...document.querySelectorAll('[data-decision],[data-vj-mini]')]
+  });
+ } else {
  const selected=new Set();
  const buttons=[...root.querySelectorAll('[data-vj-item]')];
  const count=root.querySelector('#vj-count');
@@ -226,6 +235,7 @@ function mount(section,screen){
   count.textContent=selected.size+' of '+buttons.length+' explored';
   if(fill)fill.style.width=(100*selected.size/buttons.length)+'%';
  }));
+ }
  const micro=microCases[id];
  if(micro){
   const options=[...root.querySelectorAll('[data-vj-mini]')];

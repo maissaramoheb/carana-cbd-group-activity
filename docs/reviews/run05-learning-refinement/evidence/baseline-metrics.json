@@ -1,0 +1,185 @@
+[
+  {
+    "width": 1440,
+    "heading": {
+      "x": 296.796875,
+      "y": -739.078125,
+      "width": 622.203125,
+      "height": 52.515625,
+      "top": -739.078125,
+      "right": 919,
+      "bottom": -686.5625,
+      "left": 296.796875
+    },
+    "diagram": {
+      "x": 296.796875,
+      "y": 342.953125,
+      "width": 850.40625,
+      "height": 441.640625,
+      "top": 342.953125,
+      "right": 1147.203125,
+      "bottom": 784.59375,
+      "left": 296.796875
+    },
+    "fonts": [
+      {
+        "selector": "micro-label",
+        "text": "SECTION 01 OF 06 · SCREEN 1 OF 03",
+        "size": "10.5px",
+        "color": "rgb(19, 111, 150)"
+      },
+      {
+        "selector": "",
+        "text": "The decision before the decision",
+        "size": "46.08px",
+        "color": "rgb(20, 44, 68)"
+      },
+      {
+        "selector": "",
+        "text": "A request is not a diagnosis",
+        "size": "30px",
+        "color": "rgb(25, 58, 81)"
+      },
+      {
+        "selector": "",
+        "text": "Select each step to follow the reasoning before committing t",
+        "size": "12.7px",
+        "color": "rgb(89, 119, 138)"
+      },
+      {
+        "selector": "",
+        "text": "Effective capacity-building begins with a shared understandi",
+        "size": "12.3px",
+        "color": "rgb(98, 121, 140)"
+      },
+      {
+        "selector": "source-small",
+        "text": "UNPOL CBD Job-Specific Training · Lesson 1, 2021 / July 2023",
+        "size": "11.2px",
+        "color": "rgb(98, 121, 140)"
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "heading": {
+      "x": 21,
+      "y": -590.828125,
+      "width": 726,
+      "height": 45.515625,
+      "top": -590.828125,
+      "right": 747,
+      "bottom": -545.3125,
+      "left": 21
+    },
+    "diagram": {
+      "x": 21,
+      "y": 444.171875,
+      "width": 726,
+      "height": 555.9375,
+      "top": 444.171875,
+      "right": 747,
+      "bottom": 1000.109375,
+      "left": 21
+    },
+    "fonts": [
+      {
+        "selector": "micro-label",
+        "text": "SECTION 01 OF 06 · SCREEN 1 OF 03",
+        "size": "10.5px",
+        "color": "rgb(19, 111, 150)"
+      },
+      {
+        "selector": "",
+        "text": "The decision before the decision",
+        "size": "39.936px",
+        "color": "rgb(20, 44, 68)"
+      },
+      {
+        "selector": "",
+        "text": "A request is not a diagnosis",
+        "size": "23px",
+        "color": "rgb(25, 58, 81)"
+      },
+      {
+        "selector": "",
+        "text": "Select each step to follow the reasoning before committing t",
+        "size": "12.7px",
+        "color": "rgb(89, 119, 138)"
+      },
+      {
+        "selector": "",
+        "text": "Effective capacity-building begins with a shared understandi",
+        "size": "12.3px",
+        "color": "rgb(98, 121, 140)"
+      },
+      {
+        "selector": "source-small",
+        "text": "UNPOL CBD Job-Specific Training · Lesson 1, 2021 / July 2023",
+        "size": "11.2px",
+        "color": "rgb(98, 121, 140)"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "heading": {
+      "x": 17,
+      "y": -658.203125,
+      "width": 356,
+      "height": 80,
+      "top": -658.203125,
+      "right": 373,
+      "bottom": -578.203125,
+      "left": 17
+    },
+    "diagram": {
+      "x": 17,
+      "y": 387.578125,
+      "width": 356,
+      "height": 612.84375,
+      "top": 387.578125,
+      "right": 373,
+      "bottom": 1000.421875,
+      "left": 17
+    },
+    "fonts": [
+      {
+        "selector": "micro-label",
+        "text": "SECTION 01 OF 06 · SCREEN 1 OF 03",
+        "size": "10.5px",
+        "color": "rgb(19, 111, 150)"
+      },
+      {
+        "selector": "",
+        "text": "The decision before the decision",
+        "size": "35.1px",
+        "color": "rgb(20, 44, 68)"
+      },
+      {
+        "selector": "",
+        "text": "A request is not a diagnosis",
+        "size": "24px",
+        "color": "rgb(25, 58, 81)"
+      },
+      {
+        "selector": "",
+        "text": "Select each step to follow the reasoning before committing t",
+        "size": "12.2px",
+        "color": "rgb(89, 119, 138)"
+      },
+      {
+        "selector": "",
+        "text": "Effective capacity-building begins with a shared understandi",
+        "size": "12.3px",
+        "color": "rgb(98, 121, 140)"
+      },
+      {
+        "selector": "source-small",
+        "text": "UNPOL CBD Job-Specific Training · Lesson 1, 2021 / July 2023",
+        "size": "11.2px",
+        "color": "rgb(98, 121, 140)"
+      }
+    ]
+  }
+]

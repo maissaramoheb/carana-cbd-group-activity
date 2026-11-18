@@ -1,0 +1,131 @@
+/* Explanatory history only. Never writes checkpoints, learner drafts or workbench data. */
+(function (root, factory) {
+  const api = factory(root);
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.CARANA_EXPLORATION = api;
+})(typeof window === 'object' ? window : null, function (host) {
+  'use strict';
+  const KEY = 'carana_exploration_v1', LIMIT = 192, MAX_BYTES = 96 * 1024;
+  const recordKey = /^cbd-[1-6]\/\d{2}-\d{2}\/[a-f0-9]{8}$/;
+  const nodeKey = /^n-[a-f0-9]{8}$/;
+  const plain = v => !!v && typeof v === 'object' && !Array.isArray(v);
+  function hash(text) {
+    let n = 2166136261;
+    for (const c of String(text)) { n ^= c.charCodeAt(0); n = Math.imul(n, 16777619); }
+    return (n >>> 0).toString(16).padStart(8, '0');
+  }
+  // Semantic identifiers survive rearrangement; changed explanatory content gets a new revision.
+  const nodeId = item => 'n-' + hash(item.id || item.label);
+  function descriptor(lessonId, screenId, items) {
+    const signature = items.map(n => [nodeId(n), n.label, n.question || '', n.detail || n.explain || ''].join('|')).sort().join('\n');
+    return { key: lessonId + '/' + screenId + '/' + hash(signature), ids: items.map(nodeId) };
+  }
+  const empty = () => ({ version: 1, records: {} });
+  function validate(raw) {
+    if (!plain(raw) || raw.version !== 1 || !plain(raw.records)) return { ok: false, message: 'Unsupported exploration history format.' };
+    const entries = Object.entries(raw.records);
+    if (entries.length > LIMIT || JSON.stringify(raw).length > MAX_BYTES) return { ok: false, message: 'Exploration history exceeds its local size limit.' };
+    const records = {};
+    for (const [k, r] of entries) {
+      if (!recordKey.test(k) || !plain(r) || !Array.isArray(r.seen) || r.seen.length > 80 || r.seen.some(n => typeof n !== 'string' || !nodeKey.test(n)) ||
+          (r.selected !== undefined && r.selected !== null && !nodeKey.test(r.selected)) ||
+          (r.dismissed !== undefined && typeof r.dismissed !== 'boolean') || (r.practice !== undefined && typeof r.practice !== 'boolean')) {
+        return { ok: false, message: 'Invalid exploration history. Existing progress was not changed.' };
+      }
+      const seen = [...new Set(r.seen)];
+      records[k] = { seen, selected: seen.includes(r.selected) ? r.selected : null, dismissed: r.dismissed === true, practice: r.practice === true };
+    }
+    return { ok: true, value: { version: 1, records } };
+  }
+  function createStore(storage) {
+    let state = empty(), failure = false;
+    try { const raw = storage?.getItem(KEY); if (raw) { const v = validate(JSON.parse(raw)); if (v.ok) state = v.value; } } catch (_) { /* Legacy or corrupt auxiliary history never alters course progress. */ }
+    function save() {
+      const grouped = new Map();
+      for (const k of Object.keys(state.records).reverse()) {
+        const screen = k.slice(0, k.lastIndexOf('/')), count = grouped.get(screen) || 0;
+        if (count >= 3) delete state.records[k]; else grouped.set(screen, count + 1);
+      }
+      const keys = Object.keys(state.records); while (keys.length > LIMIT) delete state.records[keys.shift()];
+      try { if (!storage) throw Error('Storage unavailable'); storage.setItem(KEY, JSON.stringify(state)); failure = false; return true; }
+      catch (_) { failure = true; return false; }
+    }
+    function get(d) {
+      const r = state.records[d.key] || { seen: [], selected: null, dismissed: false, practice: false };
+      return { ...r, seen: r.seen.filter(n => d.ids.includes(n)), selected: d.ids.includes(r.selected) ? r.selected : null };
+    }
+    function update(d, change) { state.records[d.key] = { ...get(d), ...change }; return save(); }
+    function exportFor(ids) {
+      return { version: 1, records: Object.fromEntries(Object.entries(state.records).filter(([k]) => ids.includes(k.split('/')[0])).map(([k, v]) => [k, { ...v, seen: [...v.seen] }])) };
+    }
+    function importFor(raw, ids, mode) {
+      const v = validate(raw); if (!v.ok) return false;
+      if (mode === 'replace') for (const k of Object.keys(state.records)) if (ids.includes(k.split('/')[0])) delete state.records[k];
+      for (const [k, incoming] of Object.entries(v.value.records)) {
+        if (!ids.includes(k.split('/')[0])) continue;
+        const old = state.records[k];
+        state.records[k] = mode === 'merge' && old ? { seen: [...new Set([...old.seen, ...incoming.seen])], selected: old.selected || incoming.selected, dismissed: old.dismissed || incoming.dismissed, practice: old.practice || incoming.practice } : incoming;
+      }
+      return save();
+    }
+    return { get, update, exportFor, importFor, get failed() { return failure; } };
+  }
+  let storage;
+  try { storage = host?.localStorage; } catch (_) { /* Denied browser storage is handled visibly on writes. */ }
+  const store = createStore(storage);
+  function bind({ lessonId, screenId, items, buttons, feedback, count, fill, container, onSelect, practiceButtons = [], remind = true }) {
+    const d = descriptor(lessonId, screenId, items), all = [...buttons];
+    if (!container || !all.length || all.length !== items.length) return null;
+    let state = store.get(d), reminder, nextAction;
+    const doc = container.ownerDocument;
+    const storageNote = doc.createElement('p'); storageNote.className = 'exploration-storage'; storageNote.setAttribute('role', 'status'); container.append(storageNote);
+    const practiceNote = doc.createElement('p'); practiceNote.className = 'practice-history'; container.append(practiceNote);
+    function paint() {
+      all.forEach((button, i) => {
+        const selected = state.selected === d.ids[i], seen = state.seen.includes(d.ids[i]);
+        button.dataset.explored = String(seen); button.dataset.explorationId = d.ids[i];
+        button.classList.toggle('chosen', selected); button.classList.toggle('selected', selected);
+        button.setAttribute('aria-pressed', String(selected));
+        button.setAttribute('aria-label', items[i].label + ' — ' + (selected ? 'currently selected explanation' : seen ? 'explored previously' : 'not explored'));
+        if (feedback?.id) button.setAttribute('aria-controls', feedback.id);
+        let badge = button.querySelector('.exploration-state');
+        if (!badge) { badge = doc.createElement('span'); badge.className = 'exploration-state'; badge.setAttribute('aria-hidden', 'true'); button.append(badge); }
+        badge.textContent = selected ? 'Viewing' : seen ? 'Explored' : 'Explore';
+      });
+      if (count) { count.textContent = 'Explanations ' + state.seen.length + ' of ' + all.length + ' explored'; count.setAttribute('aria-live', 'polite'); }
+      if (fill) fill.style.width = (100 * state.seen.length / all.length) + '%';
+      storageNote.textContent = store.failed ? 'Exploration history could not save on this device. Export a backup before closing. Checkpoint progress is recorded separately.' : '';
+      practiceNote.textContent = state.practice ? 'Practice attempted · separate from checkpoint achievement' : '';
+      if (feedback) feedback.dataset.feedback = 'explanation';
+    }
+    function select(i, save = true) {
+      if (!items[i]) return;
+      state.selected = d.ids[i]; state.seen = [...new Set([...state.seen, d.ids[i]])];
+      if (save) store.update(d, state);
+      onSelect(i); paint();
+    }
+    all.forEach((button, i) => button.addEventListener('click', () => select(i)));
+    practiceButtons.forEach(button => button.addEventListener('click', () => { state.practice = true; store.update(d, state); paint(); }));
+    paint();
+    if (state.selected) select(d.ids.indexOf(state.selected), false);
+    function advance(action) {
+      if (!remind || state.seen.length === all.length || state.dismissed) { action(); return; }
+      if (reminder && !reminder.hidden) { state.dismissed = true; store.update(d, state); action(); return; }
+      nextAction = action;
+      if (!reminder) {
+        reminder = doc.createElement('section'); reminder.className = 'exploration-reminder'; reminder.setAttribute('aria-label', 'Optional exploration reminder');
+        const text = doc.createElement('p'); text.setAttribute('role', 'status'); text.textContent = 'Some explanations are still unexplored. They may help your reasoning; opening them is not a knowledge check.';
+        const review = doc.createElement('button'); review.type = 'button'; review.className = 'exploration-review'; review.textContent = 'Review remaining explanations';
+        const anyway = doc.createElement('button'); anyway.type = 'button'; anyway.className = 'exploration-anyway'; anyway.textContent = 'Continue anyway →';
+        review.onclick = () => { reminder.hidden = true; const i = d.ids.findIndex(id => !state.seen.includes(id)); all[Math.max(0, i)].focus(); all[Math.max(0, i)].scrollIntoView({ block: 'center', behavior: 'instant' }); };
+        anyway.onclick = () => { state.dismissed = true; store.update(d, state); nextAction(); };
+        reminder.append(text, review, anyway);
+        const navigation = doc.querySelector('#next-screen, #next');
+        (navigation?.parentElement || container).before(reminder);
+      }
+      reminder.hidden = false; reminder.querySelector('button').focus();
+    }
+    return { advance, descriptor: d };
+  }
+  return { KEY, MAX_BYTES, descriptor, validate, createStore, store, bind };
+});

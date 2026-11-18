@@ -349,7 +349,7 @@
     const value=Math.round((finished/SECTION_COUNT)*100);
     $('root').innerHTML =
       '<div class="course-shell"><header class="course-header"><a class="back-home" id="back-home" href="#home"><span aria-hidden="true">←</span> COURSE HOME</a><div class="header-title">CARANA <span>/</span> CBD E-LEARNING <span>/</span> LESSON 01</div><div class="header-right"><button class="header-activities-link" id="course-activities">▦ Activities <span class="nav-count">07</span></button><span id="save-status" role="status">Progress is stored on this device</span><button class="export-mini" id="export-mini">Export progress ↗</button><button class="export-mini" id="import-mini">Restore</button><input type="file" id="import-l1-file" accept=".json,application/json" hidden></div></header>' +
-      '<div class="workspace"><aside class="side-rail"><div class="rail-overline">LESSON 01</div><h2>Situational<br>Analysis</h2><p>Learn to diagnose before designing change.</p><div class="rail-divider"></div><div class="rail-overline">LEARNING PATH</div><nav aria-label="Course sections">'+railHTML()+'</nav><div class="rail-divider"></div><div class="rail-progress"><div class="rail-progress-row"><span>Knowledge checkpoints</span><strong>'+finished+' / 6</strong></div><div class="progress-track"><i style="width:'+value+'%"></i></div></div><div class="rail-note">Correct responses are required at each checkpoint before moving forward.</div><button class="rail-activity-cta" id="rail-activity-cta"><span class="rail-cta-icon">↗</span><span><strong>Practice library</strong><small>All 7 activities · Quick access</small></span></button></aside>' +
+      '<div class="workspace"><aside class="side-rail"><div class="rail-overline">LESSON 01</div><h2>Situational<br>Analysis</h2><p>Learn to diagnose before designing change.</p><div class="rail-divider"></div><div class="rail-overline">LEARNING PATH</div><details class="l1-path-menu" open><summary>Lesson sections · current section '+(position.section+1)+' of 6</summary><nav aria-label="Course sections">'+railHTML()+'</nav></details><div class="rail-divider"></div><div class="rail-progress"><div class="rail-progress-row"><span>Knowledge checkpoints</span><strong>'+finished+' / 6</strong></div><div class="progress-track"><i style="width:'+value+'%"></i></div></div><div class="rail-note">Correct responses are required at each checkpoint before moving forward.</div><button class="rail-activity-cta" id="rail-activity-cta"><span class="rail-cta-icon">↗</span><span><strong>Practice library</strong><small>All 7 activities · Quick access</small></span></button></aside>' +
       '<main class="learning-content" id="learning-main"><div class="learning-frame"><div id="l1-restore-preview" class="l1-restore-preview" hidden></div><div class="content-overline">'+clean(heading)+'</div>'+content+'</div></main>' +
       '<aside class="context-panel"><span class="context-overline">WHY THIS MATTERS</span><h3>Evidence before action.</h3><p>Effective capacity-building begins with a shared understanding of the context, existing assistance, and counterpart reality.</p><div class="context-divider"></div><span class="context-overline">LEARNING OUTCOMES</span><ul>'+lesson.objectives.slice(0,4).map(t=>'<li>'+clean(t)+'</li>').join('')+'</ul><div class="context-divider"></div><span class="context-overline">SOURCE</span><p class="source-small">UNPOL CBD Job-Specific Training · Lesson 1, 2021 / July 2023 file.</p></aside></div></div>';
     $('export-mini').addEventListener('click',()=>exportProgress());
@@ -357,6 +357,8 @@
     $('course-activities').addEventListener('click',openActivities);
     $('rail-activity-cta').addEventListener('click',openActivities);
     document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>navigate(+b.dataset.section,0)));
+    const menu=document.querySelector('.l1-path-menu');
+    if(menu && window.matchMedia)menu.open=window.matchMedia('(min-width:901px)').matches;
     updateStatus();
   }
   function renderScreen() {
@@ -389,17 +391,21 @@
       else if(section>0) navigate(section-1,2);
     });
     $('next-screen').addEventListener('click',()=>{
+      const advance=()=>{
       if(screen<2) navigate(section,screen+1);
       else if(!isCleared(section)) navigate(section,2,'quiz');
       else if(section<5) navigate(section+1,0);
       else openActivity();
+      };
+      const exploration=window.CARANA_VISUAL_JOURNEY?.active;
+      if(exploration)exploration.advance(advance);else advance();
     });
   }
   function renderQuiz() {
     const s=position.section, sec=lesson.sections[s];
     const passed=isCleared(s);
     if(passed){
-      layout('<div class="quiz-success"><div class="success-icon">✓</div><span class="micro-label">CHECKPOINT CLEARED</span><h1>Understanding confirmed.</h1><p>You passed all six questions in '+clean(sec.title)+'. You can now advance.</p>'+(s===SECTION_COUNT-1?'<div class="completion-activity-banner"><span>LESSON 01 / PRACTICAL APPLICATION</span><strong>Put your analysis into practice.</strong><p>The original CARANA situational-analysis exercise is ready. Launch it directly in a full window or open it inside the learning studio.</p><a class="btn primary" href="../module1.html" target="_blank" rel="noopener noreferrer">Launch Lesson 1 Activity ↗</a></div>':'')+'<div class="bottom-actions center"><button class="btn outline" id="revisit">Review this section</button><button class="btn primary" id="continue-after-quiz">'+(s===SECTION_COUNT-1?'Open practical activity →':'Continue to next section →')+'</button></div></div>','Checkpoint '+(s+1)+' · Passed');
+      layout('<div class="quiz-success"><div class="success-icon">✓</div><span class="micro-label">CHECKPOINT CLEARED</span><h1>Checkpoint passed.</h1><p>You passed all six questions in '+clean(sec.title)+'. You can now advance.</p>'+(s===SECTION_COUNT-1?'<div class="completion-activity-banner"><span>LESSON 01 / PRACTICAL APPLICATION</span><strong>Put your analysis into practice.</strong><p>The original CARANA situational-analysis exercise is ready. Launch it directly in a full window or open it inside the learning studio.</p><a class="btn primary" href="../module1.html" target="_blank" rel="noopener noreferrer">Launch Lesson 1 Activity ↗</a></div>':'')+'<div class="bottom-actions center"><button class="btn outline" id="revisit">Review this section</button><button class="btn primary" id="continue-after-quiz">'+(s===SECTION_COUNT-1?'Open practical activity →':'Continue to next section →')+'</button></div></div>','Checkpoint '+(s+1)+' · Passed');
       $('revisit').addEventListener('click',()=>navigate(s,0));
       $('continue-after-quiz').addEventListener('click',()=>s===SECTION_COUNT-1?openActivity():navigate(s+1,0));
       return;

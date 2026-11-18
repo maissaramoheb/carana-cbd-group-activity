@@ -1,0 +1,9 @@
+# Run05 reference direction and baseline
+
+Approved source: main4b255cb, tagcarana-cbd-v0.11.0-run04. This is a refinement of the approved learning studio, not a new identity. Reference: Lesson1/01-01 Diagnostic Decision Path, captured before edits at1440/768/390px with selected and initial states. See evidence/baseline-metrics.json and reference-before images.
+
+Keep the original navy/teal/mint, editorial serif titles, diagrams and cinematic storytelling. Prioritize the central explanation; retain three columns on wide screens. Use existing Georgia/serif headings and system/DM Sans body fallbacks. Target body15–16px/1.7, support13–14px/1.65, functional labels11–12px with restrained letter spacing. Existing palette provides navy#102d46, teal#146981, mint#def4e8 and paper#f5f9fa. Explanations use teal border and pale blue; self-review uses blue with explicit advisory language; warnings use amber plus text; verified exercise feedback alone may retain green plus correctness wording. Node states use visible Explore/Explored/Viewing text, border and aria-pressed; an explored node never receives a correctness tick.
+
+Wide learning columns: navigation220px, central flexible minmax(0,1fr), context220px, gaps28px; below1200px retain navigation plus central and move context below; below900px navigation becomes a compact, labeled collapsible section list. Keep narration, illustrations, outcomes and references present. Position, explanatory exploration, practice and checkpoints have separate text labels. Continue/Back retain normal document order; long screens get a consistent navigation surface rather than an overlay that can obscure focus.
+
+State/explanation changes use border/background150ms; no decorative animation. Reduced motion disables transitions. The reference must pass browser keyboard, reminder, persistence and layout checks before extension. Final owner visual approval remains pending on the isolated candidate.

@@ -1,0 +1,55 @@
+/* Run05: approved studio refinement. Landing, Notebook and practical workbench styles are untouched. */
+.is-learning .workspace{grid-template-columns:220px minmax(0,1fr) 220px;max-width:1680px;margin-inline:auto}
+.is-learning .learning-content{padding:30px 34px 40px}
+.is-learning .learning-frame{max-width:940px}
+.is-learning .content-title h1{font-size:clamp(34px,3.2vw,46px);line-height:1.15;letter-spacing:-.025em;max-width:25ch}
+.is-learning .content-title .lead{font-size:16px;line-height:1.75;max-width:70ch}
+.is-learning .context-panel{padding:30px 22px;display:block}
+.is-learning .context-panel h3{font-size:23px;line-height:1.25}
+.is-learning .context-panel p,.is-learning .context-panel li{font-size:13px;line-height:1.7;color:#425d71}
+.is-learning .context-panel .source-small{font-size:12px}
+.is-learning :is(.micro-label,.small-tag,.rail-overline,.context-overline,.hybrid-visual-step,.vj-eyebrow,.decision-eyebrow){font-size:11px;letter-spacing:.06em;line-height:1.6}
+.is-learning :is(.rail-note,.rail-label,.voice-disclosure,.voice-subtitle,.lesson-foot,.decision-footnote,.vj-foot,.source-small){font-size:12px;line-height:1.65;color:#425d71}
+.is-learning .side-rail h2{font-size:28px}
+.is-learning .rail-item{min-height:48px}
+.is-learning .rail-item.active{border-inline-start:4px solid #146981}
+.is-learning .rail-item.done .rail-number{background:#def4e8;color:#145c4b}
+.is-learning .rail-item:disabled{opacity:1;color:#637789;background:#f5f8fa}
+.is-learning .l1-path-menu>summary{display:none;cursor:pointer;min-height:44px;align-content:center;font-size:14px;font-weight:700;color:#146981}
+.is-learning .vj-heading h2{font-size:clamp(24px,2.1vw,30px);line-height:1.25}
+.is-learning .vj-heading p,.is-learning .vj-result p,.is-learning .learner-decision p{font-size:14px;line-height:1.75;color:#425d71}
+.is-learning .vj-stage{box-shadow:0 5px 18px rgba(16,45,70,.035);background:#f5fbfc}
+.is-learning .vj-node{min-height:80px;gap:8px;padding:14px 10px;font-size:13px;position:relative}
+:is(.is-learning .vj-node,.is-learning .concept-option,.is-learning [data-lab-area],.visual [data-node]) .exploration-state{display:block;font:600 11px/1.4 system-ui,sans-serif;letter-spacing:0;color:#425d71;border-top:1px solid #d4e3e8;padding-top:5px;margin-top:4px}
+:is(.is-learning [data-vj-item],.is-learning [data-lab-option],.is-learning [data-lab-area],.visual [data-node])[data-explored="true"]{border-style:solid;border-color:#79aeba;background:#eef6f8}
+:is(.is-learning [data-vj-item],.is-learning [data-lab-option],.is-learning [data-lab-area],.visual [data-node])[aria-pressed="true"]{outline:2px solid #146981;outline-offset:2px;background:#e3f2f7;color:#102d46;box-shadow:none}
+:is(.vj-result,.concept-response,.reveal)[data-feedback="explanation"]{border-inline-start:4px solid #146981;background:#f1f8fb;color:#102d46;padding:18px 20px}
+.exploration-storage:not(:empty){font-size:13px;line-height:1.6;border-inline-start:4px solid #986114;padding:12px;background:#fff7e8;color:#624712}
+.exploration-storage:empty,.practice-history:empty{display:none}
+.practice-history{font-size:12px;color:#425d71;line-height:1.6;margin-bottom:0}
+.exploration-reminder{margin:20px 0 12px;border:1px solid #c2d9e3;border-inline-start:4px solid #146981;border-radius:10px;background:#f1f8fb;padding:18px;color:#102d46}
+.exploration-reminder[hidden]{display:none}
+.exploration-reminder p{margin:0 0 12px;font-size:14px;line-height:1.7}
+.exploration-reminder button{font:600 13px/1.5 system-ui,sans-serif;min-height:44px;border:1px solid #146981;background:white;color:#146981;border-radius:8px;padding:10px 14px;margin:0 10px 0 0;cursor:pointer}
+.exploration-reminder .exploration-anyway{background:#146981;color:white}
+:is(.is-learning .bottom-actions,.screen>.actions){border:1px solid #cbdde4;background:#fff;border-radius:10px;padding:16px;display:flex;justify-content:space-between;gap:14px;margin-top:24px}
+:is(.is-learning .bottom-actions,.screen>.actions) button{min-height:44px}
+.is-learning .learning-content :is(button,a):focus-visible,.exploration-reminder button:focus-visible,.visual [data-node]:focus-visible{outline:3px solid #146981;outline-offset:3px}
+:is(.is-learning [data-vj-item],.visual [data-node]){transition:background-color 150ms,border-color 150ms}
+body:not(.is-learning) .screen{font-size:16px;line-height:1.7}
+.screen .status,.screen .node-role,.screen .visual-progress{font-size:12px;line-height:1.6;color:#425d71}
+.screen .visual h2{font-size:26px;line-height:1.3}
+.screen .visual [data-node]{min-height:56px;overflow-wrap:anywhere}
+.screen .feedback.self-review{background:#eff6fb;border-inline-start:4px solid #146981}
+.screen .feedback.warning{border-inline-start:4px solid #986114}
+.screen .feedback{line-height:1.7;font-size:14px}
+.rail [data-section]:disabled{opacity:1;color:#637789;background:#f5f8fa}
+.rail [data-section][aria-current="step"]{border-inline-start:4px solid #146981}
+@media(max-width:1199px){.is-learning .workspace{grid-template-columns:210px minmax(0,1fr)}.is-learning .context-panel{display:block;grid-column:2;border-top:1px solid #cbdde4;position:static;max-height:none}.is-learning .context-panel ul{columns:2}.is-learning .learning-content{padding:28px}}
+@media(max-width:900px){.is-learning .workspace{display:block}.is-learning .side-rail{position:static;width:auto;padding:12px 20px;max-height:none;border-bottom:1px solid #cbdde4}.is-learning .side-rail .rail-overline,.is-learning .side-rail .rail-progress,.is-learning .side-rail .rail-note{display:block}.is-learning .side-rail>h2,.is-learning .side-rail>p,.is-learning .side-rail>.rail-divider{display:none}.is-learning .l1-path-menu>summary{display:list-item}.is-learning .l1-path-menu nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 0}.is-learning .l1-path-menu:not([open]) nav{display:none}.is-learning .rail-progress{margin-top:8px}.is-learning .side-rail .rail-note{display:none}.is-learning .rail-activity-cta{margin-top:10px}.is-learning .context-panel{display:block;border-top:1px solid #cbdde4}.is-learning .learning-content{padding:24px 20px}.is-learning .content-title h1{font-size:36px}.is-learning .context-panel ul{columns:1}}
+@media(max-width:500px){.is-learning .content-title h1{font-size:32px}.is-learning .learning-content{padding:22px 16px}.is-learning .l1-path-menu nav{grid-template-columns:1fr}.is-learning .vj-node{padding:12px;font-size:13px;min-height:78px}.exploration-reminder button{width:100%;margin:5px 0}.is-learning .vj-foot{align-items:flex-start;gap:10px;flex-direction:column}.is-learning .vj-heading p{font-size:14px}.is-learning .vj-result p{font-size:14px}.is-learning .context-panel{padding:24px 20px}}
+@media(prefers-reduced-motion:reduce){:is(.is-learning [data-vj-item],.visual [data-node]){transition:none!important;animation:none!important}}
+.is-learning .hybrid-visual-step:not(.conceptual) span{color:#14556e}
+.is-learning .vj-stage .vj-node .vj-node-mark{color:#14556e}
+.is-learning .vj-stage .vj-node.chosen .vj-node-mark{color:white;background:#146981}
+.is-learning #vj-count,.is-learning .decision-eyebrow,.is-learning .learning-outcomes>h2{color:#146981}
