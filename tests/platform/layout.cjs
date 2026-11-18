@@ -12,7 +12,11 @@ const data=['lessons-2-3','lessons-4-6'].flatMap(f=>require(process.cwd()+'/curr
    await page.evaluate(v=>localStorage.setItem('carana_learning_v1',JSON.stringify(v)),payload);
    await page.goto(base+'/platform/?course=cbd&lesson='+lesson.id);
    await page.waitForFunction(()=>window.CARANA_PLATFORM?.ready);
+   const h1Top=await page.locator('h1').evaluate(e=>Math.round(e.getBoundingClientRect().top+scrollY));
+   assert(h1Top<350,'Expected first heading in initial mobile/tablet viewport on '+lesson.id+' width '+width+', got '+h1Top);
    for(let s=0;s<lesson.sections.length;s++){
+    const toggle=page.locator('#rail-toggle');
+    if(await toggle.isVisible()&&await toggle.getAttribute('aria-expanded')==='false')await toggle.click();
     await page.locator('[data-section]').nth(s).click();
     for(let n=0;n<lesson.sections[s].screens.length;n++){
      for(const dir of ['ltr','rtl']){

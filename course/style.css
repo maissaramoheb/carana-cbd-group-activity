@@ -88,7 +88,10 @@ a{color:inherit}button:disabled{cursor:not-allowed;opacity:.46}
 .footer{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-block:26px;font-size:11px;color:#65788c}
 .is-learning{background:var(--bg)}
 .course-header{height:74px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--navy);color:white;padding:0 31px;border-bottom:1px solid rgba(255,255,255,.08)}
-.back-home,.export-mini{color:#b7d3df;background:transparent;border:0;font-size:11px;font-weight:750;letter-spacing:.08em;padding:8px}
+.back-home,.export-mini{color:#b7d3df;background:transparent;border:0;font-size:11px;font-weight:750;letter-spacing:.08em;padding:8px;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.l1-restore-preview{background:#f2f8fb;border:1px solid #96c2d3;border-radius:10px;padding:15px 18px;margin:0 0 18px;color:var(--navy);font-size:13px;line-height:1.55}
+.l1-restore-preview.warning{background:#fff4d9;border-color:#a56f12;color:#5c3d0c}
+.l1-restore-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:11px}
 .back-home:hover,.export-mini:hover{color:#fff}
 .header-title{font-weight:800;letter-spacing:.14em;font-size:11px;color:#d8eaf0}.header-title span{color:#507c97;padding-inline:10px}
 .header-right{display:flex;gap:20px;align-items:center;color:#a7bdca;font-size:10px}

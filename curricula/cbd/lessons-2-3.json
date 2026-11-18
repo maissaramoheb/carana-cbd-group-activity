@@ -319,23 +319,28 @@
               "fields": [
                 {
                   "label": "Intended change and scope",
-                  "prompt": "Whose practice or service should change, and in which setting?"
+                  "prompt": "Whose practice or service should change, and in which setting?",
+                  "check": "Check: does this name an operational practice change in a defined unit rather than merely scheduling a workshop?"
                 },
                 {
                   "label": "Evidence and measure",
-                  "prompt": "What observable definition and baseline would support comparison?"
+                  "prompt": "What observable definition and baseline would support comparison?",
+                  "check": "Check: is the observation clearly defined and anchored to a baseline method instead of counting attendance?"
                 },
                 {
                   "label": "Achievability and ownership",
-                  "prompt": "Who must agree feasibility, capability and recurrent support?"
+                  "prompt": "Who must agree feasibility, capability and recurrent support?",
+                  "check": "Check: are specific national counterparts, supervisors, and recurring support requirements named?"
                 },
                 {
                   "label": "Relevance",
-                  "prompt": "Which diagnosed need and authorised objective does this address?"
+                  "prompt": "Which diagnosed need and authorised objective does this address?",
+                  "check": "Check: does this connect back to a verified capacity gap and authorised mandate/SSR priority?"
                 },
                 {
                   "label": "Review date and unresolved target",
-                  "prompt": "What date could be agreed? What evidence is needed before fixing the target?"
+                  "prompt": "What date could be agreed? What evidence is needed before fixing the target?",
+                  "check": "Check: did you separate a realistic review date from any target still awaiting baseline verification?"
                 }
               ],
               "example": "Illustrative structure: by an agreed review date, the designated review team applies a jointly defined case-file review routine in the agreed unit; compare a consistent sample against the initial observation. Target and sampling details remain to be agreed after baseline and feasibility checks.",
@@ -591,19 +596,23 @@
               "fields": [
                 {
                   "label": "Definition and population",
-                  "prompt": "What observation is counted, and which files, people or processes are included?"
+                  "prompt": "What observation is counted, and which files, people or processes are included?",
+                  "check": "Check: are both the numerator (what counts) and denominator/population explicitly defined?"
                 },
                 {
                   "label": "Baseline and repeat observation",
-                  "prompt": "What method and timing would make the comparison defensible?"
+                  "prompt": "What method and timing would make the comparison defensible?",
+                  "check": "Check: will the same definition and sampling approach be used at baseline and repeat review?"
                 },
                 {
                   "label": "Collection responsibility and limits",
-                  "prompt": "Who collects it? What missing evidence or sampling limitation should be reported?"
+                  "prompt": "Who collects it? What missing evidence or sampling limitation should be reported?",
+                  "check": "Check: is the collection burden proportionate, and are missing records or selection biases stated?"
                 },
                 {
                   "label": "Decision and explanation",
-                  "prompt": "What would this observation help decide, and what could it not establish?"
+                  "prompt": "What would this observation help decide, and what could it not establish?",
+                  "check": "Check: did you distinguish what this measure informs from causal claims it cannot prove alone?"
                 }
               ],
               "example": "One illustrative plan defines the review steps, samples comparable files at agreed times, records the selection method and missing records, and asks whether observed practice supports the intended result. It does not infer causation from a percentage alone.",
@@ -893,19 +902,23 @@
               "fields": [
                 {
                   "label": "Intended result and level",
-                  "prompt": "State the result and whether it is an output or outcome."
+                  "prompt": "State the result and whether it is an output or outcome.",
+                  "check": "Check: is the result level explicit (direct deliverable output vs behavioural/institutional outcome)?"
                 },
                 {
                   "label": "Measure",
-                  "prompt": "What observation would indicate this result?"
+                  "prompt": "What observation would indicate this result?",
+                  "check": "Check: does this measure actually test the same result stated in column 1 rather than just launch attendance?"
                 },
                 {
                   "label": "Evidence source and method",
-                  "prompt": "Where and how would comparable evidence be obtained?"
+                  "prompt": "Where and how would comparable evidence be obtained?",
+                  "check": "Check: is the source realistic, accessible, and consistent with the measure in column 2?"
                 },
                 {
                   "label": "External condition or assumption",
-                  "prompt": "What must hold beyond the direct deliverable? How will you notice a problem?"
+                  "prompt": "What must hold beyond the direct deliverable? How will you notice a problem?",
+                  "check": "Check: does this name an outside prerequisite and how you would detect if it fails?"
                 }
               ],
               "example": "Illustrative outline: an agreed review routine is used in the selected unit; a defined observation of routine use is taken from comparable work samples; the selection method and missing records are documented; the responsible staff have time and authority to use the routine. No target is assumed without evidence.",
@@ -1509,19 +1522,23 @@
               "fields": [
                 {
                   "label": "Trigger and essential function",
-                  "prompt": "What event activates the alternative, and what must continue?"
+                  "prompt": "What event activates the alternative, and what must continue?",
+                  "check": "Check: can another person recognize the exact trigger and see which core function is protected?"
                 },
                 {
                   "label": "Alternative and responsible actors",
-                  "prompt": "Who decides, who acts and who must be informed?"
+                  "prompt": "Who decides, who acts and who must be informed?",
+                  "check": "Check: are decision authority, execution roles, and communication channels explicitly assigned?"
                 },
                 {
                   "label": "Resources and safeguards",
-                  "prompt": "What is needed to act without creating a new problem?"
+                  "prompt": "What is needed to act without creating a new problem?",
+                  "check": "Check: does the backup arrangement remain feasible, safe, and free of new operational risks?"
                 },
                 {
                   "label": "Review point",
-                  "prompt": "How will stakeholders know the plan remains current and usable?"
+                  "prompt": "How will stakeholders know the plan remains current and usable?",
+                  "check": "Check: is there a clear check-in date or condition to test that the backup option still works?"
                 }
               ],
               "example": "An illustrative alternative identifies who confirms the access problem, which essential learning or operational work must continue, who can authorise a feasible replacement arrangement, and how affected counterparts will be informed. The plan is checked again before it is needed.",

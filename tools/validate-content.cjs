@@ -8,6 +8,14 @@ function validate(root=path.resolve(__dirname,'..')){
  const lessons=['lessons-2-3.json','lessons-4-6.json'].flatMap(f=>JSON.parse(fs.readFileSync(path.join(root,'curricula/cbd',f),'utf8')));
  assert.equal(lessons.length,5);
  assert.equal(new Set(lessons.map(l=>l.id)).size,5);
+ for(const catLesson of courses[0].lessons){
+  if(catLesson.file){
+   const match=lessons.find(l=>l.id===catLesson.id);
+   assert(match,'Missing JSON for '+catLesson.id);
+   if(catLesson.sectionsCount!==undefined)assert.equal(catLesson.sectionsCount,match.sections.length,'Catalog sectionsCount mismatch for '+catLesson.id);
+   if(catLesson.sectionTitles)assert.deepEqual(Array.from(catLesson.sectionTitles),match.sections.map(s=>s.title),'Catalog sectionTitles mismatch for '+catLesson.id);
+  }
+ }
  let screens=0,quizzes=0;
  for(const lesson of lessons){
   assert.match(lesson.version,/^2026/);
@@ -32,7 +40,7 @@ function validate(root=path.resolve(__dirname,'..')){
     assert(s.decision.options.every(o=>o.label&&o.feedback));
     if(s.lab){
      const x=s.lab;assert(['builder','classify','priority','risk'].includes(x.type));assert(x.title&&x.context);
-     if(x.type==='builder'){assert(x.fields.length>=3&&x.fields.length<=6);assert(x.fields.every(f=>f.label&&f.prompt));assert(x.review&&x.example&&x.debrief);}
+     if(x.type==='builder'){assert(x.fields.length>=3&&x.fields.length<=6);assert(x.fields.every(f=>f.label&&f.prompt&&f.check));assert(x.review&&x.example&&x.debrief);}
      if(x.type==='classify'){assert(x.categories.length>=2&&x.items.length>=3);assert(x.items.every(i=>i.text&&i.feedback&&Number.isInteger(i.answer)&&i.answer>=0&&i.answer<x.categories.length));}
      if(x.type==='priority'){assert(x.criteria.length>=3);assert(x.alternatives.every(a=>a.constraint&&a.ratings.length===x.criteria.length&&a.ratings.every(r=>Number.isInteger(r)&&r>=1&&r<=3)));}
      if(x.type==='risk')assert(x.debrief);

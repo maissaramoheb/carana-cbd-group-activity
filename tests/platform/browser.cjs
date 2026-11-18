@@ -14,7 +14,9 @@ async function exercise(page,screen,name){
  const x=screen.lab;
  if(x.type==='builder'){
   await page.locator('#lab-check').click();assert.match(await page.locator('#lab-feedback').innerText(),/fields still open/);
+  assert(await page.locator('#lab-check-item-0').isVisible(),'Field-specific self-check criterion must be visible');
   for(let i=0;i<x.fields.length;i++)await page.locator('[data-field]').nth(i).fill('Invented draft '+i+': evidence, responsibility and uncertainty for review.');
+  assert.match(await page.locator('#lab-count-0').innerText(),/\/ 1200 characters/);
   await page.locator('#lab-check').click();assert.match(await page.locator('#lab-feedback').innerText(),/not automatically approved/);
   await page.reload();await ready(page);assert.match(await page.locator('[data-field]').first().inputValue(),/Invented draft/);
  }
@@ -107,16 +109,57 @@ async function edgeCases(browser){
  await page.locator('#next').click();assert.match(await page.locator('#save-status').innerText(),/Could not save/);
  await page.context().close();
  page=await pageFor(browser,{width:768,height:1024});
- await page.addInitScript(()=>localStorage.setItem('carana_learning_v1',JSON.stringify({version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run01',completed:[0,1,2],section:2,screen:1}}})));
+ await page.addInitScript(()=>localStorage.setItem('carana_learning_v1',JSON.stringify({version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run01',completed:[0,1,2],section:2,screen:1,drafts:{'02-04':{0:'Archived prior SMART objective'}}}}})));
  await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);
  assert.match(await page.locator('.version-note').innerText(),/Earlier checkpoint records/);
  assert.match(await page.locator('.rail .status').first().innerText(),/0 \/ 3/);
+ await page.locator('#ack-revision').click();assert.equal(await page.locator('.version-note').count(),0);
  await page.locator('#next').click();
  const history=await page.evaluate(()=>JSON.parse(localStorage.getItem('carana_learning_v1')).lessons['cbd-2'].previousProgress);
  assert.deepEqual(history[0].completed,[0,1,2]);assert.equal(history[0].contentVersion,'2026.11-run01');
+ assert.equal(history[0].drafts['02-04'][0],'Archived prior SMART objective');
+ // Navigate to 02-04 via completed=0? Jump using section 1 unlocked state after passing or verify export & restore first:
+ const railToggle=page.locator('#rail-toggle');
+ if(await railToggle.isVisible()&&await railToggle.getAttribute('aria-expanded')==='false')await railToggle.click();
  const download=page.waitForEvent('download');await page.locator('#export-progress').click();const file=await download;
- const exported=JSON.parse(fs.readFileSync(await file.path(),'utf8'));
+ const exportedPath=await file.path();
+ const exportedText=fs.readFileSync(exportedPath,'utf8');
+ const exported=JSON.parse(exportedText);
+ const savedExportCopy=path.join(output,'test-stage1-export.json');
+ fs.writeFileSync(savedExportCopy,exportedText);
  assert.deepEqual(exported.progress.lessons['cbd-2'].previousProgress[0].completed,[0,1,2]);
+ assert.equal(exported.progress.lessons['cbd-2'].previousProgress[0].drafts['02-04'][0],'Archived prior SMART objective');
+ // Test E03 dry-run restore on clean browser context + invalid file rejection
+ await page.context().close();
+ page=await pageFor(browser,{width:768,height:1024});
+ await page.goto(base+'/platform/?course=cbd');await ready(page);
+ await page.locator('#import-file').setInputFiles(savedExportCopy);
+ assert(await page.locator('#restore-preview').isVisible());
+ assert.match(await page.locator('#restore-preview').innerText(),/Dry-run restore preview/);
+ await page.locator('#restore-merge').click();
+ assert.match(await page.locator('#backup-status').innerText(),/Progress restored/);
+ assert.match(await page.locator('.lesson-row').nth(1).innerText(),/Resume lesson/);
+ // Test E02 read-only archived draft copy-forward inside 02-04 (complete section 0 honestly first)
+ await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);
+ assert(await page.locator('.revision-badge').isVisible());
+ await page.locator('#next').click();
+ for(let i=0;i<data[0].sections[0].quiz.length;i++)await page.locator('input[name="q'+i+'"][value="'+data[0].sections[0].quiz[i].answer+'"]').check();
+ await page.locator('#check').click();await page.locator('#continue').click();
+ await page.locator('#next').click();
+ assert(await page.locator('.archived-drafts').isVisible());
+ await page.locator('.archived-drafts summary').click();
+ await page.locator('.archived-fill-empty').click();
+ assert.equal(await page.locator('#lab-field-0').inputValue(),'Archived prior SMART objective');
+ // Test E07 study summary modal
+ await page.goto(base+'/platform/?course=cbd');await ready(page);
+ await page.locator('#export-study-sheet').click();
+ await page.locator('#study-summary-modal').waitFor({state:'visible'});
+ assert.match(await page.locator('#study-summary-modal').innerText(),/Archived prior SMART objective/);
+ await page.locator('#study-close').click();
+ // Test E01 canonical course-home return from Lesson 1 -> /platform/?course=cbd
+ await page.locator('.lesson-row').first().locator('a.action').click();
+ await page.locator('#back-home').click();
+ assert(page.url().includes('/platform/?course=cbd'),'Expected Lesson 1 Course Home to return to /platform/?course=cbd, got '+page.url());
  await page.context().close();
  page=await pageFor(browser,{width:768,height:1024});
  await page.route('**/curricula/cbd/*.json',r=>r.abort());

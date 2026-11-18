@@ -135,15 +135,18 @@
               "fields": [
                 {
                   "label": "Audience and purpose",
-                  "prompt": "Who needs to act, and what is the specific concern?"
+                  "prompt": "Who needs to act, and what is the specific concern?",
+                  "check": "Check: are the audience's operational role and the factual observation named without blaming motives?"
                 },
                 {
                   "label": "Revised message",
-                  "prompt": "Write a clear, factual and respectful request with the information needed to respond."
+                  "prompt": "Write a clear, factual and respectful request with the information needed to respond.",
+                  "check": "Check (Seven Cs): is the wording clear, correct, complete enough to act on, concise, concrete, coherent, and courteous?"
                 },
                 {
                   "label": "Check understanding",
-                  "prompt": "What question would reveal how the counterpart interprets the request?"
+                  "prompt": "What question would reveal how the counterpart interprets the request?",
+                  "check": "Check: does the question invite the counterpart's actual constraints rather than a yes/no confirmation?"
                 }
               ],
               "example": "Illustrative approach: “The review record shows several planned checks are not documented. Can we examine how the routine works during a shift, clarify responsibilities and agree what support is needed?” This describes an observation and invites explanation instead of assuming motive.",
@@ -981,19 +984,23 @@
               "fields": [
                 {
                   "label": "Question and planned result",
-                  "prompt": "What would the evaluation judge against the original plan?"
+                  "prompt": "What would the evaluation judge against the original plan?",
+                  "check": "Check: does the evaluation question refer directly to the planned objective and performance framework?"
                 },
                 {
                   "label": "Methods and sample",
-                  "prompt": "Which quantitative and qualitative information can answer it, and whose experience could be missed?"
+                  "prompt": "Which quantitative and qualitative information can answer it, and whose experience could be missed?",
+                  "check": "Check: are both quantitative and qualitative sources included, with attention to underrepresented or affected groups?"
                 },
                 {
                   "label": "Credibility and limits",
-                  "prompt": "How will definitions, bias, missing data and alternative explanations be considered?"
+                  "prompt": "How will definitions, bias, missing data and alternative explanations be considered?",
+                  "check": "Check: did you state how comparability, impartial roles, and alternative causal explanations will be checked?"
                 },
                 {
                   "label": "Communication and use",
-                  "prompt": "Who participates, who receives findings and what decision will follow?"
+                  "prompt": "Who participates, who receives findings and what decision will follow?",
+                  "check": "Check: are those evaluated engaged in advance, and is the format tied to an actionable decision?"
                 }
               ],
               "example": "An illustrative plan compares defined observations of routine use with the baseline and asks participants about constraints, using a stated sample and recording missing perspectives. Findings are discussed with responsible counterparts before a reasoned response is documented.",
@@ -1062,15 +1069,18 @@
               "fields": [
                 {
                   "label": "Recommendation and finding",
-                  "prompt": "What evidence-based concern is being addressed?"
+                  "prompt": "What evidence-based concern is being addressed?",
+                  "check": "Check: is the underlying finding separated from the specific recommended remedy?"
                 },
                 {
                   "label": "Position and reasons",
-                  "prompt": "What is accepted or disputed, and why?"
+                  "prompt": "What is accepted or disputed, and why?",
+                  "check": "Check: for partial acceptance or rejection, are disputed elements and evidence-based reasons stated clearly?"
                 },
                 {
                   "label": "Action and follow-up",
-                  "prompt": "What will change, who will act and how will the response be checked?"
+                  "prompt": "What will change, who will act and how will the response be checked?",
+                  "check": "Check: is there an explicit action, owner, and review check rather than filing the report?"
                 }
               ],
               "example": "Illustrative partial acceptance: accept the need to address unequal shift coverage, explain why one proposed timetable is impractical, and propose a supported alternative with a named review point. Disagreement with the proposed remedy does not remove the finding.",
@@ -1650,19 +1660,23 @@
               "fields": [
                 {
                   "label": "Task and receiving responsibility",
-                  "prompt": "What continues, who may receive it and who must agree?"
+                  "prompt": "What continues, who may receive it and who must agree?",
+                  "check": "Check: is the specific activity handover kept distinct from mission drawdown and HOPC initiation authority?"
                 },
                 {
                   "label": "Readiness evidence and unresolved capacity",
-                  "prompt": "What supports transfer now, and what needs further support?"
+                  "prompt": "What supports transfer now, and what needs further support?",
+                  "check": "Check: are evidenced capabilities separated from remaining support needs rather than assuming readiness by date?"
                 },
                 {
                   "label": "Rights, gender and resources",
-                  "prompt": "Whose experience or access could change, and what continuing resources are needed?"
+                  "prompt": "Whose experience or access could change, and what continuing resources are needed?",
+                  "check": "Check: are human rights, gender-differentiated impacts, and recurrent funding needs explicitly addressed?"
                 },
                 {
                   "label": "Phasing, contingency and review",
-                  "prompt": "What happens first, who monitors it and what would trigger reconsideration?"
+                  "prompt": "What happens first, who monitors it and what would trigger reconsideration?",
+                  "check": "Check: is handover phased against verified capacity with a clear monitoring and contingency trigger?"
                 }
               ],
               "example": "An illustrative approach phases a task for which responsibility and capability are evidenced, retains agreed support for the unresolved task, identifies relevant rights/gender and resource questions, and reviews the arrangement with responsible counterparts and UN actors.",
@@ -1725,15 +1739,18 @@
               "fields": [
                 {
                   "label": "Opening explanation",
-                  "prompt": "Describe what may change and what evidence supports the proposal."
+                  "prompt": "Describe what may change and what evidence supports the proposal.",
+                  "check": "Check: does the opening state the proposal and supporting evidence factually without assuming consent?"
                 },
                 {
                   "label": "Question to the receiving actor",
-                  "prompt": "Ask what responsibility and support they understand they would have."
+                  "prompt": "Ask what responsibility and support they understand they would have.",
+                  "check": "Check: can the counterpart raise missing resources or disagree safely without being labelled resistant?"
                 },
                 {
                   "label": "Unresolved issue and next step",
-                  "prompt": "What would be recorded for the relevant decision-makers rather than promised by the adviser?"
+                  "prompt": "What would be recorded for the relevant decision-makers rather than promised by the adviser?",
+                  "check": "Check: are adviser limits respected (no unauthorised funding/mandate promises; escalates to HOPC/coordination)?"
                 }
               ],
               "example": "Illustrative opening: “The review suggests this task may be transferred with agreed support. How would your team sustain it, and what responsibility or resource have we not clarified?” Record the answer and the decision needed rather than treating the question as a formality.",
