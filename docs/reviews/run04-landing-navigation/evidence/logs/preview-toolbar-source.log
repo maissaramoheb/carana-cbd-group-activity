@@ -1,0 +1,78 @@
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-2 due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-3 due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-4 due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-5 due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-6 due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/notebook.html due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+ERROR_STACK Fetch API cannot load https://carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:1210)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:21378)
+    at unknown (https://vercel.live/_next-live/feedback/feedback.js:2:32707)
+    at r (https://vercel.live/_next-live/feedback/feedback.js:2:19505)
+    at s (https://vercel.live/_next-live/feedback/feedback.js:2:19708)
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-2 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-3 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-4 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-5 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/?course=cbd&lesson=cbd-6 due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/platform/notebook.html due to access control checks.',
++   'Fetch API cannot load https: /carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app/course/ due to access control checks.'
++ ]
+- []
+
+    at eval (eval at <anonymous> ([stdin]:1:353), <anonymous>:63:9) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

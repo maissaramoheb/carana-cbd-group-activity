@@ -97,7 +97,8 @@ async function flow(browser,size,name){
   assert.match(await page.locator('.rail .status').first().innerText(),new RegExp(lesson.sections.length+' / '+lesson.sections.length));
  }
  await page.goto(base+'/platform/?course=cbd');await ready(page);
- assert.equal(await page.locator('.lesson-row').count(),6);
+ assert.equal(await page.locator('.curriculum-phase-card').count(),6);
+ assert(page.url().includes('/course/'),'CBD catalog bookmark must resolve to approved home');
  await page.goto(base+'/platform/?course=mma');await ready(page);assert.equal(await page.locator('.lesson-row').count(),0);assert.match(await page.locator('main').innerText(),/no digital course available/i);
  assert.deepEqual(errors,[]);
  await page.context().close();console.log(name,'selected lessons passed: content, applied tools, decisions, checkpoints, resume and practical links');
@@ -139,7 +140,7 @@ async function edgeCases(browser){
  assert.match(await page.locator('#restore-preview').innerText(),/Dry-run restore preview/);
  await page.locator('#restore-merge').click();
  assert.match(await page.locator('#backup-status').innerText(),/Progress restored/);
- assert.match(await page.locator('.lesson-row').nth(1).innerText(),/Resume lesson/);
+ assert.match(await page.locator('.curriculum-phase-card').nth(1).innerText(),/Resume lesson/);
  // Test E02 read-only archived draft copy-forward inside 02-04 (complete section 0 honestly first)
  await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);
  assert(await page.locator('.revision-badge').isVisible());
@@ -157,10 +158,10 @@ async function edgeCases(browser){
  await page.locator('#study-summary-modal').waitFor({state:'visible'});
  assert.match(await page.locator('#study-summary-modal').innerText(),/Archived prior SMART objective/);
  await page.locator('#study-close').click();
- // Test E01 canonical course-home return from Lesson 1 -> /platform/?course=cbd
- await page.locator('.lesson-row').first().locator('a.action').click();
+ // Run04: canonical course-home return from Lesson 1 -> approved /course/#home
+ await page.locator('#start-course').click();
  await page.locator('#back-home').click();
- assert(page.url().includes('/platform/?course=cbd'),'Expected Lesson 1 Course Home to return to /platform/?course=cbd, got '+page.url());
+ assert(page.url().endsWith('/course/#home'),'Expected Lesson 1 Course Home to return to approved /course/#home, got '+page.url());
  await page.context().close();
  page=await pageFor(browser,{width:768,height:1024});
  await page.route('**/curricula/cbd/*.json',r=>r.abort());
