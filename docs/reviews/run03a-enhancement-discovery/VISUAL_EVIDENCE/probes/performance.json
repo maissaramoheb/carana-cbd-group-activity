@@ -1,0 +1,65 @@
+{
+  "conditions": "Local loopback, cold cache, 150ms emulated latency, 200KiB/s download, 4x CPU, web fonts blocked; not field CWV or a Lighthouse score",
+  "records": [
+    {
+      "target": "/platform/?course=cbd",
+      "trial": 1,
+      "dom": 553,
+      "load": 553,
+      "lcp": 556,
+      "cls": 0.37807086409951074,
+      "resourceBytes": 35232,
+      "requests": 4
+    },
+    {
+      "target": "/platform/?course=cbd",
+      "trial": 2,
+      "dom": 519,
+      "load": 519,
+      "lcp": 528,
+      "cls": 0.37807086409951074,
+      "resourceBytes": 35232,
+      "requests": 4
+    },
+    {
+      "target": "/platform/?course=cbd",
+      "trial": 3,
+      "dom": 507,
+      "load": 508,
+      "lcp": 528,
+      "cls": 0.37807086409951074,
+      "resourceBytes": 35232,
+      "requests": 4
+    },
+    {
+      "target": "/course/",
+      "trial": 1,
+      "dom": 1725,
+      "load": 1733,
+      "lcp": 1828,
+      "cls": 0,
+      "resourceBytes": 275253,
+      "requests": 19
+    },
+    {
+      "target": "/course/",
+      "trial": 2,
+      "dom": 1715,
+      "load": 1720,
+      "lcp": 1796,
+      "cls": 0,
+      "resourceBytes": 275253,
+      "requests": 19
+    },
+    {
+      "target": "/course/",
+      "trial": 3,
+      "dom": 1717,
+      "load": 1721,
+      "lcp": 1796,
+      "cls": 0,
+      "resourceBytes": 275253,
+      "requests": 19
+    }
+  ]
+}

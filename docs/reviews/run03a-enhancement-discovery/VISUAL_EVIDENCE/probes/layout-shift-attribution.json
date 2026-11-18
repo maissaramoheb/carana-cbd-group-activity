@@ -1,0 +1,56 @@
+[
+  {
+    "value": 0.37807086409951074,
+    "input": false,
+    "sources": [
+      {
+        "tag": "DIV",
+        "text": "← All curriculaCapacity-Building and DevelopmentFollow evidence from s",
+        "before": {
+          "x": 87,
+          "y": 145,
+          "width": 1192,
+          "height": 27.1875,
+          "top": 145,
+          "right": 1279,
+          "bottom": 172.1875,
+          "left": 87
+        },
+        "after": {
+          "x": 87,
+          "y": 129,
+          "width": 1192,
+          "height": 771,
+          "top": 129,
+          "right": 1279,
+          "bottom": 900,
+          "left": 87
+        }
+      },
+      {
+        "tag": "FOOTER",
+        "text": "Independent instructional adaptation · No UN endorsement · Progress st",
+        "before": {
+          "x": 0,
+          "y": 756,
+          "width": 1366,
+          "height": 66,
+          "top": 756,
+          "right": 1366,
+          "bottom": 822,
+          "left": 0
+        },
+        "after": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      }
+    ]
+  }
+]
