@@ -1,0 +1,370 @@
+{
+  "generatedAt": "2026-11-19T18:39:43.619Z",
+  "model": "gemma4:26b",
+  "configuration": {
+    "activeSlots": 1,
+    "maxQueue": 4,
+    "requestTimeoutMs": 90000,
+    "queueTimeoutMs": 120000,
+    "idleUnloadMsForBenchmark": 8000,
+    "productionIdleUnloadMs": 240000
+  },
+  "hostBaselineIdle": {
+    "ts": "2026-11-19T18:36:27.023Z",
+    "memory": {
+      "totalGB": 24,
+      "reclaimableAvailGB": 13.8,
+      "pressureLevel": 1,
+      "overloaded": false
+    },
+    "ollamaPs": []
+  },
+  "scenarios": {
+    "coldStart": {
+      "status": 200,
+      "ok": true,
+      "kind": "ai",
+      "errorCode": null,
+      "totalMs": 18014,
+      "queuedPositions": [],
+      "sawStarted": false,
+      "sourcesCount": 3,
+      "answerChars": 812,
+      "snapshotAfter": {
+        "ts": "2026-11-19T18:36:45.095Z",
+        "memory": {
+          "totalGB": 24,
+          "reclaimableAvailGB": 0.89,
+          "pressureLevel": 2,
+          "overloaded": false
+        },
+        "ollamaPs": [
+          "gemma4:26b    777b927e3b6b    18 GB    15%/85% CPU/GPU    4096       llamacpp    3 minutes from now"
+        ]
+      }
+    },
+    "sequential5": {
+      "rows": [
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 12651,
+          "queuedPositions": [],
+          "sawStarted": false,
+          "sourcesCount": 2,
+          "answerChars": 1176
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 11493,
+          "queuedPositions": [],
+          "sawStarted": false,
+          "sourcesCount": 2,
+          "answerChars": 1252
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 7180,
+          "queuedPositions": [],
+          "sawStarted": false,
+          "sourcesCount": 2,
+          "answerChars": 629
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 8341,
+          "queuedPositions": [],
+          "sawStarted": false,
+          "sourcesCount": 2,
+          "answerChars": 680
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 11909,
+          "queuedPositions": [],
+          "sawStarted": false,
+          "sourcesCount": 3,
+          "answerChars": 1363
+        }
+      ],
+      "latencySummary": {
+        "count": 5,
+        "minMs": 7180,
+        "medianMs": 11493,
+        "p95Ms": 12651,
+        "maxMs": 12651,
+        "avgMs": 10315
+      },
+      "snapshotAfter": {
+        "ts": "2026-11-19T18:37:36.771Z",
+        "memory": {
+          "totalGB": 24,
+          "reclaimableAvailGB": 0.98,
+          "pressureLevel": 2,
+          "overloaded": false
+        },
+        "ollamaPs": [
+          "gemma4:26b    777b927e3b6b    18 GB    15%/85% CPU/GPU    4096       llamacpp    3 minutes from now"
+        ]
+      }
+    },
+    "concurrent2": {
+      "rows": [
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 7891,
+          "queuedPositions": [],
+          "sawStarted": false,
+          "sourcesCount": 3,
+          "answerChars": 794
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 19471,
+          "queuedPositions": [
+            1
+          ],
+          "sawStarted": true,
+          "sourcesCount": 2,
+          "answerChars": 1176
+        }
+      ],
+      "latencySummary": {
+        "count": 2,
+        "minMs": 7891,
+        "medianMs": 13681,
+        "p95Ms": 19471,
+        "maxMs": 19471,
+        "avgMs": 13681
+      }
+    },
+    "concurrent4": {
+      "wallTimeMs": 39059,
+      "rows": [
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 7903,
+          "queuedPositions": [],
+          "sawStarted": false,
+          "sourcesCount": 3,
+          "answerChars": 794
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 20925,
+          "queuedPositions": [
+            1
+          ],
+          "sawStarted": true,
+          "sourcesCount": 2,
+          "answerChars": 1176
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 31864,
+          "queuedPositions": [
+            2,
+            1
+          ],
+          "sawStarted": true,
+          "sourcesCount": 2,
+          "answerChars": 1252
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 39046,
+          "queuedPositions": [
+            3,
+            2,
+            1
+          ],
+          "sawStarted": true,
+          "sourcesCount": 2,
+          "answerChars": 637
+        }
+      ],
+      "latencySummary": {
+        "count": 4,
+        "minMs": 7903,
+        "medianMs": 26395,
+        "p95Ms": 39046,
+        "maxMs": 39046,
+        "avgMs": 24935
+      },
+      "snapshotAfter": {
+        "ts": "2026-11-19T18:38:35.596Z",
+        "memory": {
+          "totalGB": 24,
+          "reclaimableAvailGB": 1.06,
+          "pressureLevel": 2,
+          "overloaded": false
+        },
+        "ollamaPs": [
+          "gemma4:26b    777b927e3b6b    18 GB    15%/85% CPU/GPU    4096       llamacpp    3 minutes from now"
+        ]
+      }
+    },
+    "overloadBurst6": {
+      "wallTimeMs": 56586,
+      "completedCount": 5,
+      "rejectedOverloadCount": 1,
+      "rows": [
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 9725,
+          "queuedPositions": [],
+          "sawStarted": false,
+          "sourcesCount": 3,
+          "answerChars": 794
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 23930,
+          "queuedPositions": [
+            1
+          ],
+          "sawStarted": true,
+          "sourcesCount": 2,
+          "answerChars": 1176
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 38391,
+          "queuedPositions": [
+            2,
+            1
+          ],
+          "sawStarted": true,
+          "sourcesCount": 2,
+          "answerChars": 1252
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 47685,
+          "queuedPositions": [
+            3,
+            2,
+            1
+          ],
+          "sawStarted": true,
+          "sourcesCount": 2,
+          "answerChars": 637
+        },
+        {
+          "status": 200,
+          "ok": true,
+          "kind": "ai",
+          "errorCode": null,
+          "totalMs": 56584,
+          "queuedPositions": [
+            4,
+            3,
+            2,
+            1
+          ],
+          "sawStarted": true,
+          "sourcesCount": 2,
+          "answerChars": 680
+        },
+        {
+          "status": 503,
+          "code": "OVERLOAD",
+          "message": "Several questions are already waiting in line (4/4). Please wait a moment and try again.",
+          "totalMs": 82,
+          "events": []
+        }
+      ],
+      "snapshotAfter": {
+        "ts": "2026-11-19T18:39:32.417Z",
+        "memory": {
+          "totalGB": 24,
+          "reclaimableAvailGB": 0.92,
+          "pressureLevel": 2,
+          "overloaded": false
+        },
+        "ollamaPs": [
+          "gemma4:26b    777b927e3b6b    18 GB    15%/85% CPU/GPU    4096       llamacpp    3 minutes from now"
+        ]
+      }
+    },
+    "idleUnload": {
+      "idleUnloadsRecorded": 1,
+      "p95LatencyMs": 17969,
+      "stats": {
+        "startedAt": "2026-11-19T18:36:27.075Z",
+        "totalRequests": 20,
+        "authChecks": 0,
+        "aiSuccess": 17,
+        "validationDeclines": 0,
+        "retrievalDeclines": 0,
+        "policyIntercepts": 0,
+        "queuePeak": 4,
+        "queueCancelled": 0,
+        "queueTimeouts": 0,
+        "overloadRejects": 1,
+        "ttsRequests": 0,
+        "errors": 0,
+        "idleUnloads": 1,
+        "latencySumMs": 184180,
+        "latencyCount": 17,
+        "avgLatencyMs": 10834,
+        "p95LatencyMs": 17969
+      },
+      "snapshotAfter": {
+        "ts": "2026-11-19T18:39:43.593Z",
+        "memory": {
+          "totalGB": 24,
+          "reclaimableAvailGB": 18.47,
+          "pressureLevel": 1,
+          "overloaded": false
+        },
+        "ollamaPs": []
+      }
+    }
+  },
+  "telemetryCount": 19
+}

@@ -1,0 +1,23 @@
+Vercel CLI 59.1.3 (Node.js 26.9.0)
+Fetching deployment "carana-cbd-elearning-cl8pydgbt-delta4ce20-5830s-projects.vercel.app" in delta4ce20-5830s-projects
+> Fetched deployment "carana-cbd-elearning-cl8pydgbt-delta4ce20-5830s-projects.vercel.app" in delta4ce20-5830s-projects [494ms]
+
+  General
+
+    id		dpl_HZycUT2L76GensfL7tdZPgFEPcwQ
+    name	carana-cbd-elearning
+    target	preview
+    status	● Ready
+    url		https://carana-cbd-elearning-cl8pydgbt-delta4ce20-5830s-projects.vercel.app
+    created	Thu Nov 19 2026 18:28:00 GMT+0200 (Eastern European Standard Time) [5m ago]
+
+
+  Builds
+
+    ┌ .        [0ms]
+    ├── λ api/health (4.23KB) [iad1]
+    ├── λ api/tts (4.23KB) [iad1]
+    ├── λ api/tutor (4.23KB) [iad1]
+    └── λ api/tutor/status (4.23KB) [iad1]
+    
+

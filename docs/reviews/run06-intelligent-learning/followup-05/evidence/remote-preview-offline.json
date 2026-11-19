@@ -1,0 +1,18 @@
+{
+  "verifiedAtUTC": "2026-11-19T16:29:06.720Z",
+  "previewUrl": "https://carana-cbd-elearning-cl8pydgbt-delta4ce20-5830s-projects.vercel.app",
+  "productionStaticVerified": [
+    "https://e-learning.maissara.tech",
+    "https://cbd.maissara.tech"
+  ],
+  "ssoProtected": true,
+  "remoteOwnerPreview": true,
+  "connected": false,
+  "model": "gemma4:26b",
+  "qualification": "owner-pilot",
+  "wrongOriginStatus": 403,
+  "wrongCodeStatus": 503,
+  "checkpointKind": null,
+  "ttsEngine": null,
+  "aiAnswerPreview": null
+}
