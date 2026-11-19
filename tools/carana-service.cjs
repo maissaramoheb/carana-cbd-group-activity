@@ -49,6 +49,7 @@ function pathsFor(dataDir = DEFAULT_DATA_DIR) {
   const dir = path.resolve(dataDir);
   return {
     dataDir: dir,
+    runtimeDir: path.join(dir, 'runtime'),
     logsDir: path.join(dir, 'logs'),
     healthLog: path.join(dir, 'logs', 'health.jsonl'),
     stdoutLog: path.join(dir, 'logs', 'launchd-stdout.log'),
@@ -66,8 +67,39 @@ function pathsFor(dataDir = DEFAULT_DATA_DIR) {
   };
 }
 
+function copyTreeClean(src, dst) {
+  const st = fs.statSync(src);
+  if (st.isDirectory()) {
+    fs.mkdirSync(dst, { recursive: true, mode: 0o700 });
+    for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+      if (entry.name.startsWith('.DS_Store')) continue;
+      copyTreeClean(path.join(src, entry.name), path.join(dst, entry.name));
+    }
+  } else if (st.isFile()) {
+    fs.mkdirSync(path.dirname(dst), { recursive: true, mode: 0o700 });
+    fs.writeFileSync(dst, fs.readFileSync(src), { mode: st.mode & 0o777 });
+  }
+}
+
+function syncRuntimeMirror(runtimeDir) {
+  const staging = runtimeDir + '.staging-' + process.pid;
+  fs.rmSync(staging, { recursive: true, force: true });
+  fs.mkdirSync(path.join(staging, 'tools'), { recursive: true, mode: 0o700 });
+  for (const rel of ['package.json', 'tools/service-supervisor.cjs', 'tools/pilot-users.cjs', 'tools/kokoro-synth.py']) {
+    copyTreeClean(path.join(ROOT, rel), path.join(staging, rel));
+  }
+  copyTreeClean(path.join(ROOT, 'tutor'), path.join(staging, 'tutor'));
+  if (fs.existsSync(path.join(ROOT, 'dist'))) {
+    copyTreeClean(path.join(ROOT, 'dist'), path.join(staging, 'dist'));
+  }
+  fs.rmSync(runtimeDir, { recursive: true, force: true });
+  fs.renameSync(staging, runtimeDir);
+  return runtimeDir;
+}
+
 function buildPlistXml(cfg) {
-  const supervisorScript = path.join(ROOT, 'tools', 'service-supervisor.cjs');
+  const runtimeRoot = cfg.runtimeDir || ROOT;
+  const supervisorScript = path.join(runtimeRoot, 'tools', 'service-supervisor.cjs');
   const nodeDir = path.dirname(process.execPath);
   const env = {
     HOME: os.homedir(),
@@ -96,7 +128,7 @@ function buildPlistXml(cfg) {
     <string>${xmlEscape(supervisorScript)}</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>${xmlEscape(ROOT)}</string>
+  <string>${xmlEscape(runtimeRoot)}</string>
   <key>RunAtLoad</key>
   <true/>
   <key>KeepAlive</key>
@@ -168,10 +200,15 @@ function probeLocalHealth(port) {
   });
 }
 
-async function probeRemoteTunnel(tunnelUrl) {
+async function probeRemoteTunnel(tunnelUrl, proxySecretFile) {
+  const headers = { 'ngrok-skip-browser-warning': '1' };
+  if (proxySecretFile && fs.existsSync(proxySecretFile)) {
+    const sec = fs.readFileSync(proxySecretFile, 'utf8').trim();
+    if (sec) headers['X-CARANA-Proxy-Secret'] = sec;
+  }
   try {
     const res = await fetch(tunnelUrl + '/api/tutor/status', {
-      headers: { 'ngrok-skip-browser-warning': '1' },
+      headers,
       signal: AbortSignal.timeout(5000)
     });
     if (!res.ok) return { ok: false, status: res.status };
@@ -182,18 +219,18 @@ async function probeRemoteTunnel(tunnelUrl) {
   }
 }
 
-async function waitForReady(port, tunnelUrl, timeoutMs = 30000) {
+async function waitForReady(port, tunnelUrl, proxySecretFile, timeoutMs = 30000) {
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
     const local = await probeLocalHealth(port);
     if (local.status === 200 && local.body && local.body.ok) {
       if (!tunnelUrl) return { local, remote: null };
-      const remote = await probeRemoteTunnel(tunnelUrl);
+      const remote = await probeRemoteTunnel(tunnelUrl, proxySecretFile);
       if (remote.ok && remote.connected) return { local, remote };
     }
     await new Promise(r => setTimeout(r, 1000));
   }
-  return { local: await probeLocalHealth(port), remote: tunnelUrl ? await probeRemoteTunnel(tunnelUrl) : null };
+  return { local: await probeLocalHealth(port), remote: tunnelUrl ? await probeRemoteTunnel(tunnelUrl, proxySecretFile) : null };
 }
 
 function terminateRecordedProcesses(p) {
@@ -244,7 +281,7 @@ async function gatherStatus(p, port, tunnelUrl) {
   const supervisorPid = fs.existsSync(p.pidFile) ? Number(fs.readFileSync(p.pidFile, 'utf8').trim()) : null;
   const supervisorAlive = !!supervisorPid && isPidAlive(supervisorPid);
   const localHealth = await probeLocalHealth(port);
-  const remoteStatus = tunnelUrl ? await probeRemoteTunnel(tunnelUrl) : null;
+  const remoteStatus = tunnelUrl ? await probeRemoteTunnel(tunnelUrl, p.proxySecretFile) : null;
   const ollama = getOllamaPs();
   const memory = defaultMemoryCheck();
   const auth = fs.existsSync(p.usersFile) ? createAuthStore(p.usersFile).statusSummary() : { configured: false };
@@ -292,12 +329,13 @@ async function main() {
     launchctlQuiet(['bootout', p.serviceTarget]);
     terminateRecordedProcesses(p);
     await new Promise(r => setTimeout(r, 800));
+    syncRuntimeMirror(p.runtimeDir);
     const xml = buildPlistXml({ ...p, port, model, qualification, tunnelDomain, maxQueue, idleUnloadMs });
     fs.writeFileSync(p.plistPath, xml, { mode: 0o644 });
     launchctlQuiet(['enable', p.serviceTarget]);
     const boot = launchctlQuiet(['bootstrap', p.domainTarget, p.plistPath]);
     if (!boot.ok) throw Error('launchctl bootstrap failed: ' + boot.out);
-    const ready = await waitForReady(port, tunnelUrl, 35000);
+    const ready = await waitForReady(port, tunnelUrl, p.proxySecretFile, 35000);
     const st = await gatherStatus(p, port, tunnelUrl);
     console.log(JSON.stringify({ action: 'enable', ready, status: st }, null, 2));
     return;
@@ -341,7 +379,7 @@ async function main() {
     }
     const res = launchctlQuiet(cmd === 'restart' ? ['kickstart', '-k', p.serviceTarget] : ['kickstart', p.serviceTarget]);
     if (!res.ok) throw Error('launchctl kickstart failed: ' + res.out);
-    const ready = await waitForReady(port, tunnelUrl, 35000);
+    const ready = await waitForReady(port, tunnelUrl, p.proxySecretFile, 35000);
     console.log(JSON.stringify({ action: cmd, ready }, null, 2));
     return;
   }
