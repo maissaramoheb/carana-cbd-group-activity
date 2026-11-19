@@ -1,0 +1,10 @@
+{
+  "provider": "genuine-local-ollama",
+  "transport": "authenticated loopback HTTPS",
+  "model": "qwen3:1.7b",
+  "question": "outputs versus outcomes",
+  "response": "Learning guidance\nOutputs are the direct results of activities, while outcomes are the broader, intended changes the intervention aims to achieve. Outputs need a plausible mechanism and conditions to support outcomes. A theory of change explains how an activity contributes to an outcome, emphasizing the 'because' clause to clarify the causal link. Outputs are what the activity delivers, while outcomes are the desired changes. The plan must ensure that inputs and activities can support the chain from outcome to output.\n\nInvented teaching example: A police reform activity may have outputs like improved investigative efficiency, but the outcome is a broader shift in justice system governance. The theory of change explains how these outputs contribute to the outcome, requiring checks on assumptions and feasibility.\n\nEvidence limits: The effectiveness of a theory of change depends on the validity of assumptions and the alignment with the wider system.\nReview source references (3)",
+  "elapsedMs": 2776,
+  "progressUnchanged": true,
+  "cancellation": "PASS"
+}

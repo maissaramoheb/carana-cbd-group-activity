@@ -1,0 +1,1322 @@
+{
+  "version": 1,
+  "policy": "Teaching text only; no assessment solutions or learner work",
+  "records": [
+    {
+      "id": "cbd-1:01-01",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Start with the situation",
+      "screenId": "01-01",
+      "title": "The decision before the decision",
+      "text": "The adviser’s first responsibility\nImagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?\nA visible performance problem does not establish its underlying cause.\nExamine the mission context, existing assistance, and counterpart capability before selecting an intervention.\nImprovement begins with understanding the current, evidence-supported state.\nDiagnose before prescribing.\nReported concern: What has the counterpart asked for? A request for investigation-skills training tells us what someone proposes—not why performance is weak.\nPossible causes: What else might explain the problem? Consider supervision, case-file procedures, equipment, incentives and skills. These are competing hypotheses, not established facts.\nVerify evidence: What would distinguish the causes? Compare records, observed practice and perspectives from the institution before making a diagnosis.\nSelect response: Which intervention genuinely fits? Only then consider training or another response, in line with mandate and local ownership.\nImagine arriving in Galasi and hearing a familiar request: our investigators need training, and they need it quickly. It sounds reasonable. But what do we actually know? Perhaps officers lack interviewing skills. Perhaps case files are not reviewed, supervisors cannot provide guidance, or equipment is unavailable. Those are very different problems. A capacity-building adviser does not begin by choosing a course. The first professional judgement is to ask what evidence would distinguish one explanation from another. That decision protects resources, supports local ownership, and gives us a credible starting point.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "1, 4–5",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:01-02",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Start with the situation",
+      "screenId": "01-02",
+      "title": "Three lenses, one coherent diagnosis",
+      "text": "Analyses serve different purposes\nSituational analysis is not a single checklist. The lesson combines three mutually informative perspectives.\nConflict analysis: what political, socioeconomic, legal, security and other dynamics shape the environment?\nResponse analysis: which organisations and actors are already intervening, and how?\nCBD analysis: how does the counterpart actually operate, and what capacities, structures and constraints exist?\nContext → existing responses → counterpart reality.\nConflict: What shapes the operating environment? Political, economic, social, legal, technological, environmental and security dynamics influence what is possible.\nResponse: Who is already engaged and doing what? Understand other actors, mandates and assistance before proposing new activities.\nCBD: How does the counterpart function today? Investigate institutional performance and capacity in practice, with local participation.\nThere are three connected questions in this first lesson. First, what is happening in the wider conflict and operating environment? Second, who is already responding, and what are they doing? Third, how does the counterpart institution actually function? These are the conflict, response, and CBD analytical lenses. They are not competing reports. Each gives meaning to the others. A weakness inside a police unit may be influenced by insecurity outside it, by an overlapping donor programme, or by its own systems. Keep all three lenses in view before drawing a conclusion.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "1–2, 5, 9, 11",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:01-03",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Start with the situation",
+      "screenId": "01-03",
+      "title": "Establish your starting point",
+      "text": "Why evidence matters\nWithout an accurate starting point, improvement claims cannot be tested later.\nDifferentiate what people believe is happening from what evidence supports.\nPreserve both qualitative observations and quantitative measures.\nA baseline is a reference for later progress assessment—not a target or an activity list.\nYou cannot credibly measure change without a baseline.\nAs-is baseline: What is the evidenced starting state? Document the situation before intervention, with sources, period, method and limitations.\nIntervention: What change is undertaken? Record what was actually implemented. Activities do not automatically demonstrate improved capacity.\nLater measurement: How will conditions be checked again? Use comparable evidence sources and clearly document any changes in method.\nComparison: Can change credibly be assessed? Compare with the baseline before making claims about outcomes or impact.\nThink about how you would know, six months from now, whether an intervention actually improved performance. You need a reliable description of the situation before the intervention began. That is the baseline. It could include case-processing times, but it might also include observed procedures, documented supervision practices, or structured accounts from practitioners. A target tells us where we hope to go; the baseline tells us where we are. If those two are confused, a programme can report activity without demonstrating change. Record the source and limitations of every claim.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "1, 5, 19",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:02-01",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Read the conflict environment",
+      "screenId": "02-01",
+      "title": "Structure the context with PESTEL-S",
+      "text": "Conflict analysis\nPESTEL-S is the lesson’s organising framework for reviewing broad contextual drivers.\nPolitical, Economic and Social factors shape incentives, institutions and trust.\nTechnological, Environmental and Legal factors affect service delivery and legitimate authority.\nSecurity is the additional lens of particular importance in conflict and post-conflict settings.\nDo not confuse a contextual scan with a complete conflict analysis.\nPolitical: Who authorises, supports or constrains reform? Consider governance, decision-making authority, incentives and commitment.\nEconomic: Which financial pressures affect practice? Look at resources, budgets, livelihoods and long-term sustainability.\nSocial: Who experiences the institution’s services? Examine trust, inclusion, expectations and community relationships.\nTechnological: Which systems enable or impede work? Consider information flow, equipment and the reliability of technical systems.\nEnvironmental: What physical conditions affect service delivery? Examine relevant environmental conditions and infrastructure constraints.\nLegal: What legal authorities and safeguards apply? Check powers, procedures, legal traditions and rights protections.\nSecurity: How does insecurity change the context? Examine conflict, accessibility and constraints affecting reform.\nThe lesson uses PESTEL-S as a disciplined first scan of the operating context. Consider political incentives, economic pressures, social relationships, technology, the physical environment, and the legal framework. Then add security, because conflict and post-conflict settings can change what institutions are able to do from one day to the next. This is a framework for asking better questions, not a magic checklist. We are trying to understand how the environment shapes policing and reform. In an actual mission, each category should be informed by credible information and local perspectives.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "6–7",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:02-02",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Read the conflict environment",
+      "screenId": "02-02",
+      "title": "Read systems, not just symptoms",
+      "text": "Extend the analysis\nThe lesson identifies additional methods for understanding conflict dynamics where the context requires them.\nActor mapping may examine power and interests as well as positions, interests and needs (PIN).\nConflict trees, escalation analysis, and needs/fears mapping explore causal relationships.\nThe CBD adviser need not personally complete every comprehensive analysis, but must understand its implications and seek the required expertise.\nUse complementary methods when PESTEL-S alone cannot explain the situation.\nUnderlying drivers: What lies beneath the visible problem? Incentives, exclusion, resource disputes or institutional conditions may be contributing drivers, to be verified in the setting.\nPresenting issue: What is actually happening now? Describe the current tension or operational problem without mistaking it for its cause.\nPossible effects: What consequences might follow? Document observed consequences and plausible escalation pathways. Do not treat predictions as facts.\nA PESTEL-S scan can tell us where to look, but sometimes we need a deeper explanation. Actor mapping can reveal who has power and who has an interest in an outcome. A position-interest-need analysis helps us distinguish what somebody says they want from what may matter underneath. Conflict trees can expose drivers and consequences, while escalation or needs-and-fears mapping can clarify dynamics. The CBD adviser does not have to conduct every specialist analysis personally. The responsibility is to recognise when the wider conflict matters, seek appropriate expertise, and integrate relevant findings into capacity-development decisions.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "6–7",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:02-03",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Read the conflict environment",
+      "screenId": "02-03",
+      "title": "Law and institutional context matter",
+      "text": "Interpret before importing solutions\nAn effective reform in one jurisdiction may not transfer directly into another.\nDifferent legal traditions affect the powers, duties and safeguards of law enforcement.\nStatutory law, administrative policy and local practice must be distinguished.\nPolitical incentives, SSR structures, culture and resources shape what changes are legitimate, feasible and sustainable.\nNever assume a familiar policing model is automatically transferable.\nLawful authority: Does host-country law permit it? Check the legal powers, institutional mandate and required safeguards.\nRights and legitimacy: Does it protect affected people? Consider human rights, due process, accountability and public legitimacy.\nLocal ownership: Who will own the change? Engage counterpart leadership and practitioners; ensure local priorities and practical realities are understood.\nFeasibility: Can it be supported and sustained? Consider budgets, staffing, organisational incentives and implementation conditions.\nImagine being asked to introduce a policing practice you know has worked elsewhere. Before recommending it, pause. Does it fit the host state's legal powers and safeguards? Does it respect local institutions and the rights of people affected? Can the counterpart sustain it? Legal systems differ, and formal rules may not describe day-to-day practice completely. We also need to understand reform structures, political incentives, culture, and resources. Good CBD is not copying a familiar solution into unfamiliar conditions. It is helping counterparts develop lawful, appropriate, and locally owned capability.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "2, 8",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:03-01",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Understand existing responses",
+      "screenId": "03-01",
+      "title": "You are not starting from zero",
+      "text": "Response analysis\nMultiple stakeholders may already work with the same institution, sometimes pursuing different goals.\nMap ongoing UN, national, bilateral and civil-society engagements relevant to the counterpart.\nIdentify where mandates, resources and activities complement or compete.\nAvoid treating other actors automatically as obstacles—or assuming they are allies.\nKnow who is doing what, where and why.\nNational counterparts: Which host authorities are involved? Clarify institutional responsibilities, priorities and national decision-making.\nUN and mission: What support already exists? Map relevant mission efforts and mandates without assuming they all operate in one way.\nBilateral and donor: What other assistance is under way? Identify programme objectives, resources, sequencing and possible overlaps.\nCivil society: Who else is affected or engaged? Listen to relevant organisations and communities, respecting context and authority.\nWhen you arrive in a mission area, you rarely find a blank slate. The host-nation institution may already be receiving support from national agencies, United Nations entities, bilateral partners, and civil society. Some activities may complement each other; others may overlap, compete, or simply ask too much of the same counterpart. Response analysis begins by mapping who is involved, what they are trying to achieve, and how their efforts interact. Avoid assuming every actor is a partner, or every disagreement is hostility. Understand the landscape first, and coordinate within your mandate.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "9–10",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:03-02",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Understand existing responses",
+      "screenId": "03-02",
+      "title": "Interests are not always visible",
+      "text": "Understand incentives\nAn actor's public position may differ from its actual interests or needs.\nPower aspirations, organisational incentives and resource pressures can shape cooperation.\nHost-nation reluctance to engage with external actors may be based on credible concerns.\nConsider how proposed engagement may affect legitimacy, relationships and local ownership.\nUnderstand motivations before designing engagement.\nPosition: What has the actor explicitly said? Record the publicly stated request or viewpoint without embellishment.\nInterest: What goal might motivate that position? Explore potential priorities or incentives through respectful dialogue and evidence.\nNeed: What fundamental requirement may underlie it? Consider legitimate security, recognition, resources or institutional conditions. Validate rather than infer.\nA stakeholder's official position is useful information, but it is not the whole story. An organisation may publicly support reform while fearing the loss of resources or influence. A counterpart may appear reluctant because previous external assistance created unrealistic promises. In other cases, there may be genuine differences in priorities. We need to explore positions, interests, needs, and possible impacts with care. This is not an invitation to manipulate people. It is a method for understanding concerns and building a respectful, credible approach to engagement and local ownership.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "9",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:03-03",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Understand existing responses",
+      "screenId": "03-03",
+      "title": "Coordinate to avoid unintended harm",
+      "text": "From mapping to responsible engagement\nEven well-intended activities can duplicate work, exhaust counterparts or undermine other reforms.\nSeek collaboration with relevant actors within applicable authority and mandate boundaries.\nCoordinate timing, information needs and assistance where appropriate.\nRecord coordination risks and potential opportunities for the later SWOT analysis.\nGood coordination is part of effective analysis, not an afterthought.\nProgramme A: What is Programme A already delivering? Verify objectives, participants, schedule, dependencies and resource demands.\nProgramme B: Where might Programme B duplicate effort? Compare intended beneficiaries, outcomes, dates and reporting demands with existing assistance.\nCoordination bridge: What changes when partners coordinate? With counterpart agreement, align needs, sequencing and information-sharing to reduce duplication and fatigue.\nConsider two partners arranging similar workshops for the same small police unit. Each programme might look successful on paper, yet together they take officers away from essential duties and duplicate effort. This is counterpart fatigue, and it can undermine trust. Effective coordination looks at timing, mandates, information needs, and how assistance fits with existing work. Where appropriate, advisers seek complementarity without exceeding their authority. As you map the response landscape, note opportunities for partnership and risks that may later inform SWOT and planning.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "9–10",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:04-01",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Diagnose the counterpart",
+      "screenId": "04-01",
+      "title": "What actually happens inside the institution?",
+      "text": "CBD analysis\nCBD analysis looks at the counterpart's real policing systems, practice, structure and constraints.\nConsider the organisation, department or unit that will own the change.\nExamine performance as it occurs, rather than only what formal documents claim.\nIdentify issues that warrant deeper inquiry and that can later inform SWOT and baseline formulation.\nStart with counterpart reality and local ownership.\nEnabling environment: Which external conditions shape the mandate? Consider legal frameworks, policy constraints, political context and wider resources.\nInstitution / unit: Which organisational systems affect practice? Investigate supervision, processes, accountability, staffing and logistics.\nPractitioner: What can staff do in real working conditions? Examine individual competencies and behaviour, while recognising organisational constraints.\nNow we move closer to the counterpart institution itself. CBD analysis asks how the organisation, department, or unit actually works. An organogram tells us something, but it cannot show whether supervision is effective or whether case files move through the system consistently. We also need to understand the enabling environment and the people carrying out the work. Local ownership matters from the beginning: the counterpart must help define the reality and the problems worth solving. Do not jump from a performance complaint to a preferred intervention before understanding the system around it.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "11, 20",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:04-02",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Diagnose the counterpart",
+      "screenId": "04-02",
+      "title": "Triangulate what you hear",
+      "text": "Evidence-gathering methods\nOne interview rarely establishes a complete operational picture.\nUse suitable combinations of interviews, surveys, observation and examination of work products.\nInvite counterpart self-assessment to support local participation and ownership.\nDistinguish claims, direct observations and documents; examine discrepancies before concluding.\nThe strength of an analysis depends on the quality and diversity of evidence.\nInterviews: What do different people report? Ask staff and supervisors about actual procedures; statements require corroboration.\nObservation: What happens in practice? Observe work in context, with permission and safeguards; one visit may not be representative.\nRecords: What do work products show? Review file samples, registers or reports for documented practice and exceptions.\nImagine a manager telling you that every investigation is reviewed by a supervisor. That may be correct, but an evidence-based analysis checks rather than assumes. Interviews can explain intentions and experience. Observations can reveal actual practice. Surveys, work products, records, and counterpart self-assessment can add different perspectives. When these sources disagree, the difference itself deserves investigation. This is triangulation: not simply collecting more information, but comparing kinds of evidence to reach a more defensible understanding. Always consider access, reliability, consent, and appropriate handling of sensitive information.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "11",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:04-03",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Diagnose the counterpart",
+      "screenId": "04-03",
+      "title": "Map people, power and interest",
+      "text": "Stakeholder analysis\nStakeholders are those involved in, influencing or affected by proposed CBD activities.\nIdentify both formal decision-makers and actors with informal influence.\nAssess their level of interest, influence and potential impact.\nChoose engagement and communication approaches proportionate to their role and revisable over time.\nInfluence and interest guide engagement, not simplistic labels of good and bad actors.\nHigh influence · lower interest: Maintain appropriate engagement Monitor key decisions, understand barriers and consult when necessary.\nHigh influence · high interest: Engage closely Involve relevant decision-makers appropriately and revisit changing positions.\nLower influence · lower interest: Monitor and keep access open Do not dismiss perspectives or assume influence and interest are fixed.\nLower influence · high interest: Listen and involve Affected groups may have essential information despite limited formal influence.\nAn organisational chart identifies formal authority, but reform can also be shaped by informal influence. Stakeholder analysis helps us identify who will be affected, who can influence the process, and who needs meaningful participation. Interest and influence may change over time. A powerful decision-maker with little day-to-day interest may require a different approach from practitioners who are deeply affected but have limited formal authority. These are planning considerations, not labels of good and bad people. Return to the map as relationships, needs, and expectations change.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "12–13",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:05-01",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Use the CBD matrix",
+      "screenId": "05-01",
+      "title": "Five areas of institutional capacity",
+      "text": "The areas axis\nThe lesson identifies five broad areas in which national police capacity should be assessed.\nPolice services: knowledge, skills, command and control.\nEnabling services: people, training, finance, logistics and support.\nPolice policy formulation; accountability mechanisms; and stakeholder engagement.\nA weakness in investigation outcomes can originate well beyond an investigator's skills.\nPolice services: How well are core policing services delivered? Consider professional policing practice, command and control and actual service performance.\nEnabling services: Which support systems enable delivery? Investigate staffing, training systems, finance, logistics and other administrative support.\nPolice policy formulation: How is institutional policy developed? Examine how rules and guidance are formulated and maintained.\nAccountability mechanisms: How is conduct and performance reviewed? Consider responsibility, internal review, oversight and answerability.\nStakeholder engagement: How does the institution engage others? Examine working relationships, participation and relevant external interaction.\nA complaint about weak investigations could lead us to focus immediately on investigators' skills. The CBD analysis framework asks us to look wider. Police services are one area, but enabling services, policy formulation, accountability mechanisms, and stakeholder engagement also matter. Perhaps the problem is related to personnel management, guidance, oversight, logistics, or communication with communities. Using the five areas prevents us from treating every symptom as an individual training gap. Each finding should be based on evidence from the counterpart and the operating context.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "14–15",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:05-02",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Use the CBD matrix",
+      "screenId": "05-02",
+      "title": "Six dimensions cross every area",
+      "text": "The dimensions axis\nThe same institutional issue may have consequences across several cross-cutting requirements.\nPolicing practice, environmental sustainability and conflict prevention.\nHuman rights, gender and comprehensive protection of civilians (CPOC).\nHuman rights and protection considerations are substantive analytical obligations, not decoration.\nThe five areas × six dimensions provide a disciplined classification framework.\nThe second part of the CBD matrix is the set of six cross-cutting dimensions. These include policing practice, environmental sustainability, conflict prevention, human rights, gender, and comprehensive protection of civilians. They are not a separate box to tick at the end. Each dimension asks us to examine how a capacity issue affects the way policing is delivered and experienced. For example, a new reporting process may improve efficiency while also raising questions about access, accountability, or protection. The five areas and six dimensions work together to structure that analysis.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "16–17",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:05-03",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Use the CBD matrix",
+      "screenId": "05-03",
+      "title": "Move from observations to structured issues",
+      "text": "The 5 × 6 analytical matrix\nThe goal is to connect source-based institutional issues with the relevant area and dimension.\nRead each evidence item and identify the underlying capacity or institutional issue.\nChoose the most relevant CBD area and specialised dimension; justify the link.\nAvoid automatically assigning everything to general policing practice when a more specific dimension applies.\nA useful matrix records defensible issues—not a list of unsupported assumptions.\nNow imagine an observation that an institution has no dependable system for tracking equipment maintenance. Where does that issue belong in the CBD matrix? Start with the evidence, identify the institutional issue, and then justify the most relevant area and cross-cutting dimension. The purpose is not to fill every cell. The purpose is to place credible findings where they help the team understand needs and design a responsible response. Avoid turning assumptions into findings, and resist placing everything under general policing practice when another dimension is more informative.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "14–18, 20–21",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:06-01",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Synthesize and establish a baseline",
+      "screenId": "06-01",
+      "title": "From findings to SWOT",
+      "text": "Structured synthesis\nOnce the CBD analysis identifies issues, appraise them as strengths, weaknesses, opportunities or threats relevant to the proposed change.\nStrengths and weaknesses examine factors internal to the relevant counterpart or system.\nOpportunities and threats examine consequential external conditions or influences.\nGround each entry in earlier analysis; avoid invented or generic entries.\nSWOT must be evidence-led and should follow—rather than substitute for—analysis.\nSWOT becomes useful after we understand the context, responses, and counterpart institution. Strengths and weaknesses describe relevant internal factors. Opportunities and threats concern external conditions that could enable or obstruct progress. The distinction sounds straightforward, but an unsupported SWOT is little more than opinion. Trace each entry back to analysis and evidence. Be clear about the institution and level being examined. A strong internal practice might create an entry point for improvement, while an external risk may need to be addressed during later planning. SWOT summarises findings; it does not replace the analysis.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "10, 18, 20",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:06-02",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Synthesize and establish a baseline",
+      "screenId": "06-02",
+      "title": "Record an evaluable as-is baseline",
+      "text": "Bridge to later CBD phases\nThe baseline fixes the current situation before interventions and targets are established.\nQuantitative indicators can include verified counts, rates, proportions or elapsed time.\nQualitative indicators can include documented practices, observed conditions and structured narratives.\nRecord data sources, reporting periods, limitations and later verification methods wherever possible.\nAn as-is baseline can later be compared with a defined to-be state.\nAs-is evidence: What was verified before change? Illustrative only: 12 of 40 sampled files recorded a supervisory review in a specified period. The baseline is a measured starting point, with stated limitations.\nDesired future: What would an agreed result look like? A target is set through later planning. It must not be substituted for observed baseline evidence.\nComparable measure: Can the same indicator be tracked later? Document the sampling frame, reporting period, definitions and verification method so outcomes can be compared.\nA baseline is our evidence-supported description of the current state. It might contain verified counts, proportions, or elapsed times. It can also describe current procedures, supervision practices, or observed conditions. What matters is that another adviser could understand what was measured, when, how, and with what limitations. Later, that record can be compared with a defined desired state to examine change. Avoid writing a target as though it were a baseline, or presenting a guessed number as verified. Careful baseline design makes future evaluation credible.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "19",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-1:06-03",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Situational Analysis",
+      "section": "Synthesize and establish a baseline",
+      "screenId": "06-03",
+      "title": "You are ready for the CARANA workbench",
+      "text": "Apply the complete sequence\nIn the existing CARANA activity, investigate the fictional Galasi Criminal Investigations Services using the lesson's analytical tools.\nReview the scenario and stakeholder context before proposing solutions.\nBuild a structured picture using the areas–dimensions matrix, SWOT and an as-is baseline.\nUse the findings to identify credible entry points for the next CBD phase.\nPass the final checkpoint to continue to the guided practice step.\nContext: What broader conditions matter? Bring forward verified conflict-environment observations.\nResponses: Who is already involved? Map actors, objectives, overlaps, stakeholder interest and influence.\nInstitution: What does the counterpart do? Document capacity issues across relevant areas and dimensions.\nSynthesis: What findings are defensible? Ground SWOT and an as-is baseline in the available evidence.\nWorkbench: How will you practise? Apply the analytical tools to the fictional CARANA exercise before selecting future objectives.\nYou have now followed the analytical sequence from the operating environment to a structured picture of the counterpart. In the original CARANA workbench, you will examine the scenario, identify relevant actors, build an area-and-dimension analysis, and draw together evidence for SWOT and the baseline. This is where the lesson becomes practical. Take your time with the information. Distinguish source facts from assumptions, justify the issues you record, and resist jumping to solutions. Your objective is a credible diagnosis that can support the next phase of Capacity Building and Development.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+        "pages": "18–21; participant exercise (Annex A), blank tools (Annex E)",
+        "file": "course/lesson1-data.js",
+        "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+        "digitalFiles": [
+          {
+            "file": "course/visual-journey.js",
+            "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+          },
+          {
+            "file": "course/lesson1-experience.js",
+            "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbd-2:02-01",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Objective Setting, Prioritisation and Performance Framework",
+      "section": "Align before selecting",
+      "screenId": "02-01",
+      "title": "A police objective sits within a larger system",
+      "text": "An investigation reform can fail if it improves police output while overwhelming the next part of the justice system.\nStart with the authorised mission mandate, the host-State capacity-building framework and the national security framework.\nThe 2023 lesson links this alignment to UNSCR 2151, SDG 16, the SGF UN Police policy and CBD guidelines. These references connect peace, rule of law, inclusive and accountable institutions, and police development; they are historical teaching references, not a statement that mission guidance is unchanged.\nConsider security providers and governance or oversight actors, including State and non-State stakeholders. A counterpart’s concern may reveal a missing dependency.\nAlignment requires considering how reform affects the wider justice and oversight system.\nA request to strengthen police investigations can sound like a self-contained technical task. In practice, more cases may also affect prosecutors, courts, detention and oversight. Start by asking what change is authorised and how it fits the host-State framework. The lesson places police development within the wider security-sector architecture. That connection is not paperwork added after choosing an activity; it can change the objective itself. Use the map to consider each relationship, then decide which dependency would need discussion. You are testing the coherence of a proposed change, not choosing an institutional reform on someone else’s behalf.\nMandate: Establish what support is authorised.\nNational framework: Discuss how the intended result supports nationally determined priorities.\nJustice relationships: Check implications for prosecution, courts, corrections and oversight.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+        "pages": "5–13",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+      }
+    },
+    {
+      "id": "cbd-2:02-02",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Objective Setting, Prioritisation and Performance Framework",
+      "section": "Align before selecting",
+      "screenId": "02-02",
+      "title": "Ownership is maintained through participation",
+      "text": "A signature on a project document is useful evidence of agreement, but it does not by itself establish enduring ownership.\nInvite counterparts into analysis and objective setting, then maintain dialogue as conditions change.\nDocument agreements and connect CBD priorities with counterpart priorities without treating consultation as a substitute for rights and mandate obligations.\nSustainability includes affordability, capability, relevance, the enabling environment and continued commitment. Reform can shift power and privileges; acknowledge concerns respectfully.\nOwnership needs continuing engagement and cannot be inferred once for the entire programme.\nImagine that the original counterpart champion leaves midway through an initiative. A signed agreement still exists, yet participation becomes uncertain. It would be easy to call this resistance and carry on. A more useful response is to explore what has changed: responsibilities, resources, incentives or the interpretation of the objective. Ownership is maintained through participation, dialogue and documented agreements. It also involves the people affected by the change, not only the person who signs. Consider whether the process could continue without the adviser’s daily encouragement. That question connects ownership with sustainability and may reveal a decision that needs to be revisited.\nParticipation: Ask who helps define the problem and intended result.\nAgreement: Record responsibilities and the reasoning behind priorities.\nReview: Reconfirm ownership when leaders, incentives or resources change.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+        "pages": "16–19",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+      }
+    },
+    {
+      "id": "cbd-2:02-03",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Objective Setting, Prioritisation and Performance Framework",
+      "section": "Choose and sequence objectives",
+      "screenId": "02-03",
+      "title": "Make trade-offs visible",
+      "text": "More reform needs may exist than available time, people or funding can address.\nCompare alternatives consistently rather than selecting the most visible request.\nThe lesson suggests beneficiary importance, strategic importance, complementarity and implementability as comparison lenses.\nRecord reasoning and assumptions so choices are transparent and defensible. Revisit priorities when evidence changes, while avoiding endless review that prevents action.\nA scoring aid supports judgement; it cannot remove the need to understand prerequisites.\nTwo proposals can both be worthwhile while only one can be supported now. A comparison method makes your reasoning visible, but the method contains choices of its own. Which perspectives count, how strongly are they weighted, and what information supports each rating? Try changing the weights in the invented comparison. A different ranking should prompt discussion rather than surprise. Then look beyond the total: a dependency may require foundational work first. The official participant chart is more detailed than this illustration. Use this exercise to understand judgement under constraints before applying the actual chart to your own analytical findings.\nBeneficiary value: Whose safety or service experience improves?\nStrategic fit: How does the proposal support agreed reform aims?\nComplementarity: Does it reinforce other initiatives or depend on them?\nImplementability: Can it be carried out with the relevant capacity and resources?",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+        "pages": "14–15",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+      }
+    },
+    {
+      "id": "cbd-2:02-04",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Objective Setting, Prioritisation and Performance Framework",
+      "section": "Choose and sequence objectives",
+      "screenId": "02-04",
+      "title": "Turn an intention into a testable objective",
+      "text": "“Improve investigations” names a worthwhile direction but leaves the expected change unclear.\nSpecify the change and who or what it concerns. Make progress measurable and time-bound.\nCheck achievability with those responsible and relevance to the diagnosed need and strategic framework.\nAgree a realistic scope before selecting the exact target. A numerical target invented without baseline evidence is not a sound objective.\nSMART wording should make an agreed and feasible result testable; it should not disguise missing evidence.\nSMART is most useful as a conversation about meaning and feasibility. If an objective says that a process will improve, ask what change would be visible, who is responsible, and when it could reasonably be reviewed. Do not fill a gap in baseline evidence with a confident-looking percentage. Record what is known and what still needs agreement. The drafting scaffold asks you to separate these decisions so that a counterpart can challenge them. It will check only whether you have written something, not whether your professional judgement is sound. Take the revised objective into the practical workbench for further scrutiny.\nSpecific: Define the intended change and scope.\nMeasurable: Specify how progress can be observed.\nAchievable and relevant: Check capability, constraints and connection to the diagnosed need.\nTime-bound: State when the result will be reviewed.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+        "pages": "18–19",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+      }
+    },
+    {
+      "id": "cbd-2:02-07",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Objective Setting, Prioritisation and Performance Framework",
+      "section": "Choose and sequence objectives",
+      "screenId": "02-07",
+      "title": "Test the objective in a counterpart briefing",
+      "text": "A clear-looking objective can still hide different assumptions about whose service should improve.\nRead the result from the counterpart’s perspective: who is responsible and who experiences the change?\nExplain the intended change in plain language before agreeing the number. A target without a shared definition can create misleading agreement.\nInvite a challenge about capability, inclusion and continuing support. Document the decision and its unresolved assumptions.\nShared wording is useful only when the parties share its operational meaning.\nPicture a briefing where everyone agrees to improve case handling. One person means faster processing; another means more complete documentation. A shared phrase has hidden two different intentions. Before choosing a target, invite the counterpart to describe what successful practice would look like and who would maintain it. Then check whether the measure captures that intention. You may need several perspectives, but not an unlimited number of indicators. A useful objective makes discussion more precise. It does not eliminate disagreement by sounding technical. The example is invented and does not supply the CARANA activity’s priorities.\nProposed result: Identify the service change, not just the event.\nCounterpart interpretation: Check who will act and how the change fits existing responsibilities.\nAgreed revision: Record scope, evidence and remaining decisions.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+        "pages": "16–19",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+      }
+    },
+    {
+      "id": "cbd-2:02-05",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Objective Setting, Prioritisation and Performance Framework",
+      "section": "Connect objectives with evidence",
+      "screenId": "02-05",
+      "title": "Choose indicators that inform decisions",
+      "text": "The number of delivered workshops may be easy to count without telling you whether policing practice improved.\nChoose measures that reflect the intended result and can be gathered and managed.\nThe source emphasises countable indicators while allowing more than one perspective on a complex objective.\nSpecify the observation and compare it with the baseline and intended result. Keep the number of indicators proportionate to the collection effort.\nAn activity count does not establish the quality of the intended result.\nA workshop register answers a delivery question. A review of work products may answer a practice question. Neither automatically explains why a change occurred. Begin with the intended result and ask what evidence would be useful for the next decision. You may need more than one perspective, but each measure creates work for someone. Choose a manageable set, define the observations and explain their limits. In the classification exercise, distinguish a delivered activity from evidence about practice and from a weakness in the evidence. The aim is not to reject numbers; it is to make them meaningful.\nResult: What change does the objective seek?\nIndicator: What observation would suggest progress?\nCollection: Who can obtain comparable evidence and how?\nUse: What decision would this evidence inform?",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+        "pages": "20–21",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+      }
+    },
+    {
+      "id": "cbd-2:02-08",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Objective Setting, Prioritisation and Performance Framework",
+      "section": "Connect objectives with evidence",
+      "screenId": "02-08",
+      "title": "A stronger number needs a defensible method",
+      "text": "An indicator is only as useful as the observation and comparison behind it.\nState what is counted and the relevant population or denominator. Keep the definition stable across observations.\nPlan a feasible evidence source, collection responsibility and review schedule. Consider missing records and whose experience may be absent.\nUse the indicator to support a decision. Explain uncertainty rather than treating a favourable number as proof that the intervention caused the change.\nA repeatable measurement plan turns a number into evidence that can be questioned.\nSuppose a report says that review quality improved from half of files to four fifths. Before celebrating, ask whether the same definition was used, whether the files came from comparable work and how they were selected. Perhaps the second sample contained only simpler files. That does not make measurement useless; it tells you what to investigate before drawing a conclusion. The lesson links indicators with later evaluation. Keep the collection burden proportionate, but make the method understandable enough for another adviser to repeat. The figures in this example are invented and are not findings from CARANA.\nDefinition: What exactly is observed and what does the number refer to?\nCollection: How, when and by whom will comparable evidence be obtained?\nInterpretation: What decision is supported, and which alternative explanation remains?",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+        "pages": "20–21",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+      }
+    },
+    {
+      "id": "cbd-2:02-06",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Objective Setting, Prioritisation and Performance Framework",
+      "section": "Connect objectives with evidence",
+      "screenId": "02-06",
+      "title": "Carry defensible choices into practice",
+      "text": "Your analytical findings now need to become a manageable set of justified objectives.\nUse your own Lesson 1 findings to identify candidate objectives, then compare their importance and feasibility.\nThe official group task identifies 6–10 candidate objectives, uses the participant comparison chart while leaving its risk category aside at this stage, then phrases the top two objectives using SMART. The chart also considers donor interest; the four preceding teaching lenses are a concise introduction, not the complete chart.\nPrepare to explain why a choice is prioritised, which prerequisite matters and how its result could be measured.\nPlanning needs a reasoned objective rather than a ranked list alone.\nYour Lesson 1 findings are the starting point for the official objective-setting activity. The task is not to recover a hidden ideal list. Identify six to ten candidate objectives, compare them using the participant chart while leaving its risk category aside at this stage, and phrase the top two using SMART. Keep the distinction between that chart and our simpler teaching comparison clear. Before moving to planning, explain why your choices matter, which dependencies affect their sequence and how progress could be observed. Another participant may make a defensible different choice. The discussion of evidence and assumptions is part of the learning.\nEvidence: Carry forward your own diagnosis.\nPriorities: Explain trade-offs and dependencies.\nObjectives: Make the selected result testable.\nReflection: Ask a peer what could invalidate your reasoning.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+        "pages": "22, 29–30",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+      }
+    },
+    {
+      "id": "cbd-3:03-01",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Build a results logic",
+      "screenId": "03-01",
+      "title": "Begin with the result, then test the chain",
+      "text": "A familiar activity is not a sufficient starting point for a reform plan.\nWork from the agreed goal and outcomes toward the outputs and activities needed to support them.\nFor each intended result, a logframe row states the result, how it will be measured or verified, where evidence will come from, and the external factors or assumptions that could prevent achievement. The reveal below explains the result hierarchy; construct the four-column plan in the linked workbench.\nAfter designing from the intended result, check the chain upward: can the inputs and activities plausibly deliver outputs that support the outcome?\nGoals should guide the required activities; a bottom-up check then tests their plausibility.\nBegin with the change that the agreed objective seeks. Familiar activities are easier to describe, but choosing them first can make the plan serve the activity rather than the result. Work downward from the goal and outcomes, then check upward whether the activities and inputs can support the chain. This is not a guarantee of causation. It is a way to expose what needs to be true and what evidence could challenge the plan. In the next practice row, test the horizontal connection as well: a result needs a relevant measure, a credible evidence source and explicit external conditions.\nGoal: State the wider intent.\nOutcome: Describe the change the intervention seeks to support.\nOutput: Identify what the activity will directly deliver.\nActivity and input: Plan the work and resources needed.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "4–7",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-10",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Build a results logic",
+      "screenId": "03-10",
+      "title": "Check one logframe row across four columns",
+      "text": "A result, its measure, its evidence source and its assumptions must refer to the same intended change.\nDescribe a result at a clear level: do not call a delivered session an institutional outcome.\nChoose a measure that speaks to that result, then identify where credible evidence can be obtained.\nMake external conditions explicit. Test the row horizontally as well as the result chain vertically.\nA coherent row asks one connected result-and-evidence question.\nA logframe can look complete when every cell contains words, yet the row may not make sense. Suppose the result concerns the use of a review routine, the indicator counts delivered workshops and the evidence source is a procurement register. Each cell sounds measurable, but they do not address the same result. Read the row across and ask what the evidence would actually tell you. Then read the hierarchy to see how this result contributes to the next level. The scaffold supports a single row for an invented example. It does not complete the official exercise or establish that your proposed reform is feasible.\nResult: What change or direct deliverable is this row about?\nVerification measure: What observation addresses that result?\nEvidence source: How will that observation be obtained?\nExternal condition: What necessary condition is outside this activity’s direct control?",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "5–7",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-02",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Build a results logic",
+      "screenId": "03-02",
+      "title": "Explain the missing middle",
+      "text": "A theory of change asks how and why an activity is expected to contribute to change in its context.\nState the expected change before listing actions.\nExplain the causal reasoning: if the action occurs, what should follow, and why?\nIdentify assumptions about people, institutions and politics that could break the connection. This reasoning should influence the plan rather than become a separate diagram.\nOutputs need a plausible mechanism and conditions to contribute to an outcome.\nA theory of change makes a professional claim open to scrutiny. If we support this action, what change is expected, and why should it follow in this setting? The word because matters. It identifies the mechanism rather than simply connecting boxes with arrows. Now ask what could prevent the mechanism from working: incentives, authority, time or another institutional dependency. Some conditions may be influenced by the programme and others may need to be monitored. Use the classification exercise to separate what is delivered from what should change and what remains an assumption. That distinction helps improve the plan before implementation.\nIf: Name the action or condition.\nThen: Describe the expected change.\nBecause: Explain the mechanism and evidence behind it.\nProvided that: Surface assumptions that require checking.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "10–11",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-03",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Build a results logic",
+      "screenId": "03-03",
+      "title": "Budget for results",
+      "text": "Resource planning should follow the results a programme seeks, rather than repeat last year’s list of activities.\nThe lesson introduces results-based budgeting as linking objectives and expected results to resource requirements and performance measures.\nCheck whether the required people, time, tools and recurrent support are affordable and coherent with the logframe.\nMake trade-offs explicit: adding a resource is justified by its contribution to a result, not merely by its availability.\nResults-oriented resource planning must consider what is needed to sustain the intended capability.\nA budget can be internally accurate yet poorly connected to the objective. Consider a plan that funds a useful tool but leaves out the people or support required to use it. The resource list may be affordable while the result remains infeasible. The lesson introduces results-based budgeting as deriving resource requirements from predefined objectives and expected results, then connecting performance with measures. Use that logic to challenge a resource request. Which result does it support, what continuing requirement accompanies it, and what trade-off is being made? This is instructional reasoning about a plan, not an approved UN budget or funding decision.\nExpected result: Clarify the result being resourced.\nRequirements: Derive resources from the planned route to that result.\nPerformance: Use indicators to assess progress.\nRevision: Review assumptions when costs or conditions change.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "8–9",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-04",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Select the appropriate support",
+      "screenId": "03-04",
+      "title": "Census and vetting require a distinct mandate",
+      "text": "Identifying the personnel body and assessing eligibility are sensitive institutional processes, not general substitutes for training or supervision.\nCensus and vetting define the relevant personnel body and eligibility under the applicable criteria.\nNational ownership, law, due process, individual rights, risk management and relevant expertise are essential to the source’s treatment.\nA mandate determines the adviser’s role. Vetting does not replace criminal prosecution of human-rights violations. This teaching overview does not qualify a learner to conduct the process.\nChoose tools for the verified problem and the required expertise, safeguards and implementation conditions.\nImagine an institution wants to address serious concerns about personnel eligibility. That is a different task from improving a team’s daily competence. The lesson treats census and vetting as professional tools with significant conditions: national ownership, a legal basis, due process, individual rights and proper risk management. The mission mandate also affects whether an adviser supports or leads a process. Do not turn these safeguards into a short checklist that appears to authorise a programme. Identify the relevant authority and expertise before proceeding. The distinction matters because using a powerful tool for the wrong problem can damage both people and the reform process.\nPersonnel question: Identify the actual eligibility or personnel-body question.\nAuthority and safeguards: Establish applicable mandate, law, national ownership, rights and due process.\nProfessional implementation: Identify competent actors and risks; an instructional overview is not authorisation.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "12–13",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-08",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Select the appropriate support",
+      "screenId": "03-08",
+      "title": "Match training and MMA to the diagnosed need",
+      "text": "Different support needs can coexist within the same unit; one activity may not address them all.\nTraining helps close a competence gap when learning conditions, audience needs and motivation support it.\nMonitoring develops an informed picture of practice. Advising supports situational assistance; mentoring supports personal development.\nMMA needs subject expertise and interpersonal skills, with awareness of the adviser’s limits. The source highlights co-location as an especially effective setting.\nSpecify the support need before naming the activity.\nAn officer may understand a procedure yet need help applying it to a difficult situation. Another may need to learn a skill, while a supervisor may benefit from a longer developmental relationship. These are related but different needs. The lesson presents training and MMA as tools that should be selected with care, not as interchangeable programme labels. Think about both the recipient’s needs and your own professional limits. A co-located setting may support continuing contact, but proximity alone does not provide expertise or trust. Use the distinctions to justify a support choice before planning its details.\nCompetence gap: Ask what a person needs to learn and whether training can address it.\nSituational support: Consider advice for a specific decision or practice challenge.\nDevelopment relationship: Consider mentoring and continuing observation of how practice develops.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "14–15",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-09",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Select the appropriate support",
+      "screenId": "03-09",
+      "title": "A new policy needs a route into practice",
+      "text": "Issuing a standard can establish direction without ensuring that anyone can apply it.\nPolicy development can introduce coherent standards and contribute to reform direction.\nConnect appropriate legislative and policy work with dissemination, explanation, training or advice where needed.\nMonitor implementation and compliance. A published document is an output, not proof that practice conforms to it.\nPlan for the use of a standard, not just its publication.\nPicture a carefully written procedure sitting on a shelf while staff continue their old routine. The document may be sound, yet its implementation is incomplete. The lesson connects policy work with further actions such as communication, training, advice and compliance monitoring. Ask what changes for the person who must use the policy and how that person will obtain support. Then plan what observation would show use or reveal a difficulty. This is the same results logic used in a logframe: a useful output contributes through a mechanism, not through its existence alone. The situation is invented, not a CARANA solution.\nStandard: Clarify the intended practice and the applicable authority.\nImplementation support: Enable people to understand and apply the standard.\nObserved use: Check practice and feed findings back into support.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "16",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-05",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Select the appropriate support",
+      "screenId": "03-05",
+      "title": "Distinguish momentum from structural reform",
+      "text": "A small community project may build confidence while leaving deeper institutional constraints unresolved.\nThe source presents quick impact projects as small-scale, low-cost and short-duration confidence-building tools.\nConnect an incentive to a verified community need and a responsible implementation arrangement. Do not claim a short project establishes lasting reform.\nThe lesson discusses trust funds as possible support; availability and eligibility need current verification rather than assumptions about funding access.\nA useful incentive can create momentum without establishing long-term institutional change.\nA small project may help demonstrate responsiveness and build confidence. It should not be asked to prove a deeper institutional transformation that it was never designed to achieve. The lesson presents quick impact projects within this limited purpose and discusses trust funds as potential support. Keep both the opportunity and the limits visible. Begin with a community need, check the implementation arrangement and ask what would show the immediate output. Then distinguish that from the longer change the CBD process seeks. Funding availability must be established through the relevant current arrangements; a teaching reference does not establish eligibility or a commitment.\nNeed: What locally expressed need does the project address?\nConfidence: How might it support trust in the process?\nLimits: What institutional change remains outside its scope?\nResources: What authorised funding and implementation arrangements are actually available?",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "17–18",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-06",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Prepare for uncertainty",
+      "screenId": "03-06",
+      "title": "Make risks actionable",
+      "text": "A list of threats is useful only if it informs decisions and responsibilities.\nIdentify risks with counterparts, then analyse likelihood and impact.\nEvaluate which risks need a response and record mitigation or preventive actions in a risk log.\nAssign review responsibilities and revisit the log as conditions change. A high score alone does not specify the action required.\nRisk management requires a response and continuing review, not just classification.\nWhen a risk is identified, it is tempting to focus on its colour or score. The useful question is what the judgement changes. Consider likelihood and consequence separately, then decide what can prevent the event, reduce its effect or provide an alternative if it occurs. In the matrix, a low likelihood does not erase a severe consequence. The illustrative product is a discussion aid, not an authorised threshold. Your risk log also needs responsibility and review. Explain who will notice changed conditions and who can act. This converts uncertainty into an operational conversation rather than a list of warnings.\nIdentify: Describe a possible event and how it affects the objective.\nAnalyse and rank: Consider likelihood and consequences.\nRespond: Choose prevention, mitigation or a contingency response.\nMonitor: Track changes and whether the response is working.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "18–19",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-3:03-07",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Planning Activities",
+      "section": "Prepare for uncertainty",
+      "screenId": "03-07",
+      "title": "Prepare an alternative path before disruption",
+      "text": "A contingency plan prepares for an outcome that differs from the expected course.\nIdentify and prioritise disruption scenarios, then plan how essential activity can continue or recover.\nSpecify key people, resources and responsibilities; share the plan with those who may need to act.\nKeep it current. Use your own Lesson 2 objective to construct a logframe and risk analysis in the original workbench, then seek a peer’s challenge to your assumptions.\nA contingency plan must be understood, assigned and maintained to be usable.\nA contingency plan is useful when people can recognise its trigger and carry out their responsibilities. Imagine the original venue becomes unavailable. Repeating the timetable in a document does not identify what should happen next. Decide what essential function must continue, who can choose an alternative and which resources or safeguards are necessary. Share the arrangement with the people affected and check that it remains current. The same reasoning belongs in the practical planning work, alongside your logframe and risk analysis. A colleague should be able to question the response without needing to guess what its author intended.\nTrigger: What event requires the alternative response?\nContinuity: Which functions and resources need protecting?\nResponsibility: Who decides, acts and communicates?\nReview: When will the alternative plan be checked?",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+        "pages": "20–21",
+        "file": "curricula/cbd/lessons-2-3.json",
+        "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+        "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+      }
+    },
+    {
+      "id": "cbd-4:04-01",
+      "lessonId": "cbd-4",
+      "lessonNumber": 4,
+      "lessonTitle": "Implementation",
+      "section": "Understand the people and context",
+      "screenId": "04-01",
+      "title": "A sound plan still needs a local fit",
+      "text": "A plan is an informed starting point. Its implementation must respond to the organisation and communities it affects.\nExamine how organisational culture shapes routines and behaviour before importing a familiar practice.\nDevelop responses with host-State police and relevant stakeholders so they address local problems.\nConsider how culture, gender, ethnicity and religion affect policing relationships and who benefits.\nKeep the context under review as implementation progresses.\nImplementation begins with understanding how a proposed change will work here.\nImagine introducing a case-review routine that worked well in your own police service. The document may be sound, but the way authority, trust and daily work operate in another institution can be different. Ask counterparts how the routine would affect their responsibilities and the people they serve. Consider whose concerns have not yet been heard, including different experiences of women and men. The lesson asks advisers to develop local solutions with stakeholders. That requires listening to organisational practice rather than assuming a translated procedure will be adopted. The example is invented; it is a prompt for inquiry, not a finding about CARANA.\nProposed change: Identify the purpose of the practice and the capacity gap it is intended to address.\nLocal practice: Explore routines, organisational culture and constraints through counterpart dialogue.\nDifferent experiences: Check how the change may affect groups differently, including gender and community relationships.\nJoint adaptation: Agree a locally relevant response and monitor how it operates.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+        "pages": "4",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+        "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+      }
+    },
+    {
+      "id": "cbd-4:04-02",
+      "lessonId": "cbd-4",
+      "lessonNumber": 4,
+      "lessonTitle": "Implementation",
+      "section": "Understand the people and context",
+      "screenId": "04-02",
+      "title": "Communicate for understanding and participation",
+      "text": "The same reform message may need different explanations for leadership, supervisors and operational counterparts.\nMatch the message to the stakeholder’s role and context while keeping the facts consistent.\nUse the seven Cs: clarity, correctness, completeness, conciseness, concreteness, coherence and courtesy.\nCheck understanding through dialogue instead of assuming that delivering a message secures agreement.\nUse respectful language that explains the issue without labelling counterparts as the problem.\nClear communication connects accurate information with the people who need to act.\nImagine explaining a new reporting routine to a commander and to officers who must use it during a busy shift. The purpose is the same, but each audience needs different operational detail. A clear message tells people what is changing and why. Correctness and completeness keep it factual and sufficient. Conciseness, concreteness and coherence make it usable. Courtesy keeps the discussion respectful. These seven communication principles work together; brevity should not remove information needed to act safely. Ask a counterpart to describe what the change would mean in practice. This short exchange can reveal confusion that a formal announcement would miss.\nKnow the audience: Choose the level and practical detail appropriate to the role, position and context.\nBuild a usable message: Combine the seven Cs so the explanation is factual, sufficient, logical and respectful.\nCheck understanding: Invite questions and listen to how the counterpart interprets the proposed action.\nAdjust the explanation: Clarify the message while preserving its facts and purpose.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+        "pages": "5–6",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+        "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+      }
+    },
+    {
+      "id": "cbd-4:04-03",
+      "lessonId": "cbd-4",
+      "lessonNumber": 4,
+      "lessonTitle": "Implementation",
+      "section": "Support change as well as delivery",
+      "screenId": "04-03",
+      "title": "A delivered activity is not sustained change",
+      "text": "Completing the work plan does not automatically prepare people to adopt and sustain new practices.\nCBD builds and retains capability; change management prepares, guides and supports those affected.\nConsider executive support, active sponsorship, communication, ownership, resources and culture.\nExpect adoption and sustainment to take time beyond introducing the solution.\nInvestigate combinations of constraints rather than blaming one individual for every setback.\nManage the human and institutional change alongside the CBD activities.\nImagine a unit receives a useful tool and completes the planned training. Weeks later, daily routines have barely changed. This does not by itself tell you that staff cannot learn. The lesson distinguishes building capability from guiding the change that allows it to be used. Leadership may not support the new routine, responsibilities may be unclear, or people may not see themselves as owners of the change. Several constraints can operate together. Discuss the drivers and barriers with counterparts, and consider how support will continue after the initial activity. Adoption and sustainment are longer-term objectives, not automatic consequences of delivering a workshop or distributing equipment.\nCapability: People and institutions obtain, improve and retain the resources needed to perform.\nReadiness and support: Prepare people for the change and provide guidance during adoption.\nOwnership and leadership: Identify active support, meaningful counterpart participation and institutional commitment.\nSustainment: Monitor whether the changed practice continues in everyday work.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+        "pages": "7–8",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+        "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+      }
+    },
+    {
+      "id": "cbd-4:04-04",
+      "lessonId": "cbd-4",
+      "lessonNumber": 4,
+      "lessonTitle": "Implementation",
+      "section": "Support change as well as delivery",
+      "screenId": "04-04",
+      "title": "Monitor implementation and respond early",
+      "text": "Implementation is an ongoing responsibility. It requires checking progress and scanning the environment.\nReview implementation periodically instead of treating activities as set and forget.\nWatch for resistance, timing problems, weak support and unintended consequences.\nUse monitoring to identify when direction, activities or objectives may need review.\nDistinguish routine progress checks from the deeper outcome and impact assessment addressed in evaluation.\nNotice emerging constraints early enough to act with counterparts.\nImagine that a planned activity is progressing on schedule while participation by a key group is falling. A completion calendar alone would miss this signal. The lesson calls for systematic review and environmental scanning throughout implementation. Check what is progressing, what is changing and what unintended effects may be emerging. Monitoring can highlight the need to revisit activities or objectives, but it should not be presented as a full assessment of outcomes or impact. Discuss the signal and its possible causes with counterparts. Responsible resilience means remaining engaged and adapting to evidence; it does not mean continuing an ineffective approach simply because the original plan was approved.\nProgress check: Examine delivery and implementation against the agreed plan.\nContext scan: Look for changing support, participation, constraints and opportunities.\nJoint interpretation: Distinguish an observed signal from an assumed explanation.\nReview and action: Agree what needs attention and continue monitoring the response.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+        "pages": "8",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+        "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+      }
+    },
+    {
+      "id": "cbd-4:04-05",
+      "lessonId": "cbd-4",
+      "lessonNumber": 4,
+      "lessonTitle": "Implementation",
+      "section": "Solve problems with counterparts",
+      "screenId": "04-05",
+      "title": "Use a structure, then revisit your diagnosis",
+      "text": "A problem-solving model should discipline inquiry while allowing new evidence to change the diagnosis.\nDefine and analyse the problem before choosing a response.\nGenerate possible solutions, choose an appropriate one and plan action.\nImplement the response while monitoring its effectiveness.\nReturn to earlier steps when new information changes what you understand.\nSARA offers another structure: scanning, analysis, response and assessment.\nThe value of a model is consistent reasoning, not rigidly completing boxes.\nImagine repeated late case reviews are initially described as a motivation problem. During analysis, counterparts show that the review rota conflicts with another duty. The responsible action is to revise the problem definition, not protect the original diagnosis. The lesson presents a six-step process from definition through monitoring, while warning that real problem-solving moves back and forth. It also introduces SARA as an alternative structure. The particular model matters less than using a consistent method to identify, deconstruct and address the issue. Compare possible responses with the people who will implement them, and monitor whether the response changes the problem rather than only completing a task.\nDefine and analyse: Clarify the observed problem and examine evidence, causes and context.\nConsider and choose: Develop options and judge which response best fits the problem and constraints.\nPlan and implement: Agree practical action with those who must carry it out.\nMonitor and revisit: Assess effectiveness and return to definition or analysis if the evidence changes.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+        "pages": "9–10",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+        "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+      }
+    },
+    {
+      "id": "cbd-4:04-07",
+      "lessonId": "cbd-4",
+      "lessonNumber": 4,
+      "lessonTitle": "Implementation",
+      "section": "Solve problems with counterparts",
+      "screenId": "04-07",
+      "title": "New evidence can change the problem you are solving",
+      "text": "A consistent method should help you revise a diagnosis, not protect the first explanation.\nSeparate an observed difficulty from your explanation of its cause.\nSeek the perspective of the people affected and consider more than one response.\nMonitor the response and return to definition or analysis when it does not address the problem. Resilience includes learning and adaptation.\nA response teaches you about the problem when you examine its effects.\nImagine you initially explain late reviews as low motivation. A counterpart then shows that the roster gives the same person two essential duties at once. The new evidence does not settle every question, but it changes the problem you should investigate. A consistent method creates space to revise the diagnosis. Compare a response directed at motivation with one directed at conflicting responsibilities, and decide what observation would help distinguish them. The source describes problem-solving as moving back and forth rather than following a rigid line. The invented example prepares you to hear another group’s perspective in the official activity.\nInitial signal: Repeated reviews appear late.\nCounterpart evidence: The review rota conflicts with an essential duty.\nRevised response: Test an agreed scheduling change and examine its effect.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+        "pages": "8–10",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+        "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+      }
+    },
+    {
+      "id": "cbd-4:04-06",
+      "lessonId": "cbd-4",
+      "lessonNumber": 4,
+      "lessonTitle": "Implementation",
+      "section": "Solve problems with counterparts",
+      "screenId": "04-06",
+      "title": "Test your plan from the counterpart’s position",
+      "text": "The practical activity asks you to work through the consequences of a plan with others, rather than obtain one model answer.\nUse the previous planning work as the basis for discussion.\nAdopt the perspective of the counterpart or beneficiary affected by another group’s plan.\nIdentify concerns and explain how they connect to implementation.\nUse a recognised problem-solving process to develop responses through dialogue.\nPreserve disagreement and uncertainty for facilitated reflection.\nThe exercise develops perspective-taking and shared problem-solving.\nThe official activity builds on the plans prepared in Lesson 3. Groups exchange their work and consider how the plan would affect them as counterparts or beneficiaries. They then discuss concerns with the group that prepared the plan and explore possible responses. The workbench provides a place to organise your thinking, but it cannot reproduce the other person’s perspective or a facilitated discussion by itself. If you are studying independently, draft your concerns and the questions you would ask before selecting a response. Treat these as your own analysis, then seek feedback when a facilitator or colleague is available. Self-confirmation records participation, not independently assessed implementation skill.\nReview the plan: Understand the activity and intended result before judging its implications.\nChange perspective: Explore how a counterpart or beneficiary may experience the proposed implementation.\nDiscuss and solve: Connect concerns to evidence and use a consistent method to consider responses.\nReflect: Identify what changed in your understanding and what still requires dialogue.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+        "pages": "11–12; participant handout 16",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+        "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+      }
+    },
+    {
+      "id": "cbd-5:05-01",
+      "lessonId": "cbd-5",
+      "lessonNumber": 5,
+      "lessonTitle": "Evaluation and Adjustment",
+      "section": "Decide what evaluation must establish",
+      "screenId": "05-01",
+      "title": "Ask what changed and why",
+      "text": "Evaluation supports decisions about progress, shortcomings and future action. It needs a reference in the original plan.\nAsk whether the engagement worked, what did not work and why.\nUse the planned objectives and performance framework as a reference.\nDistinguish delivered activities from evidence about results.\nUse evaluation to support learning, improvement, transparency and accountability.\nEvaluation is valuable when it informs a defensible decision.\nImagine a project delivered every scheduled workshop, yet the institution is unsure whether the intended practice improved. Evaluation starts from the objective and the evidence needed to judge progress, not from a desire to produce a favourable story. The lesson connects evaluation to planning because a clear plan supplies the reference for the questions being asked. Consider what changed, what did not change and why, while being clear about the limits of the available evidence. Findings should support learning and practical decisions. This invented example does not establish that training succeeded or failed; it shows why a delivery record alone cannot answer the outcome question.\nPlanned objective: Identify the change the programme was intended to achieve.\nEvidence of progress: Examine information relevant to that change, not only completed activities.\nInterpretation: Explore what worked, what did not and the possible reasons.\nDecision: Use the findings to improve practice, inform adjustments and account for results.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 5 — Evaluation & Adjustment (July 2023)",
+        "pages": "4",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
+        "planSha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400"
+      }
+    },
+    {
+      "id": "cbd-5:05-06",
+      "lessonId": "cbd-5",
+      "lessonNumber": 5,
+      "lessonTitle": "Evaluation and Adjustment",
+      "section": "Decide what evaluation must establish",
+      "screenId": "05-06",
+      "title": "A favourable comparison is not the whole explanation",
+      "text": "Two observations may differ because practice changed, because the observation changed, or because other conditions changed.\nCheck definitions, selection and timing before comparing observations.\nCombine relevant quantitative and qualitative evidence; explain limitations and alternative interpretations.\nDo not let an overall improvement hide a documented unequal effect. Rights and gender sensitivity belong within evaluation reasoning.\nReport the pattern and its limits, including whose experience the pattern conceals.\nAn invented report says documentation improved after a new routine was introduced. That is worth investigating, but the sequence alone does not establish cause. Perhaps the sample changed, another initiative began or some shifts experienced improvement while others faced new barriers. Ask what the comparison supports and what it leaves uncertain. Qualitative information can help explain patterns, while a clear sampling method helps you judge the numerical evidence. The lesson asks for honest, impartial and rights- and gender-sensitive evaluation. That means reporting relevant limitations and unequal effects even when the headline looks favourable.\nObserved difference: What does the evidence show, using comparable definitions?\nPossible explanations: What intervention and contextual factors may contribute?\nResponsible conclusion: State the finding, its limits and implications without overstating causation.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 5 — Evaluation & Adjustment (July 2023)",
+        "pages": "4, 6–7",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
+        "planSha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400"
+      }
+    },
+    {
+      "id": "cbd-5:05-02",
+      "lessonId": "cbd-5",
+      "lessonNumber": 5,
+      "lessonTitle": "Evaluation and Adjustment",
+      "section": "Decide what evaluation must establish",
+      "screenId": "05-02",
+      "title": "Protect credibility and choose appropriate roles",
+      "text": "Who evaluates, how they work and whose experience is included all affect the credibility of findings.\nThe 2023 plan names OIOS, DPET, mission evaluation units, Police Division inspections, and SPC or third-party support when called upon.\nClarify the applicable evaluation role and process rather than assuming every actor must evaluate every activity.\nUse professional methods and remain honest, self-reflective, impartial and transparent.\nKeep human rights and gender sensitivity within the evaluation design.\nAn evaluator not involved in delivery can help reduce undue influence and bias.\nCredibility requires sound methods, appropriate roles and openness to inconvenient evidence.\nImagine an adviser is proud of an activity and is asked to review its results. Familiarity can help explain the context, but it can also shape what the adviser notices or overlooks. The lesson suggests engaging evaluators who were not involved as one way to reduce undue influence and bias. It also names several UN and external evaluation roles. These references describe the July 2023 teaching source; they are not instructions to bypass current mission arrangements. Whatever the arrangement, the work should be professional, honest, impartial and sensitive to human rights and gender. Include relevant experiences instead of allowing the most convenient voices to define the result.\nEvaluation roles: Clarify mandate, responsibility and available expertise for this evaluation.\nProfessional method: Use an agreed, appropriate method and disclose limitations.\nImpartial judgement: Consider how involvement, expectations or selective evidence could influence findings.\nInclusive perspective: Examine rights and gender implications and whose experience is represented.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 5 — Evaluation & Adjustment (July 2023)",
+        "pages": "5–6",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
+        "planSha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400"
+      }
+    },
+    {
+      "id": "cbd-5:05-03",
+      "lessonId": "cbd-5",
+      "lessonNumber": 5,
+      "lessonTitle": "Evaluation and Adjustment",
+      "section": "Turn findings into justified action",
+      "screenId": "05-03",
+      "title": "Design the evaluation before collecting more data",
+      "text": "Limited resources make a focused evaluation design and clear communication especially important.\nEngage those being evaluated and explain the purpose in advance.\nDefine scope, topics and indicators before selecting data-collection tools.\nChoose methods, instruments and sampling that can answer the questions.\nConsider quantitative and qualitative analysis, validity and reliability.\nPlan the reporting format, audience and involvement of counterparts.\nCollect evidence because it answers an evaluation question.\nImagine being asked to evaluate a project with little time and no large evaluation team. Collecting every available document is unlikely to solve the problem. The lesson recommends planning the scope, topics and indicators, then selecting methods, instruments and sampling. Decide what quantitative and qualitative information can answer the questions and what limitations affect its interpretation. Engage the people being evaluated so they understand the purpose and process. Partnerships may help address resource constraints, but roles and communication still need to be clear. Plan how findings will be discussed and used from the beginning; a technically competent report has little value if nobody can act on it.\nPurpose and engagement: Explain the evaluation and involve relevant people from the outset.\nScope and evidence: Link topics and indicators to methods, instruments and sampling.\nAnalysis quality: Consider validity, reliability and the strengths of qualitative and quantitative information.\nCommunication and use: Agree how findings will reach stakeholders in a format they can use.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 5 — Evaluation & Adjustment (July 2023)",
+        "pages": "7",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
+        "planSha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400"
+      }
+    },
+    {
+      "id": "cbd-5:05-04",
+      "lessonId": "cbd-5",
+      "lessonNumber": 5,
+      "lessonTitle": "Evaluation and Adjustment",
+      "section": "Turn findings into justified action",
+      "screenId": "05-04",
+      "title": "Explain your response to recommendations",
+      "text": "An evaluation recommendation requires an explicit, reasoned response and follow-through.\nAccept recommendations fully when justified and take action to implement them.\nFor partial acceptance, identify which elements are accepted and explain disagreement.\nIf rejecting a recommendation, state the reasons.\nConnect the response to the findings and the changes required in implementation.\nKeep a distinction between an evidence-based disagreement and ignoring an unwelcome conclusion.\nAccountability includes explaining what you will do with the findings.\nImagine an evaluation recommends changing an activity and its reporting arrangement. The implementation team agrees with the activity change but believes part of the reporting proposal would not answer the evaluation concern. The lesson allows full acceptance, partial acceptance or rejection, but each response carries responsibility. Partial acceptance should identify what is agreed, what is disputed and why. Rejection also requires reasons. An unfavourable finding should not disappear simply because it is uncomfortable. Make the proposed action and the rationale understandable to those who need to follow it. This is a way to turn evaluation into a transparent management decision rather than a report that is merely filed.\nFully accept: Agree with the recommendation and take action to implement it.\nPartially accept: Specify accepted and disputed elements, with reasons for the disagreement.\nReject with reasons: Explain why the recommendation is not valid or appropriate in this case.\nFollow through: Make the resulting implementation response explicit and review its progress.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 5 — Evaluation & Adjustment (July 2023)",
+        "pages": "8",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
+        "planSha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400"
+      }
+    },
+    {
+      "id": "cbd-5:05-05",
+      "lessonId": "cbd-5",
+      "lessonNumber": 5,
+      "lessonTitle": "Evaluation and Adjustment",
+      "section": "Turn findings into justified action",
+      "screenId": "05-05",
+      "title": "Practise evaluation without borrowing an answer",
+      "text": "The practical activity applies evaluation to a changed situation and asks you to consider its consequences.\nRead the participant situation and relate it to your own planned activities and indicators.\nPrepare an evaluation, three to five adjustment recommendations and their implications for the original plan.\nIdentify what you learned about your earlier decisions.\nPresent and discuss your reasoning when a facilitated group is available.\nKeep the facilitator’s expected-response material outside your independent preparation.\nExplain how evidence supports both your recommendation and your reflection.\nThe official exercise asks participants to evaluate progress in a changed situation, prepare recommendations and examine the effect on the initial plan. Use the participant information and your own earlier objectives rather than trying to reproduce a model response. A recommendation should connect a finding to an action and explain its implications. Reflection then asks what your earlier planning assumed and what you would investigate or handle differently. The workbench can hold that reasoning, but it does not independently establish evaluation competence. If you study alone, prepare your work for later discussion. The scenario-specific expected responses remain facilitator material and are not supplied as feedback here.\nRead the situation: Distinguish the participant information from assumptions you may be adding.\nEvaluate against the plan: Use objectives and relevant indicators to explain the significance of developments.\nRecommend and explain: Prepare three to five adjustments and identify implications for the initial plan.\nReflect and discuss: Identify learning and test the reasoning through facilitated or peer discussion.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 5 — Evaluation & Adjustment (July 2023)",
+        "pages": "9–10; participant handouts 15–17",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
+        "planSha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400"
+      }
+    },
+    {
+      "id": "cbd-6:06-01",
+      "lessonId": "cbd-6",
+      "lessonNumber": 6,
+      "lessonTitle": "Transition",
+      "section": "Recognise when and what to transition",
+      "screenId": "06-01",
+      "title": "An activity transition is a new responsibility",
+      "text": "This lesson concerns handing over or closing a specific CBD activity. It does not describe the drawdown of a whole mission.\nA transition may hand responsibility to a national counterpart or another CBD actor.\nAn activity may last longer than one adviser’s deployment.\nClosing one engagement can begin a succeeding process.\nDistinguish the status of the activity from the departure date of an individual adviser.\nDefine what is being handed over, to whom and in what continuing context.\nImagine your deployment is ending while an institutional improvement activity is still under way. Your departure does not establish that the objective has been achieved or that the national counterpart is ready to carry every responsibility. The lesson uses transition for a particular CBD activity, not as another term for mission drawdown. A handover may involve a counterpart, another adviser or another actor, depending on the activity and the situation. Begin by identifying the work and responsibilities that will continue. This keeps the discussion focused on continuity and ownership rather than on an administrative date alone. The example is invented and does not describe a CARANA outcome.\nActivity: Define the specific work and objective within the broader CBD process.\nContinuity: Identify what must continue beyond one person’s deployment.\nSuccessor or counterpart: Clarify the actor who may take responsibility and what they need to do so.\nTransition scope: Keep the activity-level decision distinct from overall mission drawdown.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+        "pages": "4",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+        "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+      }
+    },
+    {
+      "id": "cbd-6:06-02",
+      "lessonId": "cbd-6",
+      "lessonNumber": 6,
+      "lessonTitle": "Transition",
+      "section": "Recognise when and what to transition",
+      "screenId": "06-02",
+      "title": "Use evidence and context to recognise a trigger",
+      "text": "Transition may follow achieved objectives or a significant change that makes the original activity no longer feasible.\nIdeally, evaluation shows enough progress toward the objective to support transition.\nPolitical, security or legal changes may prevent an activity from continuing as planned.\nCounterpart decisions and changes in the mission mandate can also trigger a transition process.\nClarify the significance of the trigger rather than treating every change as proof of readiness.\nA trigger starts a reasoned decision process; it does not replace assessment.\nImagine an evaluation indicates progress toward an objective at the same time that the operating environment changes. These are different kinds of information, both potentially relevant to transition. The lesson identifies achievement of objectives as an ideal trigger, while recognising that major contextual changes can prevent the original activity from continuing. National counterpart decisions and mandate changes may also matter. Explain what has changed, why it affects the activity and what responsibilities remain. Do not imply that an activity ended because it succeeded when the actual reason is that conditions prevented completion. Honest framing helps stakeholders plan the next step and understand unresolved needs.\nProgress evidence: Use evaluation to establish whether sufficient progress supports transition.\nContextual change: Examine political, security or legal developments that affect feasibility.\nInstitutional decision: Consider counterpart and mandate decisions relevant to the activity.\nReasoned assessment: Explain why the trigger matters and what is still required.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+        "pages": "5",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+        "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+      }
+    },
+    {
+      "id": "cbd-6:06-03",
+      "lessonId": "cbd-6",
+      "lessonNumber": 6,
+      "lessonTitle": "Transition",
+      "section": "Build ownership and coordinate the decision",
+      "screenId": "06-03",
+      "title": "Four principles make transition a process",
+      "text": "Early planning, UN integration, local ownership and communication should shape transition throughout the activity.\nBegin planning early, consider more than one scenario and keep the plan flexible.\nCoordinate relevant UN actors from the outset.\nEngage counterparts and secure meaningful local leadership and ownership.\nCommunicate consistently so different stakeholders understand the intended responsibilities and limits.\nTransition readiness grows through coordinated preparation, not a final ceremony.\nImagine a handover meeting is scheduled, but the receiving institution has not helped plan it and several partners expect different things to continue. The meeting itself cannot resolve those gaps. The lesson’s four principles ask you to start earlier, coordinate across relevant UN actors, develop local ownership and manage expectations through communication. These principles reinforce one another. Communication without ownership may describe a decision people cannot sustain. Early planning without integration may leave another actor’s obligations unresolved. Ask which principle is least supported in your plan and what evidence would show progress. A useful answer identifies a practical gap rather than simply repeating the four labels.\nEarly planning: Prepare scenarios and remain flexible as the activity develops.\nUN integration: Coordinate with relevant UN actors at tactical and operational levels.\nLocal ownership: Engage local leadership and counterparts in shaping and sustaining responsibility.\nCommunication: Manage expectations with clear, consistent messages about what will change.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+        "pages": "6–7",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+        "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+      }
+    },
+    {
+      "id": "cbd-6:06-04",
+      "lessonId": "cbd-6",
+      "lessonNumber": 6,
+      "lessonTitle": "Transition",
+      "section": "Build ownership and coordinate the decision",
+      "screenId": "06-04",
+      "title": "Distinguish authority from coordination",
+      "text": "The 2023 lesson plan assigns the initiation decision to the Head of Police Component, informed by the responsible adviser’s advice.\nThe Head of Police Component decides to initiate transition and assigns responsibilities.\nThe responsible adviser provides informed advice and coordinates dialogue when assigned.\nInvolve relevant UN actors and external stakeholders whose responsibilities or interests are affected.\nWork toward consensus and manage expectations with sensitivity.\nUse current mission authority and arrangements when applying the source in practice.\nAdvice, decision authority and coordination are related responsibilities, not interchangeable ones.\nImagine you have assembled evidence that an activity could transition. The lesson does not treat that analysis as permission for an adviser to make every decision alone. It assigns the decision to initiate the process to the Head of Police Component, taking the responsible adviser’s advice into account. Assigned transition responsibilities then require proactive dialogue and coordination. Relevant actors may include national law enforcement, civil society, donors and other partners as well as UN entities. This is the arrangement described in the July 2023 plan; real application must follow current mission authority. Make clear who advises, who decides and who will carry the resulting responsibilities.\nAdvice: The responsible adviser explains evidence, options, needs and implications.\nInitiation decision: The Head of Police Component considers advice and assigns transition responsibilities.\nCoordination: Assigned actors engage leadership, relevant UN entities and external stakeholders.\nShared expectations: Clarify responsibilities and communicate sensitively while working toward consensus.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+        "pages": "8",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+        "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+      }
+    },
+    {
+      "id": "cbd-6:06-05",
+      "lessonId": "cbd-6",
+      "lessonNumber": 6,
+      "lessonTitle": "Transition",
+      "section": "Plan a sustainable handover",
+      "screenId": "06-05",
+      "title": "Phase responsibility and test readiness",
+      "text": "Transition planning should combine performance evidence, integrated assessment and continuing support needs.\nReview objectives and performance measures regularly rather than assuming readiness.\nAssess rights implications and how transition may affect women, men, girls and boys.\nConsider political and security uncertainty, funding and contingency scenarios.\nHand over tasks over time while monitoring progress and counterpart capacity.\nPlan continued political and financial support, including gender-responsive resource requirements.\nThe pace of handover should follow assessed responsibilities and capability.\nImagine a counterpart can lead one part of an activity but still needs support for another. A phased handover can reflect that difference more responsibly than an all-at-once transfer. The lesson connects transition planning to objectives, performance measures and an integrated assessment involving counterparts and relevant UN actors. Human rights and gender analysis belong in that assessment, not as an afterthought. Consider alternative scenarios if political conditions, security or funding change. Monitor the ability to assume residual responsibilities as external involvement reduces. Sustainable support may require continued political commitment and predictable funding, with resources allocated in ways that address women’s needs and priorities.\nAssess readiness: Review progress, responsibilities and counterpart capacity using relevant evidence.\nExamine different impacts: Make human rights and gender analysis part of the integrated assessment.\nPhase and monitor: Transfer tasks over time and check capability as external engagement reduces.\nSustain and prepare: Address long-term political/resources needs and contingencies for changing conditions.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+        "pages": "9–11",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+        "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+      }
+    },
+    {
+      "id": "cbd-6:06-07",
+      "lessonId": "cbd-6",
+      "lessonNumber": 6,
+      "lessonTitle": "Transition",
+      "section": "Plan a sustainable handover",
+      "screenId": "06-07",
+      "title": "Rehearse the conversation behind the handover",
+      "text": "A counterpart’s agreement should reflect an understood responsibility, not pressure to accept a date.\nName the work and support that would change, then invite the receiving actor’s interpretation.\nExplain evidence and uncertainty without promising resources or authority you do not control.\nRecord unresolved concerns for the appropriate decision and coordination process. Use the official paired exercise for dialogue and reflection when available.\nTest understanding of continuing responsibility before treating agreement as readiness.\nImagine a counterpart says they agree to the handover date but later explains that one necessary support function has no continuing resource. It would be easy to treat the first statement as consent and the second as resistance. Instead, ask what responsibility they understood they were accepting. A useful conversation makes the evidence, support and uncertainty visible to both sides. It also recognises the limits of the adviser’s authority. The official exercise uses paired perspectives under an assumption that objectives have been achieved. Our invented conversation adds preparation for that dialogue; it is not a model answer to the exercise.\nAdviser account: Explain the proposed responsibility and the evidence.\nCounterpart account: Ask what can be sustained and what remains difficult.\nJoint clarification: Document agreement, uncertainty and the next authorised decision.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+        "pages": "6–12, 17",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+        "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+      }
+    },
+    {
+      "id": "cbd-6:06-06",
+      "lessonId": "cbd-6",
+      "lessonNumber": 6,
+      "lessonTitle": "Transition",
+      "section": "Plan a sustainable handover",
+      "screenId": "06-06",
+      "title": "Prepare a transition you can explain to both sides",
+      "text": "The official practice uses the adviser’s and counterpart’s perspectives to examine a transition process and its challenges.\nWork from the participant exercise and its stated assumption about achieved objectives.\nOutline a transition process and identify challenges and possible remedies.\nUse different perspectives to test responsibilities, expectations and continuity.\nDiscuss and reflect in a facilitated setting when available.\nKeep an independently prepared plan distinct from a validated readiness decision.\nA defensible handover explains continuity, ownership and unresolved conditions.\nThe official exercise asks participants to work in pairs, one as the adviser and the other as the local counterpart. Under its stated assumption that objectives have been achieved, they outline a transition and examine challenges and possible remedies. The pair then returns to discussion and reflection. The workbench supports individual preparation, but it cannot make the counterpart’s judgement or authorise a transition. If working alone, record what you would need to ask the receiving actor, what you expect them to continue and what remains uncertain. Use the plan as a basis for dialogue. The facilitator’s expected response is deliberately not provided in this learner adaptation.\nState the exercise assumption: Keep the participant scenario assumptions separate from verified real-world readiness.\nOutline the process: Explain responsibilities, sequence and what the receiving actor will continue.\nTest both perspectives: Consider challenges and possible remedies through adviser–counterpart dialogue.\nReflect and validate: Record remaining uncertainty and obtain appropriate review before a real transition decision.",
+      "source": {
+        "kind": "approved-digital-adaptation",
+        "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+        "pages": "12–13; participant handout 17",
+        "file": "curricula/cbd/lessons-4-6.json",
+        "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+        "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+        "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+      }
+    },
+    {
+      "id": "plan-cbd-1:p5",
+      "lessonId": "cbd-1",
+      "lessonNumber": 1,
+      "lessonTitle": "Conflict analysis and baseline",
+      "section": "Official teaching reference",
+      "screenId": "reference",
+      "title": "Conflict analysis and baseline",
+      "text": "Situation analysis is the first step in any CBD process. To improve a specific situation, one must have a clear understanding of the situation in the first place. Proper analysis defines a baseline: evaluating progress and determining whether a goal has been reached require a reference point or state. Multiple forms of analysis examine different dimensions, such as conflict, response and CBD.",
+      "source": {
+        "kind": "official-plan-teaching-excerpt-paraphrase",
+        "label": "UNPOL CBD Job-Specific Training Lesson 1; 2021 curriculum / July2023 supplied file",
+        "pages": "5",
+        "file": "JSTC_CBD_L01_LP_Situational Analysis_072023.pdf",
+        "sha256": "fea0c4ac6fe8adac2801ccac6acf8abb97d0cc29578c0691f7fecf7882371c13",
+        "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+      }
+    },
+    {
+      "id": "plan-cbd-2:p20",
+      "lessonId": "cbd-2",
+      "lessonNumber": 2,
+      "lessonTitle": "Performance framework",
+      "section": "Official teaching reference",
+      "screenId": "reference",
+      "title": "Performance framework",
+      "text": "Evaluation of performance requires objectives that are measurable. Measurability is easiest achieved using performance indicators. A performance framework provides information required for evaluation at a later stage and ties planning to evaluation for future decision-making. Objective setting and PI/KPI setting go hand-in-hand. PIs and KPIs are primary indicators of progress toward an intended result.",
+      "source": {
+        "kind": "official-plan-teaching-excerpt-paraphrase",
+        "label": "UNPOL CBD Job-Specific Training Lesson 2; 2021 curriculum / July2023 supplied file",
+        "pages": "20",
+        "file": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+        "sha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534",
+        "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+      }
+    },
+    {
+      "id": "plan-cbd-3:p5",
+      "lessonId": "cbd-3",
+      "lessonNumber": 3,
+      "lessonTitle": "Logframe planning",
+      "section": "Official teaching reference",
+      "screenId": "reference",
+      "title": "Logframe planning",
+      "text": "CBD advisers are expected to use the Logframe matrix to support planning of CBD activities. A Logframe is a tool used in the Logical Framework Approach, consisting of a matrix that provides an overview of a project goal, activities and anticipated results. It structures project components and activities and relates them to one another. It identifies measures by which anticipated results will be monitored.",
+      "source": {
+        "kind": "official-plan-teaching-excerpt-paraphrase",
+        "label": "UNPOL CBD Job-Specific Training Lesson 3; 2021 curriculum / July2023 supplied file",
+        "pages": "5",
+        "file": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+        "sha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca",
+        "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+      }
+    },
+    {
+      "id": "plan-cbd-4:p4",
+      "lessonId": "cbd-4",
+      "lessonNumber": 4,
+      "lessonTitle": "Local policing context",
+      "section": "Official teaching reference",
+      "screenId": "reference",
+      "title": "Local policing context",
+      "text": "Local problems require local solutions that account for local organisational culture. Established policing practices cannot simply be imported from outside the host-State into a post-conflict setting. Police reform requires local solutions developed in partnership with stakeholders. Prevailing organisational culture shapes how police officers act and behave and affects the success or failure of CBD.",
+      "source": {
+        "kind": "official-plan-teaching-excerpt-paraphrase",
+        "label": "UNPOL CBD Job-Specific Training Lesson 4; 2021 curriculum / July2023 supplied file",
+        "pages": "4",
+        "file": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+        "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a",
+        "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+      }
+    },
+    {
+      "id": "plan-cbd-5:p4",
+      "lessonId": "cbd-5",
+      "lessonNumber": 5,
+      "lessonTitle": "Purpose of evaluation",
+      "section": "Official teaching reference",
+      "screenId": "reference",
+      "title": "Purpose of evaluation",
+      "text": "Evaluation generates information on the progress of programmes and projects that allows advisers and relevant stakeholders to make decisions and adjust plans where needed. It supports improvement, knowledge generation, transparency and accountability. Evaluation is the counterpart to planning and requires a plan as a reference. Evaluators not involved in the programme can help avoid undue influence and bias.",
+      "source": {
+        "kind": "official-plan-teaching-excerpt-paraphrase",
+        "label": "UNPOL CBD Job-Specific Training Lesson 5; 2021 curriculum / July2023 supplied file",
+        "pages": "4",
+        "file": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
+        "sha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400",
+        "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+      }
+    },
+    {
+      "id": "plan-cbd-6:p5",
+      "lessonId": "cbd-6",
+      "lessonNumber": 6,
+      "lessonTitle": "Triggers for transition",
+      "section": "Official teaching reference",
+      "screenId": "reference",
+      "title": "Triggers for transition",
+      "text": "Transition takes place upon achieving the objective or in reaction to significant environmental changes that prevent completion. It can respond to changes in the area and dimension addressed or the country situation, such as political, security or legal change. National counterpart decisions and changes in the Mission Mandate can also trigger transition. Ideally evaluation recognises that sufficient progress toward the objective has been made.",
+      "source": {
+        "kind": "official-plan-teaching-excerpt-paraphrase",
+        "label": "UNPOL CBD Job-Specific Training Lesson 6; 2021 curriculum / July2023 supplied file",
+        "pages": "5",
+        "file": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+        "sha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3",
+        "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+      }
+    }
+  ]
+}

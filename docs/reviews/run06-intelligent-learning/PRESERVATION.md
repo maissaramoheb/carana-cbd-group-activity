@@ -1,0 +1,7 @@
+# Preservation
+
+Baseline7615804f7d19233586f6ee77b35b0d8cdcdb4b2f, approved complete Run05. 88 protected files have identical SHA256 values: all18 MP3s, all3 cinematic illustrations, expanded curriculum/78 total questions,17 tools, original practical workbenches, Notebook/recovery/handoff, narration source/manifests and routing/release guards. See preservation.json for every hash. All18 original visual/lab HTML structures and scene/exercise/microcase teaching data remain identical. The original landing renderer is byte-identical.
+
+Run05 exploration/progress formats and code are preserved. Integration consists of mount/dispose calls and loading two shared support assets. Trainer narration player differs only in explanatory comment and displayed heading. Support code does not write localStorage or mark mastery. Browser support tests compare complete saved progress/exploration before and after use. Original suites cover checkpoint progression, exports/imports/recovery, Notebook, practical handoff, negative storage cases, all18 recordings and the expanded56-screen curriculum inventory.
+
+Run05 source upload succeeded on the expressly authorized third attempt; GitHub connector independently fetched complete commit7615804 afterward. Earlier network timeouts are retained as limitations of the upload attempt, not evidence of missing local source. Main, Run04 tag and production remain unchanged; final live deployment metadata is in RELEASE_AND_BACKUP.md.

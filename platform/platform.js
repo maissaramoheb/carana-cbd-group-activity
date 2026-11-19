@@ -384,6 +384,8 @@
       '<article class="screen" ' + (screenAttrs || '') + '>' + content + '</article>' +
       '</div>';
 
+    const currentScreen=lesson.sections[selected].screens[Math.min(index,lesson.sections[selected].screens.length-1)];
+    window.CARANA_SUPPORT?.mount({root:root.querySelector('article.screen'),lessonId:lesson.id,lessonNumber:lesson.number,lessonTitle:lesson.title,section:lesson.sections[selected].title,screenId:currentScreen.id,screenTitle:root.querySelector('h1')?.textContent||currentScreen.title,mode:quiz?'checkpoint':'screen'});
     const toggleBtn = document.getElementById('rail-toggle');
     const panelBody = document.getElementById('rail-nav-panel');
     if (toggleBtn && panelBody) {
@@ -503,6 +505,7 @@
   }
 
   function render(statusMessage) {
+    window.CARANA_SUPPORT?.dispose();
     const section = lesson.sections[selected];
     const count = lesson.sections.reduce((n, s) => n + s.screens.length, 0);
     const ordinal = lesson.sections.slice(0, selected).reduce((n, s) => n + s.screens.length, 0) + index + 1;

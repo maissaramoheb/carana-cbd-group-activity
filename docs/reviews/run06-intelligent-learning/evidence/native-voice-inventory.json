@@ -1,0 +1,575 @@
+[
+  {
+    "name": "chromium-headless",
+    "supported": true,
+    "voices": [
+      {
+        "name": "Samantha",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Albert",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bad News",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bahh",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bells",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Boing",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bubbles",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Cellos",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Daniel",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Eddy (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Eddy (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Flo (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Flo (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Fred",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Good News",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Grandma (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Grandma (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Grandpa (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Grandpa (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Jester",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Junior",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Karen",
+        "lang": "en-AU",
+        "local": true
+      },
+      {
+        "name": "Kathy",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Moira",
+        "lang": "en-IE",
+        "local": true
+      },
+      {
+        "name": "Organ",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Ralph",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Reed (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Reed (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Rishi",
+        "lang": "en-IN",
+        "local": true
+      },
+      {
+        "name": "Rocko (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Rocko (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Sandy (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Sandy (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Shelley (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Shelley (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Superstar",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Tessa",
+        "lang": "en-ZA",
+        "local": true
+      },
+      {
+        "name": "Trinoids",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Whisper",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Wobble",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Zarvox",
+        "lang": "en-US",
+        "local": true
+      }
+    ],
+    "context": {
+      "lessonId": "cbd-1",
+      "screenId": "01-01",
+      "mode": "screen"
+    }
+  },
+  {
+    "name": "webkit-desktop",
+    "supported": true,
+    "voices": [
+      {
+        "name": "Samantha",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Samantha",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Albert",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bad News",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bahh",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bells",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Boing",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bubbles",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Cellos",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Wobble",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Fred",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Good News",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Jester",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Junior",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Kathy",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Organ",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Superstar",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Ralph",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Trinoids",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Whisper",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Zarvox",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Daniel",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Karen",
+        "lang": "en-AU",
+        "local": true
+      },
+      {
+        "name": "Moira",
+        "lang": "en-IE",
+        "local": true
+      },
+      {
+        "name": "Rishi",
+        "lang": "en-IN",
+        "local": true
+      },
+      {
+        "name": "Tessa",
+        "lang": "en-ZA",
+        "local": true
+      }
+    ],
+    "context": {
+      "lessonId": "cbd-1",
+      "screenId": "01-01",
+      "mode": "screen"
+    }
+  },
+  {
+    "name": "chromium-headed",
+    "supported": true,
+    "voices": [
+      {
+        "name": "Samantha",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Albert",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bad News",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bahh",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bells",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Boing",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Bubbles",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Cellos",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Daniel",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Eddy (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Eddy (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Flo (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Flo (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Fred",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Good News",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Grandma (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Grandma (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Grandpa (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Grandpa (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Jester",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Junior",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Karen",
+        "lang": "en-AU",
+        "local": true
+      },
+      {
+        "name": "Kathy",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Moira",
+        "lang": "en-IE",
+        "local": true
+      },
+      {
+        "name": "Organ",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Ralph",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Reed (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Reed (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Rishi",
+        "lang": "en-IN",
+        "local": true
+      },
+      {
+        "name": "Rocko (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Rocko (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Sandy (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Sandy (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Shelley (English (United States))",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Shelley (English (United Kingdom))",
+        "lang": "en-GB",
+        "local": true
+      },
+      {
+        "name": "Superstar",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Tessa",
+        "lang": "en-ZA",
+        "local": true
+      },
+      {
+        "name": "Trinoids",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Whisper",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Wobble",
+        "lang": "en-US",
+        "local": true
+      },
+      {
+        "name": "Zarvox",
+        "lang": "en-US",
+        "local": true
+      }
+    ],
+    "context": {
+      "lessonId": "cbd-1",
+      "screenId": "01-01",
+      "mode": "screen"
+    }
+  }
+]

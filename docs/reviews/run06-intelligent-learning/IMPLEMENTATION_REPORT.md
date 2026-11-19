@@ -1,0 +1,15 @@
+# Run06 implementation report
+
+Isolated from complete approved Run05 commit7615804 on codex/carana-run06-intelligent-learning. Production and main remain unchanged. Run05 was uploaded successfully and GitHub independently returned its final commit.
+
+Implemented native Read Aloud Studio, contextual CARANA assistant UI, secure local HTTPS gateway, curriculum-only retrieval and modular Ollama provider with no new dependencies. Preserve the editorial landing, existing learning architecture, saved progress and all approved media. See READ_ALOUD.md, RETRIEVAL_AND_GROUNDING.md, ARCHITECTURE_AND_SECURITY.md and preservation.json.
+
+Read Aloud and contextual panel pass actual Chromium/desktop WebKit/mobile WebKit support tests. Native speech start/pause/resume/stop/rates and audio exclusion are verified. Before/after UI evidence and automated Axe tests at1600/768/390 widths are in index.html. Native physical Safari/iOS, screen readers, human voice listening and owner visual acceptance remain pending.
+
+Local provider is genuinely integrated and tested through authenticated HTTPS. Raw 0.6b and1.7b models are not qualified for unrestricted tutoring: retained evidence includes wrong examples and an invented staffing ratio. Retrieval and unsupported-number checks now reject that unsupported question; protected keys/checkpoints return labelled study guidance. A4B candidate is being evaluated separately. This source snapshot records the working prototype and static review interface; final model selection and remaining limits are in MODEL_EVALUATION.md when qualification closes. Do not read a successful browser transport test as educational quality approval.
+
+Changed existing files: course/app.js and platform/platform.js mount/dispose support without writing progress; course/index.html and platform/index.html load shared support assets; course/lesson1-player.js clarifies Trainer narration heading/comment; package.json adds local gateway/index scripts and security tests. New files: platform/learning-support.js/.css, tutor/{gateway,provider,retrieval}.cjs, teaching index/excerpts, index/benchmark tools, tests/support and this review package. No environment/secret files, new dependencies, architecture rewrite or public AI exposure.
+
+Available npm build/test/check:content passed; no lint command is defined. Added source syntax, provider validation, security negative cases, responsive/RTL/focus, native speech, UI failure/cancel and genuine model browser checks. Original browser regression covers all18 Lesson1 screens/recordings/36questions and38expanded screens/42questions/17tools, plus practical links, Notebook/handoff and recovery. Preserve exact scope and limitations in VERIFICATION.md.
+
+Release boundary: static-only protected Vercel preview; live public AI unavailable. No merge, production alias, public tunnel or Mac network exposure. Final preview, commits, backup and independent restoration receipt will be recorded in RELEASE_AND_BACKUP.md. Owner acceptance is required before production or remote AI activation.

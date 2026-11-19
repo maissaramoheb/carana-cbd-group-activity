@@ -1,0 +1,214 @@
+
+> carana-cbd-elearning@0.10.0 test
+> node tests/run-tests.js && node course/tests/v05-smoke.cjs && node --test course/tests/build-integrity.cjs && node --test tests/platform/content.cjs && node --test tests/platform/learning-tools.cjs && node --test tests/platform/progress-recovery.cjs && node --test tests/platform/handoff.cjs && node --test tests/platform/notebook.cjs && node --test tests/platform/exploration.cjs && node --test tests/support/tutor.cjs
+
+
+======================================================
+   CARANA CBD LEARNING LAB — AUTOMATED TEST SUITE     
+======================================================
+
+Group 1: Existing Quick Exercise Regression & Preservation
+  ✓ CARANA_CBD_Group_Activity.html exists and is intact
+  ✓ Original 6 stages exist in CARANA_CBD_Group_Activity.html
+  ✓ vercel.json routes correctly preserve clean URLs and original route
+
+Group 2: UN Peacekeeping JST Curriculum & Scenario Integrity
+  ✓ Scenario contains all 57 official paragraphs
+  ✓ 5 official UNPOL CBD Areas with 13 functional rows are correctly defined
+  ✓ 6 cross-cutting dimensions are correctly defined
+  ✓ Facilitator-only expected answers are not exposed in frontend scenario data
+  ✓ Glossary contains all core UNPOL CBD definitions
+
+Group 3: Local-First Storage & Schema Management
+  ✓ Default state generates valid schema v1.0.0
+  ✓ Module 1 state contains all required JST methodology fields
+  ✓ JSON Import validation rejects invalid structures and accepts valid ones
+Malformed JSON in localStorage. Quarantining to backup key: SyntaxError: Expected property name or '}' in JSON at position 2 (line 1 column 3)
+    at JSON.parse (<anonymous>)
+    at Object.loadLabState (/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/js/storage/lab-storage.js:758:23)
+    at /Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/tests/run-tests.js:168:29
+    at runTest (/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/tests/run-tests.js:26:5)
+    at Object.<anonymous> (/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/tests/run-tests.js:156:1)
+    at Module._compile (node:internal/modules/cjs/loader:1956:14)
+    at Object..js (node:internal/modules/cjs/loader:2096:10)
+    at Module.load (node:internal/modules/cjs/loader:1678:32)
+    at Module._load (node:internal/modules/cjs/loader:1470:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+  ✓ Storage quarantines corrupted data without wiping session or throwing unhandled errors
+
+Group 4: 5x6 Matrix & Stakeholder Quadrant Rules
+  ✓ Module 1 Matrix cell paragraph selection parses integers and filters null/NaN
+  ✓ 5x6 Matrix calculates 78 possible intersections (13 rows x 6 dimensions)
+  ✓ Stakeholder 4-Quadrant mapping logic is accurate
+
+Group 5: UI & Workspace Integrity
+  ✓ index.html contains Hub navigation and references to Module 1 and Quick Exercise
+  ✓ module1.html contains all 6 JST stages and interactive elements
+
+Group 6: Module 2 Objective Setting & Prioritisation Logic
+  ✓ Module 2 schema is properly initialized and structured
+  ✓ Module 2 scoring formula precisely matches UNPOL curriculum (Lesson 2 p. 24)
+
+Group 7: Module 3 Planning, Logframe & Risk Matrix Logic
+  ✓ Module 3 schema is properly initialized and structured
+  ✓ 3x3 Risk Matrix zone calculation conforms to UNPOL curriculum (Lesson 3 Slide 17 & p. 40)
+  ✓ module3.html contains all 6 interactive stages and 3x3 risk grid
+
+Group 8: Module 4 Implementation, MMA & Problem-Solving Logic
+  ✓ Module 4 schema is properly initialized and structured
+  ✓ Interactive Role Reversal models authentic counterpart perspectives
+  ✓ Dynamic Problem-Solving addresses field setbacks with 5 Whys and interest-based mediation
+  ✓ Module 4 progress input range clamping strictly enforces 0-100%
+  ✓ Module 4 Activity Tracker deduplicates on re-import from Logframe
+  ✓ Implementation Activity Tracker interfaces with Module 3 Logframe
+  ✓ module4.html exists and contains all 6 interactive stages
+  ✓ Portal Hub index.html activates and links Module 4
+
+Group 9: Module 5 Evaluation & Adjustment Logic
+  ✓ Module 5 schema is properly initialized and structured
+  ✓ Module 5 reconciles both Module 2 KPIs and Module 3 Outputs without duplicating rows
+  ✓ 8-Month Crisis Diagnostics model authentic curriculum bottlenecks
+  ✓ 3-Tier Adjustment Decision Matrix conforms to UNPOL Lesson 5 Slide 10
+  ✓ Planning Recalibration models the 4 curriculum impact dimensions (Lesson 5 p. 11)
+  ✓ module5.html exists and contains all 6 interactive stages
+  ✓ Portal Hub index.html activates and links Module 5
+
+Group 10: Module 6 Transition & Handover Logic
+  ✓ Module 6 schema is properly initialized and structured
+  ✓ The Four Key Principles of Transition conform to UNPOL Lesson 6 Slide 8
+  ✓ Phased Handover Roadmap models gradual drawdown of UNPOL engagement
+  ✓ Institutionalising Sustainable Policing Practice incorporates doctrine and gender budgeting
+  ✓ Formal Handover Protocol Instrument contains necessary signatories
+  ✓ module6.html exists and contains all 6 interactive stages, dossier print container and syndicate checklist
+  ✓ Design system CSS contains full dossier print rules and safeguards
+  ✓ Portal Hub index.html activates and links Module 6
+
+Group 11: Security, Data Integrity & Codex Remediation Verification
+  ✓ P1-N01: Security — Dossier XSS neutralization and script escaping
+  ✓ P1-N01: Security — Activity Tracker progressPercent bounds validation on import
+  ✓ P1-N02: Data Integrity — SMART objectives keyed by objectiveId preserve authored criteria across priority changes
+  ✓ P1-05: Strict Schema Validation — Corrupted nested payloads and invalid enums are rejected
+  ✓ P1-06: Data Integrity — Multi-tab state merge preserves local session fields and defends against null elements
+  ✓ P1-07: Reporting — Dossier includes all 6 phases and maps authentic schema fields
+  ✓ Blocker 1: Security — Strict nested ID validation and Exceeded variance status acceptance
+  ✓ Blocker 2: Concurrency — Elimination of storage-event feedback loop across all modules
+  ✓ Blocker 3: Dossier Completeness — All 43 schema fields mapped without fallback hallucinations
+  ✓ P2-02 & P2-03: Accessibility & Dynamic Logframe Hierarchical Numbering
+  ✓ Curriculum Honesty: Module 1 initial status, Module 6 premise, and Lesson 5 email communication
+
+Group 12: Final Acceptance Blockers Verification
+  ✓ Blocker 1: Stable Stakeholder IDs are present on all default records and validated
+  ✓ Blocker 1: Multi-tab stakeholder record reconciliation preserves independent row edits
+  ✓ Blocker 1: Stakeholder edit/delete conflict retains remotely modified record
+  ✓ Blocker 2: getFullCycleProgress accurately calculates module confirmation states
+  ✓ Blocker 2: Module 6 UI strings and Dossier banner reflect truthful cycle completion
+
+Group 13: UI/UX Refinement, Branding, Disclaimer & Reset Verification
+  ✓ Branding: Consistent Author Attribution across Portal Hub, Modules 1–6, and Dossier
+  ✓ Disclaimer: Single Consolidated Training Disclaimer across Portal Hub, Modules 1–6, and Dossier
+  ✓ Reset Function: resetLabState restores clean state and broadcasts reset token without affecting Quick Exercise
+  ✓ UI/UX: Top Navigation, Reset Buttons, Stage Briefings, and Responsive Layout Elements
+
+======================================================
+TEST RESULTS: 65 passed, 0 failed
+======================================================
+
+CARANA CBD v0.5 smoke PASS · 33 assertions
+✔ release build publishes exactly the locked media and refuses drift or absence (261.2355ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 310.525583
+✔ additional CBD lessons have variable source-mapped sections, media specifications and assessments (3.795791ms)
+✔ sponsor budget reconciles every item and demo uses the same totals (9.5665ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 59.560166
+✔ drafts retain only bounded fields owned by the actual exercise (0.770459ms)
+✔ changing weights changes the illustrative ranking without dropping constraints (0.22675ms)
+✔ authored tool HTML escapes content rather than interpreting it as markup (0.225792ms)
+✔ E14: priority ranking exposes ties explicitly and pauses numeric ordering when all weights are zero (0.277208ms)
+✔ E15: risk validation and analysis distinguish response strategies and asymmetric likelihood/impact pairs (0.215792ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 51.262458
+✔ E02: safeProgress preserves drafts across multiple content revisions without granting mastery (1.500541ms)
+✔ E02: legacy history without drafts never fabricates recoverable draft text (0.111917ms)
+✔ E03: platform import rejects corrupt, oversized, prototype-polluted, and wrong-product backups safely (0.377542ms)
+✔ E03: platform import handles incompatible version migration, duplicates, and conflicting drafts without overwriting (0.470333ms)
+✔ E03: Lesson 1 backup validation rejects platform files and merges Lesson 1 progress cleanly (0.978125ms)
+✔ E04 & E07: catalog status labels and printable study summary escape HTML and support Arabic/RTL safely (0.569417ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 57.379125
+✔ E09: handoff triggers on the intended synthesis screens of Lessons 2-6 only (0.82175ms)
+✔ E09: handoff builds accurate field mapping and preserves untouched workbench conflicts by default (1.627958ms)
+✔ E09: explicit opt-in overwrite updates conflicting fields and Lesson 3-6 handoffs map cleanly without corrupting IDs (0.906209ms)
+✔ E09: HTML handoff output escapes user-entered HTML and rejects prototype-pollution keys cleanly (0.3415ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 52.172166
+✔ E08: initial state is strictly isolated, separated, and bounded (0.468083ms)
+✔ E08: updating upstream Phase 1 flags populated downstream Phase 2 and Phase 3 without mutating their text (0.741708ms)
+✔ E08: explicit platform pull candidate separates evidence and gap fields read-only (0.211667ms)
+✔ E08: import validation rejects wrong-product, corrupt, oversized, and prototype-polluting files (1.003875ms)
+✔ E08: printable advisory thread brief escapes user XSS payloads and carries no automated correctness claims (0.335792ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50.364667
+✔ semantic IDs survive order changes; content revisions preserve separate review histories (1.388208ms)
+✔ legacy absence, corruption, malformed or oversized supplemental history cannot write other domains (0.823708ms)
+✔ merge unions exploration and skip choice; replace only affects selected lessons; no sensitive draft fields copied (0.442333ms)
+✔ storage denial retains in-memory history for export and reports failure; records/revisions remain bounded (0.2945ms)
+✔ two browser tabs preserve one another's explanatory history without touching other stores (0.135375ms)
+✔ all current explanatory diagrams provide distinct semantic node IDs (3.238459ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56.056
+✔ retrieval uses authorized context and excludes assessment answer structures (6.857292ms)
+✔ unauthorized, cross-origin, wrong-host, oversized and invalid-context requests cannot invoke inference (25.190041ms)
+✔ active checkpoints and protected answer-key requests receive labelled source guidance without inference (22.488875ms)
+✔ rate limits, provider failure and timeout fail clearly without fabricated AI content (36.610792ms)
+✔ only one inference runs; cancellation releases its slot; no endpoint exposes private files or permissive CORS (38.0255ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 197.098791

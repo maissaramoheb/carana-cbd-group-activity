@@ -1,0 +1,110 @@
+[
+  {
+    "id": "plan-cbd-1:p5",
+    "lessonId": "cbd-1",
+    "lessonNumber": 1,
+    "lessonTitle": "Conflict analysis and baseline",
+    "section": "Official teaching reference",
+    "screenId": "reference",
+    "title": "Conflict analysis and baseline",
+    "text": "Situation analysis is the first step in any CBD process. To improve a specific situation, one must have a clear understanding of the situation in the first place. Proper analysis defines a baseline: evaluating progress and determining whether a goal has been reached require a reference point or state. Multiple forms of analysis examine different dimensions, such as conflict, response and CBD.",
+    "source": {
+      "kind": "official-plan-teaching-excerpt-paraphrase",
+      "label": "UNPOL CBD Job-Specific Training Lesson 1; 2021 curriculum / July2023 supplied file",
+      "pages": "5",
+      "file": "JSTC_CBD_L01_LP_Situational Analysis_072023.pdf",
+      "sha256": "fea0c4ac6fe8adac2801ccac6acf8abb97d0cc29578c0691f7fecf7882371c13",
+      "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+    }
+  },
+  {
+    "id": "plan-cbd-2:p20",
+    "lessonId": "cbd-2",
+    "lessonNumber": 2,
+    "lessonTitle": "Performance framework",
+    "section": "Official teaching reference",
+    "screenId": "reference",
+    "title": "Performance framework",
+    "text": "Evaluation of performance requires objectives that are measurable. Measurability is easiest achieved using performance indicators. A performance framework provides information required for evaluation at a later stage and ties planning to evaluation for future decision-making. Objective setting and PI/KPI setting go hand-in-hand. PIs and KPIs are primary indicators of progress toward an intended result.",
+    "source": {
+      "kind": "official-plan-teaching-excerpt-paraphrase",
+      "label": "UNPOL CBD Job-Specific Training Lesson 2; 2021 curriculum / July2023 supplied file",
+      "pages": "20",
+      "file": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+      "sha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534",
+      "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+    }
+  },
+  {
+    "id": "plan-cbd-3:p5",
+    "lessonId": "cbd-3",
+    "lessonNumber": 3,
+    "lessonTitle": "Logframe planning",
+    "section": "Official teaching reference",
+    "screenId": "reference",
+    "title": "Logframe planning",
+    "text": "CBD advisers are expected to use the Logframe matrix to support planning of CBD activities. A Logframe is a tool used in the Logical Framework Approach, consisting of a matrix that provides an overview of a project goal, activities and anticipated results. It structures project components and activities and relates them to one another. It identifies measures by which anticipated results will be monitored.",
+    "source": {
+      "kind": "official-plan-teaching-excerpt-paraphrase",
+      "label": "UNPOL CBD Job-Specific Training Lesson 3; 2021 curriculum / July2023 supplied file",
+      "pages": "5",
+      "file": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+      "sha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca",
+      "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+    }
+  },
+  {
+    "id": "plan-cbd-4:p4",
+    "lessonId": "cbd-4",
+    "lessonNumber": 4,
+    "lessonTitle": "Local policing context",
+    "section": "Official teaching reference",
+    "screenId": "reference",
+    "title": "Local policing context",
+    "text": "Local problems require local solutions that account for local organisational culture. Established policing practices cannot simply be imported from outside the host-State into a post-conflict setting. Police reform requires local solutions developed in partnership with stakeholders. Prevailing organisational culture shapes how police officers act and behave and affects the success or failure of CBD.",
+    "source": {
+      "kind": "official-plan-teaching-excerpt-paraphrase",
+      "label": "UNPOL CBD Job-Specific Training Lesson 4; 2021 curriculum / July2023 supplied file",
+      "pages": "4",
+      "file": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+      "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a",
+      "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+    }
+  },
+  {
+    "id": "plan-cbd-5:p4",
+    "lessonId": "cbd-5",
+    "lessonNumber": 5,
+    "lessonTitle": "Purpose of evaluation",
+    "section": "Official teaching reference",
+    "screenId": "reference",
+    "title": "Purpose of evaluation",
+    "text": "Evaluation generates information on the progress of programmes and projects that allows advisers and relevant stakeholders to make decisions and adjust plans where needed. It supports improvement, knowledge generation, transparency and accountability. Evaluation is the counterpart to planning and requires a plan as a reference. Evaluators not involved in the programme can help avoid undue influence and bias.",
+    "source": {
+      "kind": "official-plan-teaching-excerpt-paraphrase",
+      "label": "UNPOL CBD Job-Specific Training Lesson 5; 2021 curriculum / July2023 supplied file",
+      "pages": "4",
+      "file": "JSTC_CBD_L05_LP_Evaluation and Adjustment_072023.pdf",
+      "sha256": "42e1f1956475b1a0fb4fbf01a9c1108a701c3abe655ee9a54b508fc3b6bf7400",
+      "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+    }
+  },
+  {
+    "id": "plan-cbd-6:p5",
+    "lessonId": "cbd-6",
+    "lessonNumber": 6,
+    "lessonTitle": "Triggers for transition",
+    "section": "Official teaching reference",
+    "screenId": "reference",
+    "title": "Triggers for transition",
+    "text": "Transition takes place upon achieving the objective or in reaction to significant environmental changes that prevent completion. It can respond to changes in the area and dimension addressed or the country situation, such as political, security or legal change. National counterpart decisions and changes in the Mission Mandate can also trigger transition. Ideally evaluation recognises that sufficient progress toward the objective has been made.",
+    "source": {
+      "kind": "official-plan-teaching-excerpt-paraphrase",
+      "label": "UNPOL CBD Job-Specific Training Lesson 6; 2021 curriculum / July2023 supplied file",
+      "pages": "5",
+      "file": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+      "sha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3",
+      "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+    }
+  }
+]

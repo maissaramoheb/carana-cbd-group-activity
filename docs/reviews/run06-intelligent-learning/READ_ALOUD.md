@@ -1,0 +1,11 @@
+# Read Aloud Studio
+
+Shared platform/learning-support.js and .css mount only inside lessons/checkpoints. The landing renderer is unchanged. Read Screen is distinct from the existing Trainer Narration. A compact support rail reveals play/restart, pause, resume, stop, five speeds (0.75–1.75), secondary voice settings, explicit selection reading and optional visible checkpoint questions. There is no automatic speech.
+
+Reading extracts visible teaching headings, paragraphs, lists and diagram explanations in DOM order. It skips menus, controls, hidden nodes, model solutions, applied-tool drafts and recovery/handoff UI. Selection reading can deliberately read a private draft; the AI selection action excludes detected draft regions. Ordinary TTS extraction has sentinel negative tests. Speech uses the device voice by default. Nonlocal browser voices require explicit consent before text is sent to their voice service.
+
+Each native utterance highlights its containing paragraph/section. This is passage focus, not word synchronization. Speed changes restart the current passage and preserve a selected reading sequence. Navigation, backgrounding, panel opening and recorded audio stop TTS. Starting TTS pauses recorded media. Native generation IDs prevent stale callbacks. Eight seconds without start produces an honest error. Unsupported engines/no voices retain the complete written course and recordings.
+
+Native Chromium and desktop/mobile WebKit tests exercised real speak/start/pause/resume/cancel events, rates, focus and media conflict. Voice inventory includes local Samantha. Human listening, pronunciation, physical iPhone/iPad Safari, released Safari.app and VoiceOver/NVDA acceptance remain NOT VERIFIED. Browser voices and boundary events vary by device; no screen-reader detection is attempted, and speech begins only after an explicit action. Status regions are polite; messages are not automatically spoken by TTS.
+
+Technical reference: [MDN SpeechSynthesis](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis), inspected during this run. Native voice availability and pause/resume/cancel are browser-managed capabilities; paragraph focus is our deliberate reliable fallback.

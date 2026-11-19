@@ -363,6 +363,7 @@
     $('course-activities').addEventListener('click',openActivities);
     $('rail-activity-cta').addEventListener('click',openActivities);
     document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>navigate(+b.dataset.section,0)));
+    window.CARANA_SUPPORT?.mount({root:$('learning-main'),lessonId:'cbd-1',lessonNumber:1,lessonTitle:lesson.title,section:lesson.sections[position.section]?.title||'Lesson overview',screenId:String(position.section+1).padStart(2,'0')+'-'+String(position.screen+1).padStart(2,'0'),screenTitle:document.querySelector('#learning-main h1')?.textContent||lesson.title,mode:position.kind==='quiz'?'checkpoint':position.kind==='screen'?'screen':'practical'});
     const menu=document.querySelector('.l1-path-menu');
     if(menu && window.matchMedia)menu.open=window.matchMedia('(min-width:901px)').matches;
     updateStatus();
@@ -484,6 +485,7 @@
     $('complete-activities').addEventListener('click',openActivities);
   }
   function render() {
+    window.CARANA_SUPPORT?.dispose();
     $('trainer-audio')?.pause();
     if(mode==='home'){renderHome();return;}
     if(mode==='activities'){renderActivities();return;}

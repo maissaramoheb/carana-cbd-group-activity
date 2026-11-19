@@ -1,0 +1,316 @@
+{
+  "provider": "genuine-local-ollama",
+  "model": "qwen3:0.6b",
+  "rows": [
+    {
+      "question": "What is the difference between outputs and outcomes?",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-02"
+      },
+      "retrieved": [
+        "cbd-3:03-01",
+        "cbd-3:03-02",
+        "cbd-3:03-09"
+      ],
+      "status": "generated",
+      "answer": "Outputs and outcomes are the results of activities. Outputs are what the activity directly delivers, while outcomes are the intended changes. For example, if a program delivers a new tool, the output is the tool, and the outcome is the change it supports. Ensure the activities and inputs directly contribute to the outcome, not just the result itself.",
+      "sourceIds": [
+        "cbd-3:03-01",
+        "cbd-3:03-02",
+        "cbd-3:03-09"
+      ],
+      "example": "A standard like a training program can be an output if it's implemented, and the outcome is the change it supports. Check if the implementation supports the standard's intended purpose, not just its publication.",
+      "uncertainty": "This is an invented example, not a real-world scenario.",
+      "sources": [
+        {
+          "id": "cbd-3:03-01",
+          "title": "Begin with the result, then test the chain",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "4–7",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-3:03-02",
+          "title": "Explain the missing middle",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "10–11",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-3:03-09",
+          "title": "A new policy needs a route into practice",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "16",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 1937,
+        "tokens": 182,
+        "loadMs": 546.062667,
+        "generationMs": 1200.001
+      }
+    },
+    {
+      "question": "Explain PESTEL-S with a policing example.",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "02-01"
+      },
+      "retrieved": [
+        "cbd-1:02-01",
+        "plan-cbd-4:p4",
+        "cbd-1:05-02"
+      ],
+      "status": "generated",
+      "answer": "PESTEL-S is a framework for understanding policing context. Security is the key lens for conflict and post-conflict settings. Example: In a post-conflict region, security issues like conflict and insecurity affect policing capacity. The PESTEL-S includes political, economic, social, technological, environmental, and legal factors, with security as the final category. This helps analyze how the environment shapes policing and reform.",
+      "sourceIds": [
+        "cbd-1:02-01",
+        "plan-cbd-4:p4"
+      ],
+      "example": "In a post-conflict region, security issues like conflict and insecurity affect policing capacity. This example shows how PESTEL-S helps understand the context of policing and reform in a local setting.",
+      "uncertainty": "The example is a local policing context, not a general rule.",
+      "sources": [
+        {
+          "id": "cbd-1:02-01",
+          "title": "Structure the context with PESTEL-S",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "6–7",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        },
+        {
+          "id": "plan-cbd-4:p4",
+          "title": "Local policing context",
+          "source": {
+            "kind": "official-plan-teaching-excerpt-paraphrase",
+            "label": "UNPOL CBD Job-Specific Training Lesson 4; 2021 curriculum / July2023 supplied file",
+            "pages": "4",
+            "file": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+            "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a",
+            "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 1340,
+        "tokens": 183,
+        "loadMs": 0.668542,
+        "generationMs": 1160.647
+      }
+    },
+    {
+      "question": "Why is triangulation important?",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "04-02"
+      },
+      "retrieved": [
+        "cbd-1:04-02"
+      ],
+      "status": "generated",
+      "answer": "Triangulation is important because it helps gather diverse evidence to improve understanding. Interviews, observations, and work products provide different perspectives. It ensures that claims are supported by multiple sources, reducing errors. Always check for consistency and consider reliability and consent when collecting information.",
+      "sourceIds": [
+        "cbd-1:04-02"
+      ],
+      "example": "Imagine a manager reviewing a supervisor's statement, which may be correct, but an evidence-based analysis checks for accuracy.",
+      "uncertainty": "The example assumes a manager's review, which may not be fully accurate.",
+      "sources": [
+        {
+          "id": "cbd-1:04-02",
+          "title": "Triangulate what you hear",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "11",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 787,
+        "tokens": 116,
+        "loadMs": 0.623875,
+        "generationMs": 695.646
+      }
+    },
+    {
+      "question": "Explain this logframe and why an indicator needs verification.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10"
+      },
+      "retrieved": [
+        "cbd-3:03-10",
+        "cbd-3:03-08",
+        "cbd-2:02-05"
+      ],
+      "status": "generated",
+      "answer": "A logframe includes a result, measure, evidence source, and assumptions. Verify an indicator by checking if it aligns with the intended result and if the evidence is credible. For example, if a logframe focuses on reviewing workshops, ensure the measure is measurable and the evidence source is reliable.",
+      "sourceIds": [
+        "cbd-3:03-10",
+        "cbd-3:03-08"
+      ],
+      "example": "Suppose a logframe asks, 'What change is being made to review workflows?' Verify by checking if the measure is measurable and the evidence source is credible. This ensures the indicator supports the intended result and the evidence is valid.",
+      "uncertainty": "The example assumes a logframe with a result, measure, and evidence source, but the details may not fully align with the intended outcome.",
+      "sources": [
+        {
+          "id": "cbd-3:03-10",
+          "title": "Check one logframe row across four columns",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "5–7",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-3:03-08",
+          "title": "Match training and MMA to the diagnosed need",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "14–15",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 1276,
+        "tokens": 184,
+        "loadMs": 0.648084,
+        "generationMs": 1100.268
+      }
+    },
+    {
+      "question": "What triggers a responsible transition?",
+      "status": "failed",
+      "error": "Model response failed source validation",
+      "elapsedMs": 1358
+    },
+    {
+      "question": "Why should an adviser avoid importing a policing solution unchanged?",
+      "context": {
+        "lessonId": "cbd-4",
+        "screenId": "04-01"
+      },
+      "retrieved": [
+        "plan-cbd-4:p4",
+        "cbd-4:04-01",
+        "cbd-1:03-03"
+      ],
+      "status": "generated",
+      "answer": "An adviser should avoid importing a policing solution unchanged because it may not fit the local context. Local problems require local solutions developed with stakeholders, and organisational culture shapes how police act. A plan needs to be adapted to the local situation, considering culture, gender, and ethnicity. Coordination with local partners is key to avoid duplication and ensure success. The example shows that a proposed routine may work well in another setting but needs to be reviewed for how it affects daily operations.",
+      "sourceIds": [
+        "plan-cbd-4:p4",
+        "cbd-4:04-01",
+        "cbd-1:03-03"
+      ],
+      "example": "Imagine introducing a case-review routine that worked well in your own police service. The document may be sound, but the way authority, trust, and daily work operate in another institution can be different. Ask counterparts how the routine would affect their responsibilities and the people they serve. Consider whose concerns have not yet been heard, including different experiences of women and men. The lesson asks advisers to develop local solutions with stakeholders. That requires listening to organisational practice rather than assuming a translated procedure will be adopted.",
+      "uncertainty": "It is uncertain whether the example is accurate or if the source is reliable.",
+      "sources": [
+        {
+          "id": "plan-cbd-4:p4",
+          "title": "Local policing context",
+          "source": {
+            "kind": "official-plan-teaching-excerpt-paraphrase",
+            "label": "UNPOL CBD Job-Specific Training Lesson 4; 2021 curriculum / July2023 supplied file",
+            "pages": "4",
+            "file": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+            "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a",
+            "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+          }
+        },
+        {
+          "id": "cbd-4:04-01",
+          "title": "A sound plan still needs a local fit",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+            "pages": "4",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+            "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+          }
+        },
+        {
+          "id": "cbd-1:03-03",
+          "title": "Coordinate to avoid unintended harm",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "9–10",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 1901,
+        "tokens": 269,
+        "loadMs": 1.167333,
+        "generationMs": 1716.946
+      }
+    }
+  ]
+}

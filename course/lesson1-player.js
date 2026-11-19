@@ -1,6 +1,6 @@
 /* CARANA CBD v0.5 — narrated lesson and formative interaction layer.
- * No browser SpeechSynthesis fallback: only reviewed, recorded/natural audio files
- * are accepted. Existing course and original exercise storage are untouched.
+ * Trainer Narration remains recorded audio. Browser Read Screen is a separate,
+ * explicitly initiated support capability. Existing course and original exercise storage are untouched.
  */
 (function () {
   'use strict';
@@ -29,7 +29,7 @@
     const audition=ready&&!!window.CARANA_LESSON1_AUDIO_SAMPLE_MODE;
     const aiNarration=ready&&!!window.CARANA_LESSON1_AUDIO_AI_MODE;
     return '<section class="trainer-voice" aria-label="English trainer explanation"><div class="trainer-voice-heading">'+
-      '<div class="voice-emblem" aria-hidden="true">◉</div><div class="voice-meta"><strong>Trainer explanation</strong><span>English · '+(audition?'AI-generated audition clip':aiNarration?'AI-generated narration':ready?'Recorded narration':'Editorial transcript')+' · Optional</span></div>'+
+      '<div class="voice-emblem" aria-hidden="true">◉</div><div class="voice-meta"><strong>Trainer narration</strong><span>English · '+(audition?'AI-generated audition clip':aiNarration?'AI-generated narration':ready?'Recorded narration':'Editorial transcript')+' · Optional</span></div>'+
       (ready?'<div class="voice-availability live">'+(audition?'AI VOICE SAMPLE':aiNarration?'NARRATION READY':'AUDIO AVAILABLE')+'</div>':'<div class="voice-availability pending">AUDIO PENDING REVIEW</div>')+'</div>'+
       (ready?'<audio id="trainer-audio" preload="none" src="'+esc(t.src)+'"></audio><div class="voice-controls">'+
         '<button type="button" class="voice-button primary" id="voice-play" aria-label="Play explanation">▶ Play explanation</button>'+

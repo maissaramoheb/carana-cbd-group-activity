@@ -1,0 +1,92 @@
+[
+  {
+    "name": "chromium-desktop",
+    "nativeUtterances": [
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 0
+      },
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1.75,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 0
+      },
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1.75,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 0
+      }
+    ],
+    "passed": true
+  },
+  {
+    "name": "webkit-desktop",
+    "nativeUtterances": [
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 0
+      },
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1.75,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 0
+      },
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1.75,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 1
+      }
+    ],
+    "passed": true
+  },
+  {
+    "name": "webkit-mobile",
+    "nativeUtterances": [
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 0
+      },
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1.75,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 0
+      },
+      {
+        "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
+        "rate": 1.75,
+        "voice": "Samantha",
+        "started": true,
+        "ended": false,
+        "boundaries": 0
+      }
+    ],
+    "passed": true
+  }
+]

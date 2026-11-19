@@ -1,0 +1,110 @@
+[
+  {
+    "name": "desktop",
+    "label": "lesson1",
+    "state": "closed",
+    "violations": []
+  },
+  {
+    "name": "desktop",
+    "label": "lesson1",
+    "state": "reading",
+    "violations": []
+  },
+  {
+    "name": "desktop",
+    "label": "lesson1",
+    "state": "assistant",
+    "violations": []
+  },
+  {
+    "name": "desktop",
+    "label": "lesson3",
+    "state": "closed",
+    "violations": []
+  },
+  {
+    "name": "desktop",
+    "label": "lesson3",
+    "state": "reading",
+    "violations": []
+  },
+  {
+    "name": "desktop",
+    "label": "lesson3",
+    "state": "assistant",
+    "violations": []
+  },
+  {
+    "name": "tablet",
+    "label": "lesson1",
+    "state": "closed",
+    "violations": []
+  },
+  {
+    "name": "tablet",
+    "label": "lesson1",
+    "state": "reading",
+    "violations": []
+  },
+  {
+    "name": "tablet",
+    "label": "lesson1",
+    "state": "assistant",
+    "violations": []
+  },
+  {
+    "name": "tablet",
+    "label": "lesson3",
+    "state": "closed",
+    "violations": []
+  },
+  {
+    "name": "tablet",
+    "label": "lesson3",
+    "state": "reading",
+    "violations": []
+  },
+  {
+    "name": "tablet",
+    "label": "lesson3",
+    "state": "assistant",
+    "violations": []
+  },
+  {
+    "name": "mobile",
+    "label": "lesson1",
+    "state": "closed",
+    "violations": []
+  },
+  {
+    "name": "mobile",
+    "label": "lesson1",
+    "state": "reading",
+    "violations": []
+  },
+  {
+    "name": "mobile",
+    "label": "lesson1",
+    "state": "assistant",
+    "violations": []
+  },
+  {
+    "name": "mobile",
+    "label": "lesson3",
+    "state": "closed",
+    "violations": []
+  },
+  {
+    "name": "mobile",
+    "label": "lesson3",
+    "state": "reading",
+    "violations": []
+  },
+  {
+    "name": "mobile",
+    "label": "lesson3",
+    "state": "assistant",
+    "violations": []
+  }
+]
