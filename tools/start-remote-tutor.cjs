@@ -10,6 +10,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
+const https = require('node:https');
 const dns = require('node:dns').promises;
 const { spawn, execFileSync } = require('node:child_process');
 const { start, ALLOWED_MODELS } = require('../tutor/gateway.cjs');
@@ -73,65 +74,97 @@ function setVercelPreviewEnv(name, value) {
     { stdio: ['ignore', 'pipe', 'pipe'] }
   );
 
-  const tunnelUrl = await new Promise((resolve, reject) => {
-    let settled = false, urlSeen = '', registered = false;
-    const timer = setTimeout(() => {
-      if (!settled) {
-        settled = true;
-        reject(Error('Timed out waiting for cloudflared tunnel URL.'));
-      }
-    }, 30000);
-    const onChunk = chunk => {
-      const s = chunk.toString('utf8');
-      const m = s.match(/https:\/\/[a-z0-9-]+\.trycloudflare\.com/i);
-      if (m) urlSeen = m[0];
-      if (/Registered tunnel connection/i.test(s)) registered = true;
-      if (urlSeen && registered && !settled) {
-        settled = true;
-        clearTimeout(timer);
-        resolve(urlSeen);
-      }
-    };
-    cf.stdout.on('data', onChunk);
-    cf.stderr.on('data', onChunk);
-    cf.on('exit', code => {
-      if (!settled) {
-        settled = true;
-        clearTimeout(timer);
-        reject(Error('cloudflared exited unexpectedly with code ' + code));
-      }
-    });
-  });
+  let closing = false;
+  const shutdown = async () => {
+    if (closing) return;
+    closing = true;
+    try { cf.kill('SIGTERM'); } catch (_) {}
+    await new Promise(r => server.close(r));
+  };
 
-  // Poll authoritative Cloudflare NS directly first so OS/ISP DNS never negative-caches NXDOMAIN early
-  const resolver = new dns.Resolver();
-  const nsIps = await dns.resolve4('kevin.ns.cloudflare.com').catch(() => ['108.162.193.127']);
-  resolver.setServers(nsIps);
-  const tunnelHost = new URL(tunnelUrl).hostname;
-  for (let i = 0; i < 35; i++) {
-    try {
-      const recs = await resolver.resolve4(tunnelHost);
-      if (recs && recs.length) break;
-    } catch (_) {}
-    await new Promise(r => setTimeout(r, 1000));
-  }
-  await new Promise(r => setTimeout(r, 3000));
-
-  let edgeReady = false;
-  for (let i = 0; i < 15; i++) {
-    try {
-      const probe = await fetch(tunnelUrl + '/api/tutor/status', {
-        headers: { 'X-CARANA-Proxy-Secret': proxySecret },
-        signal: AbortSignal.timeout(4000)
+  let tunnelUrl;
+  try {
+    tunnelUrl = await new Promise((resolve, reject) => {
+      let settled = false, urlSeen = '', registered = false;
+      const timer = setTimeout(() => {
+        if (!settled) {
+          settled = true;
+          reject(Error('Timed out waiting for cloudflared tunnel URL.'));
+        }
+      }, 30000);
+      const onChunk = chunk => {
+        const s = chunk.toString('utf8');
+        const m = s.match(/https:\/\/[a-z0-9-]+\.trycloudflare\.com/i);
+        if (m) urlSeen = m[0];
+        if (/Registered tunnel connection/i.test(s)) registered = true;
+        if (urlSeen && registered && !settled) {
+          settled = true;
+          clearTimeout(timer);
+          resolve(urlSeen);
+        }
+      };
+      cf.stdout.on('data', onChunk);
+      cf.stderr.on('data', onChunk);
+      cf.on('exit', code => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          reject(Error('cloudflared exited unexpectedly with code ' + code));
+        }
       });
-      if (probe.ok) {
-        const pj = await probe.json();
-        if (pj.connected && pj.remoteOwnerPreview) { edgeReady = true; break; }
-      }
-    } catch (_) {}
-    await new Promise(r => setTimeout(r, 1500));
+    });
+
+    // Wait for Cloudflare authoritative NS + probe the resolved Cloudflare edge IP directly (avoids local ISP/OS NXDOMAIN cache)
+    const resolver = new dns.Resolver();
+    const nsIps = await dns.resolve4('kevin.ns.cloudflare.com').catch(() => ['108.162.193.127']);
+    resolver.setServers(nsIps);
+    const tunnelHost = new URL(tunnelUrl).hostname;
+    let edgeIps = [];
+    for (let i = 0; i < 45; i++) {
+      try {
+        const recs = await resolver.resolve4(tunnelHost);
+        if (recs && recs.length) { edgeIps = recs; break; }
+      } catch (_) {}
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    if (!edgeIps.length) throw Error('Cloudflare authoritative NS did not publish tunnel DNS in time.');
+
+    let edgeReady = false;
+    for (let i = 0; i < 20; i++) {
+      try {
+        const probe = await new Promise((resolve, reject) => {
+          const req = https.request(
+            {
+              host: edgeIps[0],
+              port: 443,
+              servername: tunnelHost,
+              path: '/api/tutor/status',
+              method: 'GET',
+              headers: { Host: tunnelHost, 'X-CARANA-Proxy-Secret': proxySecret },
+              timeout: 4000
+            },
+            res => {
+              let body = '';
+              res.on('data', d => { body += d; });
+              res.on('end', () => resolve({ status: res.statusCode, body }));
+            }
+          );
+          req.on('error', reject);
+          req.on('timeout', () => { req.destroy(Error('timeout')); });
+          req.end();
+        });
+        if (probe.status === 200) {
+          const pj = JSON.parse(probe.body);
+          if (pj.connected && pj.remoteOwnerPreview) { edgeReady = true; break; }
+        }
+      } catch (_) {}
+      await new Promise(r => setTimeout(r, 1500));
+    }
+    if (!edgeReady) throw Error('Tunnel URL allocated but did not propagate on Cloudflare edge in time.');
+  } catch (err) {
+    await shutdown();
+    throw err;
   }
-  if (!edgeReady) throw Error('Tunnel URL allocated but did not propagate on Cloudflare edge in time.');
 
   const remoteInfo = {
     localUrl: record.url,
@@ -182,16 +215,8 @@ function setVercelPreviewEnv(name, value) {
   console.error('  Copy Code Cmd : pbcopy < ' + record.tokenFile);
   console.error('  Press Ctrl+C to close both the tunnel and local AI gateway.\n');
 
-  let closing = false;
-  const shutdown = async () => {
-    if (closing) return;
-    closing = true;
-    try { cf.kill('SIGTERM'); } catch (_) {}
-    await new Promise(r => server.close(r));
-    process.exit(0);
-  };
-  process.on('SIGINT', shutdown);
-  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', async () => { await shutdown(); process.exit(0); });
+  process.on('SIGTERM', async () => { await shutdown(); process.exit(0); });
 })().catch(e => {
   console.error(e.message || String(e));
   process.exit(1);
