@@ -1147,14 +1147,22 @@
       }
       if (status.connected) {
         const isSim = status.provider === 'simulated-test';
-        modePill.textContent = isSim ? 'Simulated Test' : 'Experimental · HOLD';
+        const isHold = !status.qualification || status.qualification === 'not-qualified';
+        modePill.textContent = isSim
+          ? 'Simulated Test'
+          : status.remoteOwnerPreview
+            ? (isHold ? 'Owner Preview · HOLD' : 'Owner Pilot')
+            : (isHold ? 'Experimental · HOLD' : 'Local Pilot');
         modePill.dataset.state = isSim ? 'simulated' : 'connected';
         availEl.dataset.state = isSim ? 'simulated' : 'connected';
+        const prefix = status.remoteOwnerPreview ? 'Remote owner preview · ' : '';
         availEl.textContent = isSim
           ? 'Simulated test provider · not AI: ' + status.model
-          : (status.qualification === 'not-qualified'
+          : prefix +
+            (isHold
               ? 'Experimental local model · NOT QUALIFIED for teaching: '
-              : 'Local pilot · real on-device model: ') + status.model;
+              : 'Local pilot · real on-device model: ') +
+            status.model;
       } else {
         modePill.textContent = 'Offline';
         modePill.dataset.state = 'offline';
@@ -1176,15 +1184,24 @@
 
     if (panel !== localPanel) return;
 
-    panel.querySelector('#assistant-connect').onclick = () => {
-      access = panel.querySelector('#assistant-code').value.trim();
-      panel.querySelector('#assistant-code').value = '';
+    const codeInput = panel.querySelector('#assistant-code');
+    const triggerConnect = () => {
+      access = codeInput.value.trim();
+      codeInput.value = '';
       sendBtn.disabled = !available || !access;
       if (access && available) {
         accessBox.hidden = true;
         panel.querySelector('#assistant-reply-status').textContent = 'Access code will be checked when you send a question.';
+        input.focus();
       } else {
         panel.querySelector('#assistant-reply-status').textContent = 'Enter a local pilot access code first.';
+      }
+    };
+    panel.querySelector('#assistant-connect').onclick = triggerConnect;
+    codeInput.onkeydown = e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        triggerConnect();
       }
     };
 
@@ -1257,6 +1274,15 @@
         }
         if (!text) throw Error('No model reply was received.');
         appendSourcesDetails(article, sources);
+        const msgHead = article.querySelector('.assistant-msg-head');
+        if (msgHead && !msgHead.querySelector('.assistant-read-reply') && (localTtsInfo.available || speech?.getVoices?.().length)) {
+          const readBtn = document.createElement('button');
+          readBtn.type = 'button';
+          readBtn.className = 'assistant-read-reply';
+          readBtn.textContent = 'Listen';
+          readBtn.onclick = () => readList([{ el: article, text }], { mode: 'assistant' });
+          msgHead.append(readBtn);
+        }
         conversation.push({ role: 'assistant', text, sources });
         conversation = conversation.slice(-12);
       } catch (e) {
@@ -1269,7 +1295,7 @@
       } finally {
         if (request === activeRequest) request = null;
         if (panel === localPanel) {
-          sendBtn.disabled = !access;
+          sendBtn.disabled = !available || !access;
           panel.querySelector('#assistant-cancel').hidden = true;
         }
       }

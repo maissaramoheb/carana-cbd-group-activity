@@ -703,12 +703,19 @@ button.assistant-read-reply {
   gap: 6px;
 }
 
-.assistant-send button[type='submit'] {
+.assistant-send button[type='submit'],
+.support-ui .assistant-send button[type='submit']:not(:disabled) {
   background: var(--support-teal);
   color: #ffffff;
   border-color: var(--support-teal);
   min-height: 40px;
   padding: 6px 18px;
+}
+
+.support-ui .assistant-send button[type='submit']:not(:disabled):hover {
+  background: var(--support-teal-deep);
+  border-color: var(--support-teal-deep);
+  color: #ffffff;
 }
 
 .assistant-send button[type='submit']:disabled {
