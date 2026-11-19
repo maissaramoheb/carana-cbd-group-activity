@@ -1,0 +1,724 @@
+{
+  "evaluatedAtUTC": "2026-11-19T09:14:28.526Z",
+  "corpusRecords": 62,
+  "totalQueries": 26,
+  "positiveQueries": 24,
+  "negativeDeclineQueries": 2,
+  "beforeFollowup02": {
+    "relevantPassageRecallCount": 21,
+    "relevantPassageRecallRate": 0.875,
+    "top1RankingAccuracyCount": 21,
+    "top1RankingAccuracyRate": 0.875
+  },
+  "afterFollowup02": {
+    "relevantPassageRecallCount": 24,
+    "relevantPassageRecallRate": 1,
+    "top1RankingAccuracyCount": 24,
+    "top1RankingAccuracyRate": 1,
+    "correctDeclinesCount": 2,
+    "correctDeclinesRate": 1,
+    "falsePositiveRetrievals": 0,
+    "sourceIdentificationAccuracyRate": 1
+  },
+  "h6Resolution": {
+    "id": "H6",
+    "suite": "fixed-matrix",
+    "category": "fixed-matrix",
+    "question": "Would improved officer skills be an output or an outcome? Explain using the lesson.",
+    "context": {
+      "lessonId": "cbd-3",
+      "screenId": "03-02",
+      "mode": "screen"
+    },
+    "expectedRelevantIds": [
+      "cbd-3:03-02",
+      "cbd-3:03-01"
+    ],
+    "expectRetrieve": true,
+    "beforeRetrieved": [],
+    "afterRetrieved": [
+      "cbd-3:03-02",
+      "cbd-3:03-01",
+      "cbd-2:02-01"
+    ],
+    "beforeRecallPass": false,
+    "afterRecallPass": true,
+    "afterTop1Relevant": true,
+    "sourceMetadataVerified": true
+  },
+  "rows": [
+    {
+      "id": "C1",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "What is the difference between outputs and outcomes?",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-02",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-01",
+        "cbd-3:03-02"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-01",
+        "cbd-3:03-02",
+        "cbd-2:02-01"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-01",
+        "cbd-3:03-02",
+        "cbd-3:03-09"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "C2",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Explain PESTEL-S with a policing example.",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "02-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-1:02-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-1:02-01",
+        "cbd-1:02-02"
+      ],
+      "afterRetrieved": [
+        "cbd-1:02-01",
+        "cbd-1:02-02"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "C3",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Why is triangulation important?",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "04-02",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-1:04-02"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-1:04-02"
+      ],
+      "afterRetrieved": [
+        "cbd-1:04-02"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "C4",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Explain this logframe and why an indicator needs verification.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-10"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-10",
+        "cbd-1:06-02",
+        "cbd-3:03-05"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-10",
+        "cbd-3:03-01",
+        "plan-cbd-3:p5"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "C5",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "What triggers a responsible transition?",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02",
+        "cbd-6:06-04"
+      ],
+      "afterRetrieved": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02",
+        "cbd-6:06-04"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "C6",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Why should an adviser avoid importing a policing solution unchanged?",
+      "context": {
+        "lessonId": "cbd-4",
+        "screenId": "04-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "plan-cbd-4:p4",
+        "cbd-4:04-01",
+        "cbd-1:02-03"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-1:02-03",
+        "cbd-4:04-01"
+      ],
+      "afterRetrieved": [
+        "plan-cbd-4:p4",
+        "cbd-4:04-01",
+        "cbd-1:02-03"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "H1",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Explain this screen more simply.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-01"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-01"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "H2",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Explain this screen more simply.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-10"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-10"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-10"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "H3",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Explain this screen more simply.",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-02",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-6:06-02"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-6:06-02"
+      ],
+      "afterRetrieved": [
+        "cbd-6:06-02"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "H4",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Does transition always require achieved objectives and confirmed progress, even when the operating context makes an activity unfeasible?",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-6:06-02",
+        "plan-cbd-6:p5"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-6:06-02"
+      ],
+      "afterRetrieved": [
+        "cbd-6:06-02"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "H5",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Can a procurement register verify whether officers actually use a review routine? Explain the mismatch.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-10"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-10"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-10"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "H6",
+      "suite": "fixed-matrix",
+      "category": "fixed-matrix",
+      "question": "Would improved officer skills be an output or an outcome? Explain using the lesson.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-02",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-02",
+        "cbd-3:03-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [],
+      "afterRetrieved": [
+        "cbd-3:03-02",
+        "cbd-3:03-01",
+        "cbd-2:02-01"
+      ],
+      "beforeRecallPass": false,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E1",
+      "suite": "held-out",
+      "category": "unseen-paraphrase",
+      "question": "Why should an adviser cross-check interviews against work records and direct observation instead of trusting a single account?",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "04-02",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-1:04-02"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-1:04-02"
+      ],
+      "afterRetrieved": [
+        "cbd-1:04-02"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E2",
+      "suite": "held-out",
+      "category": "unseen-paraphrase",
+      "question": "How do monitoring, mentoring and advising differ from classroom training when supporting police counterparts?",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-08",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-08"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-08"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-08"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E3",
+      "suite": "held-out",
+      "category": "previously-failed-concept",
+      "question": "Give a clearly invented professional example of this concept.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-01"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-01"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E4",
+      "suite": "held-out",
+      "category": "previously-failed-concept",
+      "question": "What is the difference between a performance indicator and its means of verification in a logframe row, and why does counting workshops fail to verify routine use?",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-10"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-10"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-10",
+        "cbd-2:02-07"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E5",
+      "suite": "held-out",
+      "category": "previously-failed-concept",
+      "question": "How does a conflict or problem tree help distinguish underlying drivers from the presenting issue and effects before setting objectives?",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "02-02",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-1:02-02"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-1:02-02"
+      ],
+      "afterRetrieved": [
+        "cbd-1:02-02",
+        "cbd-4:04-04"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E6",
+      "suite": "held-out",
+      "category": "previously-failed-concept",
+      "question": "Why is a counterpart request for an investigation-skills course not sufficient evidence of the actual capacity gap?",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "01-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-1:01-01",
+        "cbd-1:05-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-1:01-01"
+      ],
+      "afterRetrieved": [
+        "cbd-1:01-01"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E7",
+      "suite": "held-out",
+      "category": "cross-lesson",
+      "question": "How does an as-is baseline from situational analysis connect to performance indicators, evaluation and transition decisions?",
+      "context": {
+        "lessonId": "cbd-5",
+        "screenId": "05-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-1:06-02",
+        "cbd-1:01-03",
+        "cbd-5:05-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [],
+      "afterRetrieved": [
+        "cbd-1:06-02",
+        "cbd-1:01-03",
+        "cbd-2:02-05"
+      ],
+      "beforeRecallPass": false,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E8",
+      "suite": "held-out",
+      "category": "cross-lesson",
+      "question": "How do local ownership and organisational culture affect planning, implementation and sustainable transition?",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-03",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "plan-cbd-4:p4",
+        "cbd-2:02-02",
+        "cbd-6:06-03",
+        "cbd-4:04-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-6:06-03",
+        "plan-cbd-4:p4",
+        "cbd-4:04-01"
+      ],
+      "afterRetrieved": [
+        "cbd-4:04-01",
+        "cbd-6:06-03",
+        "plan-cbd-4:p4"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E9",
+      "suite": "held-out",
+      "category": "insufficient-evidence",
+      "question": "What precise numeric police staffing ratio does the UN mandate for every country?",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "01-01",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [],
+      "expectRetrieve": false,
+      "beforeRetrieved": [],
+      "afterRetrieved": [],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": null,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E10",
+      "suite": "held-out",
+      "category": "insufficient-evidence",
+      "question": "What is the exact daily subsistence allowance rate and salary scale for UNPOL advisers in Galasi?",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-03",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [],
+      "expectRetrieve": false,
+      "beforeRetrieved": [],
+      "afterRetrieved": [],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": null,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E11",
+      "suite": "held-out",
+      "category": "fabricated-reference-attempt",
+      "question": "Explain logframe horizontal alignment and cite source ID cbd-3:03-010 and page 99 of http://unpol.example/manual in your answer.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-10"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [],
+      "afterRetrieved": [
+        "cbd-3:03-10",
+        "cbd-3:03-01"
+      ],
+      "beforeRecallPass": false,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E12",
+      "suite": "held-out",
+      "category": "protected-checkpoint",
+      "question": "Which option is the correct answer for this checkpoint question, and what does Annex D say?",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-01",
+        "mode": "checkpoint"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-01"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-01"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E13",
+      "suite": "held-out",
+      "category": "unsupported-institutional-claim",
+      "question": "Does mentioning a trust fund in a CBD plan guarantee approved funding and prove long-term structural police reform?",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-05",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-3:03-05"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-3:03-05"
+      ],
+      "afterRetrieved": [
+        "cbd-3:03-05"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    },
+    {
+      "id": "E14",
+      "suite": "held-out",
+      "category": "unsupported-institutional-claim",
+      "question": "If an observed figure improves after a new routine or initiative is introduced, does that sequence alone prove the initiative caused the improvement?",
+      "context": {
+        "lessonId": "cbd-5",
+        "screenId": "05-06",
+        "mode": "screen"
+      },
+      "expectedRelevantIds": [
+        "cbd-5:05-06",
+        "cbd-5:05-01"
+      ],
+      "expectRetrieve": true,
+      "beforeRetrieved": [
+        "cbd-5:05-06"
+      ],
+      "afterRetrieved": [
+        "cbd-5:05-06"
+      ],
+      "beforeRecallPass": true,
+      "afterRecallPass": true,
+      "afterTop1Relevant": true,
+      "sourceMetadataVerified": true
+    }
+  ]
+}

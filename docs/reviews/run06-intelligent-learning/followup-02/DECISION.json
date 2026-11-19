@@ -1,0 +1,93 @@
+{
+  "gate": "HOLD",
+  "selectedQualifiedModel": null,
+  "candidate": "qwen3:4b-instruct-2507-q4_K_M",
+  "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "downloadBytes": 2497293803,
+  "additionalModelsDownloaded": 0,
+  "newPaidInferenceProviders": 0,
+  "loadedMemoryObserved": "3.2GB;100%GPU;context4096",
+  "retrievalEvaluation": {
+    "corpusRecords": 62,
+    "positiveQueries": 24,
+    "negativeDeclineQueries": 2,
+    "beforeFollowup02Recall": "21/24 (87.5%)",
+    "afterFollowup02Recall": "24/24 (100.0%)",
+    "afterFollowup02Top1Accuracy": "24/24 (100.0%)",
+    "falsePositiveRetrievals": 0,
+    "correctDeclines": "2/2 (100.0%)",
+    "sourceIdentificationAccuracy": "100.0%",
+    "h6Resolved": true,
+    "h6Retrieved": ["cbd-3:03-02", "cbd-3:03-01", "cbd-2:02-01"]
+  },
+  "fixedMatrixResults": {
+    "cases": 12,
+    "transportGenerated": 12,
+    "blockedByValidation": 0,
+    "retrievalDeclines": 0,
+    "generatedLatencyMs": {
+      "min": 2222,
+      "median": 2685,
+      "max": 5136
+    },
+    "teachingQualityPass": 10,
+    "criticalTeachingFailures": [
+      {
+        "case": "H5",
+        "category": "unsupported-evidence",
+        "finding": "Claims 'The register records workshop procurement, not officer behavior' and invents 'A procurement register lists the session's cost' whereas cbd-3:03-10 only mentions a procurement register as a mismatched evidence source without stating what it records."
+      },
+      {
+        "case": "H6",
+        "category": "curriculum-grounding",
+        "finding": "Asserts categorically 'Improved officer skills would be an output, not an outcome' despite the source-review rule and prompt instruction that an isolated phrase such as 'improved officer skills' does not have one universal results-chain classification without stating the framework level and how it is measured."
+      }
+    ]
+  },
+  "heldOutResults": {
+    "cases": 14,
+    "transportGenerated": 10,
+    "blockedByValidation": 1,
+    "retrievalDeclines": 2,
+    "policyStudyGuides": 1,
+    "generatedLatencyMs": {
+      "min": 2472,
+      "median": 2860.5,
+      "max": 3503
+    },
+    "teachingQualityPass": 11,
+    "criticalTeachingFailures": [
+      {
+        "case": "E4",
+        "category": "curriculum-grounding",
+        "finding": "Confuses indicator and means of verification by stating 'its means of verification specifies how that measure is obtained (e.g., counting workshops)', whereas counting workshops is the flawed indicator/measure in cbd-3:03-10, not a means of verification."
+      },
+      {
+        "case": "E5",
+        "category": "reference-integrity",
+        "finding": "Inserted inline source ID '(Source: cbd-1:02-02)' inside answer prose despite instruction to place source IDs only in the sourceIds array."
+      },
+      {
+        "case": "E11",
+        "category": "reference-integrity-blocked",
+        "finding": "When prompted with a fabricated reference attempt, the model echoed 'Source: cbd-3:03-10, page -99 of http://unpol.example/manual' into answer prose; the production provider validator blocked delivery."
+      }
+    ]
+  },
+  "previousFailuresResolved": {
+    "H1": "Resolved: generated a policing/peace-operations example and no longer labels teachers/actors as activities (also verified in E3).",
+    "H2": "Resolved: schema enum constraint on sourceIds eliminated the fabricated cbd-3:03-010 ID and preserved the flawed workshop/procurement counterexample.",
+    "H6_retrieval": "Resolved: morphological normalization and bounded CBD concept expansion retrieved cbd-3:03-02 and cbd-3:03-01 at Top-1/Top-2 while keeping 0 false positives on unsupported questions."
+  },
+  "readAloudQualification": {
+    "recommendation": "READY FOR OWNER ACCEPTANCE (TTS-ONLY CANDIDATE)",
+    "screensVerified": 56,
+    "checkpointQuestionsVerified": 78,
+    "originalLesson1RecordingsPreserved": 18,
+    "axeViolations": 0,
+    "publicAiBackendActivated": false
+  },
+  "humanExpertAcceptance": "NOT VERIFIED",
+  "productionModified": false,
+  "reviewedUTC": "2026-11-19T09:20:30.000Z"
+}

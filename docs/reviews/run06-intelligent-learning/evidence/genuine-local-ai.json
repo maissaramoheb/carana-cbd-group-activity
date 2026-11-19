@@ -4,8 +4,8 @@
   "qualification": "not-qualified; engineering integration only",
   "model": "qwen3:4b",
   "question": "outputs versus outcomes",
-  "response": "Learning guidance\nOutputs are direct deliverables from activities (e.g., training sessions), while outcomes are the broader, long-term changes achieved (e.g., improved community safety). The difference lies in scope: outputs are tangible, short-term results of specific actions; outcomes reflect the intended impact on the system or people. Evidence must link outputs to outcomes through plausible mechanisms (e.g., training → better policing → reduced crime).\n\nInvented teaching example: A police training program (output) might improve officer skills (output), but the outcome is reduced crime rates. If the training doesn’t address systemic issues, the outcome may not occur.\n\nEvidence limits: The chain from outputs to outcomes is not guaranteed; external factors like resource constraints or political instability could disrupt the link.\nReview source references (1)",
-  "elapsedMs": 6571,
+  "response": "Learning guidance\nThe difference between outputs and outcomes: Outputs are direct deliverables from activities (e.g., training sessions, policy documents), while outcomes are changes in behavior or institutional practice (e.g., officers applying new procedures). The passage explicitly states: 'Output: Identify what the activity will directly deliver.' and 'Outcome: Describe the change the intervention seeks to support.'\n\nInvented teaching example: In a police unit, a training session (output) teaches officers to use a new de-escalation technique, leading to reduced use of force (outcome).\n\nEvidence limits: The passage does not specify how to measure outcomes beyond the change description, so measurement methods are not explicitly defined.\nReview source references (1)",
+  "elapsedMs": 4560,
   "progressUnchanged": true,
   "cancellation": "PASS"
 }

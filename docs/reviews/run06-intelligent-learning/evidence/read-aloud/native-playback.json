@@ -24,7 +24,7 @@
         "voice": "Samantha",
         "started": true,
         "ended": false,
-        "boundaries": 1
+        "boundaries": 0
       },
       {
         "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
@@ -62,7 +62,7 @@
         "voice": "Samantha",
         "started": true,
         "ended": false,
-        "boundaries": 1
+        "boundaries": 0
       },
       {
         "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
@@ -70,7 +70,7 @@
         "voice": "Samantha",
         "started": true,
         "ended": false,
-        "boundaries": 2
+        "boundaries": 0
       }
     ],
     "passed": true
@@ -100,7 +100,7 @@
         "voice": "Samantha",
         "started": true,
         "ended": false,
-        "boundaries": 1
+        "boundaries": 0
       },
       {
         "text": "Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills course immediately. Is training already the right response?",
