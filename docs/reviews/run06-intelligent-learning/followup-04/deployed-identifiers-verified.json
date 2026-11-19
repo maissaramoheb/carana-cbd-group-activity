@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-11-19T12:16:03.216Z",
+  "sourceCommit": "282735a0dec237d29a42a8817932aa49adfdc968",
+  "deploymentId": "dpl_2SwYWQt4CTBTLBPsuWpFv49ADW4A",
+  "previewUrl": "https://carana-cbd-elearning-64h2ot1qn-delta4ce20-5830s-projects.vercel.app",
+  "target": "preview",
+  "totalDeploymentFilesMatchedBySha1": 1282,
+  "liveBodySha256Verified": [
+    {
+      "path": "/release-manifest.json",
+      "localAsset": "release-manifest.json",
+      "bytes": 239773,
+      "sha256": "80d13cf40ab76bbeb4fe9f8032f63bb8db3333baeaec8007d126dcfb1142472f",
+      "match": true
+    },
+    {
+      "path": "/platform/learning-support.js",
+      "localAsset": "platform/learning-support.js",
+      "bytes": 56702,
+      "sha256": "b01e5513d844f77b4e6f7667abef87a4a61a4bb828dfd306d27a883bbbd1750c",
+      "match": true
+    },
+    {
+      "path": "/platform/learning-support.css",
+      "localAsset": "platform/learning-support.css",
+      "bytes": 16287,
+      "sha256": "a7d8a7a9ee5adba13065ca4314de91466a75375a5c674843be239c2b7e0fc7e9",
+      "match": true
+    },
+    {
+      "path": "/course/visual-journey.js",
+      "localAsset": "course/visual-journey.js",
+      "bytes": 26151,
+      "sha256": "f9cf2d5bca563bd76de910fbd5be70182f1f94d1c650b2c1e75666d2bbfae687",
+      "match": true
+    },
+    {
+      "path": "/course/voice-comparison",
+      "localAsset": "course/voice-comparison.html",
+      "bytes": 6970,
+      "sha256": "7581cdcc8fdd69f46910931ab7b76dcfc73f4f54ff79e220e49ab130ae01e181",
+      "match": true
+    },
+    {
+      "path": "/course/audio/en/readaloud/manifest.json",
+      "localAsset": "course/audio/en/readaloud/manifest.json",
+      "bytes": 56972,
+      "sha256": "6b5b50d72cd51f116b6b590a85868b7abb8b3f5d91ecc3e6f66233cd1bd44ddd",
+      "match": true
+    },
+    {
+      "path": "/course/audio/en/readaloud/clips/4fe08c03c14e0220.mp3",
+      "localAsset": "course/audio/en/readaloud/clips/4fe08c03c14e0220.mp3",
+      "bytes": 37388,
+      "sha256": "db68a03bd89222caa4bd7659abac6140b8ef3d5f2b9ebed51cd7e400932f27da",
+      "match": true
+    },
+    {
+      "path": "/course/audio/en/comparison/p1-kokoro-af-heart.mp3",
+      "localAsset": "course/audio/en/comparison/p1-kokoro-af-heart.mp3",
+      "bytes": 94412,
+      "sha256": "84cd81d25f57fbebbe9b00852494ec305dc97854667de7c1468e079a465e1188",
+      "match": true
+    }
+  ],
+  "privateRoutes404": [
+    {
+      "path": "/tutor/knowledge.json",
+      "httpStatus": 404
+    },
+    {
+      "path": "/tutor/gateway.cjs",
+      "httpStatus": 404
+    },
+    {
+      "path": "/tutor/tts.cjs",
+      "httpStatus": 404
+    },
+    {
+      "path": "/api/tutor/status",
+      "httpStatus": 404
+    },
+    {
+      "path": "/api/tts",
+      "httpStatus": 404
+    }
+  ]
+}

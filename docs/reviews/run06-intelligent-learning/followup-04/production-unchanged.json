@@ -1,0 +1,193 @@
+{
+  "checkedAt": "2026-11-19T12:16:07.285Z",
+  "cbdProduction": {
+    "id": "dpl_DmQvvbazGm5LGjCHF8s981GqSxvR",
+    "name": "carana-cbd-elearning",
+    "url": "carana-cbd-elearning-8v34bnlfu-delta4ce20-5830s-projects.vercel.app",
+    "target": "preview",
+    "readyState": "READY",
+    "createdAt": 1795009072999,
+    "builds": [
+      {
+        "id": "bld_g8kdr286j",
+        "deploymentId": "dpl_DmQvvbazGm5LGjCHF8s981GqSxvR",
+        "entrypoint": ".",
+        "readyState": "READY",
+        "readyStateAt": 1795009072628,
+        "createdAt": 1795009072628,
+        "createdIn": "sfo1",
+        "use": "@vercel/vc-build",
+        "config": {},
+        "output": [],
+        "fingerprint": null
+      }
+    ],
+    "routes": [
+      {
+        "src": "^/(?:(.+)/)?index(?:\\.html)?/?$",
+        "headers": {
+          "Location": "/$1"
+        },
+        "status": 308
+      },
+      {
+        "src": "^/(.*)\\.html/?$",
+        "headers": {
+          "Location": "/$1"
+        },
+        "status": 308
+      },
+      {
+        "src": "^/$",
+        "headers": {
+          "Location": "/course/"
+        },
+        "status": 307
+      },
+      {
+        "src": "^/tests(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?$",
+        "headers": {
+          "Location": "/"
+        },
+        "status": 307
+      },
+      {
+        "src": "^/docs(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?$",
+        "headers": {
+          "Location": "/"
+        },
+        "status": 307
+      },
+      {
+        "src": "^/course/audio/en/lesson1(?:/([^/]+?))$",
+        "headers": {
+          "Cache-Control": "public, max-age=31536000, immutable"
+        },
+        "continue": true
+      },
+      {
+        "handle": "filesystem"
+      },
+      {
+        "src": "^/quick-exercise$",
+        "dest": "/CARANA_CBD_Group_Activity",
+        "check": true
+      },
+      {
+        "src": "^/module1$",
+        "dest": "/module1",
+        "check": true
+      },
+      {
+        "src": "^/module2$",
+        "dest": "/module2",
+        "check": true
+      },
+      {
+        "src": "^/module3$",
+        "dest": "/module3",
+        "check": true
+      },
+      {
+        "src": "^/module4$",
+        "dest": "/module4",
+        "check": true
+      },
+      {
+        "src": "^/module5$",
+        "dest": "/module5",
+        "check": true
+      },
+      {
+        "src": "^/module6$",
+        "dest": "/module6",
+        "check": true
+      }
+    ],
+    "contextName": "delta4ce20-5830s-projects"
+  },
+  "eLearningProduction": {
+    "id": "dpl_C7p1i3UMcSk9e4Yp6H3WAC1fkYg7",
+    "name": "carana-cbd-elearning",
+    "url": "carana-cbd-elearning-dazbdz423-delta4ce20-5830s-projects.vercel.app",
+    "target": "production",
+    "readyState": "READY",
+    "createdAt": 1794915338358,
+    "aliases": [
+      "cbd.maissara.tech",
+      "carana-cbd-elearning.vercel.app",
+      "carana-cbd-elearning-delta4ce20-5830s-projects.vercel.app",
+      "carana-cbd-elearning-git-cours-b4f03e-delta4ce20-5830s-projects.vercel.app"
+    ],
+    "builds": [
+      {
+        "id": "bld_nyxf1nkff",
+        "deploymentId": "dpl_C7p1i3UMcSk9e4Yp6H3WAC1fkYg7",
+        "entrypoint": ".",
+        "readyState": "READY",
+        "readyStateAt": 1794915337635,
+        "createdAt": 1794915337635,
+        "createdIn": "sfo1",
+        "use": "@vercel/vc-build",
+        "config": {
+          "nodeVersion": "26.x",
+          "projectCreatedAt": 1794912521255,
+          "vercelConfig": {
+            "cleanUrls": true,
+            "rewrites": [
+              {
+                "source": "/quick-exercise",
+                "destination": "/CARANA_CBD_Group_Activity"
+              },
+              {
+                "source": "/module1",
+                "destination": "/module1"
+              },
+              {
+                "source": "/module2",
+                "destination": "/module2"
+              },
+              {
+                "source": "/module3",
+                "destination": "/module3"
+              },
+              {
+                "source": "/module4",
+                "destination": "/module4"
+              },
+              {
+                "source": "/module5",
+                "destination": "/module5"
+              },
+              {
+                "source": "/module6",
+                "destination": "/module6"
+              }
+            ],
+            "redirects": [
+              {
+                "source": "/",
+                "destination": "/course/",
+                "permanent": false
+              },
+              {
+                "source": "/tests/:path*",
+                "destination": "/",
+                "permanent": false
+              },
+              {
+                "source": "/docs/:path*",
+                "destination": "/",
+                "permanent": false
+              }
+            ]
+          }
+        },
+        "middleware": [],
+        "output": [],
+        "fingerprint": null
+      }
+    ],
+    "contextName": "delta4ce20-5830s-projects"
+  }
+}

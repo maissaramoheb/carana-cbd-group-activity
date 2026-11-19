@@ -16,3 +16,12 @@ New isolated Vercel preview deployed from Follow-up 02 application commit `804e7
 - **Deployment ID:** `dpl_BLJ4n1qWjcaMoayggYhWdEiDym4G` (`READY`, `target: preview`)
 - **Full Owner Test Guide & Verification Evidence:** [followup-03/OWNER_ACCEPTANCE_TTS_RELEASE.md](followup-03/OWNER_ACCEPTANCE_TTS_RELEASE.md) and [followup-03/deployed-identifiers-verified.json](followup-03/deployed-identifiers-verified.json).
 - Track A (AI Tutor) remains on **HOLD** and is completely excluded/disabled in the preview. Production (`https://cbd.maissara.tech/`) remains unchanged.
+
+## Follow-up 04 — Natural Neural Speech, Complete Dynamic Reading & Contextual Companion UX
+
+New isolated Vercel preview deployed from verified Follow-up 04 application commit `282735a0dec237d29a42a8817932aa49adfdc968` on branch `codex/carana-run06-followup-04`:
+- **Preview URL:** `https://carana-cbd-elearning-64h2ot1qn-delta4ce20-5830s-projects.vercel.app`
+- **Voice Audition Showcase:** `https://carana-cbd-elearning-64h2ot1qn-delta4ce20-5830s-projects.vercel.app/course/voice-comparison`
+- **Deployment ID:** `dpl_2SwYWQt4CTBTLBPsuWpFv49ADW4A` (`READY`, `target: preview`)
+- **Full Technical Report & Owner Acceptance Guide:** [followup-04/REPORT_FOLLOWUP04.md](followup-04/REPORT_FOLLOWUP04.md) and [followup-04/deployed-identifiers-verified.json](followup-04/deployed-identifiers-verified.json).
+- **Highlights:** Open-weight **Kokoro-82M** (Apache-2.0) pre-rendered studio narration across 1,185 instructional/diagram blocks + UNPOL terminology pronunciation normalization + dynamic explanation reading (`"Possible causes"`, `"Read this explanation"`, all 56 screens & `.applied-lab` worked examples) + native CARANA Learning Companion drawer UX (with `npm run tutor:local` owner-only local Ollama & live `/api/tts` studio demo; public preview remains offline/404 and Track A qualification remains **HOLD**). Production (`https://cbd.maissara.tech/`) remains unchanged.
