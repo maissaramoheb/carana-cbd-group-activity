@@ -179,21 +179,29 @@ function setVercelPreviewEnv(name, value) {
   const infoPath = path.join(record.privateDirectory, 'tunnel-runtime.json');
   fs.writeFileSync(infoPath, JSON.stringify(remoteInfo, null, 2), { mode: 0o600 });
 
-  if (opts.syncVercel) {
-    setVercelPreviewEnv('CARANA_AI_ENABLED', 'true');
-    setVercelPreviewEnv('CARANA_UPSTREAM_URL', tunnelUrl);
-    setVercelPreviewEnv('CARANA_PROXY_SECRET', proxySecret);
-    setVercelPreviewEnv('CARANA_MODEL', opts.model);
-    setVercelPreviewEnv('CARANA_QUALIFICATION', opts.qualification);
-    console.error('[remote-tutor] Synced Vercel PREVIEW-ONLY env vars (production untouched).');
-  }
-
   let deployedPreviewUrl = null;
-  if (opts.deploy) {
-    execFileSync(process.execPath, ['tools/release/prepare-ai-preview.cjs'], { cwd: ROOT, stdio: 'inherit' });
-    deployedPreviewUrl = execFileSync('vercel', ['deploy', '--prebuilt', '--yes'], { cwd: ROOT, encoding: 'utf8' }).trim().split(/\s+/).pop();
-    remoteInfo.deployedPreviewUrl = deployedPreviewUrl;
-    fs.writeFileSync(infoPath, JSON.stringify(remoteInfo, null, 2), { mode: 0o600 });
+  try {
+    if (opts.syncVercel) {
+      setVercelPreviewEnv('CARANA_AI_ENABLED', 'true');
+      setVercelPreviewEnv('CARANA_UPSTREAM_URL', tunnelUrl);
+      setVercelPreviewEnv('CARANA_PROXY_SECRET', proxySecret);
+      setVercelPreviewEnv('CARANA_MODEL', opts.model);
+      setVercelPreviewEnv('CARANA_QUALIFICATION', opts.qualification);
+      console.error('[remote-tutor] Synced Vercel PREVIEW-ONLY env vars (production untouched).');
+    }
+
+    if (opts.deploy) {
+      execFileSync(process.execPath, ['tools/release/prepare-ai-preview.cjs'], { cwd: ROOT, stdio: 'inherit' });
+      const deployOut = execFileSync('vercel', ['deploy', '--prebuilt', '--yes'], { cwd: ROOT, encoding: 'utf8' });
+      const urls = deployOut.match(/https:\/\/[a-z0-9.-]+\.vercel\.app/gi);
+      if (!urls || !urls.length) throw Error('Could not parse Vercel preview URL from deploy output: ' + deployOut);
+      deployedPreviewUrl = urls[urls.length - 1];
+      remoteInfo.deployedPreviewUrl = deployedPreviewUrl;
+      fs.writeFileSync(infoPath, JSON.stringify(remoteInfo, null, 2), { mode: 0o600 });
+    }
+  } catch (err) {
+    await shutdown();
+    throw err;
   }
 
   console.log(JSON.stringify({
