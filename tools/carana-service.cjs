@@ -428,8 +428,11 @@ async function main() {
     if (fs.existsSync(p.emergencyFile)) {
       throw Error('Emergency stop guard is active. Run "node tools/carana-service.cjs enable" to clear and start.');
     }
-    const res = launchctlQuiet(cmd === 'restart' ? ['kickstart', '-k', p.serviceTarget] : ['kickstart', p.serviceTarget]);
-    if (!res.ok) throw Error('launchctl kickstart failed: ' + res.out);
+    const isLoaded = launchctlQuiet(['print', p.serviceTarget]).ok;
+    const res = isLoaded
+      ? launchctlQuiet(cmd === 'restart' ? ['kickstart', '-k', p.serviceTarget] : ['kickstart', p.serviceTarget])
+      : launchctlQuiet(['bootstrap', p.domainTarget, p.plistPath]);
+    if (!res.ok) throw Error('launchctl ' + cmd + ' failed: ' + res.out);
     const ready = await waitForReady(port, tunnelUrl, p.proxySecretFile, 35000);
     console.log(JSON.stringify({ action: cmd, ready }, null, 2));
     return;
