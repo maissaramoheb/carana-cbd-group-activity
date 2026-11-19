@@ -1,0 +1,596 @@
+{
+  "status": "PASS",
+  "deployment": "dpl_3QTrxDvTwiuMuGEAbV6FnTdzZEmF",
+  "sourceCommit": "d0b6fc06f838683e598695b8ecb44cedccc77050",
+  "method": "All84 Vercel API deployment file identifiers equal SHA1 of exact locally staged bytes; complete nontruncated server file tree. Separate staged manifest carries SHA256 for82 assets. Does not claim every media body was downloaded.",
+  "files": [
+    {
+      "file": ".vercel/output/config.json",
+      "remoteIdentifier": "609b76fd0e9a4f54914fba84c0d43f5cc49c3a81",
+      "localSha1": "609b76fd0e9a4f54914fba84c0d43f5cc49c3a81",
+      "bytes": 1077,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/CARANA_CBD_Group_Activity.html",
+      "remoteIdentifier": "49f3e553be8dd1c311c43e0a4bcffb240712b3fc",
+      "localSha1": "49f3e553be8dd1c311c43e0a4bcffb240712b3fc",
+      "bytes": 31489,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/app.js",
+      "remoteIdentifier": "65f318ed7309287fa8ead4cdb102091d684bfa4b",
+      "localSha1": "65f318ed7309287fa8ead4cdb102091d684bfa4b",
+      "bytes": 54348,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/01-01-935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d.mp3",
+      "remoteIdentifier": "a547f38999ea6b1f245a67b67ffaa3f9271ad9c7",
+      "localSha1": "a547f38999ea6b1f245a67b67ffaa3f9271ad9c7",
+      "bytes": 616320,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/01-02-a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b.mp3",
+      "remoteIdentifier": "31e7eef7f3a21bcf8a7bfeaaeee5e0150edd4484",
+      "localSha1": "31e7eef7f3a21bcf8a7bfeaaeee5e0150edd4484",
+      "bytes": 568704,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/01-03-7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2.mp3",
+      "remoteIdentifier": "005d7ae9df9278f1261ce9fadc07af91e4d2eec1",
+      "localSha1": "005d7ae9df9278f1261ce9fadc07af91e4d2eec1",
+      "bytes": 583680,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/02-01-238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a.mp3",
+      "remoteIdentifier": "f8f22b3fc10c22b0fc39fada7b7f11d2b634d525",
+      "localSha1": "f8f22b3fc10c22b0fc39fada7b7f11d2b634d525",
+      "bytes": 595584,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/02-02-f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6.mp3",
+      "remoteIdentifier": "17537b313e6a5c4e6e28fafde6bacaf05d608053",
+      "localSha1": "17537b313e6a5c4e6e28fafde6bacaf05d608053",
+      "bytes": 645888,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/02-03-ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b.mp3",
+      "remoteIdentifier": "517da29ee334f5d79c56c2faa4734bf82f2330d0",
+      "localSha1": "517da29ee334f5d79c56c2faa4734bf82f2330d0",
+      "bytes": 609024,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/03-01-aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30.mp3",
+      "remoteIdentifier": "a9d666c3f45283f2a24b428bc54db0f698a1f35e",
+      "localSha1": "a9d666c3f45283f2a24b428bc54db0f698a1f35e",
+      "bytes": 589440,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/03-02-8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0.mp3",
+      "remoteIdentifier": "669c9f9d2b05dfa4caba3bcd3e500c6f00caa2e9",
+      "localSha1": "669c9f9d2b05dfa4caba3bcd3e500c6f00caa2e9",
+      "bytes": 589824,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/03-03-1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513.mp3",
+      "remoteIdentifier": "6797ed70a8e205cded09e569ec5ce3cc91b3dbe5",
+      "localSha1": "6797ed70a8e205cded09e569ec5ce3cc91b3dbe5",
+      "bytes": 575616,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/04-01-a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa.mp3",
+      "remoteIdentifier": "2e84d5ba07004b1ab415ed6711c95036fe32c576",
+      "localSha1": "2e84d5ba07004b1ab415ed6711c95036fe32c576",
+      "bytes": 597888,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/04-02-4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb.mp3",
+      "remoteIdentifier": "d0245c0094f2e45a95142c415c99fc24ccdce155",
+      "localSha1": "d0245c0094f2e45a95142c415c99fc24ccdce155",
+      "bytes": 654336,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/04-03-e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2.mp3",
+      "remoteIdentifier": "840706163e4338a17b937ba10847a3cb8ad5425e",
+      "localSha1": "840706163e4338a17b937ba10847a3cb8ad5425e",
+      "bytes": 589440,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/05-01-daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3.mp3",
+      "remoteIdentifier": "004dd66d3deabee62391d649b8d5a254b1e48ef3",
+      "localSha1": "004dd66d3deabee62391d649b8d5a254b1e48ef3",
+      "bytes": 589056,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/05-02-3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b.mp3",
+      "remoteIdentifier": "601bc53f06aaf29dd69e873f86f03e825e1e6823",
+      "localSha1": "601bc53f06aaf29dd69e873f86f03e825e1e6823",
+      "bytes": 583680,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/05-03-529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f.mp3",
+      "remoteIdentifier": "e5bebc0935c81b78cd3ef84fb4a1a07332824d1f",
+      "localSha1": "e5bebc0935c81b78cd3ef84fb4a1a07332824d1f",
+      "bytes": 592512,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/06-01-d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0.mp3",
+      "remoteIdentifier": "d9ae81fa490a4cee087d3bc3a71802e2ecbbe149",
+      "localSha1": "d9ae81fa490a4cee087d3bc3a71802e2ecbbe149",
+      "bytes": 649344,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/06-02-b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f.mp3",
+      "remoteIdentifier": "027307b7ec5757ab2de2c9daaf5dd99f5aa163cf",
+      "localSha1": "027307b7ec5757ab2de2c9daaf5dd99f5aa163cf",
+      "bytes": 567936,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/audio/en/lesson1/06-03-552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c.mp3",
+      "remoteIdentifier": "c5188d14760bc6b61d50c476d12374723a298d43",
+      "localSha1": "c5188d14760bc6b61d50c476d12374723a298d43",
+      "bytes": 583296,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/curriculum-home.css",
+      "remoteIdentifier": "a408fc90fd157b26ceeb7a2079784d9b6a62b6c0",
+      "localSha1": "a408fc90fd157b26ceeb7a2079784d9b6a62b6c0",
+      "bytes": 19320,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/experience.css",
+      "remoteIdentifier": "1cc1143239356a0527eb89938510433c733cb97a",
+      "localSha1": "1cc1143239356a0527eb89938510433c733cb97a",
+      "bytes": 5654,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/home-support.css",
+      "remoteIdentifier": "f1bdb435dd4cff4ac1f2a8d6912d7efc31976537",
+      "localSha1": "f1bdb435dd4cff4ac1f2a8d6912d7efc31976537",
+      "bytes": 3677,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/hybrid-visuals.css",
+      "remoteIdentifier": "fbd92c8edcd56b0f5cbccf71bd5a775d50e351e1",
+      "localSha1": "fbd92c8edcd56b0f5cbccf71bd5a775d50e351e1",
+      "bytes": 7311,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/illustrations.css",
+      "remoteIdentifier": "80bf91635b6cb4e4c7a620b0449b02d8a492eadc",
+      "localSha1": "80bf91635b6cb4e4c7a620b0449b02d8a492eadc",
+      "bytes": 1618,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/illustrations/lesson1/01-01-diagnose-first.jpg",
+      "remoteIdentifier": "f660bb3914b7e38b7f33f94b694118bec537313b",
+      "localSha1": "f660bb3914b7e38b7f33f94b694118bec537313b",
+      "bytes": 371850,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/illustrations/lesson1/03-03-counterpart-fatigue.jpg",
+      "remoteIdentifier": "139e22fedd0537ed63b46954be708b1f855522fb",
+      "localSha1": "139e22fedd0537ed63b46954be708b1f855522fb",
+      "bytes": 469754,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/illustrations/lesson1/04-02-triangulation.jpg",
+      "remoteIdentifier": "cd0e24eb2c3730f0d24466e84ea70a59eba2f0b8",
+      "localSha1": "cd0e24eb2c3730f0d24466e84ea70a59eba2f0b8",
+      "bytes": 460868,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/index.html",
+      "remoteIdentifier": "afe2315ed1f304a382ebd8ee837b9777e509e133",
+      "localSha1": "afe2315ed1f304a382ebd8ee837b9777e509e133",
+      "bytes": 2622,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/labs.css",
+      "remoteIdentifier": "879f6ce5c50d9415268d95ce8393fab7af6a8ecc",
+      "localSha1": "879f6ce5c50d9415268d95ce8393fab7af6a8ecc",
+      "bytes": 3647,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/lesson1-audio-manifest.js",
+      "remoteIdentifier": "2348f8b947a560f3f9aebd920109c4b754b4d0a1",
+      "localSha1": "2348f8b947a560f3f9aebd920109c4b754b4d0a1",
+      "bytes": 2079,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/lesson1-data.js",
+      "remoteIdentifier": "0114030062fb7e472cbb032a43478cba3245d94a",
+      "localSha1": "0114030062fb7e472cbb032a43478cba3245d94a",
+      "bytes": 41806,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/lesson1-experience.js",
+      "remoteIdentifier": "f200b5cf587036c918e692da775ce69a2f4daa40",
+      "localSha1": "f200b5cf587036c918e692da775ce69a2f4daa40",
+      "bytes": 21325,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/lesson1-illustrations.js",
+      "remoteIdentifier": "86edee157d19bf5a3a0aa1962acefd3ff5e15561",
+      "localSha1": "86edee157d19bf5a3a0aa1962acefd3ff5e15561",
+      "bytes": 2887,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/lesson1-labs.js",
+      "remoteIdentifier": "f9dd34a9515ba9ebf641c94055ea1d2fd61a28c2",
+      "localSha1": "f9dd34a9515ba9ebf641c94055ea1d2fd61a28c2",
+      "bytes": 10024,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/lesson1-player.js",
+      "remoteIdentifier": "5c9183ac526d9fc41a67b931dbecb92d847d88a2",
+      "localSha1": "5c9183ac526d9fc41a67b931dbecb92d847d88a2",
+      "bytes": 8733,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/premium.css",
+      "remoteIdentifier": "b1e08f17c1f7c5b632b30f6c341333470c666027",
+      "localSha1": "b1e08f17c1f7c5b632b30f6c341333470c666027",
+      "bytes": 33653,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/refinements-v051.css",
+      "remoteIdentifier": "2c15aca91cd4ec454298a0aaf2bc65449ee860c9",
+      "localSha1": "2c15aca91cd4ec454298a0aaf2bc65449ee860c9",
+      "bytes": 5634,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/style.css",
+      "remoteIdentifier": "dec6960da510b9b298a07cfd52d0fc67f569e12d",
+      "localSha1": "dec6960da510b9b298a07cfd52d0fc67f569e12d",
+      "bytes": 20853,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/typography-spacing.css",
+      "remoteIdentifier": "d0ee416f494e950047dbc03799da436e2c613d25",
+      "localSha1": "d0ee416f494e950047dbc03799da436e2c613d25",
+      "bytes": 14772,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/visual-gallery.html",
+      "remoteIdentifier": "cc229235b2ddd79bb4ee6b6ec038e2e45d368ad1",
+      "localSha1": "cc229235b2ddd79bb4ee6b6ec038e2e45d368ad1",
+      "bytes": 7229,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/visual-gallery.js",
+      "remoteIdentifier": "378d8da62f6dfb87ede67730c24de2d7bea1f93d",
+      "localSha1": "378d8da62f6dfb87ede67730c24de2d7bea1f93d",
+      "bytes": 3586,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/visual-journey.css",
+      "remoteIdentifier": "4e884a55d4dd764e2efa5a2a87d50c7284d3a51b",
+      "localSha1": "4e884a55d4dd764e2efa5a2a87d50c7284d3a51b",
+      "bytes": 17127,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/visual-journey.js",
+      "remoteIdentifier": "4c068e5f4a42858d20c6dbdc48dbec2c86a46468",
+      "localSha1": "4c068e5f4a42858d20c6dbdc48dbec2c86a46468",
+      "bytes": 25053,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/voice-audition.html",
+      "remoteIdentifier": "6b15901880b7853375e25abe376d037b37124e05",
+      "localSha1": "6b15901880b7853375e25abe376d037b37124e05",
+      "bytes": 4712,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/course/voice-audition.js",
+      "remoteIdentifier": "b14f7d02ce9a72f1e0341cc465e393240481155f",
+      "localSha1": "b14f7d02ce9a72f1e0341cc465e393240481155f",
+      "bytes": 2633,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/css/design-system.css",
+      "remoteIdentifier": "8187b6501caa11f9f5900505751cbfbe8ff7d498",
+      "localSha1": "8187b6501caa11f9f5900505751cbfbe8ff7d498",
+      "bytes": 32923,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/curricula/cbd/lessons-2-3.json",
+      "remoteIdentifier": "82ba9652431474586cf5e9746b06a8c76ff64fc8",
+      "localSha1": "82ba9652431474586cf5e9746b06a8c76ff64fc8",
+      "bytes": 103815,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/curricula/cbd/lessons-4-6.json",
+      "remoteIdentifier": "b148bc47323dffffe51d5b1364eb66d03905d452",
+      "localSha1": "b148bc47323dffffe51d5b1364eb66d03905d452",
+      "bytes": 125222,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/index.html",
+      "remoteIdentifier": "54415d9ba62af446b04df5ec0f0a52fcd159f237",
+      "localSha1": "54415d9ba62af446b04df5ec0f0a52fcd159f237",
+      "bytes": 23215,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/data/carana-scenario.js",
+      "remoteIdentifier": "d61b62235850ea0642c16aa1c25d54e44e39df64",
+      "localSha1": "d61b62235850ea0642c16aa1c25d54e44e39df64",
+      "bytes": 24200,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/data/curriculum-glossary.js",
+      "remoteIdentifier": "0ddda2084e01274e6e82f5d99347f1065f5564e7",
+      "localSha1": "0ddda2084e01274e6e82f5d99347f1065f5564e7",
+      "bytes": 8721,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/modules/module1.js",
+      "remoteIdentifier": "1d37caa6dd9a6c7a09e552f3b3e48ad1bdcfab5a",
+      "localSha1": "1d37caa6dd9a6c7a09e552f3b3e48ad1bdcfab5a",
+      "bytes": 56705,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/modules/module2.js",
+      "remoteIdentifier": "60b0a5ad5dce383223e809cba9baf3905d973f8f",
+      "localSha1": "60b0a5ad5dce383223e809cba9baf3905d973f8f",
+      "bytes": 39959,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/modules/module3.js",
+      "remoteIdentifier": "a21c66de7973d5e1f27975ffe227bab3b24dc038",
+      "localSha1": "a21c66de7973d5e1f27975ffe227bab3b24dc038",
+      "bytes": 43194,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/modules/module4.js",
+      "remoteIdentifier": "86f0984852ea5b06ca522f4d5018cbef7390caf5",
+      "localSha1": "86f0984852ea5b06ca522f4d5018cbef7390caf5",
+      "bytes": 35351,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/modules/module5.js",
+      "remoteIdentifier": "c3e379eb6bc8d6a29e8ec7d242d23ca91a96ccc4",
+      "localSha1": "c3e379eb6bc8d6a29e8ec7d242d23ca91a96ccc4",
+      "bytes": 38153,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/modules/module6.js",
+      "remoteIdentifier": "13022a31398a90df0d4855ccea71c3fae5210a6b",
+      "localSha1": "13022a31398a90df0d4855ccea71c3fae5210a6b",
+      "bytes": 108793,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/js/storage/lab-storage.js",
+      "remoteIdentifier": "7fbac349b3faa8f2e1069e6b918987b0cb07dd64",
+      "localSha1": "7fbac349b3faa8f2e1069e6b918987b0cb07dd64",
+      "bytes": 75172,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/module1.html",
+      "remoteIdentifier": "69fd5ef108ad164b8c10a7bebd22028e1e61db90",
+      "localSha1": "69fd5ef108ad164b8c10a7bebd22028e1e61db90",
+      "bytes": 48168,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/module2.html",
+      "remoteIdentifier": "23ce1de814271436ece49ab5272764265870da8c",
+      "localSha1": "23ce1de814271436ece49ab5272764265870da8c",
+      "bytes": 28735,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/module3.html",
+      "remoteIdentifier": "94ac1dfd0f4028d525e6a7845cfe31a75f15ce50",
+      "localSha1": "94ac1dfd0f4028d525e6a7845cfe31a75f15ce50",
+      "bytes": 38506,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/module4.html",
+      "remoteIdentifier": "34b51cc8d91044d692a6106277e4f5c61c7b0e19",
+      "localSha1": "34b51cc8d91044d692a6106277e4f5c61c7b0e19",
+      "bytes": 30916,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/module5.html",
+      "remoteIdentifier": "f33c2a5a891c0a5a6a8b2093124afeedd30311d1",
+      "localSha1": "f33c2a5a891c0a5a6a8b2093124afeedd30311d1",
+      "bytes": 40457,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/module6.html",
+      "remoteIdentifier": "1734691ab77753b22dfe7292ead49713c6280fa7",
+      "localSha1": "1734691ab77753b22dfe7292ead49713c6280fa7",
+      "bytes": 37983,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/catalog.js",
+      "remoteIdentifier": "9a1af987bcabf017790b7c224c2f21afa8ed64b4",
+      "localSha1": "9a1af987bcabf017790b7c224c2f21afa8ed64b4",
+      "bytes": 2493,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/demo-showcase.html",
+      "remoteIdentifier": "312098239ba9148e543f54c85ec3bee2c986d318",
+      "localSha1": "312098239ba9148e543f54c85ec3bee2c986d318",
+      "bytes": 7626,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/demo.html",
+      "remoteIdentifier": "ef923e4a8766d8fefc36faeed0c5eabd7a42ef18",
+      "localSha1": "ef923e4a8766d8fefc36faeed0c5eabd7a42ef18",
+      "bytes": 6421,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/exploration.js",
+      "remoteIdentifier": "49b37bf95a2d03837bb116de7fd55dff45bbac1f",
+      "localSha1": "49b37bf95a2d03837bb116de7fd55dff45bbac1f",
+      "bytes": 11163,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/handoff.js",
+      "remoteIdentifier": "ca5a7b4ebc47609f818dbc4d01d85904a88284a3",
+      "localSha1": "ca5a7b4ebc47609f818dbc4d01d85904a88284a3",
+      "bytes": 24938,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/index.html",
+      "remoteIdentifier": "2f956b4959b53d5160f18d1488533bcd0cf51271",
+      "localSha1": "2f956b4959b53d5160f18d1488533bcd0cf51271",
+      "bytes": 1511,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/learning-refinements.css",
+      "remoteIdentifier": "4890f873be45f54684d0210e11e644e35e0d1fee",
+      "localSha1": "4890f873be45f54684d0210e11e644e35e0d1fee",
+      "bytes": 8993,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/learning-support.css",
+      "remoteIdentifier": "0792de6d776d3c1c1dc8b53e8c2a740dae4576ec",
+      "localSha1": "0792de6d776d3c1c1dc8b53e8c2a740dae4576ec",
+      "bytes": 4902,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/learning-support.js",
+      "remoteIdentifier": "5dd0bccbe9667b79d98801c96fd36928a342ea30",
+      "localSha1": "5dd0bccbe9667b79d98801c96fd36928a342ea30",
+      "bytes": 21394,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/learning-tools.js",
+      "remoteIdentifier": "c4844706f5bb22d3a15602957d0989ec3e615d3d",
+      "localSha1": "c4844706f5bb22d3a15602957d0989ec3e615d3d",
+      "bytes": 28851,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/notebook-core.js",
+      "remoteIdentifier": "39df996258dfaf260b7326fbf222fad699311e6a",
+      "localSha1": "39df996258dfaf260b7326fbf222fad699311e6a",
+      "bytes": 20725,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/notebook.css",
+      "remoteIdentifier": "3951d16887138bff337a9d33c19157ae8a40005d",
+      "localSha1": "3951d16887138bff337a9d33c19157ae8a40005d",
+      "bytes": 4800,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/notebook.html",
+      "remoteIdentifier": "4c230322f243d07ecf1dd8195add024a7bd8ecb0",
+      "localSha1": "4c230322f243d07ecf1dd8195add024a7bd8ecb0",
+      "bytes": 1301,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/notebook.js",
+      "remoteIdentifier": "c6afd3f091b3caf3397b14c3eea34ba8b6a5dcfb",
+      "localSha1": "c6afd3f091b3caf3397b14c3eea34ba8b6a5dcfb",
+      "bytes": 19715,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/platform.css",
+      "remoteIdentifier": "6e4ce40a037268c182655cf30b418b4ded84042c",
+      "localSha1": "6e4ce40a037268c182655cf30b418b4ded84042c",
+      "bytes": 16121,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/platform.js",
+      "remoteIdentifier": "e448aa3accb1b07a03467a3f702ba93162e1f724",
+      "localSha1": "e448aa3accb1b07a03467a3f702ba93162e1f724",
+      "bytes": 43949,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/platform/progress-core.js",
+      "remoteIdentifier": "30feb25804bf74dfb524437d445133db792135cf",
+      "localSha1": "30feb25804bf74dfb524437d445133db792135cf",
+      "bytes": 35233,
+      "match": true
+    },
+    {
+      "file": ".vercel/output/static/release-manifest.json",
+      "remoteIdentifier": "6ec699a7c5e15ed66d56eba26ab93c0360ed9678",
+      "localSha1": "6ec699a7c5e15ed66d56eba26ab93c0360ed9678",
+      "bytes": 14784,
+      "match": true
+    }
+  ]
+}

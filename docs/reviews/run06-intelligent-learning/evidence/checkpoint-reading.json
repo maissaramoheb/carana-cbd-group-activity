@@ -1,0 +1,165 @@
+{
+  "total": 78,
+  "rows": [
+    {
+      "lesson": "cbd-1",
+      "section": 1,
+      "questions": 6,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-1",
+      "section": 2,
+      "questions": 6,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-1",
+      "section": 3,
+      "questions": 6,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-1",
+      "section": 4,
+      "questions": 6,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-1",
+      "section": 5,
+      "questions": 6,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-1",
+      "section": 6,
+      "questions": 6,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-2",
+      "section": 1,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-2",
+      "section": 2,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-2",
+      "section": 3,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-3",
+      "section": 1,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-3",
+      "section": 2,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-3",
+      "section": 3,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-4",
+      "section": 1,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-4",
+      "section": 2,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-4",
+      "section": 3,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-5",
+      "section": 1,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-5",
+      "section": 2,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-6",
+      "section": 1,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-6",
+      "section": 2,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    },
+    {
+      "lesson": "cbd-6",
+      "section": 3,
+      "questions": 3,
+      "defaultExcludes": true,
+      "requestedIncludesQuestionsAndOptions": true,
+      "progressUnchanged": true
+    }
+  ]
+}

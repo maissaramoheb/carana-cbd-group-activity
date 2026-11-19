@@ -1,0 +1,13 @@
+# Isolated preview, source and restoration
+
+Protected preview: https://carana-cbd-elearning-hchvgauta-delta4ce20-5830s-projects.vercel.app/
+
+Deployment dpl_3QTrxDvTwiuMuGEAbV6FnTdzZEmF is READY, target preview/null, from UI source d0b6fc06f838683e598695b8ecb44cedccc77050. Earlier integration snapshot e978354 and its superseded preview remain in history. Anonymous course access redirects302 to Vercel sign-in. Authenticated final candidate passed Chromium/mobile WebKit native speech, unavailable AI, progress/focus, zero Axe violations and private-index404 checks.
+
+All84 server deployment file identifiers equal SHA1 of exact locally staged files:82 assets plus release manifest and routing config. Complete nontruncated response/comparison: evidence/deployed-*.json. Release manifest records SHA256 for82 assets. Two full remote-body download attempts timed out; complete remote-body SHA256 pass is NOT VERIFIED. This differs from successful server identifier verification and local18-recording runtime playback.
+
+No production promotion, alias assignment or merge. Verified unchanged: cbd.maissara.tech → dpl_DmQvvbazGm5LGjCHF8s981GqSxvR; e-learning.maissara.tech → dpl_C7p1i3UMcSk9e4Yp6H3WAC1fkYg7. Main and Run04 tag commit remain4b255cb27ba65bd3544366bc9f6a884e231d8e78. Preview serves no tutor backend, credentials or retrieval index and makes no localhost inference request.
+
+Branch codex/carana-run06-intelligent-learning descends from complete approved Run05 commit7615804f7d19233586f6ee77b35b0d8cdcdb4b2f. Run05 upload succeeded on the expressly owner-approved third attempt; GitHub independently returned7615804 afterward. Final Run06 commits and backup receipt are recorded when the final snapshot closes. Production rollback was not exercised because production remains untouched; Run04 deployment/tag and verified Run05 backup remain available.
+
+Backup content: all tracked source/evidence/media, source.tar.gz, all-ref history.bundle, exact preview build/config/manifest, source SHA256 inventory and independent restore verification. Pilot codes/private TLS keys, browser cookies, .env files and model weights/caches are excluded. Models require the documented runtime and a complete verified download. Real learner progress is not collected; use existing export/recovery on its original browser origin. OneDrive cloud sync is NOT VERIFIED.

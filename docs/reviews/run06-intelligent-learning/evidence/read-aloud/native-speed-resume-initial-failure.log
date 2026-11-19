@@ -1,0 +1,5 @@
+page.waitForFunction: Timeout 12000ms exceeded.
+    at /Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/tests/support/read-aloud-browser.cjs:6:833 {
+  log: [],
+  name: 'TimeoutError'
+}

@@ -1,0 +1,19 @@
+{
+  "checkedUTC": "2026-11-19T05:36:47.615Z",
+  "preview": {
+    "id": "dpl_3QTrxDvTwiuMuGEAbV6FnTdzZEmF",
+    "url": "carana-cbd-elearning-hchvgauta-delta4ce20-5830s-projects.vercel.app",
+    "readyState": "READY",
+    "target": null,
+    "sourceCommit": "d0b6fc06f838683e598695b8ecb44cedccc77050",
+    "sourceEvidence": "deployed manifest + complete file identifier comparison"
+  },
+  "production": {
+    "alias": "cbd.maissara.tech",
+    "deploymentId": "dpl_DmQvvbazGm5LGjCHF8s981GqSxvR"
+  },
+  "secondary": {
+    "alias": "e-learning.maissara.tech",
+    "deploymentId": "dpl_C7p1i3UMcSk9e4Yp6H3WAC1fkYg7"
+  }
+}
