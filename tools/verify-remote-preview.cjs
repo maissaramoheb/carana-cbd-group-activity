@@ -66,7 +66,7 @@ function vercelCurl(previewUrl, pathname, { method = 'GET', headers = {}, body =
     const mf = await fetch(prod + '/release-manifest.json');
     assert.equal(mf.status, 200);
     const mfJson = await mf.json();
-    assert.equal(mfJson.sourceCommit, '282735a68e2fb575914bf961144eb54e9bf2a9aa', `Unexpected live manifest commit on ${prod}`);
+    assert.equal(mfJson.sourceCommit, '282735a0dec237d29a42a8817932aa49adfdc968', `Unexpected live manifest commit on ${prod}`);
   }
 
   // 2. Unauthenticated public access to isolated preview MUST be blocked by Vercel SSO
