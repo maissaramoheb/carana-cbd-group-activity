@@ -1,15 +1,16 @@
-/* Vercel isolated owner-preview proxy -> Mac mini loopback gateway via private encrypted tunnel.
- * Fails closed (HTTP 404) unless CARANA_AI_ENABLED=true and encrypted upstream credentials exist.
- * Never logs, reflects, or exposes CARANA_UPSTREAM_URL or CARANA_PROXY_SECRET.
+/* Vercel isolated owner/pilot proxy -> persistent authenticated Mac mini tunnel.
+ * Fails closed (HTTP 404 / 503) unless CARANA_AI_ENABLED=true and not killed via CARANA_PILOT_DISABLED.
+ * Supports streaming NDJSON queue/inference events, /api/tutor/auth server verification, and /api/tts WAV.
+ * Never logs or exposes CARANA_UPSTREAM_URL or CARANA_PROXY_SECRET.
  */
 'use strict';
 const { URL } = require('node:url');
 
-const ALLOWED_ORIGIN_RE = /^https:\/\/(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.vercel\.app|e-learning\.maissara\.tech|cbd\.maissara\.tech)$/i;
-const ALLOWED_HOST_RE = /^(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.vercel\.app|e-learning\.maissara\.tech|cbd\.maissara\.tech)$/i;
-const ALLOWED_ROUTES = new Set(['/api/tutor/status', '/api/tutor', '/api/tts', '/api/health']);
-const LIMITS = { '/api/tutor': 8192, '/api/tts': 4096 };
-const TIMEOUTS = { '/api/tutor': 58000, '/api/tts': 28000, '/api/tutor/status': 6000, '/api/health': 6000 };
+const DEFAULT_ORIGIN_RE = /^https:\/\/(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.vercel\.app|e-learning\.maissara\.tech|cbd\.maissara\.tech)$/i;
+const DEFAULT_HOST_RE = /^(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.vercel\.app|e-learning\.maissara\.tech|cbd\.maissara\.tech)$/i;
+const ALLOWED_ROUTES = new Set(['/api/tutor/status', '/api/tutor/auth', '/api/tutor', '/api/tts', '/api/health']);
+const LIMITS = { '/api/tutor': 8192, '/api/tts': 4096, '/api/tutor/auth': 512 };
+const TIMEOUTS = { '/api/tutor': 58000, '/api/tts': 28000, '/api/tutor/auth': 8000, '/api/tutor/status': 6000, '/api/health': 6000 };
 
 function applySecurityHeaders(res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -24,15 +25,35 @@ function sendJson(res, status, data) {
   res.end(JSON.stringify(data));
 }
 
-function offlineStatusPayload(env) {
+function buildAllowlists(env) {
+  const extraHosts = String(env.CARANA_ALLOWED_PILOT_HOSTS || '')
+    .split(',')
+    .map(h => h.trim().toLowerCase())
+    .filter(h => /^[a-z0-9.-]+$/.test(h));
+  const hostAllowed = host => DEFAULT_HOST_RE.test(host) || extraHosts.includes(String(host || '').toLowerCase());
+  const originAllowed = origin => {
+    if (DEFAULT_ORIGIN_RE.test(origin)) return true;
+    try {
+      const u = new URL(origin);
+      return u.protocol === 'https:' && extraHosts.includes(u.hostname.toLowerCase());
+    } catch (_) {
+      return false;
+    }
+  };
+  return { hostAllowed, originAllowed };
+}
+
+function offlineStatusPayload(env, disabled = false) {
   return {
     mode: 'local-pilot',
     remoteOwnerPreview: true,
     provider: 'ollama',
-    model: String(env.CARANA_MODEL || 'local-mac'),
+    model: String(env.CARANA_MODEL || 'gemma4:26b'),
     requiresAccess: true,
+    authEndpoint: true,
     qualification: String(env.CARANA_QUALIFICATION || 'not-qualified'),
     connected: false,
+    pilotDisabled: !!disabled,
     tts: { available: false, voices: [] }
   };
 }
@@ -53,6 +74,7 @@ async function readLimitedJsonBody(req, maxBytes) {
     chunks.push(buf);
   }
   const raw = Buffer.concat(chunks).toString('utf8');
+  if (!raw.trim()) return { raw: '{}' };
   try {
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
@@ -92,25 +114,29 @@ function createRemoteProxy(env = process.env, fetchImpl = globalThis.fetch) {
       return sendJson(res, 404, { message: 'Not found.' });
     }
 
+    const { hostAllowed, originAllowed } = buildAllowlists(env);
     const host = String(req.headers.host || '').split(':')[0].trim();
-    if (host && !ALLOWED_HOST_RE.test(host)) {
+    if (host && !hostAllowed(host)) {
       return sendJson(res, 403, { message: 'Host is not permitted.' });
     }
 
     const origin = String(req.headers.origin || '').trim();
-    if (origin && !ALLOWED_ORIGIN_RE.test(origin)) {
+    if (origin && !originAllowed(origin)) {
       return sendJson(res, 403, { message: 'Origin is not permitted.' });
     }
 
-    const isPost = pathname === '/api/tutor' || pathname === '/api/tts';
+    const isPost = pathname === '/api/tutor' || pathname === '/api/tts' || pathname === '/api/tutor/auth';
     if (isPost) {
       if (req.method !== 'POST') return sendJson(res, 405, { message: 'Method not allowed.' });
-      if (!origin || !ALLOWED_ORIGIN_RE.test(origin)) {
+      if (!origin || !originAllowed(origin)) {
         return sendJson(res, 403, { message: 'A same-origin browser request is required.' });
+      }
+      if (env.CARANA_PILOT_DISABLED === 'true') {
+        return sendJson(res, 503, { code: 'PILOT_DISABLED', message: 'The remote AI pilot has been paused by the course administrator.' });
       }
       const authHeader = String(req.headers.authorization || '').trim();
       if (!authHeader.startsWith('Bearer ') || authHeader.length <= 7) {
-        return sendJson(res, 401, { message: 'Pilot access code was not accepted. Re-enter the code.' });
+        return sendJson(res, 401, { message: 'Access code was not accepted. Re-enter the code.' });
       }
       const ctype = String(req.headers['content-type'] || '').toLowerCase();
       if (!ctype.startsWith('application/json')) {
@@ -118,6 +144,11 @@ function createRemoteProxy(env = process.env, fetchImpl = globalThis.fetch) {
       }
     } else if (req.method !== 'GET') {
       return sendJson(res, 405, { message: 'Method not allowed.' });
+    }
+
+    if (env.CARANA_PILOT_DISABLED === 'true') {
+      if (pathname === '/api/tutor/status') return sendJson(res, 200, offlineStatusPayload(env, true));
+      return sendJson(res, 503, { ok: false, connected: false, pilotDisabled: true, message: 'The remote AI pilot has been paused by the course administrator.' });
     }
 
     let rawBody;
@@ -132,7 +163,8 @@ function createRemoteProxy(env = process.env, fetchImpl = globalThis.fetch) {
     const forwardedOrigin = origin || 'https://' + (host || 'carana-cbd-elearning.vercel.app');
     const forwardHeaders = {
       'X-CARANA-Proxy-Secret': env.CARANA_PROXY_SECRET,
-      'X-CARANA-Forwarded-Origin': forwardedOrigin
+      'X-CARANA-Forwarded-Origin': forwardedOrigin,
+      'ngrok-skip-browser-warning': '1'
     };
     if (req.headers.authorization) forwardHeaders.Authorization = String(req.headers.authorization);
     if (isPost) forwardHeaders['Content-Type'] = 'application/json';
@@ -195,15 +227,14 @@ function createRemoteProxy(env = process.env, fetchImpl = globalThis.fetch) {
         return;
       }
 
-      // Tunnel down / Cloudflare 502-530 HTML / unexpected upstream content -> fail closed & honest
       if (pathname === '/api/tutor/status') {
         return sendJson(res, 200, offlineStatusPayload(env));
       }
       if (pathname === '/api/health') {
-        return sendJson(res, 503, { ok: false, connected: false, message: 'Owner local AI service is offline.' });
+        return sendJson(res, 503, { ok: false, connected: false, message: 'Local AI tunnel is offline.' });
       }
       return sendJson(res, 503, {
-        message: 'Owner local AI service is offline or unreachable right now. Start the local tunnel or continue using the course.'
+        message: 'Local AI service is offline or unreachable right now. Retry shortly or continue using the course.'
       });
     } catch (_) {
       if (res.destroyed || res.writableEnded) return;
@@ -211,10 +242,10 @@ function createRemoteProxy(env = process.env, fetchImpl = globalThis.fetch) {
         return sendJson(res, 200, offlineStatusPayload(env));
       }
       if (pathname === '/api/health') {
-        return sendJson(res, 503, { ok: false, connected: false, message: 'Owner local AI service is offline.' });
+        return sendJson(res, 503, { ok: false, connected: false, message: 'Local AI tunnel is offline.' });
       }
       return sendJson(res, 503, {
-        message: 'Owner local AI service is offline or unreachable right now. Start the local tunnel or continue using the course.'
+        message: 'Local AI service is offline or timed out. Retry shortly or continue reading the course.'
       });
     } finally {
       clearTimeout(timer);
@@ -224,6 +255,7 @@ function createRemoteProxy(env = process.env, fetchImpl = globalThis.fetch) {
 
 const defaultHandler = createRemoteProxy();
 defaultHandler.createRemoteProxy = createRemoteProxy;
-defaultHandler.ALLOWED_ORIGIN_RE = ALLOWED_ORIGIN_RE;
-defaultHandler.ALLOWED_HOST_RE = ALLOWED_HOST_RE;
+defaultHandler.ALLOWED_ORIGIN_RE = DEFAULT_ORIGIN_RE;
+defaultHandler.ALLOWED_HOST_RE = DEFAULT_HOST_RE;
+defaultHandler.buildAllowlists = buildAllowlists;
 module.exports = defaultHandler;

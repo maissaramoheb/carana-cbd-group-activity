@@ -46,6 +46,7 @@
   let activeAudioUrl = '';
   let activeObserver = null;
   let access = '';
+  let accessUser = null;
   let conversation = [];
   let contextKey = '';
   let selected = null;
@@ -926,6 +927,55 @@
     activeObserver.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['open', 'hidden'] });
   }
 
+  function appendFormattedInline(parent, text) {
+    const str = String(text || '');
+    const re = /\*\*([^*\n]+)\*\*/g;
+    let last = 0;
+    let m;
+    while ((m = re.exec(str))) {
+      if (m.index > last) parent.append(document.createTextNode(str.slice(last, m.index)));
+      const strong = document.createElement('strong');
+      strong.textContent = m[1];
+      parent.append(strong);
+      last = m.index + m[0].length;
+    }
+    if (last < str.length) parent.append(document.createTextNode(str.slice(last)));
+  }
+
+  function appendRichParagraphs(container, block) {
+    const lines = String(block || '').split('\n').map(l => l.trim()).filter(Boolean);
+    let listEl = null;
+    let listTag = '';
+    const flushList = () => {
+      if (listEl) {
+        container.append(listEl);
+        listEl = null;
+        listTag = '';
+      }
+    };
+    for (const line of lines) {
+      const bulletMatch = line.match(/^(?:[-*•])\s+(.+)$/);
+      const numMatch = !bulletMatch ? line.match(/^\d+[.)]\s+(.+)$/) : null;
+      if (bulletMatch || numMatch) {
+        const tag = bulletMatch ? 'ul' : 'ol';
+        if (!listEl || listTag !== tag) {
+          flushList();
+          listEl = document.createElement(tag);
+          listTag = tag;
+        }
+        const li = document.createElement('li');
+        appendFormattedInline(li, (bulletMatch || numMatch)[1]);
+        listEl.append(li);
+      } else {
+        flushList();
+        const p = document.createElement('p');
+        appendFormattedInline(p, line);
+        container.append(p);
+      }
+    }
+    flushList();
+  }
+
   function formatAssistantBody(container, text) {
     container.innerHTML = '';
     const sections = String(text || '').split(/\n{2,}/);
@@ -937,23 +987,19 @@
         box.className = 'assistant-callout assistant-callout-example';
         const h = document.createElement('strong');
         h.textContent = 'Invented teaching example';
-        const p = document.createElement('p');
-        p.textContent = trimmed.replace(/^Invented teaching example:\s*/i, '');
-        box.append(h, p);
+        box.append(h);
+        appendRichParagraphs(box, trimmed.replace(/^Invented teaching example:\s*/i, ''));
         container.append(box);
       } else if (/^Evidence limits:/i.test(trimmed)) {
         const box = document.createElement('div');
         box.className = 'assistant-callout assistant-callout-limits';
         const h = document.createElement('strong');
         h.textContent = 'Evidence limits';
-        const p = document.createElement('p');
-        p.textContent = trimmed.replace(/^Evidence limits:\s*/i, '');
-        box.append(h, p);
+        box.append(h);
+        appendRichParagraphs(box, trimmed.replace(/^Evidence limits:\s*/i, ''));
         container.append(box);
       } else {
-        const p = document.createElement('p');
-        p.textContent = trimmed;
-        container.append(p);
+        appendRichParagraphs(container, trimmed);
       }
     }
   }
@@ -1009,12 +1055,16 @@
       '</header>' +
       '<div class="assistant-subhead">' +
       '  <p id="assistant-context" class="assistant-context"></p>' +
-      '  <p id="assistant-availability" class="support-status assistant-status-pill" role="status">Checking local companion status…</p>' +
+      '  <div class="assistant-status-row">' +
+      '    <p id="assistant-availability" class="support-status assistant-status-pill" role="status">Checking local companion status…</p>' +
+      '    <button id="assistant-retry-status" type="button" class="assistant-mini-btn" hidden>Retry</button>' +
+      '    <button id="assistant-signout" type="button" class="assistant-mini-btn" hidden>Sign out</button>' +
+      '  </div>' +
       '  <div id="assistant-access" class="assistant-access-card" hidden>' +
-      '    <label for="assistant-code">Local studio access code <input id="assistant-code" type="password" autocomplete="off" placeholder="Paste code from pilot-access.txt"></label>' +
+      '    <label for="assistant-code">Pilot access code <input id="assistant-code" type="password" autocomplete="off" placeholder="Enter your invitation or studio code"></label>' +
       '    <button id="assistant-connect" type="button" class="support-primary">Connect</button>' +
       '  </div>' +
-      '  <p class="assistant-notice">Use curriculum material only — do not enter personal, confidential, or operational data. Responses remain ungraded study guidance.</p>' +
+      '  <p class="assistant-notice">Experimental study aid — not an official UN instrument. Use curriculum material only; do not enter personal or operational data.</p>' +
       '</div>' +
       '<div class="assistant-prompts" role="group" aria-label="Suggested study prompts">' +
       '  <button type="button" data-prompt="Explain this screen more simply.">Explain this screen</button>' +
@@ -1130,74 +1180,155 @@
     for (const m of conversation) showMessage(m.role, m.text, m.sources, true);
 
     let available = false;
+    let statusMeta = null;
     const modePill = panel.querySelector('#assistant-mode-pill');
     const availEl = panel.querySelector('#assistant-availability');
     const accessBox = panel.querySelector('#assistant-access');
+    const retryStatusBtn = panel.querySelector('#assistant-retry-status');
+    const signoutBtn = panel.querySelector('#assistant-signout');
     const sendBtn = panel.querySelector('#assistant-send');
 
-    try {
-      const response = await fetch('/api/tutor/status', { signal: AbortSignal.timeout(5000) });
-      if (!response.ok) throw Error('Unavailable');
-      const status = await response.json();
-      if (panel !== localPanel) return;
-      if (status.mode !== 'local-pilot') throw Error('Unavailable');
-      available = !!status.connected;
-      if (status.tts?.available) {
-        localTtsInfo = status.tts;
-      }
-      if (status.connected) {
-        const isSim = status.provider === 'simulated-test';
-        const isHold = !status.qualification || status.qualification === 'not-qualified';
-        modePill.textContent = isSim
-          ? 'Simulated Test'
-          : status.remoteOwnerPreview
-            ? (isHold ? 'Owner Preview · HOLD' : 'Owner Pilot')
-            : (isHold ? 'Experimental · HOLD' : 'Local Pilot');
-        modePill.dataset.state = isSim ? 'simulated' : 'connected';
-        availEl.dataset.state = isSim ? 'simulated' : 'connected';
-        const prefix = status.remoteOwnerPreview ? 'Remote owner preview · ' : '';
-        availEl.textContent = isSim
-          ? 'Simulated test provider · not AI: ' + status.model
-          : prefix +
-            (isHold
-              ? 'Experimental local model · NOT QUALIFIED for teaching: '
-              : 'Local pilot · real on-device model: ') +
-            status.model;
-      } else {
-        modePill.textContent = 'Offline';
-        modePill.dataset.state = 'offline';
-        availEl.dataset.state = 'offline';
-        availEl.textContent = 'Local model is offline. The course remains available.';
-      }
-      accessBox.hidden = !status.requiresAccess || (!!access && available);
-      sendBtn.disabled = !status.connected || !access;
-    } catch (_) {
-      if (panel === localPanel) {
-        modePill.textContent = 'Public Preview';
-        modePill.dataset.state = 'offline';
-        availEl.dataset.state = 'offline';
-        availEl.textContent =
-          'Not connected in this preview. You can continue the lesson and use Read Screen. Live AI is available only in the controlled local pilot.';
-        sendBtn.disabled = true;
+    function renderConnectedBanner(status) {
+      const isSim = status.provider === 'simulated-test';
+      const isHold = !status.qualification || status.qualification === 'not-qualified';
+      modePill.textContent = isSim
+        ? 'Simulated Test'
+        : status.remoteOwnerPreview
+          ? (isHold ? 'Owner Preview · HOLD' : 'Experimental Pilot')
+          : (isHold ? 'Experimental · HOLD' : 'Experimental Pilot');
+      modePill.dataset.state = isSim ? 'simulated' : 'connected';
+      availEl.dataset.state = isSim ? 'simulated' : 'connected';
+      const prefix = accessUser ? `${accessUser.displayName} (${accessUser.role}) · ` : status.remoteOwnerPreview ? 'Remote pilot · ' : '';
+      const queueNote = status.busy ? ` · busy (${status.queueDepth || 0} queued)` : '';
+      availEl.textContent = isSim
+        ? 'Simulated test provider · not AI: ' + status.model
+        : prefix +
+          (isHold
+            ? 'Experimental local model · NOT QUALIFIED for teaching: '
+            : 'Experimental local model · controlled pilot: ') +
+          status.model +
+          queueNote;
+    }
+
+    async function refreshStatus() {
+      retryStatusBtn.hidden = true;
+      try {
+        const response = await fetch('/api/tutor/status', { signal: AbortSignal.timeout(5000) });
+        if (!response.ok) throw Error('Unavailable');
+        const status = await response.json();
+        if (panel !== localPanel) return;
+        if (status.mode !== 'local-pilot') throw Error('Unavailable');
+        statusMeta = status;
+        available = !!status.connected;
+        if (status.tts?.available) {
+          localTtsInfo = status.tts;
+        }
+        if (status.connected) {
+          renderConnectedBanner(status);
+        } else {
+          modePill.textContent = status.pilotDisabled ? 'Pilot Paused' : 'Offline';
+          modePill.dataset.state = 'offline';
+          availEl.dataset.state = 'offline';
+          availEl.textContent = status.pilotDisabled
+            ? 'The invited pilot is currently paused by the administrator. Course navigation continues offline.'
+            : 'Local model is offline or starting up. The course remains available.';
+          retryStatusBtn.hidden = false;
+        }
+        accessBox.hidden = !status.requiresAccess || (!!access && available);
+        signoutBtn.hidden = !(!!access && available && status.requiresAccess);
+        sendBtn.disabled = !status.connected || !access;
+      } catch (_) {
+        if (panel === localPanel) {
+          statusMeta = null;
+          available = false;
+          modePill.textContent = 'Public Preview';
+          modePill.dataset.state = 'offline';
+          availEl.dataset.state = 'offline';
+          availEl.textContent =
+            'Not connected in this preview. You can continue the lesson and use Read Screen. Live AI is available only in authorized pilot environments.';
+          retryStatusBtn.hidden = false;
+          accessBox.hidden = true;
+          signoutBtn.hidden = true;
+          sendBtn.disabled = true;
+        }
       }
     }
+
+    await refreshStatus();
+    retryStatusBtn.onclick = refreshStatus;
+    signoutBtn.onclick = () => {
+      access = '';
+      accessUser = null;
+      sendBtn.disabled = true;
+      signoutBtn.hidden = true;
+      accessBox.hidden = !available;
+      if (statusMeta?.connected) renderConnectedBanner(statusMeta);
+      localPanel.querySelector('#assistant-reply-status').textContent = 'Signed out. Enter an access code to reconnect.';
+      localPanel.querySelector('#assistant-code')?.focus();
+    };
 
     if (panel !== localPanel) return;
 
     const codeInput = panel.querySelector('#assistant-code');
-    const triggerConnect = () => {
-      access = codeInput.value.trim();
-      codeInput.value = '';
-      sendBtn.disabled = !available || !access;
-      if (access && available) {
-        accessBox.hidden = true;
-        panel.querySelector('#assistant-reply-status').textContent = 'Access code will be checked when you send a question.';
-        input.focus();
+    const connectBtn = panel.querySelector('#assistant-connect');
+    const triggerConnect = async () => {
+      const candidate = codeInput.value.trim();
+      if (!candidate || !available) {
+        panel.querySelector('#assistant-reply-status').textContent = available
+          ? 'Enter your invitation or pilot access code first.'
+          : 'Wait until the AI service shows connected before signing in.';
+        return;
+      }
+      if (statusMeta?.authEndpoint) {
+        connectBtn.disabled = true;
+        codeInput.disabled = true;
+        panel.querySelector('#assistant-reply-status').textContent = 'Verifying access code with server…';
+        try {
+          const authRes = await fetch('/api/tutor/auth', {
+            method: 'POST',
+            headers: { Authorization: 'Bearer ' + candidate, 'Content-Type': 'application/json' },
+            body: '{}',
+            signal: AbortSignal.timeout(8000)
+          });
+          const data = await authRes.json().catch(() => ({}));
+          if (!authRes.ok || !data.authenticated) {
+            access = '';
+            accessUser = null;
+            codeInput.value = '';
+            sendBtn.disabled = true;
+            panel.querySelector('#assistant-reply-status').textContent = data.message || 'Access code was not accepted.';
+            codeInput.disabled = false;
+            connectBtn.disabled = false;
+            codeInput.focus();
+            return;
+          }
+          access = candidate;
+          accessUser = data;
+          codeInput.value = '';
+          accessBox.hidden = true;
+          signoutBtn.hidden = false;
+          sendBtn.disabled = !available || !access;
+          renderConnectedBanner(statusMeta);
+          panel.querySelector('#assistant-reply-status').textContent = 'Signed in as ' + data.displayName + '.';
+          input.focus();
+        } catch (_) {
+          panel.querySelector('#assistant-reply-status').textContent = 'Could not reach the authentication server. Retry shortly.';
+        } finally {
+          connectBtn.disabled = false;
+          codeInput.disabled = false;
+        }
       } else {
-        panel.querySelector('#assistant-reply-status').textContent = 'Enter a local pilot access code first.';
+        access = candidate;
+        accessUser = null;
+        codeInput.value = '';
+        sendBtn.disabled = !available || !access;
+        accessBox.hidden = true;
+        signoutBtn.hidden = false;
+        panel.querySelector('#assistant-reply-status').textContent = 'Access code ready.';
+        input.focus();
       }
     };
-    panel.querySelector('#assistant-connect').onclick = triggerConnect;
+    connectBtn.onclick = triggerConnect;
     codeInput.onkeydown = e => {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -1236,10 +1367,13 @@
         });
         if (!response.ok) {
           const error = await response.json().catch(() => ({}));
-          if (response.status === 401) {
+          if (response.status === 401 || response.status === 403) {
             access = '';
+            accessUser = null;
             accessBox.hidden = false;
+            signoutBtn.hidden = true;
           }
+          if (response.status === 503) retryStatusBtn.hidden = false;
           throw Error(error.message || 'The local service could not complete this question.');
         }
 
@@ -1253,7 +1387,17 @@
             buffer = buffer.slice(n + 1);
             if (!line.trim()) continue;
             const row = JSON.parse(line);
+            if (row.type === 'queued') {
+              status.dataset.queue = 'true';
+              status.textContent =
+                'Queued (position ' + row.position + (row.queueLength > 1 ? ' of ' + row.queueLength : '') + ') · waiting for current question to finish…';
+            }
+            if (row.type === 'started') {
+              delete status.dataset.queue;
+              status.textContent = 'Your turn — generating source-checked response…';
+            }
             if (row.type === 'content') {
+              delete status.dataset.queue;
               text += row.text;
               formatAssistantBody(reply, text);
               const wrap = panel.querySelector('#assistant-messages');

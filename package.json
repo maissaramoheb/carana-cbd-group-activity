@@ -7,11 +7,17 @@
   },
   "scripts": {
     "build": "node tools/build-course.mjs",
-    "test": "node tests/run-tests.js && node course/tests/v05-smoke.cjs && node --test course/tests/build-integrity.cjs && node --test tests/platform/content.cjs && node --test tests/platform/learning-tools.cjs && node --test tests/platform/progress-recovery.cjs && node --test tests/platform/handoff.cjs && node --test tests/platform/notebook.cjs && node --test tests/platform/exploration.cjs && node --test tests/support/tutor.cjs tests/support/provider.cjs tests/support/remote-proxy.cjs",
+    "test": "node tests/run-tests.js && node course/tests/v05-smoke.cjs && node --test course/tests/build-integrity.cjs && node --test tests/platform/content.cjs && node --test tests/platform/learning-tools.cjs && node --test tests/platform/progress-recovery.cjs && node --test tests/platform/handoff.cjs && node --test tests/platform/notebook.cjs && node --test tests/platform/exploration.cjs && node --test tests/support/tutor.cjs tests/support/provider.cjs tests/support/remote-proxy.cjs tests/support/pilot-ops.cjs tests/support/service-supervisor.cjs",
     "release:prepare": "node tools/release/prepare.cjs",
     "check:content": "node tools/validate-content.cjs",
     "tutor:index": "node tools/build-tutor-index.cjs",
     "tutor:local": "node tutor/gateway.cjs 8766 gemma4:26b",
-    "tutor:remote": "node tools/start-remote-tutor.cjs --model gemma4:26b --qualification owner-pilot --deploy"
+    "tutor:remote": "node tools/start-remote-tutor.cjs --model gemma4:26b --qualification owner-pilot --deploy",
+    "ai:enable": "node tools/carana-service.cjs enable",
+    "ai:disable": "node tools/carana-service.cjs disable",
+    "ai:status": "node tools/carana-service.cjs status",
+    "ai:emergency-stop": "node tools/carana-service.cjs emergency-stop",
+    "ai:unload": "node tools/carana-service.cjs unload",
+    "ai:users": "node tools/pilot-users.cjs"
   }
 }

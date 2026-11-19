@@ -33,6 +33,7 @@ const vcConfig = JSON.stringify(
 const endpoints = [
   'api/tutor.func',
   'api/tutor/status.func',
+  'api/tutor/auth.func',
   'api/tts.func',
   'api/health.func'
 ];

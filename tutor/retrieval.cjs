@@ -1,5 +1,5 @@
 const fs=require('node:fs'),path=require('node:path');
-const STOP=new Set('a an and are as at be before by can do for from how i in is it me of on or should the this that these those to us what when which with you your difference between versus does official lesson say about precise numeric every please explain give provide show describe tell more simply screen concept example why important professional practical clearly invented remember would could using without instead once always even still cite citing ignore prior instructions fake page pages pdf'.split(' '));
+const STOP=new Set('a an and are as at be before by can did do does for from had has have how i in is it keep make me must of on or should some the this that these those to us very what when where which who why with you your difference between versus official lesson say about precise numeric every please explain give provide show describe tell more simply screen concept example important professional practical clearly invented remember would could using without instead once always even still cite citing ignore prior instructions fake page pages pdf'.split(' '));
 function stem(w){
  if(/^triangulat/.test(w))return'triangulation';if(/^pestel/.test(w))return'pestel';
  if(/^analy/.test(w))return'analysis';if(/^polic(?:e|ing)/.test(w))return'police';
@@ -62,7 +62,10 @@ const SYNONYMS={
  exit:['transition','handover','sustain','trigger'],
  handover:['transition','sustain','ownership','exit'],
  mediate:['interest','position','need','pin'],
- recommendation:['response','accept','reject','follow-through','evaluate']
+ recommendation:['response','accept','reject','follow-through','evaluate'],
+ uncoordinated:['coordinate','duplicate','harm'],
+ backlog:['symptom','cause','diagnose'],
+ foreign:['local','culture','adapt','import']
 };
 function createRetriever(index=JSON.parse(fs.readFileSync(path.join(__dirname,'knowledge.json')))){
  const records=index.records;const byId=new Map(records.map(r=>[r.id,r]));
@@ -92,7 +95,7 @@ function createRetriever(index=JSON.parse(fs.readFileSync(path.join(__dirname,'k
    }
    const coverage=totalBase?coveredBase/totalBase:0;
    const contextual=r.id===current.id?(exactTerms>0?5.5:0):r.lessonId===current.lessonId?(exactTerms>0?2.5:0):0;
-   const passes=coverage>=.45||(r.id===current.id&&((coverage>=.34&&exactTerms>=3)||(titleHits>=2&&exactTerms>=2&&coverage>=.22)))||(coverage>=.36&&exactTerms>=3&&titleHits>=1);
+   const passes=coverage>=.45||(r.id===current.id&&((coverage>=.22&&exactTerms>=3)||(titleHits>=2&&exactTerms>=2&&coverage>=.14)))||(coverage>=.36&&exactTerms>=3&&titleHits>=1);
    return{r,lexical,coverage,exactTerms,titleHits,passes,score:lexical*(coverage**2)+contextual+(titleHits*1.2)};
   }).filter(x=>x.lexical>0&&x.passes).sort((a,b)=>b.score-a.score||a.r.id.localeCompare(b.r.id));
   return scored.slice(0,limit).map(({r})=>({...r,text:r.text.slice(0,2250)}));
