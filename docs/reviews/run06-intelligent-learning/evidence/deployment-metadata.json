@@ -1,12 +1,12 @@
 {
-  "checkedUTC": "2026-11-19T07:05:51.448Z",
+  "checkedUTC": "2026-11-19T07:27:53.743Z",
   "preview": {
-    "id": "dpl_7MtEso9JsZ7ySJ7bsGiGb59Wfj3P",
-    "url": "carana-cbd-elearning-7v3u4udc2-delta4ce20-5830s-projects.vercel.app",
+    "id": "dpl_9TzLLDKBR75bxEV9TszdFN1PCxh5",
+    "url": "carana-cbd-elearning-5pcts99ds-delta4ce20-5830s-projects.vercel.app",
     "readyState": "READY",
     "target": null,
-    "sourceCommit": "c83836c45c577a5f385cd1405aed1637d8cac8a1",
-    "sourceEvidence": "deployed manifest + full84-file identifier comparison"
+    "sourceCommit": "976250223cde47ae1a7ef389c693dc00b7752398",
+    "sourceEvidence": "deployed manifest + complete84-file identifier comparison"
   },
   "production": {
     "alias": "cbd.maissara.tech",

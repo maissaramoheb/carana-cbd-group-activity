@@ -1,0 +1,57 @@
+{
+  "checkedUTC": "2026-11-19T07:26:26.547781+00:00",
+  "measuredDuringThisRun": {
+    "qwen3:1.7b": {
+      "loaded": "1.5GB",
+      "processor": "100%GPU",
+      "context": 4096
+    },
+    "qwen3:4b": {
+      "loaded": "3.2GB",
+      "processor": "100%GPU",
+      "context": 4096
+    }
+  },
+  "qualifiedTeachingModel": null,
+  "originalRuntimeAndModelsPreserved": true,
+  "downloadedModels": [
+    "qwen3:0.6b",
+    "qwen3:1.7b",
+    "qwen3:4b"
+  ],
+  "modelWeightsIncludedInBackup": false,
+  "machine": "Mac17,9",
+  "ramBytes": "25769803776",
+  "logicalCpus": "15",
+  "architecture": "arm64",
+  "runtimeVersion": "ollama version is 0.40.16",
+  "installedModels": "NAME              ID              SIZE      MODIFIED       \nqwen3:4b          359d7dd4bcda    2.5 GB    18 minutes ago    \nqwen3:1.7b        8f68893c685c    1.4 GB    8 hours ago       \nqwen3:0.6b        7df6b6e09427    522 MB    9 hours ago       \ngemma4:26b        777b927e3b6b    17 GB     5 weeks ago       \nglm-ocr:latest    6effedd0dc8a    2.2 GB    6 months ago",
+  "currentlyLoaded": "NAME    ID    SIZE    PROCESSOR    CONTEXT    RUNNER    UNTIL",
+  "modelDigests": [
+    {
+      "name": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "size": 2497293931
+    },
+    {
+      "name": "qwen3:1.7b",
+      "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+      "size": 1359293444
+    },
+    {
+      "name": "qwen3:0.6b",
+      "digest": "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435",
+      "size": 522653767
+    },
+    {
+      "name": "gemma4:26b",
+      "digest": "777b927e3b6b1452e44c31a7b6d136dbefe34826b0528e0d8cd67c73dd9eef29",
+      "size": 17989350748
+    },
+    {
+      "name": "glm-ocr:latest",
+      "digest": "6effedd0dc8aec66ad86c94b8099395376e212f22c87a9d7147c422f7e447be4",
+      "size": 2219299168
+    }
+  ]
+}
