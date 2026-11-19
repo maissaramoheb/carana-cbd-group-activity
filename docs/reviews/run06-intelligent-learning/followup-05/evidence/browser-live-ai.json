@@ -1,0 +1,21 @@
+{
+  "model": "gemma4:26b",
+  "checkedAtUTC": "2026-11-19T16:29:13.998Z",
+  "tunnelCheck": {
+    "ok": true,
+    "ttsEngine": "apple-neural-nora",
+    "wavBytes": 124380
+  },
+  "desktop": {
+    "elapsedMs": 42753,
+    "listenPresent": true,
+    "enterConnectOk": true,
+    "checkpointGuardOk": true,
+    "zeroPageErrors": true
+  },
+  "mobile": {
+    "elapsedMs": 11082,
+    "overflowOk": true,
+    "zeroPageErrors": true
+  }
+}

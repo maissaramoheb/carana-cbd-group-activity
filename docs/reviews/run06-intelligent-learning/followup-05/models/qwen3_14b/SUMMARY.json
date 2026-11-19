@@ -1,0 +1,52 @@
+{
+  "model": "qwen3:14b",
+  "evaluatedAtUTC": "2026-11-19T16:02:06.827Z",
+  "ollamaPs": "NAME         ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL              \nqwen3:14b    bdbd181c33f2    9.0 GB    100% GPU     4096       llamacpp    4 minutes from now",
+  "fixed": {
+    "total": 12,
+    "generated": 12,
+    "failed": 0,
+    "retrievalDecline": 0,
+    "policyIntercept": 0
+  },
+  "heldOut": {
+    "total": 14,
+    "generated": 9,
+    "failed": 2,
+    "retrievalDecline": 2,
+    "policyIntercept": 1
+  },
+  "unseenF05": {
+    "total": 16,
+    "generated": 12,
+    "failed": 2,
+    "retrievalDecline": 1,
+    "policyIntercept": 1
+  },
+  "latencies": {
+    "fixed": {
+      "count": 12,
+      "minMs": 11701,
+      "medianMs": 15725,
+      "meanMs": 15781,
+      "p95Ms": 21989,
+      "maxMs": 21989
+    },
+    "heldOut": {
+      "count": 11,
+      "minMs": 11087,
+      "medianMs": 15630,
+      "meanMs": 15486,
+      "p95Ms": 19749,
+      "maxMs": 19749
+    },
+    "unseenF05": {
+      "count": 14,
+      "minMs": 9432,
+      "medianMs": 16344,
+      "meanMs": 16157,
+      "p95Ms": 22060,
+      "maxMs": 22060
+    }
+  }
+}

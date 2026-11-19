@@ -1,0 +1,110 @@
+[
+  {
+    "viewport": "desktop-1440",
+    "route": "course/#lesson-1",
+    "state": "closed",
+    "violations": 0
+  },
+  {
+    "viewport": "desktop-1440",
+    "route": "course/#lesson-1",
+    "state": "reading",
+    "violations": 0
+  },
+  {
+    "viewport": "desktop-1440",
+    "route": "course/#lesson-1",
+    "state": "assistant",
+    "violations": 0
+  },
+  {
+    "viewport": "desktop-1440",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "closed",
+    "violations": 0
+  },
+  {
+    "viewport": "desktop-1440",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "reading",
+    "violations": 0
+  },
+  {
+    "viewport": "desktop-1440",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "assistant",
+    "violations": 0
+  },
+  {
+    "viewport": "tablet-768",
+    "route": "course/#lesson-1",
+    "state": "closed",
+    "violations": 0
+  },
+  {
+    "viewport": "tablet-768",
+    "route": "course/#lesson-1",
+    "state": "reading",
+    "violations": 0
+  },
+  {
+    "viewport": "tablet-768",
+    "route": "course/#lesson-1",
+    "state": "assistant",
+    "violations": 0
+  },
+  {
+    "viewport": "tablet-768",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "closed",
+    "violations": 0
+  },
+  {
+    "viewport": "tablet-768",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "reading",
+    "violations": 0
+  },
+  {
+    "viewport": "tablet-768",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "assistant",
+    "violations": 0
+  },
+  {
+    "viewport": "mobile-390",
+    "route": "course/#lesson-1",
+    "state": "closed",
+    "violations": 0
+  },
+  {
+    "viewport": "mobile-390",
+    "route": "course/#lesson-1",
+    "state": "reading",
+    "violations": 0
+  },
+  {
+    "viewport": "mobile-390",
+    "route": "course/#lesson-1",
+    "state": "assistant",
+    "violations": 0
+  },
+  {
+    "viewport": "mobile-390",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "closed",
+    "violations": 0
+  },
+  {
+    "viewport": "mobile-390",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "reading",
+    "violations": 0
+  },
+  {
+    "viewport": "mobile-390",
+    "route": "platform/?course=cbd&lesson=cbd-3",
+    "state": "assistant",
+    "violations": 0
+  }
+]

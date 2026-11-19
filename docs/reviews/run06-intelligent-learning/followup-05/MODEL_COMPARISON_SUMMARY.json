@@ -1,0 +1,161 @@
+{
+  "evaluatedAtUTC": "2026-11-19T16:09:18.593Z",
+  "models": [
+    {
+      "model": "qwen3:4b-instruct-2507-q4_K_M",
+      "evaluatedAtUTC": "2026-11-19T15:52:20.714Z",
+      "ollamaPs": "NAME                             ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL              \nqwen3:4b-instruct-2507-q4_K_M    0edcdef34593    3.2 GB    100% GPU     4096       llamacpp    4 minutes from now",
+      "fixed": {
+        "total": 12,
+        "generated": 10,
+        "failed": 2,
+        "retrievalDecline": 0,
+        "policyIntercept": 0
+      },
+      "heldOut": {
+        "total": 14,
+        "generated": 9,
+        "failed": 2,
+        "retrievalDecline": 2,
+        "policyIntercept": 1
+      },
+      "unseenF05": {
+        "total": 16,
+        "generated": 11,
+        "failed": 3,
+        "retrievalDecline": 1,
+        "policyIntercept": 1
+      },
+      "latencies": {
+        "fixed": {
+          "count": 12,
+          "minMs": 4349,
+          "medianMs": 4868,
+          "meanMs": 5098,
+          "p95Ms": 6357,
+          "maxMs": 6357
+        },
+        "heldOut": {
+          "count": 11,
+          "minMs": 3896,
+          "medianMs": 4968,
+          "meanMs": 4991,
+          "p95Ms": 7202,
+          "maxMs": 7202
+        },
+        "unseenF05": {
+          "count": 14,
+          "minMs": 4167,
+          "medianMs": 5416,
+          "meanMs": 5416,
+          "p95Ms": 7589,
+          "maxMs": 7589
+        }
+      }
+    },
+    {
+      "model": "qwen3:14b",
+      "evaluatedAtUTC": "2026-11-19T16:02:06.827Z",
+      "ollamaPs": "NAME         ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL              \nqwen3:14b    bdbd181c33f2    9.0 GB    100% GPU     4096       llamacpp    4 minutes from now",
+      "fixed": {
+        "total": 12,
+        "generated": 12,
+        "failed": 0,
+        "retrievalDecline": 0,
+        "policyIntercept": 0
+      },
+      "heldOut": {
+        "total": 14,
+        "generated": 9,
+        "failed": 2,
+        "retrievalDecline": 2,
+        "policyIntercept": 1
+      },
+      "unseenF05": {
+        "total": 16,
+        "generated": 12,
+        "failed": 2,
+        "retrievalDecline": 1,
+        "policyIntercept": 1
+      },
+      "latencies": {
+        "fixed": {
+          "count": 12,
+          "minMs": 11701,
+          "medianMs": 15725,
+          "meanMs": 15781,
+          "p95Ms": 21989,
+          "maxMs": 21989
+        },
+        "heldOut": {
+          "count": 11,
+          "minMs": 11087,
+          "medianMs": 15630,
+          "meanMs": 15486,
+          "p95Ms": 19749,
+          "maxMs": 19749
+        },
+        "unseenF05": {
+          "count": 14,
+          "minMs": 9432,
+          "medianMs": 16344,
+          "meanMs": 16157,
+          "p95Ms": 22060,
+          "maxMs": 22060
+        }
+      }
+    },
+    {
+      "model": "gemma4:26b",
+      "evaluatedAtUTC": "2026-11-19T16:09:18.591Z",
+      "ollamaPs": "NAME          ID              SIZE      PROCESSOR          CONTEXT    RUNNER      UNTIL              \ngemma4:26b    777b927e3b6b    3.9 GB    68%/32% CPU/GPU    4096       llamacpp    4 minutes from now",
+      "fixed": {
+        "total": 12,
+        "generated": 12,
+        "failed": 0,
+        "retrievalDecline": 0,
+        "policyIntercept": 0
+      },
+      "heldOut": {
+        "total": 14,
+        "generated": 11,
+        "failed": 0,
+        "retrievalDecline": 2,
+        "policyIntercept": 1
+      },
+      "unseenF05": {
+        "total": 16,
+        "generated": 14,
+        "failed": 0,
+        "retrievalDecline": 1,
+        "policyIntercept": 1
+      },
+      "latencies": {
+        "fixed": {
+          "count": 12,
+          "minMs": 6423,
+          "medianMs": 10136,
+          "meanMs": 10452,
+          "p95Ms": 20449,
+          "maxMs": 20449
+        },
+        "heldOut": {
+          "count": 11,
+          "minMs": 8156,
+          "medianMs": 11370,
+          "meanMs": 11821,
+          "p95Ms": 16178,
+          "maxMs": 16178
+        },
+        "unseenF05": {
+          "count": 14,
+          "minMs": 7860,
+          "medianMs": 12450,
+          "meanMs": 12502,
+          "p95Ms": 18727,
+          "maxMs": 18727
+        }
+      }
+    }
+  ]
+}
