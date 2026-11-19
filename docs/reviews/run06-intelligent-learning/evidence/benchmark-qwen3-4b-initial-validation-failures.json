@@ -1,0 +1,144 @@
+{
+  "provider": "genuine-local-ollama",
+  "model": "qwen3:4b",
+  "rows": [
+    {
+      "question": "What is the difference between outputs and outcomes?",
+      "status": "failed",
+      "error": "Model inserted an unsupported numeric claim",
+      "elapsedMs": 3423
+    },
+    {
+      "question": "Explain PESTEL-S with a policing example.",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "02-01"
+      },
+      "retrieved": [
+        "cbd-1:02-01",
+        "cbd-1:02-02"
+      ],
+      "status": "generated",
+      "answer": "PESTEL-S is a framework for reviewing contextual drivers in conflict settings. Political factors involve governance and decision-making authority. Economic factors relate to resources and sustainability. Social factors examine community trust and inclusion. Technological factors cover information systems. Environmental factors address physical constraints. Legal factors include authorities and rights. Security adds conflict and accessibility considerations. Example: In a police reform mission, political incentives might influence leadership commitment, economic pressures could affect budget allocation, social trust impacts community cooperation, technological systems determine data flow, environmental conditions affect patrol access, legal frameworks define police powers, and security concerns address active threats. Note: This is a teaching example, not a real case.",
+      "sourceIds": [
+        "cbd-1:02-01"
+      ],
+      "example": "In a police reform mission, political incentives might influence leadership commitment, economic pressures could affect budget allocation, social trust impacts community cooperation, technological systems determine data flow, environmental conditions affect patrol access, legal frameworks define police powers, and security concerns address active threats.",
+      "uncertainty": "This is a teaching example, not a real case.",
+      "sources": [
+        {
+          "id": "cbd-1:02-01",
+          "title": "Structure the context with PESTEL-S",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "6–7",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 3144,
+        "tokens": 230,
+        "loadMs": 0.664625,
+        "generationMs": 2715.348
+      }
+    },
+    {
+      "question": "Why is triangulation important?",
+      "status": "failed",
+      "error": "Model inserted an unsupported numeric claim",
+      "elapsedMs": 2144
+    },
+    {
+      "question": "Explain this logframe and why an indicator needs verification.",
+      "status": "failed",
+      "error": "Model inserted an unsupported numeric claim",
+      "elapsedMs": 2627
+    },
+    {
+      "question": "What triggers a responsible transition?",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-01"
+      },
+      "retrieved": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02",
+        "cbd-6:06-04"
+      ],
+      "status": "generated",
+      "answer": "A responsible transition is triggered by achieving objectives or significant environmental changes that prevent completing the original activity. Key triggers include political, security, or legal changes; national counterpart decisions; and mission mandate alterations. Evaluation must confirm sufficient progress toward the objective. The Head of Police Component initiates transition based on responsible adviser advice, ensuring clarity on responsibilities and next steps without implying success due to external factors.",
+      "sourceIds": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02",
+        "cbd-6:06-04"
+      ],
+      "example": "Imagine a police mission where political instability makes the original security strategy unfeasible—this environmental change triggers transition, requiring reassessment of objectives and new coordination with local authorities.",
+      "uncertainty": "The triggers must be evaluated for relevance to the specific mission context; some changes may not directly impact feasibility.",
+      "sources": [
+        {
+          "id": "plan-cbd-6:p5",
+          "title": "Triggers for transition",
+          "source": {
+            "kind": "official-plan-teaching-excerpt-paraphrase",
+            "label": "UNPOL CBD Job-Specific Training Lesson 6; 2021 curriculum / July2023 supplied file",
+            "pages": "5",
+            "file": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "sha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3",
+            "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+          }
+        },
+        {
+          "id": "cbd-6:06-02",
+          "title": "Use evidence and context to recognise a trigger",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "5",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        },
+        {
+          "id": "cbd-6:06-04",
+          "title": "Distinguish authority from coordination",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "8",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2653,
+        "tokens": 187,
+        "loadMs": 0.60875,
+        "generationMs": 2212.246
+      }
+    },
+    {
+      "question": "Why should an adviser avoid importing a policing solution unchanged?",
+      "status": "failed",
+      "error": "Model inserted an unsupported numeric claim",
+      "elapsedMs": 2669
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "status": "PASS",
-  "deployment": "dpl_3QTrxDvTwiuMuGEAbV6FnTdzZEmF",
-  "sourceCommit": "d0b6fc06f838683e598695b8ecb44cedccc77050",
-  "method": "All84 Vercel API deployment file identifiers equal SHA1 of exact locally staged bytes; complete nontruncated server file tree. Separate staged manifest carries SHA256 for82 assets. Does not claim every media body was downloaded.",
+  "deployment": "dpl_7MtEso9JsZ7ySJ7bsGiGb59Wfj3P",
+  "sourceCommit": "c83836c45c577a5f385cd1405aed1637d8cac8a1",
+  "method": "All84 remote file identifiers equal SHA1 of staged bytes; complete nontruncated tree. Separate SHA256 manifest covers82assets. This is not a complete media-body download claim.",
   "files": [
     {
       "file": ".vercel/output/config.json",
@@ -524,9 +524,9 @@
     },
     {
       "file": ".vercel/output/static/platform/learning-support.js",
-      "remoteIdentifier": "5dd0bccbe9667b79d98801c96fd36928a342ea30",
-      "localSha1": "5dd0bccbe9667b79d98801c96fd36928a342ea30",
-      "bytes": 21394,
+      "remoteIdentifier": "d685b886cd81956457961b9999e51591503e1c03",
+      "localSha1": "d685b886cd81956457961b9999e51591503e1c03",
+      "bytes": 21557,
       "match": true
     },
     {
@@ -587,8 +587,8 @@
     },
     {
       "file": ".vercel/output/static/release-manifest.json",
-      "remoteIdentifier": "6ec699a7c5e15ed66d56eba26ab93c0360ed9678",
-      "localSha1": "6ec699a7c5e15ed66d56eba26ab93c0360ed9678",
+      "remoteIdentifier": "e9aea0e076494cd962b730746f59c1020ecc372e",
+      "localSha1": "e9aea0e076494cd962b730746f59c1020ecc372e",
       "bytes": 14784,
       "match": true
     }

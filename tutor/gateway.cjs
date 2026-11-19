@@ -2,7 +2,7 @@
 const https=require('node:https'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),os=require('node:os'),{execFileSync}=require('node:child_process');
 const {createRetriever}=require('./retrieval.cjs'),{generate}=require('./provider.cjs');
 const ROOT=path.resolve(__dirname,'..');
-function createHandler({token,origins,model='qwen3:1.7b',retriever=createRetriever(),provider=generate,statusCheck=async()=>true,dist=path.join(ROOT,'dist'),timeoutMs=45000,rate=12,clock=Date.now}){
+function createHandler({token,origins,model='qwen3:4b',retriever=createRetriever(),provider=generate,statusCheck=async()=>true,dist=path.join(ROOT,'dist'),timeoutMs=45000,rate=12,clock=Date.now}){
  let busy=false;const buckets=new Map();const publicFiles=new Set();function scan(dir,prefix=''){for(const item of fs.readdirSync(dir,{withFileTypes:true})){const rel=prefix+item.name;if(item.isDirectory())scan(path.join(dir,item.name),rel+'/');else if(item.isFile())publicFiles.add(rel);}}if(fs.existsSync(dist))scan(dist);
  const json=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
  const protectedRequest=q=>/\b(answer\s*key|facilitator.{0,30}(?:answer|solution)|annex\s*d|model\s*answers?|correct\s*(?:answer|option|letter)|system\s*prompt|reveal.{0,20}(?:secret|key)|execute.{0,20}(?:command|shell))\b/i.test(q);
@@ -15,7 +15,7 @@ function createHandler({token,origins,model='qwen3:1.7b',retriever=createRetriev
   const url=new URL(req.url,'https://'+host),ip=req.socket.remoteAddress||'local';
   if(url.pathname==='/api/tutor/status'){
    if(req.method!=='GET')return json(res,405,{message:'Method not allowed.'});if(limited(ip+':status',60))return json(res,429,{message:'Pause before trying again.'});
-   let connected=false;try{connected=await statusCheck();}catch(_){}return json(res,200,{mode:'local-pilot',provider:'ollama',model,requiresAccess:true,connected});
+   let connected=false;try{connected=await statusCheck();}catch(_){}return json(res,200,{mode:'local-pilot',provider:'ollama',model,requiresAccess:true,qualification:'not-qualified',connected});
   }
   if(url.pathname==='/api/tutor'){
    if(req.method!=='POST')return json(res,405,{message:'Method not allowed.'});
@@ -48,11 +48,11 @@ function createHandler({token,origins,model='qwen3:1.7b',retriever=createRetriev
   const file=path.join(dist,rel),mime={'.html':'text/html; charset=utf-8','.js':'application/javascript','.css':'text/css','.json':'application/json','.mp3':'audio/mpeg','.jpg':'image/jpeg','.png':'image/png'}[path.extname(rel)]||'application/octet-stream';res.writeHead(200,{'Content-Type':mime});if(req.method==='HEAD')res.end();else fs.createReadStream(file).pipe(res);
  };
 }
-async function start({port=8766,model='qwen3:1.7b'}={}){
- if(!Number.isInteger(port)||port<1024||port>65535||!/^qwen3:(0\.6b|1\.7b)$/.test(model))throw Error('Use an approved local pilot model and an unprivileged loopback port.');
+async function start({port=8766,model='qwen3:4b'}={}){
+ if(!Number.isInteger(port)||port<1024||port>65535||!/^qwen3:(0\.6b|1\.7b|4b)$/.test(model))throw Error('Use an approved local pilot model and an unprivileged loopback port.');
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'carana-run06-pilot-'));fs.chmodSync(dir,0o700);const key=path.join(dir,'key.pem'),cert=path.join(dir,'cert.pem'),token=crypto.randomBytes(24).toString('base64url');
  execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','7','-subj','/CN=localhost','-addext','subjectAltName=DNS:localhost,IP:127.0.0.1'],{stdio:'ignore'});fs.chmodSync(key,0o600);fs.writeFileSync(path.join(dir,'pilot-access.txt'),token,{mode:0o600});
  const origins=['https://localhost:'+port,'https://127.0.0.1:'+port];const handler=createHandler({token,origins,model,statusCheck:async()=>{const r=await fetch('http://127.0.0.1:11434/api/tags',{signal:AbortSignal.timeout(2500)});return r.ok&&(await r.json()).models.some(m=>m.name===model);}});
- const server=https.createServer({key:fs.readFileSync(key),cert:fs.readFileSync(cert),minVersion:'TLSv1.2'},handler);await new Promise((resolve,reject)=>server.once('error',reject).listen(port,'127.0.0.1',resolve));const record={url:origins[0],model,privateDirectory:dir,tokenFile:path.join(dir,'pilot-access.txt'),certificate:cert,scope:'loopback-only; self-signed local review certificate; no public connection'};fs.writeFileSync(path.join(dir,'runtime.json'),JSON.stringify(record,null,2),{mode:0o600});console.log(JSON.stringify(record));return{server,record};
+ const server=https.createServer({key:fs.readFileSync(key),cert:fs.readFileSync(cert),minVersion:'TLSv1.2'},handler);await new Promise((resolve,reject)=>server.once('error',reject).listen(port,'127.0.0.1',resolve));const record={url:origins[0],model,privateDirectory:dir,tokenFile:path.join(dir,'pilot-access.txt'),certificate:cert,qualification:'not-qualified; engineering prototype only',scope:'loopback-only; self-signed local review certificate; no public connection'};fs.writeFileSync(path.join(dir,'runtime.json'),JSON.stringify(record,null,2),{mode:0o600});console.log(JSON.stringify(record));return{server,record};
 }
-if(require.main===module)start({port:Number(process.argv[2]||8766),model:process.argv[3]||'qwen3:1.7b'}).catch(e=>{console.error(e.message);process.exitCode=1;});module.exports={createHandler,start};
+if(require.main===module)start({port:Number(process.argv[2]||8766),model:process.argv[3]||'qwen3:4b'}).catch(e=>{console.error(e.message);process.exitCode=1;});module.exports={createHandler,start};

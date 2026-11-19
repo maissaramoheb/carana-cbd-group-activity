@@ -1,15 +1,30 @@
-# Run06 implementation report
+# Run06 implementation report — UI ready for review; AI qualification HOLD
 
-Isolated from complete approved Run05 commit7615804 on codex/carana-run06-intelligent-learning. Production and main remain unchanged. Run05 was uploaded successfully and GitHub independently returned its final commit.
+Read Aloud Studio and the contextual CARANA assistant interface are implemented and verified. The secure local inference/retrieval prototype genuinely works. **Reliable tutor answer quality is not achieved with the tested configurations, so Run06 is not fully accepted or complete against its teaching-quality definition.** No model is selected as qualified. Public AI remains disconnected; the engineering-only local model is visibly NOT QUALIFIED. Production remains unchanged.
 
-Implemented native Read Aloud Studio, contextual CARANA assistant UI, secure local HTTPS gateway, curriculum-only retrieval and modular Ollama provider with no new dependencies. Preserve the editorial landing, existing learning architecture, saved progress and all approved media. See READ_ALOUD.md, RETRIEVAL_AND_GROUNDING.md, ARCHITECTURE_AND_SECURITY.md and preservation.json.
+Built from complete approved Run05 commit7615804f7d19233586f6ee77b35b0d8cdcdb4b2f on codex/carana-run06-intelligent-learning. Run05 source was pushed on the expressly approved retry and independently fetched from GitHub. Main/Run04 and their rollback points are preserved.
 
-Read Aloud and contextual panel pass actual Chromium/desktop WebKit/mobile WebKit support tests. Native speech start/pause/resume/stop/rates and audio exclusion are verified. Before/after UI evidence and automated Axe tests at1600/768/390 widths are in index.html. Native physical Safari/iOS, screen readers, human voice listening and owner visual acceptance remain pending.
+Implemented browser-native reading, passage focus, controlled extraction, speed/voice/selection controls and media exclusion; a native contextual desktop/mobile tutor panel;62-record teaching-only retrieval; modular Ollama provider; authenticated loopback HTTPS gateway with origin/host/auth/rate/size/concurrency/time/cancellation controls. No dependencies, environment files, new lessons, public Mac exposure, paid inference or architectural rewrite.
 
-Local provider is genuinely integrated and tested through authenticated HTTPS. Raw 0.6b and1.7b models are not qualified for unrestricted tutoring: retained evidence includes wrong examples and an invented staffing ratio. Retrieval and unsupported-number checks now reject that unsupported question; protected keys/checkpoints return labelled study guidance. A4B candidate is being evaluated separately. This source snapshot records the working prototype and static review interface; final model selection and remaining limits are in MODEL_EVALUATION.md when qualification closes. Do not read a successful browser transport test as educational quality approval.
+Existing changes: course/app.js and platform/platform.js mount/dispose support; course/index.html and platform/index.html load shared support assets; course/lesson1-player.js changes heading/comment only; package.json adds local/index scripts and security tests. New implementation: platform/learning-support.js/.css, tutor modules/index/excerpts, index/benchmark tools and tests/support. Approved landing renderer,88protected files,18MP3s,3images,56screens/78questions/17tools, original workbenches and Notebook/recovery/handoff are preserved.
 
-Changed existing files: course/app.js and platform/platform.js mount/dispose support without writing progress; course/index.html and platform/index.html load shared support assets; course/lesson1-player.js clarifies Trainer narration heading/comment; package.json adds local gateway/index scripts and security tests. New files: platform/learning-support.js/.css, tutor/{gateway,provider,retrieval}.cjs, teaching index/excerpts, index/benchmark tools, tests/support and this review package. No environment/secret files, new dependencies, architecture rewrite or public AI exposure.
+Available build/test/content checks pass. Actual native Chromium/desktop WebKit/mobile WebKit speech and progress controls pass; all56mounted screens and78optional question/option extraction checks pass. Responsive/focus/RTL/reduced-motion and18Axe scans have zero returned violations. Original full/representative browser regressions pass. Physical Safari/iOS, native screen readers, human listening and expert/owner acceptance remain NOT VERIFIED. See VERIFICATION.md for exact boundaries.
 
-Available npm build/test/check:content passed; no lint command is defined. Added source syntax, provider validation, security negative cases, responsive/RTL/focus, native speech, UI failure/cancel and genuine model browser checks. Original browser regression covers all18 Lesson1 screens/recordings/36questions and38expanded screens/42questions/17tools, plus practical links, Notebook/handoff and recovery. Preserve exact scope and limitations in VERIFICATION.md.
+The0.6b and1.7b models failed semantic checks.4b fast improved some answers but retained an institutional wording error; bounded reasoning failed the structured-response budget. Original failures are preserved. Transport, secure access and source metadata checks do not cure semantic mistakes. Further model repair/tuning requires owner approval after the project’s two targeted corrections for this gate. No public or learner AI release is justified.
 
-Release boundary: static-only protected Vercel preview; live public AI unavailable. No merge, production alias, public tunnel or Mac network exposure. Final preview, commits, backup and independent restoration receipt will be recorded in RELEASE_AND_BACKUP.md. Owner acceptance is required before production or remote AI activation.
+| Required deliverable | Location |
+|---|---|
+|1implementation report | This file |
+|2working Read Aloud | READ_ALOUD.md + shared support implementation |
+|3working assistant interface | index.html and actual/simulated-labelled UI evidence |
+|4local architecture/model benchmark | ARCHITECTURE_AND_SECURITY.md; MODEL_EVALUATION.md |
+|5retrieval/grounding specification | RETRIEVAL_AND_GROUNDING.md |
+|6security/privacy assessment | ARCHITECTURE_AND_SECURITY.md; https-security.json |
+|7browser/accessibility verification | VERIFICATION.md and evidence/ |
+|8before/after screenshots | index.html |
+|9model-answer evaluation | MODEL_EVALUATION.md; benchmark JSON; model-selection.json |
+|10isolated preview | RELEASE_AND_BACKUP.md |
+|11branch/final commits | RELEASE_AND_BACKUP.md; backup manifest and Git history |
+|12backup/restore evidence | Timestamped backup and verification-receipt.json, linked in release report |
+|13remaining public AI requirements | Architecture/security report: quality approval plus secure private connectivity |
+|14owner acceptance brief | OWNER_ACCEPTANCE.md |

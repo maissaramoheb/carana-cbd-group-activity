@@ -1,0 +1,59 @@
+{
+  "selectedQualifiedModel": null,
+  "gate": "HOLD",
+  "configuredEngineeringPrototype": "qwen3:4b; fast mode; explicitly NOT QUALIFIED",
+  "models": [
+    {
+      "model": "qwen3:0.6b",
+      "validStructuredReplies": 5,
+      "cases": 6,
+      "elapsedMsRange": [
+        787,
+        1937
+      ],
+      "medianElapsedMs": 1340,
+      "teachingQualification": "FAIL"
+    },
+    {
+      "model": "qwen3:1.7b",
+      "validStructuredReplies": 6,
+      "cases": 6,
+      "elapsedMsRange": [
+        2000,
+        3051
+      ],
+      "medianElapsedMs": 2785.0,
+      "teachingQualification": "FAIL"
+    },
+    {
+      "model": "qwen3:4b",
+      "validStructuredReplies": 6,
+      "cases": 6,
+      "elapsedMsRange": [
+        2480,
+        3640
+      ],
+      "medianElapsedMs": 2602.0,
+      "teachingQualification": "FAIL"
+    }
+  ],
+  "thinking4b": {
+    "validStructuredReplies": 0,
+    "cases": 6,
+    "contextTokens": 4096,
+    "outputTokenBudget": 1800,
+    "elapsedMsRange": [
+      43208,
+      45430
+    ],
+    "result": "FAIL"
+  },
+  "reasons": [
+    "0.6b incomplete/confused explanations",
+    "1.7b wrong logframe verification example and earlier invented ratio",
+    "4b fast turns ideally sufficient progress into a mandatory confirmation",
+    "4b bounded reasoning gives no valid structured reply in six cases",
+    "Final genuine4b browser response misclassifies improved officer skills as an output"
+  ],
+  "humanExpertAcceptance": "NOT VERIFIED"
+}

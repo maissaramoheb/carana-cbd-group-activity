@@ -1,0 +1,49 @@
+{
+  "provider": "genuine-local-ollama",
+  "model": "qwen3:4b",
+  "rows": [
+    {
+      "question": "What is the difference between outputs and outcomes?",
+      "status": "failed",
+      "error": "Model response did not meet the structured reply contract",
+      "elapsedMs": 45430
+    },
+    {
+      "question": "Explain PESTEL-S with a policing example.",
+      "status": "failed",
+      "error": "Model response did not meet the structured reply contract",
+      "elapsedMs": 43937
+    },
+    {
+      "question": "Why is triangulation important?",
+      "status": "failed",
+      "error": "Model response did not meet the structured reply contract",
+      "elapsedMs": 44527
+    },
+    {
+      "question": "Explain this logframe and why an indicator needs verification.",
+      "status": "failed",
+      "error": "Model response did not meet the structured reply contract",
+      "elapsedMs": 43736
+    },
+    {
+      "question": "What triggers a responsible transition?",
+      "status": "failed",
+      "error": "Model response did not meet the structured reply contract",
+      "elapsedMs": 43208
+    },
+    {
+      "question": "Why should an adviser avoid importing a policing solution unchanged?",
+      "status": "failed",
+      "error": "Model response did not meet the structured reply contract",
+      "elapsedMs": 43579
+    }
+  ],
+  "configuration": {
+    "reasoning": true,
+    "contextTokens": 4096,
+    "maxOutputTokens": 1800,
+    "benchmarkDeadlineMs": 90000
+  },
+  "qualification": "FAIL: no valid structured reply in six cases"
+}

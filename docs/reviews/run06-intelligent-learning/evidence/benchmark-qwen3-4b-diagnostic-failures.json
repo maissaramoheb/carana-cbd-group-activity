@@ -1,0 +1,177 @@
+{
+  "provider": "genuine-local-ollama",
+  "model": "qwen3:4b",
+  "rows": [
+    {
+      "question": "What is the difference between outputs and outcomes?",
+      "status": "failed",
+      "error": "Model inserted an unsupported numeric claim",
+      "undeliveredCandidate": {
+        "answer": "Outputs are direct deliverables from activities (e.g., reports, services), while outcomes are the broader, long-term changes achieved (e.g., improved public safety). The difference lies in scope: outputs are tangible results of actions; outcomes reflect the intended impact on people or systems. Example: A police investigation output is a completed case file; the outcome is reduced crime rates. Source: cbd-3:03-01 (goal → outcome → output → activity).",
+        "sourceIds": [
+          "cbd-3:03-01"
+        ],
+        "example": "Police investigation output: completed case file; outcome: reduced crime rates",
+        "uncertainty": "The chain of causation is not guaranteed; evidence may challenge the plan."
+      },
+      "elapsedMs": 2076
+    },
+    {
+      "question": "Explain PESTEL-S with a policing example.",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "02-01"
+      },
+      "retrieved": [
+        "cbd-1:02-01",
+        "cbd-1:02-02"
+      ],
+      "status": "generated",
+      "answer": "PESTEL-S is a framework for reviewing contextual drivers in conflict settings. Political factors involve governance and decision-making authority. Economic factors relate to resources and sustainability. Social factors examine community trust and inclusion. Technological factors cover information systems. Environmental factors address physical constraints. Legal factors include authorities and rights. Security adds conflict and accessibility considerations. Example: In a police reform mission, political incentives might influence leadership commitment, economic pressures could affect budget allocation, social trust impacts community cooperation, technological systems determine data flow, environmental conditions affect patrol access, legal frameworks define police powers, and security concerns address active threats. Note: This is a teaching example, not a real case.",
+      "sourceIds": [
+        "cbd-1:02-01"
+      ],
+      "example": "In a police reform mission, political incentives might influence leadership commitment, economic pressures could affect budget allocation, social trust impacts community cooperation, technological systems determine data flow, environmental conditions affect patrol access, legal frameworks define police powers, and security concerns address active threats.",
+      "uncertainty": "This is a teaching example, not a real case.",
+      "sources": [
+        {
+          "id": "cbd-1:02-01",
+          "title": "Structure the context with PESTEL-S",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "6–7",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2918,
+        "tokens": 230,
+        "loadMs": 0.703084,
+        "generationMs": 2847.858
+      }
+    },
+    {
+      "question": "Why is triangulation important?",
+      "status": "failed",
+      "error": "Model inserted an unsupported numeric claim",
+      "undeliveredCandidate": {
+        "answer": "Triangulation combines multiple evidence sources (interviews, observations, records) to verify claims and reduce bias. It ensures conclusions are defensible by checking discrepancies between different perspectives. For example, a manager's claim about supervisor reviews may be confirmed through interviews, observations, and records. This method strengthens analysis by using diverse evidence types, as described in sourceId: cbd-1:04-02.",
+        "sourceIds": [
+          "cbd-1:04-02"
+        ],
+        "example": "A police officer might use interviews with witnesses, crime scene observations, and digital records to confirm a suspect's involvement in a robbery, avoiding assumptions based on a single source.",
+        "uncertainty": "Triangulation requires careful implementation to avoid over-reliance on one evidence type."
+      },
+      "elapsedMs": 2193
+    },
+    {
+      "question": "Explain this logframe and why an indicator needs verification.",
+      "status": "failed",
+      "error": "Model inserted an unsupported numeric claim",
+      "undeliveredCandidate": {
+        "answer": "An indicator needs verification to ensure it accurately reflects the intended change. In a logframe, the indicator must be measurable and tied to credible evidence (e.g., verified counts from a procurement register). Without verification, the indicator could misrepresent the result. For example, counting delivered workshops might not show actual review routine use. Verification confirms the evidence addresses the same result as the measure, avoiding misalignment. Source: cbd-3:03-10",
+        "sourceIds": [
+          "cbd-3:03-10"
+        ],
+        "example": "A project counting workshop deliveries as an indicator might not verify if the review routine is actually used, so verification checks if the observed activity matches the intended change.",
+        "uncertainty": "Verification methods must be pre-defined and consistent across time to ensure comparability."
+      },
+      "elapsedMs": 2145
+    },
+    {
+      "question": "What triggers a responsible transition?",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-01"
+      },
+      "retrieved": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02",
+        "cbd-6:06-04"
+      ],
+      "status": "generated",
+      "answer": "A responsible transition is triggered by achieving objectives or significant environmental changes that prevent completing the original activity. Key triggers include political, security, or legal changes; national counterpart decisions; and mission mandate alterations. Evaluation must confirm sufficient progress toward the objective. The Head of Police Component initiates transition based on responsible adviser advice, ensuring clarity on responsibilities and next steps without implying success due to external factors.",
+      "sourceIds": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02",
+        "cbd-6:06-04"
+      ],
+      "example": "Imagine a police mission where political instability makes the original security strategy unfeasible—this environmental change triggers transition, requiring reassessment of objectives and new coordination with local authorities.",
+      "uncertainty": "The triggers must be evaluated for relevance to the specific mission context; some changes may not directly impact feasibility.",
+      "sources": [
+        {
+          "id": "plan-cbd-6:p5",
+          "title": "Triggers for transition",
+          "source": {
+            "kind": "official-plan-teaching-excerpt-paraphrase",
+            "label": "UNPOL CBD Job-Specific Training Lesson 6; 2021 curriculum / July2023 supplied file",
+            "pages": "5",
+            "file": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "sha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3",
+            "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+          }
+        },
+        {
+          "id": "cbd-6:06-02",
+          "title": "Use evidence and context to recognise a trigger",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "5",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        },
+        {
+          "id": "cbd-6:06-04",
+          "title": "Distinguish authority from coordination",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "8",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2271,
+        "tokens": 187,
+        "loadMs": 0.604917,
+        "generationMs": 2202.14
+      }
+    },
+    {
+      "question": "Why should an adviser avoid importing a policing solution unchanged?",
+      "status": "failed",
+      "error": "Model inserted an unsupported numeric claim",
+      "undeliveredCandidate": {
+        "answer": "An adviser should avoid importing a policing solution unchanged because legal systems, cultural contexts, and local resources differ across jurisdictions. As per CBD-1:02-03, solutions must be checked for lawful authority, rights protection, local ownership, and feasibility. CBD-4:04-01 emphasizes adapting practices to local culture, gender dynamics, and stakeholder needs. Unchanged imports risk violating host-country laws, ignoring community needs, or failing sustainability. Example: A case-review routine that works in one police service may not fit another’s authority structures or trust dynamics.",
+        "sourceIds": [
+          "cbd-1:02-03",
+          "cbd-4:04-01"
+        ],
+        "example": "A case-review routine that worked in one police service may not fit another’s authority structures or trust dynamics.",
+        "uncertainty": "The example is invented for teaching purposes."
+      },
+      "elapsedMs": 2307
+    }
+  ]
+}

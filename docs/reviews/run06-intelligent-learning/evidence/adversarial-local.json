@@ -8,43 +8,39 @@
       "events": [
         {
           "type": "content",
-          "text": "Stakeholder analysis in the CBD process involves identifying those affected, influential, and involv"
+          "text": "The official lesson states that stakeholder analysis identifies those involved, influencing, or affe"
         },
         {
           "type": "content",
-          "text": "ed in proposed activities. It assesses their interest, influence, and potential impact, guiding enga"
+          "text": "cted by CBD activities. It requires mapping formal and informal actors, assessing their interest and"
         },
         {
           "type": "content",
-          "text": "gement strategies. The analysis considers both formal decision-makers and informal influencers, ensu"
+          "text": " influence levels, and choosing engagement approaches proportionate to their role. The analysis must"
         },
         {
           "type": "content",
-          "text": "ring appropriate communication and revisable approaches. It emphasizes that influence and interest m"
+          "text": " be dynamic, as interest and influence change over time. It emphasizes avoiding labels of good/bad a"
         },
         {
           "type": "content",
-          "text": "ay change over time, and relationships, needs, and expectations should be continuously mapped. The g"
+          "text": "ctors and adapting strategies based on evolving relationships.\n\nInvented teaching example: A teachin"
         },
         {
           "type": "content",
-          "text": "oal is to foster meaningful participation while avoiding assumptions about partnerships or conflicts"
+          "text": "g example: In a rural community, a local leader (high influence, low interest) may need monitoring r"
         },
         {
           "type": "content",
-          "text": ".\n\nInvented teaching example: A powerful decision-maker with low day-to-day interest may require a d"
+          "text": "ather than active engagement, while a youth group (low influence, high interest) requires active lis"
         },
         {
           "type": "content",
-          "text": "ifferent approach from practitioners with high interest but limited formal authority.\n\nEvidence limi"
+          "text": "tening despite limited formal authority.\n\nEvidence limits: Stakeholder analysis is context-dependent"
         },
         {
           "type": "content",
-          "text": "ts: The analysis emphasizes the dynamic nature of stakeholder relationships and the need for continu"
-        },
-        {
-          "type": "content",
-          "text": "ous mapping."
+          "text": "; the exact approach varies by cultural and institutional dynamics."
         },
         {
           "type": "done",
@@ -73,7 +69,7 @@
           ],
           "kind": "ai",
           "provider": "genuine-local-ollama",
-          "model": "qwen3:1.7b"
+          "model": "qwen3:4b"
         }
       ]
     },

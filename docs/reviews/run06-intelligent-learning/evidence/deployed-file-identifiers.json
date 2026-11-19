@@ -298,7 +298,7 @@
     },
     {
       "path": "src/.vercel/output/static/platform/learning-support.js",
-      "uid": "5dd0bccbe9667b79d98801c96fd36928a342ea30"
+      "uid": "d685b886cd81956457961b9999e51591503e1c03"
     },
     {
       "path": "src/.vercel/output/static/platform/learning-tools.js",
@@ -334,7 +334,7 @@
     },
     {
       "path": "src/.vercel/output/static/release-manifest.json",
-      "uid": "6ec699a7c5e15ed66d56eba26ab93c0360ed9678"
+      "uid": "e9aea0e076494cd962b730746f59c1020ecc372e"
     }
   ],
   "context": {

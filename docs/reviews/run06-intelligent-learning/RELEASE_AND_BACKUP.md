@@ -1,8 +1,8 @@
 # Isolated preview, source and restoration
 
-Protected preview: https://carana-cbd-elearning-hchvgauta-delta4ce20-5830s-projects.vercel.app/
+Protected preview: https://carana-cbd-elearning-7v3u4udc2-delta4ce20-5830s-projects.vercel.app/
 
-Deployment dpl_3QTrxDvTwiuMuGEAbV6FnTdzZEmF is READY, target preview/null, from UI source d0b6fc06f838683e598695b8ecb44cedccc77050. Earlier integration snapshot e978354 and its superseded preview remain in history. Anonymous course access redirects302 to Vercel sign-in. Authenticated final candidate passed Chromium/mobile WebKit native speech, unavailable AI, progress/focus, zero Axe violations and private-index404 checks.
+Deployment dpl_7MtEso9JsZ7ySJ7bsGiGb59Wfj3P is READY, target preview/null, from UI source c83836c45c577a5f385cd1405aed1637d8cac8a1. Earlier integration snapshot e978354 and its superseded preview remain in history. Anonymous course access redirects302 to Vercel sign-in. Authenticated final candidate passed Chromium/mobile WebKit native speech, unavailable AI, progress/focus, zero Axe violations and private-index404 checks.
 
 All84 server deployment file identifiers equal SHA1 of exact locally staged files:82 assets plus release manifest and routing config. Complete nontruncated response/comparison: evidence/deployed-*.json. Release manifest records SHA256 for82 assets. Two full remote-body download attempts timed out; complete remote-body SHA256 pass is NOT VERIFIED. This differs from successful server identifier verification and local18-recording runtime playback.
 
