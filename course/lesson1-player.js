@@ -62,6 +62,7 @@
         transcriptBox.hidden=!open;
         transcript.setAttribute('aria-expanded',String(open));
         transcript.innerHTML=open?'Hide the transcript <span aria-hidden="true">−</span>':'Read the trainer’s explanation <span aria-hidden="true">＋</span>';
+        transcriptBox.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{toggled:true,target:transcriptBox}}));
       });
     }
     const track=$('trainer-audio');
@@ -109,7 +110,10 @@
         const ideal=chosen===decision.best;
         feedback.hidden=false;
         feedback.className='decision-feedback '+(ideal?'good':'reflect');
+        feedback.dataset.readExplanation='true';
+        feedback.dataset.readTitle=decision.options[chosen].label;
         feedback.innerHTML='<strong>'+(ideal?'A defensible choice.':'Consider the implications.')+'</strong><p>'+esc(decision.options[chosen].feedback)+'</p>'+(ideal?'<span>Continue when ready.</span>':'<span>You may reconsider your response without penalty.</span>');
+        feedback.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:decision.options[chosen].label,target:feedback}}));
       }));
     }
   }

@@ -1,11 +1,16 @@
-{
-  "provider": "genuine-local-ollama",
-  "transport": "authenticated loopback HTTPS",
-  "qualification": "not-qualified; engineering integration only",
-  "model": "qwen3:4b",
-  "question": "outputs versus outcomes",
-  "response": "Learning guidance\nThe difference between outputs and outcomes: Outputs are direct deliverables from activities (e.g., training sessions, policy documents), while outcomes are changes in behavior or institutional practice (e.g., officers applying new procedures). The passage explicitly states: 'Output: Identify what the activity will directly deliver.' and 'Outcome: Describe the change the intervention seeks to support.'\n\nInvented teaching example: In a police unit, a training session (output) teaches officers to use a new de-escalation technique, leading to reduced use of force (outcome).\n\nEvidence limits: The passage does not specify how to measure outcomes beyond the change description, so measurement methods are not explicitly defined.\nReview source references (1)",
-  "elapsedMs": 4560,
-  "progressUnchanged": true,
-  "cancellation": "PASS"
-}
+[
+  {
+    "viewport": "desktop-1440",
+    "provider": "genuine-local-ollama",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "elapsedMs": 4090,
+    "responsePreview": "CARANA COMPANION\n\nOutputs are direct products of activities (e.g., training sessions, documents), while outcomes are the actual changes in behavior, practice, or performance they aim to produce (e.g., officers applying new procedures). Outputs are measurable deliverables; outcomes reflect real-world impact. A theory of",
+    "progressUnchanged": true,
+    "cancellation": "PASS"
+  },
+  {
+    "viewport": "mobile-390",
+    "focusAwareDiagramBadge": true,
+    "overflowOk": true
+  }
+]

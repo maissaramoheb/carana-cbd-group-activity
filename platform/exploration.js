@@ -118,6 +118,11 @@
       state.selected = d.ids[i]; state.seen = [...new Set([...state.seen, d.ids[i]])];
       if (save) store.update(d, state);
       onSelect(i); paint();
+      if (feedback) {
+        feedback.dataset.readExplanation = 'true';
+        if (!feedback.dataset.readTitle) feedback.dataset.readTitle = items[i].label || '';
+        feedback.dispatchEvent(new CustomEvent('carana:explanation-updated', { bubbles: true, detail: { id: items[i].label, restored: !save, target: feedback } }));
+      }
     }
     all.forEach((button, i) => button.addEventListener('click', () => select(i)));
     practiceButtons.forEach(button => button.addEventListener('click', () => { state.practice = true; store.update(d, state); paint(); }));

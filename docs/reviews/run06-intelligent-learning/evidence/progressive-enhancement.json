@@ -1,5 +1,10 @@
 [
   {
+    "mode": "studio-without-speechSynthesis",
+    "readEnabled": true,
+    "progressUnchanged": true
+  },
+  {
     "mode": "absent",
     "fixture": true,
     "readDisabled": true,
@@ -12,10 +17,6 @@
     "readDisabled": true,
     "recordedNarrationAvailable": true,
     "progressUnchanged": true
-  },
-  {
-    "mode": "browser-service voice",
-    "status": "NOT APPLICABLE: no nonlocal English voice reported"
   },
   {
     "mode": "synthetic nonlocal voice metadata",

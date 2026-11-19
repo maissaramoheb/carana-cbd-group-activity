@@ -88,14 +88,17 @@ function mount(section,screen){
    const items=buttons.map(button=>{const i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);return {label:areas[i][0]+' × '+dimensions[j][0],detail:areas[i][1]+dimensions[j][1]};});
    const count=reply.ownerDocument.createElement('p');count.className='matrix-exploration-count';reply.after(count);
    window.CARANA_LESSON1_LABS.active=window.CARANA_EXPLORATION.bind({lessonId:'cbd-1',screenId:id,items,buttons,feedback:reply,count,container:reply.parentElement,remind:false,
-    onSelect:n=>{const button=buttons[n],i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);reply.innerHTML='<strong>'+esc(areas[i][0])+' × '+esc(dimensions[j][0])+'</strong><p>'+esc(areas[i][1])+'. '+esc(dimensions[j][1])+' Ask which verified issue, if any, genuinely belongs at this intersection.</p>';},practiceButtons:[]});
+    onSelect:n=>{const button=buttons[n],i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);reply.dataset.readExplanation='true';reply.dataset.readTitle=areas[i][0]+' × '+dimensions[j][0];reply.innerHTML='<strong>'+esc(areas[i][0])+' × '+esc(dimensions[j][0])+'</strong><p>'+esc(areas[i][1])+'. '+esc(dimensions[j][1])+' Ask which verified issue, if any, genuinely belongs at this intersection.</p>';},practiceButtons:[]});
    return;
   }
   for(const button of buttons)button.addEventListener('click',()=>{
    const i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);
    if(!areas[i]||!dimensions[j])return;
    for(const node of buttons){node.classList.toggle('selected',node===button);node.setAttribute('aria-pressed',String(node===button))}
+   reply.dataset.readExplanation='true';
+   reply.dataset.readTitle=areas[i][0]+' × '+dimensions[j][0];
    reply.innerHTML='<strong>'+esc(areas[i][0])+' × '+esc(dimensions[j][0])+'</strong><p>'+esc(areas[i][1])+'. '+esc(dimensions[j][1])+' Ask which verified issue, if any, genuinely belongs at this intersection.</p>';
+   reply.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:reply.dataset.readTitle,target:reply}}));
   });
   return;
  }
@@ -104,7 +107,10 @@ function mount(section,screen){
  for(const button of buttons)button.addEventListener('click',()=>{
    const i=Number(button.dataset.labOption);if(!e.parts[i])return;
    for(const node of buttons){node.classList.toggle('selected',node===button);node.setAttribute('aria-pressed',String(node===button))}
+   reply.dataset.readExplanation='true';
+   reply.dataset.readTitle=e.parts[i][1];
    reply.innerHTML='<strong>'+esc(e.parts[i][1])+'</strong><p>'+esc(e.parts[i][2])+'</p>';
+   reply.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:e.parts[i][1],target:reply}}));
  });
 }
 window.CARANA_LESSON1_LABS={html,mount,areas,dimensions};

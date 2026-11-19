@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="CARANA Read Aloud Studio voice comparison: identical CBD passages rendered across browser compact baseline, Apple native neural, and Kokoro-82M local neural TTS.">
+  <title>CARANA · Voice Quality & Naturalness Comparison</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body { background: #f4f7fa; color: #10213a; font-family: system-ui, -apple-system, sans-serif; margin: 0; }
+    .vc-shell { max-width: 1060px; margin: 0 auto; padding: 28px 20px 64px; }
+    .vc-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid #cbd9e2; }
+    .vc-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #0f5c6e; display: block; margin-bottom: 4px; }
+    .vc-header h1 { margin: 0; font: 600 28px/1.2 Georgia, serif; }
+    .vc-nav { display: flex; gap: 10px; flex-wrap: wrap; }
+    .vc-nav a { text-decoration: none; font-weight: 600; font-size: 13px; padding: 9px 14px; border-radius: 8px; border: 1px solid #b5cad4; color: #10213a; background: #fff; }
+    .vc-nav a.primary { background: #0f5c6e; color: #fff; border-color: #0f5c6e; }
+    .vc-intro { margin: 20px 0 26px; background: #fff; border: 1px solid #cbd9e2; border-radius: 12px; padding: 18px 20px; }
+    .vc-intro p { margin: 0 0 8px; line-height: 1.65; color: #2b4459; }
+    .vc-intro p:last-child { margin-bottom: 0; }
+    .vc-passage-box { background: #eaf4f7; border-inline-start: 4px solid #0f5c6e; padding: 14px 16px; border-radius: 0 10px 10px 0; margin: 22px 0 14px; }
+    .vc-passage-box h2 { margin: 0 0 6px; font: 600 18px/1.3 Georgia, serif; }
+    .vc-passage-box p { margin: 0; font-size: 14px; line-height: 1.65; color: #17344d; }
+    .vc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .vc-card { background: #fff; border: 1px solid #cbd9e2; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .vc-card.recommended { border: 2px solid #0f5c6e; box-shadow: 0 6px 18px rgba(15, 92, 110, .09); }
+    .vc-card-head { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+    .vc-card h3 { margin: 0; font-size: 15.5px; color: #10213a; }
+    .vc-tag { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #eef4f7; color: #304d63; white-space: nowrap; }
+    .vc-card.recommended .vc-tag { background: #d7f3ec; color: #0a4d40; }
+    .vc-meta { font-size: 12.5px; color: #405c72; margin: 0; line-height: 1.5; }
+    .vc-card audio { width: 100%; height: 40px; }
+    .vc-table-wrap { overflow-x: auto; background: #fff; border: 1px solid #cbd9e2; border-radius: 12px; padding: 16px; }
+    .vc-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .vc-table th, .vc-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e3edf2; }
+    .vc-table th { color: #0f5c6e; font-weight: 700; background: #f6fafc; }
+  </style>
+</head>
+<body>
+  <div class="vc-shell">
+    <header class="vc-header">
+      <div>
+        <span class="vc-eyebrow">CARANA RUN 06 · FOLLOW-UP 04 · WORKSTREAM A</span>
+        <h1>Read Aloud Voice Quality &amp; Neural Comparison</h1>
+      </div>
+      <nav class="vc-nav" aria-label="Course links">
+        <a href="./#lesson-1" class="primary">Open Lesson 1 Studio →</a>
+        <a href="../platform/?course=cbd&lesson=cbd-2">Open Lesson 2 →</a>
+        <a href="./#home">CBD Home</a>
+      </nav>
+    </header>
+
+    <section class="vc-intro">
+      <p><strong>Why this upgrade was built:</strong> macOS and Chromium expose only legacy <code>quality=1</code> compact voices (such as <em>Samantha</em>) and Eloquence voices to browser <code>window.speechSynthesis</code>, causing robotic narration on public previews.</p>
+      <p><strong>Selected architecture:</strong> Open-weight <strong>Kokoro-82M</strong> neural speech (Apache-2.0, zero paid subscription) pre-rendered into fast static per-passage MP3 clips across all 56 screens and interactive diagram explanations—plus live loopback local synthesis and UNPOL acronym pronunciation normalization.</p>
+    </section>
+
+    <div id="vc-samples"></div>
+
+    <section class="vc-table-wrap" aria-label="Technical voice evaluation summary">
+      <h2 style="margin:0 0 12px;font:600 18px/1.3 Georgia,serif;">Voice &amp; Architecture Evaluation Matrix</h2>
+      <table class="vc-table">
+        <thead>
+          <tr>
+            <th>Candidate Approach</th>
+            <th>License &amp; Cost</th>
+            <th>Hardware Latency / Size</th>
+            <th>Acronym &amp; Galasi Handling</th>
+            <th>Safari / Mobile Consistency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Browser Compact Baseline (Samantha)</strong></td>
+            <td>macOS OS built-in (no web redistribution)</td>
+            <td>Instant; <code>quality=1</code> robotic formant-concatenative</td>
+            <td>Pronounces Galasi/acronyms flatly; Eloquence voices worst</td>
+            <td>Varies widely per user OS &amp; browser</td>
+          </tr>
+          <tr>
+            <td><strong>macOS Native Neural (Voice 4 / Nora)</strong></td>
+            <td>Apple EULA (local OS output only; cannot redistribute in web pack)</td>
+            <td>~0.78s via Swift <code>AVSpeechSynthesizer</code> (hidden from browser APIs)</td>
+            <td>Misread &ldquo;Galasi&rdquo; as &ldquo;Galaxy&rdquo;; clear general English</td>
+            <td>Unavailable to static Vercel web browsers; available locally on Mac mini</td>
+          </tr>
+          <tr>
+            <td><strong>Kokoro-82M Neural Studio (<code>af_heart</code>, Selected)</strong></td>
+            <td><strong>Apache-2.0</strong> (free, zero subscription, offline)</td>
+            <td>RTF 0.063 (~16× real-time on Mac mini); ~32 kbps mono MP3 clips</td>
+            <td>Crisp &ldquo;Galasi&rdquo; + normalized <code>UNPOL</code>, <code>PESTEL-S</code>, <code>UNSCR 21 51</code>, <code>MMA</code>, <code>CBD</code></td>
+            <td>100% identical studio quality across Safari, Chrome, iOS &amp; Android</td>
+          </tr>
+          <tr>
+            <td><strong>Kokoro-82M Options (<code>bf_emma</code>, <code>am_michael</code>)</strong></td>
+            <td><strong>Apache-2.0</strong> (zero subscription)</td>
+            <td>RTF 0.067 on Mac mini CPU; ~114 MB ONNX int8 offline</td>
+            <td>British (Emma) &amp; US Baritone (Michael) trainer options</td>
+            <td>Available in local studio <code>/api/tts</code> &amp; compared above</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+  <script src="./voice-comparison.js"></script>
+</body>
+</html>

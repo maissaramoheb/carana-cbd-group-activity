@@ -599,9 +599,9 @@
     root.querySelectorAll('.table-scroll').forEach(el=>{el.tabIndex=0;el.setAttribute('role','region');el.setAttribute('aria-label','Scrollable learning table');});
     const explanation = exploration?.bind({lessonId:lesson.id,screenId:screen.id,items:screen.visual.nodes,
       buttons:root.querySelectorAll('[data-node]'),feedback:document.getElementById('concept-feedback'),count:document.getElementById('visual-progress'),container:root.querySelector('.visual'),
-      onSelect:i=>{document.getElementById('concept-feedback').textContent=screen.visual.nodes[i].detail;},practiceButtons:[...root.querySelectorAll('[data-choice]')]});
+      onSelect:i=>{const fb=document.getElementById('concept-feedback');fb.dataset.readExplanation='true';fb.dataset.readTitle=screen.visual.nodes[i].label;fb.textContent=screen.visual.nodes[i].detail;},practiceButtons:[...root.querySelectorAll('[data-choice]')]});
 
-    if(!explanation){const seen=new Set();root.querySelectorAll('[data-node]').forEach(b=>b.onclick=()=>{root.querySelectorAll('[data-node]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));const i=+b.dataset.node;seen.add(i);document.getElementById('concept-feedback').textContent=screen.visual.nodes[i].detail;document.getElementById('visual-progress').textContent='Explanations '+seen.size+' of '+screen.visual.nodes.length+' explored';});}
+    if(!explanation){const seen=new Set();root.querySelectorAll('[data-node]').forEach(b=>b.onclick=()=>{root.querySelectorAll('[data-node]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));const i=+b.dataset.node;seen.add(i);const fb=document.getElementById('concept-feedback');fb.dataset.readExplanation='true';fb.dataset.readTitle=screen.visual.nodes[i].label;fb.textContent=screen.visual.nodes[i].detail;document.getElementById('visual-progress').textContent='Explanations '+seen.size+' of '+screen.visual.nodes.length+' explored';fb.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:screen.visual.nodes[i].label,target:fb}}));});}
 
     root.querySelectorAll('[data-choice]').forEach(b => b.onclick = () => {
       root.querySelectorAll('[data-choice]').forEach(n => n.setAttribute('aria-pressed', String(n === b)));
@@ -609,8 +609,16 @@
       const el = document.getElementById('decision-feedback');
       el.hidden = false;
       el.className = 'feedback' + (i === screen.decision.answer ? '' : ' warning');
+      el.dataset.readExplanation = 'true';
+      el.dataset.readTitle = screen.decision.options[i].label;
       el.textContent = (i === screen.decision.answer ? 'A defensible choice. ' : 'Consider the implications. ') + screen.decision.options[i].feedback;
+      el.dispatchEvent(new CustomEvent('carana:explanation-updated', { bubbles: true, detail: { id: screen.decision.options[i].label, target: el } }));
     });
+    root.addEventListener('toggle', e => {
+      if (e.target && e.target.matches && e.target.matches('details')) {
+        e.target.dispatchEvent(new CustomEvent('carana:explanation-updated', { bubbles: true, detail: { toggled: true, target: e.target } }));
+      }
+    }, true);
 
     document.getElementById('next').onclick = () => {
       const advance=()=>{

@@ -10,6 +10,7 @@
   "invalidContext400": true,
   "noPermissiveCors": true,
   "rate429": true,
+  "ttsSecurityAndWav200": true,
   "privateAccessFileMode": "0600",
   "protectedGuidanceNoInference": true
 }

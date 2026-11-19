@@ -200,7 +200,10 @@ function mount(section,screen){
    answers.forEach((b,i)=>{b.setAttribute('aria-pressed',String(i===index));b.classList.toggle('chosen',i===index);});
    response.classList.toggle('vj-good',correct);
    response.classList.toggle('vj-reflect',!correct);
+   response.dataset.readExplanation='true';
+   response.dataset.readTitle=e.options[index]||'Classification feedback';
    response.innerHTML='<strong>'+(correct?'A defensible classification.':'Look again at the analytical boundary.')+'</strong><p>'+esc(c[2])+'</p>';
+   response.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:e.options[index],target:response}}));
    if(current<e.cases.length-1){next.hidden=false;next.textContent='Next example →';}
    else {next.hidden=true;}
   };
@@ -210,7 +213,10 @@ function mount(section,screen){
    current++;answered=false;next.hidden=true;
    answers.forEach(b=>{b.setAttribute('aria-pressed','false');b.classList.remove('chosen')});
    response.className='vj-result';
+   delete response.dataset.readExplanation;
+   delete response.dataset.readTitle;
    response.innerHTML='<strong>Make a classification</strong><p>Choose one option to reveal why it fits.</p>';
+   response.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{reset:true,target:response}}));
    label.textContent='EXAMPLE '+(current+1)+' OF '+e.cases.length;
    question.textContent=e.cases[current][0];
   });
@@ -220,7 +226,7 @@ function mount(section,screen){
   window.CARANA_VISUAL_JOURNEY.active=window.CARANA_EXPLORATION.bind({
    lessonId:'cbd-1',screenId:id,items:e.nodes,buttons:root.querySelectorAll('[data-vj-item]'),
    feedback:response,count:root.querySelector('#vj-count'),fill:root.querySelector('#vj-progress-fill'),container:root,
-   onSelect:i=>{const n=e.nodes[i];response.innerHTML='<strong>'+esc(n.question)+'</strong><p>'+esc(n.explain)+'</p>';},
+   onSelect:i=>{const n=e.nodes[i];response.dataset.readExplanation='true';response.dataset.readTitle=n.label;response.innerHTML='<span class="vj-selected-tag">'+esc(n.label)+'</span><strong>'+esc(n.question)+'</strong><p>'+esc(n.explain)+'</p>';},
    practiceButtons:[...document.querySelectorAll('[data-decision],[data-vj-mini]')]
   });
  } else {
@@ -232,7 +238,10 @@ function mount(section,screen){
   const i=Number(button.dataset.vjItem),n=e.nodes[i];if(!n)return;
   selected.add(i);
   buttons.forEach((b,j)=>{b.classList.toggle('chosen',j===i);b.setAttribute('aria-pressed',String(j===i))});
-  response.innerHTML='<strong>'+esc(n.question)+'</strong><p>'+esc(n.explain)+'</p>';
+  response.dataset.readExplanation='true';
+  response.dataset.readTitle=n.label;
+  response.innerHTML='<span class="vj-selected-tag">'+esc(n.label)+'</span><strong>'+esc(n.question)+'</strong><p>'+esc(n.explain)+'</p>';
+  response.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:n.label,target:response}}));
   count.textContent=selected.size+' of '+buttons.length+' explored';
   if(fill)fill.style.width=(100*selected.size/buttons.length)+'%';
  }));
@@ -245,7 +254,10 @@ function mount(section,screen){
    const i=Number(option.dataset.vjMini),correct=i===micro.correct;
    options.forEach((b,j)=>{b.classList.toggle('chosen',j===i);b.setAttribute('aria-pressed',String(j===i));});
    feedback.className='vj-micro-feedback '+(correct?'correct':'reflect');
+   feedback.dataset.readExplanation='true';
+   feedback.dataset.readTitle=correct?'Well reasoned':'Reconsider the evidence';
    feedback.textContent=(correct?'Well reasoned. ':'Reconsider the evidence. ')+micro.feedback;
+   feedback.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:String(i),target:feedback}}));
   }));
  }
 }

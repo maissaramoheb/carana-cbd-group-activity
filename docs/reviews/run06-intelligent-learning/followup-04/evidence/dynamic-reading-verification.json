@@ -1,0 +1,20 @@
+[
+  {
+    "engine": "chromium-desktop",
+    "possibleCausesOk": true,
+    "all0101NodesOk": true,
+    "matrixOk": true,
+    "l26DiagramsOk": true,
+    "privateDraftsExcluded": true,
+    "mp3ClipsPlayed": 2
+  },
+  {
+    "engine": "webkit-mobile",
+    "possibleCausesOk": true,
+    "all0101NodesOk": true,
+    "matrixOk": true,
+    "l26DiagramsOk": true,
+    "privateDraftsExcluded": true,
+    "mp3ClipsPlayed": 4
+  }
+]

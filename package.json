@@ -11,6 +11,6 @@
     "release:prepare": "node tools/release/prepare.cjs",
     "check:content": "node tools/validate-content.cjs",
     "tutor:index": "node tools/build-tutor-index.cjs",
-    "tutor:local": "node tutor/gateway.cjs 8766 qwen3:4b"
+    "tutor:local": "node tutor/gateway.cjs 8766 qwen3:4b-instruct-2507-q4_K_M"
   }
 }

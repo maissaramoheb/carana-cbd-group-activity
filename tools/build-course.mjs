@@ -45,6 +45,13 @@ for (const item of await fs.readdir(path.join(root, 'course'), { withFileTypes: 
 }
 await fs.mkdir(path.join(dist, audio), { recursive: true });
 for (const { name, bytes } of validated) await fs.writeFile(path.join(dist, audio, name), bytes);
+for (const extraAudio of ['course/audio/en/readaloud', 'course/audio/en/comparison']) {
+  const srcDir = path.join(root, extraAudio);
+  try {
+    const stat = await fs.stat(srcDir);
+    if (stat.isDirectory()) await fs.cp(srcDir, path.join(dist, extraAudio), { recursive: true });
+  } catch (_) {}
+}
 const manifest = Object.fromEntries(validated.map(({ id, name }) => [id, `./audio/en/lesson1/${name}`]));
 await fs.writeFile(path.join(dist, 'course/lesson1-audio-manifest.js'),
   `/* Generated from verified local recordings. */\nwindow.CARANA_LESSON1_AUDIO_MANIFEST = ${JSON.stringify(manifest, null, 2)};\nwindow.CARANA_LESSON1_AUDIO_AI_MODE = true;\n`);
