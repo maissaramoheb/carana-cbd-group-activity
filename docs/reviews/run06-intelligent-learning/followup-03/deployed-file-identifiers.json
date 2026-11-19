@@ -1,0 +1,632 @@
+[
+  {
+    "name": "src",
+    "type": "directory",
+    "mode": 16749,
+    "children": [
+      {
+        "name": ".vercel",
+        "type": "directory",
+        "mode": 16749,
+        "children": [
+          {
+            "name": "output",
+            "type": "directory",
+            "mode": 16749,
+            "children": [
+              {
+                "name": "config.json",
+                "type": "file",
+                "mode": 33188,
+                "uid": "609b76fd0e9a4f54914fba84c0d43f5cc49c3a81"
+              },
+              {
+                "name": "static",
+                "type": "directory",
+                "mode": 16749,
+                "children": [
+                  {
+                    "name": "CARANA_CBD_Group_Activity.html",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "49f3e553be8dd1c311c43e0a4bcffb240712b3fc"
+                  },
+                  {
+                    "name": "course",
+                    "type": "directory",
+                    "mode": 16749,
+                    "children": [
+                      {
+                        "name": "app.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "65f318ed7309287fa8ead4cdb102091d684bfa4b"
+                      },
+                      {
+                        "name": "audio",
+                        "type": "directory",
+                        "mode": 16749,
+                        "children": [
+                          {
+                            "name": "en",
+                            "type": "directory",
+                            "mode": 16749,
+                            "children": [
+                              {
+                                "name": "lesson1",
+                                "type": "directory",
+                                "mode": 16749,
+                                "children": [
+                                  {
+                                    "name": "01-01-935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "a547f38999ea6b1f245a67b67ffaa3f9271ad9c7"
+                                  },
+                                  {
+                                    "name": "01-02-a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "31e7eef7f3a21bcf8a7bfeaaeee5e0150edd4484"
+                                  },
+                                  {
+                                    "name": "01-03-7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "005d7ae9df9278f1261ce9fadc07af91e4d2eec1"
+                                  },
+                                  {
+                                    "name": "02-01-238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "f8f22b3fc10c22b0fc39fada7b7f11d2b634d525"
+                                  },
+                                  {
+                                    "name": "02-02-f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "17537b313e6a5c4e6e28fafde6bacaf05d608053"
+                                  },
+                                  {
+                                    "name": "02-03-ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "517da29ee334f5d79c56c2faa4734bf82f2330d0"
+                                  },
+                                  {
+                                    "name": "03-01-aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "a9d666c3f45283f2a24b428bc54db0f698a1f35e"
+                                  },
+                                  {
+                                    "name": "03-02-8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "669c9f9d2b05dfa4caba3bcd3e500c6f00caa2e9"
+                                  },
+                                  {
+                                    "name": "03-03-1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "6797ed70a8e205cded09e569ec5ce3cc91b3dbe5"
+                                  },
+                                  {
+                                    "name": "04-01-a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "2e84d5ba07004b1ab415ed6711c95036fe32c576"
+                                  },
+                                  {
+                                    "name": "04-02-4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "d0245c0094f2e45a95142c415c99fc24ccdce155"
+                                  },
+                                  {
+                                    "name": "04-03-e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "840706163e4338a17b937ba10847a3cb8ad5425e"
+                                  },
+                                  {
+                                    "name": "05-01-daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "004dd66d3deabee62391d649b8d5a254b1e48ef3"
+                                  },
+                                  {
+                                    "name": "05-02-3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "601bc53f06aaf29dd69e873f86f03e825e1e6823"
+                                  },
+                                  {
+                                    "name": "05-03-529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "e5bebc0935c81b78cd3ef84fb4a1a07332824d1f"
+                                  },
+                                  {
+                                    "name": "06-01-d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "d9ae81fa490a4cee087d3bc3a71802e2ecbbe149"
+                                  },
+                                  {
+                                    "name": "06-02-b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "027307b7ec5757ab2de2c9daaf5dd99f5aa163cf"
+                                  },
+                                  {
+                                    "name": "06-03-552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c.mp3",
+                                    "type": "file",
+                                    "mode": 33188,
+                                    "uid": "c5188d14760bc6b61d50c476d12374723a298d43"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "curriculum-home.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "a408fc90fd157b26ceeb7a2079784d9b6a62b6c0"
+                      },
+                      {
+                        "name": "experience.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "1cc1143239356a0527eb89938510433c733cb97a"
+                      },
+                      {
+                        "name": "home-support.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "f1bdb435dd4cff4ac1f2a8d6912d7efc31976537"
+                      },
+                      {
+                        "name": "hybrid-visuals.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "fbd92c8edcd56b0f5cbccf71bd5a775d50e351e1"
+                      },
+                      {
+                        "name": "illustrations.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "80bf91635b6cb4e4c7a620b0449b02d8a492eadc"
+                      },
+                      {
+                        "name": "illustrations",
+                        "type": "directory",
+                        "mode": 16749,
+                        "children": [
+                          {
+                            "name": "lesson1",
+                            "type": "directory",
+                            "mode": 16749,
+                            "children": [
+                              {
+                                "name": "01-01-diagnose-first.jpg",
+                                "type": "file",
+                                "mode": 33188,
+                                "uid": "f660bb3914b7e38b7f33f94b694118bec537313b"
+                              },
+                              {
+                                "name": "03-03-counterpart-fatigue.jpg",
+                                "type": "file",
+                                "mode": 33188,
+                                "uid": "139e22fedd0537ed63b46954be708b1f855522fb"
+                              },
+                              {
+                                "name": "04-02-triangulation.jpg",
+                                "type": "file",
+                                "mode": 33188,
+                                "uid": "cd0e24eb2c3730f0d24466e84ea70a59eba2f0b8"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "index.html",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "afe2315ed1f304a382ebd8ee837b9777e509e133"
+                      },
+                      {
+                        "name": "labs.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "879f6ce5c50d9415268d95ce8393fab7af6a8ecc"
+                      },
+                      {
+                        "name": "lesson1-audio-manifest.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "2348f8b947a560f3f9aebd920109c4b754b4d0a1"
+                      },
+                      {
+                        "name": "lesson1-data.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "0114030062fb7e472cbb032a43478cba3245d94a"
+                      },
+                      {
+                        "name": "lesson1-experience.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "f200b5cf587036c918e692da775ce69a2f4daa40"
+                      },
+                      {
+                        "name": "lesson1-illustrations.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "86edee157d19bf5a3a0aa1962acefd3ff5e15561"
+                      },
+                      {
+                        "name": "lesson1-labs.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "f9dd34a9515ba9ebf641c94055ea1d2fd61a28c2"
+                      },
+                      {
+                        "name": "lesson1-player.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "5c9183ac526d9fc41a67b931dbecb92d847d88a2"
+                      },
+                      {
+                        "name": "premium.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "b1e08f17c1f7c5b632b30f6c341333470c666027"
+                      },
+                      {
+                        "name": "refinements-v051.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "2c15aca91cd4ec454298a0aaf2bc65449ee860c9"
+                      },
+                      {
+                        "name": "style.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "dec6960da510b9b298a07cfd52d0fc67f569e12d"
+                      },
+                      {
+                        "name": "typography-spacing.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "d0ee416f494e950047dbc03799da436e2c613d25"
+                      },
+                      {
+                        "name": "visual-gallery.html",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "cc229235b2ddd79bb4ee6b6ec038e2e45d368ad1"
+                      },
+                      {
+                        "name": "visual-gallery.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "378d8da62f6dfb87ede67730c24de2d7bea1f93d"
+                      },
+                      {
+                        "name": "visual-journey.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "4e884a55d4dd764e2efa5a2a87d50c7284d3a51b"
+                      },
+                      {
+                        "name": "visual-journey.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "4c068e5f4a42858d20c6dbdc48dbec2c86a46468"
+                      },
+                      {
+                        "name": "voice-audition.html",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "6b15901880b7853375e25abe376d037b37124e05"
+                      },
+                      {
+                        "name": "voice-audition.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "b14f7d02ce9a72f1e0341cc465e393240481155f"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "css",
+                    "type": "directory",
+                    "mode": 16749,
+                    "children": [
+                      {
+                        "name": "design-system.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "8187b6501caa11f9f5900505751cbfbe8ff7d498"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "curricula",
+                    "type": "directory",
+                    "mode": 16749,
+                    "children": [
+                      {
+                        "name": "cbd",
+                        "type": "directory",
+                        "mode": 16749,
+                        "children": [
+                          {
+                            "name": "lessons-2-3.json",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "82ba9652431474586cf5e9746b06a8c76ff64fc8"
+                          },
+                          {
+                            "name": "lessons-4-6.json",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "b148bc47323dffffe51d5b1364eb66d03905d452"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "index.html",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "54415d9ba62af446b04df5ec0f0a52fcd159f237"
+                  },
+                  {
+                    "name": "js",
+                    "type": "directory",
+                    "mode": 16749,
+                    "children": [
+                      {
+                        "name": "data",
+                        "type": "directory",
+                        "mode": 16749,
+                        "children": [
+                          {
+                            "name": "carana-scenario.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "d61b62235850ea0642c16aa1c25d54e44e39df64"
+                          },
+                          {
+                            "name": "curriculum-glossary.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "0ddda2084e01274e6e82f5d99347f1065f5564e7"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "modules",
+                        "type": "directory",
+                        "mode": 16749,
+                        "children": [
+                          {
+                            "name": "module1.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "1d37caa6dd9a6c7a09e552f3b3e48ad1bdcfab5a"
+                          },
+                          {
+                            "name": "module2.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "60b0a5ad5dce383223e809cba9baf3905d973f8f"
+                          },
+                          {
+                            "name": "module3.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "a21c66de7973d5e1f27975ffe227bab3b24dc038"
+                          },
+                          {
+                            "name": "module4.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "86f0984852ea5b06ca522f4d5018cbef7390caf5"
+                          },
+                          {
+                            "name": "module5.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "c3e379eb6bc8d6a29e8ec7d242d23ca91a96ccc4"
+                          },
+                          {
+                            "name": "module6.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "13022a31398a90df0d4855ccea71c3fae5210a6b"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "storage",
+                        "type": "directory",
+                        "mode": 16749,
+                        "children": [
+                          {
+                            "name": "lab-storage.js",
+                            "type": "file",
+                            "mode": 33188,
+                            "uid": "7fbac349b3faa8f2e1069e6b918987b0cb07dd64"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "module1.html",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "69fd5ef108ad164b8c10a7bebd22028e1e61db90"
+                  },
+                  {
+                    "name": "module2.html",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "23ce1de814271436ece49ab5272764265870da8c"
+                  },
+                  {
+                    "name": "module3.html",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "94ac1dfd0f4028d525e6a7845cfe31a75f15ce50"
+                  },
+                  {
+                    "name": "module4.html",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "34b51cc8d91044d692a6106277e4f5c61c7b0e19"
+                  },
+                  {
+                    "name": "module5.html",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "f33c2a5a891c0a5a6a8b2093124afeedd30311d1"
+                  },
+                  {
+                    "name": "module6.html",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "1734691ab77753b22dfe7292ead49713c6280fa7"
+                  },
+                  {
+                    "name": "platform",
+                    "type": "directory",
+                    "mode": 16749,
+                    "children": [
+                      {
+                        "name": "catalog.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "9a1af987bcabf017790b7c224c2f21afa8ed64b4"
+                      },
+                      {
+                        "name": "demo-showcase.html",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "312098239ba9148e543f54c85ec3bee2c986d318"
+                      },
+                      {
+                        "name": "demo.html",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "ef923e4a8766d8fefc36faeed0c5eabd7a42ef18"
+                      },
+                      {
+                        "name": "exploration.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "49b37bf95a2d03837bb116de7fd55dff45bbac1f"
+                      },
+                      {
+                        "name": "handoff.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "ca5a7b4ebc47609f818dbc4d01d85904a88284a3"
+                      },
+                      {
+                        "name": "index.html",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "2f956b4959b53d5160f18d1488533bcd0cf51271"
+                      },
+                      {
+                        "name": "learning-refinements.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "4890f873be45f54684d0210e11e644e35e0d1fee"
+                      },
+                      {
+                        "name": "learning-support.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "e5c9d63bf27479e813213f9039ed1f8fda551615"
+                      },
+                      {
+                        "name": "learning-support.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "bcd49faa5391ca7c309bab5396692b1e605e289e"
+                      },
+                      {
+                        "name": "learning-tools.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "c4844706f5bb22d3a15602957d0989ec3e615d3d"
+                      },
+                      {
+                        "name": "notebook-core.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "39df996258dfaf260b7326fbf222fad699311e6a"
+                      },
+                      {
+                        "name": "notebook.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "3951d16887138bff337a9d33c19157ae8a40005d"
+                      },
+                      {
+                        "name": "notebook.html",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "4c230322f243d07ecf1dd8195add024a7bd8ecb0"
+                      },
+                      {
+                        "name": "notebook.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "c6afd3f091b3caf3397b14c3eea34ba8b6a5dcfb"
+                      },
+                      {
+                        "name": "platform.css",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "6e4ce40a037268c182655cf30b418b4ded84042c"
+                      },
+                      {
+                        "name": "platform.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "e448aa3accb1b07a03467a3f702ba93162e1f724"
+                      },
+                      {
+                        "name": "progress-core.js",
+                        "type": "file",
+                        "mode": 33188,
+                        "uid": "30feb25804bf74dfb524437d445133db792135cf"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "release-manifest.json",
+                    "type": "file",
+                    "mode": 33188,
+                    "uid": "2f95ac10bc880983b0bc8c2a9bd0ab2f29ccea44"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

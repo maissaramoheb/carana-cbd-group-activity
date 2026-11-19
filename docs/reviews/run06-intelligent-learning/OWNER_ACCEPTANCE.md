@@ -8,3 +8,11 @@
 4. Human expert content review, audible voices, native screen readers, physical Safari/iOS and owner visual acceptance remain pending. Automated WebKit/Axe is not physical-device or institutional certification.
 
 Decisions: accept/refine the reading UI; keep AI on HOLD. A further bounded local model-qualification pass requires explicit approval under the project retry limit. Any future public service also requires approved private connectivity, trusted HTTPS, server-side credentials/identity, operating controls and independent security/quality acceptance. No merge, production release, public tunnel or paid inference is authorized by a green test result.
+
+## Follow-up 03 — TTS-Only Isolated Preview for Owner Acceptance
+
+New isolated Vercel preview deployed from Follow-up 02 application commit `804e7f97d28abcfe4b19141e48c15b11826bdbff`:
+- **Preview URL:** `https://carana-cbd-elearning-hnh5wj352-delta4ce20-5830s-projects.vercel.app`
+- **Deployment ID:** `dpl_BLJ4n1qWjcaMoayggYhWdEiDym4G` (`READY`, `target: preview`)
+- **Full Owner Test Guide & Verification Evidence:** [followup-03/OWNER_ACCEPTANCE_TTS_RELEASE.md](followup-03/OWNER_ACCEPTANCE_TTS_RELEASE.md) and [followup-03/deployed-identifiers-verified.json](followup-03/deployed-identifiers-verified.json).
+- Track A (AI Tutor) remains on **HOLD** and is completely excluded/disabled in the preview. Production (`https://cbd.maissara.tech/`) remains unchanged.

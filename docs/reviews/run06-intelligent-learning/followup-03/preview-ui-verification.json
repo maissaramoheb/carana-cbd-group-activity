@@ -1,0 +1,27 @@
+{
+  "previewDeployment": "dpl_BLJ4n1qWjcaMoayggYhWdEiDym4G",
+  "previewUrl": "https://carana-cbd-elearning-hnh5wj352-delta4ce20-5830s-projects.vercel.app",
+  "anonymousProtectionStatus": 302,
+  "rows": [
+    {
+      "name": "chromium-desktop",
+      "run05ExplorationLoaded": true,
+      "nativeReadStarted": true,
+      "highlightActive": true,
+      "unavailableSendDisabled": true,
+      "noLocalhostInferenceRequests": true,
+      "privateIndex404": true,
+      "axeViolations": 0
+    },
+    {
+      "name": "webkit-mobile",
+      "run05ExplorationLoaded": true,
+      "nativeReadStarted": true,
+      "highlightActive": true,
+      "unavailableSendDisabled": true,
+      "noLocalhostInferenceRequests": true,
+      "privateIndex404": true,
+      "axeViolations": 0
+    }
+  ]
+}
