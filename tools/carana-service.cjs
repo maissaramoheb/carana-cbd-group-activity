@@ -16,7 +16,8 @@ const ROOT = path.resolve(__dirname, '..');
 const LABEL = 'com.carana.cbd.ai';
 const DEFAULT_PORT = 8766;
 const DEFAULT_MODEL = 'gemma4:26b';
-const DEFAULT_QUALIFICATION = 'owner-pilot';
+const DEFAULT_QUALIFICATION = 'controlled-pilot-review-pending';
+const PRODUCTION_DOMAINS = ['e-learning.maissara.tech', 'cbd.maissara.tech'];
 
 function parseArgs(argv) {
   const positional = [];
@@ -259,16 +260,66 @@ function terminateRecordedProcesses(p) {
   return killed;
 }
 
-function setVercelPreviewEnv(name, value) {
+function setVercelEnv(name, value, targetEnv = 'preview') {
   const vercel = resolveBin('vercel', ['/opt/homebrew/bin/vercel', '/usr/local/bin/vercel']);
   try {
-    execFileSync(vercel, ['env', 'rm', name, 'preview', '-y'], { cwd: ROOT, stdio: 'ignore' });
+    execFileSync(vercel, ['env', 'rm', name, targetEnv, '-y'], { cwd: ROOT, stdio: 'ignore' });
   } catch (_) {}
-  execFileSync(vercel, ['env', 'add', name, 'preview'], {
+  execFileSync(vercel, ['env', 'add', name, targetEnv], {
     cwd: ROOT,
     input: String(value),
     stdio: ['pipe', 'ignore', 'pipe']
   });
+}
+
+function syncVercelEnvironment(targetEnv, { proxySecret, tunnelUrl, model, qualification }) {
+  const vercel = resolveBin('vercel', ['/opt/homebrew/bin/vercel', '/usr/local/bin/vercel']);
+  setVercelEnv('CARANA_AI_ENABLED', 'true', targetEnv);
+  setVercelEnv('CARANA_UPSTREAM_URL', tunnelUrl, targetEnv);
+  setVercelEnv('CARANA_PROXY_SECRET', proxySecret, targetEnv);
+  setVercelEnv('CARANA_MODEL', model, targetEnv);
+  setVercelEnv('CARANA_QUALIFICATION', qualification, targetEnv);
+  try { execFileSync(vercel, ['env', 'rm', 'CARANA_PILOT_DISABLED', targetEnv, '-y'], { cwd: ROOT, stdio: 'ignore' }); } catch (_) {}
+}
+
+function runVercelDeploy({ p, tunnelUrl, model, qualification, isProd, targetLabel }) {
+  const { proxySecret } = ensurePersistentSecrets(p.dataDir);
+  const vercel = resolveBin('vercel', ['/opt/homebrew/bin/vercel', '/usr/local/bin/vercel']);
+  const targetEnv = isProd ? 'production' : 'preview';
+  syncVercelEnvironment(targetEnv, { proxySecret, tunnelUrl, model, qualification });
+
+  const prepArgs = ['tools/release/prepare-ai-preview.cjs'];
+  if (isProd) prepArgs.push('--production');
+  else if (targetLabel) prepArgs.push('--target', targetLabel);
+  execFileSync(process.execPath, prepArgs, { cwd: ROOT, stdio: 'inherit' });
+
+  const deployArgs = isProd ? ['deploy', '--prebuilt', '--prod', '--yes'] : ['deploy', '--prebuilt', '--yes'];
+  const deployOut = execFileSync(vercel, deployArgs, { cwd: ROOT, encoding: 'utf8' });
+  const urls = deployOut.match(/https:\/\/[a-z0-9.-]+\.vercel\.app/gi);
+  if (!urls || !urls.length) throw Error('Could not parse Vercel deployment URL from output: ' + deployOut);
+  const deploymentUrl = urls[urls.length - 1];
+
+  const aliasedDomains = [];
+  if (isProd) {
+    for (const domain of PRODUCTION_DOMAINS) {
+      execFileSync(vercel, ['alias', 'set', deploymentUrl, domain], { cwd: ROOT, stdio: 'inherit' });
+      aliasedDomains.push(domain);
+    }
+  }
+
+  const meta = {
+    deployedAt: new Date().toISOString(),
+    deploymentUrl,
+    previewUrl: deploymentUrl,
+    tunnelUrl,
+    model,
+    qualification,
+    environment: isProd ? 'production (both custom domains updated)' : 'preview-only (production untouched)',
+    domains: aliasedDomains
+  };
+  const outMetaFile = isProd ? path.join(p.dataDir, 'production-release.json') : p.previewMetaFile;
+  fs.writeFileSync(outMetaFile, JSON.stringify(meta, null, 2) + '\n', { mode: 0o600 });
+  return meta;
 }
 
 async function gatherStatus(p, port, tunnelUrl) {
@@ -409,30 +460,28 @@ async function main() {
     return;
   }
 
-  if (cmd === 'deploy-owner-pilot') {
-    const { proxySecret } = ensurePersistentSecrets(p.dataDir);
-    const vercel = resolveBin('vercel', ['/opt/homebrew/bin/vercel', '/usr/local/bin/vercel']);
-    setVercelPreviewEnv('CARANA_AI_ENABLED', 'true');
-    setVercelPreviewEnv('CARANA_UPSTREAM_URL', tunnelUrl);
-    setVercelPreviewEnv('CARANA_PROXY_SECRET', proxySecret);
-    setVercelPreviewEnv('CARANA_MODEL', model);
-    setVercelPreviewEnv('CARANA_QUALIFICATION', qualification);
-    try { execFileSync(vercel, ['env', 'rm', 'CARANA_PILOT_DISABLED', 'preview', '-y'], { cwd: ROOT, stdio: 'ignore' }); } catch (_) {}
-
-    execFileSync(process.execPath, ['tools/release/prepare-ai-preview.cjs'], { cwd: ROOT, stdio: 'inherit' });
-    const deployOut = execFileSync(vercel, ['deploy', '--prebuilt', '--yes'], { cwd: ROOT, encoding: 'utf8' });
-    const urls = deployOut.match(/https:\/\/[a-z0-9.-]+\.vercel\.app/gi);
-    if (!urls || !urls.length) throw Error('Could not parse Vercel preview URL from output: ' + deployOut);
-    const previewUrl = urls[urls.length - 1];
-    const meta = {
-      deployedAt: new Date().toISOString(),
-      previewUrl,
+  if (cmd === 'deploy-owner-pilot' || cmd === 'deploy-candidate') {
+    const meta = runVercelDeploy({
+      p,
       tunnelUrl,
       model,
       qualification,
-      environment: 'preview-only (production untouched)'
-    };
-    fs.writeFileSync(p.previewMetaFile, JSON.stringify(meta, null, 2) + '\n', { mode: 0o600 });
+      isProd: false,
+      targetLabel: cmd === 'deploy-candidate' ? 'controlled-production-pilot-candidate' : 'isolated-owner-ai-preview'
+    });
+    console.log(JSON.stringify(meta, null, 2));
+    return;
+  }
+
+  if (cmd === 'deploy-production') {
+    const meta = runVercelDeploy({
+      p,
+      tunnelUrl,
+      model,
+      qualification,
+      isProd: true,
+      targetLabel: 'controlled-production-pilot'
+    });
     console.log(JSON.stringify(meta, null, 2));
     return;
   }

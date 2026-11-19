@@ -315,10 +315,10 @@ function createHandler({
         queueDepth: queue.length,
         maxQueue,
         activeTts: ttsBusy,
-        uptimeSec: Math.round((clock() - startedAtMs) / 1000),
-        memory: mem
+        uptimeSec: Math.round((clock() - startedAtMs) / 1000)
       };
       if (!isProxied || authenticate(req.headers.authorization).ok) {
+        base.memory = mem;
         base.stats = {
           ...stats,
           avgLatencyMs: stats.latencyCount ? Math.round(stats.latencySumMs / stats.latencyCount) : 0,

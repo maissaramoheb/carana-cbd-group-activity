@@ -58,7 +58,8 @@ const base = process.env.CBD_TEST_URL || 'https://localhost:8766';
 
     pilotOffline = false;
     await page.locator('#assistant-retry-status').click();
-    await page.waitForFunction(() => document.querySelector('#assistant-mode-pill').textContent === 'Experimental Pilot');
+    await page.waitForFunction(() => document.querySelector('#assistant-mode-pill').textContent === 'Experimental AI · Review Pending');
+    assert.match(await page.locator('.assistant-notice').innerText(), /Experimental AI · Human Review Pending/);
 
     // 2. Wrong code rejected immediately on Connect without enabling Send
     await page.locator('#assistant-code').fill('wrong-code');

@@ -11,10 +11,19 @@ const run = (cmd, args) => execFileSync(cmd, args, { cwd: root, stdio: 'inherit'
 
 run(process.execPath, ['tools/release/prepare.cjs']);
 
+const isProd = process.argv.includes('--production');
+const targetArgIdx = process.argv.indexOf('--target');
+const targetName = targetArgIdx >= 0 && process.argv[targetArgIdx + 1]
+  ? String(process.argv[targetArgIdx + 1]).trim()
+  : isProd
+    ? 'controlled-production-pilot'
+    : 'isolated-owner-ai-preview';
+
 const outputDir = path.join(root, '.vercel/output');
 const manifestPath = path.join(outputDir, 'static/release-manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-manifest.target = 'isolated-owner-ai-preview';
+manifest.target = targetName;
+if (isProd) manifest.fieldPilot = 'restricted-invitation-only';
 fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 
 const proxySource = fs.readFileSync(path.join(root, 'tutor/remote-proxy.cjs'));

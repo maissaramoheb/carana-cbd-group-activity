@@ -1061,10 +1061,10 @@
       '    <button id="assistant-signout" type="button" class="assistant-mini-btn" hidden>Sign out</button>' +
       '  </div>' +
       '  <div id="assistant-access" class="assistant-access-card" hidden>' +
-      '    <label for="assistant-code">Pilot access code <input id="assistant-code" type="password" autocomplete="off" placeholder="Enter your invitation or studio code"></label>' +
+      '    <label for="assistant-code">Invitation access code <input id="assistant-code" type="password" autocomplete="off" placeholder="Enter your owner or reviewer access code"></label>' +
       '    <button id="assistant-connect" type="button" class="support-primary">Connect</button>' +
       '  </div>' +
-      '  <p class="assistant-notice">Experimental study aid — not an official UN instrument. Use curriculum material only; do not enter personal or operational data.</p>' +
+      '  <p class="assistant-notice"><strong>Experimental AI · Human Review Pending</strong> — Independent controlled-pilot study aid, not an official UN instrument. Always verify answers against cited curriculum sources; do not enter personal or operational data.</p>' +
       '</div>' +
       '<div class="assistant-prompts" role="group" aria-label="Suggested study prompts">' +
       '  <button type="button" data-prompt="Explain this screen more simply.">Explain this screen</button>' +
@@ -1193,19 +1193,19 @@
       const isHold = !status.qualification || status.qualification === 'not-qualified';
       modePill.textContent = isSim
         ? 'Simulated Test'
-        : status.remoteOwnerPreview
-          ? (isHold ? 'Owner Preview · HOLD' : 'Experimental Pilot')
-          : (isHold ? 'Experimental · HOLD' : 'Experimental Pilot');
+        : isHold
+          ? (status.remoteOwnerPreview ? 'Owner Preview · HOLD' : 'Experimental · HOLD')
+          : 'Experimental AI · Review Pending';
       modePill.dataset.state = isSim ? 'simulated' : 'connected';
       availEl.dataset.state = isSim ? 'simulated' : 'connected';
-      const prefix = accessUser ? `${accessUser.displayName} (${accessUser.role}) · ` : status.remoteOwnerPreview ? 'Remote pilot · ' : '';
+      const prefix = accessUser ? `${accessUser.displayName} (${accessUser.role}) · ` : status.remoteOwnerPreview ? 'Invitation only · ' : '';
       const queueNote = status.busy ? ` · busy (${status.queueDepth || 0} queued)` : '';
       availEl.textContent = isSim
         ? 'Simulated test provider · not AI: ' + status.model
         : prefix +
           (isHold
             ? 'Experimental local model · NOT QUALIFIED for teaching: '
-            : 'Experimental local model · controlled pilot: ') +
+            : 'Experimental AI (human review pending): ') +
           status.model +
           queueNote;
     }

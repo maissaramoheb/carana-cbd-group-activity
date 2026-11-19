@@ -17,7 +17,7 @@ const { defaultMemoryCheck } = require('../tutor/gateway.cjs');
 
 const DEFAULT_PORT = 8766;
 const DEFAULT_MODEL = 'gemma4:26b';
-const DEFAULT_QUALIFICATION = 'owner-pilot';
+const DEFAULT_QUALIFICATION = 'controlled-pilot-review-pending';
 const DEFAULT_TUNNEL_DOMAIN = 'pseudosymptomatic-nicola-bibliopolical.ngrok-free.dev';
 const MAX_LOG_BYTES = 5 * 1024 * 1024;
 const SENSITIVE_KEYS = new Set(['token', 'secret', 'authorization', 'question', 'answer', 'prompt', 'text', 'inviteToken', 'proxySecret']);
