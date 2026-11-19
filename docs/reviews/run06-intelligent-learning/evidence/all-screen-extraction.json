@@ -1,0 +1,394 @@
+[
+  {
+    "lesson": "cbd-1",
+    "screen": "01-01",
+    "title": "The decision before the decision",
+    "characters": 1380,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "01-02",
+    "title": "Three lenses, one coherent diagnosis",
+    "characters": 680,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "01-03",
+    "title": "Establish your starting point",
+    "characters": 570,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "02-01",
+    "title": "Structure the context with PESTEL-S",
+    "characters": 1138,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "02-02",
+    "title": "Read systems, not just symptoms",
+    "characters": 771,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "02-03",
+    "title": "Law and institutional context matter",
+    "characters": 694,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "03-01",
+    "title": "You are not starting from zero",
+    "characters": 852,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "03-02",
+    "title": "Interests are not always visible",
+    "characters": 661,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "03-03",
+    "title": "Coordinate to avoid unintended harm",
+    "characters": 653,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "04-01",
+    "title": "What actually happens inside the institution?",
+    "characters": 664,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "04-02",
+    "title": "Triangulate what you hear",
+    "characters": 1022,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "04-03",
+    "title": "Map people, power and interest",
+    "characters": 1083,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "05-01",
+    "title": "Five areas of institutional capacity",
+    "characters": 620,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "05-02",
+    "title": "Six dimensions cross every area",
+    "characters": 745,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "05-03",
+    "title": "Move from observations to structured issues",
+    "characters": 1065,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "06-01",
+    "title": "From findings to SWOT",
+    "characters": 812,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "06-02",
+    "title": "Record an evaluable as-is baseline",
+    "characters": 899,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-1",
+    "screen": "06-03",
+    "title": "You are ready for the CARANA workbench",
+    "characters": 704,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-2",
+    "screen": "02-01",
+    "title": "A police objective sits within a larger system",
+    "characters": 2444,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-2",
+    "screen": "02-02",
+    "title": "Ownership is maintained through participation",
+    "characters": 1914,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-2",
+    "screen": "02-03",
+    "title": "Make trade-offs visible",
+    "characters": 1782,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-2",
+    "screen": "02-04",
+    "title": "Turn an intention into a testable objective",
+    "characters": 1743,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-2",
+    "screen": "02-07",
+    "title": "Test the objective in a counterpart briefing",
+    "characters": 2238,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-2",
+    "screen": "02-05",
+    "title": "Choose indicators that inform decisions",
+    "characters": 1702,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-2",
+    "screen": "02-08",
+    "title": "A stronger number needs a defensible method",
+    "characters": 1781,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-2",
+    "screen": "02-06",
+    "title": "Carry defensible choices into practice",
+    "characters": 2265,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-01",
+    "title": "Begin with the result, then test the chain",
+    "characters": 2242,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-10",
+    "title": "Check one logframe row across four columns",
+    "characters": 1741,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-02",
+    "title": "Explain the missing middle",
+    "characters": 1675,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-03",
+    "title": "Budget for results",
+    "characters": 2269,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-04",
+    "title": "Census and vetting require a distinct mandate",
+    "characters": 1962,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-08",
+    "title": "Match training and MMA to the diagnosed need",
+    "characters": 1778,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-09",
+    "title": "A new policy needs a route into practice",
+    "characters": 2010,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-05",
+    "title": "Distinguish momentum from structural reform",
+    "characters": 1834,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-06",
+    "title": "Make risks actionable",
+    "characters": 1597,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-3",
+    "screen": "03-07",
+    "title": "Prepare an alternative path before disruption",
+    "characters": 2059,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-4",
+    "screen": "04-01",
+    "title": "A sound plan still needs a local fit",
+    "characters": 2320,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-4",
+    "screen": "04-02",
+    "title": "Communicate for understanding and participation",
+    "characters": 1845,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-4",
+    "screen": "04-03",
+    "title": "A delivered activity is not sustained change",
+    "characters": 1869,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-4",
+    "screen": "04-04",
+    "title": "Monitor implementation and respond early",
+    "characters": 1837,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-4",
+    "screen": "04-05",
+    "title": "Use a structure, then revisit your diagnosis",
+    "characters": 1835,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-4",
+    "screen": "04-07",
+    "title": "New evidence can change the problem you are solving",
+    "characters": 2009,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-4",
+    "screen": "04-06",
+    "title": "Test your plan from the counterpart’s position",
+    "characters": 2211,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-5",
+    "screen": "05-01",
+    "title": "Ask what changed and why",
+    "characters": 2216,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-5",
+    "screen": "05-06",
+    "title": "A favourable comparison is not the whole explanation",
+    "characters": 2196,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-5",
+    "screen": "05-02",
+    "title": "Protect credibility and choose appropriate roles",
+    "characters": 2015,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-5",
+    "screen": "05-03",
+    "title": "Design the evaluation before collecting more data",
+    "characters": 1807,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-5",
+    "screen": "05-04",
+    "title": "Explain your response to recommendations",
+    "characters": 1877,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-5",
+    "screen": "05-05",
+    "title": "Practise evaluation without borrowing an answer",
+    "characters": 2294,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-6",
+    "screen": "06-01",
+    "title": "An activity transition is a new responsibility",
+    "characters": 2290,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-6",
+    "screen": "06-02",
+    "title": "Use evidence and context to recognise a trigger",
+    "characters": 1906,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-6",
+    "screen": "06-03",
+    "title": "Four principles make transition a process",
+    "characters": 1840,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-6",
+    "screen": "06-04",
+    "title": "Distinguish authority from coordination",
+    "characters": 1946,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-6",
+    "screen": "06-05",
+    "title": "Phase responsibility and test readiness",
+    "characters": 1950,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-6",
+    "screen": "06-07",
+    "title": "Rehearse the conversation behind the handover",
+    "characters": 1805,
+    "pass": true
+  },
+  {
+    "lesson": "cbd-6",
+    "screen": "06-06",
+    "title": "Prepare a transition you can explain to both sides",
+    "characters": 2218,
+    "pass": true
+  }
+]

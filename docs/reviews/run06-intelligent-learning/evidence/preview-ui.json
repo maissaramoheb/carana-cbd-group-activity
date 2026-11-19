@@ -1,0 +1,23 @@
+{
+  "anonymousProtectionStatus": 302,
+  "rows": [
+    {
+      "name": "chromium",
+      "nativeReadStarted": true,
+      "unavailableSendDisabled": true,
+      "noLocalhostRequests": true,
+      "progressUnchanged": true,
+      "privateIndex404": true,
+      "axeViolations": 0
+    },
+    {
+      "name": "webkit-mobile",
+      "nativeReadStarted": true,
+      "unavailableSendDisabled": true,
+      "noLocalhostRequests": true,
+      "progressUnchanged": true,
+      "privateIndex404": true,
+      "axeViolations": 0
+    }
+  ]
+}

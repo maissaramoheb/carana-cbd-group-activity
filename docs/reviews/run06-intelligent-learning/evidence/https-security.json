@@ -1,0 +1,15 @@
+{
+  "transport": "genuine local HTTPS",
+  "loopbackOnly": true,
+  "systemTrustRejectsSelfSigned": true,
+  "explicitCertificateTrustWorks": true,
+  "wrongOrigin403": true,
+  "wrongHost403": true,
+  "wrongToken401": true,
+  "oversize413": true,
+  "invalidContext400": true,
+  "noPermissiveCors": true,
+  "rate429": true,
+  "privateAccessFileMode": "0600",
+  "protectedGuidanceNoInference": true
+}
