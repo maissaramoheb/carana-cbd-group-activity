@@ -1,0 +1,703 @@
+{
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "provider": "genuine-local-ollama",
+  "configuration": {
+    "reasoning": false,
+    "contextTokens": 4096,
+    "outputTokens": 420,
+    "deadlineMs": 45000
+  },
+  "passCount": 1,
+  "retries": 0,
+  "qualification": "NOT AUTOMATICALLY DETERMINED; source review required",
+  "rows": [
+    {
+      "id": "C1",
+      "question": "What is the difference between outputs and outcomes?",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-02",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-3:03-01",
+        "cbd-3:03-02",
+        "cbd-2:02-01"
+      ],
+      "criteria": "Distinguish direct deliverables from intended changes; distinguish outcome from impact; no guaranteed causal chain or definition based solely on time horizon.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "Output is what an activity directly delivers (e.g., a report), while outcome is the broader change the intervention aims to achieve (e.g., improved case resolution). Outputs are tangible products; outcomes reflect actual impact. As per cbd-3:03-01, work from outcomes to outputs to activities to ensure alignment with goals. The difference lies in scope and purpose: outputs are intermediate, outcomes are end results.",
+      "example": "A police training session (activity) produces a trained officer (output), which may lead to better investigations (outcome).",
+      "sourceIds": [
+        "cbd-3:03-01",
+        "cbd-3:03-02"
+      ],
+      "uncertainty": "The distinction is conceptual, not always clearly defined in practice; evidence sources may not always verify outcomes directly.",
+      "sources": [
+        {
+          "id": "cbd-3:03-01",
+          "title": "Begin with the result, then test the chain",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "4–7",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-3:03-02",
+          "title": "Explain the missing middle",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "10–11",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 3463,
+        "tokens": 163,
+        "loadMs": 819.349333,
+        "generationMs": 1936.984
+      }
+    },
+    {
+      "id": "C2",
+      "question": "Explain PESTEL-S with a policing example.",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "02-01",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-1:02-01",
+        "cbd-1:02-02"
+      ],
+      "criteria": "All seven components; security retained; context scan not substitute for local evidence; invented example clearly separate.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "PESTEL-S is a framework to analyse contextual drivers shaping policing. Political factors involve governance and authority; economic factors relate to budgets and sustainability; social factors examine community trust and inclusion; technological factors cover equipment and information flow; environmental factors include physical conditions; legal factors define powers and rights; security factors address conflict and access. In policing, this helps understand how external forces influence operations and reform—without assuming a single cause. A policing example: in a conflict-affected area, insecurity (security) limits patrols, economic pressures (economic) reduce funding, and community distrust (social) hinders cooperation—each shaping real-time policing actions.",
+      "example": "In a rural area with armed conflict, police face insecurity (security), limited funding (economic), and community distrust (social). A PESTEL-S scan reveals that patrols are restricted by conflict, budgets are low due to economic strain, and residents avoid engagement due to past violence—showing how interconnected factors shape policing reality.",
+      "sourceIds": [
+        "cbd-1:02-01"
+      ],
+      "uncertainty": "The framework is for questioning, not a definitive answer; local perspectives are essential, and deeper analysis (e.g., actor mapping) may be needed for full understanding.",
+      "sources": [
+        {
+          "id": "cbd-1:02-01",
+          "title": "Structure the context with PESTEL-S",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "6–7",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 3350,
+        "tokens": 249,
+        "loadMs": 0.638125,
+        "generationMs": 2924.834
+      }
+    },
+    {
+      "id": "C3",
+      "question": "Why is triangulation important?",
+      "context": {
+        "lessonId": "cbd-1",
+        "screenId": "04-02",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-1:04-02"
+      ],
+      "criteria": "Compare independent evidence types, examine discrepancies and limitations; no guarantee of truth from agreement.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "Triangulation is important because it compares different types of evidence—like interviews, observations, and records—to verify consistency and identify discrepancies. This cross-checking strengthens analysis by ensuring claims are supported by diverse, reliable sources, reducing bias and assumptions. It leads to a more defensible, accurate understanding of reality, especially when evidence sources differ.",
+      "example": "A police officer claims all calls are logged. Triangulation would compare logs, interviews with staff, and observed practices to verify this, ensuring the claim is evidence-based, not assumed.",
+      "sourceIds": [
+        "cbd-1:04-02"
+      ],
+      "uncertainty": "The passage emphasizes quality and diversity of evidence but does not evaluate the effectiveness of triangulation in all contexts or its limitations in data scarcity.",
+      "sources": [
+        {
+          "id": "cbd-1:04-02",
+          "title": "Triangulate what you hear",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "11",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2028,
+        "tokens": 158,
+        "loadMs": 0.589083,
+        "generationMs": 1816.156
+      }
+    },
+    {
+      "id": "C4",
+      "question": "Explain this logframe and why an indicator needs verification.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-3:03-10",
+        "cbd-1:06-02",
+        "cbd-3:03-05"
+      ],
+      "criteria": "Result, measure, evidence and assumptions align; do not recommend procurement evidence for review practice; preserve hierarchy and counterexample meaning.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "An indicator needs verification to ensure the evidence collected truly reflects the intended result. Without verification, data may be inaccurate or misaligned with the actual change. Verification confirms that the measure and evidence source address the same result, as shown in the logframe row. Flawed rows—like counting workshops using a procurement register—fail to capture the real outcome. Verification ensures credibility, comparability, and alignment with the result chain, making evaluation trustworthy and meaningful.",
+      "example": "A policing project verifies community trust by observing public interactions, not by counting meetings. If unverified, the data may show activity without real change.",
+      "sourceIds": [
+        "cbd-3:03-10",
+        "cbd-1:06-02",
+        "cbd-3:03-05"
+      ],
+      "uncertainty": "The teaching passages emphasize verification as a check for alignment and credibility, not as a guarantee of accuracy or change. Verification methods are described as essential but not sufficient alone to prove impact.",
+      "sources": [
+        {
+          "id": "cbd-3:03-10",
+          "title": "Check one logframe row across four columns",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "5–7",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-1:06-02",
+          "title": "Record an evaluable as-is baseline",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "19",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cbd-3:03-05",
+          "title": "Distinguish momentum from structural reform",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "17–18",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 3008,
+        "tokens": 199,
+        "loadMs": 0.690042,
+        "generationMs": 2452.827
+      }
+    },
+    {
+      "id": "C5",
+      "question": "What triggers a responsible transition?",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-01",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02",
+        "cbd-6:06-04"
+      ],
+      "criteria": "Include achievement and major contextual/counterpart/mandate changes; ideally sufficient progress is not a universal prerequisite; trigger is not proof of success/readiness.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "A responsible transition is triggered by achieving the objective or by significant environmental changes—such as political, security, or legal shifts—that make the original activity infeasible. National counterpart decisions or mandate changes may also trigger it. However, a trigger initiates a reasoned assessment, not a decision. Progress and context must be evaluated separately. The Head of Police Component decides to initiate transition, based on advice, not alone. The trigger must be explained clearly to ensure accurate framing and next-step planning.",
+      "example": "A police mission ends not because it succeeded, but because a new law prohibits its operations—this is a contextual trigger, not a success trigger.",
+      "sourceIds": [
+        "plan-cbd-6:p5",
+        "cbd-6:06-02",
+        "cbd-6:06-04"
+      ],
+      "uncertainty": "The teaching passages do not specify a single, definitive trigger; they emphasize evaluation and context. The ideal trigger is objective achievement, but significant environmental changes are also valid. The decision to transition remains with the Head of Police Component, guided by advice, not automatic.",
+      "sources": [
+        {
+          "id": "plan-cbd-6:p5",
+          "title": "Triggers for transition",
+          "source": {
+            "kind": "official-plan-teaching-excerpt-paraphrase",
+            "label": "UNPOL CBD Job-Specific Training Lesson 6; 2021 curriculum / July2023 supplied file",
+            "pages": "5",
+            "file": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "sha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3",
+            "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+          }
+        },
+        {
+          "id": "cbd-6:06-02",
+          "title": "Use evidence and context to recognise a trigger",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "5",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        },
+        {
+          "id": "cbd-6:06-04",
+          "title": "Distinguish authority from coordination",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "8",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 3117,
+        "tokens": 220,
+        "loadMs": 0.703167,
+        "generationMs": 2679.751
+      }
+    },
+    {
+      "id": "C6",
+      "question": "Why should an adviser avoid importing a policing solution unchanged?",
+      "context": {
+        "lessonId": "cbd-4",
+        "screenId": "04-01",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-1:02-03",
+        "cbd-4:04-01"
+      ],
+      "criteria": "Local culture, authority, counterpart ownership and fit; no fabricated official requirements or findings about CARANA.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "An adviser should avoid importing a policing solution unchanged because legal systems, cultural contexts, and local institutions differ. A solution may not align with host-country laws, rights, or practices. Local ownership, feasibility, and cultural dynamics must be assessed. Without adaptation, the solution may lack legitimacy, sustainability, or inclusivity. Importing unchanged practices risks undermining trust, ignoring diverse experiences, and failing to meet local needs. Adaptation ensures relevance, accountability, and sustainable outcomes.",
+      "example": "An invented example: Introducing a case-review routine from one country to another—though effective in the source, it may not fit local authority structures or community trust. A local stakeholder might feel it undermines their autonomy or fails to address gender-specific concerns. Thus, adaptation is needed to ensure inclusivity and legitimacy.",
+      "sourceIds": [
+        "cbd-1:02-03",
+        "cbd-4:04-01"
+      ],
+      "uncertainty": "The provided passages emphasize context and adaptation but do not include evidence on actual outcomes of imported solutions or specific failure cases.",
+      "sources": [
+        {
+          "id": "cbd-1:02-03",
+          "title": "Law and institutional context matter",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "2, 8",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cbd-4:04-01",
+          "title": "A sound plan still needs a local fit",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 4 — Implementation (July 2023)",
+            "pages": "4",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+            "planSha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 3001,
+        "tokens": 215,
+        "loadMs": 0.614375,
+        "generationMs": 2571.836
+      }
+    },
+    {
+      "id": "H1",
+      "question": "Explain this screen more simply.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-01",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-3:03-01",
+        "cbd-3:03-02",
+        "cbd-3:03-03"
+      ],
+      "criteria": "Actual UI action: preserve distinct result levels; avoid equating delivered activities with changed practice or guaranteed impact.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "Simplify: Start with the desired change (goal), then work backward to find what activities and resources are needed. Each step must have a clear reason (because), a way to measure it, and what could stop it from working. Don’t just list old activities—build the plan from the result. Check if inputs can truly lead to outcomes. This ensures the plan is realistic and open to review.",
+      "example": "Example: If a school improves student learning (result), then teachers get training (output), which happens through workshops (activity). Because training helps teachers teach better. But if teachers lack time, that assumption must be checked.",
+      "sourceIds": [
+        "cbd-3:03-01",
+        "cbd-3:03-02",
+        "cbd-3:03-03"
+      ],
+      "uncertainty": "The plan does not guarantee success—it only shows what must be true and what evidence could challenge it.",
+      "sources": [
+        {
+          "id": "cbd-3:03-01",
+          "title": "Begin with the result, then test the chain",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "4–7",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-3:03-02",
+          "title": "Explain the missing middle",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "10–11",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-3:03-03",
+          "title": "Budget for results",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "8–9",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2904,
+        "tokens": 188,
+        "loadMs": 0.625917,
+        "generationMs": 2345.419
+      }
+    },
+    {
+      "id": "H2",
+      "question": "Explain this screen more simply.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-3:03-10",
+        "cbd-3:03-01",
+        "cbd-3:03-02"
+      ],
+      "criteria": "Actual UI action: correct horizontal alignment; flawed procurement/workshop example stays flawed.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "Simplify: Start with the desired change (result). Then ask: What will show it happened? Where will we get that proof? What outside factors might stop it? Each part must connect clearly—like a chain. A row in a logframe must make one clear question: Does this action lead to that change? Don’t assume—test each link. This helps spot gaps before starting work.",
+      "example": "If a school runs a reading program (action), then students improve reading (result), because teachers use guided lessons (mechanism), provided they have training and time (assumptions).",
+      "sourceIds": [
+        "cbd-3:03-10",
+        "cbd-3:03-01",
+        "cbd-3:03-02"
+      ],
+      "uncertainty": "The connections are logical but not guaranteed—real-world factors may break them.",
+      "sources": [
+        {
+          "id": "cbd-3:03-10",
+          "title": "Check one logframe row across four columns",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "5–7",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-3:03-01",
+          "title": "Begin with the result, then test the chain",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "4–7",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        },
+        {
+          "id": "cbd-3:03-02",
+          "title": "Explain the missing middle",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "10–11",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2638,
+        "tokens": 177,
+        "loadMs": 0.5295,
+        "generationMs": 2134.842
+      }
+    },
+    {
+      "id": "H3",
+      "question": "Explain this screen more simply.",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-02",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-6:06-02",
+        "cbd-6:06-01",
+        "cbd-6:06-03"
+      ],
+      "criteria": "Actual UI action: preserve ideally/may; contextual infeasibility can trigger transition without objective achievement.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "A transition is not just ending a person’s role—it’s handing over a specific task to someone else or closing it, based on progress or changes. It starts with clear planning, coordination with UN partners, local leaders, and honest communication. A trigger (like a change in policy or progress) starts the process, but doesn’t mean success. The focus is on what continues, not just a date. Transition is a process, not a final event.",
+      "example": "Imagine a local health project ends, but the community still needs help. A handover meeting can’t fix gaps if no one planned with local leaders. Real progress comes from early, shared planning and clear messages.",
+      "sourceIds": [
+        "cbd-6:06-01",
+        "cbd-6:06-02",
+        "cbd-6:06-03"
+      ],
+      "uncertainty": "The teaching passages use invented examples and do not represent real CARANA outcomes or official policies.",
+      "sources": [
+        {
+          "id": "cbd-6:06-02",
+          "title": "Use evidence and context to recognise a trigger",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "5",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        },
+        {
+          "id": "cbd-6:06-01",
+          "title": "An activity transition is a new responsibility",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "4",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        },
+        {
+          "id": "cbd-6:06-03",
+          "title": "Four principles make transition a process",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "6–7",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2943,
+        "tokens": 195,
+        "loadMs": 0.625125,
+        "generationMs": 2380.133
+      }
+    },
+    {
+      "id": "H4",
+      "question": "Does transition always require achieved objectives and confirmed progress, even when the operating context makes an activity unfeasible?",
+      "context": {
+        "lessonId": "cbd-6",
+        "screenId": "06-01",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-6:06-02"
+      ],
+      "criteria": "Reject the false universal premise; preserve source conditionality and responsibility for reasoned assessment.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "No, transition does not always require achieved objectives or confirmed progress. A major contextual change—such as political, security, or legal shifts—can make an activity unfeasible, triggering a transition even without achieved objectives. Such changes are valid triggers, but they require a reasoned assessment to determine significance and remaining responsibilities. Achievement of objectives is ideal, but not mandatory. Contextual change alone does not imply readiness; evaluation and analysis are still needed to justify transition.",
+      "example": "A policing operation ends not because it succeeded, but because a new law prohibits its continuation. The change is a trigger, but transition requires assessing what remains and why the activity can no longer proceed.",
+      "sourceIds": [
+        "cbd-6:06-02"
+      ],
+      "uncertainty": "The teaching passage acknowledges contextual change as a trigger but emphasizes that it does not replace assessment or imply readiness. It does not state that transition always requires progress, only that progress is ideal and that triggers must be reasoned.",
+      "sources": [
+        {
+          "id": "cbd-6:06-02",
+          "title": "Use evidence and context to recognise a trigger",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 6 — Transition & Handover (July 2023)",
+            "pages": "5",
+            "file": "curricula/cbd/lessons-4-6.json",
+            "sha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+            "referencedPlan": "JSTC_CBD_L06_LP_Transition_072023.pdf",
+            "planSha256": "1cd3cc2f06ed9867dcb450b3ef1d5e9c0b8b03d4018bbe4fc8df99c1bf935ad3"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2512,
+        "tokens": 197,
+        "loadMs": 0.590959,
+        "generationMs": 2288.553
+      }
+    },
+    {
+      "id": "H5",
+      "question": "Can a procurement register verify whether officers actually use a review routine? Explain the mismatch.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-10",
+        "mode": "screen"
+      },
+      "retrieved": [
+        "cbd-3:03-10"
+      ],
+      "criteria": "Reject mismatched proxy; do not invent a source-supported observation or classify procurement as proof of routine use.",
+      "status": "generated",
+      "modelInvoked": true,
+      "answer": "A procurement register cannot verify whether officers use a review routine because it records purchases, not behavioral practices. The mismatch is that the evidence source (procurement register) measures financial activity, not actual use of a review routine. The result (officer use of review routine) requires behavioral evidence, not financial records. This misalignment violates the logframe principle that result, measure, and evidence must refer to the same intended change.",
+      "example": "A police officer buys a new laptop—this does not prove they use a review routine. A procurement register records purchases but cannot confirm routine application.",
+      "sourceIds": [
+        "cbd-3:03-10"
+      ],
+      "uncertainty": "The evidence source may not capture behavioral outcomes directly; its validity depends on external assumptions about officer behavior and procurement linkage.",
+      "sources": [
+        {
+          "id": "cbd-3:03-10",
+          "title": "Check one logframe row across four columns",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training: CBD Lesson 3 — Planning Activities (July 2023)",
+            "pages": "5–7",
+            "file": "curricula/cbd/lessons-2-3.json",
+            "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+            "referencedPlan": "JSTC_CBD_L03_LP_Planning_072023.pdf",
+            "planSha256": "ad91530c21f014942d83295238a5f9cc4cccc0961a646a09450ecdfec80f84ca"
+          }
+        }
+      ],
+      "metrics": {
+        "elapsedMs": 2074,
+        "tokens": 161,
+        "loadMs": 0.63725,
+        "generationMs": 1863.042
+      }
+    },
+    {
+      "id": "H6",
+      "question": "Would improved officer skills be an output or an outcome? Explain using the lesson.",
+      "context": {
+        "lessonId": "cbd-3",
+        "screenId": "03-02",
+        "mode": "screen"
+      },
+      "retrieved": [],
+      "criteria": "Record observed retrieval gap without manufacturing passages or guessing a universal category. Classification depends on stated result level and evidence; no fixed universal rule is asserted by the inspected original hierarchy diagram.",
+      "status": "retrieval-decline",
+      "modelInvoked": false
+    }
+  ]
+}

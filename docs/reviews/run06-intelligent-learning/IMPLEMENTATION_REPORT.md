@@ -28,3 +28,5 @@ The0.6b and1.7b models failed semantic checks.4b fast improved some answers but 
 |12backup/restore evidence | Timestamped backup and verification-receipt.json, linked in release report |
 |13remaining public AI requirements | Architecture/security report: quality approval plus secure private connectivity |
 |14owner acceptance brief | OWNER_ACCEPTANCE.md |
+
+Owner-approved follow-up 01 is complete: [decision](followup-01/REVIEW.md). It corrected missing provider context and focused generic retrieval, with new privacy/forwarding tests. The additional model failed the fixed gate; AI HOLD and the public disabled state remain. A source-review correction narrows the earlier isolated skills-classification criticism; the decision rests on the explicit errors documented in the follow-up.

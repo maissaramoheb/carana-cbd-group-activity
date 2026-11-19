@@ -1,0 +1,17 @@
+✔ provider rejects unverified references, unsupported numbers and invalid structured replies (9.822833ms)
+✔ provider sends allowlisted current-context metadata and excludes arbitrary context fields (0.195375ms)
+✔ retrieval uses authorized context and excludes assessment answer structures (4.949125ms)
+✔ unauthorized, cross-origin, wrong-host, oversized and invalid-context requests cannot invoke inference (16.948875ms)
+✔ active checkpoints and protected answer-key requests receive labelled source guidance without inference (5.841084ms)
+✔ rate limits, provider failure and timeout fail clearly without fabricated AI content (33.614625ms)
+✔ only one inference runs; cancellation releases its slot; no endpoint exposes private files or permissive CORS (36.320417ms)
+✔ all current-screen study actions stay anchored to the actual teaching screen (0.996459ms)
+✔ gateway passes authoritative context and safely declines a known wording gap (4.516792ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 146.659916

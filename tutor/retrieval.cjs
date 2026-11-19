@@ -7,6 +7,7 @@ function createRetriever(index=JSON.parse(fs.readFileSync(path.join(__dirname,'k
  function search(question,c,limit=3){
   const current=context(c);if(!current)return[];
   const q=[...new Set(terms(question))],generic=!q.length||/^(Explain this screen|Give.*example.*this concept|What should I remember|Compare the main concepts|Help me check my reasoning)/i.test(question);
+  if(generic)return[{...current,text:current.text.slice(0,2100)}];
   const corpus=records.map(r=>({r,title:terms(r.title+' '+r.section+' '+r.text.split('\n')[0]),body:terms(r.text)}));
   const df=new Map(q.map(w=>[w,corpus.filter(x=>x.title.includes(w)||x.body.includes(w)).length]));
   const weight=w=>Math.log(1+records.length/(1+df.get(w)));

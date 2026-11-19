@@ -1,0 +1,672 @@
+{
+  "baseline": "7615804f7d19233586f6ee77b35b0d8cdcdb4b2f",
+  "checkedAt": "2026-11-19T08:09:08.439Z",
+  "status": "PASS",
+  "protectedFiles": 88,
+  "media": [
+    {
+      "file": "course/audio/en/lesson1/01-01.mp3",
+      "baselineSha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "candidateSha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/01-02.mp3",
+      "baselineSha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "candidateSha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/01-03.mp3",
+      "baselineSha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "candidateSha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/02-01.mp3",
+      "baselineSha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "candidateSha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/02-02.mp3",
+      "baselineSha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "candidateSha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/02-03.mp3",
+      "baselineSha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "candidateSha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/03-01.mp3",
+      "baselineSha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "candidateSha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/03-02.mp3",
+      "baselineSha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "candidateSha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/03-03.mp3",
+      "baselineSha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "candidateSha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/04-01.mp3",
+      "baselineSha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "candidateSha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/04-02.mp3",
+      "baselineSha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "candidateSha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/04-03.mp3",
+      "baselineSha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "candidateSha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/05-01.mp3",
+      "baselineSha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "candidateSha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/05-02.mp3",
+      "baselineSha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "candidateSha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/05-03.mp3",
+      "baselineSha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "candidateSha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/06-01.mp3",
+      "baselineSha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "candidateSha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/06-02.mp3",
+      "baselineSha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "candidateSha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/06-03.mp3",
+      "baselineSha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "candidateSha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "unchanged": true
+    },
+    {
+      "file": "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+      "baselineSha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "candidateSha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "unchanged": true
+    },
+    {
+      "file": "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg",
+      "baselineSha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "candidateSha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "unchanged": true
+    },
+    {
+      "file": "course/illustrations/lesson1/04-02-triangulation.jpg",
+      "baselineSha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "candidateSha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "unchanged": true
+    }
+  ],
+  "checks": {
+    "teachingSceneExerciseAndMicroCaseData": "identical",
+    "all18VisualAndLabHTMLStructures": "identical",
+    "approvedLandingRenderer": "identical",
+    "originalWorkbench": "unchanged",
+    "notebookAndRecoveryEngines": "unchanged",
+    "routingAndReleaseGuards": "unchanged"
+  },
+  "files": [
+    {
+      "file": "CARANA_CBD_Group_Activity.html",
+      "baselineSha256": "b1ff9a705c3faeee59000b629ae3db4aa23f9d2d7d5c8a2cef1a9872532e26d4",
+      "candidateSha256": "b1ff9a705c3faeee59000b629ae3db4aa23f9d2d7d5c8a2cef1a9872532e26d4",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/01-01.mp3",
+      "baselineSha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "candidateSha256": "935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/01-02.mp3",
+      "baselineSha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "candidateSha256": "a31943b20ed785e070e11786b2fa0bcea31beaa179fb70705a03fa46a7205f9b",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/01-03.mp3",
+      "baselineSha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "candidateSha256": "7b653c173ae2d1cc1bd4a0af1528f86b7310ad648c875d563391d2bd0725c7b2",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/02-01.mp3",
+      "baselineSha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "candidateSha256": "238b8a18d023b4812d2e4f86f7cf55fae6af9f243c76148f5e69595bb905433a",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/02-02.mp3",
+      "baselineSha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "candidateSha256": "f003f0a3d339b00367ac21f70bcaf9947b2eeb2c54fa81c09e127f6a59b9b2e6",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/02-03.mp3",
+      "baselineSha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "candidateSha256": "ee6fdf2a01ac127f65b4d6107d23c70ec03a6bedd0070ad20abc41040a74941b",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/03-01.mp3",
+      "baselineSha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "candidateSha256": "aaa6df0af003192785cbf5b5a8360f46b7f5cccde5f2bc0df96e74d8ab507a30",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/03-02.mp3",
+      "baselineSha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "candidateSha256": "8fffae96261d44c455d6e502a23c24de852cdd95358f956b8123eb066c3107a0",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/03-03.mp3",
+      "baselineSha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "candidateSha256": "1dc15b98a4c7e45b8e0c84f98c112d977f75638f5560febc7e7ea9a715662513",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/04-01.mp3",
+      "baselineSha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "candidateSha256": "a5110a30926a49a628b7d5bc899dbb7dfcdf18f12c604bd991dee0856d37d9fa",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/04-02.mp3",
+      "baselineSha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "candidateSha256": "4bf2229b4288e78979c464ea361b5aae2f1bbf59ea8c44d9bab33eacdf2f80fb",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/04-03.mp3",
+      "baselineSha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "candidateSha256": "e8bca1d063b002bf23d217d012b1eac4fcf23b4b75aa57863195d01e128214c2",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/05-01.mp3",
+      "baselineSha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "candidateSha256": "daf3c9b41800fcaec92d864aa8e29bd9a8bfb6fc547ed6f07ef76a1a1533cdf3",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/05-02.mp3",
+      "baselineSha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "candidateSha256": "3dbe584cda9c5ffac8c51ffcee861b392de25b1f4e89376df4c88770a9da619b",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/05-03.mp3",
+      "baselineSha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "candidateSha256": "529aef7af5db12daf042fe786ca947d2548718826c8e5ff502e6535ea5c2844f",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/06-01.mp3",
+      "baselineSha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "candidateSha256": "d56c21bf2db9ab9d1350c009a1bf7ecbe630ef2262fb2579833b0bd9f86b2ec0",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/06-02.mp3",
+      "baselineSha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "candidateSha256": "b7bb7cc116da3da2b6db0f63e529febe8731b39a5c55b6ecc4f40fedfbdee16f",
+      "unchanged": true
+    },
+    {
+      "file": "course/audio/en/lesson1/06-03.mp3",
+      "baselineSha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "candidateSha256": "552205452ca938f1879e84cddc6fdf392bc812a11ffcc89eb60c0687aa2c1a9c",
+      "unchanged": true
+    },
+    {
+      "file": "course/curriculum-home.css",
+      "baselineSha256": "52cc872452190570d65ec3bd7ca658b099ffef8fa79bcf196678f933ba337fa8",
+      "candidateSha256": "52cc872452190570d65ec3bd7ca658b099ffef8fa79bcf196678f933ba337fa8",
+      "unchanged": true
+    },
+    {
+      "file": "course/experience.css",
+      "baselineSha256": "349bf0332c0ef1d43c1b1ecee8412a1377b61849b5ec0e7eec389f8a18f795c1",
+      "candidateSha256": "349bf0332c0ef1d43c1b1ecee8412a1377b61849b5ec0e7eec389f8a18f795c1",
+      "unchanged": true
+    },
+    {
+      "file": "course/home-support.css",
+      "baselineSha256": "ad75b5ba90f780cb8b1bc9b691194d92a09085fe1565b409784e24329266efb9",
+      "candidateSha256": "ad75b5ba90f780cb8b1bc9b691194d92a09085fe1565b409784e24329266efb9",
+      "unchanged": true
+    },
+    {
+      "file": "course/hybrid-visuals.css",
+      "baselineSha256": "88302004f2ba07bc9ca18181b7f14c6999d862e224956a98b3332374829e5b89",
+      "candidateSha256": "88302004f2ba07bc9ca18181b7f14c6999d862e224956a98b3332374829e5b89",
+      "unchanged": true
+    },
+    {
+      "file": "course/illustrations.css",
+      "baselineSha256": "b5234d34334030dbf2e46573a39cf3a00a90977c4807e51f73fd564efbe7a7a3",
+      "candidateSha256": "b5234d34334030dbf2e46573a39cf3a00a90977c4807e51f73fd564efbe7a7a3",
+      "unchanged": true
+    },
+    {
+      "file": "course/illustrations/lesson1/01-01-diagnose-first.jpg",
+      "baselineSha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "candidateSha256": "27cb6f71b9f871ab39cf4c7049d4c5cb991b2bd159cb99d221eda49a48a12073",
+      "unchanged": true
+    },
+    {
+      "file": "course/illustrations/lesson1/03-03-counterpart-fatigue.jpg",
+      "baselineSha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "candidateSha256": "5e2dd3cb867af47d67802cd9f9d90d1a713039735a4c18a486b89292fe59099b",
+      "unchanged": true
+    },
+    {
+      "file": "course/illustrations/lesson1/04-02-triangulation.jpg",
+      "baselineSha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "candidateSha256": "fba1209fcc9fc8c2d2e54690e32e361b8647f6be6db1776bc9defbb559a3cb94",
+      "unchanged": true
+    },
+    {
+      "file": "course/labs.css",
+      "baselineSha256": "26f2e00d44cb7a58908dcc7d60e2f56e61ebacc4b773d5f4ae1b209b6e3fcc66",
+      "candidateSha256": "26f2e00d44cb7a58908dcc7d60e2f56e61ebacc4b773d5f4ae1b209b6e3fcc66",
+      "unchanged": true
+    },
+    {
+      "file": "course/lesson1-audio-manifest.js",
+      "baselineSha256": "b32a148c72fee5c9817add4d06ec7b111cf645a66ff8702c8c97000ee9fd7e84",
+      "candidateSha256": "b32a148c72fee5c9817add4d06ec7b111cf645a66ff8702c8c97000ee9fd7e84",
+      "unchanged": true
+    },
+    {
+      "file": "course/lesson1-data.js",
+      "baselineSha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+      "candidateSha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+      "unchanged": true
+    },
+    {
+      "file": "course/lesson1-experience.js",
+      "baselineSha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df",
+      "candidateSha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df",
+      "unchanged": true
+    },
+    {
+      "file": "course/lesson1-illustrations.js",
+      "baselineSha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de",
+      "candidateSha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de",
+      "unchanged": true
+    },
+    {
+      "file": "course/premium.css",
+      "baselineSha256": "030efbcecd0c7abad3b4ce88e72eb263e85e7be21ff44ec2be5250a8e46ba58d",
+      "candidateSha256": "030efbcecd0c7abad3b4ce88e72eb263e85e7be21ff44ec2be5250a8e46ba58d",
+      "unchanged": true
+    },
+    {
+      "file": "course/refinements-v051.css",
+      "baselineSha256": "ee6df4b2f013e0696d5cc9b7ba87a41320e53c18acd7d8ff54559efc5369a593",
+      "candidateSha256": "ee6df4b2f013e0696d5cc9b7ba87a41320e53c18acd7d8ff54559efc5369a593",
+      "unchanged": true
+    },
+    {
+      "file": "course/style.css",
+      "baselineSha256": "bad27e7201bde193325a912e24f64b2aca4c079e72eeb369afff3856a3240ae8",
+      "candidateSha256": "bad27e7201bde193325a912e24f64b2aca4c079e72eeb369afff3856a3240ae8",
+      "unchanged": true
+    },
+    {
+      "file": "course/typography-spacing.css",
+      "baselineSha256": "bca95559b28f742faa46026673e47cf7d916a020f283e411fdf81d9467d58daf",
+      "candidateSha256": "bca95559b28f742faa46026673e47cf7d916a020f283e411fdf81d9467d58daf",
+      "unchanged": true
+    },
+    {
+      "file": "course/visual-gallery.html",
+      "baselineSha256": "7cfda93cb2ae767c665b69c3d92344763f2d67d975cfb864cb640346fbc78060",
+      "candidateSha256": "7cfda93cb2ae767c665b69c3d92344763f2d67d975cfb864cb640346fbc78060",
+      "unchanged": true
+    },
+    {
+      "file": "course/visual-gallery.js",
+      "baselineSha256": "8096de8ee50bcc9e5dc901d46b7785a0ad92659d551e7e45950df7d316974ed0",
+      "candidateSha256": "8096de8ee50bcc9e5dc901d46b7785a0ad92659d551e7e45950df7d316974ed0",
+      "unchanged": true
+    },
+    {
+      "file": "course/visual-journey.css",
+      "baselineSha256": "cdf5d2743bb6aa91bec8e2bd798c300554fafc450a83b4bb0334996e25e7fb6e",
+      "candidateSha256": "cdf5d2743bb6aa91bec8e2bd798c300554fafc450a83b4bb0334996e25e7fb6e",
+      "unchanged": true
+    },
+    {
+      "file": "course/voice-audition.html",
+      "baselineSha256": "cb6e0eefd5df78d869f9e1e90a2368af21c06c55ca006c9f09042d8b336d8a63",
+      "candidateSha256": "cb6e0eefd5df78d869f9e1e90a2368af21c06c55ca006c9f09042d8b336d8a63",
+      "unchanged": true
+    },
+    {
+      "file": "course/voice-audition.js",
+      "baselineSha256": "469104f26c3efa27a3dd4823aeff1aed3c92d0248fe61cabce628cfc110df547",
+      "candidateSha256": "469104f26c3efa27a3dd4823aeff1aed3c92d0248fe61cabce628cfc110df547",
+      "unchanged": true
+    },
+    {
+      "file": "css/design-system.css",
+      "baselineSha256": "2118057b0c789afbadee69e0440d91a7650bf89ebc321437075bd28438a3e2d3",
+      "candidateSha256": "2118057b0c789afbadee69e0440d91a7650bf89ebc321437075bd28438a3e2d3",
+      "unchanged": true
+    },
+    {
+      "file": "curricula/cbd/lessons-2-3.json",
+      "baselineSha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+      "candidateSha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+      "unchanged": true
+    },
+    {
+      "file": "curricula/cbd/lessons-4-6.json",
+      "baselineSha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+      "candidateSha256": "7a6d739bc665a59d0639edf67d4246e24d0d50a4f2a850c14b558525f7120f9c",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/BUDGET_ASSUMPTIONS.md",
+      "baselineSha256": "e85b94cc3a53a5cde7bf7e057067654b47ab3090a2bf36719f3a4fe65980c85b",
+      "candidateSha256": "e85b94cc3a53a5cde7bf7e057067654b47ab3090a2bf36719f3a4fe65980c85b",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/CONCEPT_NOTE.md",
+      "baselineSha256": "2c0dd264bd3435dcd08433a93e61b051c35d2d34ce0bddbf33353a9dcaa1dca5",
+      "candidateSha256": "2c0dd264bd3435dcd08433a93e61b051c35d2d34ce0bddbf33353a9dcaa1dca5",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/CONCEPT_NOTE.pdf",
+      "baselineSha256": "a75cb8cb2df8c7f6f4c310cd2640454664a4e1f8eca772e0ff66a096f34ea658",
+      "candidateSha256": "a75cb8cb2df8c7f6f4c310cd2640454664a4e1f8eca772e0ff66a096f34ea658",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/CONCEPT_NOTE_PRINT.html",
+      "baselineSha256": "541790302a3e2a7257fc288703b56643e59bd23edefafddd266de2e59c2abda3",
+      "candidateSha256": "541790302a3e2a7257fc288703b56643e59bd23edefafddd266de2e59c2abda3",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/DEMONSTRATION_GUIDE.md",
+      "baselineSha256": "43b6a929c085a23c41b5b4e382870a611378e199e5973b0208a23f3ef2ce7dd8",
+      "candidateSha256": "43b6a929c085a23c41b5b4e382870a611378e199e5973b0208a23f3ef2ce7dd8",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/EVIDENCE_AND_LIMITATIONS.md",
+      "baselineSha256": "ac15f05b41722dad6190c6eb0883631dd395b059695a34a949f155bd91617bf1",
+      "candidateSha256": "ac15f05b41722dad6190c6eb0883631dd395b059695a34a949f155bd91617bf1",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/GOVERNANCE_AND_CAPABILITIES.md",
+      "baselineSha256": "3ee597b52d51a8bd5af91229bc3acecdeeb60d1deedd6abfcf0178914c58b549",
+      "candidateSha256": "3ee597b52d51a8bd5af91229bc3acecdeeb60d1deedd6abfcf0178914c58b549",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/PACKAGE_VERIFICATION.md",
+      "baselineSha256": "518f4afb000fc53747007d67dadffd2e52f0a3d1af6d2dd07fded3d5db9cf0ee",
+      "candidateSha256": "518f4afb000fc53747007d67dadffd2e52f0a3d1af6d2dd07fded3d5db9cf0ee",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/PILOT_VALIDATION_PROPOSAL.md",
+      "baselineSha256": "24861daadb434f3d58f7fc9ec528c1647c6a09c07f482f3d727d40b1d3627376",
+      "candidateSha256": "24861daadb434f3d58f7fc9ec528c1647c6a09c07f482f3d727d40b1d3627376",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/README.md",
+      "baselineSha256": "398a016a0e3428ea0f857a0db2738b3cb3ab2158c9f7cf9d3607cd3d89571580",
+      "candidateSha256": "398a016a0e3428ea0f857a0db2738b3cb3ab2158c9f7cf9d3607cd3d89571580",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/RIGHTS_AND_PERMISSIONS.md",
+      "baselineSha256": "32bf539d18393d61fec40df3affa0a4ba24978e638ceb42a7ad6af739838718d",
+      "candidateSha256": "32bf539d18393d61fec40df3affa0a4ba24978e638ceb42a7ad6af739838718d",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/ROADMAP.md",
+      "baselineSha256": "6db873e69986d74a8cb3f2d7f4fa1325e29ffaddfe83c3127d0279ad07929ca1",
+      "candidateSha256": "6db873e69986d74a8cb3f2d7f4fa1325e29ffaddfe83c3127d0279ad07929ca1",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/SUSTAINABILITY.md",
+      "baselineSha256": "20d1946214e36ea5415c693a1878e58a585c06964916434038b21ea8057307a4",
+      "candidateSha256": "20d1946214e36ea5415c693a1878e58a585c06964916434038b21ea8057307a4",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/budget-model.json",
+      "baselineSha256": "0ba82cad5f976f73776fad9492fb9c72f7baaaa74f23f1a1c5f9e157e3a89143",
+      "candidateSha256": "0ba82cad5f976f73776fad9492fb9c72f7baaaa74f23f1a1c5f9e157e3a89143",
+      "unchanged": true
+    },
+    {
+      "file": "docs/institutional/budget-scenarios.csv",
+      "baselineSha256": "2970e7e7a12682467f5509bb84ac415177e0b01c3006b417a56893ed4572625f",
+      "candidateSha256": "2970e7e7a12682467f5509bb84ac415177e0b01c3006b417a56893ed4572625f",
+      "unchanged": true
+    },
+    {
+      "file": "index.html",
+      "baselineSha256": "cf9a6c4935e54a3ba4af1ae6468167ddc68fe3a90230cf01894b5e51f7cebee7",
+      "candidateSha256": "cf9a6c4935e54a3ba4af1ae6468167ddc68fe3a90230cf01894b5e51f7cebee7",
+      "unchanged": true
+    },
+    {
+      "file": "js/data/carana-scenario.js",
+      "baselineSha256": "c3e46da40d89f5e2a00890c83bd7e79885512d218526d0a7dfed73059cc10b1e",
+      "candidateSha256": "c3e46da40d89f5e2a00890c83bd7e79885512d218526d0a7dfed73059cc10b1e",
+      "unchanged": true
+    },
+    {
+      "file": "js/data/curriculum-glossary.js",
+      "baselineSha256": "5db4ceafdfec2132bc1ebc44b9528305b8b178a10899dba5eb0eca12242e01b0",
+      "candidateSha256": "5db4ceafdfec2132bc1ebc44b9528305b8b178a10899dba5eb0eca12242e01b0",
+      "unchanged": true
+    },
+    {
+      "file": "js/modules/module1.js",
+      "baselineSha256": "63dfd807104db2dfe0464042d61e946247d3ff64c86a41a303f07db1e6beccbf",
+      "candidateSha256": "63dfd807104db2dfe0464042d61e946247d3ff64c86a41a303f07db1e6beccbf",
+      "unchanged": true
+    },
+    {
+      "file": "js/modules/module2.js",
+      "baselineSha256": "0ddf82a7da902494ad67cbcb981640774c1372ac772000bff99e4a31fcfa7302",
+      "candidateSha256": "0ddf82a7da902494ad67cbcb981640774c1372ac772000bff99e4a31fcfa7302",
+      "unchanged": true
+    },
+    {
+      "file": "js/modules/module3.js",
+      "baselineSha256": "e5638a345e6e73bb2f87aa8fae68d4b7a74eabd6bc2f4a0695fd489509383693",
+      "candidateSha256": "e5638a345e6e73bb2f87aa8fae68d4b7a74eabd6bc2f4a0695fd489509383693",
+      "unchanged": true
+    },
+    {
+      "file": "js/modules/module4.js",
+      "baselineSha256": "8eadf9ec21bcc86cf8b93c946ee9459b2781a55ba34a7a3a88ef31540635745a",
+      "candidateSha256": "8eadf9ec21bcc86cf8b93c946ee9459b2781a55ba34a7a3a88ef31540635745a",
+      "unchanged": true
+    },
+    {
+      "file": "js/modules/module5.js",
+      "baselineSha256": "54f4a70f3440a5a337aec9bb16b8a8161c990fc05d7a463d7b31279edf40dfc5",
+      "candidateSha256": "54f4a70f3440a5a337aec9bb16b8a8161c990fc05d7a463d7b31279edf40dfc5",
+      "unchanged": true
+    },
+    {
+      "file": "js/modules/module6.js",
+      "baselineSha256": "277007676acf04694997ba9e1e82a95d382443aba782cf7a4f5842e79d1bd13b",
+      "candidateSha256": "277007676acf04694997ba9e1e82a95d382443aba782cf7a4f5842e79d1bd13b",
+      "unchanged": true
+    },
+    {
+      "file": "js/storage/lab-storage.js",
+      "baselineSha256": "69797cea9433bab75a9c8cff2441f18a67a4f355676178b4a2a4791a4c794024",
+      "candidateSha256": "69797cea9433bab75a9c8cff2441f18a67a4f355676178b4a2a4791a4c794024",
+      "unchanged": true
+    },
+    {
+      "file": "module1.html",
+      "baselineSha256": "10dca83c083d23be223777663dcd4099c0914121e2c358e9dc9fc7b934e0b39b",
+      "candidateSha256": "10dca83c083d23be223777663dcd4099c0914121e2c358e9dc9fc7b934e0b39b",
+      "unchanged": true
+    },
+    {
+      "file": "module2.html",
+      "baselineSha256": "e98bed3a6359b88079fa9761e0e58dd08e573487cc7d6e809dd277b3e54e6e7f",
+      "candidateSha256": "e98bed3a6359b88079fa9761e0e58dd08e573487cc7d6e809dd277b3e54e6e7f",
+      "unchanged": true
+    },
+    {
+      "file": "module3.html",
+      "baselineSha256": "5f3c9bb77d74f180f34043923999b9f1f294e7e285c117c8631c0692efd3b568",
+      "candidateSha256": "5f3c9bb77d74f180f34043923999b9f1f294e7e285c117c8631c0692efd3b568",
+      "unchanged": true
+    },
+    {
+      "file": "module4.html",
+      "baselineSha256": "56c32b9adaf1e84057f2df6ce6c11ac657ddbdf9644b7364f348506aa867cf87",
+      "candidateSha256": "56c32b9adaf1e84057f2df6ce6c11ac657ddbdf9644b7364f348506aa867cf87",
+      "unchanged": true
+    },
+    {
+      "file": "module5.html",
+      "baselineSha256": "bd9dda19e085a1b286c36bf4be31b7bba4883120860f65746706c8a39095972e",
+      "candidateSha256": "bd9dda19e085a1b286c36bf4be31b7bba4883120860f65746706c8a39095972e",
+      "unchanged": true
+    },
+    {
+      "file": "module6.html",
+      "baselineSha256": "9695f964b0058c6b1aeac13748a717f9138f7ec600cd7764b40f59b457e678c5",
+      "candidateSha256": "9695f964b0058c6b1aeac13748a717f9138f7ec600cd7764b40f59b457e678c5",
+      "unchanged": true
+    },
+    {
+      "file": "platform/catalog.js",
+      "baselineSha256": "4f55a6b06e0b9801e261c82ebd237cb9bca8fcb58ab7ba572d8973a28481b27c",
+      "candidateSha256": "4f55a6b06e0b9801e261c82ebd237cb9bca8fcb58ab7ba572d8973a28481b27c",
+      "unchanged": true
+    },
+    {
+      "file": "platform/demo-showcase.html",
+      "baselineSha256": "f41f524ebdbd52bfb3795b047df23bd9c8ea384fae571a4319b8a318a0cd7a0d",
+      "candidateSha256": "f41f524ebdbd52bfb3795b047df23bd9c8ea384fae571a4319b8a318a0cd7a0d",
+      "unchanged": true
+    },
+    {
+      "file": "platform/demo.html",
+      "baselineSha256": "0fca470de0366dc1fd487c4cb6151c5f02ca50771b25ece59e84df3fe9c47dab",
+      "candidateSha256": "0fca470de0366dc1fd487c4cb6151c5f02ca50771b25ece59e84df3fe9c47dab",
+      "unchanged": true
+    },
+    {
+      "file": "platform/handoff.js",
+      "baselineSha256": "a87f2ac966c4886212609f162020e579c499cace7643eebe0bf5c4dc251fd622",
+      "candidateSha256": "a87f2ac966c4886212609f162020e579c499cace7643eebe0bf5c4dc251fd622",
+      "unchanged": true
+    },
+    {
+      "file": "platform/learning-tools.js",
+      "baselineSha256": "dc4ec34a254cb88d6516016c798991b9b6ab988044dea6ec2fec61f2fc7a5253",
+      "candidateSha256": "dc4ec34a254cb88d6516016c798991b9b6ab988044dea6ec2fec61f2fc7a5253",
+      "unchanged": true
+    },
+    {
+      "file": "platform/notebook-core.js",
+      "baselineSha256": "d8631f109892cb4840ae2b154e35000c49b78ae84666077221f00db11f6f0272",
+      "candidateSha256": "d8631f109892cb4840ae2b154e35000c49b78ae84666077221f00db11f6f0272",
+      "unchanged": true
+    },
+    {
+      "file": "platform/notebook.css",
+      "baselineSha256": "805197232c2d7eb296eeeabde8a64af1aa1f341bdaefaed91688096f77ee7f79",
+      "candidateSha256": "805197232c2d7eb296eeeabde8a64af1aa1f341bdaefaed91688096f77ee7f79",
+      "unchanged": true
+    },
+    {
+      "file": "platform/notebook.html",
+      "baselineSha256": "a5925290a4fda1bdbe90ced2402c5402fafab62a85ad14462bc94a6419c85940",
+      "candidateSha256": "a5925290a4fda1bdbe90ced2402c5402fafab62a85ad14462bc94a6419c85940",
+      "unchanged": true
+    },
+    {
+      "file": "platform/notebook.js",
+      "baselineSha256": "7397fe335dd34b5633784cabec8d663767020ceaa01358b1241cec475ff77129",
+      "candidateSha256": "7397fe335dd34b5633784cabec8d663767020ceaa01358b1241cec475ff77129",
+      "unchanged": true
+    },
+    {
+      "file": "platform/progress-core.js",
+      "baselineSha256": "4f5391f5d64958c7cc12d123cd1361a15e9f813e15c362d9bed6827a52df0eb9",
+      "candidateSha256": "4f5391f5d64958c7cc12d123cd1361a15e9f813e15c362d9bed6827a52df0eb9",
+      "unchanged": true
+    },
+    {
+      "file": "tools/narration-lock.json",
+      "baselineSha256": "138e50e34eec699b49291180b2a26ccdeb65d367de41cea71345e7073682bf15",
+      "candidateSha256": "138e50e34eec699b49291180b2a26ccdeb65d367de41cea71345e7073682bf15",
+      "unchanged": true
+    },
+    {
+      "file": "tools/release/prepare.cjs",
+      "baselineSha256": "2218ecfd46dc84d5b574206f6860bb35f17cafcc3776de75ec26fc914b659ea9",
+      "candidateSha256": "2218ecfd46dc84d5b574206f6860bb35f17cafcc3776de75ec26fc914b659ea9",
+      "unchanged": true
+    },
+    {
+      "file": "vercel.json",
+      "baselineSha256": "51f3e4dc556f648d9cc1d26854aaa34bd6993be2c600a9ce97efd6352dd69ed1",
+      "candidateSha256": "51f3e4dc556f648d9cc1d26854aaa34bd6993be2c600a9ce97efd6352dd69ed1",
+      "unchanged": true
+    }
+  ]
+}

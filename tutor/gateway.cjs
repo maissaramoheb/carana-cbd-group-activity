@@ -34,10 +34,10 @@ function createHandler({token,origins,model='qwen3:4b',retriever=createRetriever
    if(context.mode==='checkpoint'||protectedRequest(payload.question)){
     const own=retriever.search('Explain this screen',payload.context,2);return deliver('I can help you review the underlying concepts, but I will not select checkpoint options or reveal facilitator solutions.\n\nReview: '+own.map(p=>p.title).join('; ')+'.\n\n'+own.map(p=>p.text.slice(0,300)).join('\n\n')+'\n\nUse the source references and your own reasoning before returning to the checkpoint.',sourceRows(own),'study-guide');
    }
-   if(!passages.length)return deliver('The authorized CBD passages do not establish an answer to that question. Please ask about the current capacity-building concept or identify the curriculum term you want to review.',[],'source-check');
+   if(!passages.length)return deliver('I could not retrieve enough authorized evidence for that wording. Try Explain this screen, or rephrase using the curriculum term.',[],'source-check');
    if(busy)return json(res,429,{message:'The local model is answering another question. Try again shortly.'});
    busy=true;const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),timeoutMs);res.on('close',()=>{if(!res.writableEnded)abort.abort();});
-   try{const reply=await provider({model,question:payload.question,passages,signal:abort.signal});if(abort.signal.aborted)throw Error('cancelled');const text=reply.answer+(reply.example?'\n\nInvented teaching example: '+reply.example:'')+(reply.uncertainty?'\n\nEvidence limits: '+reply.uncertainty:'');deliver(text,reply.sources,'ai');}
+   try{const reply=await provider({model,question:payload.question,passages,context,signal:abort.signal});if(abort.signal.aborted)throw Error('cancelled');const text=reply.answer+(reply.example?'\n\nInvented teaching example: '+reply.example:'')+(reply.uncertainty?'\n\nEvidence limits: '+reply.uncertainty:'');deliver(text,reply.sources,'ai');}
    catch(e){if(!res.destroyed&&!res.writableEnded)json(res,503,{message:abort.signal.aborted?'The local reply timed out or was cancelled. No answer was supplied.':'The local model was unavailable or its response did not pass source checks. Try again later; the course remains available.'});}
    finally{clearTimeout(timer);busy=false;}return;
   }

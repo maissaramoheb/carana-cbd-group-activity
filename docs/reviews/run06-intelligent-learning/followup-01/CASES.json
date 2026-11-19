@@ -1,0 +1,86 @@
+[
+  {
+    "id": "C1",
+    "lessonId": "cbd-3",
+    "screenId": "03-02",
+    "question": "What is the difference between outputs and outcomes?",
+    "criteria": "Distinguish direct deliverables from intended changes; distinguish outcome from impact; no guaranteed causal chain or definition based solely on time horizon."
+  },
+  {
+    "id": "C2",
+    "lessonId": "cbd-1",
+    "screenId": "02-01",
+    "question": "Explain PESTEL-S with a policing example.",
+    "criteria": "All seven components; security retained; context scan not substitute for local evidence; invented example clearly separate."
+  },
+  {
+    "id": "C3",
+    "lessonId": "cbd-1",
+    "screenId": "04-02",
+    "question": "Why is triangulation important?",
+    "criteria": "Compare independent evidence types, examine discrepancies and limitations; no guarantee of truth from agreement."
+  },
+  {
+    "id": "C4",
+    "lessonId": "cbd-3",
+    "screenId": "03-10",
+    "question": "Explain this logframe and why an indicator needs verification.",
+    "criteria": "Result, measure, evidence and assumptions align; do not recommend procurement evidence for review practice; preserve hierarchy and counterexample meaning."
+  },
+  {
+    "id": "C5",
+    "lessonId": "cbd-6",
+    "screenId": "06-01",
+    "question": "What triggers a responsible transition?",
+    "criteria": "Include achievement and major contextual/counterpart/mandate changes; ideally sufficient progress is not a universal prerequisite; trigger is not proof of success/readiness."
+  },
+  {
+    "id": "C6",
+    "lessonId": "cbd-4",
+    "screenId": "04-01",
+    "question": "Why should an adviser avoid importing a policing solution unchanged?",
+    "criteria": "Local culture, authority, counterpart ownership and fit; no fabricated official requirements or findings about CARANA."
+  },
+  {
+    "id": "H1",
+    "lessonId": "cbd-3",
+    "screenId": "03-01",
+    "question": "Explain this screen more simply.",
+    "criteria": "Actual UI action: preserve distinct result levels; avoid equating delivered activities with changed practice or guaranteed impact."
+  },
+  {
+    "id": "H2",
+    "lessonId": "cbd-3",
+    "screenId": "03-10",
+    "question": "Explain this screen more simply.",
+    "criteria": "Actual UI action: correct horizontal alignment; flawed procurement/workshop example stays flawed."
+  },
+  {
+    "id": "H3",
+    "lessonId": "cbd-6",
+    "screenId": "06-02",
+    "question": "Explain this screen more simply.",
+    "criteria": "Actual UI action: preserve ideally/may; contextual infeasibility can trigger transition without objective achievement."
+  },
+  {
+    "id": "H4",
+    "lessonId": "cbd-6",
+    "screenId": "06-01",
+    "question": "Does transition always require achieved objectives and confirmed progress, even when the operating context makes an activity unfeasible?",
+    "criteria": "Reject the false universal premise; preserve source conditionality and responsibility for reasoned assessment."
+  },
+  {
+    "id": "H5",
+    "lessonId": "cbd-3",
+    "screenId": "03-10",
+    "question": "Can a procurement register verify whether officers actually use a review routine? Explain the mismatch.",
+    "criteria": "Reject mismatched proxy; do not invent a source-supported observation or classify procurement as proof of routine use."
+  },
+  {
+    "id": "H6",
+    "lessonId": "cbd-3",
+    "screenId": "03-02",
+    "question": "Would improved officer skills be an output or an outcome? Explain using the lesson.",
+    "criteria": "Record observed retrieval gap without manufacturing passages or guessing a universal category. Classification depends on stated result level and evidence; no fixed universal rule is asserted by the inspected original hierarchy diagram."
+  }
+]

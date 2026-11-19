@@ -1,0 +1,11 @@
+# Fixed follow-up01 rubric
+
+Owner approved one further bounded local qualification pass. One new dedicated instruction-tuned4B candidate, one download with600second ceiling, one fixed case matrix, no retries. The initial evaluation preserved provider/retrieval/prompt/token limits. Its real screen-action cases exposed a context-wiring defect. One targeted correction passes authoritative context and restricts generic screen actions to the current passage; the unchanged matrix was then verified once. Model, system prompt and token limits stayed fixed. Initial responses are preserved separately. All prior failures and snapshots remain intact.
+
+Gate: all six original cases must produce valid referenced responses within45seconds. Every generated answer, including held-out actual UI actions and false-premise questions, must avoid material source contradiction, unsupported institutional requirements, inverted counterexamples and fabricated evidence. Source IDs alone are not semantic proof. Any critical factual/conditionality error means HOLD. Safe retrieval declines are recorded as coverage limits, not model success. Human expert/owner acceptance remains separate from this engineering review.
+
+The source rubric is the approved digital teaching text and the supplied original CBD plans. Original Planning Lesson3 pages5–7 were inspected again, including a rendered page7 hierarchy. That original hierarchy does not establish a universal classification for an isolated phrase such as improved skills; cases must be judged in their stated results framework. Earlier concern about that phrase is not used as a universal doctrinal rule. The retained earlier answers still require review for mixed result levels, causal assumptions and over-broad time-horizon definitions.
+
+H6 is a known natural-language retrieval gap: current search returns no passages. It is retained in the fixed matrix without manually injecting evidence. The model must not be credited for answering a question that never reaches it. No facilitator solutions or private drafts are added to the corpus.
+
+Registry: https://ollama.com/library/qwen3:4b-instruct-2507-q4_K_M (inspected during this pass;2.5GB,Q4_K_M,distinct digest from prior4b). Thinking-control reference: https://docs.ollama.com/capabilities/thinking. No provider performance claims are accepted as qualification evidence.

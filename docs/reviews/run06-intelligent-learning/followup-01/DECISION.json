@@ -1,0 +1,43 @@
+{
+  "gate": "HOLD",
+  "selectedQualifiedModel": null,
+  "ownerAuthorization": "One further bounded qualification pass",
+  "candidate": "qwen3:4b-instruct-2507-q4_K_M",
+  "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "downloadBytes": 2497293803,
+  "fixedCases": 12,
+  "generated": 10,
+  "blockedByValidation": 1,
+  "retrievalDeclines": 1,
+  "generatedLatencyMs": {
+    "min": 1995,
+    "median": 2386.0,
+    "max": 3424
+  },
+  "loadedMemoryObserved": "3.2GB;100%GPU;context4096",
+  "modelSystemPromptChanged": false,
+  "evaluationRuns": 2,
+  "runExplanation": "Initial qualification plus verification of one discovered context-wiring defect; same candidate and fixed cases, no model retries.",
+  "materialFailures": [
+    {
+      "case": "H1",
+      "finding": "Invented example labels teachers as an activity and mixes result levels; nonpolicing example despite domain instruction."
+    },
+    {
+      "case": "H2",
+      "finding": "Invalid source ID cbd-3:03-010 blocked by production validator. Undelivered example also treats workshop counts as a measure of review-routine use."
+    },
+    {
+      "case": "H5",
+      "finding": "Claims procurement registers record workshop deliveries/attendance, which is not established by the supplied passage."
+    }
+  ],
+  "improvements": [
+    "C5 and H4 preserve contextual transition triggers without requiring objective achievement.",
+    "Current-screen actions now receive authoritative context and only the relevant screen passage."
+  ],
+  "coverageGap": "H6 legitimate rephrasing has no lexical retrieval hit; no inference. Decline copy now accurately states retrieval insufficiency.",
+  "humanExpertAcceptance": "NOT VERIFIED",
+  "productionAndPreview": "UNCHANGED",
+  "reviewedUTC": "2026-11-19T08:01:51.388434+00:00"
+}

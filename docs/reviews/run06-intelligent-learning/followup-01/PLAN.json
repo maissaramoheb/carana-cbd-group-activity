@@ -1,0 +1,20 @@
+{
+  "authorization": "Owner approved one further local qualification pass in this chat",
+  "baselineCommit": "b172efb9930941cd86a040c90ef1e4431772b400",
+  "candidate": "qwen3:4b-instruct-2507-q4_K_M",
+  "candidateRegistry": "https://ollama.com/library/qwen3:4b-instruct-2507-q4_K_M",
+  "expectedDownloadBytesApprox": 2500000000,
+  "downloadLimitSeconds": 600,
+  "downloadAttempts": 1,
+  "providerAndRetrieval": "Initial evaluation unchanged; verification includes the one context-wiring correction recorded below.",
+  "productionAndPreview": "remain unchanged; AI HOLD until evidence reviewed",
+  "diskFreeBytes": 63089541120,
+  "createdUTC": "2026-11-19T07:47:10.563467+00:00",
+  "boundedAdjustment": {
+    "reason": "Initial actual-screen cases exposed omitted authoritative context in provider input and distracting same-lesson passages.",
+    "correction": "Pass allowlisted server-derived current context and use only the current teaching record for generic screen actions. No model/system-prompt/token/retrieval change for explicit questions.",
+    "verification": "One rerun of the unchanged fixed matrix after this wiring correction; no model retries or further tuning."
+  },
+  "passComplete": true,
+  "additionalModelCallsPlanned": false
+}

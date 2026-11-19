@@ -17,3 +17,9 @@ Backup content: all tracked source/evidence/media, source.tar.gz, all-ref histor
 Timestamped backup: `/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/Backups/CARANA-CBD-E-Learning/2026-11-19_073021Z-Run06`. The authoritative post-creation results are verification-receipt.json, restore.log and SHA256SUMS in that folder. The receipt records the final snapshot commit, preserved Run04tag, file-by-file Git/archive comparison, restored build/test result and all82restored static assets matching the deployed UI manifest. The backup manifest records final source HEAD; the application preview commit above is deliberately separate from the later evidence-only snapshot. No production rollback is performed.
 
 AI teaching qualification remains HOLD. The local prototype can be launched for engineering review using the documented command, but no model is selected for a learner pilot. Temporary review servers are stopped after evidence collection; the shared Ollama service and installed models are preserved.
+
+## Approved follow-up 01 snapshot
+
+[Qualification decision and context fix](followup-01/REVIEW.md). The static preview remains the same deployment and all82 rebuilt assets match its manifest. No deployment/alias mutation was made; the live alias recheck did not return during the bounded review wait, as recorded in followup-01/PRODUCTION.json.
+
+New full-source/history backup: `/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/Backups/CARANA-CBD-E-Learning/2026-11-19_081255Z-Run06-Followup01`. The authoritative post-creation result is verification-receipt.json with SHA256SUMS and restore.log in that folder. It records the new source HEAD, restored build/tests,82restored preview assets and6authorized reference hashes. The earlier Run06 backup remains intact. Model weights/private credentials are excluded. No tested model is qualified; public AI remains disconnected.

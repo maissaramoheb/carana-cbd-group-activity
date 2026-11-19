@@ -52,8 +52,14 @@
     "0.6b incomplete/confused explanations",
     "1.7b wrong logframe verification example and earlier invented ratio",
     "4b fast turns ideally sufficient progress into a mandatory confirmation",
-    "4b bounded reasoning gives no valid structured reply in six cases",
-    "Final genuine4b browser response misclassifies improved officer skills as an output"
+    "4b bounded reasoning gives no valid structured reply in six cases"
   ],
-  "humanExpertAcceptance": "NOT VERIFIED"
+  "humanExpertAcceptance": "NOT VERIFIED",
+  "followup01": {
+    "candidate": "qwen3:4b-instruct-2507-q4_K_M",
+    "decision": "HOLD",
+    "details": "followup-01/DECISION.json",
+    "contextFix": "authoritative metadata and current-only generic retrieval",
+    "sourceReviewCorrection": "Isolated skills classification depends on the stated results framework; not a universal rule."
+  }
 }

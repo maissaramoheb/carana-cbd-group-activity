@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "assets": 82,
+  "deployedUICommit": "976250223cde47ae1a7ef389c693dc00b7752398",
+  "publicPreviewUnchanged": true,
+  "method": "All newly built static assets match prior deployed manifest SHA256; no backend files staged"
+}

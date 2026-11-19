@@ -1,0 +1,24 @@
+{
+  "status": "NOT REFRESHED",
+  "reason": "Read-only connector check did not return during bounded review wait; no mutating Vercel call was made.",
+  "lastVerified": {
+    "checkedUTC": "2026-11-19T07:27:53.743Z",
+    "preview": {
+      "id": "dpl_9TzLLDKBR75bxEV9TszdFN1PCxh5",
+      "url": "carana-cbd-elearning-5pcts99ds-delta4ce20-5830s-projects.vercel.app",
+      "readyState": "READY",
+      "target": null,
+      "sourceCommit": "976250223cde47ae1a7ef389c693dc00b7752398",
+      "sourceEvidence": "deployed manifest + complete84-file identifier comparison"
+    },
+    "production": {
+      "alias": "cbd.maissara.tech",
+      "deploymentId": "dpl_DmQvvbazGm5LGjCHF8s981GqSxvR"
+    },
+    "secondary": {
+      "alias": "e-learning.maissara.tech",
+      "deploymentId": "dpl_C7p1i3UMcSk9e4Yp6H3WAC1fkYg7"
+    }
+  },
+  "mutationsPerformedInFollowup": false
+}
