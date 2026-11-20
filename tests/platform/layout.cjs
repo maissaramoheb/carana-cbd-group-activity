@@ -1,10 +1,11 @@
 const advance=require('../helpers/progression.cjs');
+const {launchMutedBrowser}=require('../helpers/mute-browser.cjs');
 const {chromium}=require(process.env.CBD_TEST_MODULES+'/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs');
 const base=process.env.CBD_TEST_URL||'http://127.0.0.1:8661';
 const output=process.env.CBD_TEST_OUTPUT||'/tmp/carana-run02-browser';fs.mkdirSync(output,{recursive:true});
 const data=['lessons-2-3','lessons-4-6'].flatMap(f=>require(process.cwd()+'/curricula/cbd/'+f+'.json'));
-(async()=>{const b=await chromium.launch();try{
+(async()=>{const b=await launchMutedBrowser(chromium);try{
  for(const width of [320,768]){
   const page=await b.newPage({viewport:{width,height:900},reducedMotion:'reduce'});
   for(const lesson of data){

@@ -243,4 +243,34 @@ describe('Run 07 retrieval, incremental verified streaming, repair, and gateway 
       await new Promise(r => srv.server.close(r));
     }
   });
+
+  it('enforces explicit audio initiation, cleanup, mutual exclusion, and muted browser test isolation', () => {
+    const fs = require('node:fs');
+    const path = require('node:path');
+    const root = path.resolve(__dirname, '../..');
+    const supportJs = fs.readFileSync(path.join(root, 'platform/learning-support.js'), 'utf8');
+    const playerJs = fs.readFileSync(path.join(root, 'course/lesson1-player.js'), 'utf8');
+    assert(supportJs.includes('reader.paused'), 'handleExplanationUpdate must guard against restarting paused audio');
+    assert(supportJs.includes('function releaseSpeech()'), 'must detach utterance handlers before cancelling speechSynthesis');
+    assert(supportJs.includes('stopExternalMedia()'), 'must stop other media elements before Read Screen / AI Listen starts');
+    assert(!supportJs.includes('handleExplanationUpdate') || !/handleExplanationUpdate[\s\S]{0,600}readList\(/.test(supportJs), 'diagram updates must not auto-start audio');
+    assert(playerJs.includes('CARANA_SUPPORT?.stop'), 'Lesson 1 narration start must stop Read Aloud cleanly');
+    assert(!/speechSynthesis|SpeechSynthesisUtterance/.test(playerJs), 'Lesson 1 player must not use synthetic browser speech');
+
+    const checkDirs = ['tests', 'course/tests', 'tools'];
+    const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) return walk(full);
+      return full.endsWith('.js') || full.endsWith('.cjs') ? [full] : [];
+    });
+    const offenders = [];
+    for (const d of checkDirs) {
+      for (const f of walk(path.join(root, d))) {
+        if (f.endsWith('mute-browser.cjs')) continue;
+        const src = fs.readFileSync(f, 'utf8');
+        if (/\b(?:chromium|webkit|firefox|engine|browserType)\.launch\s*\(/.test(src)) offenders.push(path.relative(root, f));
+      }
+    }
+    assert.deepEqual(offenders, [], 'All automated Playwright scripts must use launchMutedBrowser() to keep Mac speakers silent');
+  });
 });

@@ -1,5 +1,6 @@
 /* Workstream B verification: Complete dynamic content reading across Lesson 1 & Lessons 2-6. */
 const { chromium, webkit } = require(process.env.CBD_TEST_MODULES + '/playwright');
+const { launchMutedBrowser } = require('../helpers/mute-browser.cjs');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -11,7 +12,7 @@ fs.mkdirSync(out, { recursive: true });
 (async () => {
   const results = [];
   for (const [engine, name, width] of [[chromium, 'chromium-desktop', 1440], [webkit, 'webkit-mobile', 390]]) {
-    const browser = await engine.launch();
+    const browser = await launchMutedBrowser(engine);
     try {
       const page = await browser.newPage({ viewport: { width, height: 950 }, ignoreHTTPSErrors: true, reducedMotion: 'reduce' });
       page.setDefaultTimeout(15000);
@@ -65,19 +66,19 @@ fs.mkdirSync(out, { recursive: true });
         await page.screenshot({ path: path.join(out, 'desktop-possible-causes-reading.png') });
       }
 
-      // Click another node while reading -> must switch cleanly without overlap & update spoken blocks
+      // Click another node while reading -> must stop stale playback cleanly (never auto-start on diagram click) & update spoken blocks
       const nextNode = page.locator('[data-vj-item]').last();
       await nextNode.click();
       await page.waitForFunction(() => {
         const cur = document.querySelector('#vj-result');
-        return cur && !cur.innerText.includes('Consider supervision');
+        return cur && !cur.innerText.includes('Consider supervision') && document.querySelector('.support-studio')?.dataset.readState === 'idle';
       });
       const updatedBlocks = await page.evaluate(() =>
         CARANA_SUPPORT.blocks(document.querySelector('#learning-main')).map(b => b.text)
       );
       assert(!updatedBlocks.some(t => t.includes('Consider supervision')),
         'Read Screen blocks must replace stale node explanation with new node');
-      await page.locator('#read-stop').click();
+      assert(await page.locator('#read-stop').isDisabled(), 'Diagram interaction must leave stale playback stopped cleanly');
 
       // Check all 4 nodes on 01-01 produce unique explanation blocks & inline buttons
       for (let i = 0; i < nodeCount; i++) {

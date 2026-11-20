@@ -1,5 +1,6 @@
 /* Workstream A + B verification: Tests default CARANA Neural Studio playback + Browser fallback engine in Chromium and WebKit desktop/mobile. */
 const { chromium, webkit } = require(process.env.CBD_TEST_MODULES + '/playwright');
+const { launchMutedBrowser } = require('../helpers/mute-browser.cjs');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -11,7 +12,7 @@ fs.mkdirSync(out, { recursive: true });
 (async () => {
   const rows = [];
   for (const [engine, name, width] of [[chromium, 'chromium-desktop', 1440], [webkit, 'webkit-desktop', 1440], [webkit, 'webkit-mobile', 390]]) {
-    const b = await engine.launch();
+    const b = await launchMutedBrowser(engine);
     try {
       const p = await b.newPage({ viewport: { width, height: 950 }, ignoreHTTPSErrors: true, reducedMotion: 'reduce' });
       p.setDefaultTimeout(15000);

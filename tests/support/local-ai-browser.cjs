@@ -1,5 +1,6 @@
 /* Genuine authenticated HTTPS -> retrieval -> Ollama integration + Workstream C UX & local /api/tts check; no route mocks. */
 const { chromium, webkit } = require(process.env.CBD_TEST_MODULES + '/playwright');
+const { launchMutedBrowser } = require('../helpers/mute-browser.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
@@ -14,7 +15,7 @@ fs.mkdirSync(outDir, { recursive: true });
 
   // Desktop Chromium genuine end-to-end conversation + Workstream C controls
   {
-    const b = await chromium.launch();
+    const b = await launchMutedBrowser(chromium);
     try {
       const p = await b.newPage({ ignoreHTTPSErrors: true, viewport: { width: 1440, height: 950 } });
       await p.route('https://fonts.googleapis.com/**', r => r.abort());
@@ -75,7 +76,7 @@ fs.mkdirSync(outDir, { recursive: true });
 
   // Mobile WebKit clean layout check on Follow-up 04 sheet
   {
-    const b = await webkit.launch();
+    const b = await launchMutedBrowser(webkit);
     try {
       const p = await b.newPage({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } });
       await p.route('https://fonts.googleapis.com/**', r => r.abort());

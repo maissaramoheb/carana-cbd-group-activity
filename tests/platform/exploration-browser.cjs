@@ -1,4 +1,5 @@
 const {chromium,webkit}=require(process.env.CBD_TEST_MODULES+'/playwright');
+const {launchMutedBrowser}=require('../helpers/mute-browser.cjs');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const base=process.env.CBD_TEST_URL||'http://127.0.0.1:8675',out=process.env.CBD_TEST_OUTPUT||'/tmp/run05-exploration';fs.mkdirSync(out,{recursive:true});
 const l1key='carana_cbd_course_v1',newkey='carana_learning_v1',aux='carana_exploration_v1';
@@ -6,7 +7,7 @@ async function pageFor(b,width){const p=await b.newPage({storageState:process.en
 async function ready(p){await p.waitForFunction(()=>window.CARANA_PLATFORM?.ready);}
 async function download(p,button){const wait=p.waitForEvent('download');await p.locator(button).click();const d=await wait;return fs.readFileSync(await d.path());}
 async function l1Import(p,buffer){const wait=p.waitForEvent('filechooser');await p.locator('#home-restore-l1').click();await(await wait).setFiles({name:'l1-backup.json',mimeType:'application/json',buffer});}
-(async()=>{for(const [engine,name,width]of[[chromium,'chromium',1440],[webkit,'webkit-mobile',390]]){const b=await engine.launch();b.runErrors=[];try{
+(async()=>{for(const [engine,name,width]of[[chromium,'chromium',1440],[webkit,'webkit-mobile',390]]){const b=await launchMutedBrowser(engine);b.runErrors=[];try{
  let p=await pageFor(b,width);const errors=[];p.on('pageerror',e=>errors.push(String(e)));
  await p.goto(base+'/course/#lesson-1');const before=await p.evaluate(k=>localStorage.getItem(k),l1key);
  await p.locator('[data-vj-item]').nth(2).focus();await p.keyboard.press('Enter');assert.match(await p.locator('#vj-count').innerText(),/1 of 4/);

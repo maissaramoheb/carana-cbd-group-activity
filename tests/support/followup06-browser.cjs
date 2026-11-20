@@ -3,12 +3,13 @@
  */
 'use strict';
 const { chromium } = require(process.env.CBD_TEST_MODULES + '/playwright');
+const { launchMutedBrowser } = require('../helpers/mute-browser.cjs');
 const assert = require('node:assert/strict');
 
 const base = process.env.CBD_TEST_URL || 'https://localhost:8766';
 
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await launchMutedBrowser(chromium);
   try {
     const page = await browser.newPage({ ignoreHTTPSErrors: true, viewport: { width: 1440, height: 950 }, reducedMotion: 'reduce' });
     const errors = [];

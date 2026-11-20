@@ -1,11 +1,12 @@
 /* Verify progressive enhancement: Studio Neural still works when speechSynthesis is absent, AND honest browser degradation when both are absent. */
 const { chromium } = require(process.env.CBD_TEST_MODULES + '/playwright');
+const { launchMutedBrowser } = require('../helpers/mute-browser.cjs');
 const fs = require('node:fs');
 const assert = require('node:assert/strict');
 
 const base = process.env.CBD_TEST_URL || 'https://localhost:8766';
 (async () => {
-  const b = await chromium.launch();
+  const b = await launchMutedBrowser(chromium);
   try {
     const rows = [];
     // 1. Studio Neural works even when browser SpeechSynthesis is missing
