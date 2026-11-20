@@ -75,3 +75,15 @@ Executed cleanly after all final edits (`carana-service.cjs`, `service-superviso
 - **Active Development/Host Environment:** Production inference runs locally on `Mac17,9` (`Apple M5 Pro`, `24 GB`) supervised by `com.carana.cbd.ai`. Because a mobile laptop over shared Wi-Fi is subject to lid-close sleep and transient Wi-Fi/tunnel drops (observed earlier as transient `ngrok` heartbeat reconnects recovered automatically by `service-supervisor.cjs`), sustained unattended multi-reviewer uptime still depends on keeping the host AC-powered, awake, and on reliable network connectivity (ideally relocated to an always-on wired Mac mini for continuous multi-reviewer cohorts).
 - **Cold Page-Cache Variance:** After cold OS boot (empty OS mmap page cache), `carana-gemma4-text` first-turn load measured `8,875 ms` load / `12,890 ms` total (`10,795 ms` cold concurrency total) versus `1,329 ms` load / `5,474 ms` total with warm OS page cache — both dramatically faster than stock `gemma4:26b`'s `33,604 ms` cold baseline.
 - **Automated Validation vs. Human Pedagogical Review:** All `135/135` figures above reflect automated retrieval, grounded-evidence validation, contract, and latency verification. Human SME review remains `0` pre-filled ratings (`review-workbench.html`).
+
+## 9. Isolated Candidate Preview Verification
+
+- **Candidate URL (SSO-Protected):** `https://carana-cbd-elearning-mlgaqa1x9-delta4ce20-5830s-projects.vercel.app` (built cleanly from `53af28c87ce866200d269eb4206b46e85076b375` with `1,280` hashed static assets + `5` fail-closed proxy functions; Vercel Inspect ID `HtxGgqW4MCAkzts84JRXjhV1udrx`).
+- **Route & Fail-Closed Checks (`vercel curl`):** `/quick-exercise` -> **`200`**, `/CARANA_CBD_Group_Activity` -> **`200`**, `/course/` -> **`200`**, `/platform/` -> **`200`**, `/api/tutor/status` -> **`200`** (`model: "carana-gemma4-text"`, `connected: true`, `tts.available: true`, `reviewerPilotEnabled: true`); unauthenticated missing-origin POST -> `403`, invalid bearer -> `401`.
+- **Cold-to-Warm Remote End-to-End Check (`owner-maissara`):**
+  - Unloaded idle model prior to test (`npm run ai:unload` -> `loadedModels: []`).
+  - Cold Turn 1 (`POST /api/tutor` on `cbd-3:03-10`): **`13,006 ms`** total end-to-end via Vercel + ngrok tunnel, emitted progressive stages `["preparing", "generating", "checking"]` and early `segment: "answer"` (`hasEarlyAnswerSegment: true`, `985` chars, cited `cbd-3:03-10` & `cbd-2:02-05`).
+  - Cold Kokoro TTS immediately following (`POST /api/tts`, `kokoro:af_heart`): **`10,573 ms`** (`240,172` bytes `RIFF` WAV, HTTP `200`). Warm Kokoro voice swap (`kokoro:bf_emma`): **`7,557 ms`** (`252,076` bytes `RIFF` WAV, HTTP `200`).
+  - Turn 2 follow-up with history: **`6,425 ms`** end-to-end (`kind: "ai"`).
+  - Checkpoint policy intercept (`mode: "checkpoint"`): **`2,679 ms`** (`provider: "curriculum-policy"`, `kind: "study-guide"`, zero LLM inference).
+
