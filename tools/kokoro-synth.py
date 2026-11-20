@@ -69,7 +69,29 @@ def main() -> None:
     parser.add_argument("--out-dir", help="Output directory for batch MP3 clips")
     parser.add_argument("--bitrate", default="24k", help="Target MP3 bitrate (default: 24k)")
     parser.add_argument("--workers", type=int, default=4, help="Parallel worker processes for batch")
+    parser.add_argument("--serve-stdio", action="store_true", help="Keep Kokoro loaded and synthesize JSON lines over stdin/stdout")
     args = parser.parse_args()
+
+    if args.serve_stdio:
+        kokoro = Kokoro(args.model, args.voices)
+        print(json.dumps({"ready": True}), flush=True)
+        for line in sys.stdin:
+            raw = line.strip()
+            if not raw:
+                continue
+            try:
+                req = json.loads(raw)
+                out_path = req["out"]
+                text = req["text"]
+                voice = req.get("voice") or args.voice
+                speed = float(req.get("speed") or args.speed)
+                samples, sr = kokoro.create(text, voice=voice, speed=speed, lang="en-us")
+                os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
+                sf.write(out_path, samples, sr)
+                print(json.dumps({"ok": True, "out": out_path}), flush=True)
+            except Exception as exc:
+                print(json.dumps({"ok": False, "error": str(exc)}), flush=True)
+        return
 
     if args.batch:
         if not args.out_dir:

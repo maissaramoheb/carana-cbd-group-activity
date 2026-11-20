@@ -10,7 +10,7 @@ const DEFAULT_ORIGIN_RE = /^https:\/\/(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.v
 const DEFAULT_HOST_RE = /^(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.vercel\.app|e-learning\.maissara\.tech|cbd\.maissara\.tech)$/i;
 const ALLOWED_ROUTES = new Set(['/api/tutor/status', '/api/tutor/auth', '/api/tutor', '/api/tts', '/api/health']);
 const LIMITS = { '/api/tutor': 8192, '/api/tts': 4096, '/api/tutor/auth': 512 };
-const TIMEOUTS = { '/api/tutor': 58000, '/api/tts': 28000, '/api/tutor/auth': 8000, '/api/tutor/status': 6000, '/api/health': 6000 };
+const TIMEOUTS = { '/api/tutor': 58000, '/api/tts': 48000, '/api/tutor/auth': 8000, '/api/tutor/status': 6000, '/api/health': 6000 };
 
 function applySecurityHeaders(res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -48,7 +48,7 @@ function offlineStatusPayload(env, disabled = false) {
     mode: 'local-pilot',
     remoteOwnerPreview: true,
     provider: 'ollama',
-    model: String(env.CARANA_MODEL || 'gemma4:26b'),
+    model: String(env.CARANA_MODEL || 'carana-gemma4-text'),
     requiresAccess: true,
     authEndpoint: true,
     qualification: String(env.CARANA_QUALIFICATION || 'not-qualified'),

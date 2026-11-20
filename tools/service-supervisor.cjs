@@ -16,7 +16,7 @@ const { createAuthStore, DEFAULT_DATA_DIR } = require('../tutor/auth-store.cjs')
 const { defaultMemoryCheck } = require('../tutor/gateway.cjs');
 
 const DEFAULT_PORT = 8766;
-const DEFAULT_MODEL = 'gemma4:26b';
+const DEFAULT_MODEL = 'carana-gemma4-text';
 const DEFAULT_QUALIFICATION = 'controlled-pilot-review-pending';
 const DEFAULT_TUNNEL_DOMAIN = 'pseudosymptomatic-nicola-bibliopolical.ngrok-free.dev';
 const MAX_LOG_BYTES = 5 * 1024 * 1024;

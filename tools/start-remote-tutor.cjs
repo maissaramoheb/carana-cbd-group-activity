@@ -20,7 +20,7 @@ const ROOT = path.resolve(__dirname, '..');
 function parseArgs(argv) {
   const opts = {
     port: Number(process.env.CARANA_PORT || 8766),
-    model: process.env.CARANA_MODEL || 'gemma4:26b',
+    model: process.env.CARANA_MODEL || 'carana-gemma4-text',
     qualification: process.env.CARANA_QUALIFICATION || 'owner-pilot',
     syncVercel: false,
     deploy: false,

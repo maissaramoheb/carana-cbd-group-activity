@@ -15,7 +15,7 @@ const { ensurePersistentSecrets, isPidAlive, DEFAULT_TUNNEL_DOMAIN } = require('
 const ROOT = path.resolve(__dirname, '..');
 const LABEL = 'com.carana.cbd.ai';
 const DEFAULT_PORT = 8766;
-const DEFAULT_MODEL = 'gemma4:26b';
+const DEFAULT_MODEL = 'carana-gemma4-text';
 const DEFAULT_QUALIFICATION = 'controlled-pilot-review-pending';
 const PRODUCTION_DOMAINS = ['e-learning.maissara.tech', 'cbd.maissara.tech'];
 
@@ -168,6 +168,35 @@ function runOllamaStop(model) {
     return { unloaded: true, model };
   } catch (err) {
     return { unloaded: false, model, detail: String(err.stderr || err.message || '').trim() };
+  }
+}
+
+function ensureTextOnlyModel(model) {
+  if (model !== 'carana-gemma4-text') return { ensured: false, reason: 'stock-model' };
+  const ollama = resolveBin('ollama', ['/usr/local/bin/ollama', '/opt/homebrew/bin/ollama']);
+  try {
+    execFileSync(ollama, ['show', model], { encoding: 'utf8', timeout: 8000, stdio: ['ignore', 'pipe', 'ignore'] });
+    return { ensured: true, created: false };
+  } catch (_) {}
+  const modelsRoot = process.env.OLLAMA_MODELS || path.join(os.homedir(), '.ollama', 'models');
+  const manifestFile = path.join(modelsRoot, 'manifests', 'registry.ollama.ai', 'library', 'gemma4', '26b');
+  if (!fs.existsSync(manifestFile)) throw Error('Cannot build carana-gemma4-text: gemma4:26b manifest not found');
+  const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+  const layer = (manifest.layers || []).find(l => l.mediaType === 'application/vnd.ollama.image.model');
+  if (!layer || !/^sha256:[0-9a-f]{64}$/i.test(layer.digest || '')) throw Error('Invalid gemma4:26b model layer digest');
+  const blobPath = path.join(modelsRoot, 'blobs', layer.digest.replace(':', '-'));
+  if (!fs.existsSync(blobPath)) throw Error('Missing gemma4:26b primary blob: ' + blobPath);
+  const tmpFile = path.join(os.tmpdir(), 'carana-Modelfile-' + process.pid);
+  try {
+    fs.writeFileSync(
+      tmpFile,
+      `FROM ${blobPath}\nTEMPLATE {{ .Prompt }}\nRENDERER gemma4\nPARSER gemma4\nPARAMETER temperature 0\nPARAMETER num_ctx 3072\n`,
+      { mode: 0o600 }
+    );
+    execFileSync(ollama, ['create', model, '-f', tmpFile], { encoding: 'utf8', timeout: 120000, stdio: ['ignore', 'pipe', 'pipe'] });
+    return { ensured: true, created: true };
+  } finally {
+    fs.rmSync(tmpFile, { force: true });
   }
 }
 
@@ -377,6 +406,8 @@ async function main() {
     fs.mkdirSync(path.dirname(p.plistPath), { recursive: true });
     if (fs.existsSync(p.emergencyFile)) fs.unlinkSync(p.emergencyFile);
     ensurePersistentSecrets(p.dataDir);
+    ensureTextOnlyModel(model);
+    if (model !== 'gemma4:26b') runOllamaStop('gemma4:26b');
     launchctlQuiet(['bootout', p.serviceTarget]);
     terminateRecordedProcesses(p);
     await new Promise(r => setTimeout(r, 800));

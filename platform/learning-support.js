@@ -1342,6 +1342,10 @@
       const question = input.value.trim();
       if (!question) return;
       input.value = '';
+      const priorTurns = conversation
+        .slice(-4)
+        .filter(item => item && (item.role === 'user' || item.role === 'assistant') && item.text)
+        .map(item => ({ role: item.role, text: String(item.text).slice(0, 750) }));
       conversation.push({ role: 'user', text: question });
       showMessage('user', question, null, true);
 
@@ -1351,18 +1355,26 @@
       request = activeRequest;
       sendBtn.disabled = true;
       panel.querySelector('#assistant-cancel').hidden = false;
-      status.textContent = 'Generating from the local model and checking source references…';
+      status.textContent = 'Finding relevant course material…';
 
       let text = '';
       let sources = [];
+      const setSources = nextSources => {
+        sources = Array.isArray(nextSources) ? nextSources : [];
+        const existing = article.querySelector('.assistant-sources');
+        if (existing) existing.remove();
+        appendSourcesDetails(article, sources);
+      };
       try {
+        const bodyPayload = {
+          question,
+          context: { lessonId: current.lessonId, screenId: current.screenId, mode: current.mode }
+        };
+        if (priorTurns.length) bodyPayload.history = priorTurns;
         const response = await fetch('/api/tutor', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + access },
-          body: JSON.stringify({
-            question,
-            context: { lessonId: current.lessonId, screenId: current.screenId, mode: current.mode }
-          }),
+          body: JSON.stringify(bodyPayload),
           signal: activeRequest.signal
         });
         if (!response.ok) {
@@ -1394,7 +1406,20 @@
             }
             if (row.type === 'started') {
               delete status.dataset.queue;
-              status.textContent = 'Your turn — generating source-checked response…';
+              status.textContent = 'Your turn — preparing grounded explanation…';
+            }
+            if (row.type === 'stage') {
+              delete status.dataset.queue;
+              if (row.text) status.textContent = row.text;
+            }
+            if (row.type === 'segment' && row.segment === 'answer') {
+              delete status.dataset.queue;
+              text = row.text || '';
+              formatAssistantBody(reply, text);
+              if (row.sources) setSources(row.sources);
+              const wrap = panel.querySelector('#assistant-messages');
+              wrap.scrollTop = wrap.scrollHeight;
+              status.textContent = 'Showing answer · checking teaching example and sources…';
             }
             if (row.type === 'content') {
               delete status.dataset.queue;
@@ -1405,7 +1430,7 @@
               status.textContent = 'Showing source-checked guidance…';
             }
             if (row.type === 'done') {
-              sources = row.sources || [];
+              setSources(row.sources || sources);
               status.textContent =
                 row.provider === 'simulated-test'
                   ? 'Simulated test response · interface verification only'
@@ -1417,7 +1442,7 @@
           }
         }
         if (!text) throw Error('No model reply was received.');
-        appendSourcesDetails(article, sources);
+        if (!article.querySelector('.assistant-sources')) setSources(sources);
         const msgHead = article.querySelector('.assistant-msg-head');
         if (msgHead && !msgHead.querySelector('.assistant-read-reply') && (localTtsInfo.available || speech?.getVoices?.().length)) {
           const readBtn = document.createElement('button');
