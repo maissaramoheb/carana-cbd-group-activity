@@ -139,7 +139,7 @@ function buildPlistXml(cfg) {
   <key>ExitTimeOut</key>
   <integer>20</integer>
   <key>ProcessType</key>
-  <string>Background</string>
+  <string>Interactive</string>
   <key>StandardOutPath</key>
   <string>${xmlEscape(cfg.stdoutLog)}</string>
   <key>StandardErrorPath</key>

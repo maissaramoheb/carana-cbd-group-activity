@@ -87,3 +87,14 @@ Executed cleanly after all final edits (`carana-service.cjs`, `service-superviso
   - Turn 2 follow-up with history: **`6,425 ms`** end-to-end (`kind: "ai"`).
   - Checkpoint policy intercept (`mode: "checkpoint"`): **`2,679 ms`** (`provider: "curriculum-policy"`, `kind: "study-guide"`, zero LLM inference).
 
+## 10. Production Release & Dual-Domain Verification
+
+- **Production Domains:** Primary `https://e-learning.maissara.tech/` and Continuity `https://cbd.maissara.tech/` promoted identically on the same single Vercel deployment (previous production baseline `fa228bed63a07a894a44a2843693695bce9ef2ed` / `dpl_H8ri3tno6gSPDGZNULcjkUhXxur7` preserved on `backup/main-before-run07-2026-11-20`).
+- **LaunchAgent QoS Fix Discovered During Live Cold Check:** Live Playwright testing on `https://e-learning.maissara.tech/` caught that `<key>ProcessType</key><string>Background</string>` in `tools/carana-service.cjs` forced `kokoro-synth.py` ONNX synthesis onto Efficiency cores (`>45s` `503` timeout on full replies vs `2.45s` normally). Switching `ProcessType` to `Interactive` restored full P-core scheduling (`3.5s` gateway-measured cold Kokoro synthesis on `970`-char replies; `10,002 ms` end-to-end over public HTTPS -> tunnel; `484–502 ms` warm Kokoro TTS).
+- **Verified Multi-Role Production Matrix (Playwright Real Browsers):**
+  - `owner-maissara` (`https://e-learning.maissara.tech/`, Desktop Chromium `1440×900`, cold-start unload before test): `/quick-exercise`, `/CARANA_CBD_Group_Activity`, `/course/`, `/platform/`, `/api/tutor/status` all `200`; unauthenticated `/api/tutor` & `/api/tts` fail `401`; Turn 1 `13,998 ms` (`970` chars, progressive stage + early-answer indicators), cold Kokoro Listen `200 audio/wav` (`10,002 ms` client RTT), Turn 2 `5,497 ms` (`864` chars).
+  - `denis-tikhomirov` (`https://e-learning.maissara.tech/`, Desktop Chromium `1440×900`): Turn 1 `8,118 ms` (`5,686 ms` gateway), Kokoro WAV `1,625 ms` (`484 ms` gateway), Turn 2 `6,457 ms`.
+  - `ahmed-hosny` (`https://cbd.maissara.tech/`, Mobile WebKit `390×844`): Turn 1 `4,212 ms` (`3,724 ms` gateway), Kokoro WAV `2,368 ms` (`502 ms` gateway), Turn 2 `5,089 ms`.
+  - **Privacy Audit:** `health.jsonl` (`324` lines) verified with **`0`** bearer tokens, access codes, questions, or response prose leaked.
+
+
