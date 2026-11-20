@@ -1,4 +1,5 @@
 const advance=require('../../tests/helpers/progression.cjs');
+const {launchMutedBrowser}=require('../../tests/helpers/mute-browser.cjs');
 /* Run against the built site or preview with an existing Playwright + axe-core installation.
  * CBD_TEST_MODULES=/path/to/node_modules CBD_TEST_URL=http://127.0.0.1:8642 node course/tests/browser.cjs
  */
@@ -164,12 +165,12 @@ async function failures(browser) {
   console.log('Failure cases passed: invalid saved progress, media unavailable, storage write denied');
 }
 (async()=>{
-  const c=await chromium.launch();
+  const c=await launchMutedBrowser(chromium);
   try {
     await journey(c,{viewport:{width:1440,height:950}},'chromium');
     await gallery(c,320); await gallery(c,768); await failures(c);
   } finally {await c.close();}
-  const w=await webkit.launch();
+  const w=await launchMutedBrowser(webkit);
   try {
     await journey(w,{viewport:{width:1440,height:950}},'webkit-desktop');
     await journey(w,devices['iPhone 13'],'webkit-mobile');

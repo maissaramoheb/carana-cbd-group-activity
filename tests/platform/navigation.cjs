@@ -1,4 +1,5 @@
 const advance=require('../helpers/progression.cjs');
+const {launchMutedBrowser}=require('../helpers/mute-browser.cjs');
 /* Run04 integration contract: real links, unchanged storage domains, review-first restore. */
 const {chromium,webkit}=require(process.env.CBD_TEST_MODULES+'/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
@@ -7,7 +8,7 @@ const output=process.env.CBD_TEST_OUTPUT||'/tmp/run04-navigation';fs.mkdirSync(o
 async function home(p){await p.waitForSelector('#home-backup-controls #import-progress');assert.equal(new URL(p.url()).pathname,'/course/');}
 (async()=>{
  for(const [engine,name,size] of [[chromium,'chromium',{width:1440,height:1000}],[webkit,'webkit-mobile',{width:390,height:844}]]){
- const b=await engine.launch();try{
+ const b=await launchMutedBrowser(engine);try{
  const p=await b.newPage({storageState:process.env.CBD_TEST_STORAGE_STATE,viewport:size,reducedMotion:'reduce',hasTouch:size.width<450,isMobile:size.width<450});
  p.setDefaultTimeout(9000);const errors=[];p.on('pageerror',e=>errors.push(String(e)));
  await p.route('https://fonts.googleapis.com/**',r=>r.abort());

@@ -44,6 +44,7 @@
   let ttsRequest = null;
   let activeAudio = null;
   let activeAudioUrl = '';
+  let activeUtterance = null;
   let activeObserver = null;
   let access = '';
   let accessUser = null;
@@ -231,20 +232,42 @@
     }
   }
 
+  function releaseSpeech() {
+    if (activeUtterance) {
+      try {
+        activeUtterance.onstart = null;
+        activeUtterance.onend = null;
+        activeUtterance.onerror = null;
+      } catch (_) {}
+      activeUtterance = null;
+    }
+    try { speech?.cancel(); } catch (_) {}
+  }
+
+  function stopExternalMedia() {
+    document.querySelectorAll('audio, video').forEach(el => {
+      if (el !== activeAudio) {
+        try { el.pause(); } catch (_) {}
+      }
+    });
+  }
+
   function stopRead(message = 'Stopped. You can restart this screen.') {
     speechGeneration++;
     releaseAudio();
+    releaseSpeech();
     if (reader) {
       reader.generation = speechGeneration;
       reader.playing = false;
       reader.paused = false;
+      reader.pendingAdvance = false;
+      reader.utterance = null;
       reader.mode = 'screen';
       reader.activeTarget = null;
       clearTimeout(reader.watchdog);
       reader.bar?.setAttribute('data-read-state', 'idle');
       if (reader.badge) reader.badge.textContent = 'Ready';
     }
-    try { speech?.cancel(); } catch (_) {}
     clearFocus();
     if (reader?.status?.isConnected) {
       reader.status.textContent = message;
@@ -391,8 +414,7 @@
     }
 
     stopRead('Preparing reading…');
-    try { speech?.resume?.(); } catch (_) {}
-    document.querySelectorAll('audio').forEach(a => a.pause());
+    stopExternalMedia();
 
     reader.items = splitIntoSpeakableChunks(list);
     if (!reader.items.length) {
@@ -410,23 +432,29 @@
     const generation = reader.generation;
 
     const speakWithBrowser = (item, browserVoice) => {
+      if (!reader || generation !== reader.generation || !reader.playing || reader.paused) return;
       if (!speech || !window.SpeechSynthesisUtterance) {
         stopRead('Browser speech is not supported here.');
         return;
       }
+      releaseAudio();
+      releaseSpeech();
+      try { speech?.resume?.(); } catch (_) {}
       const spoken = prepareSpeechText(item.text);
       const utterance = new SpeechSynthesisUtterance(spoken);
+      activeUtterance = utterance;
       reader.utterance = utterance;
       utterance.lang = browserVoice.lang;
       utterance.voice = browserVoice;
       utterance.rate = +reader.speed.value;
       utterance.onstart = () => {
-        if (!reader || generation !== reader.generation) return;
+        if (!reader || generation !== reader.generation || !reader.playing || reader.paused) return;
         clearTimeout(reader.watchdog);
         updateReadingHighlight(item.el, item.text, reader.index, reader.items.length, reader.activeButton);
       };
       utterance.onend = () => {
-        if (!reader || generation !== reader.generation) return;
+        if (activeUtterance === utterance) activeUtterance = null;
+        if (!reader || generation !== reader.generation || !reader.playing) return;
         if (reader.paused) {
           reader.pendingAdvance = true;
           return;
@@ -435,7 +463,8 @@
         next();
       };
       utterance.onerror = () => {
-        if (reader && generation === reader.generation) {
+        if (activeUtterance === utterance) activeUtterance = null;
+        if (reader && generation === reader.generation && reader.playing) {
           stopRead('Speech stopped or was unavailable. Try another voice or continue reading the text.');
         }
       };
@@ -448,8 +477,14 @@
     };
 
     const playAudioUrl = async (item, url, revokeOnDone = false) => {
-      if (!reader || generation !== reader.generation || !reader.playing) return false;
+      if (!reader || generation !== reader.generation || !reader.playing || reader.paused) {
+        if (revokeOnDone && url) {
+          try { URL.revokeObjectURL(url); } catch (_) {}
+        }
+        return { ok: false, reason: 'stopped' };
+      }
       releaseAudio();
+      releaseSpeech();
       const audio = new Audio();
       activeAudio = audio;
       if (revokeOnDone) activeAudioUrl = url;
@@ -460,26 +495,46 @@
 
       return new Promise(resolve => {
         let settled = false;
-        const finish = ok => {
+        const finish = (ok, reason = '') => {
           if (settled) return;
           settled = true;
           clearTimeout(reader?.watchdog);
-          resolve(ok);
+          if (!ok) {
+            try {
+              audio.onplay = null;
+              audio.onended = null;
+              audio.onerror = null;
+              audio.pause();
+              audio.removeAttribute('src');
+              audio.load?.();
+            } catch (_) {}
+            if (activeAudio === audio) activeAudio = null;
+            if (revokeOnDone && activeAudioUrl === url) {
+              try { URL.revokeObjectURL(url); } catch (_) {}
+              activeAudioUrl = '';
+            }
+          }
+          resolve({ ok, reason });
         };
         audio.onplay = () => {
-          if (!reader || generation !== reader.generation) return finish(false);
+          if (!reader || generation !== reader.generation || !reader.playing) return finish(false, 'stopped');
           clearTimeout(reader.watchdog);
           updateReadingHighlight(item.el, item.text, reader.index, reader.items.length, reader.activeButton);
         };
         audio.onended = () => {
-          if (!reader || generation !== reader.generation) return finish(false);
-          finish(true);
+          if (!reader || generation !== reader.generation || !reader.playing) return finish(false, 'stopped');
+          finish(true, '');
         };
-        audio.onerror = () => finish(false);
+        audio.onerror = () => finish(false, 'error');
         reader.watchdog = setTimeout(() => {
-          if (reader && generation === reader.generation && audio.paused && audio.currentTime === 0) finish(false);
-        }, 8000);
-        audio.play().catch(() => finish(false));
+          if (reader && generation === reader.generation && audio.paused && audio.currentTime === 0) {
+            finish(false, 'timeout');
+          }
+        }, 10000);
+        audio.play().catch(err => {
+          const reason = err?.name === 'NotAllowedError' ? 'blocked' : err?.name === 'AbortError' ? 'stopped' : 'error';
+          finish(false, reason);
+        });
       });
     };
 
@@ -500,51 +555,78 @@
         const clipUrl = selectedOption.kind === 'studio' ? studioClipUrl(item.text) : '';
         if (clipUrl) {
           reader.activeMode = 'audio';
-          const ok = await playAudioUrl(item, clipUrl, false);
+          const res = await playAudioUrl(item, clipUrl, false);
           if (!reader || generation !== reader.generation || !reader.playing) return;
           if (reader.paused) {
-            if (ok) reader.pendingAdvance = true;
+            if (res.ok) reader.pendingAdvance = true;
             return;
           }
-          if (ok) {
+          if (res.ok) {
             reader.index++;
             next();
             return;
           }
+          stopRead(
+            res.reason === 'blocked'
+              ? 'Audio playback was blocked by the browser. Click Play or Read this explanation again.'
+              : 'That audio clip could not play cleanly right now. You can continue reading or retry.'
+          );
+          return;
         }
-        // Dynamic/unlisted passage in Studio/Local mode: try live local /api/tts if unlocked, else filtered local browser voice.
+        // Dynamic/unlisted passage in Studio/Local mode: try live local /api/tts if unlocked, else explicit local fallback only for unlisted static text.
         if (access && localTtsInfo.available) {
+          let blobUrl = null;
           try {
             reader.activeMode = 'audio';
             ttsRequest?.abort();
             ttsRequest = new AbortController();
             const voiceId = selectedOption.ttsId || 'kokoro:af_heart';
-            const blobUrl = await fetchLocalNeuralWav(item.text, voiceId, ttsRequest.signal);
+            blobUrl = await fetchLocalNeuralWav(item.text, voiceId, ttsRequest.signal);
+          } catch (_) {
+            blobUrl = null;
+          }
+          if (!reader || generation !== reader.generation || !reader.playing) {
+            if (blobUrl) {
+              try { URL.revokeObjectURL(blobUrl); } catch (_) {}
+            }
+            return;
+          }
+          if (reader.paused) {
+            if (blobUrl) {
+              try { URL.revokeObjectURL(blobUrl); } catch (_) {}
+            }
+            reader.pendingAdvance = true;
+            return;
+          }
+          if (blobUrl) {
+            const res = await playAudioUrl(item, blobUrl, true);
             if (!reader || generation !== reader.generation || !reader.playing) return;
             if (reader.paused) {
-              reader.pendingAdvance = true;
+              if (res.ok) reader.pendingAdvance = true;
               return;
             }
-            if (blobUrl) {
-              const ok = await playAudioUrl(item, blobUrl, true);
-              if (!reader || generation !== reader.generation || !reader.playing) return;
-              if (reader.paused) {
-                if (ok) reader.pendingAdvance = true;
-                return;
-              }
-              if (ok) {
-                reader.index++;
-                next();
-                return;
-              }
+            if (res.ok) {
+              reader.index++;
+              next();
+              return;
             }
-          } catch (_) {}
-        }
-        const localFallback = reader.voices.find(v => v.kind === 'browser' && v.voice.localService)?.voice;
-        if (localFallback) {
-          reader.activeMode = 'speech';
-          speakWithBrowser(item, localFallback);
+            stopRead(
+              res.reason === 'blocked'
+                ? 'Audio playback was blocked by the browser. Click Listen again to play.'
+                : 'Audio playback stopped before finishing. You can read the text or retry.'
+            );
+            return;
+          }
+          stopRead('Local neural speech service is unavailable or busy right now. Continue reading the text or retry.');
           return;
+        }
+        if (selectedOption.kind === 'studio' && reader.mode !== 'assistant') {
+          const localFallback = reader.voices.find(v => v.kind === 'browser' && v.voice.localService)?.voice;
+          if (localFallback) {
+            reader.activeMode = 'speech';
+            speakWithBrowser(item, localFallback);
+            return;
+          }
         }
         stopRead('Audio clip unavailable for that custom selection in this browser. Read the screen or use local studio.');
         return;
@@ -568,6 +650,7 @@
 
   function dispose() {
     stopRead();
+    stopExternalMedia();
     request?.abort();
     request = null;
     if (activeObserver) {
@@ -655,33 +738,21 @@
   function handleExplanationUpdate(detail) {
     if (!current?.root?.isConnected) return;
     syncInlineReadButtons();
-    if (!reader || !reader.playing || detail?.restored) return;
+    if (!reader || !reader.playing || reader.paused || detail?.restored) return;
 
     const target = detail?.target;
     if (reader.mode === 'explanation' && target && reader.activeTarget === target) {
-      if (!isActiveExplanationCard(target)) {
-        stopRead('Explanation cleared.');
-        return;
-      }
-      const barBtn = current.root.querySelector(`.support-inline-bar[data-for="${target.dataset.readUid}"] button`);
-      readList([{ el: target, text: extractBlockText(target, false) }], {
-        mode: 'explanation',
-        target,
-        button: barBtn
-      });
+      stopRead(isActiveExplanationCard(target) ? 'Explanation updated. Press Read this explanation to listen.' : 'Explanation cleared.');
       return;
     }
 
     if (reader.mode === 'screen') {
-      const fresh = splitIntoSpeakableChunks(blocks(current.root, reader.includeQuestions));
       const curEl = reader.items[reader.index]?.el;
       if (target && curEl === target) {
-        const pos = Math.max(0, fresh.findIndex(x => x.el === target));
-        reader.items = fresh;
-        reader.index = pos;
-        readList(fresh.slice(pos), { mode: 'screen' });
+        stopRead('Screen content updated. Press Read screen to listen.');
         return;
       }
+      const fresh = splitIntoSpeakableChunks(blocks(current.root, reader.includeQuestions));
       if (curEl) {
         const curPos = fresh.findIndex(x => x.el === curEl);
         if (curPos >= 0) {
@@ -1027,7 +1098,7 @@
   async function openAssistant() {
     if (!current) return;
     stopRead('Read Screen stopped while you ask a question. Restart it when ready.');
-    document.querySelectorAll('audio').forEach(a => a.pause());
+    stopExternalMedia();
     if (panel) {
       panel.showModal();
       return;
@@ -1106,6 +1177,7 @@
       if (panel !== localPanel) return;
       request?.abort();
       request = null;
+      if (reader?.mode === 'assistant' || ttsRequest) stopRead('Stopped assistant audio when returning to lesson.');
       document.body.classList.remove('carana-assistant-open');
       if (panel === localPanel) {
         panel.remove();
@@ -1124,6 +1196,7 @@
       e.currentTarget.textContent = expanded ? 'Compact' : 'Expand';
     };
     panel.querySelector('#assistant-clear').onclick = () => {
+      if (reader?.mode === 'assistant' || ttsRequest) stopRead('Stopped assistant playback.');
       conversation = [];
       const wrap = localPanel.querySelector('#assistant-messages');
       wrap.querySelectorAll('.assistant-message').forEach(m => m.remove());
@@ -1143,6 +1216,21 @@
       input.focus();
     };
 
+    function createAssistantListenBtn(article, text) {
+      const readBtn = document.createElement('button');
+      readBtn.type = 'button';
+      readBtn.className = 'assistant-read-reply';
+      readBtn.textContent = 'Listen';
+      readBtn.onclick = () => {
+        if (reader?.playing && reader.mode === 'assistant' && reader.activeTarget === article) {
+          stopRead('Stopped assistant playback.');
+          return;
+        }
+        readList([{ el: article, text }], { mode: 'assistant', target: article });
+      };
+      return readBtn;
+    }
+
     function showMessage(role, text, sources, completed = true) {
       const wrap = panel.querySelector('#assistant-messages');
       const welcome = wrap.querySelector('.assistant-welcome-card');
@@ -1157,12 +1245,7 @@
       head.append(label);
 
       if (role === 'assistant' && completed && text && (localTtsInfo.available || speech?.getVoices?.().length)) {
-        const readBtn = document.createElement('button');
-        readBtn.type = 'button';
-        readBtn.className = 'assistant-read-reply';
-        readBtn.textContent = 'Listen';
-        readBtn.onclick = () => readList([{ el: article, text }], { mode: 'assistant' });
-        head.append(readBtn);
+        head.append(createAssistantListenBtn(article, text));
       }
 
       const body = document.createElement('div');
@@ -1257,6 +1340,7 @@
     await refreshStatus();
     retryStatusBtn.onclick = refreshStatus;
     signoutBtn.onclick = () => {
+      if (reader?.mode === 'assistant' || ttsRequest) stopRead('Stopped assistant playback.');
       access = '';
       accessUser = null;
       sendBtn.disabled = true;
@@ -1341,6 +1425,7 @@
       if (!available || !access || request) return;
       const question = input.value.trim();
       if (!question) return;
+      if (reader?.mode === 'assistant' || ttsRequest) stopRead('Stopped previous assistant playback.');
       input.value = '';
       const priorTurns = conversation
         .slice(-4)
@@ -1445,12 +1530,7 @@
         if (!article.querySelector('.assistant-sources')) setSources(sources);
         const msgHead = article.querySelector('.assistant-msg-head');
         if (msgHead && !msgHead.querySelector('.assistant-read-reply') && (localTtsInfo.available || speech?.getVoices?.().length)) {
-          const readBtn = document.createElement('button');
-          readBtn.type = 'button';
-          readBtn.className = 'assistant-read-reply';
-          readBtn.textContent = 'Listen';
-          readBtn.onclick = () => readList([{ el: article, text }], { mode: 'assistant' });
-          msgHead.append(readBtn);
+          msgHead.append(createAssistantListenBtn(article, text));
         }
         conversation.push({ role: 'assistant', text, sources });
         conversation = conversation.slice(-12);
@@ -1498,13 +1578,24 @@
 
   window.addEventListener('pagehide', () => {
     stopRead();
+    stopExternalMedia();
     request?.abort();
+  });
+
+  window.addEventListener('hashchange', () => {
+    stopRead();
+    stopExternalMedia();
+  });
+
+  window.addEventListener('popstate', () => {
+    stopRead();
+    stopExternalMedia();
   });
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       stopRead('Reading stopped while this page is in the background.');
-      document.querySelectorAll('audio').forEach(a => a.pause());
+      stopExternalMedia();
     }
   });
 
@@ -1515,6 +1606,9 @@
     stop: stopRead,
     prepareSpeechText,
     sha256Hex,
+    get isPlaying() {
+      return !!(reader?.playing && !reader.paused);
+    },
     get context() {
       return current ? { lessonId: current.lessonId, screenId: current.screenId, mode: current.mode } : null;
     }

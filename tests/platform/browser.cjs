@@ -1,4 +1,5 @@
 const advance=require('../helpers/progression.cjs');
+const {launchMutedBrowser}=require('../helpers/mute-browser.cjs');
 const {chromium,webkit}=require(process.env.CBD_TEST_MODULES+'/playwright');
 const axePath=require.resolve(process.env.CBD_TEST_MODULES+'/axe-core/axe.min.js');
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
@@ -299,6 +300,6 @@ async function secondCurriculum(browser){
 }
 (async()=>{
  for(const [engine,size,name] of [[webkit,{width:1366,height:950},'webkit-desktop'],[chromium,{width:1440,height:950},'chromium'],[webkit,{width:390,height:844},'webkit-mobile']]){
-  const b=await engine.launch();try{await flow(b,size,name);if(name==='chromium'){await edgeCases(b);await stage2Checks(b);await secondCurriculum(b);}}finally{await b.close();}
+  const b=await launchMutedBrowser(engine);try{await flow(b,size,name);if(name==='chromium'){await edgeCases(b);await stage2Checks(b);await secondCurriculum(b);}}finally{await b.close();}
  }
 })().catch(e=>{console.error(e);process.exitCode=1});

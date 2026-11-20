@@ -10,6 +10,7 @@ const dns = require('node:dns').promises;
 const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
 const { chromium, webkit } = require(path.join(process.env.CBD_TEST_MODULES, 'playwright'));
+const { launchMutedBrowser } = require('../tests/helpers/mute-browser.cjs');
 const { start } = require('../tutor/gateway.cjs');
 const { createRemoteProxy } = require('../tutor/remote-proxy.cjs');
 
@@ -139,7 +140,7 @@ fs.mkdirSync(OUT, { recursive: true });
 
     // Desktop Chromium E2E: Lesson 1 Possible Causes + real AI + Sources + Listen + Checkpoint guard
     {
-      const b = await chromium.launch();
+      const b = await launchMutedBrowser(chromium);
       try {
         const p = await b.newPage({ ignoreHTTPSErrors: true, viewport: { width: 1440, height: 950 } });
         const errors = [];
@@ -196,7 +197,7 @@ fs.mkdirSync(OUT, { recursive: true });
 
     // Mobile WebKit (390x844) E2E with genuine AI response on Lesson 3 platform
     {
-      const b = await webkit.launch();
+      const b = await launchMutedBrowser(webkit);
       try {
         const p = await b.newPage({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } });
         const errors = [];

@@ -1,5 +1,6 @@
 'use strict';
 const { chromium, webkit } = require(process.env.CBD_TEST_MODULES + '/playwright');
+const { launchMutedBrowser } = require('../helpers/mute-browser.cjs');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const http = require('node:http');
@@ -69,7 +70,7 @@ async function startHarness() {
   try {
     for (const [engine, name, width] of [[chromium, 'chromium-desktop', 1440], [webkit, 'webkit-mobile', 390]]) {
       const idxBefore = harness.seenRequests.length;
-      const b = await engine.launch();
+      const b = await launchMutedBrowser(engine);
       try {
         const p = await b.newPage({ ignoreHTTPSErrors: true, viewport: { width, height: 920 }, reducedMotion: 'reduce' });
         const errors = [];

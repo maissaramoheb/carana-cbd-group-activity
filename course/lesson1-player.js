@@ -65,6 +65,9 @@
         transcriptBox.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{toggled:true,target:transcriptBox}}));
       });
     }
+    window.__caranaLesson1AudioAC?.abort();
+    const ac = new AbortController();
+    window.__caranaLesson1AudioAC = ac;
     const track=$('trainer-audio');
     if(track) {
       const play=$('voice-play'),replay=$('voice-replay'),speed=$('voice-speed'),time=$('voice-time'),fill=$('voice-progress-fill');
@@ -72,28 +75,44 @@
       const refresh=()=>{
         if(!track.isConnected)return;
         const running=!track.paused&&!track.ended;
-        play.textContent=running?'Ⅱ Pause narration':'▶ Play explanation';
-        play.setAttribute('aria-label',running?'Pause narration':'Play explanation');
+        const nextLabel=running?'Ⅱ Pause narration':'▶ Play explanation';
+        if(play.textContent!==nextLabel){
+          play.textContent=nextLabel;
+          play.setAttribute('aria-label',running?'Pause narration':'Play explanation');
+        }
         if(time)time.textContent=formatTime(track.currentTime)+' / '+formatTime(track.duration);
         if(fill)fill.style.width=(Number.isFinite(track.duration)&&track.duration>0?(track.currentTime/track.duration)*100:0)+'%';
       };
       const status=$('voice-error');
       const showError=(unavailable=false)=>{
-        if(!track.isConnected)return;
+        if(!track.isConnected||ac.signal.aborted)return;
         status.hidden=false;
         status.textContent=unavailable?'Recording unavailable. Read the transcript below.':'Playback did not start. Try again or read the transcript below.';
         if(unavailable){play.disabled=true;replay.disabled=true;speed.disabled=true;}
       };
-      const start=async()=>{
-        status.hidden=true;
-        try{await track.play()}catch(_){showError(!!track.error)}
+      const stopTrack=()=>{
+        try{track.pause();}catch(_){}
         refresh();
       };
-      play.addEventListener('click',()=>{if(track.paused)start();else track.pause()});
-      replay.addEventListener('click',()=>{track.currentTime=0;start()});
-      speed.addEventListener('click',()=>{speedIndex=(speedIndex+1)%rates.length;track.playbackRate=rates[speedIndex];speed.textContent=rates[speedIndex]+'× speed'});
-      for(const event of ['play','pause','ended','timeupdate','durationchange'])track.addEventListener(event,refresh);
-      track.addEventListener('error',()=>showError(true));
+      const start=async()=>{
+        if(!track.isConnected||ac.signal.aborted)return;
+        status.hidden=true;
+        window.CARANA_SUPPORT?.stop?.('Trainer narration is playing. Read Screen has stopped.');
+        document.querySelectorAll('audio, video').forEach(node=>{if(node!==track)try{node.pause();}catch(_){}});
+        try{
+          await track.play();
+          if(!track.isConnected||ac.signal.aborted){try{track.pause();}catch(_){}}
+        }catch(_){showError(!!track.error)}
+        refresh();
+      };
+      play.addEventListener('click',()=>{if(track.paused)start();else track.pause()},{signal:ac.signal});
+      replay.addEventListener('click',()=>{track.currentTime=0;start()},{signal:ac.signal});
+      speed.addEventListener('click',()=>{speedIndex=(speedIndex+1)%rates.length;track.playbackRate=rates[speedIndex];speed.textContent=rates[speedIndex]+'× speed'},{signal:ac.signal});
+      for(const event of ['play','pause','ended','timeupdate','durationchange'])track.addEventListener(event,refresh,{signal:ac.signal});
+      track.addEventListener('error',()=>showError(true),{signal:ac.signal});
+      window.addEventListener('pagehide',stopTrack,{signal:ac.signal});
+      window.addEventListener('hashchange',stopTrack,{signal:ac.signal});
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)stopTrack();},{signal:ac.signal});
       if(track.error)showError(true);
       refresh();
     }
