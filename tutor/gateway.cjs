@@ -15,7 +15,7 @@ const { createLocalTts } = require('./tts.cjs');
 const { createAuthStore } = require('./auth-store.cjs');
 
 const ROOT = path.resolve(__dirname, '..');
-const ALLOWED_MODELS = /^(?:qwen3:(?:0\.6b|1\.7b|4b|4b-instruct-2507-q4_K_M|14b)|gemma4:26b)$/;
+const ALLOWED_MODELS = /^(?:qwen3:(?:0\.6b|1\.7b|4b|4b-instruct-2507-q4_K_M|14b)|gemma4:(?:e4b|12b|26b)|qwen3\.5:(?:4b|9b)|carana-gemma4-text)$/;
 const REMOTE_ORIGIN_RE = /^https:\/\/(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.vercel\.app|e-learning\.maissara\.tech|cbd\.maissara\.tech)$/i;
 
 function defaultMemoryCheck() {
@@ -224,7 +224,7 @@ function createHandler({
     }
   }
 
-  function emitNdjsonResult(res, text, sources, kind, writeHeadFirst = true) {
+  function emitNdjsonResult(res, text, sources, kind, writeHeadFirst = true, meta = {}) {
     if (res.destroyed || res.writableEnded) return;
     if (writeHeadFirst) res.writeHead(200, { 'Content-Type': 'application/x-ndjson', 'Cache-Control': 'no-store' });
     for (let n = 0; n < text.length; n += 100) {
@@ -235,9 +235,21 @@ function createHandler({
       sources,
       kind,
       provider: kind === 'ai' ? 'genuine-local-ollama' : 'curriculum-policy',
-      model: kind === 'ai' ? model : undefined
+      model: kind === 'ai' ? model : undefined,
+      ...meta
     });
     res.end();
+  }
+
+  function emitAiResult(res, out, writeHeadFirst) {
+    const tail =
+      (out.reply?.example ? '\n\nInvented teaching example: ' + out.reply.example : '') +
+      (out.reply?.uncertainty ? '\n\nEvidence limits: ' + out.reply.uncertainty : '');
+    if (out.streamedAnswer) {
+      emitNdjsonResult(res, tail, out.sources, 'ai', writeHeadFirst, { answerStreamed: true });
+      return;
+    }
+    emitNdjsonResult(res, out.text, out.sources, 'ai', writeHeadFirst);
   }
 
   function notifyQueuePositions() {
@@ -246,9 +258,24 @@ function createHandler({
     }
   }
 
-  async function executeInference({ question, passages, context, abort, userId }) {
+  async function executeInference({ question, passages, context, abort, userId, history = [], onStage = () => {}, onSegment = () => {} }) {
     const started = clock();
-    const reply = await provider({ model, question, passages, context, signal: abort.signal, ollamaBase });
+    let streamedAnswer = false;
+    const reply = await provider({
+      model,
+      question,
+      passages,
+      context,
+      history,
+      maxRepairs: 1,
+      signal: abort.signal,
+      ollamaBase,
+      onStage,
+      onSegment: seg => {
+        if (seg && seg.segment === 'answer') streamedAnswer = true;
+        onSegment(seg);
+      }
+    });
     if (abort.signal.aborted) throw Error('cancelled');
     const elapsed = clock() - started;
     stats.aiSuccess++;
@@ -258,7 +285,7 @@ function createHandler({
       (reply.example ? '\n\nInvented teaching example: ' + reply.example : '') +
       (reply.uncertainty ? '\n\nEvidence limits: ' + reply.uncertainty : '');
     recordOp('/api/tutor', 200, 'ai', { lessonId: context.lessonId, screenId: context.screenId, model, elapsedMs: elapsed, userId });
-    return { text, sources: reply.sources };
+    return { text, reply, streamedAnswer, sources: reply.sources };
   }
 
   function processNext() {
@@ -400,7 +427,7 @@ function createHandler({
       ttsBusy = true;
       stats.ttsRequests++;
       const abort = new AbortController();
-      const timer = setTimeout(() => abort.abort(), 25000);
+      const timer = setTimeout(() => abort.abort(), 45000);
       res.on('close', () => { if (!res.writableEnded) abort.abort(); });
       try {
         const result = await tts.synthesize({ text: payload.text, voice: typeof payload.voice === 'string' ? payload.voice : 'kokoro:af_heart', signal: abort.signal });
@@ -449,12 +476,27 @@ function createHandler({
       }
       let payload;
       try { payload = JSON.parse(raw); } catch (_) { return json(res, 400, { message: 'Invalid JSON request.' }); }
+      const historyValid =
+        payload?.history === undefined ||
+        (Array.isArray(payload.history) &&
+          payload.history.length <= 6 &&
+          payload.history.every(
+            h =>
+              h &&
+              typeof h === 'object' &&
+              Object.keys(h).every(k => k === 'role' || k === 'text') &&
+              (h.role === 'user' || h.role === 'assistant') &&
+              typeof h.text === 'string' &&
+              h.text.length <= 800
+          ));
+
       if (
         !payload ||
-        Object.keys(payload).some(k => !['question', 'context'].includes(k)) ||
+        Object.keys(payload).some(k => !['question', 'context', 'history'].includes(k)) ||
         typeof payload.question !== 'string' ||
         !payload.question.trim() ||
         payload.question.length > 1200 ||
+        !historyValid ||
         !payload.context ||
         Object.keys(payload.context).some(k => !['lessonId', 'screenId', 'mode'].includes(k)) ||
         typeof payload.context.screenId !== 'string' ||
@@ -466,7 +508,7 @@ function createHandler({
       const context = retriever.context(payload.context);
       if (!context) return json(res, 400, { message: 'Current lesson context was not recognized.' });
 
-      const passages = retriever.search(payload.question, payload.context);
+      const passages = retriever.search(payload.question, payload.context, { limit: 3, history: payload.history });
       const sourceRows = rows => rows.map(p => ({ id: p.id, title: p.title, source: p.source }));
 
       if (context.mode === 'checkpoint' || protectedRequest(payload.question)) {
@@ -518,7 +560,7 @@ function createHandler({
 
       const validationErrorRe = /^(?:Model response failed source validation|Model inserted|Model made an unsupported|Model example violated|Model overstated)/;
 
-      // Fast path when model slot is immediately free: keep HTTP status uncommitted until model responds cleanly (allows true HTTP 503 on offline Ollama)
+      // Fast path when model slot is immediately free: keep HTTP status uncommitted until model connects (allows true HTTP 503 on offline Ollama), then stream verified stage & segment progress immediately.
       if (!busy) {
         clearIdleTimer();
         busy = true;
@@ -526,9 +568,33 @@ function createHandler({
         const abort = new AbortController();
         const timer = setTimeout(() => abort.abort(), timeoutMs);
         res.on('close', () => { if (!res.writableEnded) abort.abort(); });
+        let headersSent = false;
+        const ensureNdjsonHeaders = () => {
+          if (!headersSent && !res.destroyed && !res.writableEnded) {
+            res.writeHead(200, { 'Content-Type': 'application/x-ndjson', 'Cache-Control': 'no-store' });
+            headersSent = true;
+          }
+        };
         try {
-          const out = await executeInference({ question: payload.question, passages, context, abort, userId: authRes.user.userId });
-          emitNdjsonResult(res, out.text, out.sources, 'ai', true);
+          const out = await executeInference({
+            question: payload.question,
+            passages,
+            context,
+            history: payload.history,
+            abort,
+            userId: authRes.user.userId,
+            onStage: (stage, text) => {
+              ensureNdjsonHeaders();
+              writeNdjson(res, { type: 'stage', stage, text, model });
+            },
+            onSegment: seg => {
+              ensureNdjsonHeaders();
+              if (seg && seg.segment === 'answer') {
+                writeNdjson(res, { type: 'segment', segment: 'answer', text: seg.answer, sources: seg.sources, model });
+              }
+            }
+          });
+          emitAiResult(res, out, !headersSent);
         } catch (e) {
           const elapsed = clock() - started;
           if (validationErrorRe.test(e.message)) {
@@ -541,17 +607,19 @@ function createHandler({
                 ').',
               sourceRows(passages),
               'source-check',
-              true
+              !headersSent
             );
           } else {
             stats.errors++;
             recordOp('/api/tutor', 503, 'error', { lessonId: context.lessonId, screenId: context.screenId, elapsedMs: elapsed });
-            if (!res.destroyed && !res.writableEnded) {
-              json(res, 503, {
-                message: abort.signal.aborted
-                  ? 'The local reply timed out or was cancelled. No answer was supplied.'
-                  : 'The local model was unavailable or its response did not pass source checks. Try again later; the course remains available.'
-              });
+            const errMsg = abort.signal.aborted
+              ? 'The local reply timed out or was cancelled. No answer was supplied.'
+              : 'The local model was unavailable or its response did not pass source checks. Try again later; the course remains available.';
+            if (headersSent) {
+              writeNdjson(res, { type: 'error', message: errMsg });
+              if (!res.destroyed && !res.writableEnded) res.end();
+            } else if (!res.destroyed && !res.writableEnded) {
+              json(res, 503, { message: errMsg });
             }
           }
         } finally {
@@ -626,8 +694,21 @@ function createHandler({
         res.on('close', () => { if (!res.writableEnded) abort.abort(); });
         writeNdjson(res, { type: 'started', position: 0, model });
         try {
-          const out = await executeInference({ question: payload.question, passages, context, abort, userId: authRes.user.userId });
-          emitNdjsonResult(res, out.text, out.sources, 'ai', false);
+          const out = await executeInference({
+            question: payload.question,
+            passages,
+            context,
+            history: payload.history,
+            abort,
+            userId: authRes.user.userId,
+            onStage: (stage, text) => writeNdjson(res, { type: 'stage', stage, text, model }),
+            onSegment: seg => {
+              if (seg && seg.segment === 'answer') {
+                writeNdjson(res, { type: 'segment', segment: 'answer', text: seg.answer, sources: seg.sources, model });
+              }
+            }
+          });
+          emitAiResult(res, out, false);
         } catch (e) {
           const elapsed = clock() - started;
           if (validationErrorRe.test(e.message)) {
@@ -708,6 +789,9 @@ function createHandler({
     if (unload && unloadModel) {
       await unloadModel(model, ollamaBase).catch(() => {});
     }
+    if (tts && typeof tts.shutdown === 'function') {
+      await Promise.resolve(tts.shutdown()).catch(() => {});
+    }
   };
 
   return handler;
@@ -780,7 +864,8 @@ async function start({
     telemetry,
     statusCheck: async () => {
       const r = await fetch(ollamaBase + '/api/tags', { signal: AbortSignal.timeout(2500) });
-      return r.ok && (await r.json()).models.some(m => m.name === model);
+      const targetTag = model.includes(':') ? model : model + ':latest';
+      return r.ok && (await r.json()).models.some(m => m.name === model || m.name === targetTag);
     }
   });
   const server = https.createServer({ key: fs.readFileSync(key), cert: fs.readFileSync(cert), minVersion: 'TLSv1.2' }, handler);
@@ -812,7 +897,7 @@ if (require.main === module) {
     .filter(Boolean);
   start({
     port: Number(process.argv[2] || process.env.CARANA_PORT || 8766),
-    model: process.argv[3] || process.env.CARANA_MODEL || 'gemma4:26b',
+    model: process.argv[3] || process.env.CARANA_MODEL || 'carana-gemma4-text',
     qualification: process.env.CARANA_QUALIFICATION || 'not-qualified',
     proxySecret: process.env.CARANA_PROXY_SECRET || '',
     token: process.env.CARANA_OWNER_ACCESS_CODE || '',

@@ -20,6 +20,15 @@ const targetName = targetArgIdx >= 0 && process.argv[targetArgIdx + 1]
     : 'isolated-owner-ai-preview';
 
 const outputDir = path.join(root, '.vercel/output');
+const configPath = path.join(outputDir, 'config.json');
+const vercelConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+for (const route of vercelConfig.routes || []) {
+  if (route.src === '^/quick-exercise/?$') {
+    route.dest = '/CARANA_CBD_Group_Activity';
+  }
+}
+fs.writeFileSync(configPath, JSON.stringify(vercelConfig, null, 2) + '\n');
+
 const manifestPath = path.join(outputDir, 'static/release-manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 manifest.target = targetName;

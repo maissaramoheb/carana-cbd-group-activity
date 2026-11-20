@@ -132,46 +132,169 @@ function synthesizeAppleNeural(text, signal) {
   });
 }
 
-function synthesizeKokoroOnce(cfg, text, voice, signal) {
-  return new Promise((resolve, reject) => {
-    const worker = path.join(__dirname, '..', 'tools', 'kokoro-synth.py');
-    if (!fs.existsSync(worker)) {
-      reject(new Error('Local Kokoro synthesis helper not found.'));
-      return;
+function createKokoroDaemon(cfg) {
+  const workerScript = path.join(__dirname, '..', 'tools', 'kokoro-synth.py');
+  let proc = null;
+  let readyPromise = null;
+  let idleTimer = null;
+  let busyChain = Promise.resolve();
+  const IDLE_MS = 300000;
+
+  function shutdown() {
+    if (idleTimer) {
+      clearTimeout(idleTimer);
+      idleTimer = null;
     }
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'carana-ktts-'));
-    const out = path.join(dir, 'clip.wav');
-    const safeVoice = /^(af_heart|af_bella|bf_emma|am_michael|bm_george)$/.test(voice) ? voice : 'af_heart';
-    const proc = spawn(cfg.py, [worker, '--model', cfg.model, '--voices', cfg.voices, '--voice', safeVoice, '--out', out, '--text', text], {
-      stdio: ['ignore', 'pipe', 'pipe']
+    if (proc) {
+      try { proc.stdin.end(); } catch (_) {}
+      try { proc.kill('SIGTERM'); } catch (_) {}
+      proc = null;
+    }
+    readyPromise = null;
+  }
+
+  function touchIdle() {
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(shutdown, IDLE_MS);
+    if (idleTimer.unref) idleTimer.unref();
+  }
+
+  function ensureWorker() {
+    if (!fs.existsSync(workerScript)) {
+      return Promise.reject(new Error('Local Kokoro synthesis helper not found.'));
+    }
+    if (proc && !proc.killed && proc.exitCode === null && readyPromise) {
+      touchIdle();
+      return readyPromise;
+    }
+    shutdown();
+    readyPromise = new Promise((resolve, reject) => {
+      const child = spawn(cfg.py, [workerScript, '--model', cfg.model, '--voices', cfg.voices, '--serve-stdio'], {
+        stdio: ['pipe', 'pipe', 'pipe']
+      });
+      proc = child;
+      let buf = '';
+      let stderr = '';
+      let settled = false;
+      const timer = setTimeout(() => {
+        if (!settled) {
+          settled = true;
+          shutdown();
+          reject(new Error('Kokoro worker startup timed out.'));
+        }
+      }, 35000);
+      const onStdout = chunk => {
+        buf += chunk.toString('utf8');
+        const nl = buf.indexOf('\n');
+        if (nl >= 0) {
+          const line = buf.slice(0, nl).trim();
+          buf = buf.slice(nl + 1);
+          child.stdout.off('data', onStdout);
+          clearTimeout(timer);
+          if (!settled) {
+            settled = true;
+            try {
+              const msg = JSON.parse(line);
+              if (msg.ready) {
+                touchIdle();
+                resolve({ child, leftover: buf });
+                return;
+              }
+            } catch (_) {}
+            shutdown();
+            reject(new Error('Kokoro worker failed readiness handshake.'));
+          }
+        }
+      };
+      child.stdout.on('data', onStdout);
+      child.stderr.on('data', d => { stderr += d.toString('utf8'); });
+      child.once('close', code => {
+        clearTimeout(timer);
+        if (!settled) {
+          settled = true;
+          proc = null;
+          readyPromise = null;
+          reject(new Error(stderr.trim() || 'Kokoro worker exited with code ' + code));
+        } else if (proc === child) {
+          proc = null;
+          readyPromise = null;
+        }
+      });
     });
-    let stderr = '';
-    proc.stderr.on('data', c => { stderr += c.toString('utf8'); });
-    const cleanup = () => { try { fs.rmSync(dir, { recursive: true, force: true }); } catch (_) {} };
-    const timer = setTimeout(() => proc.kill('SIGTERM'), 25000);
-    if (signal) signal.addEventListener('abort', () => proc.kill('SIGTERM'), { once: true });
-    proc.on('close', code => {
-      clearTimeout(timer);
-      if (code !== 0 || !fs.existsSync(out)) {
-        cleanup();
-        reject(new Error(stderr.trim() || 'Kokoro synthesis failed.'));
-        return;
-      }
+    return readyPromise;
+  }
+
+  async function synthesize(text, voice, signal) {
+    if (signal?.aborted) throw new Error('Speech request aborted.');
+    const safeVoice = /^(af_heart|af_bella|bf_emma|am_michael|bm_george)$/.test(voice) ? voice : 'af_heart';
+    const job = busyChain.then(async () => {
+      if (signal?.aborted) throw new Error('Speech request aborted.');
+      const { child } = await ensureWorker();
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'carana-ktts-'));
+      const out = path.join(dir, 'clip.wav');
+      const cleanup = () => { try { fs.rmSync(dir, { recursive: true, force: true }); } catch (_) {} };
       try {
+        await new Promise((resolve, reject) => {
+          let buf = '';
+          let settled = false;
+          const finish = err => {
+            if (settled) return;
+            settled = true;
+            clearTimeout(timer);
+            child.stdout.off('data', onData);
+            child.off('close', onClose);
+            if (signal) signal.removeEventListener('abort', onAbort);
+            if (err) reject(err);
+            else resolve();
+          };
+          const timer = setTimeout(() => {
+            shutdown();
+            finish(new Error('Kokoro synthesis timed out.'));
+          }, 42000);
+          const onAbort = () => finish(new Error('Speech request aborted.'));
+          const onClose = code => finish(new Error('Kokoro worker exited (' + code + ').'));
+          const onData = chunk => {
+            buf += chunk.toString('utf8');
+            let nl;
+            while ((nl = buf.indexOf('\n')) >= 0) {
+              const line = buf.slice(0, nl).trim();
+              buf = buf.slice(nl + 1);
+              if (!line) continue;
+              try {
+                const msg = JSON.parse(line);
+                if ('ok' in msg) {
+                  if (msg.ok) finish(null);
+                  else finish(new Error(msg.error || 'Kokoro synthesis error.'));
+                  return;
+                }
+              } catch (_) {}
+            }
+          };
+          if (signal) signal.addEventListener('abort', onAbort, { once: true });
+          child.stdout.on('data', onData);
+          child.once('close', onClose);
+          child.stdin.write(JSON.stringify({ text, voice: safeVoice, out }) + '\n');
+        });
+        touchIdle();
         const buffer = fs.readFileSync(out);
         cleanup();
-        resolve({ contentType: 'audio/wav', engine: 'kokoro-82m-' + safeVoice, buffer });
+        return { contentType: 'audio/wav', engine: 'kokoro-82m-' + safeVoice, buffer };
       } catch (e) {
         cleanup();
-        reject(e);
+        throw e;
       }
     });
-  });
+    busyChain = job.catch(() => {});
+    return job;
+  }
+
+  return { synthesize, shutdown };
 }
 
 function createLocalTts() {
   const cache = new Map();
   const kokoroCfg = findLocalKokoroConfig();
+  const kokoroDaemon = kokoroCfg ? createKokoroDaemon(kokoroCfg) : null;
 
   function status() {
     const voices = [
@@ -194,11 +317,16 @@ function createLocalTts() {
     if (cache.has(key)) return cache.get(key);
 
     let result;
-    if (voice === 'apple:nora' || !kokoroCfg) {
+    if (voice === 'apple:nora' || !kokoroDaemon) {
       result = await synthesizeAppleNeural(clean, signal);
     } else {
       const kVoice = voice.startsWith('kokoro:') ? voice.slice(7) : 'af_heart';
-      result = await synthesizeKokoroOnce(kokoroCfg, clean, kVoice, signal);
+      try {
+        result = await kokoroDaemon.synthesize(clean, kVoice, signal);
+      } catch (kokoroErr) {
+        if (signal?.aborted || process.platform !== 'darwin') throw kokoroErr;
+        result = await synthesizeAppleNeural(clean, signal);
+      }
     }
 
     if (cache.size >= CACHE_MAX) {
@@ -209,7 +337,11 @@ function createLocalTts() {
     return result;
   }
 
-  return { status, synthesize, normalizeForSpeech };
+  function shutdown() {
+    kokoroDaemon?.shutdown();
+  }
+
+  return { status, synthesize, normalizeForSpeech, shutdown };
 }
 
 module.exports = { createLocalTts, normalizeForSpeech };

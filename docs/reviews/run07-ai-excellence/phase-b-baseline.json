@@ -1,0 +1,859 @@
+{
+  "measuredAt": "2026-11-20T08:06:26.582Z",
+  "networkAuth": {
+    "statusMs": [
+      821,
+      434,
+      359,
+      348
+    ],
+    "authMs": [
+      381,
+      365,
+      364,
+      365
+    ]
+  },
+  "models": {
+    "gemma4:26b": {
+      "memBefore": {
+        "totalGB": 24,
+        "reclaimableAvailGB": 9.95,
+        "pressureLevel": 1,
+        "overloaded": false
+      },
+      "memLoaded": {
+        "totalGB": 24,
+        "reclaimableAvailGB": 0.96,
+        "pressureLevel": 2,
+        "overloaded": false
+      },
+      "ollamaPs": [
+        "gemma4:26b    777b927e3b6b    18 GB    15%/85% CPU/GPU    4096       llamacpp    3 minutes from now"
+      ],
+      "cold": {
+        "id": "P1",
+        "kind": "short",
+        "retrievalDeclined": false,
+        "retrievalMs": 0.768,
+        "loadMs": 12571,
+        "promptTokens": 1895,
+        "promptEvalMs": 4538,
+        "prefillTps": 417.6,
+        "firstThinkingMs": null,
+        "ttftMs": 17325,
+        "outputTokens": 421,
+        "evalMs": 16294,
+        "genTps": 25.8,
+        "elapsedMs": 33604,
+        "thinkingChars": 0,
+        "valid": true,
+        "valMs": 6.164,
+        "valErr": null,
+        "retrievedIds": [
+          "cbd-1:01-01",
+          "cbd-1:05-01",
+          "cbd-1:04-01"
+        ]
+      },
+      "warmSummary": {
+        "count": 8,
+        "declines": 1,
+        "valFailures": 1,
+        "ttftP50": 3374,
+        "ttftP90": 4325,
+        "totalP50": 18679,
+        "totalP90": 25393,
+        "totalP95": 25393,
+        "genTpsMedian": 25.7
+      },
+      "runs": [
+        {
+          "id": "P1",
+          "kind": "short",
+          "retrievalDeclined": false,
+          "retrievalMs": 0.768,
+          "loadMs": 12571,
+          "promptTokens": 1895,
+          "promptEvalMs": 4538,
+          "prefillTps": 417.6,
+          "firstThinkingMs": null,
+          "ttftMs": 17325,
+          "outputTokens": 421,
+          "evalMs": 16294,
+          "genTps": 25.8,
+          "elapsedMs": 33604,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 6.164,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-1:01-01",
+            "cbd-1:05-01",
+            "cbd-1:04-01"
+          ]
+        },
+        {
+          "id": "P2",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 6.857,
+          "loadMs": 17,
+          "promptTokens": 1202,
+          "promptEvalMs": 3315,
+          "prefillTps": 362.6,
+          "firstThinkingMs": null,
+          "ttftMs": 3574,
+          "outputTokens": 461,
+          "evalMs": 17220,
+          "genTps": 26.8,
+          "elapsedMs": 20800,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 5.498,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-1:02-01"
+          ]
+        },
+        {
+          "id": "P3",
+          "kind": "applied",
+          "retrievalDeclined": false,
+          "retrievalMs": 6.957,
+          "loadMs": 14,
+          "promptTokens": 1090,
+          "promptEvalMs": 2620,
+          "prefillTps": 416,
+          "firstThinkingMs": null,
+          "ttftMs": 2885,
+          "outputTokens": 443,
+          "evalMs": 16754,
+          "genTps": 26.4,
+          "elapsedMs": 19616,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 1.152,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-2:02-04"
+          ]
+        },
+        {
+          "id": "P4",
+          "kind": "short",
+          "retrievalDeclined": false,
+          "retrievalMs": 66.849,
+          "loadMs": 12,
+          "promptTokens": 1768,
+          "promptEvalMs": 3124,
+          "prefillTps": 565.9,
+          "firstThinkingMs": null,
+          "ttftMs": 3374,
+          "outputTokens": 262,
+          "evalMs": 9886,
+          "genTps": 26.5,
+          "elapsedMs": 13248,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.535,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-3:03-01",
+            "cbd-3:03-02",
+            "cbd-2:02-01"
+          ]
+        },
+        {
+          "id": "P5",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 47.196,
+          "loadMs": 3,
+          "promptTokens": 1724,
+          "promptEvalMs": 3895,
+          "prefillTps": 442.6,
+          "firstThinkingMs": null,
+          "ttftMs": 4069,
+          "outputTokens": 326,
+          "evalMs": 12148,
+          "genTps": 26.8,
+          "elapsedMs": 16228,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.736,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-3:03-10",
+            "cbd-2:02-05",
+            "cbd-5:05-06"
+          ]
+        },
+        {
+          "id": "P6",
+          "kind": "reasoning",
+          "retrievalDeclined": false,
+          "retrievalMs": 3.743,
+          "loadMs": 3,
+          "promptTokens": 1576,
+          "promptEvalMs": 4436,
+          "prefillTps": 355.3,
+          "firstThinkingMs": null,
+          "ttftMs": 4642,
+          "outputTokens": 487,
+          "evalMs": 20762,
+          "genTps": 23.5,
+          "elapsedMs": 25393,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 1.407,
+          "valErr": null,
+          "retrievedIds": [
+            "plan-cbd-4:p4",
+            "cbd-4:04-01",
+            "cbd-1:02-03"
+          ]
+        },
+        {
+          "id": "P7",
+          "kind": "applied",
+          "retrievalDeclined": false,
+          "retrievalMs": 13.475,
+          "loadMs": 20,
+          "promptTokens": 1105,
+          "promptEvalMs": 1822,
+          "prefillTps": 606.5,
+          "firstThinkingMs": null,
+          "ttftMs": 2119,
+          "outputTokens": 408,
+          "evalMs": 16556,
+          "genTps": 24.6,
+          "elapsedMs": 18679,
+          "thinkingChars": 0,
+          "valid": false,
+          "valMs": 0,
+          "valErr": "Model inserted an unsupported numeric claim",
+          "retrievedIds": [
+            "cbd-4:04-05"
+          ]
+        },
+        {
+          "id": "P8",
+          "kind": "reasoning",
+          "retrievalDeclined": false,
+          "retrievalMs": 4.104,
+          "loadMs": 12,
+          "promptTokens": 1120,
+          "promptEvalMs": 1795,
+          "prefillTps": 624,
+          "firstThinkingMs": null,
+          "ttftMs": 2024,
+          "outputTokens": 373,
+          "evalMs": 14505,
+          "genTps": 25.7,
+          "elapsedMs": 16545,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.174,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-5:05-06"
+          ]
+        },
+        {
+          "id": "P9",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 13.143,
+          "loadMs": 23,
+          "promptTokens": 1793,
+          "promptEvalMs": 4065,
+          "prefillTps": 441.1,
+          "firstThinkingMs": null,
+          "ttftMs": 4325,
+          "outputTokens": 533,
+          "evalMs": 22346,
+          "genTps": 23.9,
+          "elapsedMs": 26682,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 3.96,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-6:06-01",
+            "cbd-6:06-04",
+            "cbd-6:06-06"
+          ]
+        },
+        {
+          "id": "P10",
+          "kind": "followup-natural",
+          "retrievalDeclined": true,
+          "retrievalMs": 3.111,
+          "ttftMs": 0,
+          "elapsedMs": 3.111
+        }
+      ]
+    },
+    "qwen3:14b": {
+      "memBefore": {
+        "totalGB": 24,
+        "reclaimableAvailGB": 18.03,
+        "pressureLevel": 1,
+        "overloaded": false
+      },
+      "memLoaded": {
+        "totalGB": 24,
+        "reclaimableAvailGB": 3.74,
+        "pressureLevel": 1,
+        "overloaded": false
+      },
+      "ollamaPs": [
+        "qwen3:14b    bdbd181c33f2    9.0 GB    100% GPU     4096       llamacpp    3 minutes from now"
+      ],
+      "cold": {
+        "id": "P1",
+        "kind": "short",
+        "retrievalDeclined": false,
+        "retrievalMs": 0.418,
+        "loadMs": 3831,
+        "promptTokens": 1921,
+        "promptEvalMs": 7599,
+        "prefillTps": 252.8,
+        "firstThinkingMs": null,
+        "ttftMs": 11453,
+        "outputTokens": 376,
+        "evalMs": 34024,
+        "genTps": 11.1,
+        "elapsedMs": 45477,
+        "thinkingChars": 0,
+        "valid": true,
+        "valMs": 0.126,
+        "valErr": null,
+        "retrievedIds": [
+          "cbd-1:01-01",
+          "cbd-1:05-01",
+          "cbd-1:04-01"
+        ]
+      },
+      "warmSummary": {
+        "count": 8,
+        "declines": 1,
+        "valFailures": 2,
+        "ttftP50": 2238,
+        "ttftP90": 3934,
+        "totalP50": 30000,
+        "totalP90": 41741,
+        "totalP95": 41741,
+        "genTpsMedian": 12.3
+      },
+      "runs": [
+        {
+          "id": "P1",
+          "kind": "short",
+          "retrievalDeclined": false,
+          "retrievalMs": 0.418,
+          "loadMs": 3831,
+          "promptTokens": 1921,
+          "promptEvalMs": 7599,
+          "prefillTps": 252.8,
+          "firstThinkingMs": null,
+          "ttftMs": 11453,
+          "outputTokens": 376,
+          "evalMs": 34024,
+          "genTps": 11.1,
+          "elapsedMs": 45477,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.126,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-1:01-01",
+            "cbd-1:05-01",
+            "cbd-1:04-01"
+          ]
+        },
+        {
+          "id": "P2",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 4.486,
+          "loadMs": 1,
+          "promptTokens": 1205,
+          "promptEvalMs": 1842,
+          "prefillTps": 654.2,
+          "firstThinkingMs": null,
+          "ttftMs": 1891,
+          "outputTokens": 470,
+          "evalMs": 71702,
+          "genTps": 6.6,
+          "elapsedMs": 73593,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.119,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-1:02-01"
+          ]
+        },
+        {
+          "id": "P3",
+          "kind": "applied",
+          "retrievalDeclined": false,
+          "retrievalMs": 2.982,
+          "loadMs": 2,
+          "promptTokens": 1098,
+          "promptEvalMs": 2084,
+          "prefillTps": 526.9,
+          "firstThinkingMs": null,
+          "ttftMs": 2238,
+          "outputTokens": 332,
+          "evalMs": 27762,
+          "genTps": 12,
+          "elapsedMs": 30000,
+          "thinkingChars": 0,
+          "valid": false,
+          "valMs": 0,
+          "valErr": "Model inserted an unsupported numeric claim",
+          "retrievedIds": [
+            "cbd-2:02-04"
+          ]
+        },
+        {
+          "id": "P4",
+          "kind": "short",
+          "retrievalDeclined": false,
+          "retrievalMs": 2.156,
+          "loadMs": 1,
+          "promptTokens": 1780,
+          "promptEvalMs": 3894,
+          "prefillTps": 457.1,
+          "firstThinkingMs": null,
+          "ttftMs": 3934,
+          "outputTokens": 227,
+          "evalMs": 18339,
+          "genTps": 12.4,
+          "elapsedMs": 22274,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.06,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-3:03-01",
+            "cbd-3:03-02",
+            "cbd-2:02-01"
+          ]
+        },
+        {
+          "id": "P5",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 8.187,
+          "loadMs": 1,
+          "promptTokens": 1737,
+          "promptEvalMs": 3635,
+          "prefillTps": 477.9,
+          "firstThinkingMs": null,
+          "ttftMs": 3683,
+          "outputTokens": 364,
+          "evalMs": 29714,
+          "genTps": 12.3,
+          "elapsedMs": 33397,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.053,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-3:03-10",
+            "cbd-2:02-05",
+            "cbd-5:05-06"
+          ]
+        },
+        {
+          "id": "P6",
+          "kind": "reasoning",
+          "retrievalDeclined": false,
+          "retrievalMs": 1.264,
+          "loadMs": 1,
+          "promptTokens": 1589,
+          "promptEvalMs": 3337,
+          "prefillTps": 476.2,
+          "firstThinkingMs": null,
+          "ttftMs": 3384,
+          "outputTokens": 366,
+          "evalMs": 29449,
+          "genTps": 12.4,
+          "elapsedMs": 32833,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.056,
+          "valErr": null,
+          "retrievedIds": [
+            "plan-cbd-4:p4",
+            "cbd-4:04-01",
+            "cbd-1:02-03"
+          ]
+        },
+        {
+          "id": "P7",
+          "kind": "applied",
+          "retrievalDeclined": false,
+          "retrievalMs": 4.071,
+          "loadMs": 1,
+          "promptTokens": 1114,
+          "promptEvalMs": 1639,
+          "prefillTps": 679.7,
+          "firstThinkingMs": null,
+          "ttftMs": 1736,
+          "outputTokens": 313,
+          "evalMs": 25243,
+          "genTps": 12.4,
+          "elapsedMs": 26979,
+          "thinkingChars": 0,
+          "valid": false,
+          "valMs": 0,
+          "valErr": "Model inserted an unsupported numeric claim",
+          "retrievedIds": [
+            "cbd-4:04-05"
+          ]
+        },
+        {
+          "id": "P8",
+          "kind": "reasoning",
+          "retrievalDeclined": false,
+          "retrievalMs": 4.346,
+          "loadMs": 3,
+          "promptTokens": 1129,
+          "promptEvalMs": 1685,
+          "prefillTps": 670,
+          "firstThinkingMs": null,
+          "ttftMs": 1773,
+          "outputTokens": 347,
+          "evalMs": 27770,
+          "genTps": 12.5,
+          "elapsedMs": 29543,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.03,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-5:05-06"
+          ]
+        },
+        {
+          "id": "P9",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 1.923,
+          "loadMs": 1,
+          "promptTokens": 1792,
+          "promptEvalMs": 3870,
+          "prefillTps": 463,
+          "firstThinkingMs": null,
+          "ttftMs": 3937,
+          "outputTokens": 465,
+          "evalMs": 37804,
+          "genTps": 12.3,
+          "elapsedMs": 41741,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 1.415,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-6:06-01",
+            "cbd-6:06-04",
+            "cbd-6:06-06"
+          ]
+        },
+        {
+          "id": "P10",
+          "kind": "followup-natural",
+          "retrievalDeclined": true,
+          "retrievalMs": 0.742,
+          "ttftMs": 0,
+          "elapsedMs": 0.742
+        }
+      ]
+    },
+    "qwen3:4b-instruct-2507-q4_K_M": {
+      "memBefore": {
+        "totalGB": 24,
+        "reclaimableAvailGB": 13.03,
+        "pressureLevel": 1,
+        "overloaded": false
+      },
+      "memLoaded": {
+        "totalGB": 24,
+        "reclaimableAvailGB": 9.53,
+        "pressureLevel": 1,
+        "overloaded": false
+      },
+      "ollamaPs": [
+        "qwen3:4b-instruct-2507-q4_K_M    0edcdef34593    3.2 GB    100% GPU     4096       llamacpp    3 minutes from now"
+      ],
+      "cold": {
+        "id": "P1",
+        "kind": "short",
+        "retrievalDeclined": false,
+        "retrievalMs": 0.384,
+        "loadMs": 1306,
+        "promptTokens": 1913,
+        "promptEvalMs": 1324,
+        "prefillTps": 1444.9,
+        "firstThinkingMs": null,
+        "ttftMs": 2656,
+        "outputTokens": 279,
+        "evalMs": 7159,
+        "genTps": 39,
+        "elapsedMs": 9810,
+        "thinkingChars": 0,
+        "valid": true,
+        "valMs": 0.141,
+        "valErr": null,
+        "retrievedIds": [
+          "cbd-1:01-01",
+          "cbd-1:05-01",
+          "cbd-1:04-01"
+        ]
+      },
+      "warmSummary": {
+        "count": 8,
+        "declines": 1,
+        "valFailures": 2,
+        "ttftP50": 646,
+        "ttftP90": 1214,
+        "totalP50": 8200,
+        "totalP90": 10100,
+        "totalP95": 10100,
+        "genTpsMedian": 39.9
+      },
+      "runs": [
+        {
+          "id": "P1",
+          "kind": "short",
+          "retrievalDeclined": false,
+          "retrievalMs": 0.384,
+          "loadMs": 1306,
+          "promptTokens": 1913,
+          "promptEvalMs": 1324,
+          "prefillTps": 1444.9,
+          "firstThinkingMs": null,
+          "ttftMs": 2656,
+          "outputTokens": 279,
+          "evalMs": 7159,
+          "genTps": 39,
+          "elapsedMs": 9810,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.141,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-1:01-01",
+            "cbd-1:05-01",
+            "cbd-1:04-01"
+          ]
+        },
+        {
+          "id": "P2",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 5.281,
+          "loadMs": 2,
+          "promptTokens": 1197,
+          "promptEvalMs": 480,
+          "prefillTps": 2493.8,
+          "firstThinkingMs": null,
+          "ttftMs": 565,
+          "outputTokens": 416,
+          "evalMs": 10382,
+          "genTps": 40.1,
+          "elapsedMs": 10946,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.068,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-1:02-01"
+          ]
+        },
+        {
+          "id": "P3",
+          "kind": "applied",
+          "retrievalDeclined": false,
+          "retrievalMs": 1.769,
+          "loadMs": 2,
+          "promptTokens": 1090,
+          "promptEvalMs": 476,
+          "prefillTps": 2289.9,
+          "firstThinkingMs": null,
+          "ttftMs": 549,
+          "outputTokens": 308,
+          "evalMs": 7537,
+          "genTps": 40.9,
+          "elapsedMs": 8086,
+          "thinkingChars": 0,
+          "valid": false,
+          "valMs": 0,
+          "valErr": "Model inserted an unsupported numeric claim",
+          "retrievedIds": [
+            "cbd-2:02-04"
+          ]
+        },
+        {
+          "id": "P4",
+          "kind": "short",
+          "retrievalDeclined": false,
+          "retrievalMs": 3.705,
+          "loadMs": 2,
+          "promptTokens": 1772,
+          "promptEvalMs": 1169,
+          "prefillTps": 1515.8,
+          "firstThinkingMs": null,
+          "ttftMs": 1241,
+          "outputTokens": 320,
+          "evalMs": 8150,
+          "genTps": 39.3,
+          "elapsedMs": 9391,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.07,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-3:03-01",
+            "cbd-3:03-02",
+            "cbd-2:02-01"
+          ]
+        },
+        {
+          "id": "P5",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 12.864,
+          "loadMs": 2,
+          "promptTokens": 1729,
+          "promptEvalMs": 1042,
+          "prefillTps": 1659.3,
+          "firstThinkingMs": null,
+          "ttftMs": 1117,
+          "outputTokens": 279,
+          "evalMs": 7083,
+          "genTps": 39.4,
+          "elapsedMs": 8200,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.073,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-3:03-10",
+            "cbd-2:02-05",
+            "cbd-5:05-06"
+          ]
+        },
+        {
+          "id": "P6",
+          "kind": "reasoning",
+          "retrievalDeclined": false,
+          "retrievalMs": 2.473,
+          "loadMs": 2,
+          "promptTokens": 1581,
+          "promptEvalMs": 1041,
+          "prefillTps": 1518.7,
+          "firstThinkingMs": null,
+          "ttftMs": 1127,
+          "outputTokens": 311,
+          "evalMs": 7800,
+          "genTps": 39.9,
+          "elapsedMs": 8927,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.053,
+          "valErr": null,
+          "retrievedIds": [
+            "plan-cbd-4:p4",
+            "cbd-4:04-01",
+            "cbd-1:02-03"
+          ]
+        },
+        {
+          "id": "P7",
+          "kind": "applied",
+          "retrievalDeclined": false,
+          "retrievalMs": 5.413,
+          "loadMs": 2,
+          "promptTokens": 1106,
+          "promptEvalMs": 481,
+          "prefillTps": 2299.4,
+          "firstThinkingMs": null,
+          "ttftMs": 595,
+          "outputTokens": 282,
+          "evalMs": 6882,
+          "genTps": 41,
+          "elapsedMs": 7477,
+          "thinkingChars": 0,
+          "valid": false,
+          "valMs": 0,
+          "valErr": "Model inserted an unsupported numeric claim",
+          "retrievedIds": [
+            "cbd-4:04-05"
+          ]
+        },
+        {
+          "id": "P8",
+          "kind": "reasoning",
+          "retrievalDeclined": false,
+          "retrievalMs": 7.994,
+          "loadMs": 2,
+          "promptTokens": 1121,
+          "promptEvalMs": 574,
+          "prefillTps": 1953,
+          "firstThinkingMs": null,
+          "ttftMs": 646,
+          "outputTokens": 251,
+          "evalMs": 6142,
+          "genTps": 40.9,
+          "elapsedMs": 6788,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.04,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-5:05-06"
+          ]
+        },
+        {
+          "id": "P9",
+          "kind": "detailed",
+          "retrievalDeclined": false,
+          "retrievalMs": 2.499,
+          "loadMs": 1,
+          "promptTokens": 1784,
+          "promptEvalMs": 1166,
+          "prefillTps": 1530,
+          "firstThinkingMs": null,
+          "ttftMs": 1214,
+          "outputTokens": 346,
+          "evalMs": 8886,
+          "genTps": 38.9,
+          "elapsedMs": 10100,
+          "thinkingChars": 0,
+          "valid": true,
+          "valMs": 0.069,
+          "valErr": null,
+          "retrievedIds": [
+            "cbd-6:06-01",
+            "cbd-6:06-04",
+            "cbd-6:06-06"
+          ]
+        },
+        {
+          "id": "P10",
+          "kind": "followup-natural",
+          "retrievalDeclined": true,
+          "retrievalMs": 0.816,
+          "ttftMs": 0,
+          "elapsedMs": 0.816
+        }
+      ]
+    }
+  }
+}

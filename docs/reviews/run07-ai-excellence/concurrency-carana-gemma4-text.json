@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-11-20T09:44:23.325Z",
+  "model": "carana-gemma4-text",
+  "idleMem": {
+    "totalGB": 24,
+    "reclaimableAvailGB": 16.81,
+    "pressureLevel": 1,
+    "overloaded": false
+  },
+  "memWithModelAndKokoro": {
+    "totalGB": 24,
+    "reclaimableAvailGB": 0.96,
+    "pressureLevel": 2,
+    "overloaded": false
+  },
+  "coldAi": {
+    "status": 200,
+    "ok": true,
+    "firstStageMs": 2389,
+    "answerSegmentMs": 4772,
+    "totalMs": 6095,
+    "queuedPositions": [],
+    "sawStarted": false,
+    "sourcesCount": 1,
+    "answerChars": 1066
+  },
+  "coldTtsWithModel": {
+    "status": 200,
+    "ms": 2963,
+    "engine": "kokoro-82m-af_heart",
+    "bytes": 354412,
+    "isRiff": true
+  },
+  "warmTtsWithModel": {
+    "status": 200,
+    "ms": 386,
+    "engine": "kokoro-82m-af_heart",
+    "bytes": 219146,
+    "isRiff": true
+  },
+  "simultaneousAiAndTts": {
+    "ai": {
+      "status": 200,
+      "ok": true,
+      "firstStageMs": 1140,
+      "answerSegmentMs": 3552,
+      "totalMs": 4243,
+      "queuedPositions": [],
+      "sawStarted": false,
+      "sourcesCount": 2,
+      "answerChars": 857
+    },
+    "tts": {
+      "status": 200,
+      "ms": 472,
+      "engine": "kokoro-82m-af_heart",
+      "bytes": 184330,
+      "isRiff": true
+    }
+  },
+  "concurrent2": {
+    "summaryTotal": {
+      "count": 2,
+      "minMs": 4567,
+      "medianMs": 9325,
+      "meanMs": 6946,
+      "p95Ms": 9325,
+      "maxMs": 9325
+    },
+    "summaryAns": {
+      "count": 2,
+      "minMs": 3451,
+      "medianMs": 8241,
+      "meanMs": 5846,
+      "p95Ms": 8241,
+      "maxMs": 8241
+    },
+    "rows": [
+      {
+        "status": 200,
+        "ok": true,
+        "firstStageMs": 1069,
+        "answerSegmentMs": 3451,
+        "totalMs": 4567,
+        "queuedPositions": [],
+        "sawStarted": false,
+        "sourcesCount": 1,
+        "answerChars": 1029
+      },
+      {
+        "status": 200,
+        "ok": true,
+        "firstStageMs": 5784,
+        "answerSegmentMs": 8241,
+        "totalMs": 9325,
+        "queuedPositions": [
+          1
+        ],
+        "sawStarted": true,
+        "sourcesCount": 2,
+        "answerChars": 985
+      }
+    ]
+  },
+  "burst6": {
+    "wallMs": 23202,
+    "completed": 5,
+    "rejected503": 1,
+    "rows": [
+      {
+        "status": 200,
+        "ok": true,
+        "firstStageMs": 1829,
+        "answerSegmentMs": 4059,
+        "totalMs": 5270,
+        "queuedPositions": [],
+        "sawStarted": false,
+        "sourcesCount": 1,
+        "answerChars": 1066
+      },
+      {
+        "status": 200,
+        "ok": true,
+        "firstStageMs": 6377,
+        "answerSegmentMs": 8868,
+        "totalMs": 9596,
+        "queuedPositions": [
+          1
+        ],
+        "sawStarted": true,
+        "sourcesCount": 2,
+        "answerChars": 857
+      },
+      {
+        "status": 200,
+        "ok": true,
+        "firstStageMs": 10598,
+        "answerSegmentMs": 12779,
+        "totalMs": 13811,
+        "queuedPositions": [
+          2,
+          1
+        ],
+        "sawStarted": true,
+        "sourcesCount": 1,
+        "answerChars": 1029
+      },
+      {
+        "status": 200,
+        "ok": true,
+        "firstStageMs": 14943,
+        "answerSegmentMs": 17395,
+        "totalMs": 18512,
+        "queuedPositions": [
+          3,
+          2,
+          1
+        ],
+        "sawStarted": true,
+        "sourcesCount": 2,
+        "answerChars": 985
+      },
+      {
+        "status": 200,
+        "ok": true,
+        "firstStageMs": 19581,
+        "answerSegmentMs": 22355,
+        "totalMs": 23201,
+        "queuedPositions": [
+          4,
+          3,
+          2,
+          1
+        ],
+        "sawStarted": true,
+        "sourcesCount": 3,
+        "answerChars": 1019
+      },
+      {
+        "status": 503,
+        "code": "OVERLOAD",
+        "message": "Several questions are already waiting in line (4/4). Please wait a moment and try again.",
+        "totalMs": 70
+      }
+    ]
+  },
+  "afterIdleUnloadMem": {
+    "totalGB": 24,
+    "reclaimableAvailGB": 18.09,
+    "pressureLevel": 1,
+    "overloaded": false
+  },
+  "ollamaPsAfterIdle": "NAME    ID    SIZE    PROCESSOR    CONTEXT    RUNNER    UNTIL"
+}
