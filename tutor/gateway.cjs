@@ -864,7 +864,8 @@ async function start({
     telemetry,
     statusCheck: async () => {
       const r = await fetch(ollamaBase + '/api/tags', { signal: AbortSignal.timeout(2500) });
-      return r.ok && (await r.json()).models.some(m => m.name === model);
+      const targetTag = model.includes(':') ? model : model + ':latest';
+      return r.ok && (await r.json()).models.some(m => m.name === model || m.name === targetTag);
     }
   });
   const server = https.createServer({ key: fs.readFileSync(key), cert: fs.readFileSync(cert), minVersion: 'TLSv1.2' }, handler);
