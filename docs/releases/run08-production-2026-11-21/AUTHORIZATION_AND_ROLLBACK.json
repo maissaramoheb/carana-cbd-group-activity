@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-21",
+  "ownerDecision": "Run 08 formally accepted for production; outstanding linguistic/narration/UI improvements allowed in subsequent releases",
+  "acceptedBranch": "run08/trilingual-learning-experience",
+  "acceptedCommit": "6386891c99cf29a83a4e416d223c486e62ac3bda",
+  "rollbackCommit": "199d0ad573e017c60f15dfb736a095dbc94ceb4e",
+  "rollbackDeployment": "dpl_HWD2kUZ1SsaNjeUx7w7aH8Rp5irQ",
+  "gatewayBaseline": {
+    "supervisorPid": 1004,
+    "gatewayPid": 1041,
+    "tunnelPid": 1042,
+    "model": "carana-gemma4-text",
+    "port": 8766,
+    "matchesRun07": true
+  },
+  "verifiedBackup": "Backups/CARANA-CBD-E-Learning/2026-11-21_Run08-Independent-Acceptance; source/history/restore checksums PASS",
+  "releaseRestrictions": [
+    "Existing production gateway/tunnel/credentials/configuration retained",
+    "No temporary Run 08 preview gateway/tunnel/credentials",
+    "Both custom domains point to the same fresh production deployment",
+    "Immediate rollback on critical failure"
+  ]
+}
