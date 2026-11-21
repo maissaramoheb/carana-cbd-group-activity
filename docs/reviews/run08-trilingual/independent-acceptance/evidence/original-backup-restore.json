@@ -1,0 +1,9 @@
+{
+  "bundleHead": "4541162be795df5cf3e123553200283787d0ff4a",
+  "trackedFiles": 2447,
+  "archiveMismatches": [],
+  "restoreDirectory": "/var/folders/0v/q87bddw94xb2lz6379xdz7040000gn/T/carana-run08-original-restore-nvxn4r7q",
+  "status": "PASS",
+  "restoredBuild": "PASS",
+  "restoredRegressionTests": "PASS"
+}

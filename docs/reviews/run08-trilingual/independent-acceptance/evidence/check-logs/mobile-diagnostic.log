@@ -1,0 +1,7 @@
+{"s":0,"n":0,"name":"webkit-mobile","media":{"time":0,"paused":false,"ready":4,"network":1,"src":"http://127.0.0.1:8688/course/audio/en/lesson1/01-01-935822edface8d83de68362687ce53c5604a351b4d29160e35e77ed058a8223d.mp3"},"status":""}
+page.waitForFunction: Timeout 8000ms exceeded.
+    at journey (/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/course/tests/.run08-mobile-diagnostic.cjs:81:18)
+    at async /Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/course/tests/.run08-mobile-diagnostic.cjs:176:5 {
+  log: [],
+  name: 'TimeoutError'
+}

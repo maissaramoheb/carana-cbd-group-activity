@@ -13,6 +13,10 @@ test('release build publishes exactly the locked media and refuses drift or abse
   for (const name of ['course','platform','curricula','locales','css','js','tools','index.html','CARANA_CBD_Group_Activity.html',
     'module1.html','module2.html','module3.html','module4.html','module5.html','module6.html'])
     fs.cpSync(path.join(project, name), path.join(tmp,name), {recursive:true});
+  for (const name of ['docs/reviews/run08-trilingual/TRILINGUAL_REVIEW_MATRIX.json', 'docs/reviews/run08-trilingual/audio-samples', 'docs/localization/TERMINOLOGY_GLOSSARY.json']) {
+    fs.mkdirSync(path.dirname(path.join(tmp,name)), {recursive:true});
+    fs.cpSync(path.join(project,name),path.join(tmp,name),{recursive:true});
+  }
   fs.writeFileSync(path.join(tmp, 'private-placeholder.txt'), 'not a public asset');
   const run = () => spawnSync(process.execPath, ['tools/build-course.mjs'], {cwd:tmp, encoding:'utf8'});
   const first = run();
@@ -28,6 +32,9 @@ test('release build publishes exactly the locked media and refuses drift or abse
       fs.readFileSync(path.join(tmp,'course/audio/en/lesson1',id+'.mp3')));
   }
   assert(!fs.existsSync(path.join(dist,'private-placeholder.txt')));
+  assert(!fs.existsSync(path.join(dist,'docs')));
+  assert.deepEqual(fs.readFileSync(path.join(dist,'platform/review/run08/TRILINGUAL_REVIEW_MATRIX.json')),fs.readFileSync(path.join(project,'docs/reviews/run08-trilingual/TRILINGUAL_REVIEW_MATRIX.json')));
+  assert(fs.existsSync(path.join(dist,'platform/review/run08/audio-samples/ar-macos-majed-l1.mp3')));
   assert(!fs.existsSync(path.join(dist,'course/tests')));
   const transcript = path.join(tmp,'course/lesson1-experience.js');
   const original = fs.readFileSync(transcript,'utf8');

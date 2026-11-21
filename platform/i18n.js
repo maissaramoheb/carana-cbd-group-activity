@@ -27,6 +27,8 @@
   let currentLang = 'en';
   let fallbackNoticeLang = '';
   let lastError = '';
+  let languageRevision = 0;
+  let pendingLang = 'en';
 
   function normalizeLang(raw) {
     if (!raw || typeof raw !== 'string') return null;
@@ -104,6 +106,7 @@
   }
 
   currentLang = detectInitialLang();
+  pendingLang = currentLang;
   applyDocumentAttributes(currentLang);
 
   function esc(x) {
@@ -202,13 +205,13 @@
       .then(function (data) {
         if (!packs.has(code)) packs.set(code, new Map());
         packs.get(code).set(surface, data);
-        fallbackNoticeLang = '';
-        lastError = '';
         return data;
       })
       .catch(function (err) {
-        fallbackNoticeLang = code;
-        lastError = err && err.message ? err.message : 'Locale load error';
+        if (code === pendingLang) {
+          fallbackNoticeLang = code;
+          lastError = err && err.message ? err.message : 'Locale load error';
+        }
         return null;
       })
       .finally(function () {
@@ -231,7 +234,12 @@
     if (code === 'en') return Promise.resolve({ lang: 'en', ok: true });
     const list = Array.from(registeredSurfaces);
     return Promise.all(list.map(function (s) { return loadPack(s, code); })).then(function (loaded) {
-      return { lang: code, ok: loaded.every(Boolean) };
+      const ok = loaded.every(Boolean);
+      if (code === pendingLang) {
+        fallbackNoticeLang = ok ? '' : code;
+        lastError = ok ? '' : (lastError || 'Locale load error');
+      }
+      return { lang: code, ok: ok };
     });
   }
 
@@ -450,7 +458,12 @@
 
   function setLanguage(code) {
     const next = normalizeLang(code) || 'en';
+    // Every choice cancels older requests, including a return to the active language.
+    const revision = ++languageRevision;
+    pendingLang = next;
     if (next === currentLang) {
+      fallbackNoticeLang = '';
+      lastError = '';
       refreshSwitchers();
       return Promise.resolve({ lang: currentLang, changed: false });
     }
@@ -460,8 +473,11 @@
     stopAllAudioForSwitch();
 
     return ready(null, next).then(function (status) {
+      if (revision !== languageRevision) return { lang: currentLang, changed: false, superseded: true };
       const active = status.ok || next === 'en' ? next : 'en';
       currentLang = active;
+      pendingLang = active;
+      if (status.ok) { fallbackNoticeLang = ''; lastError = ''; }
       safeWriteStorage(active);
       applyDocumentAttributes(active);
       applyStaticDom(typeof document !== 'undefined' ? document : null);

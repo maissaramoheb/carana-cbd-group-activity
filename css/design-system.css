@@ -5,7 +5,7 @@
 
 :root {
   --un-blue: #009edb;
-  --un-blue-dark: #007bb0;
+  --un-blue-dark: #006990;
   --un-blue-light: #e8f5fd;
   --navy: #12304a;
   --navy-dark: #0a1c2c;
@@ -120,6 +120,9 @@ a:hover {
   gap: 8px;
   flex-wrap: wrap;
 }
+.top-nav-left > a {
+  color: var(--navy);
+}
 .top-nav-right {
   display: flex;
   align-items: center;
@@ -173,7 +176,7 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--un-blue);
+  background: var(--un-blue-dark);
   color: #fff;
   font-weight: 800;
   font-size: 0.8rem;
@@ -340,7 +343,7 @@ a:hover {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--un-blue);
+  color: var(--un-blue-dark);
   margin-bottom: 2px;
 }
 .track-title {
@@ -394,8 +397,8 @@ a:hover {
   outline-offset: 2px;
 }
 .btn-primary {
-  background: var(--un-blue);
-  border-color: var(--un-blue);
+  background: var(--un-blue-dark);
+  border-color: var(--un-blue-dark);
   color: #ffffff;
 }
 .btn-primary:hover {
@@ -634,7 +637,7 @@ a:hover {
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 .stage-tab.active .badge {
-  background: var(--un-blue);
+  background: var(--un-blue-dark);
   color: #ffffff;
 }
 .stage-tab:focus-visible {
@@ -1463,3 +1466,6 @@ a:hover {
 .print-only, .print-only-section, .printable-clone {
   display: none;
 }
+
+/* Small white workbench labels need the accessible blue shade. */
+.card-header > div > .badge { background: var(--un-blue-dark) !important; }

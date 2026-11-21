@@ -1,0 +1,1486 @@
+{
+  "model": "carana-gemma4-text",
+  "scope": "Isolated Run 08 gateway; real local inference; serial requests; no model unload",
+  "rows": [
+    {
+      "lang": "en",
+      "question": "Explain why situational analysis should precede a training intervention.",
+      "lessonId": "cbd-1",
+      "screenId": "01-01",
+      "status": 200,
+      "elapsedMs": 12451,
+      "result": {
+        "type": "done",
+        "sources": [
+          {
+            "id": "cbd-1:01-01",
+            "title": "The decision before the decision",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "1, 4–5",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "cbd-1:04-01",
+            "title": "What actually happens inside the institution?",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "11, 20",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "cbd-1:01-03",
+            "title": "Establish your starting point",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "1, 5, 19",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "ai",
+        "provider": "genuine-local-ollama",
+        "model": "carana-gemma4-text",
+        "answerStreamed": true
+      },
+      "events": [
+        {
+          "type": "stage",
+          "stage": "preparing",
+          "text": "Preparing the explanation.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "generating",
+          "text": "Generating a grounded response.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "segment",
+          "segment": "answer",
+          "text": "Situational analysis must precede training because a visible performance problem does not establish its underlying cause. A request for training is merely a reported concern, not a diagnosis. One must investigate possible causes—such as supervision, equipment, or procedures—to distinguish them from skill gaps. Analyzing the three levels of capacity (enabling environment, institution/unit, and practitioner) ensures the intervention fits the reality of the organization. Furthermore, establishing an evidence-supported 'as-is' baseline is essential; without documenting the starting state through qualitative and quantitative measures, it is impossible to credibly measure change or compare later observations against the initial condition.",
+          "sources": [
+            {
+              "id": "cbd-1:01-01",
+              "title": "The decision before the decision",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1, 4–5",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "cbd-1:04-01",
+              "title": "What actually happens inside the institution?",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "11, 20",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "cbd-1:01-03",
+              "title": "Establish your starting point",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1, 5, 19",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            }
+          ],
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "checking",
+          "text": "Checking source references.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "content",
+          "text": "\n\nInvented teaching example: An advisor in a mission is asked to provide firearms training for a uni"
+        },
+        {
+          "type": "content",
+          "text": "t. Instead of immediately organizing a course, the advisor investigates if the issue is actually a l"
+        },
+        {
+          "type": "content",
+          "text": "ack of ammunition (logistics), poor range maintenance protocols (processes), or unclear use-of-force"
+        },
+        {
+          "type": "content",
+          "text": " policies (legal framework)."
+        },
+        {
+          "type": "done",
+          "sources": [
+            {
+              "id": "cbd-1:01-01",
+              "title": "The decision before the decision",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1, 4–5",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "cbd-1:04-01",
+              "title": "What actually happens inside the institution?",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "11, 20",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "cbd-1:01-03",
+              "title": "Establish your starting point",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1, 5, 19",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            }
+          ],
+          "kind": "ai",
+          "provider": "genuine-local-ollama",
+          "model": "carana-gemma4-text",
+          "answerStreamed": true
+        }
+      ],
+      "answer": "Situational analysis must precede training because a visible performance problem does not establish its underlying cause. A request for training is merely a reported concern, not a diagnosis. One must investigate possible causes—such as supervision, equipment, or procedures—to distinguish them from skill gaps. Analyzing the three levels of capacity (enabling environment, institution/unit, and practitioner) ensures the intervention fits the reality of the organization. Furthermore, establishing an evidence-supported 'as-is' baseline is essential; without documenting the starting state through qualitative and quantitative measures, it is impossible to credibly measure change or compare later observations against the initial condition.",
+      "tail": "\n\nInvented teaching example: An advisor in a mission is asked to provide firearms training for a unit. Instead of immediately organizing a course, the advisor investigates if the issue is actually a lack of ammunition (logistics), poor range maintenance protocols (processes), or unclear use-of-force policies (legal framework).",
+      "pass": true
+    },
+    {
+      "lang": "fr-FR",
+      "question": "Expliquez pourquoi l’analyse de la situation doit précéder une formation.",
+      "lessonId": "cbd-1",
+      "screenId": "01-01",
+      "status": 200,
+      "elapsedMs": 5819,
+      "result": {
+        "type": "done",
+        "sources": [
+          {
+            "id": "cbd-1:01-01",
+            "title": "The decision before the decision",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "1, 4–5",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "plan-cbd-1:p5",
+            "title": "Conflict analysis and baseline",
+            "source": {
+              "kind": "official-plan-teaching-excerpt-paraphrase",
+              "label": "UNPOL CBD Job-Specific Training Lesson 1; 2021 curriculum / July2023 supplied file",
+              "pages": "5",
+              "file": "JSTC_CBD_L01_LP_Situational Analysis_072023.pdf",
+              "sha256": "fea0c4ac6fe8adac2801ccac6acf8abb97d0cc29578c0691f7fecf7882371c13",
+              "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+            }
+          },
+          {
+            "id": "cbd-1:01-02",
+            "title": "Three lenses, one coherent diagnosis",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "1–2, 5, 9, 11",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "ai",
+        "provider": "genuine-local-ollama",
+        "model": "carana-gemma4-text",
+        "answerStreamed": true
+      },
+      "events": [
+        {
+          "type": "stage",
+          "stage": "preparing",
+          "text": "Préparation de l’explication.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "generating",
+          "text": "Génération d’une réponse ancrée dans les sources.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "segment",
+          "segment": "answer",
+          "text": "L'analyse de la situation est l'étape initiale indispensable de tout processus de renforcement des capacités (CBD) car elle permet d'établir une situation de référence (baseline) pour évaluer les progrès futurs. Une demande de formation ne constitue pas un diagnostic ; un problème de performance visible peut avoir des causes autres que le manque de compétences, telles que la supervision, les procédures ou l'équipement. L'analyse doit suivre une séquence logique : d'abord examiner le contexte (conflit), puis les réponses existantes, et enfin la réalité de la partie adverse (CBD). Ce processus transforme une simple requête (intrant) en une intervention ciblée (activité) visant à résoudre un problème vérifié (produit) pour atteindre l'objectif stratégique (but).",
+          "sources": [
+            {
+              "id": "cbd-1:01-01",
+              "title": "The decision before the decision",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1, 4–5",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "plan-cbd-1:p5",
+              "title": "Conflict analysis and baseline",
+              "source": {
+                "kind": "official-plan-teaching-excerpt-paraphrase",
+                "label": "UNPOL CBD Job-Specific Training Lesson 1; 2021 curriculum / July2023 supplied file",
+                "pages": "5",
+                "file": "JSTC_CBD_L01_LP_Situational Analysis_072023.pdf",
+                "sha256": "fea0c4ac6fe8adac2801ccac6acf8abb97d0cc29578c0691f7fecf7882371c13",
+                "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+              }
+            },
+            {
+              "id": "cbd-1:01-02",
+              "title": "Three lenses, one coherent diagnosis",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1–2, 5, 9, 11",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            }
+          ],
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "checking",
+          "text": "Vérification des références documentaires.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "content",
+          "text": "\n\nInvented teaching example: À Galasi, un homologue demande une formation en techniques d'enquête (r"
+        },
+        {
+          "type": "content",
+          "text": "equête). Au lieu de répondre immédiatement, l'expert analyse si le problème vient d'un manque de com"
+        },
+        {
+          "type": "content",
+          "text": "pétences (besoin de formation) ou de l'absence de dossiers de procédure (besoin de réforme structure"
+        },
+        {
+          "type": "content",
+          "text": "lle). Si l'analyse révèle que les dossiers ne sont pas révisés par les superviseurs, une formation n"
+        },
+        {
+          "type": "content",
+          "text": "e serait pas la réponse appropriée."
+        },
+        {
+          "type": "done",
+          "sources": [
+            {
+              "id": "cbd-1:01-01",
+              "title": "The decision before the decision",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1, 4–5",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "plan-cbd-1:p5",
+              "title": "Conflict analysis and baseline",
+              "source": {
+                "kind": "official-plan-teaching-excerpt-paraphrase",
+                "label": "UNPOL CBD Job-Specific Training Lesson 1; 2021 curriculum / July2023 supplied file",
+                "pages": "5",
+                "file": "JSTC_CBD_L01_LP_Situational Analysis_072023.pdf",
+                "sha256": "fea0c4ac6fe8adac2801ccac6acf8abb97d0cc29578c0691f7fecf7882371c13",
+                "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+              }
+            },
+            {
+              "id": "cbd-1:01-02",
+              "title": "Three lenses, one coherent diagnosis",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1–2, 5, 9, 11",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            }
+          ],
+          "kind": "ai",
+          "provider": "genuine-local-ollama",
+          "model": "carana-gemma4-text",
+          "answerStreamed": true
+        }
+      ],
+      "answer": "L'analyse de la situation est l'étape initiale indispensable de tout processus de renforcement des capacités (CBD) car elle permet d'établir une situation de référence (baseline) pour évaluer les progrès futurs. Une demande de formation ne constitue pas un diagnostic ; un problème de performance visible peut avoir des causes autres que le manque de compétences, telles que la supervision, les procédures ou l'équipement. L'analyse doit suivre une séquence logique : d'abord examiner le contexte (conflit), puis les réponses existantes, et enfin la réalité de la partie adverse (CBD). Ce processus transforme une simple requête (intrant) en une intervention ciblée (activité) visant à résoudre un problème vérifié (produit) pour atteindre l'objectif stratégique (but).",
+      "tail": "\n\nInvented teaching example: À Galasi, un homologue demande une formation en techniques d'enquête (requête). Au lieu de répondre immédiatement, l'expert analyse si le problème vient d'un manque de compétences (besoin de formation) ou de l'absence de dossiers de procédure (besoin de réforme structurelle). Si l'analyse révèle que les dossiers ne sont pas révisés par les superviseurs, une formation ne serait pas la réponse appropriée.",
+      "pass": true
+    },
+    {
+      "lang": "ar",
+      "question": "اشرح لماذا يجب تحليل الوضع الراهن قبل اختيار التدريب.",
+      "lessonId": "cbd-1",
+      "screenId": "01-01",
+      "status": 200,
+      "elapsedMs": 6733,
+      "result": {
+        "type": "done",
+        "sources": [
+          {
+            "id": "cbd-1:01-01",
+            "title": "The decision before the decision",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "1, 4–5",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "cbd-1:04-01",
+            "title": "What actually happens inside the institution?",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "11, 20",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "cbd-1:05-01",
+            "title": "Five areas of institutional capacity",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "14–15",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "ai",
+        "provider": "genuine-local-ollama",
+        "model": "carana-gemma4-text",
+        "answerStreamed": true
+      },
+      "events": [
+        {
+          "type": "stage",
+          "stage": "preparing",
+          "text": "جارٍ تجهيز الشرح.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "generating",
+          "text": "جارٍ صياغة إجابة مستندة إلى المنهج.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "segment",
+          "segment": "answer",
+          "text": "يجب إجراء تحليل الوضع الراهن قبل اختيار التدريب لأن الطلبات المقدمة ليست تشخيصاً، فالمشكلة الظاهرة في الأداء قد لا تعود لنقص المهارات. يهدف التحليل إلى فحص الأسباب الكامنة عبر مسار قرار تشخيصي يبدأ من الملاحظة، ثم فحص الأدلة والسياق، وصولاً إلى التحقق من المشكلة واختيار استجابة بناء니다 على القدرات المحلية. يتطلب ذلك فحص ثلاثة مستويات: البيئة الممكنة (الأطر القانونية والسياسية)، والمؤسسة (الأنظمة والعمليات)، والممارس (الكفاءات الفردية). يساعد هذا في تحديد ما إذا كانت المشكلة تكمن في الخدمات الشرطية، أو الخدمات الممكنة، أو السياسات، أو آليات المساءلة، أو مشاركة أصحاب المصلحة، مما يضمن أن التدريب هو التدخل المناسب وليس مجرد استجابة لطلب غير مدروس.",
+          "sources": [
+            {
+              "id": "cbd-1:01-01",
+              "title": "The decision before the decision",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1, 4–5",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "cbd-1:04-01",
+              "title": "What actually happens inside the institution?",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "11, 20",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "cbd-1:05-01",
+              "title": "Five areas of institutional capacity",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "14–15",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            }
+          ],
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "checking",
+          "text": "جارٍ فحص الإشارات المصدرية.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "content",
+          "text": "\n\nInvented teaching example: عند طلب دورة في مهارات التحقيق، قد يكون السبب هو نقص المهارات (مستوى ال"
+        },
+        {
+          "type": "content",
+          "text": "ممارس)، ولكن التحليل قد يكشف أن المشكلة تكمن في عدم مراجعة ملفات القضايا (مستوى المؤسسة) أو نقص المع"
+        },
+        {
+          "type": "content",
+          "text": "دات اللازمة (الخدمات الممكنة)، مما يجعل التدريب وحده غير كافٍ."
+        },
+        {
+          "type": "done",
+          "sources": [
+            {
+              "id": "cbd-1:01-01",
+              "title": "The decision before the decision",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "1, 4–5",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "cbd-1:04-01",
+              "title": "What actually happens inside the institution?",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "11, 20",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "cbd-1:05-01",
+              "title": "Five areas of institutional capacity",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "14–15",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            }
+          ],
+          "kind": "ai",
+          "provider": "genuine-local-ollama",
+          "model": "carana-gemma4-text",
+          "answerStreamed": true
+        }
+      ],
+      "answer": "يجب إجراء تحليل الوضع الراهن قبل اختيار التدريب لأن الطلبات المقدمة ليست تشخيصاً، فالمشكلة الظاهرة في الأداء قد لا تعود لنقص المهارات. يهدف التحليل إلى فحص الأسباب الكامنة عبر مسار قرار تشخيصي يبدأ من الملاحظة، ثم فحص الأدلة والسياق، وصولاً إلى التحقق من المشكلة واختيار استجابة بناء니다 على القدرات المحلية. يتطلب ذلك فحص ثلاثة مستويات: البيئة الممكنة (الأطر القانونية والسياسية)، والمؤسسة (الأنظمة والعمليات)، والممارس (الكفاءات الفردية). يساعد هذا في تحديد ما إذا كانت المشكلة تكمن في الخدمات الشرطية، أو الخدمات الممكنة، أو السياسات، أو آليات المساءلة، أو مشاركة أصحاب المصلحة، مما يضمن أن التدريب هو التدخل المناسب وليس مجرد استجابة لطلب غير مدروس.",
+      "tail": "\n\nInvented teaching example: عند طلب دورة في مهارات التحقيق، قد يكون السبب هو نقص المهارات (مستوى الممارس)، ولكن التحليل قد يكشف أن المشكلة تكمن في عدم مراجعة ملفات القضايا (مستوى المؤسسة) أو نقص المعدات اللازمة (الخدمات الممكنة)، مما يجعل التدريب وحده غير كافٍ.",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "question": "How can we frame a SMART police development objective?",
+      "lessonId": "cbd-2",
+      "screenId": "02-03",
+      "status": 200,
+      "elapsedMs": 5253,
+      "result": {
+        "type": "done",
+        "sources": [
+          {
+            "id": "cbd-2:02-04",
+            "title": "Turn an intention into a testable objective",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+              "pages": "18–19",
+              "file": "curricula/cbd/lessons-2-3.json",
+              "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+              "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+              "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+            }
+          },
+          {
+            "id": "cbd-2:02-06",
+            "title": "Carry defensible choices into practice",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+              "pages": "22, 29–30",
+              "file": "curricula/cbd/lessons-2-3.json",
+              "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+              "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+              "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+            }
+          },
+          {
+            "id": "cbd-2:02-07",
+            "title": "Test the objective in a counterpart briefing",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+              "pages": "16–19",
+              "file": "curricula/cbd/lessons-2-3.json",
+              "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+              "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+              "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+            }
+          }
+        ],
+        "kind": "ai",
+        "provider": "genuine-local-ollama",
+        "model": "carana-gemma4-text",
+        "answerStreamed": true
+      },
+      "events": [
+        {
+          "type": "stage",
+          "stage": "preparing",
+          "text": "Preparing the explanation.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "generating",
+          "text": "Generating a grounded response.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "segment",
+          "segment": "answer",
+          "text": "To frame a SMART police development objective, you must turn an intention into a testable result by applying four dimensions: Specific (defining the intended change and scope), Measurable (specifying how progress is observed), Achievable and relevant (checking capability, constraints, and connection to diagnosed needs), and Time-bound (stating when the result will be reviewed). Avoid using numerical targets or percentages to disguise missing baseline evidence. Instead, use SMART wording to facilitate a conversation about meaning and feasibility. Ensure the objective identifies who is responsible and who experiences the change, using plain language to prevent hidden assumptions about the intended operational meaning.",
+          "sources": [
+            {
+              "id": "cbd-2:02-04",
+              "title": "Turn an intention into a testable objective",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "18–19",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-2:02-06",
+              "title": "Carry defensible choices into practice",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "22, 29–30",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-2:02-07",
+              "title": "Test the objective in a counterpart briefing",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "16–19",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            }
+          ],
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "checking",
+          "text": "Checking source references.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "content",
+          "text": "\n\nInvented teaching example: Instead of an objective stating 'Improve patrol efficiency,' a SMART ob"
+        },
+        {
+          "type": "content",
+          "text": "jective would define the specific change in patrol frequency, specify how patrol logs will be review"
+        },
+        {
+          "type": "content",
+          "text": "ed to measure progress, confirm the unit has sufficient vehicles to make it achievable, and set a da"
+        },
+        {
+          "type": "content",
+          "text": "te for the first quarterly review."
+        },
+        {
+          "type": "done",
+          "sources": [
+            {
+              "id": "cbd-2:02-04",
+              "title": "Turn an intention into a testable objective",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "18–19",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-2:02-06",
+              "title": "Carry defensible choices into practice",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "22, 29–30",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-2:02-07",
+              "title": "Test the objective in a counterpart briefing",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "16–19",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            }
+          ],
+          "kind": "ai",
+          "provider": "genuine-local-ollama",
+          "model": "carana-gemma4-text",
+          "answerStreamed": true
+        }
+      ],
+      "answer": "To frame a SMART police development objective, you must turn an intention into a testable result by applying four dimensions: Specific (defining the intended change and scope), Measurable (specifying how progress is observed), Achievable and relevant (checking capability, constraints, and connection to diagnosed needs), and Time-bound (stating when the result will be reviewed). Avoid using numerical targets or percentages to disguise missing baseline evidence. Instead, use SMART wording to facilitate a conversation about meaning and feasibility. Ensure the objective identifies who is responsible and who experiences the change, using plain language to prevent hidden assumptions about the intended operational meaning.",
+      "tail": "\n\nInvented teaching example: Instead of an objective stating 'Improve patrol efficiency,' a SMART objective would define the specific change in patrol frequency, specify how patrol logs will be reviewed to measure progress, confirm the unit has sufficient vehicles to make it achievable, and set a date for the first quarterly review.",
+      "pass": true
+    },
+    {
+      "lang": "fr-FR",
+      "question": "Comment formuler un objectif SMART de développement de la police ?",
+      "lessonId": "cbd-2",
+      "screenId": "02-03",
+      "status": 200,
+      "elapsedMs": 6977,
+      "result": {
+        "type": "done",
+        "sources": [
+          {
+            "id": "cbd-2:02-04",
+            "title": "Turn an intention into a testable objective",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+              "pages": "18–19",
+              "file": "curricula/cbd/lessons-2-3.json",
+              "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+              "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+              "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+            }
+          },
+          {
+            "id": "cbd-2:02-06",
+            "title": "Carry defensible choices into practice",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+              "pages": "22, 29–30",
+              "file": "curricula/cbd/lessons-2-3.json",
+              "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+              "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+              "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+            }
+          },
+          {
+            "id": "cbd-2:02-07",
+            "title": "Test the objective in a counterpart briefing",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+              "pages": "16–19",
+              "file": "curricula/cbd/lessons-2-3.json",
+              "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+              "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+              "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+            }
+          }
+        ],
+        "kind": "ai",
+        "provider": "genuine-local-ollama",
+        "model": "carana-gemma4-text",
+        "answerStreamed": true
+      },
+      "events": [
+        {
+          "type": "stage",
+          "stage": "preparing",
+          "text": "Préparation de l’explication.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "generating",
+          "text": "Génération d’une réponse ancrée dans les sources.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "segment",
+          "segment": "answer",
+          "text": "Pour formuler un objectif SMART, vous devez transformer une intention vague en un résultat testable. Un objectif doit être Spécifique (définir le changement et la portée), Mesurable (préciser comment observer le progrès), Atteignable et Pertinent (vérifier les capacités, les contraintes et le lien avec le besoin diagnostiqué), et Temporel (indiquer quand le résultat sera révisé). Évitez d'inventer des cibles numériques sans données de référence ; utilisez plutôt les preuves disponibles. L'objectif doit être le résultat d'une conversation sur la faisabilité, garantissant que les parties partagent la même définition opérationnelle du changement attendu, afin d'éviter des interprétations divergentes sur la responsabilité ou la nature du progrès.",
+          "sources": [
+            {
+              "id": "cbd-2:02-04",
+              "title": "Turn an intention into a testable objective",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "18–19",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-2:02-06",
+              "title": "Carry defensible choices into practice",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "22, 29–30",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-2:02-07",
+              "title": "Test the objective in a counterpart briefing",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "16–19",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            }
+          ],
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "checking",
+          "text": "Vérification des références documentaires.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "content",
+          "text": "\n\nInvented teaching example: Au lieu de dire « améliorer la gestion des dossiers », un objectif SMAR"
+        },
+        {
+          "type": "content",
+          "text": "T serait : « Augmenter de 20 % le nombre de dossiers de criminalité documentés avec toutes les pièce"
+        },
+        {
+          "type": "content",
+          "text": "s requises par l'unité d'enquête d'ici la fin du trimestre, après avoir validé la capacité de saisie"
+        },
+        {
+          "type": "content",
+          "text": " avec le homologue local. »"
+        },
+        {
+          "type": "done",
+          "sources": [
+            {
+              "id": "cbd-2:02-04",
+              "title": "Turn an intention into a testable objective",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "18–19",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-2:02-06",
+              "title": "Carry defensible choices into practice",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "22, 29–30",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-2:02-07",
+              "title": "Test the objective in a counterpart briefing",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "16–19",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            }
+          ],
+          "kind": "ai",
+          "provider": "genuine-local-ollama",
+          "model": "carana-gemma4-text",
+          "answerStreamed": true
+        }
+      ],
+      "answer": "Pour formuler un objectif SMART, vous devez transformer une intention vague en un résultat testable. Un objectif doit être Spécifique (définir le changement et la portée), Mesurable (préciser comment observer le progrès), Atteignable et Pertinent (vérifier les capacités, les contraintes et le lien avec le besoin diagnostiqué), et Temporel (indiquer quand le résultat sera révisé). Évitez d'inventer des cibles numériques sans données de référence ; utilisez plutôt les preuves disponibles. L'objectif doit être le résultat d'une conversation sur la faisabilité, garantissant que les parties partagent la même définition opérationnelle du changement attendu, afin d'éviter des interprétations divergentes sur la responsabilité ou la nature du progrès.",
+      "tail": "\n\nInvented teaching example: Au lieu de dire « améliorer la gestion des dossiers », un objectif SMART serait : « Augmenter de 20 % le nombre de dossiers de criminalité documentés avec toutes les pièces requises par l'unité d'enquête d'ici la fin du trimestre, après avoir validé la capacité de saisie avec le homologue local. »",
+      "pass": true
+    },
+    {
+      "lang": "ar",
+      "question": "كيف نصوغ هدفاً ذكياً لتطوير قدرات الشرطة؟",
+      "lessonId": "cbd-2",
+      "screenId": "02-03",
+      "status": 200,
+      "elapsedMs": 8272,
+      "result": {
+        "type": "done",
+        "sources": [
+          {
+            "id": "cbd-2:02-01",
+            "title": "A police objective sits within a larger system",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+              "pages": "5–13",
+              "file": "curricula/cbd/lessons-2-3.json",
+              "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+              "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+              "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+            }
+          },
+          {
+            "id": "cbd-1:05-01",
+            "title": "Five areas of institutional capacity",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "14–15",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "plan-cbd-4:p4",
+            "title": "Local policing context",
+            "source": {
+              "kind": "official-plan-teaching-excerpt-paraphrase",
+              "label": "UNPOL CBD Job-Specific Training Lesson 4; 2021 curriculum / July2023 supplied file",
+              "pages": "4",
+              "file": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+              "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a",
+              "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+            }
+          }
+        ],
+        "kind": "ai",
+        "provider": "genuine-local-ollama",
+        "model": "carana-gemma4-text",
+        "answerStreamed": true
+      },
+      "events": [
+        {
+          "type": "stage",
+          "stage": "preparing",
+          "text": "جارٍ تجهيز الشرح.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "generating",
+          "text": "جارٍ صياغة إجابة مستندة إلى المنهج.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "segment",
+          "segment": "answer",
+          "text": "لصياغة هدف فعال لتطوير قدرات الشرطة، يجب ألا يُنظر إليه كمهمة تقنية معزولة، بل كجزء من نظام أوسع. تبدأ العملية بالتحقق من المواءمة مع التفويض المعتمد، وإطار بناء القدرات للدولة المضيفة، وإطار الأمن الوطني. يجب أن يراعي الهدف تأثير التغيير على منظومة العدالة الأوسع (الادعاء، المحاكم، الإصلاحيات، والرقابة) لضمان عدم إحداث خلل في التوازن. كما يجب أن يركز الهدف على معالجة فجوات في مجالات القدرة المؤسسية الخمسة: خدمات الشرطة، الخدمات التمكينية، صياغة السياسات الشرطية، آليات المساءلة، وإشراك أصحاب المصلحة، مع مراعاة الثقافة التنظيمية المحلية لضمان الاستدامة.",
+          "sources": [
+            {
+              "id": "cbd-2:02-01",
+              "title": "A police objective sits within a larger system",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "5–13",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-1:05-01",
+              "title": "Five areas of institutional capacity",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "14–15",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "plan-cbd-4:p4",
+              "title": "Local policing context",
+              "source": {
+                "kind": "official-plan-teaching-excerpt-paraphrase",
+                "label": "UNPOL CBD Job-Specific Training Lesson 4; 2021 curriculum / July2023 supplied file",
+                "pages": "4",
+                "file": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+                "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a",
+                "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+              }
+            }
+          ],
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "stage",
+          "stage": "checking",
+          "text": "جارٍ فحص الإشارات المصدرية.",
+          "model": "carana-gemma4-text"
+        },
+        {
+          "type": "content",
+          "text": "\n\nInvented teaching example: عند وضع هدف لتعزيز مهارات التحقيق (النشاط)، فإن المخرجات المباشرة هي ضب"
+        },
+        {
+          "type": "content",
+          "text": "اط مدربون، ولكن النتيجة المرجوة هي تحسين جودة التحقيقات (النتيجة). ومع ذلك، إذا لم يتم مراعاة الاعتم"
+        },
+        {
+          "type": "content",
+          "text": "ادية على الادعاء العام (المدخلات/الارتباطات)، فقد يؤدي زيادة عدد القضايا المحالة إلى إغراق نظام الاد"
+        },
+        {
+          "type": "content",
+          "text": "عاء، مما يجعل الهدف غير متسق مع إطار العدالة الأوسع."
+        },
+        {
+          "type": "done",
+          "sources": [
+            {
+              "id": "cbd-2:02-01",
+              "title": "A police objective sits within a larger system",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training: CBD Lesson 2 — Objective Setting (July 2023)",
+                "pages": "5–13",
+                "file": "curricula/cbd/lessons-2-3.json",
+                "sha256": "b6f0a81223b5a0a6318296daba040b9583c91b441f0de04ba790478c83e0f8e3",
+                "referencedPlan": "JSTC_CBD_L02_LP_Objective Setting_072023.pdf",
+                "planSha256": "ef3bb91eac60f7704b0661a786ec6cffbe195f98021fa8ccdd192a312cd61534"
+              }
+            },
+            {
+              "id": "cbd-1:05-01",
+              "title": "Five areas of institutional capacity",
+              "source": {
+                "kind": "approved-digital-adaptation",
+                "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+                "pages": "14–15",
+                "file": "course/lesson1-data.js",
+                "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+                "digitalFiles": [
+                  {
+                    "file": "course/visual-journey.js",
+                    "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                  },
+                  {
+                    "file": "course/lesson1-experience.js",
+                    "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                  },
+                  {
+                    "file": "course/lesson1-illustrations.js",
+                    "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "plan-cbd-4:p4",
+              "title": "Local policing context",
+              "source": {
+                "kind": "official-plan-teaching-excerpt-paraphrase",
+                "label": "UNPOL CBD Job-Specific Training Lesson 4; 2021 curriculum / July2023 supplied file",
+                "pages": "4",
+                "file": "JSTC_CBD_L04_LP_Implementation_072023.pdf",
+                "sha256": "ea8d082d612d75b37fe216cfd07007afe8f212d6cbdb2d43115f2b89370ede4a",
+                "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+              }
+            }
+          ],
+          "kind": "ai",
+          "provider": "genuine-local-ollama",
+          "model": "carana-gemma4-text",
+          "answerStreamed": true
+        }
+      ],
+      "answer": "لصياغة هدف فعال لتطوير قدرات الشرطة، يجب ألا يُنظر إليه كمهمة تقنية معزولة، بل كجزء من نظام أوسع. تبدأ العملية بالتحقق من المواءمة مع التفويض المعتمد، وإطار بناء القدرات للدولة المضيفة، وإطار الأمن الوطني. يجب أن يراعي الهدف تأثير التغيير على منظومة العدالة الأوسع (الادعاء، المحاكم، الإصلاحيات، والرقابة) لضمان عدم إحداث خلل في التوازن. كما يجب أن يركز الهدف على معالجة فجوات في مجالات القدرة المؤسسية الخمسة: خدمات الشرطة، الخدمات التمكينية، صياغة السياسات الشرطية، آليات المساءلة، وإشراك أصحاب المصلحة، مع مراعاة الثقافة التنظيمية المحلية لضمان الاستدامة.",
+      "tail": "\n\nInvented teaching example: عند وضع هدف لتعزيز مهارات التحقيق (النشاط)، فإن المخرجات المباشرة هي ضباط مدربون، ولكن النتيجة المرجوة هي تحسين جودة التحقيقات (النتيجة). ومع ذلك، إذا لم يتم مراعاة الاعتمادية على الادعاء العام (المدخلات/الارتباطات)، فقد يؤدي زيادة عدد القضايا المحالة إلى إغراق نظام الادعاء، مما يجعل الهدف غير متسق مع إطار العدالة الأوسع.",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "type": "checkpoint-protection",
+      "status": 200,
+      "body": "{\"type\":\"content\",\"text\":\"I can help you review the underlying concepts, but I will not select checkpoint options or reveal fa\"}\n{\"type\":\"content\",\"text\":\"cilitator solutions.\\n\\nReview: The decision before the decision.\\n\\nThe adviser’s first responsibility\\n\"}\n{\"type\":\"content\",\"text\":\"Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills cour\"}\n{\"type\":\"content\",\"text\":\"se immediately.\\n\\nUse the source references and your own reasoning before returning to the checkpoint\"}\n{\"type\":\"content\",\"text\":\".\"}\n{\"type\":\"done\",\"sources\":[{\"id\":\"cbd-1:01-01\",\"title\":\"The decision before the decision\",\"source\":{\"kind\":\"approved-digital-adaptation\",\"label\":\"UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)\",\"pages\":\"1, 4–5\",\"file\":\"course/lesson1-data.js\",\"sha256\":\"9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042\",\"digitalFiles\":[{\"file\":\"course/visual-journey.js\",\"sha256\":\"b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec\"},{\"file\":\"course/lesson1-experience.js\",\"sha256\":\"d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df\"},{\"file\":\"course/lesson1-illustrations.js\",\"sha256\":\"72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de\"}]}}],\"kind\":\"study-guide\",\"provider\":\"curriculum-policy\"}\n"
+    },
+    {
+      "lang": "fr-FR",
+      "type": "checkpoint-protection",
+      "status": 200,
+      "body": "{\"type\":\"content\",\"text\":\"Je peux vous aider à revoir les concepts sous-jacents, mais je ne sélectionne pas d’options de point\"}\n{\"type\":\"content\",\"text\":\" de contrôle ni ne révèle de corrigé ou solution de facilitateur.\\n\\nÀ revoir : The decision before th\"}\n{\"type\":\"content\",\"text\":\"e decision.\\n\\nThe adviser’s first responsibility\\nImagine arriving in fictional Galasi. A counterpart \"}\n{\"type\":\"content\",\"text\":\"asks you to deliver an investigation-skills course immediately.\\n\\nAppuyez-vous sur les références sou\"}\n{\"type\":\"content\",\"text\":\"rces et votre propre raisonnement avant de revenir au point de contrôle.\"}\n{\"type\":\"done\",\"sources\":[{\"id\":\"cbd-1:01-01\",\"title\":\"The decision before the decision\",\"source\":{\"kind\":\"approved-digital-adaptation\",\"label\":\"UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)\",\"pages\":\"1, 4–5\",\"file\":\"course/lesson1-data.js\",\"sha256\":\"9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042\",\"digitalFiles\":[{\"file\":\"course/visual-journey.js\",\"sha256\":\"b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec\"},{\"file\":\"course/lesson1-experience.js\",\"sha256\":\"d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df\"},{\"file\":\"course/lesson1-illustrations.js\",\"sha256\":\"72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de\"}]}}],\"kind\":\"study-guide\",\"provider\":\"curriculum-policy\"}\n"
+    },
+    {
+      "lang": "ar",
+      "type": "checkpoint-protection",
+      "status": 200,
+      "body": "{\"type\":\"content\",\"text\":\"يمكنني مساعدتك في مراجعة المفاهيم الأساسية، لكنني لن أختار إجابات نقاط التحقق ولن أكشف مفاتيح الحلول\"}\n{\"type\":\"content\",\"text\":\" أو إجابات الميسّرين.\\n\\nموضوع المراجعة: The decision before the decision.\\n\\nThe adviser’s first respon\"}\n{\"type\":\"content\",\"text\":\"sibility\\nImagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-sk\"}\n{\"type\":\"content\",\"text\":\"ills course immediately.\\n\\nاستعن بالمراجع الموثقة ومنطقك التحليلي قبل العودة إلى نقطة التحقق.\"}\n{\"type\":\"done\",\"sources\":[{\"id\":\"cbd-1:01-01\",\"title\":\"The decision before the decision\",\"source\":{\"kind\":\"approved-digital-adaptation\",\"label\":\"UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)\",\"pages\":\"1, 4–5\",\"file\":\"course/lesson1-data.js\",\"sha256\":\"9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042\",\"digitalFiles\":[{\"file\":\"course/visual-journey.js\",\"sha256\":\"b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec\"},{\"file\":\"course/lesson1-experience.js\",\"sha256\":\"d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df\"},{\"file\":\"course/lesson1-illustrations.js\",\"sha256\":\"72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de\"}]}}],\"kind\":\"study-guide\",\"provider\":\"curriculum-policy\"}\n"
+    },
+    {
+      "type": "unauthenticated",
+      "status": 401
+    }
+  ]
+}

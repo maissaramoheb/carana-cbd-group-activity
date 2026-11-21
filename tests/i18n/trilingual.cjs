@@ -256,7 +256,7 @@ test('validateEvidence and gateway protect answer keys in FR/AR, support Arabic-
         {
           sourceIds: ['cbd-4:04-02'],
           answer: 'Les 7 principes s appuient sur le registre des achats qui recense les ateliers.',
-          example: '',
+          example: context.lang === 'ar' ? 'مثال افتراضي.' : context.lang === 'fr-FR' ? 'Exemple fictif.' : '',
           uncertainty: ''
         },
         passages
@@ -328,6 +328,9 @@ test('validateEvidence and gateway protect answer keys in FR/AR, support Arabic-
     assert.equal(frInj.status, 200);
     assert.match(frInj.text, /ne sélectionne pas d’options|corrigé/);
     assert.equal(calls, 0);
+    const frText = frInj.text.split('\n').filter(Boolean).map(line => JSON.parse(line).text || '').join('');
+    assert(frText.includes(require('../../locales/fr-FR/course-l1.json').lesson.sections[3].screens[1].lead));
+    assert(!frText.includes('Triangulate what you hear'));
 
     // Arabic prompt injection intercepted without invoking provider
     const arInj = await postTutor({
@@ -337,15 +340,22 @@ test('validateEvidence and gateway protect answer keys in FR/AR, support Arabic-
     assert.equal(arInj.status, 200);
     assert.match(arInj.text, /لن أختار إجابات/);
     assert.equal(calls, 0);
+    const arText = arInj.text.split('\n').filter(Boolean).map(line => JSON.parse(line).text || '').join('');
+    assert(arText.includes(require('../../locales/ar/course-l1.json').lesson.sections[3].screens[1].lead));
+    assert(!arText.includes('Triangulate what you hear'));
 
     // Valid FR & AR passes context.lang to provider
     const frOk = await postTutor({ question: 'Pourquoi la triangulation est-elle importante ?', context: { lessonId: 'cbd-1', screenId: '04-02', mode: 'screen', lang: 'fr-FR' } });
     assert.equal(frOk.status, 200);
     assert.match(frOk.text, /Réponse française/);
+    assert.match(frOk.text, /Exemple pédagogique fictif/);
+    assert(!frOk.text.includes('Invented teaching example'));
 
     const arOk = await postTutor({ question: 'لماذا التثليث مهم؟', context: { lessonId: 'cbd-1', screenId: '04-02', mode: 'screen', lang: 'ar' } });
     assert.equal(arOk.status, 200);
     assert.match(arOk.text, /إجابة عربية/);
+    assert.match(arOk.text, /مثال تعليمي افتراضي/);
+    assert(!arOk.text.includes('Invented teaching example'));
     assert.equal(calls, 2);
   } finally {
     await new Promise(r => server.close(r));

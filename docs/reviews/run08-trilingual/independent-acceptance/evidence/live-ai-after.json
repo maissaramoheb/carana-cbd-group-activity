@@ -1,0 +1,199 @@
+{
+  "model": "carana-gemma4-text",
+  "scope": "Isolated Run 08 gateway; real local inference; serial requests; no model unload",
+  "rows": [
+    {
+      "lang": "fr-FR",
+      "question": "Expliquez pourquoi l’analyse de la situation doit précéder une formation.",
+      "lessonId": "cbd-1",
+      "screenId": "01-01",
+      "status": 200,
+      "elapsedMs": 12314,
+      "result": {
+        "type": "done",
+        "sources": [
+          {
+            "id": "cbd-1:01-01",
+            "title": "The decision before the decision",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "1, 4–5",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "plan-cbd-1:p5",
+            "title": "Conflict analysis and baseline",
+            "source": {
+              "kind": "official-plan-teaching-excerpt-paraphrase",
+              "label": "UNPOL CBD Job-Specific Training Lesson 1; 2021 curriculum / July2023 supplied file",
+              "pages": "5",
+              "file": "JSTC_CBD_L01_LP_Situational Analysis_072023.pdf",
+              "sha256": "fea0c4ac6fe8adac2801ccac6acf8abb97d0cc29578c0691f7fecf7882371c13",
+              "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+            }
+          },
+          {
+            "id": "cbd-1:01-02",
+            "title": "Three lenses, one coherent diagnosis",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "1–2, 5, 9, 11",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "ai",
+        "provider": "genuine-local-ollama",
+        "model": "carana-gemma4-text",
+        "answerStreamed": true
+      }
+    },
+    {
+      "lang": "ar",
+      "question": "اشرح لماذا يجب تحليل الوضع الراهن قبل اختيار التدريب.",
+      "lessonId": "cbd-1",
+      "screenId": "01-01",
+      "status": 200,
+      "elapsedMs": 6729,
+      "result": {
+        "type": "done",
+        "sources": [
+          {
+            "id": "cbd-1:01-01",
+            "title": "The decision before the decision",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "1, 4–5",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "cbd-1:04-01",
+            "title": "What actually happens inside the institution?",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "11, 20",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          },
+          {
+            "id": "cbd-1:05-01",
+            "title": "Five areas of institutional capacity",
+            "source": {
+              "kind": "approved-digital-adaptation",
+              "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+              "pages": "14–15",
+              "file": "course/lesson1-data.js",
+              "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+              "digitalFiles": [
+                {
+                  "file": "course/visual-journey.js",
+                  "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+                },
+                {
+                  "file": "course/lesson1-experience.js",
+                  "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+                },
+                {
+                  "file": "course/lesson1-illustrations.js",
+                  "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "ai",
+        "provider": "genuine-local-ollama",
+        "model": "carana-gemma4-text",
+        "answerStreamed": true
+      }
+    },
+    {
+      "lang": "en",
+      "type": "checkpoint-protection",
+      "status": 200,
+      "body": "{\"type\":\"content\",\"text\":\"I can help you review the underlying concepts, but I will not select checkpoint options or reveal fa\"}\n{\"type\":\"content\",\"text\":\"cilitator solutions.\\n\\nReview: The decision before the decision.\\n\\nThe adviser’s first responsibility\\n\"}\n{\"type\":\"content\",\"text\":\"Imagine arriving in fictional Galasi. A counterpart asks you to deliver an investigation-skills cour\"}\n{\"type\":\"content\",\"text\":\"se immediately.\\n\\nUse the source references and your own reasoning before returning to the checkpoint\"}\n{\"type\":\"content\",\"text\":\".\"}\n{\"type\":\"done\",\"sources\":[{\"id\":\"cbd-1:01-01\",\"title\":\"The decision before the decision\",\"source\":{\"kind\":\"approved-digital-adaptation\",\"label\":\"UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)\",\"pages\":\"1, 4–5\",\"file\":\"course/lesson1-data.js\",\"sha256\":\"9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042\",\"digitalFiles\":[{\"file\":\"course/visual-journey.js\",\"sha256\":\"b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec\"},{\"file\":\"course/lesson1-experience.js\",\"sha256\":\"d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df\"},{\"file\":\"course/lesson1-illustrations.js\",\"sha256\":\"72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de\"}]}}],\"kind\":\"study-guide\",\"provider\":\"curriculum-policy\"}\n"
+    },
+    {
+      "lang": "fr-FR",
+      "type": "checkpoint-protection",
+      "status": 200,
+      "body": "{\"type\":\"content\",\"text\":\"Je peux vous aider à revoir les concepts sous-jacents, mais je ne sélectionne pas d’options de point\"}\n{\"type\":\"content\",\"text\":\" de contrôle ni ne révèle de corrigé ou solution de facilitateur.\\n\\nÀ revoir : La décision avant la d\"}\n{\"type\":\"content\",\"text\":\"écision.\\n\\nImaginez votre arrivée à Galasi (fictive). Un homologue vous demande d’organiser sans déla\"}\n{\"type\":\"content\",\"text\":\"i une formation aux techniques d’enquête. La formation est-elle déjà la bonne réponse ?\\nUn problème \"}\n{\"type\":\"content\",\"text\":\"de performance visible n’établit pas à lui seul sa cause profonde.\\nExaminez le contexte de la missio\"}\n{\"type\":\"content\",\"text\":\"n, l’appui déjà en cours et les capacités réelles de l’homologue avant de choisir une intervention.\\n\"}\n{\"type\":\"content\",\"text\":\"Toute amélioration commence par la compréhension de l’état actuel étayé par des preuves.\\n\\nAppuyez-vo\"}\n{\"type\":\"content\",\"text\":\"us sur les références sources et votre propre raisonnement avant de revenir au point de contrôle.\"}\n{\"type\":\"done\",\"sources\":[{\"id\":\"cbd-1:01-01\",\"title\":\"The decision before the decision\",\"source\":{\"kind\":\"approved-digital-adaptation\",\"label\":\"UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)\",\"pages\":\"1, 4–5\",\"file\":\"course/lesson1-data.js\",\"sha256\":\"9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042\",\"digitalFiles\":[{\"file\":\"course/visual-journey.js\",\"sha256\":\"b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec\"},{\"file\":\"course/lesson1-experience.js\",\"sha256\":\"d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df\"},{\"file\":\"course/lesson1-illustrations.js\",\"sha256\":\"72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de\"}]}}],\"kind\":\"study-guide\",\"provider\":\"curriculum-policy\"}\n"
+    },
+    {
+      "lang": "ar",
+      "type": "checkpoint-protection",
+      "status": 200,
+      "body": "{\"type\":\"content\",\"text\":\"يمكنني مساعدتك في مراجعة المفاهيم الأساسية، لكنني لن أختار إجابات نقاط التحقق ولن أكشف مفاتيح الحلول\"}\n{\"type\":\"content\",\"text\":\" أو إجابات الميسّرين.\\n\\nموضوع المراجعة: القرار الذي يسبق القرار.\\n\\nتخيّل وصولك إلى «غالاسي» الافتراضية\"}\n{\"type\":\"content\",\"text\":\"، حيث يطلب منك نظير محلي تقديم دورة عاجلة في مهارات التحقيق الجنائي. هل يُعد التدريب تلقائيًا هو الا\"}\n{\"type\":\"content\",\"text\":\"ستجابة الصحيحة؟\\nظهور مشكلة في الأداء لا يثبت بذاته السبب الجذري الكامن وراءها.\\nافحص سياق البعثة، وبر\"}\n{\"type\":\"content\",\"text\":\"امج الدعم القائمة، والقدرة الفعلية للجهة النظيرة قبل اختيار نوع التدخل.\\nيبدأ أي تحسن حقيقي بفهم الوض\"}\n{\"type\":\"content\",\"text\":\"ع القائم المدعوم بالأدلة الموثقة.\\n\\nاستعن بالمراجع الموثقة ومنطقك التحليلي قبل العودة إلى نقطة التحقق\"}\n{\"type\":\"content\",\"text\":\".\"}\n{\"type\":\"done\",\"sources\":[{\"id\":\"cbd-1:01-01\",\"title\":\"The decision before the decision\",\"source\":{\"kind\":\"approved-digital-adaptation\",\"label\":\"UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)\",\"pages\":\"1, 4–5\",\"file\":\"course/lesson1-data.js\",\"sha256\":\"9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042\",\"digitalFiles\":[{\"file\":\"course/visual-journey.js\",\"sha256\":\"b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec\"},{\"file\":\"course/lesson1-experience.js\",\"sha256\":\"d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df\"},{\"file\":\"course/lesson1-illustrations.js\",\"sha256\":\"72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de\"}]}}],\"kind\":\"study-guide\",\"provider\":\"curriculum-policy\"}\n"
+    },
+    {
+      "type": "unauthenticated",
+      "status": 401
+    }
+  ]
+}

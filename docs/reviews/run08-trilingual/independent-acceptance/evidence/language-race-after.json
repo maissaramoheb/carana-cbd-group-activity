@@ -1,0 +1,42 @@
+[
+  {
+    "name": "chromium",
+    "lastChoice": "ar",
+    "actual": {
+      "lang": "ar",
+      "dir": "rtl",
+      "stored": "ar"
+    },
+    "pass": true
+  },
+  {
+    "name": "chromium",
+    "lastChoice": "en",
+    "actual": {
+      "lang": "en",
+      "dir": "ltr",
+      "stored": null
+    },
+    "pass": true
+  },
+  {
+    "name": "webkit",
+    "lastChoice": "ar",
+    "actual": {
+      "lang": "ar",
+      "dir": "rtl",
+      "stored": "ar"
+    },
+    "pass": true
+  },
+  {
+    "name": "webkit",
+    "lastChoice": "en",
+    "actual": {
+      "lang": "en",
+      "dir": "ltr",
+      "stored": null
+    },
+    "pass": true
+  }
+]

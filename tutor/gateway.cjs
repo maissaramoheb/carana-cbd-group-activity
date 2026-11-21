@@ -20,6 +20,27 @@ const REMOTE_ORIGIN_RE = /^https:\/\/(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.ve
 
 const VALID_LANGS = new Set(['en', 'fr-FR', 'ar']);
 
+// Policy replies use learner-facing translated screen text, never checkpoint answers.
+const reviewPacks = new Map();
+function localizedReviewScreen(context, lang) {
+  if (lang === 'en') return null;
+  try {
+    const key = lang + ':' + context.lessonId;
+    if (!reviewPacks.has(key)) {
+      const filename = context.lessonId === 'cbd-1' ? 'course-l1.json' : 'lessons-2-6.json';
+      const pack = JSON.parse(fs.readFileSync(path.join(ROOT, 'locales', lang, filename), 'utf8'));
+      reviewPacks.set(key, context.lessonId === 'cbd-1' ? pack.lesson : pack.lessons[context.lessonId]);
+    }
+    const lesson = reviewPacks.get(key);
+    const parts = context.screenId.split('-').map(Number);
+    const screen = context.lessonId === 'cbd-1'
+      ? lesson.sections[parts[0] - 1]?.screens[parts[1] - 1]
+      : lesson.sections.flatMap(section => section.screens).find(screen => screen.id === context.screenId);
+    if (!screen) return null;
+    return { title: screen.title, text: [screen.lead, ...(screen.points || [])].filter(Boolean).join('\n').slice(0, 2250) };
+  } catch (_) { return null; }
+}
+
 const GW_MESSAGES = {
   en: {
     studyGuideIntro: 'I can help you review the underlying concepts, but I will not select checkpoint options or reveal facilitator solutions.\n\nReview: ',
@@ -319,14 +340,16 @@ function createHandler({
   }
 
   function emitAiResult(res, out, writeHeadFirst) {
+    const lang = out.lang || 'en';
+    const labels = lang === 'ar' ? ['مثال تعليمي افتراضي: ', 'حدود الأدلة: '] : lang === 'fr-FR' ? ['Exemple pédagogique fictif : ', 'Limites des éléments probants : '] : ['Invented teaching example: ', 'Evidence limits: '];
     const tail =
-      (out.reply?.example ? '\n\nInvented teaching example: ' + out.reply.example : '') +
-      (out.reply?.uncertainty ? '\n\nEvidence limits: ' + out.reply.uncertainty : '');
+      (out.reply?.example ? '\n\n' + labels[0] + out.reply.example : '') +
+      (out.reply?.uncertainty ? '\n\n' + labels[1] + out.reply.uncertainty : '');
     if (out.streamedAnswer) {
       emitNdjsonResult(res, tail, out.sources, 'ai', writeHeadFirst, { answerStreamed: true });
       return;
     }
-    emitNdjsonResult(res, out.text, out.sources, 'ai', writeHeadFirst);
+    emitNdjsonResult(res, (out.reply?.answer || '') + tail, out.sources, 'ai', writeHeadFirst);
   }
 
   function notifyQueuePositions() {
@@ -608,12 +631,13 @@ function createHandler({
         stats.policyIntercepts++;
         recordOp('/api/tutor', 200, 'study-guide', { lessonId: context.lessonId, screenId: context.screenId, userId: authRes.user.userId });
         const own = retriever.search('Explain this screen', payload.context, 2);
+        const translated = localizedReviewScreen(payload.context, reqLang);
         return emitNdjsonResult(
           res,
           msgPack.studyGuideIntro +
-            own.map(p => p.title).join('; ') +
+            (translated ? translated.title : own.map(p => p.title).join('; ')) +
             '.\n\n' +
-            own.map(p => clip(p.text)).join('\n\n') +
+            (translated ? translated.text : own.map(p => clip(p.text)).join('\n\n')) +
             msgPack.studyGuideOutro,
           sourceRows(own),
           'study-guide',
@@ -683,7 +707,7 @@ function createHandler({
               }
             }
           });
-          emitAiResult(res, out, !headersSent);
+          emitAiResult(res, { ...out, lang: context.lang }, !headersSent);
         } catch (e) {
           const elapsed = clock() - started;
           if (validationErrorRe.test(e.message)) {
@@ -795,7 +819,7 @@ function createHandler({
               }
             }
           });
-          emitAiResult(res, out, false);
+          emitAiResult(res, { ...out, lang: context.lang }, false);
         } catch (e) {
           const elapsed = clock() - started;
           if (validationErrorRe.test(e.message)) {
