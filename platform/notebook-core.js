@@ -93,6 +93,35 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[c]));
 
+  function getI18n() {
+    return (typeof window !== 'undefined' && window.CARANA_I18N) || (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || null;
+  }
+  function nt(key, vars, fallback) {
+    const i18n = getI18n();
+    if (i18n && i18n.getLang() !== 'en') return i18n.t('notebook.' + key, vars, fallback);
+    return fallback;
+  }
+  function getPhases() {
+    const i18n = getI18n();
+    if (!i18n || i18n.getLang() === 'en') return PHASES;
+    const locPhases = i18n.getPack('ui')?.notebook?.phases;
+    if (!Array.isArray(locPhases)) return PHASES;
+    return PHASES.map((p, idx) => {
+      const lp = locPhases.find(x => x && x.id === p.id) || locPhases[idx];
+      return lp ? { ...p, ...lp } : p;
+    });
+  }
+  function getSelfCheckTags() {
+    const i18n = getI18n();
+    if (!i18n || i18n.getLang() === 'en') return SELF_CHECK_TAGS;
+    const locTags = i18n.getPack('ui')?.notebook?.selfCheckTags;
+    if (!Array.isArray(locTags)) return SELF_CHECK_TAGS;
+    return SELF_CHECK_TAGS.map((t, idx) => {
+      const lt = locTags.find(x => x && x.key === t.key) || locTags[idx];
+      return lt ? { ...t, ...lt } : t;
+    });
+  }
+
   const isPlainObject = v => Boolean(v && typeof v === 'object' && !Array.isArray(v));
   const clampText = (v, max) => (typeof v === 'string' ? v.slice(0, max) : '');
 
@@ -273,20 +302,20 @@
 
     if (phaseId === 'phase1') {
       if (!isPlainObject(lesson1Store) || !Array.isArray(lesson1Store.completed)) {
-        return { available: false, summary: 'No Lesson 1 checkpoint state detected yet in this browser.', observedDraft: '', assumptionDraft: '', sourceHint: '' };
+        return { available: false, summary: nt('pullSummaryEmpty', { num: 1 }, 'No Lesson 1 checkpoint state detected yet in this browser.'), observedDraft: '', assumptionDraft: '', sourceHint: '' };
       }
       return {
         available: true,
-        summary: 'Lesson 1 progress detected (' + lesson1Store.completed.length + ' / 6 checkpoints cleared). Summarise your verified Lesson 1 findings here (notebook keeps its own text without altering carana_cbd_course_v1).',
-        observedDraft: 'Lesson 1 study status: ' + lesson1Store.completed.length + ' of 6 situational analysis checkpoints completed. Record key verified facts from your Lesson 1 matrix/SWOT here.',
-        assumptionDraft: 'List any remaining unverified assumptions or stakeholder questions carried out of Lesson 1.',
-        sourceHint: 'Lesson 1 (carana_cbd_course_v1) / CARANA baseline notes'
+        summary: nt('pullSummaryAvailable', { count: lesson1Store.completed.length }, 'Lesson 1 progress detected (' + lesson1Store.completed.length + ' / 6 checkpoints cleared). Summarise your verified Lesson 1 findings here (notebook keeps its own text without altering carana_cbd_course_v1).'),
+        observedDraft: 'Lesson 1 (' + lesson1Store.completed.length + ' / 6)',
+        assumptionDraft: '',
+        sourceHint: 'Lesson 1 (carana_cbd_course_v1)'
       };
     }
 
     const drafts = platformStore?.lessons?.[meta.lessonId]?.drafts;
     if (!isPlainObject(drafts)) {
-      return { available: false, summary: 'No Lesson ' + meta.number + ' builder drafts found in this browser yet.', observedDraft: '', assumptionDraft: '', sourceHint: '' };
+      return { available: false, summary: nt('pullSummaryEmpty', { num: meta.number }, 'No Lesson ' + meta.number + ' builder drafts found in this browser yet.'), observedDraft: '', assumptionDraft: '', sourceHint: '' };
     }
 
     const obsParts = [];
@@ -310,15 +339,15 @@
     }
 
     if (!obsParts.length && !gapParts.length) {
-      return { available: false, summary: 'Lesson ' + meta.number + ' draft screens are still blank.', observedDraft: '', assumptionDraft: '', sourceHint: '' };
+      return { available: false, summary: nt('pullSummaryEmpty', { num: meta.number }, 'Lesson ' + meta.number + ' draft screens are still blank.'), observedDraft: '', assumptionDraft: '', sourceHint: '' };
     }
 
     return {
       available: true,
-      summary: 'Found drafted items in Lesson ' + meta.number + ' (' + meta.pullScreenIds.join(', ') + ').',
+      summary: nt('pullSummaryAvailable', { count: obsParts.length + gapParts.length }, 'Found drafted items in Lesson ' + meta.number + ' (' + meta.pullScreenIds.join(', ') + ').'),
       observedDraft: obsParts.join('\n\n').slice(0, MAX_TEXT),
       assumptionDraft: gapParts.join('\n\n').slice(0, MAX_TEXT),
-      sourceHint: 'Imported read-only from Lesson ' + meta.number + ' drafts (' + meta.pullScreenIds.join(', ') + ')'
+      sourceHint: 'Lesson ' + meta.number + ' (' + meta.pullScreenIds.join(', ') + ')'
     };
   }
 
@@ -414,35 +443,43 @@
 
   function buildNotebookDocumentHTML(state) {
     const s = safeNotebookState(state);
-    const rows = PHASES.map(p => {
+    const i18n = getI18n();
+    const lang = i18n ? i18n.getLang() : 'en';
+    const isRtl = lang === 'ar';
+    const locPhases = getPhases();
+    const locTags = getSelfCheckTags();
+    const displayTitle = s.threadTitle === 'Untitled CARANA Evidence-to-Decision Thread' && lang !== 'en'
+      ? nt('untitledThread', null, s.threadTitle)
+      : s.threadTitle;
+    const rows = locPhases.map(p => {
       const ps = s.phases[p.id];
-      const checksDone = SELF_CHECK_TAGS.filter(t => ps.checks[t.key]).map(t => t.label);
+      const checksDone = locTags.filter(t => ps.checks[t.key]).map(t => t.label);
       return '<section class="nb-print-card">' +
         '<h2>' + esc(p.title) + '</h2>' +
-        '<p class="nb-print-meta">Revisions: ' + (ps.revisionCount || ps.revisions.length) +
-        (ps.updatedAt ? ' · Last saved: ' + esc(ps.updatedAt) : '') +
-        (ps.needsAlignmentCheck ? ' · Flagged for upstream alignment review' : '') + '</p>' +
+        '<p class="nb-print-meta">' + esc(nt('revTitle', { rev: ps.revisionCount || ps.revisions.length }, 'Revisions: ' + (ps.revisionCount || ps.revisions.length))) +
+        (ps.updatedAt ? ' · ' + esc(ps.updatedAt) : '') +
+        (ps.needsAlignmentCheck ? esc(nt('flaggedReview', null, ' · Flagged for upstream alignment review')) : '') + '</p>' +
         '<h3>' + esc(p.evidenceLabel) + '</h3>' +
-        '<div class="nb-print-box">' + (ps.observedEvidence ? esc(ps.observedEvidence) : '<em>Not recorded yet.</em>') + '</div>' +
+        '<div class="nb-print-box" dir="auto">' + (ps.observedEvidence ? esc(ps.observedEvidence) : '<em>' + esc(nt('blankVal', null, 'Not recorded yet.')) + '</em>') + '</div>' +
         '<h3>' + esc(p.assumptionLabel) + '</h3>' +
-        '<div class="nb-print-box">' + (ps.assumptionsAndGaps ? esc(ps.assumptionsAndGaps) : '<em>Not recorded yet.</em>') + '</div>' +
-        '<p><strong>Source / trace note:</strong> ' + (ps.sourceCitation ? esc(ps.sourceCitation) : '<em>None listed</em>') + '</p>' +
-        '<p><strong>Self-review checks marked:</strong> ' + (checksDone.length ? esc(checksDone.join('; ')) : 'None marked') + '</p>' +
+        '<div class="nb-print-box" dir="auto">' + (ps.assumptionsAndGaps ? esc(ps.assumptionsAndGaps) : '<em>' + esc(nt('blankVal', null, 'Not recorded yet.')) + '</em>') + '</div>' +
+        '<p><strong>' + esc(nt('sourceLabel', null, 'Source / trace note:')) + '</strong> <span dir="auto">' + (ps.sourceCitation ? esc(ps.sourceCitation) : '<em>' + esc(nt('pullNone', null, 'None listed')) + '</em>') + '</span></p>' +
+        '<p><strong>' + esc(nt('checksLegend', null, 'Self-review checks marked:')) + '</strong> ' + (checksDone.length ? esc(checksDone.join('; ')) : esc(nt('pullNone', null, 'None marked'))) + '</p>' +
         '</section>';
     }).join('');
 
-    return '<!doctype html><html lang="en" dir="auto"><head><meta charset="utf-8">' +
-      '<title>' + esc(s.threadTitle) + ' — CARANA Connected Evidence Notebook</title>' +
+    return '<!doctype html><html lang="' + esc(lang) + '" dir="' + (isRtl ? 'rtl' : 'auto') + '"><head><meta charset="utf-8">' +
+      '<title>' + esc(displayTitle) + ' — ' + esc(nt('heroTitle', null, 'CARANA Connected Evidence Notebook')) + '</title>' +
       '<style>body{font-family:system-ui,sans-serif;color:#102d46;max-width:860px;margin:32px auto;padding:0 18px;line-height:1.55}' +
       '.nb-print-card{border:1px solid #cbdde4;border-top:4px solid #146981;border-radius:10px;padding:16px;margin:18px 0;break-inside:avoid}' +
       '.nb-print-box{background:#f5f9fa;border:1px solid #d7e6ec;border-radius:6px;padding:10px;white-space:pre-wrap;margin-bottom:10px}' +
       '.nb-print-meta{color:#425d71;font-size:13px}h1{margin-bottom:6px}h2{margin-top:0;font-size:19px}h3{font-size:14px;color:#146981;margin:10px 0 4px}</style>' +
-      '</head><body>' +
-      '<p style="text-transform:uppercase;letter-spacing:.1em;font-size:12px;color:#146981;font-weight:700">CARANA E-LEARNING · CONNECTED EVIDENCE-TO-DECISION BRIEF (PROTOTYPE E08)</p>' +
-      '<h1>' + esc(s.threadTitle) + '</h1>' +
-      '<p class="nb-print-meta">Browser-local reasoning document. Observed evidence and working assumptions are separated deliberately. Contains no automated grading or UN endorsement.</p>' +
+      '</head><body><main>' +
+      '<p style="text-transform:uppercase;letter-spacing:' + (isRtl ? '0' : '.1em') + ';font-size:12px;color:#146981;font-weight:700">' + esc(nt('protoBannerTitle', null, 'CARANA E-LEARNING · CONNECTED EVIDENCE-TO-DECISION BRIEF (PROTOTYPE E08)')) + '</p>' +
+      '<h1 dir="auto">' + esc(displayTitle) + '</h1>' +
+      '<p class="nb-print-meta">' + esc(nt('protoBannerBody', null, 'Browser-local reasoning document. Observed evidence and working assumptions are separated deliberately. Contains no automated grading or UN endorsement.')) + '</p>' +
       rows +
-      '</body></html>';
+      '</main></body></html>';
   }
 
   const api = {
@@ -454,6 +491,8 @@
     MAX_REVISIONS,
     PHASES,
     SELF_CHECK_TAGS,
+    getPhases,
+    getSelfCheckTags,
     esc,
     createDefaultNotebook,
     safeNotebookState,

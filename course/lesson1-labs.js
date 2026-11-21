@@ -65,44 +65,94 @@ const dimensions=[
  ['Gender','Assess equitable treatment, participation, gender-specific effects and access.'],
  ['Comprehensive protection of civilians','Consider how practices affect the broad protection of civilians.']
 ];
+function getLabsData() {
+ const i18n=window.CARANA_I18N;
+ const isEn=!i18n||i18n.getLang()==='en';
+ const pack=!isEn?i18n.getPack('course-l1')?.labs:null;
+ if(!pack){
+  return {
+   isEn:true,
+   areas,dimensions,explorations,
+   matrixEyebrow:'THE 5 × 6 CBD MATRIX',
+   matrixTitle:'Explore every intersection',
+   matrixIntro:'Choose a cell to connect an institutional area with a cross-cutting dimension. This is an analytical prompt, not a completed CARANA matrix.',
+   matrixCorner:'CBD area ↓ / Dimension →',
+   matrixCaption:'Five CBD areas and six cross-cutting dimensions',
+   matrixPromptTitle:'Select any of the 30 intersections',
+   matrixPromptBody:'Each cell invites a different, evidence-led analytical question.',
+   matrixQuestionSuffix:'Ask which verified issue, if any, genuinely belongs at this intersection.',
+   matrixScrollAria:'Scrollable five by six CBD matrix',
+   optionPromptTitle:'Choose a concept to explore',
+   optionPromptBody:'Its analytical meaning and suggested line of inquiry will appear here.'
+  };
+ }
+ return {
+  isEn:false,
+  areas:Array.isArray(pack.areas)&&pack.areas.length===areas.length?pack.areas:areas,
+  dimensions:Array.isArray(pack.dimensions)&&pack.dimensions.length===dimensions.length?pack.dimensions:dimensions,
+  explorations:pack.explorations||explorations,
+  matrixEyebrow:pack.matrixEyebrow||'THE 5 × 6 CBD MATRIX',
+  matrixTitle:pack.matrixTitle||'Explore every intersection',
+  matrixIntro:pack.matrixIntro||'',
+  matrixCorner:pack.matrixCorner||'CBD area ↓ / Dimension →',
+  matrixCaption:pack.matrixCaption||'',
+  matrixPromptTitle:pack.matrixPromptTitle||'',
+  matrixPromptBody:pack.matrixPromptBody||'',
+  matrixQuestionSuffix:i18n.t('course.labsCellQuestionSuffix',null,'Ask which verified issue, if any, genuinely belongs at this intersection.'),
+  matrixScrollAria:i18n.t('course.labsCornerAria',null,'Scrollable five by six CBD matrix'),
+  optionPromptTitle:i18n.t('course.labsOptionTitle',null,'Choose a concept to explore'),
+  optionPromptBody:i18n.t('course.labsOptionBody',null,'Its analytical meaning and suggested line of inquiry will appear here.')
+ };
+}
 function html(section,screen) {
  const id=key(section,screen);
+ const d=getLabsData();
  if(id==='05-02'){
-  return '<section class="concept-lab matrix-lab" aria-label="Five by six CBD capacity matrix explorer"><div class="concept-lab-top"><span class="concept-lab-eyebrow">THE 5 × 6 CBD MATRIX</span><h2>Explore every intersection</h2><p>Choose a cell to connect an institutional area with a cross-cutting dimension. This is an analytical prompt, not a completed CARANA matrix.</p></div>'+
-    '<div class="matrix-scroll" role="region" tabindex="0" aria-label="Scrollable five by six CBD matrix"><table class="matrix-table"><caption>Five CBD areas and six cross-cutting dimensions</caption><thead><tr><th scope="col">CBD area ↓ / Dimension →</th>'+dimensions.map((d,i)=>'<th scope="col"><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(d[0])+'</th>').join('')+'</tr></thead><tbody>'+
-    areas.map((a,i)=>'<tr><th scope="row">'+esc(a[0])+'</th>'+dimensions.map((d,j)=>'<td><button type="button" class="matrix-cell" aria-pressed="false" data-lab-area="'+i+'" data-lab-dimension="'+j+'" aria-label="Explore '+esc(a[0])+' and '+esc(d[0])+'">+</button></td>').join('')+'</tr>').join('')+'</tbody></table></div>'+
-    '<div id="lab-response" class="concept-response" role="status" aria-live="polite"><strong>Select any of the 30 intersections</strong><p>Each cell invites a different, evidence-led analytical question.</p></div></section>';
+  return '<section class="concept-lab matrix-lab" aria-label="'+esc(d.matrixTitle)+'"><div class="concept-lab-top"><span class="concept-lab-eyebrow">'+esc(d.matrixEyebrow)+'</span><h2>'+esc(d.matrixTitle)+'</h2><p>'+esc(d.matrixIntro)+'</p></div>'+
+    '<div class="matrix-scroll" role="region" tabindex="0" aria-label="'+esc(d.matrixScrollAria)+'"><table class="matrix-table"><caption>'+esc(d.matrixCaption)+'</caption><thead><tr><th scope="col">'+esc(d.matrixCorner)+'</th>'+d.dimensions.map((dim,i)=>'<th scope="col"><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(dim[0])+'</th>').join('')+'</tr></thead><tbody>'+
+    d.areas.map((a,i)=>'<tr><th scope="row">'+esc(a[0])+'</th>'+d.dimensions.map((dim,j)=>'<td><button type="button" class="matrix-cell" aria-pressed="false" data-lab-area="'+i+'" data-lab-dimension="'+j+'" aria-label="'+esc(a[0]+' × '+dim[0])+'">+</button></td>').join('')+'</tr>').join('')+'</tbody></table></div>'+
+    '<div id="lab-response" class="concept-response" role="status" aria-live="polite"><strong>'+esc(d.matrixPromptTitle)+'</strong><p>'+esc(d.matrixPromptBody)+'</p></div></section>';
  }
- const e=explorations[id];if(!e)return '';
+ const baseExp=explorations[id];if(!baseExp)return '';
+ const e=d.explorations[id]||baseExp;
  return '<section class="concept-lab" aria-label="'+esc(e.eyebrow)+'"><div class="concept-lab-top"><span class="concept-lab-eyebrow">'+esc(e.eyebrow)+'</span><h2>'+esc(e.title)+'</h2><p>'+esc(e.intro)+'</p></div>'+
-  '<div class="concept-options" role="group" aria-label="Explore concepts">'+e.parts.map((p,i)=>'<button type="button" class="concept-option" data-lab-option="'+i+'" aria-pressed="false"><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(p[0])+'</button>').join('')+'</div>'+
-  '<div id="lab-response" class="concept-response" role="status" aria-live="polite"><strong>Choose a concept to explore</strong><p>Its analytical meaning and suggested line of inquiry will appear here.</p></div></section>';
+  '<div class="concept-options" role="group" aria-label="'+esc(e.title)+'">'+e.parts.map((p,i)=>'<button type="button" class="concept-option" data-lab-option="'+i+'" aria-pressed="false"><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(p[0])+'</button>').join('')+'</div>'+
+  '<div id="lab-response" class="concept-response" role="status" aria-live="polite"><strong>'+esc(d.optionPromptTitle)+'</strong><p>'+esc(d.optionPromptBody)+'</p></div></section>';
 }
 function mount(section,screen){
  const id=key(section,screen),reply=$('lab-response');
  window.CARANA_LESSON1_LABS.active=null;
  if(!reply)return;
+ const d=getLabsData();
  if(id==='05-02'){
   const buttons=Array.from(document.querySelectorAll('[data-lab-area]'));
   if(window.CARANA_EXPLORATION && document.body.classList.contains('is-learning')) {
-   const items=buttons.map(button=>{const i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);return {label:areas[i][0]+' × '+dimensions[j][0],detail:areas[i][1]+dimensions[j][1]};});
+   const items=buttons.map(button=>{
+    const i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);
+    return {
+     label:d.areas[i][0]+' × '+d.dimensions[j][0],
+     detail:d.areas[i][1]+d.dimensions[j][1],
+     _canonical:{label:areas[i][0]+' × '+dimensions[j][0],detail:areas[i][1]+dimensions[j][1]}
+    };
+   });
    const count=reply.ownerDocument.createElement('p');count.className='matrix-exploration-count';reply.after(count);
    window.CARANA_LESSON1_LABS.active=window.CARANA_EXPLORATION.bind({lessonId:'cbd-1',screenId:id,items,buttons,feedback:reply,count,container:reply.parentElement,remind:false,
-    onSelect:n=>{const button=buttons[n],i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);reply.dataset.readExplanation='true';reply.dataset.readTitle=areas[i][0]+' × '+dimensions[j][0];reply.innerHTML='<strong>'+esc(areas[i][0])+' × '+esc(dimensions[j][0])+'</strong><p>'+esc(areas[i][1])+'. '+esc(dimensions[j][1])+' Ask which verified issue, if any, genuinely belongs at this intersection.</p>';},practiceButtons:[]});
+    onSelect:n=>{const button=buttons[n],i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);reply.dataset.readExplanation='true';reply.dataset.readTitle=d.areas[i][0]+' × '+d.dimensions[j][0];reply.innerHTML='<strong>'+esc(d.areas[i][0])+' × '+esc(d.dimensions[j][0])+'</strong><p>'+esc(d.areas[i][1])+'. '+esc(d.dimensions[j][1])+' '+esc(d.matrixQuestionSuffix)+'</p>';},practiceButtons:[]});
    return;
   }
   for(const button of buttons)button.addEventListener('click',()=>{
    const i=Number(button.dataset.labArea),j=Number(button.dataset.labDimension);
-   if(!areas[i]||!dimensions[j])return;
+   if(!d.areas[i]||!d.dimensions[j])return;
    for(const node of buttons){node.classList.toggle('selected',node===button);node.setAttribute('aria-pressed',String(node===button))}
    reply.dataset.readExplanation='true';
-   reply.dataset.readTitle=areas[i][0]+' × '+dimensions[j][0];
-   reply.innerHTML='<strong>'+esc(areas[i][0])+' × '+esc(dimensions[j][0])+'</strong><p>'+esc(areas[i][1])+'. '+esc(dimensions[j][1])+' Ask which verified issue, if any, genuinely belongs at this intersection.</p>';
+   reply.dataset.readTitle=d.areas[i][0]+' × '+d.dimensions[j][0];
+   reply.innerHTML='<strong>'+esc(d.areas[i][0])+' × '+esc(d.dimensions[j][0])+'</strong><p>'+esc(d.areas[i][1])+'. '+esc(d.dimensions[j][1])+' '+esc(d.matrixQuestionSuffix)+'</p>';
    reply.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:reply.dataset.readTitle,target:reply}}));
   });
   return;
  }
- const e=explorations[id];if(!e)return;
+ const baseExp=explorations[id];if(!baseExp)return;
+ const e=d.explorations[id]||baseExp;
  const buttons=Array.from(document.querySelectorAll('[data-lab-option]'));
  for(const button of buttons)button.addEventListener('click',()=>{
    const i=Number(button.dataset.labOption);if(!e.parts[i])return;

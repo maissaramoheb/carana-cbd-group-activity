@@ -43,22 +43,24 @@
     :focus-visible{outline:3px solid #258ca1;outline-offset:3px}
     @media(max-width:900px){.grid{grid-template-columns:1fr}.sample h2{min-height:0}.sample{padding:22px}}
   </style>
+  <link rel="stylesheet" href="../css/i18n-rtl.css">
+  <script src="../platform/i18n.js"></script>
   <script src="./lesson1-experience.js" defer></script>
   <script src="./lesson1-audio-manifest.js" defer></script>
   <script src="./voice-audition.js" defer></script>
 </head>
 <body>
   <header><div>
-    <nav><strong>CARANA / CBD LEARNING STUDIO</strong><a href="./#lesson-1">Return to Lesson 1</a></nav>
-    <p class="eyebrow">VOICE DESIGN / ENGLISH NARRATION / ROUND 01</p>
-    <h1>Hear the trainer's voice.<br>Judge the learning experience.</h1>
-    <p class="intro">Three representative Lesson 1 explanations. The voice should feel like a capable, approachable trainer—not a mechanical slide reader. Listen for clarity, pace, pronunciation and confidence.</p>
+    <nav><strong data-i18n="voicePages.auditionBrand">CARANA / CBD LEARNING STUDIO</strong><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span id="va-lang-slot"></span><a href="./#lesson-1" data-i18n="voicePages.auditionBack">Return to Lesson 1</a></div></nav>
+    <p class="eyebrow" data-i18n="voicePages.auditionEyebrow">VOICE DESIGN / ENGLISH NARRATION / ROUND 01</p>
+    <h1 id="va-heading">Hear the trainer's voice.<br>Judge the learning experience.</h1>
+    <p class="intro" data-i18n="voicePages.auditionIntro">Three representative Lesson 1 explanations. The voice should feel like a capable, approachable trainer—not a mechanical slide reader. Listen for clarity, pace, pronunciation and confidence.</p>
   </div></header>
   <main>
-    <div class="context"><p>These samples are <strong>AI-generated voice auditions</strong>, not human recordings, certified UN training materials, or approved final narration.</p><span id="sample-count" class="count">Loading sample availability…</span></div>
+    <div class="context"><p data-i18n-html="voicePages.auditionDisclaimer">These samples are <strong>AI-generated voice auditions</strong>, not human recordings, certified UN training materials, or approved final narration.</p><span id="sample-count" class="count">Loading sample availability…</span></div>
     <div id="samples" class="grid" aria-live="polite"></div>
-    <aside class="note"><strong>What should we evaluate?</strong><p>Professional warmth, natural pauses, pronunciation of Galasi, PESTEL-S and CBD, clear meaning without overacting, and whether the audio adds to—not merely repeats—the learning screen. No autoplay is enabled.</p></aside>
+    <aside class="note"><strong data-i18n="voicePages.auditionNoteTitle">What should we evaluate?</strong><p data-i18n="voicePages.auditionNoteBody">Professional warmth, natural pauses, pronunciation of Galasi, PESTEL-S and CBD, clear meaning without overacting, and whether the audio adds to—not merely repeats—the learning screen. No autoplay is enabled.</p></aside>
   </main>
-  <footer>CARANA CBD E-Learning · Independent instructional adaptation · English voice audition only.</footer>
+  <footer data-i18n="voicePages.auditionFooter">CARANA CBD E-Learning · Independent instructional adaptation · English voice audition only.</footer>
 </body>
 </html>

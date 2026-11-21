@@ -23,6 +23,10 @@
   let state = null;
   let activeStage = 'stage-toc';
 
+  const tw = (key, vars, fallback) => (Storage && Storage.wbT ? Storage.wbT(key, vars, fallback !== undefined ? fallback : key) : (fallback !== undefined ? fallback : key));
+  const scLoc = () => (Scenario && Scenario.getLocalized ? Scenario.getLocalized() : Scenario);
+  const glLoc = () => (Glossary && Glossary.getLocalized ? Glossary.getLocalized() : Glossary);
+
   const STAGES = [
     { id: 'stage-toc', label: '1. Theory of Change & Tools', short: 'Theory of Change' },
     { id: 'stage-logframe', label: '2. Logical Framework (Logframe)', short: 'Logframe Matrix' },
@@ -31,6 +35,17 @@
     { id: 'stage-contingency', label: '5. Contingency Planning', short: 'Contingency' },
     { id: 'stage-summary', label: '6. Review, Reflection & Bridge', short: 'Review & Bridge' }
   ];
+
+  function applyLocaleToModule() {
+    renderStageTabs();
+    updateCompletionBadge();
+    renderLogframeTables();
+    renderRisks();
+    render3x3RiskMatrix();
+    renderScenarioDrawerList(document.getElementById('scenarioSearchInput')?.value);
+    renderGlossaryList(document.getElementById('glossarySearchInput')?.value);
+    Storage.renderCurriculumTrack(3);
+  }
 
   function init() {
     state = Storage.loadLabState();
@@ -47,9 +62,12 @@
     renderScenarioDrawerList();
     renderGlossaryList();
     Storage.renderCurriculumTrack(3);
-    updateSaveIndicator('Loaded local data');
+    updateSaveIndicator(tw('Loaded local data'));
     setupAutosaveListener();
     setupLifecycleListeners();
+    if (Storage && Storage.initWorkbenchI18n) {
+      Storage.initWorkbenchI18n(applyLocaleToModule);
+    }
   }
 
   const dirtyFields = new Set();
@@ -121,10 +139,10 @@
     }
     const ok = Storage.saveLabState(state);
     if (!ok) {
-      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+      updateSaveIndicator('⚠️ ' + tw('Storage full or blocked! Export JSON.'), true);
     } else {
       dirtyFields.clear();
-      updateSaveIndicator(statusMsg || 'Saved locally');
+      updateSaveIndicator(statusMsg || tw('Saved locally'));
     }
     Storage.renderCurriculumTrack(3);
     return ok;
@@ -133,7 +151,7 @@
   function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
-      el.textContent = msg || 'Saved locally on this device';
+      el.textContent = msg || tw('Saved locally on this device');
       el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
@@ -149,7 +167,7 @@
       if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
-      save('Autosaved');
+      save(tw('Autosaved'));
       render3x3RiskMatrix();
     }, 600));
   }
@@ -167,10 +185,10 @@
     const badge = document.getElementById('stageCompleteFooterBadge');
     if (!badge) return;
     if (state.module3 && state.module3.confirmed) {
-      badge.textContent = '✓ Phase 3 Self-Confirmed · Ready for Module 4';
+      badge.textContent = tw('✓ Phase 3 Self-Confirmed · Ready for Module 4');
       badge.style.color = 'var(--ok)';
     } else {
-      badge.textContent = 'Phase 3 In Progress · Pending Self-Confirmation';
+      badge.textContent = tw('Phase 3 In Progress · Pending Self-Confirmation');
       badge.style.color = 'var(--navy)';
     }
   }
@@ -296,7 +314,7 @@
     container.innerHTML = STAGES.map((s, idx) => `
       <button class="stage-tab ${s.id === activeStage ? 'active' : ''}" data-stage="${s.id}" type="button">
         <span class="badge">0${idx + 1}</span>
-        <span>${escapeHtml(s.short)}</span>
+        <span>${escapeHtml(tw(s.short))}</span>
       </button>
     `).join('');
 
@@ -394,16 +412,19 @@
     if (!host) return;
     const outcomes = state.module3.logframe?.outcomes || [];
 
-    host.innerHTML = outcomes.map((o, idx) => `
+    host.innerHTML = outcomes.map((o, idx) => {
+      const outLbl = tw('Outcome {idx}', { idx: idx + 1 }, `Outcome ${idx + 1}`);
+      return `
       <tr data-idx="${idx}">
-        <td style="font-weight: 700;">Outcome ${idx + 1}</td>
-        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="narrative" style="min-height: 60px;" aria-label="Outcome ${idx + 1} narrative">${escapeHtml(o.narrative || '')}</textarea></td>
-        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="indicators" style="min-height: 60px;" aria-label="Outcome ${idx + 1} indicators">${escapeHtml(o.indicators || '')}</textarea></td>
-        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="verification" style="min-height: 60px;" aria-label="Outcome ${idx + 1} verification">${escapeHtml(o.verification || '')}</textarea></td>
-        <td><textarea class="form-textarea out-field" data-idx="${idx}" data-field="assumptions" style="min-height: 60px;" aria-label="Outcome ${idx + 1} assumptions">${escapeHtml(o.assumptions || '')}</textarea></td>
-        <td><button class="btn btn-sm btn-danger remove-out-btn" data-idx="${idx}" type="button" aria-label="Remove outcome ${idx + 1}">×</button></td>
+        <td style="font-weight: 700;">${escapeHtml(outLbl)}</td>
+        <td><textarea dir="auto" class="form-textarea out-field" data-idx="${idx}" data-field="narrative" style="min-height: 60px;" aria-label="${escapeHtml(outLbl)}">${escapeHtml(o.narrative || '')}</textarea></td>
+        <td><textarea dir="auto" class="form-textarea out-field" data-idx="${idx}" data-field="indicators" style="min-height: 60px;" aria-label="${escapeHtml(outLbl)}">${escapeHtml(o.indicators || '')}</textarea></td>
+        <td><textarea dir="auto" class="form-textarea out-field" data-idx="${idx}" data-field="verification" style="min-height: 60px;" aria-label="${escapeHtml(outLbl)}">${escapeHtml(o.verification || '')}</textarea></td>
+        <td><textarea dir="auto" class="form-textarea out-field" data-idx="${idx}" data-field="assumptions" style="min-height: 60px;" aria-label="${escapeHtml(outLbl)}">${escapeHtml(o.assumptions || '')}</textarea></td>
+        <td><button class="btn btn-sm btn-danger remove-out-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove outcome {idx}', { idx: idx + 1 }, `Remove outcome ${idx + 1}`))}">×</button></td>
       </tr>
-    `).join('');
+    `;
+    }).join('');
 
     host.querySelectorAll('.out-field').forEach(el => {
       el.addEventListener('input', e => {
@@ -443,23 +464,24 @@
 
     host.innerHTML = outputs.map((op, idx) => {
       const outputCode = getOutputCode(idx);
+      const outputLbl = tw('Output {code}', { code: outputCode }, `Output ${outputCode}`);
       const outcomeOptions = outcomes.length > 0
-        ? outcomes.map((o, oIdx) => `<option value="${escapeHtml(o.id)}" ${op.outcomeId === o.id ? 'selected' : ''}>Outcome ${oIdx + 1}</option>`).join('')
-        : `<option value="out-1">Outcome 1</option>`;
+        ? outcomes.map((o, oIdx) => `<option value="${escapeHtml(o.id)}" ${op.outcomeId === o.id ? 'selected' : ''}>${escapeHtml(tw('Outcome {idx}', { idx: oIdx + 1 }, `Outcome ${oIdx + 1}`))}</option>`).join('')
+        : `<option value="out-1">${escapeHtml(tw('Outcome {idx}', { idx: 1 }, 'Outcome 1'))}</option>`;
 
       return `
         <tr data-idx="${idx}">
           <td>
-            <div style="font-weight: 700; margin-bottom: 4px;">Output ${outputCode}</div>
-            <select class="form-select outp-field" data-idx="${idx}" data-field="outcomeId" style="font-size: 0.78rem; padding: 4px;" aria-label="Parent Outcome for Output ${outputCode}">
+            <div style="font-weight: 700; margin-bottom: 4px;">${escapeHtml(outputLbl)}</div>
+            <select class="form-select outp-field" data-idx="${idx}" data-field="outcomeId" style="font-size: 0.78rem; padding: 4px;" aria-label="${escapeHtml(outputLbl)}">
               ${outcomeOptions}
             </select>
           </td>
-          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="narrative" placeholder="Tangible deliverable narrative..." style="min-height: 60px;" aria-label="Output ${outputCode} narrative">${escapeHtml(op.narrative || '')}</textarea></td>
-          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="indicators" placeholder="Objectively verifiable indicators..." style="min-height: 60px;" aria-label="Output ${outputCode} indicators">${escapeHtml(op.indicators || '')}</textarea></td>
-          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="verification" placeholder="Means of verification..." style="min-height: 60px;" aria-label="Output ${outputCode} verification">${escapeHtml(op.verification || '')}</textarea></td>
-          <td><textarea class="form-textarea outp-field" data-idx="${idx}" data-field="assumptions" placeholder="Output assumptions & risks..." style="min-height: 60px;" aria-label="Output ${outputCode} assumptions">${escapeHtml(op.assumptions || '')}</textarea></td>
-          <td><button class="btn btn-sm btn-danger remove-outp-btn" data-idx="${idx}" type="button" aria-label="Remove output ${outputCode}">×</button></td>
+          <td><textarea dir="auto" class="form-textarea outp-field" data-idx="${idx}" data-field="narrative" placeholder="${escapeHtml(tw('Tangible deliverable narrative...'))}" style="min-height: 60px;" aria-label="${escapeHtml(outputLbl)}">${escapeHtml(op.narrative || '')}</textarea></td>
+          <td><textarea dir="auto" class="form-textarea outp-field" data-idx="${idx}" data-field="indicators" placeholder="${escapeHtml(tw('Objectively verifiable indicators...'))}" style="min-height: 60px;" aria-label="${escapeHtml(outputLbl)}">${escapeHtml(op.indicators || '')}</textarea></td>
+          <td><textarea dir="auto" class="form-textarea outp-field" data-idx="${idx}" data-field="verification" placeholder="${escapeHtml(tw('Means of verification...'))}" style="min-height: 60px;" aria-label="${escapeHtml(outputLbl)}">${escapeHtml(op.verification || '')}</textarea></td>
+          <td><textarea dir="auto" class="form-textarea outp-field" data-idx="${idx}" data-field="assumptions" placeholder="${escapeHtml(tw('Output assumptions & risks...'))}" style="min-height: 60px;" aria-label="${escapeHtml(outputLbl)}">${escapeHtml(op.assumptions || '')}</textarea></td>
+          <td><button class="btn btn-sm btn-danger remove-outp-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove output {code}', { code: outputCode }, `Remove output ${outputCode}`))}">×</button></td>
         </tr>
       `;
     }).join('');
@@ -523,24 +545,25 @@
       const siblingActivities = activities.filter((a, i) => (a.outputId === act.outputId || (!a.outputId && parentOpIdx <= 0)) && i <= idx);
       const actSubIdx = siblingActivities.length;
       const activityCode = `${parentCode}.${actSubIdx}`;
+      const actLbl = tw('Activity {code}', { code: activityCode }, `Activity ${activityCode}`);
 
       const outputOptions = outputs.length > 0
-        ? outputs.map(op => `<option value="${escapeHtml(op.id)}" ${act.outputId === op.id ? 'selected' : ''}>Output ${getOutputCode(op.id)}</option>`).join('')
-        : `<option value="outp-1">Output 1.1</option>`;
+        ? outputs.map(op => `<option value="${escapeHtml(op.id)}" ${act.outputId === op.id ? 'selected' : ''}>${escapeHtml(tw('Output {code}', { code: getOutputCode(op.id) }, `Output ${getOutputCode(op.id)}`))}</option>`).join('')
+        : `<option value="outp-1">${escapeHtml(tw('Output {code}', { code: '1.1' }, 'Output 1.1'))}</option>`;
 
       return `
         <tr data-idx="${idx}">
           <td>
-            <div style="font-weight: 700; margin-bottom: 4px;">Activity ${activityCode}</div>
-            <select class="form-select act-field" data-idx="${idx}" data-field="outputId" style="font-size: 0.78rem; padding: 4px;" aria-label="Parent Output for Activity ${activityCode}">
+            <div style="font-weight: 700; margin-bottom: 4px;">${escapeHtml(actLbl)}</div>
+            <select class="form-select act-field" data-idx="${idx}" data-field="outputId" style="font-size: 0.78rem; padding: 4px;" aria-label="${escapeHtml(actLbl)}">
               ${outputOptions}
             </select>
           </td>
-          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="narrative" placeholder="Planned activity description..." style="min-height: 60px;" aria-label="Activity ${activityCode} narrative">${escapeHtml(act.narrative || '')}</textarea></td>
-          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="inputs" placeholder="Capital, Labor, Knowledge (RBB)" style="min-height: 60px;" aria-label="Activity ${activityCode} resource inputs">${escapeHtml(act.inputs || '')}</textarea></td>
-          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="verification" placeholder="Verification / monitoring..." style="min-height: 60px;" aria-label="Activity ${activityCode} verification">${escapeHtml(act.verification || '')}</textarea></td>
-          <td><textarea class="form-textarea act-field" data-idx="${idx}" data-field="assumptions" placeholder="Activity assumptions & risks..." style="min-height: 60px;" aria-label="Activity ${activityCode} assumptions">${escapeHtml(act.assumptions || '')}</textarea></td>
-          <td><button class="btn btn-sm btn-danger remove-act-btn" data-idx="${idx}" type="button" aria-label="Remove activity ${activityCode}">×</button></td>
+          <td><textarea dir="auto" class="form-textarea act-field" data-idx="${idx}" data-field="narrative" placeholder="${escapeHtml(tw('Planned activity description...'))}" style="min-height: 60px;" aria-label="${escapeHtml(actLbl)}">${escapeHtml(act.narrative || '')}</textarea></td>
+          <td><textarea dir="auto" class="form-textarea act-field" data-idx="${idx}" data-field="inputs" placeholder="${escapeHtml(tw('Capital, Labor, Knowledge (RBB)'))}" style="min-height: 60px;" aria-label="${escapeHtml(actLbl)}">${escapeHtml(act.inputs || '')}</textarea></td>
+          <td><textarea dir="auto" class="form-textarea act-field" data-idx="${idx}" data-field="verification" placeholder="${escapeHtml(tw('Verification / monitoring...'))}" style="min-height: 60px;" aria-label="${escapeHtml(actLbl)}">${escapeHtml(act.verification || '')}</textarea></td>
+          <td><textarea dir="auto" class="form-textarea act-field" data-idx="${idx}" data-field="assumptions" placeholder="${escapeHtml(tw('Activity assumptions & risks...'))}" style="min-height: 60px;" aria-label="${escapeHtml(actLbl)}">${escapeHtml(act.assumptions || '')}</textarea></td>
+          <td><button class="btn btn-sm btn-danger remove-act-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove activity {code}', { code: activityCode }, `Remove activity ${activityCode}`))}">×</button></td>
         </tr>
       `;
     }).join('');
@@ -628,14 +651,14 @@
   function importFromModule2() {
     const m2 = state.module2;
     if (!m2 || !m2.smartObjectives || m2.smartObjectives.length === 0) {
-      alert('No SMART objectives found in Module 2. Complete Module 2 first.');
+      alert(tw('No SMART objectives found in Module 2. Complete Module 2 first.'));
       return;
     }
 
     if (!state.module3.logframe.outcomes) state.module3.logframe.outcomes = [];
     const hasExisting = state.module3.logframe.outcomes.length > 0;
     if (hasExisting) {
-      const choice = confirm('You already have Logframe Outcomes.\n\nClick OK to MERGE (add missing objectives without deleting existing outcomes), or CANCEL to keep current outcomes without changes.');
+      const choice = confirm(tw('You already have Logframe Outcomes.\n\nClick OK to MERGE (add missing objectives without deleting existing outcomes), or CANCEL to keep current outcomes without changes.'));
       if (!choice) return;
     }
 
@@ -659,16 +682,16 @@
       }
     });
 
-    save('Imported Module 2 SMART Outcomes');
+    save(tw('Imported Module 2 SMART Outcomes'));
     renderLogframeTables();
-    alert(`Imported ${added} SMART objectives from Module 2 into Logframe Outcomes.`);
+    alert(tw('Imported {count} SMART objectives from Module 2 into Logframe Outcomes.', { count: added }, `Imported ${added} SMART objectives from Module 2 into Logframe Outcomes.`));
   }
 
   /* Inter-Module Data Pipeline: Import Risks from Module 1 SWOT Threats */
   function importThreatsFromModule1() {
     const m1 = state.module1;
     if (!m1 || !m1.swot || !m1.swot.threats || m1.swot.threats.length === 0) {
-      alert('No SWOT threats found in Module 1.');
+      alert(tw('No SWOT threats found in Module 1.'));
       return;
     }
 
@@ -692,10 +715,10 @@
     });
 
     recalculateRisks();
-    save('Imported Module 1 Threats into Risk Register');
+    save(tw('Imported Module 1 Threats into Risk Register'));
     renderRisks();
     render3x3RiskMatrix();
-    alert(`Imported ${added} external threats from Module 1 into the Risk Register.`);
+    alert(tw('Imported {count} external threats from Module 1 into the Risk Register.', { count: added }, `Imported ${added} external threats from Module 1 into the Risk Register.`));
   }
 
   /* Official UN 3x3 Risk Matrix zone calculation (UNPOL CBD Lesson 3 p. 40 / Slide 17) */
@@ -733,29 +756,29 @@
 
     host.innerHTML = state.module3.risks.map((r, idx) => `
       <tr data-idx="${idx}" style="${r.zone === 'red' ? 'background: #fff5f5;' : r.zone === 'yellow' ? 'background: #fffdf5;' : ''}">
-        <td><input class="form-input risk-field" data-idx="${idx}" data-field="title" value="${escapeHtml(r.title || '')}" placeholder="Risk description" aria-label="Risk description for row ${idx + 1}"></td>
+        <td><input dir="auto" class="form-input risk-field" data-idx="${idx}" data-field="title" value="${escapeHtml(r.title || '')}" placeholder="${escapeHtml(tw('Risk description'))}" aria-label="${escapeHtml(tw('Risk description'))}"></td>
         <td>
-          <select class="form-select risk-field score-l" data-idx="${idx}" data-field="likelihood" aria-label="Risk likelihood for row ${idx + 1}">
-            <option value="1" ${r.likelihood === 1 ? 'selected' : ''}>1 (Low)</option>
-            <option value="2" ${r.likelihood === 2 ? 'selected' : ''}>2 (Med)</option>
-            <option value="3" ${r.likelihood === 3 ? 'selected' : ''}>3 (High)</option>
+          <select class="form-select risk-field score-l" data-idx="${idx}" data-field="likelihood" aria-label="${escapeHtml(tw('Likelihood'))}">
+            <option value="1" ${r.likelihood === 1 ? 'selected' : ''}>${escapeHtml(tw('1 (Low)'))}</option>
+            <option value="2" ${r.likelihood === 2 ? 'selected' : ''}>${escapeHtml(tw('2 (Med)'))}</option>
+            <option value="3" ${r.likelihood === 3 ? 'selected' : ''}>${escapeHtml(tw('3 (High)'))}</option>
           </select>
         </td>
         <td>
-          <select class="form-select risk-field score-i" data-idx="${idx}" data-field="impact" aria-label="Risk impact for row ${idx + 1}">
-            <option value="1" ${r.impact === 1 ? 'selected' : ''}>1 (Low)</option>
-            <option value="2" ${r.impact === 2 ? 'selected' : ''}>2 (Med)</option>
-            <option value="3" ${r.impact === 3 ? 'selected' : ''}>3 (High)</option>
+          <select class="form-select risk-field score-i" data-idx="${idx}" data-field="impact" aria-label="${escapeHtml(tw('Impact'))}">
+            <option value="1" ${r.impact === 1 ? 'selected' : ''}>${escapeHtml(tw('1 (Low)'))}</option>
+            <option value="2" ${r.impact === 2 ? 'selected' : ''}>${escapeHtml(tw('2 (Med)'))}</option>
+            <option value="3" ${r.impact === 3 ? 'selected' : ''}>${escapeHtml(tw('3 (High)'))}</option>
           </select>
         </td>
         <td style="text-align:center;">
           <span class="cell-badge" style="background: ${r.zone === 'red' ? 'var(--danger)' : r.zone === 'yellow' ? 'var(--warn)' : 'var(--ok)'};">
-            ${r.zone.toUpperCase()} (${r.magnitude})
+            ${escapeHtml(tw(r.zone.toUpperCase()))} (${r.magnitude})
           </span>
         </td>
-        <td><textarea class="form-textarea risk-field" data-idx="${idx}" data-field="mitigationStrategy" style="min-height: 60px;" aria-label="Risk mitigation strategy for row ${idx + 1}">${escapeHtml(r.mitigationStrategy || '')}</textarea></td>
-        <td><textarea class="form-textarea risk-field" data-idx="${idx}" data-field="contingencyPlan" style="min-height: 60px;" aria-label="Risk contingency plan for row ${idx + 1}">${escapeHtml(r.contingencyPlan || '')}</textarea></td>
-        <td><button class="btn btn-sm btn-danger remove-risk-btn" data-idx="${idx}" type="button" aria-label="Remove risk row ${idx + 1}">×</button></td>
+        <td><textarea dir="auto" class="form-textarea risk-field" data-idx="${idx}" data-field="mitigationStrategy" style="min-height: 60px;" aria-label="${escapeHtml(tw('Mitigation Strategy'))}">${escapeHtml(r.mitigationStrategy || '')}</textarea></td>
+        <td><textarea dir="auto" class="form-textarea risk-field" data-idx="${idx}" data-field="contingencyPlan" style="min-height: 60px;" aria-label="${escapeHtml(tw('Contingency Plan'))}">${escapeHtml(r.contingencyPlan || '')}</textarea></td>
+        <td><button class="btn btn-sm btn-danger remove-risk-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove risk row {idx}', { idx: idx + 1 }, `Remove risk row ${idx + 1}`))}">×</button></td>
       </tr>
     `).join('');
 
@@ -768,6 +791,9 @@
         save();
         render3x3RiskMatrix();
       });
+      if (el.tagName === 'SELECT') {
+        el.addEventListener('change', () => renderRisks());
+      }
     });
 
     host.querySelectorAll('.remove-risk-btn').forEach(b => {
@@ -830,7 +856,7 @@
       if (cellEl) {
         const badgeHtml = `
           <div style="background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.15); border-radius: 4px; padding: 4px 6px; margin: 3px 0; font-size: 0.76rem; font-weight: 700; color: #111;">
-            <strong>R${idx + 1}:</strong> ${escapeHtml(r.title || 'Untitled Risk')}
+            <strong>R${idx + 1}:</strong> <span dir="auto" data-learner-text>${escapeHtml(r.title || tw('Untitled Risk'))}</span>
           </div>
         `;
         cellEl.insertAdjacentHTML('beforeend', badgeHtml);
@@ -843,7 +869,7 @@
     const host = document.getElementById('scenarioDrawerList');
     if (!host) return;
     const q = (searchQuery || '').toLowerCase().trim();
-    let paragraphs = Scenario.PARAGRAPHS;
+    let paragraphs = scLoc().PARAGRAPHS;
     if (q) {
       paragraphs = paragraphs.filter(p =>
         p.id.toString() === q || p.text.toLowerCase().includes(q)
@@ -851,7 +877,7 @@
     }
     host.innerHTML = paragraphs.map(p => `
       <div class="para-item">
-        <span class="para-badge">Paragraph ${p.id}</span>
+        <span class="para-badge">${escapeHtml(tw('Paragraph {id}', { id: p.id }, `Paragraph ${p.id}`))}</span>
         <p style="margin: 4px 0 0;">${escapeHtml(p.text)}</p>
       </div>
     `).join('');
@@ -886,7 +912,7 @@
     const host = document.getElementById('glossaryList');
     if (!host) return;
     const q = (searchQuery || '').toLowerCase().trim();
-    let terms = Glossary.TERMS;
+    let terms = glLoc().TERMS;
     if (q) {
       terms = terms.filter(t =>
         t.term.toLowerCase().includes(q) || t.definition.toLowerCase().includes(q)
@@ -929,13 +955,13 @@
       b.onclick = () => setStage(b.dataset.gotoStage);
     });
 
-    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
+    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save(tw('Saved locally')));
 
     // Confirmation checkbox listener
     const confirmBox = document.getElementById('confirmModule3') || document.getElementById('selfConfirmCheck');
     confirmBox?.addEventListener('change', e => {
       state.module3.confirmed = e.target.checked;
-      save(e.target.checked ? 'Phase 3 Confirmed' : 'Confirmation withdrawn');
+      save(e.target.checked ? tw('Phase {num} Confirmed', { num: 3 }, 'Phase 3 Confirmed') : tw('Confirmation withdrawn'));
       updateCompletionBadge();
     });
 
@@ -1008,7 +1034,7 @@
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
       if (!state.module3?.confirmed) {
-        const proceed = confirm('Note: Phase 3 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        const proceed = confirm(tw('Note: Phase 3 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?'));
         if (!proceed) return;
       }
       if (Storage.preparePrintableContent) Storage.preparePrintableContent();

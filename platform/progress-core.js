@@ -20,6 +20,13 @@
   const esc = x => String(x ?? '').replace(/[&<>"']/g, c => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[c]));
+  const allowCode = s => esc(s).replace(/&lt;(\/?code)&gt;/g, '<$1>');
+  function pt(key, vars, fallback, ns = 'platform') {
+    const g = (typeof window !== 'undefined' && window) || (typeof globalThis !== 'undefined' && globalThis) || null;
+    const i18n = g && g.CARANA_I18N;
+    if (i18n && i18n.getLang() !== 'en') return i18n.t(ns + '.' + key, vars, fallback);
+    return fallback;
+  }
 
   function isPlainObject(v) {
     return !!v && typeof v === 'object' && !Array.isArray(v);
@@ -182,8 +189,8 @@
       activityOpened: false,
       lessonComplete: false,
       labConfirmed: !!(rawLab && rawLab.module1 && rawLab.module1.confirmed === true),
-      statusText: 'Implemented · institutional validation pending · 0 / 6 checkpoints passed',
-      actionText: 'Open Lesson 1'
+      statusText: pt('l1DefaultStatus', null, 'Implemented · institutional validation pending · 0 / 6 checkpoints passed'),
+      actionText: pt('l1DefaultAction', null, 'Open Lesson 1')
     };
     if (!isPlainObject(rawL1) || rawL1.version !== 1 || !Array.isArray(rawL1.completed)) {
       return fallback;
@@ -207,24 +214,24 @@
       return {
         started: true, completedCount, totalCheckpoints: 6, lastSection, lastScreen, lastKind,
         activityOpened, lessonComplete, labConfirmed,
-        statusText: 'Guided study complete · 6 / 6 checkpoints + workbench self-confirmed',
-        actionText: 'Review Lesson 1'
+        statusText: pt('l1CompleteStatus', null, 'Guided study complete · 6 / 6 checkpoints + workbench self-confirmed'),
+        actionText: pt('l1CompleteAction', null, 'Review Lesson 1')
       };
     }
     if (completedCount === 6) {
       return {
         started: true, completedCount, totalCheckpoints: 6, lastSection, lastScreen, lastKind,
         activityOpened, lessonComplete, labConfirmed,
-        statusText: '6 / 6 checkpoints passed · Module 1 confirmation pending',
-        actionText: 'Continue to practice'
+        statusText: pt('l1PendingStatus', null, '6 / 6 checkpoints passed · Module 1 confirmation pending'),
+        actionText: pt('l1PendingAction', null, 'Continue to practice')
       };
     }
     if (started) {
       return {
         started: true, completedCount, totalCheckpoints: 6, lastSection, lastScreen, lastKind,
         activityOpened, lessonComplete, labConfirmed,
-        statusText: 'In progress (Section ' + (lastSection + 1) + ') · ' + completedCount + ' / 6 checkpoints passed',
-        actionText: 'Resume Lesson 1'
+        statusText: pt('l1ProgressStatus', { sec: lastSection + 1, done: completedCount }, 'In progress (Section ' + (lastSection + 1) + ') · ' + completedCount + ' / 6 checkpoints passed'),
+        actionText: pt('l1ProgressAction', null, 'Resume Lesson 1')
       };
     }
     return fallback;
@@ -232,12 +239,12 @@
 
   function describeCatalogLesson(lessonEntry, lessonRecord) {
     const total = Number.isInteger(lessonEntry.sectionsCount) ? lessonEntry.sectionsCount : null;
-    const baseNote = lessonEntry.status || 'Review adaptation · transcript available · recording and expert validation pending';
+    const baseNote = lessonEntry.status || pt('descDefaultNote', null, 'Review adaptation · transcript available · recording and expert validation pending');
     if (!isPlainObject(lessonRecord)) {
       return {
         state: 'fresh',
         statusText: baseNote,
-        actionText: 'Explore lesson'
+        actionText: pt('descExplore', null, 'Explore lesson')
       };
     }
     const prevList = Array.isArray(lessonRecord.previousProgress) ? lessonRecord.previousProgress : [];
@@ -248,8 +255,8 @@
       const oldDrafts = countDraftScreens(lessonRecord.drafts) + archivedDraftScreens;
       return {
         state: 'migrated',
-        statusText: 'Updated content ready · ' + oldChecks + ' prior checkpoint(s) & ' + oldDrafts + ' draft screen(s) will be archived on open · ' + baseNote,
-        actionText: 'Review updated lesson'
+        statusText: pt('descMigratedStatus', { checks: oldChecks, drafts: oldDrafts, base: baseNote }, 'Updated content ready · ' + oldChecks + ' prior checkpoint(s) & ' + oldDrafts + ' draft screen(s) will be archived on open · ' + baseNote),
+        actionText: pt('descMigratedAction', null, 'Review updated lesson')
       };
     }
 
@@ -263,28 +270,28 @@
       ? lessonEntry.sectionTitles[secIdx]
       : 'Section ' + (secIdx + 1);
     const activeDrafts = countDraftScreens(lessonRecord.drafts);
-    const draftNote = activeDrafts > 0 ? ' · ' + activeDrafts + ' practice draft(s)' : '';
+    const draftNote = activeDrafts > 0 ? pt('descDraftNote', { count: activeDrafts }, ' · ' + activeDrafts + ' practice draft(s)') : '';
 
     if (total !== null && passed >= total) {
       return {
         state: 'completed',
-        statusText: 'Guided study complete · ' + passed + denom + ' checkpoints passed' + draftNote + ' · ' + baseNote,
-        actionText: 'Review completed lesson'
+        statusText: pt('descCompletedStatus', { passed, denom, draftNote, base: baseNote }, 'Guided study complete · ' + passed + denom + ' checkpoints passed' + draftNote + ' · ' + baseNote),
+        actionText: pt('descCompletedAction', null, 'Review completed lesson')
       };
     }
 
     if (passed > 0 || secIdx > 0 || (lessonRecord.screen || 0) > 0 || lessonRecord.view === 'quiz' || activeDrafts > 0) {
       return {
         state: 'in-progress',
-        statusText: 'Resume: ' + secTitle + ' · ' + passed + denom + ' checkpoints passed' + draftNote,
-        actionText: 'Resume lesson'
+        statusText: pt('descResumeStatus', { sec: secTitle, passed, denom, draftNote }, 'Resume: ' + secTitle + ' · ' + passed + denom + ' checkpoints passed' + draftNote),
+        actionText: pt('descResumeAction', null, 'Resume lesson')
       };
     }
 
     return {
       state: 'reading',
-      statusText: 'Started (' + secTitle + ' · Screen 1) · 0' + denom + ' checkpoints passed · ' + baseNote,
-      actionText: 'Resume lesson'
+      statusText: pt('descResumeStatus', { sec: secTitle, passed: 0, denom, draftNote: '' }, 'Started (' + secTitle + ' · Screen 1) · 0' + denom + ' checkpoints passed') + ' · ' + baseNote,
+      actionText: pt('descResumeAction', null, 'Resume lesson')
     };
   }
 
@@ -644,20 +651,24 @@
   function renderDraftBlockHTML(screen, fieldsObj) {
     const lab = screen.lab;
     if (!lab || !isPlainObject(fieldsObj) || safeKeys(fieldsObj).length === 0) return '';
+    const debriefLabel = pt('studyDebrief', null, 'Debrief prompt:');
     if (lab.type === 'builder') {
+      const scLabel = pt('studySelfCheck', null, 'Self-check:');
+      const notDrafted = pt('studyNotDrafted', null, 'Not yet drafted');
       const rows = lab.fields.map((f, i) => {
         const val = typeof fieldsObj[i] === 'string' ? fieldsObj[i].trim() : '';
         return '<div class="study-field"><h4>' + esc(f.label) + '</h4><p class="study-prompt">' + esc(f.prompt) + '</p>' +
-          (val ? '<p class="study-answer">' + esc(val) + '</p>' : '<p class="study-empty">Not yet drafted</p>') +
-          (f.check ? '<p class="study-check"><strong>Self-check:</strong> ' + esc(f.check) + '</p>' : '') + '</div>';
+          (val ? '<p class="study-answer" dir="auto">' + esc(val) + '</p>' : '<p class="study-empty">' + esc(notDrafted) + '</p>') +
+          (f.check ? '<p class="study-check"><strong>' + esc(scLabel) + '</strong> ' + esc(f.check) + '</p>' : '') + '</div>';
       }).join('');
       return '<div class="study-tool"><h3>' + esc(screen.id + ' · ' + lab.title) + '</h3>' + rows +
-        '<p class="study-debrief"><strong>Debrief prompt:</strong> ' + esc(lab.debrief) + '</p></div>';
+        '<p class="study-debrief"><strong>' + esc(debriefLabel) + '</strong> ' + esc(lab.debrief) + '</p></div>';
     }
     if (lab.type === 'classify') {
+      const notSel = pt('studyNotSelected', null, 'Not yet selected');
       const rows = lab.items.map((item, i) => {
         const chosenIdx = fieldsObj[i];
-        const chosenText = Number.isInteger(chosenIdx) && lab.categories[chosenIdx] ? lab.categories[chosenIdx] : 'Not yet selected';
+        const chosenText = Number.isInteger(chosenIdx) && lab.categories[chosenIdx] ? lab.categories[chosenIdx] : notSel;
         return '<li><span>' + esc(item.text) + '</span> — <strong>' + esc(chosenText) + '</strong></li>';
       }).join('');
       return '<div class="study-tool"><h3>' + esc(screen.id + ' · ' + lab.title) + '</h3><ul>' + rows + '</ul></div>';
@@ -665,17 +676,20 @@
     if (lab.type === 'priority') {
       const weights = lab.criteria.map((_, i) => (Number.isInteger(fieldsObj[i]) ? fieldsObj[i] : 1));
       const ranked = learningTools ? learningTools.rank(lab, weights) : [];
+      const ptsLbl = pt('ptsUnit', null, 'pts', 'learningTools');
       return '<div class="study-tool"><h3>' + esc(screen.id + ' · ' + lab.title) + '</h3>' +
-        '<p>Saved weights: ' + lab.criteria.map((c, i) => esc(c) + ' (' + weights[i] + ')').join(', ') + '</p>' +
-        (ranked.length ? '<p>Illustrative totals: ' + ranked.map(r => esc(r.label + ': ' + r.score + ' pts [' + r.constraint + ']')).join(' · ') + '</p>' : '') +
+        '<p>' + esc(pt('studySavedWeights', null, 'Saved weights: ')) + lab.criteria.map((c, i) => esc(c) + ' (' + weights[i] + ')').join(', ') + '</p>' +
+        (ranked.length ? '<p>' + esc(pt('studyTotals', null, 'Illustrative totals: ')) + ranked.map(r => esc(r.label + ': ' + r.score + ' ' + ptsLbl + ' [' + r.constraint + ']')).join(' · ') + '</p>' : '') +
         '</div>';
     }
     if (lab.type === 'risk') {
       const l = fieldsObj.likelihood ?? 2;
       const im = fieldsObj.impact ?? 2;
+      const riskSummary = pt('likelihood', null, 'Selected likelihood', 'learningTools') + ' ' + l + ', ' +
+        pt('impact', null, 'impact', 'learningTools') + ' ' + im + ' (' + (l * im) + ').';
       return '<div class="study-tool"><h3>' + esc(screen.id + ' · ' + lab.title) + '</h3>' +
-        '<p>Selected likelihood ' + esc(l) + ', impact ' + esc(im) + ' (illustrative product ' + esc(l * im) + ').</p>' +
-        '<p class="study-debrief"><strong>Debrief prompt:</strong> ' + esc(lab.debrief) + '</p></div>';
+        '<p>' + esc(learningTools && typeof window !== 'undefined' && window.CARANA_I18N && window.CARANA_I18N.getLang() !== 'en' ? riskSummary : 'Selected likelihood ' + l + ', impact ' + im + ' (illustrative product ' + (l * im) + ').') + '</p>' +
+        '<p class="study-debrief"><strong>' + esc(debriefLabel) + '</strong> ' + esc(lab.debrief) + '</p></div>';
     }
     return '';
   }
@@ -683,14 +697,14 @@
   function buildStudySummaryBodyHTML(store, lessonsData, l1Summary, exportedAt) {
     const stamp = exportedAt || new Date().toISOString();
     const parts = [];
-    parts.push('<div class="study-header"><span class="eyebrow">CARANA E-Learning · Study-Work Summary</span>' +
-      '<h1>Learner Drafts &amp; Study Preparation Sheet</h1>' +
-      '<p class="status">Generated locally: ' + esc(stamp) + ' · Browser-local study record; not a UN certificate, observed workplace competence, or facilitator solution key.</p></div>');
+    parts.push('<div class="study-header"><span class="eyebrow">' + esc(pt('studyHeaderEyebrow', null, 'CARANA E-Learning · Study-Work Summary')) + '</span>' +
+      '<h1>' + esc(pt('studyHeaderTitle', null, 'Learner Drafts & Study Preparation Sheet')) + '</h1>' +
+      '<p class="status">' + esc(pt('studyHeaderMeta', { date: stamp }, 'Generated locally: ' + stamp + ' · Browser-local study record; not a UN certificate, observed workplace competence, or facilitator solution key.')) + '</p></div>');
 
     if (l1Summary) {
-      parts.push('<section class="study-lesson"><h2>Lesson 1: Situational Analysis (Approved Benchmark)</h2>' +
+      parts.push('<section class="study-lesson"><h2>' + esc(pt('studyL1Heading', null, 'Lesson 1: Situational Analysis (Approved Benchmark)')) + '</h2>' +
         '<p class="status">' + esc(l1Summary.statusText) + '</p>' +
-        '<p>Original practical workbench: <code>module1.html</code> (PESTEL-S, 5×6 Matrix, SWOT, Baseline).</p></section>');
+        '<p>' + allowCode(pt('studyL1OrigNote', null, 'Original practical workbench: <code>module1.html</code> (PESTEL-S, 5×6 Matrix, SWOT, Baseline).')) + '</p></section>');
     }
 
     for (const lesson of (lessonsData || [])) {
@@ -700,8 +714,8 @@
         ? normalizeCompleted(rec.completed, sectionCount).length
         : 0;
       const versionNote = rec && rec.contentVersion !== lesson.version
-        ? 'Stored record is from earlier version ' + rec.contentVersion + ' (not yet updated to ' + lesson.version + ').'
-        : passed + ' / ' + sectionCount + ' checkpoints passed (' + lesson.version + ').';
+        ? pt('studyVersionMismatch', { oldVer: rec.contentVersion, curVer: lesson.version }, 'Stored record is from earlier version ' + rec.contentVersion + ' (not yet updated to ' + lesson.version + ').')
+        : pt('studyCheckpointsLine', { passed, total: sectionCount, ver: lesson.version }, passed + ' / ' + sectionCount + ' checkpoints passed (' + lesson.version + ').');
 
       const toolBlocks = [];
       for (const sec of lesson.sections) {
@@ -730,32 +744,37 @@
           }
         }
         if (inner.length) {
-          archivedBlocks.push('<div class="study-archived"><h3>Archived Drafts (' + esc(prev.contentVersion) + ')</h3>' + inner.join('') + '</div>');
+          archivedBlocks.push('<div class="study-archived"><h3>' + esc(pt('studyArchivedHeading', { ver: prev.contentVersion }, 'Archived Drafts (' + prev.contentVersion + ')')) + '</h3>' + inner.join('') + '</div>');
         }
       }
 
-      parts.push('<section class="study-lesson"><h2>Lesson ' + esc(lesson.number + ': ' + lesson.title) + '</h2>' +
-        '<p class="status">' + esc(versionNote) + ' · Practical activity: <code>module' + esc(lesson.number) + '.html</code></p>' +
-        (toolBlocks.length ? toolBlocks.join('') : '<p class="study-empty">No practice drafts saved in the current version of this lesson yet.</p>') +
+      const lessonPrefix = pt('lessonWord', { num: lesson.number }, 'Lesson ' + lesson.number);
+      parts.push('<section class="study-lesson"><h2>' + esc(lessonPrefix + ': ' + lesson.title) + '</h2>' +
+        '<p class="status">' + esc(versionNote) + ' · ' + esc(pt('studyPracticalLabel', null, 'Practical activity:')) + ' <code>module' + esc(lesson.number) + '.html</code></p>' +
+        (toolBlocks.length ? toolBlocks.join('') : '<p class="study-empty">' + esc(pt('studyEmptyLesson', null, 'No practice drafts saved in the current version of this lesson yet.')) + '</p>') +
         archivedBlocks.join('') + '</section>');
     }
     return parts.join('');
   }
 
   function buildStudySummaryDocumentHTML(store, lessonsData, l1Summary, exportedAt) {
+    const g = (typeof window !== 'undefined' && window) || (typeof globalThis !== 'undefined' && globalThis) || null;
+    const i18n = g && g.CARANA_I18N;
+    const lang = i18n ? i18n.getLang() : 'en';
+    const dir = lang === 'ar' ? 'rtl' : 'ltr';
     const body = buildStudySummaryBodyHTML(store, lessonsData, l1Summary, exportedAt);
-    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-      '<title>CARANA E-Learning — Study-Work Summary</title>' +
+    return '<!doctype html><html lang="' + esc(lang) + '"' + (dir === 'rtl' ? ' dir="rtl"' : '') + '><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+      '<title>' + esc(pt('studyHeaderEyebrow', null, 'CARANA E-Learning — Study-Work Summary')) + '</title>' +
       '<style>' +
       'body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#102d46;background:#f5f9fa;margin:0;padding:32px 20px;line-height:1.6}' +
       '.wrap{max-width:920px;margin:0 auto;background:#fff;border:1px solid #cbdde4;border-radius:12px;padding:32px}' +
-      '.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#146981}' +
+      '.eyebrow{font-size:12px;font-weight:700;letter-spacing:' + (dir === 'rtl' ? '0' : '.12em') + ';text-transform:uppercase;color:#146981}' +
       'h1,h2,h3,h4{font-family:Georgia,serif;color:#102d46}h1{margin:8px 0 10px}h2{border-bottom:1px solid #cbdde4;padding-bottom:8px;margin-top:28px}' +
       '.status{font-size:13px;color:#425d71}.study-lesson{margin-bottom:28px}.study-tool{background:#f9fcfd;border:1px solid #d7e6ec;border-radius:8px;padding:16px;margin:14px 0}' +
       '.study-field{margin:12px 0;padding-top:10px;border-top:1px solid #e7f0f3}.study-field:first-of-type{border-top:0;padding-top:0}' +
       '.study-prompt{font-size:13px;color:#425d71;margin:4px 0}.study-answer{background:#fff;border:1px solid #cbdde4;border-radius:6px;padding:10px;white-space:pre-wrap}' +
       '.study-empty{font-style:italic;color:#62788a}.study-check,.study-debrief{font-size:13px;color:#146981;margin:6px 0 0}' +
-      '.study-archived{background:#fff8eb;border-left:4px solid #a56f12;padding:12px 16px;margin:14px 0;border-radius:6px}' +
+      '.study-archived{background:#fff8eb;border-inline-start:4px solid #a56f12;padding:12px 16px;margin:14px 0;border-radius:6px}' +
       '@media print{body{background:#fff;padding:0}.wrap{border:0;padding:0}.study-tool,.study-lesson{break-inside:avoid}}' +
       '</style></head><body><main class="wrap">' + body + '</main></body></html>';
   }

@@ -1,0 +1,459 @@
+/* CARANA Run 08 — Trilingual, RTL & Arabic Typography Stylesheet
+ * Applies logical layout corrections, Arabic script spacing rules,
+ * bidirectional isolation, and the unified language selector widget.
+ */
+
+/* Unified Language Selector */
+.carana-lang-switch {
+  --lang-border: rgba(167, 232, 234, 0.34);
+  --lang-bg: rgba(9, 28, 46, 0.42);
+  --lang-ink: #dcf4f6;
+  --lang-hover: rgba(167, 232, 234, 0.16);
+  --lang-active-bg: #b6f0e4;
+  --lang-active-ink: #0a253a;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid var(--lang-border);
+  background: var(--lang-bg);
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+.carana-lang-switch.is-light {
+  --lang-border: #b6ccd6;
+  --lang-bg: #eef5f8;
+  --lang-ink: #173a52;
+  --lang-hover: #ddecf2;
+  --lang-active-bg: #0f5c6e;
+  --lang-active-ink: #ffffff;
+}
+
+.carana-lang-btn {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--lang-ink);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 6px 10px;
+  min-height: 32px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carana-lang-btn {
+    transition: none;
+  }
+}
+
+.carana-lang-btn[lang="ar"] {
+  font-family: "Noto Sans Arabic", "Geeza Pro", "SF Arabic", Tahoma, Arial, system-ui, sans-serif;
+  letter-spacing: 0;
+  font-size: 12.5px;
+}
+
+.carana-lang-btn:hover {
+  background: var(--lang-hover);
+}
+
+.carana-lang-btn.is-active {
+  background: var(--lang-active-bg);
+  color: var(--lang-active-ink);
+  font-weight: 800;
+}
+
+.carana-lang-btn:focus-visible {
+  outline: 2px solid #9ef2dc;
+  outline-offset: 2px;
+}
+
+.carana-lang-switch.is-light .carana-lang-btn:focus-visible {
+  outline-color: #0f5c6e;
+}
+
+@media (max-width: 640px) {
+  .carana-lang-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+    min-height: 30px;
+  }
+}
+
+/* Header wrapper refinements to host language switcher cleanly on narrow viewports */
+.carana-header-lang-host {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-inline-start: auto;
+}
+
+/* Explicit Localization / Translation Review Notice Pill */
+.carana-i18n-review-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 9px 14px;
+  margin: 12px 0;
+  border-radius: 9px;
+  border: 1px solid #c9dfe7;
+  border-inline-start: 4px solid #1e7f93;
+  background: #f1f8fa;
+  color: #1d4258;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* Bidirectional Isolation for User Content and Technical Identifiers */
+[dir="rtl"] code,
+[dir="rtl"] pre,
+[dir="rtl"] kbd,
+[dir="rtl"] bdi,
+[dir="rtl"] .ltr-token,
+[dir="rtl"] .voice-time,
+[dir="rtl"] .screen-count {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+[dir="rtl"] input[type="text"],
+[dir="rtl"] input[type="search"],
+[dir="rtl"] input:not([type]),
+[dir="rtl"] textarea,
+[dir="rtl"] [data-learner-text],
+input[dir="auto"],
+textarea[dir="auto"],
+[data-learner-text] {
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+
+/* Arabic Typography & Cursive Ligature Protection */
+[lang="ar"] {
+  --type-display: "Noto Naskh Arabic", "Geeza Pro", "SF Arabic", "Noto Sans Arabic", Tahoma, Arial, system-ui, sans-serif;
+  --type-sans: "Noto Sans Arabic", "Geeza Pro", "SF Arabic", Tahoma, Arial, system-ui, sans-serif;
+  font-family: var(--type-sans);
+}
+
+[lang="ar"] body,
+[lang="ar"] button,
+[lang="ar"] input,
+[lang="ar"] select,
+[lang="ar"] textarea {
+  font-family: "Noto Sans Arabic", "Geeza Pro", "SF Arabic", Tahoma, Arial, system-ui, sans-serif;
+}
+
+[lang="ar"] :not([dir="ltr"]):not(bdi):not(code) {
+  letter-spacing: 0 !important;
+}
+
+[lang="ar"] h1,
+[lang="ar"] h2,
+[lang="ar"] h3,
+[lang="ar"] .content-title h1,
+[lang="ar"] .section-heading h2,
+[lang="ar"] .decision-heading h2 {
+  font-family: "Noto Naskh Arabic", "Geeza Pro", "SF Arabic", "Noto Sans Arabic", Tahoma, Arial, system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.42;
+}
+
+[lang="ar"] p,
+[lang="ar"] li,
+[lang="ar"] label,
+[lang="ar"] td,
+[lang="ar"] th,
+[lang="ar"] .lead,
+[lang="ar"] .voice-transcript p,
+[lang="ar"] .decision-option {
+  line-height: 1.78;
+}
+
+[lang="ar"] .cycle-core-title {
+  letter-spacing: 0 !important;
+  font-size: clamp(32px, 3vw, 46px);
+  line-height: 1.3;
+}
+
+[lang="ar"] .cycle-stage-copy small,
+[lang="ar"] .eyebrow,
+[lang="ar"] .content-overline,
+[lang="ar"] .rail-overline,
+[lang="ar"] .context-overline,
+[lang="ar"] .decision-eyebrow,
+[lang="ar"] .vj-eyebrow,
+[lang="ar"] .micro-label {
+  text-transform: none;
+  font-weight: 700;
+}
+
+/* Logical RTL Direction Adjustments Across Existing Surfaces */
+[dir="rtl"] .dir-arrow {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .brand-button,
+[dir="rtl"] .rail-item,
+[dir="rtl"] .decision-option,
+[dir="rtl"] .concept-option,
+[dir="rtl"] .highlight-action button,
+[dir="rtl"] .rail-activity-cta,
+[dir="rtl"] .completion-activity-banner,
+[dir="rtl"] .cycle-stage,
+[dir="rtl"] .vj-node,
+[dir="rtl"] .track-step,
+[dir="rtl"] .vg-screen,
+[dir="rtl"] .voice-time {
+  text-align: start;
+}
+
+[dir="rtl"] .voice-availability,
+[dir="rtl"] .voice-time,
+[dir="rtl"] .hub-summary,
+[dir="rtl"] .cycle-header-code,
+[dir="rtl"] .header-right {
+  margin-inline-start: auto;
+  margin-inline-end: 0;
+}
+
+[dir="rtl"] .back-home,
+[dir="rtl"] .premium-navigation {
+  text-align: start;
+}
+
+/* Side rail, context panel, borders, and rounded accent strips */
+[dir="rtl"] .side-rail {
+  border-right: 0;
+  border-left: 1px solid var(--border);
+}
+
+@media (max-width: 980px) {
+  [dir="rtl"] .side-rail {
+    border-left: 0;
+  }
+}
+
+[dir="rtl"] .context-panel {
+  border-left: 0;
+  border-right: 1px solid var(--border);
+}
+
+[dir="rtl"] .metrics > div {
+  border-right: 0;
+  border-left: 1px solid var(--border);
+  padding-left: 0;
+  padding-right: 28px;
+}
+
+[dir="rtl"] .metrics > div:first-child {
+  padding-right: 0;
+}
+
+[dir="rtl"] .metrics > div:last-child {
+  border-left: 0;
+}
+
+[dir="rtl"] .takeaway,
+[dir="rtl"] .hub-notice,
+[dir="rtl"] .rail-note,
+[dir="rtl"] .activity-note,
+[dir="rtl"] .training-safeguard,
+[dir="rtl"] .lab-disclaimer,
+[dir="rtl"] .feedback,
+[dir="rtl"] .vc-passage-box,
+[dir="rtl"] .concept-feedback {
+  border-left-width: 1px;
+  border-inline-start-width: 4px;
+  border-inline-start-style: solid;
+}
+
+[dir="rtl"] .takeaway,
+[dir="rtl"] .vc-passage-box,
+[dir="rtl"] .lab-disclaimer {
+  border-radius: 10px 0 0 10px;
+}
+
+[dir="rtl"] .training-safeguard {
+  border-left: 1px solid transparent;
+  border-right: 5px solid var(--gold);
+  border-radius: var(--radius) 4px 4px var(--radius);
+}
+
+[dir="rtl"] .lab-disclaimer {
+  border-left: 0;
+  border-right: 3px solid var(--line-strong);
+}
+
+[dir="rtl"] .is-learning .vj-stage .vj-answer,
+[dir="rtl"] .is-learning .vj-swot .vj-answer {
+  border-left-width: 1px;
+  border-inline-start-width: 4px;
+}
+
+/* Interactive Diagrams & Matrices in RTL */
+[dir="rtl"] .visual .nodes-logframe button:not(:last-child)::after {
+  content: "←" !important;
+}
+
+@media (max-width: 650px) {
+  [dir="rtl"] .visual .nodes-logframe button:not(:last-child)::after {
+    content: "↓" !important;
+  }
+}
+
+[dir="rtl"] .is-learning :is(.vj-path, .vj-timeline, .vj-gates, .vj-route) .vj-node:not(:last-child)::after,
+[dir="rtl"] .is-learning .vj-tree .vj-node:not(:last-child)::after {
+  content: "←";
+  right: auto;
+  left: -15px;
+}
+
+[dir="rtl"] .is-learning .vj-quadrant {
+  padding: 10px 33px 30px 8px;
+}
+
+[dir="rtl"] .is-learning .vj-quadrant::before {
+  left: auto;
+  right: 2px;
+}
+
+[dir="rtl"] .is-learning .vj-quadrant::after {
+  left: auto;
+  right: 42%;
+}
+
+/* Tables in RTL */
+[dir="rtl"] .matrix-table thead th:first-child,
+[dir="rtl"] .matrix-table tbody th,
+[dir="rtl"] .vc-table th,
+[dir="rtl"] .vc-table td,
+[dir="rtl"] table th,
+[dir="rtl"] table td {
+  text-align: start;
+}
+
+[dir="rtl"] .matrix-table td {
+  border-right: 0;
+  border-left: 1px solid #e5eef2;
+  text-align: center;
+}
+
+[dir="rtl"] .matrix-table tr > :last-child {
+  border-left: 0;
+}
+
+/* Off-Canvas Scenario Drawer & Toasts in RTL (Zero closed-drawer overflow) */
+.scenario-drawer:not(.open) {
+  visibility: hidden;
+}
+
+[dir="rtl"] .scenario-drawer {
+  right: auto;
+  left: 0;
+  box-shadow: 10px 0 30px rgba(10, 28, 44, 0.25);
+  transform: translateX(-100%);
+}
+
+[dir="rtl"] .scenario-drawer.open {
+  transform: translateX(0);
+}
+
+[dir="rtl"] .toast-container {
+  right: auto;
+  left: 24px;
+}
+
+[dir="rtl"] .curriculum-highlights .highlight-stat,
+[dir="rtl"] .curriculum-highlights .highlight-action {
+  border-left: 0;
+  border-right: 1px solid #e7ecf0;
+}
+
+@media (max-width: 800px) {
+  [dir="rtl"] .curriculum-highlights .highlight-stat:nth-of-type(2) {
+    border-right: 0;
+  }
+  [dir="rtl"] .curriculum-highlights .highlight-action {
+    border-right: 0;
+  }
+}
+
+/* Learning Companion Modal & Reading Bar Overscroll / RTL refinements */
+.carana-assistant,
+.carana-assistant::backdrop {
+  overscroll-behavior: contain;
+}
+
+[dir="rtl"] .lesson-graphic {
+  right: auto;
+  left: 40px;
+}
+
+@media (max-width: 800px) {
+  [dir="rtl"] .lesson-graphic {
+    left: 14px;
+  }
+}
+
+[dir="rtl"] .support-read-status,
+[dir="rtl"] .assistant-messages,
+[dir="rtl"] .assistant-msg {
+  text-align: start;
+}
+
+[dir="rtl"] .assistant-source-chip,
+[dir="rtl"] .assistant-msg code {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Scrollable region focus outline (accessible responsive tables) */
+.table-scroll:focus-visible,
+.vc-table-wrap:focus-visible {
+  outline: 3px solid #248dae;
+  outline-offset: 2px;
+}
+
+/* Keep topbar language switcher visible & non-overflowing across mobile/tablet breakpoints */
+#home-lang-slot {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 800px) {
+  html {
+    scroll-behavior: auto;
+  }
+  .premium-topbar {
+    height: auto;
+    min-height: 70px;
+    padding-block: 10px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .premium-topbar .premium-navigation {
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+  }
+  .course-header {
+    position: static;
+  }
+  .course-header .header-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}

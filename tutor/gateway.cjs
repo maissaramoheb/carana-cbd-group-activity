@@ -18,6 +18,81 @@ const ROOT = path.resolve(__dirname, '..');
 const ALLOWED_MODELS = /^(?:qwen3:(?:0\.6b|1\.7b|4b|4b-instruct-2507-q4_K_M|14b)|gemma4:(?:e4b|12b|26b)|qwen3\.5:(?:4b|9b)|carana-gemma4-text)$/;
 const REMOTE_ORIGIN_RE = /^https:\/\/(?:carana-cbd-elearning(?:-[a-z0-9-]+)?\.vercel\.app|e-learning\.maissara\.tech|cbd\.maissara\.tech)$/i;
 
+const VALID_LANGS = new Set(['en', 'fr-FR', 'ar']);
+
+const GW_MESSAGES = {
+  en: {
+    studyGuideIntro: 'I can help you review the underlying concepts, but I will not select checkpoint options or reveal facilitator solutions.\n\nReview: ',
+    studyGuideOutro: '\n\nUse the source references and your own reasoning before returning to the checkpoint.',
+    sourceCheckDecline: (title, num) =>
+      'I could not retrieve enough authorized evidence for that wording on "' +
+      title +
+      '" (Lesson ' +
+      num +
+      '). Try Explain this screen, or rephrase using terms from the CBD curriculum.',
+    validationDecline: reason =>
+      'I could not deliver an evidence-checked reply for that question without risking unverified claims. Review the retrieved source excerpts below and rephrase using exact concepts from this screen.\n\nEvidence limits: Server validation blocked a draft response (' +
+      reason +
+      ').',
+    shuttingDown: 'The local AI service is restarting or shutting down. Try again in a moment.',
+    memoryPressure: 'The Mac host is under memory pressure right now. Wait a moment and retry.',
+    aborted: 'The local reply timed out or was cancelled. No answer was supplied.',
+    unavailable: 'The local model was unavailable or its response did not pass source checks. Try again later; the course remains available.',
+    unavailableShort: 'The local model was unavailable or did not pass source checks. Retry shortly.',
+    busy: 'The local model is answering another question. Try again shortly.',
+    overload: (qLen, maxQ) => 'Several questions are already waiting in line (' + qLen + '/' + maxQ + '). Please wait a moment and try again.',
+    queueTimeout: 'Queue wait timed out before the local model became free. Please try again.'
+  },
+  'fr-FR': {
+    studyGuideIntro: 'Je peux vous aider à revoir les concepts sous-jacents, mais je ne sélectionne pas d’options de point de contrôle ni ne révèle de corrigé ou solution de facilitateur.\n\nÀ revoir : ',
+    studyGuideOutro: '\n\nAppuyez-vous sur les références sources et votre propre raisonnement avant de revenir au point de contrôle.',
+    sourceCheckDecline: (title, num) =>
+      'Je n’ai pas pu retrouver suffisamment de preuves autorisées pour cette formulation sur « ' +
+      title +
+      ' » (Leçon ' +
+      num +
+      '). Essayez « Expliquer cet écran » ou reformulez avec les notions du programme CBD.',
+    validationDecline: reason =>
+      'Je n’ai pas pu fournir une réponse vérifiée par les sources sans risquer des affirmations non étayées. Consultez les extraits sources ci-dessous et reformulez avec les concepts exacts de cet écran.\n\nEvidence limits: La validation serveur a bloqué un brouillon (' +
+      reason +
+      ').',
+    shuttingDown: 'Le service IA local redémarre ou s’arrête. Réessayez dans un instant.',
+    memoryPressure: 'L’hôte Mac subit actuellement une contrainte mémoire. Patientez un instant et réessayez.',
+    aborted: 'La réponse locale a expiré ou été annulée. Aucune réponse fournie.',
+    unavailable: 'Le modèle local est indisponible ou sa réponse n’a pas franchi le contrôle des sources. Le cours reste accessible.',
+    unavailableShort: 'Le modèle local est indisponible ou n’a pas validé les sources. Réessayez bientôt.',
+    busy: 'Le modèle local traite une autre question. Réessayez dans un instant.',
+    overload: (qLen, maxQ) => 'Plusieurs questions sont déjà en attente (' + qLen + '/' + maxQ + '). Patientez un instant.',
+    queueTimeout: 'L’attente en file a expiré avant que le modèle local ne se libère. Veuillez réessayer.'
+  },
+  ar: {
+    studyGuideIntro: 'يمكنني مساعدتك في مراجعة المفاهيم الأساسية، لكنني لن أختار إجابات نقاط التحقق ولن أكشف مفاتيح الحلول أو إجابات الميسّرين.\n\nموضوع المراجعة: ',
+    studyGuideOutro: '\n\nاستعن بالمراجع الموثقة ومنطقك التحليلي قبل العودة إلى نقطة التحقق.',
+    sourceCheckDecline: (title, num) =>
+      'تعذر استرجاع أدلة كافية من المنهج المعتمد لهذه الصياغة ضمن «' +
+      title +
+      '» (الدرس ' +
+      num +
+      '). جرّب «اشرح هذه الشاشة» أو أعد الصياغة بمصطلحات منهج CBD.',
+    validationDecline: reason =>
+      'تعذر تقديم رد محقق المصادر لهذا السؤال دون المخاطرة بادعاءات غير موثقة. راجع المراجع المسترجعة أدناه وأعد الصياغة باستخدام مفاهيم هذه الشاشة.\n\nEvidence limits: أوقف التحقق الآلي مسودة غير مطابقة (' +
+      reason +
+      ').',
+    shuttingDown: 'خدمة الذكاء الاصطناعي المحلية قيد إعادة التشغيل أو الإيقاف. حاول مجددًا بعد لحظات.',
+    memoryPressure: 'الجهاز المضيف يواجه ضغطًا في الذاكرة حاليًا. انتظر قليلًا ثم أعد المحاولة.',
+    aborted: 'انتهت مهلة الرد المحلي أو تم إلغاؤه. لم تُقدَّم إجابة.',
+    unavailable: 'النموذج المحلي غير متاح حاليًا أو لم تجتز إجابته فحص المصادر. يظل المساق متاحًا.',
+    unavailableShort: 'النموذج المحلي غير متاح أو لم يجتز التحقق من المصادر. أعد المحاولة قريبًا.',
+    busy: 'النموذج المحلي يجيب عن سؤال آخر حاليًا. حاول بعد قليل.',
+    overload: (qLen, maxQ) => 'توجد عدة أسئلة في قائمة الانتظار حاليًا (' + qLen + '/' + maxQ + '). انتظر لحظة ثم أعد المحاولة.',
+    queueTimeout: 'انتهت مهلة الانتظار في الصف قبل توفر النموذج المحلي. يرجى المحاولة مجددًا.'
+  }
+};
+
+function gwMsg(lang) {
+  return GW_MESSAGES[lang] || GW_MESSAGES.en;
+}
+
 function defaultMemoryCheck() {
   const totalBytes = os.totalmem();
   let pressureLevel = 1;
@@ -143,7 +218,9 @@ function createHandler({
   };
 
   const protectedRequest = q =>
-    /\b(answer\s*key|facilitator.{0,30}(?:answer|solution)|annex\s*d|model\s*answers?|correct\s*(?:answer|option|letter)|system\s*prompt|reveal.{0,20}(?:secret|key)|execute.{0,20}(?:command|shell))\b/i.test(q);
+    /\b(answer\s*key|facilitator.{0,30}(?:answer|solution)|annex\s*d|model\s*answers?|correct\s*(?:answer|option|letter)|system\s*prompt|reveal.{0,20}(?:secret|key)|execute.{0,20}(?:command|shell)|corrig[ée]s?|cl[ée]\s+de\s+r[ée]ponse|r[ée]ponse\s+(?:exacte|correcte)|bonne\s+(?:option|lettre)|solution\s+du\s+facilitateur|annexe\s*d|r[ée]v[ée]ler.{0,20}(?:secret|cl[ée])|ignorez\s+les\s+instructions|invite\s+syst[èe]me|ex[ée]cuter\s+la\s+commande)\b|(?:مفتاح\s+(?:الإجابة|الحل)|الإجابة\s+الصحيحة|الخيار\s+الصحيح|الحرف\s+الصحيح|حل\s+الميس[ّ]?ر|ملحق\s*د|تجاهل\s+التعليمات|اكشف\s+(?:الرمز|السر|الكود)|أمر\s+النظام|موجه\s+النظام|نف[ّ]?ذ\s+الأمر|اعطني\s+الحل)/i.test(
+      q
+    );
 
   const clip = (t, n = 320) => {
     const s = String(t || '').trim();
@@ -419,7 +496,14 @@ function createHandler({
       }
       let payload;
       try { payload = JSON.parse(raw); } catch (_) { return json(res, 400, { message: 'Invalid JSON request.' }); }
-      if (!payload || typeof payload.text !== 'string' || !payload.text.trim() || payload.text.length > 1200) {
+      if (
+        !payload ||
+        Object.keys(payload).some(k => !['text', 'voice', 'lang'].includes(k)) ||
+        typeof payload.text !== 'string' ||
+        !payload.text.trim() ||
+        payload.text.length > 1200 ||
+        (payload.lang !== undefined && !VALID_LANGS.has(payload.lang))
+      ) {
         return json(res, 400, { message: 'Speech text is invalid.' });
       }
       if (!tts) return json(res, 503, { message: 'Local speech engine is unavailable.' });
@@ -430,7 +514,12 @@ function createHandler({
       const timer = setTimeout(() => abort.abort(), 45000);
       res.on('close', () => { if (!res.writableEnded) abort.abort(); });
       try {
-        const result = await tts.synthesize({ text: payload.text, voice: typeof payload.voice === 'string' ? payload.voice : 'kokoro:af_heart', signal: abort.signal });
+        const result = await tts.synthesize({
+          text: payload.text,
+          voice: typeof payload.voice === 'string' ? payload.voice : undefined,
+          lang: payload.lang || 'en',
+          signal: abort.signal
+        });
         if (!res.destroyed && !res.writableEnded) {
           res.writeHead(200, {
             'Content-Type': result.contentType,
@@ -498,15 +587,19 @@ function createHandler({
         payload.question.length > 1200 ||
         !historyValid ||
         !payload.context ||
-        Object.keys(payload.context).some(k => !['lessonId', 'screenId', 'mode'].includes(k)) ||
+        Object.keys(payload.context).some(k => !['lessonId', 'screenId', 'mode', 'lang'].includes(k)) ||
+        (payload.context.lang !== undefined && !VALID_LANGS.has(payload.context.lang)) ||
         typeof payload.context.screenId !== 'string' ||
         !/^\d{2}-\d{2}$/.test(payload.context.screenId)
       ) {
         return json(res, 400, { message: 'Question or context is invalid.' });
       }
 
-      const context = retriever.context(payload.context);
-      if (!context) return json(res, 400, { message: 'Current lesson context was not recognized.' });
+      const reqLang = payload.context.lang || 'en';
+      const msgPack = gwMsg(reqLang);
+      const baseContext = retriever.context(payload.context);
+      if (!baseContext) return json(res, 400, { message: 'Current lesson context was not recognized.' });
+      const context = reqLang === 'en' ? baseContext : { ...baseContext, lang: reqLang };
 
       const passages = retriever.search(payload.question, payload.context, { limit: 3, history: payload.history });
       const sourceRows = rows => rows.map(p => ({ id: p.id, title: p.title, source: p.source }));
@@ -517,11 +610,11 @@ function createHandler({
         const own = retriever.search('Explain this screen', payload.context, 2);
         return emitNdjsonResult(
           res,
-          'I can help you review the underlying concepts, but I will not select checkpoint options or reveal facilitator solutions.\n\nReview: ' +
+          msgPack.studyGuideIntro +
             own.map(p => p.title).join('; ') +
             '.\n\n' +
             own.map(p => clip(p.text)).join('\n\n') +
-            '\n\nUse the source references and your own reasoning before returning to the checkpoint.',
+            msgPack.studyGuideOutro,
           sourceRows(own),
           'study-guide',
           true
@@ -533,11 +626,7 @@ function createHandler({
         recordOp('/api/tutor', 200, 'source-check-decline', { lessonId: context.lessonId, screenId: context.screenId, userId: authRes.user.userId });
         return emitNdjsonResult(
           res,
-          'I could not retrieve enough authorized evidence for that wording on "' +
-            context.title +
-            '" (Lesson ' +
-            context.lessonNumber +
-            '). Try Explain this screen, or rephrase using terms from the CBD curriculum.',
+          msgPack.sourceCheckDecline(context.title, context.lessonNumber),
           [],
           'source-check',
           true
@@ -545,7 +634,7 @@ function createHandler({
       }
 
       if (shuttingDown) {
-        return json(res, 503, { code: 'SHUTTING_DOWN', message: 'The local AI service is restarting or shutting down. Try again in a moment.' });
+        return json(res, 503, { code: 'SHUTTING_DOWN', message: msgPack.shuttingDown });
       }
 
       const mem = getMemory();
@@ -554,7 +643,7 @@ function createHandler({
         recordOp('/api/tutor', 503, 'memory-overload', { pressureLevel: mem.pressureLevel, reclaimableAvailGB: mem.reclaimableAvailGB });
         return json(res, 503, {
           code: 'MEMORY_PRESSURE',
-          message: 'The Mac host is under memory pressure right now. Wait a moment and retry.'
+          message: msgPack.memoryPressure
         });
       }
 
@@ -602,9 +691,7 @@ function createHandler({
             recordOp('/api/tutor', 200, 'validation-decline', { lessonId: context.lessonId, screenId: context.screenId, model, elapsedMs: elapsed, reason: e.message });
             emitNdjsonResult(
               res,
-              'I could not deliver an evidence-checked reply for that question without risking unverified claims. Review the retrieved source excerpts below and rephrase using exact concepts from this screen.\n\nEvidence limits: Server validation blocked a draft response (' +
-                e.message +
-                ').',
+              msgPack.validationDecline(e.message),
               sourceRows(passages),
               'source-check',
               !headersSent
@@ -613,8 +700,8 @@ function createHandler({
             stats.errors++;
             recordOp('/api/tutor', 503, 'error', { lessonId: context.lessonId, screenId: context.screenId, elapsedMs: elapsed });
             const errMsg = abort.signal.aborted
-              ? 'The local reply timed out or was cancelled. No answer was supplied.'
-              : 'The local model was unavailable or its response did not pass source checks. Try again later; the course remains available.';
+              ? msgPack.aborted
+              : msgPack.unavailable;
             if (headersSent) {
               writeNdjson(res, { type: 'error', message: errMsg });
               if (!res.destroyed && !res.writableEnded) res.end();
@@ -632,14 +719,14 @@ function createHandler({
 
       // Busy path: either reject 429 (maxQueue===0) or enqueue up to maxQueue with live NDJSON queue feedback
       if (maxQueue <= 0) {
-        return json(res, 429, { message: 'The local model is answering another question. Try again shortly.' });
+        return json(res, 429, { message: msgPack.busy });
       }
       if (queue.length >= maxQueue) {
         stats.overloadRejects++;
         recordOp('/api/tutor', 503, 'queue-overload', { queueDepth: queue.length, maxQueue });
         return json(res, 503, {
           code: 'OVERLOAD',
-          message: 'Several questions are already waiting in line (' + queue.length + '/' + maxQueue + '). Please wait a moment and try again.'
+          message: msgPack.overload(queue.length, maxQueue)
         });
       }
 
@@ -665,7 +752,7 @@ function createHandler({
         }
         if (reason === 'timeout') {
           stats.queueTimeouts++;
-          writeNdjson(res, { type: 'error', message: 'Queue wait timed out before the local model became free. Please try again.' });
+          writeNdjson(res, { type: 'error', message: msgPack.queueTimeout });
           if (!res.destroyed && !res.writableEnded) res.end();
         } else {
           stats.queueCancelled++;
@@ -716,9 +803,7 @@ function createHandler({
             recordOp('/api/tutor', 200, 'validation-decline', { lessonId: context.lessonId, screenId: context.screenId, model, elapsedMs: elapsed, reason: e.message });
             emitNdjsonResult(
               res,
-              'I could not deliver an evidence-checked reply for that question without risking unverified claims. Review the retrieved source excerpts below and rephrase using exact concepts from this screen.\n\nEvidence limits: Server validation blocked a draft response (' +
-                e.message +
-                ').',
+              msgPack.validationDecline(e.message),
               sourceRows(passages),
               'source-check',
               false
@@ -729,8 +814,8 @@ function createHandler({
             writeNdjson(res, {
               type: 'error',
               message: abort.signal.aborted
-                ? 'The local reply timed out or was cancelled. No answer was supplied.'
-                : 'The local model was unavailable or did not pass source checks. Retry shortly.'
+                ? msgPack.aborted
+                : msgPack.unavailableShort
             });
             if (!res.destroyed && !res.writableEnded) res.end();
           }

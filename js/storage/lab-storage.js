@@ -19,6 +19,71 @@
   const STORAGE_KEY = 'carana_cbd_lab_v1';
   const SCHEMA_VERSION = '1.0.0';
 
+  function getI18n() {
+    return (typeof window !== 'undefined' && window.CARANA_I18N) || (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || null;
+  }
+  function formatWbVars(str, vars) {
+    if (!vars || typeof vars !== 'object') return str;
+    return String(str).replace(/\{(\w+)\}/g, (m, k) => (Object.prototype.hasOwnProperty.call(vars, k) ? String(vars[k]) : m));
+  }
+  function wbT(key, vars, enFallback) {
+    const i18n = getI18n();
+    if (!i18n || i18n.getLang() === 'en') {
+      const base = enFallback !== undefined ? enFallback : key;
+      return formatWbVars(base, vars);
+    }
+    const translated = i18n.tw(key, vars);
+    if (translated === key && enFallback !== undefined) return formatWbVars(enFallback, vars);
+    return translated;
+  }
+  function markLearnerTextFields(root = document) {
+    if (!root || typeof root.querySelectorAll !== 'function') return;
+    root.querySelectorAll('input[type="text"], input:not([type]), textarea').forEach(el => {
+      if (!el.hasAttribute('dir')) el.setAttribute('dir', 'auto');
+      if (!el.hasAttribute('data-learner-text')) el.setAttribute('data-learner-text', '1');
+    });
+    const roleSel = root.getElementById ? root.getElementById('roleSelector') : root.querySelector?.('#roleSelector');
+    if (roleSel && (!roleSel.getAttribute('aria-label') || roleSel.dataset.i18nRoleLabel === '1')) {
+      roleSel.dataset.i18nRoleLabel = '1';
+      roleSel.setAttribute('aria-label', wbT('Session Role', null, 'Session Role'));
+    }
+    const saveEl = root.getElementById ? root.getElementById('saveIndicator') : root.querySelector?.('#saveIndicator');
+    if (saveEl) {
+      saveEl.setAttribute('data-i18n-skip', '1');
+      const cur = (saveEl.textContent || '').trim();
+      if (/^(?:Loaded|Charg[ée]|جاهز|تم التحميل)$/i.test(cur)) saveEl.dataset.saveKey = 'Loaded';
+      else if (/Loaded local data|Donn[ée]es locales charg[ée]es|تم تحميل البيانات المحلية/i.test(cur)) saveEl.dataset.saveKey = 'Loaded local data';
+      else if (/Autosaved|Enregistr[ée] auto|حفظ تلقائي/i.test(cur)) saveEl.dataset.saveKey = 'Autosaved';
+      else if (/Saved locally|Enregistr[ée] localement|محفوظ محلي/i.test(cur)) saveEl.dataset.saveKey = 'Saved locally on this device';
+      else if (/Storage full|Stockage plein|التخزين ممتلئ/i.test(cur)) saveEl.dataset.saveKey = '⚠️ Storage full or blocked! Export JSON.';
+      if (saveEl.dataset.saveKey) {
+        saveEl.textContent = wbT(saveEl.dataset.saveKey, null, saveEl.dataset.saveKey);
+      }
+    }
+  }
+
+  function initWorkbenchI18n(onApplyLocale) {
+    const i18n = getI18n();
+    if (!i18n || typeof document === 'undefined') return Promise.resolve();
+    const mountTarget = document.querySelector('.lab-controls-bar') || document.querySelector('.top-nav-right');
+    if (mountTarget && !document.querySelector('.carana-lang-switch')) {
+      const isDark = mountTarget.classList.contains('lab-controls-bar');
+      i18n.mountSwitcher(mountTarget, { variant: isDark ? 'dark' : 'light', prepend: isDark });
+    }
+    const apply = async () => {
+      if (i18n.getLang() !== 'en') {
+        await i18n.ready(['ui', 'workbenches']);
+      }
+      markLearnerTextFields(document);
+      i18n.applyStaticDom(document);
+      i18n.translateWorkbenchDom(document.body);
+      if (typeof onApplyLocale === 'function') onApplyLocale(i18n.getLang());
+    };
+    markLearnerTextFields(document);
+    i18n.onChange(() => { apply(); });
+    return i18n.getLang() !== 'en' ? apply() : Promise.resolve();
+  }
+
   function getTodayDateString() {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -1306,12 +1371,12 @@
 
     const state = loadLabState();
     const modules = [
-      { num: 1, file: 'module1.html', title: 'Situational Analysis', desc: '"As is" baseline & conflict scan', key: 'module1' },
-      { num: 2, file: 'module2.html', title: 'Objective Setting', desc: '"To be" SMART & Prioritisation', key: 'module2' },
-      { num: 3, file: 'module3.html', title: 'Planning Activities', desc: '"What to" Logframe & RBB', key: 'module3' },
-      { num: 4, file: 'module4.html', title: 'Implementation', desc: '"How to" MMA execution', key: 'module4' },
-      { num: 5, file: 'module5.html', title: 'Evaluation & Adjust.', desc: '"Did we" Impact & adaptation', key: 'module5' },
-      { num: 6, file: 'module6.html', title: 'Transition & Handover', desc: '"Sustain" Exit & local ownership', key: 'module6' }
+      { num: 1, file: 'module1.html', title: wbT('Situational Analysis'), desc: wbT('"As is" baseline & conflict scan'), key: 'module1' },
+      { num: 2, file: 'module2.html', title: wbT('Objective Setting'), desc: wbT('"To be" SMART & Prioritisation'), key: 'module2' },
+      { num: 3, file: 'module3.html', title: wbT('Planning Activities'), desc: wbT('"What to" Logframe & RBB'), key: 'module3' },
+      { num: 4, file: 'module4.html', title: wbT('Implementation'), desc: wbT('"How to" MMA execution'), key: 'module4' },
+      { num: 5, file: 'module5.html', title: wbT('Evaluation & Adjust.'), desc: wbT('"Did we" Impact & adaptation'), key: 'module5' },
+      { num: 6, file: 'module6.html', title: wbT('Transition & Handover'), desc: wbT('"Sustain" Exit & local ownership'), key: 'module6' }
     ];
 
     let confirmedCount = 0;
@@ -1325,8 +1390,8 @@
       const subtitleEl = document.getElementById('curriculumTrackSubtitle') || header.querySelector('span:last-child');
       if (subtitleEl) {
         subtitleEl.textContent = cycle.allConfirmed
-          ? '6 of 6 Phases Self-Confirmed · Full Cycle Review Ready'
-          : `${cycle.confirmedCount} of 6 Phases Self-Confirmed · Cycle In Progress`;
+          ? wbT('cycleSubtitleConfirmed', null, '6 of 6 Phases Self-Confirmed · Full Cycle Review Ready')
+          : wbT('cycleSubtitleProgress', { done: cycle.confirmedCount }, `${cycle.confirmedCount} of 6 Phases Self-Confirmed · Cycle In Progress`);
       }
     }
 
@@ -1336,24 +1401,27 @@
       const modStatus = getModuleProgressStatus(state[m.key], m.num);
 
       let stepClass = 'track-step';
-      let badgeText = `Phase 0${m.num}`;
+      let badgeText = `${wbT('phaseWord', null, 'Phase')} 0${m.num}`;
 
       if (isCurrent) {
         stepClass += isConfirmed ? ' completed active' : ' active';
-        badgeText += isConfirmed ? ' · Confirmed' : (modStatus === 'in_progress' ? ' · In Progress' : ' · Active');
+        badgeText += isConfirmed
+          ? wbT('badgeConfirmed', null, ' · Confirmed')
+          : (modStatus === 'in_progress' ? ' · ' + wbT('In Progress', null, 'In Progress') : wbT('badgeActive', null, ' · Active'));
       } else if (isConfirmed) {
         stepClass += ' completed';
-        badgeText += ' · Confirmed';
+        badgeText += wbT('badgeConfirmed', null, ' · Confirmed');
       } else if (modStatus === 'in_progress') {
         stepClass += ' in-progress';
-        badgeText += ' · In Progress';
+        badgeText += ' · ' + wbT('In Progress', null, 'In Progress');
       } else {
         stepClass += ' not-started';
-        badgeText += ' · Not Started';
+        badgeText += wbT('badgeNotStarted', null, ' · Not Started');
       }
 
+      const chipTitle = wbT('phaseChipTitle', { num: m.num, title: m.title }, `Go to Phase ${m.num}: ${m.title}`);
       return `
-        <a href="${m.file}" class="${stepClass}" title="Go to Phase ${m.num}: ${m.title}">
+        <a href="${m.file}" class="${stepClass}" title="${chipTitle}">
           <span class="track-num">${badgeText}</span>
           <span class="track-title">${m.title}</span>
           <span class="track-desc">${m.desc}</span>
@@ -1395,77 +1463,78 @@
       backdrop.setAttribute('role', 'dialog');
       backdrop.setAttribute('aria-modal', 'true');
       backdrop.setAttribute('aria-labelledby', 'resetModalTitle');
-      backdrop.innerHTML = `
-        <div class="reset-modal-box">
-          <div class="reset-modal-header">
-            <span style="font-size: 1.5rem; line-height: 1;">⚠️</span>
-            <h3 id="resetModalTitle">Start New Session · Reset Learning Lab</h3>
+      document.body.appendChild(backdrop);
+      backdrop.addEventListener('click', e => {
+        if (e.target === backdrop) {
+          backdrop.classList.remove('open');
+        }
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && backdrop.classList.contains('open')) backdrop.classList.remove('open');
+      });
+    }
+
+    const introFallback = 'This will clear participant inputs, scores, SWOT items, logframe data, and progress across all <strong>six modules</strong> and restore a clean participant training workspace.';
+    const safeListFallback = '<li>Existing participant work will be lost unless exported.</li><li>The standalone <strong>60-Minute Fast Track Quick Exercise</strong> data is independent and will <strong>not</strong> be affected.</li><li>Official curriculum references and scenario facts remain intact.</li>';
+    backdrop.innerHTML = `
+      <div class="reset-modal-box">
+        <div class="reset-modal-header">
+          <span style="font-size: 1.5rem; line-height: 1;">⚠️</span>
+          <h3 id="resetModalTitle">${wbT('Start New Session · Reset Learning Lab')}</h3>
+        </div>
+        <div class="reset-modal-body">
+          <p><strong>${wbT('Are you sure you want to reset the Learning Lab?')}</strong></p>
+          <p>${wbT('ResetModalIntroHtml', null, introFallback)}</p>
+          <div class="reset-safeguard-box">
+            <strong>${wbT('Data Safety Notice:')}</strong>
+            <ul style="margin: 6px 0 0; padding-inline-start: 18px;">
+              ${wbT('ResetModalSafeListHtml', null, safeListFallback)}
+            </ul>
           </div>
-          <div class="reset-modal-body">
-            <p><strong>Are you sure you want to reset the Learning Lab?</strong></p>
-            <p>
-              This will clear participant inputs, scores, SWOT items, logframe data, and progress across all <strong>six modules</strong> and restore a clean participant training workspace.
-            </p>
-            <div class="reset-safeguard-box">
-              <strong>Data Safety Notice:</strong>
-              <ul style="margin: 6px 0 0; padding-left: 18px;">
-                <li>Existing participant work will be lost unless exported.</li>
-                <li>The standalone <strong>60-Minute Fast Track Quick Exercise</strong> data is independent and will <strong>not</strong> be affected.</li>
-                <li>Official curriculum references and scenario facts remain intact.</li>
-              </ul>
-            </div>
-            <div style="margin-top: 14px;">
-              <button type="button" class="btn btn-sm btn-dark" id="resetModalExportBtn" style="width: 100%;">
-                💾 Download Complete State Backup (.json) First
-              </button>
-              <div id="resetModalExportFeedback" style="display:none; font-size: 0.82rem; color: var(--ok); font-weight: 700; margin-top: 6px; text-align: center;">
-                ✓ Lab backup exported successfully!
-              </div>
-            </div>
-          </div>
-          <div class="reset-modal-footer">
-            <button type="button" class="btn btn-ghost" id="resetModalCancelBtn">
-              Cancel (Keep Work)
+          <div style="margin-top: 14px;">
+            <button type="button" class="btn btn-sm btn-dark" id="resetModalExportBtn" style="width: 100%;">
+              ${wbT('💾 Download Complete State Backup (.json) First')}
             </button>
-            <button type="button" class="btn btn-danger" id="resetModalConfirmBtn">
-              Confirm & Start New Session
-            </button>
+            <div id="resetModalExportFeedback" style="display:none; font-size: 0.82rem; color: var(--ok); font-weight: 700; margin-top: 6px; text-align: center;">
+              ${wbT('✓ Lab backup exported successfully!')}
+            </div>
           </div>
         </div>
-      `;
-      document.body.appendChild(backdrop);
+        <div class="reset-modal-footer">
+          <button type="button" class="btn btn-ghost" id="resetModalCancelBtn">
+            ${wbT('Cancel (Keep Work)')}
+          </button>
+          <button type="button" class="btn btn-danger" id="resetModalConfirmBtn">
+            ${wbT('Confirm & Start New Session')}
+          </button>
+        </div>
+      </div>
+    `;
 
-      const cancelBtn = backdrop.querySelector('#resetModalCancelBtn');
-      const confirmBtn = backdrop.querySelector('#resetModalConfirmBtn');
-      const exportBtn = backdrop.querySelector('#resetModalExportBtn');
-      const feedback = backdrop.querySelector('#resetModalExportFeedback');
+    const cancelBtn = backdrop.querySelector('#resetModalCancelBtn');
+    const confirmBtn = backdrop.querySelector('#resetModalConfirmBtn');
+    const exportBtn = backdrop.querySelector('#resetModalExportBtn');
+    const feedback = backdrop.querySelector('#resetModalExportFeedback');
 
-      function closeModal() {
-        backdrop.classList.remove('open');
-        if (feedback) feedback.style.display = 'none';
-      }
-
-      cancelBtn.onclick = closeModal;
-      backdrop.onclick = e => { if (e.target === backdrop) closeModal(); };
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal();
-      });
-
-      exportBtn.onclick = () => {
-        exportLabAsJson();
-        if (feedback) feedback.style.display = 'block';
-        showToast('Complete Lab backup exported to JSON.', 'success');
-      };
-
-      confirmBtn.onclick = () => {
-        closeModal();
-        resetLabState();
-        showToast('Learning Lab has been reset to a clean session.', 'success');
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
-      };
+    function closeModal() {
+      backdrop.classList.remove('open');
+      if (feedback) feedback.style.display = 'none';
     }
+
+    cancelBtn.onclick = closeModal;
+    exportBtn.onclick = () => {
+      exportLabAsJson();
+      if (feedback) feedback.style.display = 'block';
+      showToast(wbT('Complete Lab backup exported to JSON.'), 'success');
+    };
+    confirmBtn.onclick = () => {
+      closeModal();
+      resetLabState();
+      showToast(wbT('Learning Lab has been reset to a clean session.'), 'success');
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    };
 
     backdrop.classList.add('open');
   }
@@ -1502,6 +1571,7 @@
     document.querySelectorAll('textarea').forEach(ta => {
       const clone = document.createElement('div');
       clone.className = 'printable-clone printable-textarea-clone';
+      clone.setAttribute('dir', 'auto');
       clone.textContent = ta.value || '—';
       ta.parentNode.insertBefore(clone, ta);
       ta.classList.add('printable-clone-hidden');
@@ -1510,6 +1580,7 @@
       if (inp.type === 'hidden' || inp.type === 'button' || inp.type === 'submit') return;
       const clone = document.createElement('div');
       clone.className = 'printable-clone printable-input-clone';
+      clone.setAttribute('dir', 'auto');
       clone.textContent = inp.value || '—';
       inp.parentNode.insertBefore(clone, inp);
       inp.classList.add('printable-clone-hidden');
@@ -1555,6 +1626,8 @@
     getFullCycleProgress,
     deepMerge,
     preparePrintableContent,
-    cleanupPrintableContent
+    cleanupPrintableContent,
+    wbT,
+    initWorkbenchI18n
   };
 });

@@ -172,11 +172,11 @@
 .is-learning .vj-quadrant{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 8px 30px 33px;
  background:linear-gradient(#edf5f6,#f4f9fa);border-radius:11px}
 .is-learning .vj-quadrant::before{
- content:"INFLUENCE ↑";position:absolute;left:2px;top:44%;
+ content:var(--vj-axis-y,"INFLUENCE ↑");position:absolute;inset-inline-start:2px;top:44%;
  writing-mode:vertical-rl;transform:rotate(180deg);color:#3b8191;font-size:9px;font-weight:850;letter-spacing:.08em
 }
 .is-learning .vj-quadrant::after{
- content:"INTEREST →";position:absolute;bottom:5px;left:47%;color:#3b8191;font-size:9px;font-weight:850;letter-spacing:.08em
+ content:var(--vj-axis-x,"INTEREST →");position:absolute;bottom:5px;inset-inline-start:47%;color:#3b8191;font-size:9px;font-weight:850;letter-spacing:.08em
 }
 .is-learning .vj-quadrant .vj-node{min-height:91px;flex-direction:column;text-align:center;justify-content:center}
 .is-learning .vj-quadrant .vj-node:nth-child(1){background:#f1f5e9}

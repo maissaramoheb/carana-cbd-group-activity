@@ -1,0 +1,428 @@
+{
+  "schemaVersion": "1.0.0",
+  "disclaimer": "Independent CARANA trilingual instructional glossary prepared for Run 08. Uses established UNTERM and UNPOL RBM conventions where verifiable and explicitly marks proposed terms pending human linguistic and UNPOL SME review. Not an official UN publication or UN-approved translation.",
+  "statuses": {
+    "unterm-established": "Established in public UNTERM / UN RBB / DPO terminology conventions; subject to mission context verification.",
+    "unpol-source": "Derived from public UNPOL / SGF / CBD instructional terminology conventions; requires SME sign-off in FR/AR.",
+    "carana-adapted": "CARANA pedagogical / scenario term retained or adapted consistently across lessons and workbenches.",
+    "proposed-pending-review": "Proposed didactic equivalent pending bilingual UNPOL / UN translation review."
+  },
+  "entries": [
+    {
+      "id": "cbd",
+      "en": "Capacity-Building and Development (CBD)",
+      "fr": "Renforcement et développement des capacités (CBD)",
+      "ar": "بناء القدرات وتطويرها (CBD)",
+      "status": "unpol-source",
+      "notes": "Keep CBD acronym explicit on first mention in FR/AR to match source curriculum IDs and search."
+    },
+    {
+      "id": "capacity",
+      "en": "Capacity",
+      "fr": "Capacité",
+      "ar": "القدرة (الإمكانات المتاحة حاليًا)",
+      "status": "unterm-established",
+      "notes": "Distinguish from capability: present aptitudes, resources, structures, and facilitating conditions."
+    },
+    {
+      "id": "capability",
+      "en": "Capability",
+      "fr": "Aptitude opérationnelle",
+      "ar": "القابلية / الجاهزية التنفيذية",
+      "status": "proposed-pending-review",
+      "notes": "Refers to demonstrated performance under appropriate conditions, contrasted cleanly with capacity."
+    },
+    {
+      "id": "capacity_gap",
+      "en": "Capacity gap",
+      "fr": "Déficit de capacités (écart capacitaire)",
+      "ar": "فجوة القدرات",
+      "status": "unterm-established",
+      "notes": "Avoid translating simply as shortage; must capture current vs desired performance."
+    },
+    {
+      "id": "local_ownership",
+      "en": "Local ownership",
+      "fr": "Appropriation locale",
+      "ar": "الملكية المحلية",
+      "status": "unterm-established",
+      "notes": "Core SSR/CBD principle; never translate as 'propriété juridique' or purely legal title."
+    },
+    {
+      "id": "counterpart_ownership",
+      "en": "Counterpart ownership",
+      "fr": "Appropriation par les homologues nationaux",
+      "ar": "ملكية النظراء الوطنيين للمسار",
+      "status": "unpol-source",
+      "notes": "Denotes active national leadership, responsibility, and participation beyond a formal signature."
+    },
+    {
+      "id": "host_state_lea",
+      "en": "Host-State police / law enforcement agencies",
+      "fr": "Services de police et de maintien de l’ordre de l’État hôte",
+      "ar": "شرطة الدولة المضيفة / أجهزة إنفاذ القانون الوطنية",
+      "status": "unterm-established",
+      "notes": "Match UNPOL terminology for host-State police/LEAs."
+    },
+    {
+      "id": "unpol",
+      "en": "United Nations Police (UNPOL)",
+      "fr": "Police des Nations Unies (UNPOL)",
+      "ar": "شرطة الأمم المتحدة (UNPOL)",
+      "status": "unterm-established",
+      "notes": "Preserve UNPOL acronym in <bdi dir=\"ltr\"> in Arabic UI."
+    },
+    {
+      "id": "sgf",
+      "en": "Strategic Guidance Framework for International Police Peacekeeping (SGF)",
+      "fr": "Cadre d’orientation stratégique pour le maintien de la paix par la police internationale (SGF)",
+      "ar": "الإطار التوجيهي الاستراتيجي لحفظ السلام الشرطي الدولي (SGF)",
+      "status": "unterm-established",
+      "notes": "Historical UN DPO/UNPOL reference title."
+    },
+    {
+      "id": "ssr",
+      "en": "Security Sector Reform (SSR)",
+      "fr": "Réforme du secteur de la sécurité (RSS)",
+      "ar": "إصلاح قطاع الأمن (SSR)",
+      "status": "unterm-established",
+      "notes": "Linked historically to UNSCR 2151."
+    },
+    {
+      "id": "mma",
+      "en": "Monitoring, Mentoring and Advising (MMA)",
+      "fr": "Suivi, mentorat et conseil (MMA)",
+      "ar": "الرصد والتوجيه والمشورة (MMA)",
+      "status": "unpol-source",
+      "notes": "Three complementary pillars: monitoring (picture), advising (guidance), mentoring (long-term growth)."
+    },
+    {
+      "id": "cop",
+      "en": "Community-Oriented Policing (COP)",
+      "fr": "Police de proximité (police orientée vers la communauté, COP)",
+      "ar": "الشرطة المجتمعية (COP)",
+      "status": "unpol-source",
+      "notes": "Keep COP badge recognized across CARANA conversion readiness."
+    },
+    {
+      "id": "situational_analysis",
+      "en": "Situational analysis",
+      "fr": "Analyse de la situation (analyse situationnelle)",
+      "ar": "تحليل الوضع الراهن",
+      "status": "unterm-established",
+      "notes": "CBD Step/Lesson 1."
+    },
+    {
+      "id": "baseline",
+      "en": "Baseline",
+      "fr": "Données de référence (niveau de référence)",
+      "ar": "خط الأساس (البيانات المرجعية للوضع القائم)",
+      "status": "unterm-established",
+      "notes": "Measured starting point, not an untested assumption."
+    },
+    {
+      "id": "benchmark",
+      "en": "Benchmark",
+      "fr": "Point de référence (jalon comparatif)",
+      "ar": "المعيار المرجعي (المعلم القياسي)",
+      "status": "unterm-established",
+      "notes": "Intermediate standard or comparison point for measuring progress."
+    },
+    {
+      "id": "target",
+      "en": "Target",
+      "fr": "Cible",
+      "ar": "المستهدف (الهدف الكمي/الزمني المحدد)",
+      "status": "unterm-established",
+      "notes": "Intended measurable value by a defined deadline."
+    },
+    {
+      "id": "objective",
+      "en": "Objective",
+      "fr": "Objectif",
+      "ar": "الهدف",
+      "status": "unterm-established",
+      "notes": "Overall desired achievement involving a process of change."
+    },
+    {
+      "id": "smart",
+      "en": "SMART (Specific, Measurable, Achievable, Realistic/Relevant, Time-bound)",
+      "fr": "SMART (Spécifique, Mesurable, Atteignable, Réaliste/Pertinent, Temporellement défini)",
+      "ar": "معيار SMART (محدد، قابل للقياس، قابل للتحقيق، واقعي/ذي صلة، محدد زمنيًا)",
+      "status": "unpol-source",
+      "notes": "Retain SMART mnemonic while translating each criterion accurately."
+    },
+    {
+      "id": "impact",
+      "en": "Impact",
+      "fr": "Impact",
+      "ar": "الأثر",
+      "status": "unterm-established",
+      "notes": "Long-term overall effect (planned/unplanned, direct/indirect)."
+    },
+    {
+      "id": "outcome",
+      "en": "Outcome (Accomplishment / Result)",
+      "fr": "Réalisation (effet attendu / résultat)",
+      "ar": "النتيجة (الإنجاز المنشود)",
+      "status": "unterm-established",
+      "notes": "CRITICAL: Never conflate Outcome (Réalisation / النتيجة) with Output (Produit / المخرَج)."
+    },
+    {
+      "id": "output",
+      "en": "Output",
+      "fr": "Produit (livrable)",
+      "ar": "المُخرَج (المُخرَجات)",
+      "status": "unterm-established",
+      "notes": "Tangible goods/services delivered by activities (SOPs, trained officers, reports), NOT institutional change by itself."
+    },
+    {
+      "id": "activity",
+      "en": "Activity",
+      "fr": "Activité",
+      "ar": "النشاط",
+      "status": "unterm-established",
+      "notes": "Action taken to transform inputs into outputs."
+    },
+    {
+      "id": "input",
+      "en": "Input",
+      "fr": "Intrant (ressource engagée)",
+      "ar": "المُدخَل (الموارد البشرية والمالية والفنية)",
+      "status": "unterm-established",
+      "notes": "Personnel, funding, time, expertise."
+    },
+    {
+      "id": "indicator",
+      "en": "Performance indicator (PI / KPI)",
+      "fr": "Indicateur de performance (indicateur clé de performance, ICP)",
+      "ar": "مؤشر الأداء (مؤشر الأداء الرئيسي)",
+      "status": "unterm-established",
+      "notes": "Simple, reliable, preferably numeric measure of change."
+    },
+    {
+      "id": "verification_sources",
+      "en": "Means / sources of verification (MoV)",
+      "fr": "Sources / moyens de vérification",
+      "ar": "وسائل / مصادر التحقق",
+      "status": "unterm-established",
+      "notes": "Independent evidence sources verifying indicator attainment."
+    },
+    {
+      "id": "assumption",
+      "en": "Assumption",
+      "fr": "Hypothèse",
+      "ar": "الافتراض (الفرضية الخارجية)",
+      "status": "unterm-established",
+      "notes": "External conditions important to success largely outside programme control."
+    },
+    {
+      "id": "risk",
+      "en": "Risk",
+      "fr": "Risque",
+      "ar": "الخطر (المخاطر)",
+      "status": "unterm-established",
+      "notes": "Effect of uncertainty on objectives; likelihood × impact of a threat."
+    },
+    {
+      "id": "logframe",
+      "en": "Logical Framework Matrix (Logframe)",
+      "fr": "Matrice du cadre logique (Cadre logique)",
+      "ar": "مصفوفة الإطار المنطقي (الإطار المنطقي)",
+      "status": "unterm-established",
+      "notes": "Causal chain + indicators + verification sources + assumptions table."
+    },
+    {
+      "id": "theory_of_change",
+      "en": "Theory of Change",
+      "fr": "Théorie du changement",
+      "ar": "نظرية التغيير",
+      "status": "unterm-established",
+      "notes": "Explains the 'missing middle': If we do X, then Y results because..."
+    },
+    {
+      "id": "rbb",
+      "en": "Results-Based Budgeting (RBB)",
+      "fr": "Budgétisation fondée sur les résultats (BFR)",
+      "ar": "الميزنة القائمة على النتائج (RBB)",
+      "status": "unterm-established",
+      "notes": "UN Secretariat planning & budgeting discipline."
+    },
+    {
+      "id": "qip",
+      "en": "Quick Impact Project (QIP)",
+      "fr": "Projet à impact rapide (QIP)",
+      "ar": "مشروع ذو أثر سريع (QIP)",
+      "status": "unterm-established",
+      "notes": "Small-scale confidence-building project supporting mandate priorities."
+    },
+    {
+      "id": "contingency_plan",
+      "en": "Contingency plan",
+      "fr": "Plan d’urgence (plan de contingence)",
+      "ar": "خطة الطوارئ (الخطة البديلة)",
+      "status": "unterm-established",
+      "notes": "Prepared ahead of time before a critical risk materializes."
+    },
+    {
+      "id": "pestels",
+      "en": "PESTEL-S environmental scan",
+      "fr": "Analyse environnementale PESTEL-S",
+      "ar": "المسح البيئي وفق إطار PESTEL-S",
+      "status": "carana-adapted",
+      "notes": "Political, Economic, Social, Technological, Environmental, Legal + Security."
+    },
+    {
+      "id": "swot",
+      "en": "SWOT analysis (Strengths, Weaknesses, Opportunities, Threats)",
+      "fr": "Analyse FFOM / SWOT (Forces, Faiblesses, Opportunités, Menaces)",
+      "ar": "تحليل SWOT (نقاط القوة، نقاط الضعف، الفرص، التهديدات)",
+      "status": "unpol-source",
+      "notes": "Distinguish internal factors (Strengths/Weaknesses) from external factors (Opportunities/Threats)."
+    },
+    {
+      "id": "stakeholder",
+      "en": "Stakeholder",
+      "fr": "Partie prenante",
+      "ar": "الجهة المعنية (أصحاب المصلحة)",
+      "status": "unterm-established",
+      "notes": "Agency, organization, group, or individual affected by or influencing outcomes."
+    },
+    {
+      "id": "organisational_culture",
+      "en": "Organisational culture",
+      "fr": "Culture organisationnelle",
+      "ar": "الثقافة المؤسسية (التنظيمية)",
+      "status": "unterm-established",
+      "notes": "Shapes how routines and reforms actually work at station level."
+    },
+    {
+      "id": "seven_cs",
+      "en": "Seven Cs of communication",
+      "fr": "Les sept C de la communication",
+      "ar": "المبادئ السبعة للتواصل الفعّال (Seven Cs)",
+      "status": "proposed-pending-review",
+      "notes": "Clarity (Clarté / الوضوح), Correctness (Exactitude / الدقة), Completeness (Exhaustivité / الاكتمال), Conciseness (Concision / الإيجاز), Concreteness (Caractère concret / الواقعية الملموسة), Coherence (Cohérence / الاتساق), Courtesy (Courtoisie / اللياقة والاحترام)."
+    },
+    {
+      "id": "monitoring",
+      "en": "Monitoring",
+      "fr": "Suivi",
+      "ar": "الرصد والمتابعة",
+      "status": "unterm-established",
+      "notes": "Ongoing tracking of inputs, activities, outputs, and context."
+    },
+    {
+      "id": "evaluation",
+      "en": "Evaluation",
+      "fr": "Évaluation",
+      "ar": "التقييم",
+      "status": "unterm-established",
+      "notes": "Systematic objective assessment of relevance, effectiveness, efficiency, sustainability, impact."
+    },
+    {
+      "id": "variance",
+      "en": "Performance variance (On Track / Delayed / Critical Variance / Exceeded)",
+      "fr": "Écart de performance (Dans les délais / Retardé / Écart critique / Dépassé)",
+      "ar": "انحراف الأداء (على المسار الصحيح / متأخر / انحراف حرج / تجاوز المستهدف)",
+      "status": "proposed-pending-review",
+      "notes": "Canonical JS storage values remain 'On Track' | 'Delayed' | 'Critical Variance' | 'Exceeded'."
+    },
+    {
+      "id": "remedial_adjustment",
+      "en": "Adjustment / corrective action",
+      "fr": "Ajustement / mesure corrective",
+      "ar": "التعديل / الإجراء التصحيحي",
+      "status": "unterm-established",
+      "notes": "Evidence-informed course correction after evaluation."
+    },
+    {
+      "id": "effectiveness",
+      "en": "Effectiveness",
+      "fr": "Efficacité",
+      "ar": "الفعالية",
+      "status": "unterm-established",
+      "notes": "Extent to which expected results are achieved."
+    },
+    {
+      "id": "efficiency",
+      "en": "Efficiency",
+      "fr": "Efficience",
+      "ar": "الكفاءة",
+      "status": "unterm-established",
+      "notes": "Conversion of inputs into outputs cleanly."
+    },
+    {
+      "id": "sustainability",
+      "en": "Sustainability",
+      "fr": "Durabilité (viabilité à long terme)",
+      "ar": "الاستدامة",
+      "status": "unterm-established",
+      "notes": "Affordability, capability, relevance, enabling environment, and commitment after support ends."
+    },
+    {
+      "id": "transition_arrangements",
+      "en": "Transition arrangements",
+      "fr": "Dispositions de transition",
+      "ar": "ترتيبات الانتقال وتسليم المسؤوليات",
+      "status": "unterm-established",
+      "notes": "Structured handover of functions/assets/oversight; distinct from simple mission drawdown."
+    },
+    {
+      "id": "mission_drawdown",
+      "en": "Mission drawdown / liquidation",
+      "fr": "Retrait / réduction progressive et liquidation de la mission",
+      "ar": "تقليص حجم البعثة / تصفيتها",
+      "status": "unterm-established",
+      "notes": "Must NOT be confused with programmatic transition arrangements."
+    },
+    {
+      "id": "end_state",
+      "en": "End-state",
+      "fr": "État final recherché",
+      "ar": "الوضع النهائي المنشود",
+      "status": "unterm-established",
+      "notes": "Desired state upon completion of Security Council mandate."
+    },
+    {
+      "id": "ihl_ihrl",
+      "en": "International Humanitarian Law (IHL) & International Human Rights Law (IHRL)",
+      "fr": "Droit international humanitaire (DIH) et Droit international des droits de l’homme (DIDH)",
+      "ar": "القانون الدولي الإنساني والقانون الدولي لحقوق الإنسان",
+      "status": "unterm-established",
+      "notes": "Non-negotiable legal compliance baseline across every CBD stage."
+    },
+    {
+      "id": "sgbv",
+      "en": "Sexual and Gender-Based Violence (SGBV)",
+      "fr": "Violence sexuelle et fondée sur le genre (VSG)",
+      "ar": "العنف الجنسي والعنف القائم على النوع الاجتماعي (SGBV)",
+      "status": "unterm-established",
+      "notes": "Gender-responsive policing priority in CARANA and UNPOL CBD."
+    },
+    {
+      "id": "evidence_notebook",
+      "en": "Evidence-to-Decision Notebook",
+      "fr": "Carnet Preuve-Décision",
+      "ar": "دفتر ربط الأدلة بالقرار",
+      "status": "carana-adapted",
+      "notes": "Applied learning notebook surface."
+    },
+    {
+      "id": "ai_companion",
+      "en": "AI Learning Companion",
+      "fr": "Compagnon d’apprentissage IA",
+      "ar": "المساعد التعليمي الذكي",
+      "status": "carana-adapted",
+      "notes": "Bounded curriculum-grounded learning assistant."
+    },
+    {
+      "id": "carana_cnps_unmic",
+      "en": "Carana / CNPS / UNMIC / Kalari / Kalesh / Masuku",
+      "fr": "Carana / CNPS (Police nationale de Carana) / UNMIC / Kalari / Kalesh / Masuku",
+      "ar": "كارانا / الشرطة الوطنية لكارانا (CNPS) / بعثة UNMIC / كالاري / كاليش / ماسوكو",
+      "status": "carana-adapted",
+      "notes": "Fictional CARANA scenario proper names retained faithfully."
+    }
+  ]
+}

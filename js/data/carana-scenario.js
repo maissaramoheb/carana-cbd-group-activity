@@ -380,6 +380,65 @@
     }
   ];
 
+  function getLocalized() {
+    const i18n = (typeof window !== 'undefined' && window.CARANA_I18N) || (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || null;
+    const scPack = i18n && i18n.getLang() !== 'en' ? i18n.getPack('workbenches')?.scenario : null;
+    if (!scPack) {
+      return {
+        AREAS,
+        DIMENSIONS,
+        BACKGROUND,
+        PARAGRAPHS,
+        DEFAULT_STAKEHOLDERS,
+        ROLE_LABELS: { Owner: 'Owner', Influencer: 'Influencer', Enabler: 'Enabler', 'Affected group': 'Affected group', 'Potential blocker': 'Potential blocker' },
+        LEVEL_LABELS: { High: 'High', Medium: 'Medium', Low: 'Low' },
+        getParagraph: function (id) {
+          return PARAGRAPHS.find(p => p.id === id) || BACKGROUND.find(p => p.id === id);
+        }
+      };
+    }
+    const locAreas = AREAS.map((a, idx) => {
+      const la = scPack.AREAS?.find(x => x.id === a.id) || scPack.AREAS?.[idx];
+      if (!la) return a;
+      return {
+        ...a,
+        name: la.name || a.name,
+        subcategories: a.subcategories.map((sub, sIdx) => {
+          const ls = la.subcategories?.find(x => x.id === sub.id) || la.subcategories?.[sIdx];
+          return ls ? { ...sub, name: ls.name || sub.name } : sub;
+        })
+      };
+    });
+    const locDims = DIMENSIONS.map((d, idx) => {
+      const ld = scPack.DIMENSIONS?.find(x => x.id === d.id) || scPack.DIMENSIONS?.[idx];
+      return ld ? { ...d, name: ld.name || d.name, short: ld.short || d.short } : d;
+    });
+    const locBg = BACKGROUND.map((p, idx) => {
+      const lp = scPack.BACKGROUND?.find(x => x.id === p.id) || scPack.BACKGROUND?.[idx];
+      return lp ? { ...p, text: lp.text || p.text } : p;
+    });
+    const locParas = PARAGRAPHS.map((p, idx) => {
+      const lp = scPack.PARAGRAPHS?.find(x => x.id === p.id) || scPack.PARAGRAPHS?.[idx];
+      return lp ? { ...p, text: lp.text || p.text } : p;
+    });
+    const locSh = DEFAULT_STAKEHOLDERS.map((sh, idx) => {
+      const ls = scPack.DEFAULT_STAKEHOLDERS?.find(x => x.id === sh.id) || scPack.DEFAULT_STAKEHOLDERS?.[idx];
+      return ls ? { ...sh, name: ls.name || sh.name, needs: ls.needs || sh.needs, strategy: ls.strategy || sh.strategy } : sh;
+    });
+    return {
+      AREAS: locAreas,
+      DIMENSIONS: locDims,
+      BACKGROUND: locBg,
+      PARAGRAPHS: locParas,
+      DEFAULT_STAKEHOLDERS: locSh,
+      ROLE_LABELS: scPack.ROLE_LABELS || {},
+      LEVEL_LABELS: scPack.LEVEL_LABELS || {},
+      getParagraph: function (id) {
+        return locParas.find(p => p.id === id) || locBg.find(p => p.id === id);
+      }
+    };
+  }
+
   return {
     AREAS,
     DIMENSIONS,
@@ -388,6 +447,7 @@
     DEFAULT_STAKEHOLDERS,
     getParagraph: function (id) {
       return PARAGRAPHS.find(p => p.id === id) || BACKGROUND.find(p => p.id === id);
-    }
+    },
+    getLocalized
   };
 });

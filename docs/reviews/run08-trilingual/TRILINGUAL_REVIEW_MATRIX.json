@@ -1,0 +1,4162 @@
+{
+  "generatedAt": "2026-11-21T06:33:52.162Z",
+  "totals": {
+    "rows": 144,
+    "frTechnicallyComplete": 144,
+    "arTechnicallyComplete": 144,
+    "frLinguisticReviewed": 0,
+    "arLinguisticReviewed": 0,
+    "frSmeReviewed": 0,
+    "arSmeReviewed": 0,
+    "frApprovedForProduction": 0,
+    "arApprovedForProduction": 0
+  },
+  "criticalTerminologyChecks": [
+    {
+      "id": "capacity_gap",
+      "en": "Capacity gap",
+      "fr": "Déficit de capacités (écart capacitaire)",
+      "ar": "فجوة القدرات",
+      "status": "unterm-established",
+      "notes": "Avoid translating simply as shortage; must capture current vs desired performance."
+    },
+    {
+      "id": "local_ownership",
+      "en": "Local ownership",
+      "fr": "Appropriation locale",
+      "ar": "الملكية المحلية",
+      "status": "unterm-established",
+      "notes": "Core SSR/CBD principle; never translate as 'propriété juridique' or purely legal title."
+    },
+    {
+      "id": "mma",
+      "en": "Monitoring, Mentoring and Advising (MMA)",
+      "fr": "Suivi, mentorat et conseil (MMA)",
+      "ar": "الرصد والتوجيه والمشورة (MMA)",
+      "status": "unpol-source",
+      "notes": "Three complementary pillars: monitoring (picture), advising (guidance), mentoring (long-term growth)."
+    },
+    {
+      "id": "smart",
+      "en": "SMART (Specific, Measurable, Achievable, Realistic/Relevant, Time-bound)",
+      "fr": "SMART (Spécifique, Mesurable, Atteignable, Réaliste/Pertinent, Temporellement défini)",
+      "ar": "معيار SMART (محدد، قابل للقياس، قابل للتحقيق، واقعي/ذي صلة، محدد زمنيًا)",
+      "status": "unpol-source",
+      "notes": "Retain SMART mnemonic while translating each criterion accurately."
+    },
+    {
+      "id": "outcome",
+      "en": "Outcome (Accomplishment / Result)",
+      "fr": "Réalisation (effet attendu / résultat)",
+      "ar": "النتيجة (الإنجاز المنشود)",
+      "status": "unterm-established",
+      "notes": "CRITICAL: Never conflate Outcome (Réalisation / النتيجة) with Output (Produit / المخرَج)."
+    },
+    {
+      "id": "output",
+      "en": "Output",
+      "fr": "Produit (livrable)",
+      "ar": "المُخرَج (المُخرَجات)",
+      "status": "unterm-established",
+      "notes": "Tangible goods/services delivered by activities (SOPs, trained officers, reports), NOT institutional change by itself."
+    },
+    {
+      "id": "indicator",
+      "en": "Performance indicator (PI / KPI)",
+      "fr": "Indicateur de performance (indicateur clé de performance, ICP)",
+      "ar": "مؤشر الأداء (مؤشر الأداء الرئيسي)",
+      "status": "unterm-established",
+      "notes": "Simple, reliable, preferably numeric measure of change."
+    },
+    {
+      "id": "verification_sources",
+      "en": "Means / sources of verification (MoV)",
+      "fr": "Sources / moyens de vérification",
+      "ar": "وسائل / مصادر التحقق",
+      "status": "unterm-established",
+      "notes": "Independent evidence sources verifying indicator attainment."
+    },
+    {
+      "id": "assumption",
+      "en": "Assumption",
+      "fr": "Hypothèse",
+      "ar": "الافتراض (الفرضية الخارجية)",
+      "status": "unterm-established",
+      "notes": "External conditions important to success largely outside programme control."
+    },
+    {
+      "id": "risk",
+      "en": "Risk",
+      "fr": "Risque",
+      "ar": "الخطر (المخاطر)",
+      "status": "unterm-established",
+      "notes": "Effect of uncertainty on objectives; likelihood × impact of a threat."
+    },
+    {
+      "id": "pestels",
+      "en": "PESTEL-S environmental scan",
+      "fr": "Analyse environnementale PESTEL-S",
+      "ar": "المسح البيئي وفق إطار PESTEL-S",
+      "status": "carana-adapted",
+      "notes": "Political, Economic, Social, Technological, Environmental, Legal + Security."
+    },
+    {
+      "id": "transition_arrangements",
+      "en": "Transition arrangements",
+      "fr": "Dispositions de transition",
+      "ar": "ترتيبات الانتقال وتسليم المسؤوليات",
+      "status": "unterm-established",
+      "notes": "Structured handover of functions/assets/oversight; distinct from simple mission drawdown."
+    },
+    {
+      "id": "ihl_ihrl",
+      "en": "International Humanitarian Law (IHL) & International Human Rights Law (IHRL)",
+      "fr": "Droit international humanitaire (DIH) et Droit international des droits de l’homme (DIDH)",
+      "ar": "القانون الدولي الإنساني والقانون الدولي لحقوق الإنسان",
+      "status": "unterm-established",
+      "notes": "Non-negotiable legal compliance baseline across every CBD stage."
+    },
+    {
+      "id": "sgbv",
+      "en": "Sexual and Gender-Based Violence (SGBV)",
+      "fr": "Violence sexuelle et fondée sur le genre (VSG)",
+      "ar": "العنف الجنسي والعنف القائم على النوع الاجتماعي (SGBV)",
+      "status": "unterm-established",
+      "notes": "Gender-responsive policing priority in CARANA and UNPOL CBD."
+    }
+  ],
+  "rows": [
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "01-01",
+      "enTitle": "The decision before the decision",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "01-02",
+      "enTitle": "Three lenses, one coherent diagnosis",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "01-03",
+      "enTitle": "Establish your starting point",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec1-q1",
+      "enTitle": "A counterpart reports weak investigations and asks for training. What sh",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec1-q2",
+      "enTitle": "Which analytical lens asks who is already active in the reform environme",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec1-q3",
+      "enTitle": "Which statement best describes the purpose of a baseline?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec1-q4",
+      "enTitle": "Conflict analysis primarily helps the adviser understand:",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec1-q5",
+      "enTitle": "Which sequence is consistent with evidence-based CBD?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec1-q6",
+      "enTitle": "A narrative description of an existing case-file process can be a baseli",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "02-01",
+      "enTitle": "Structure the context with PESTEL-S",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "02-02",
+      "enTitle": "Read systems, not just symptoms",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "02-03",
+      "enTitle": "Law and institutional context matter",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec2-q1",
+      "enTitle": "What does the final S in PESTEL-S represent in this curriculum?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec2-q2",
+      "enTitle": "Which item is NOT a PESTEL-S category?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec2-q3",
+      "enTitle": "An adviser is exploring actors' stated positions, underlying interests a",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec2-q4",
+      "enTitle": "Which is a justified use of a conflict tree?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec2-q5",
+      "enTitle": "Should every CBD adviser personally complete a full conflict analysis?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec2-q6",
+      "enTitle": "Why must an adviser examine the host country's legal system?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "03-01",
+      "enTitle": "You are not starting from zero",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "03-02",
+      "enTitle": "Interests are not always visible",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "03-03",
+      "enTitle": "Coordinate to avoid unintended harm",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec3-q1",
+      "enTitle": "What is the core assumption of response analysis?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec3-q2",
+      "enTitle": "Why examine stakeholders' motivations?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec3-q3",
+      "enTitle": "Two donors offer overlapping training to the same unit. Which concern is",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec3-q4",
+      "enTitle": "A national counterpart hesitates to participate in a new external progra",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec3-q5",
+      "enTitle": "An existing international initiative is automatically a strong partner.",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec3-q6",
+      "enTitle": "Findings from response analysis may feed which later analytical tool?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "04-01",
+      "enTitle": "What actually happens inside the institution?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "04-02",
+      "enTitle": "Triangulate what you hear",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "04-03",
+      "enTitle": "Map people, power and interest",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec4-q1",
+      "enTitle": "The primary focus of CBD analysis is:",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec4-q2",
+      "enTitle": "Which combination offers stronger evidence than a single interview?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec4-q3",
+      "enTitle": "Why is local ownership critical?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec4-q4",
+      "enTitle": "A community representative has no formal position but strong informal in",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec4-q5",
+      "enTitle": "Which characteristics matter in stakeholder analysis?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec4-q6",
+      "enTitle": "Stakeholder analysis should never be revisited once a project starts.",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "05-01",
+      "enTitle": "Five areas of institutional capacity",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "05-02",
+      "enTitle": "Six dimensions cross every area",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "05-03",
+      "enTitle": "Move from observations to structured issues",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec5-q1",
+      "enTitle": "How many broad CBD areas does Lesson 1 identify?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec5-q2",
+      "enTitle": "Which is an enabling-service issue?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec5-q3",
+      "enTitle": "Which is one of the six cross-cutting dimensions?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec5-q4",
+      "enTitle": "A complaint mechanism does not investigate alleged rights violations. Wh",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec5-q5",
+      "enTitle": "Which dimension addresses child protection and conflict-related sexual v",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec5-q6",
+      "enTitle": "Which practice is most consistent with the intended matrix use?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "06-01",
+      "enTitle": "From findings to SWOT",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "06-02",
+      "enTitle": "Record an evaluable as-is baseline",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "screen",
+      "id": "06-03",
+      "enTitle": "You are ready for the CARANA workbench",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Includes visual diagram & transcript"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec6-q1",
+      "enTitle": "When should SWOT be performed within Lesson 1?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec6-q2",
+      "enTitle": "An existing competent records team is primarily a:",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec6-q3",
+      "enTitle": "A new external donor programme that may support reform is primarily a:",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec6-q4",
+      "enTitle": "Which example is a defensible qualitative baseline?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec6-q5",
+      "enTitle": "What is the key difference between a baseline and a target?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lesson 1",
+      "lessonId": "cbd-1",
+      "itemType": "checkpoint-quiz",
+      "id": "sec6-q6",
+      "enTitle": "What should the adviser take into the CARANA exercise?",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "screen+decision",
+      "id": "02-01",
+      "enTitle": "A police objective sits within a larger system",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 5–13"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "screen+decision",
+      "id": "02-02",
+      "enTitle": "Ownership is maintained through participation",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 16–19"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "alignment-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "alignment-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "alignment-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "screen+decision+applied-lab-priority",
+      "id": "02-03",
+      "enTitle": "Make trade-offs visible",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 14–15"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "02-04",
+      "enTitle": "Turn an intention into a testable objective",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 18–19"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "screen+decision",
+      "id": "02-07",
+      "enTitle": "Test the objective in a counterpart briefing",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 16–19"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "priority-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "priority-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "priority-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "screen+decision+applied-lab-classify",
+      "id": "02-05",
+      "enTitle": "Choose indicators that inform decisions",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 20–21"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "02-08",
+      "enTitle": "A stronger number needs a defensible method",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 20–21"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "screen+decision",
+      "id": "02-06",
+      "enTitle": "Carry defensible choices into practice",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 22, 29–30"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "performance-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "performance-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-2",
+      "itemType": "checkpoint-quiz",
+      "id": "performance-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision",
+      "id": "03-01",
+      "enTitle": "Begin with the result, then test the chain",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 4–7"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "03-10",
+      "enTitle": "Check one logframe row across four columns",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 5–7"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision+applied-lab-classify",
+      "id": "03-02",
+      "enTitle": "Explain the missing middle",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 10–11"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision",
+      "id": "03-03",
+      "enTitle": "Budget for results",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 8–9"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "logic-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "logic-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "logic-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision",
+      "id": "03-04",
+      "enTitle": "Census and vetting require a distinct mandate",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 12–13"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision+applied-lab-classify",
+      "id": "03-08",
+      "enTitle": "Match training and MMA to the diagnosed need",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 14–15"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision",
+      "id": "03-09",
+      "enTitle": "A new policy needs a route into practice",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 16"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision",
+      "id": "03-05",
+      "enTitle": "Distinguish momentum from structural reform",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 17–18"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "tools-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "tools-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "tools-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision+applied-lab-risk",
+      "id": "03-06",
+      "enTitle": "Make risks actionable",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 18–19"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "03-07",
+      "enTitle": "Prepare an alternative path before disruption",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 20–21"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "risk-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "risk-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-3",
+      "itemType": "checkpoint-quiz",
+      "id": "risk-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "screen+decision",
+      "id": "04-01",
+      "enTitle": "A sound plan still needs a local fit",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 4"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "04-02",
+      "enTitle": "Communicate for understanding and participation",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 5–6"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-context-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-context-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-context-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "screen+decision+applied-lab-classify",
+      "id": "04-03",
+      "enTitle": "A delivered activity is not sustained change",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 7–8"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "screen+decision",
+      "id": "04-04",
+      "enTitle": "Monitor implementation and respond early",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 8"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-change-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-change-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-change-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "screen+decision",
+      "id": "04-05",
+      "enTitle": "Use a structure, then revisit your diagnosis",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 9–10"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "screen+decision",
+      "id": "04-07",
+      "enTitle": "New evidence can change the problem you are solving",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 8–10"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "screen+decision",
+      "id": "04-06",
+      "enTitle": "Test your plan from the counterpart’s position",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 11–12; participant handout 16"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-problems-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-problems-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-4",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-4-problems-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "screen+decision",
+      "id": "05-01",
+      "enTitle": "Ask what changed and why",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 4"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "screen+decision+applied-lab-classify",
+      "id": "05-06",
+      "enTitle": "A favourable comparison is not the whole explanation",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 4, 6–7"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "screen+decision",
+      "id": "05-02",
+      "enTitle": "Protect credibility and choose appropriate roles",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 5–6"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-5-purpose-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-5-purpose-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-5-purpose-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "05-03",
+      "enTitle": "Design the evaluation before collecting more data",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 7"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "05-04",
+      "enTitle": "Explain your response to recommendations",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 8"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "screen+decision",
+      "id": "05-05",
+      "enTitle": "Practise evaluation without borrowing an answer",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 9–10; participant handouts 15–17"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-5-method-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-5-method-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-5",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-5-method-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "screen+decision",
+      "id": "06-01",
+      "enTitle": "An activity transition is a new responsibility",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 4"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "screen+decision+applied-lab-classify",
+      "id": "06-02",
+      "enTitle": "Use evidence and context to recognise a trigger",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 5"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-purpose-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-purpose-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-purpose-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "screen+decision",
+      "id": "06-03",
+      "enTitle": "Four principles make transition a process",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 6–7"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "screen+decision",
+      "id": "06-04",
+      "enTitle": "Distinguish authority from coordination",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 8"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-coordination-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-coordination-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-coordination-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "06-05",
+      "enTitle": "Phase responsibility and test readiness",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 9–11"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "screen+decision+applied-lab-builder",
+      "id": "06-07",
+      "enTitle": "Rehearse the conversation behind the handover",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 6–12, 17"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "screen+decision",
+      "id": "06-06",
+      "enTitle": "Prepare a transition you can explain to both sides",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Pages 12–13; participant handout 17"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-continuity-q1",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (0)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-continuity-q2",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (1)"
+    },
+    {
+      "surface": "Lessons 2-6",
+      "lessonId": "cbd-6",
+      "itemType": "checkpoint-quiz",
+      "id": "cbd-6-continuity-q3",
+      "enTitle": "",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Canonical answer index preserved (2)"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "wb-hub",
+      "itemType": "tool-surface",
+      "id": "wb-hub",
+      "enTitle": "Activities Hub (index.html)",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Scenario launcher, glossary & curriculum map"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "wb-m1",
+      "itemType": "tool-surface",
+      "id": "wb-m1",
+      "enTitle": "Module 1 Workbench (module1.html)",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "5x6 Matrix, Stakeholder 4-Quadrants, PESTEL-S, SWOT, Baseline"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "wb-m2",
+      "itemType": "tool-surface",
+      "id": "wb-m2",
+      "enTitle": "Module 2 Workbench (module2.html)",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Prioritisation scoring matrix, SMART wizards, KPI table"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "wb-m3",
+      "itemType": "tool-surface",
+      "id": "wb-m3",
+      "enTitle": "Module 3 Workbench (module3.html)",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Logframe RBB builder, Theory of Change, 3x3 Risk Matrix"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "wb-m4",
+      "itemType": "tool-surface",
+      "id": "wb-m4",
+      "enTitle": "Module 4 Workbench (module4.html)",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "MMA tracker, Role-reversal simulator, 5 Whys & PIN mediation"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "wb-m5",
+      "itemType": "tool-surface",
+      "id": "wb-m5",
+      "enTitle": "Module 5 Workbench (module5.html)",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "KPI variance table, Triangulation adjustments"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "wb-m6",
+      "itemType": "tool-surface",
+      "id": "wb-m6",
+      "enTitle": "Module 6 Workbench (module6.html)",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Transition roadmap, Validation checklist, Printable Mission Dossier"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "notebook",
+      "itemType": "tool-surface",
+      "id": "notebook",
+      "enTitle": "Evidence-to-Decision Notebook (platform/notebook.html)",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Multi-phase notebook, platform pulls & printable brief"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "demos",
+      "itemType": "tool-surface",
+      "id": "demos",
+      "enTitle": "Institutional Demo & Showcase + Visual Gallery + Voice Studio",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "All public demonstration, diagram gallery & audio comparison views"
+    },
+    {
+      "surface": "Learning Environment",
+      "lessonId": "ai-companion",
+      "itemType": "tool-surface",
+      "id": "ai-companion",
+      "enTitle": "Multilingual AI Learning Companion & Read Aloud",
+      "languages": {
+        "en": {
+          "technicallyComplete": true,
+          "linguisticReview": "canonical-baseline",
+          "smeReview": "approved-baseline",
+          "approvedForProduction": true
+        },
+        "fr-FR": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        },
+        "ar": {
+          "technicallyComplete": true,
+          "linguisticReview": "pending",
+          "smeReview": "pending",
+          "approvedForProduction": false
+        }
+      },
+      "notes": "Gemma 4 local retrieval/validation + Kokoro ff_siwis (FR pending) & macOS Majed (AR pending)"
+    }
+  ]
+}

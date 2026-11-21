@@ -35,10 +35,13 @@ const validated = await Promise.all(ids.map(async (id, i) => {
 }));
 
 // Stage only known public assets. Do not publish docs, tests or arbitrary workspace files.
-const original = ['platform', 'curricula', 'index.html', 'CARANA_CBD_Group_Activity.html', 'css', 'js',
+const original = ['platform', 'curricula', 'locales', 'index.html', 'CARANA_CBD_Group_Activity.html', 'css', 'js',
   ...Array.from({ length: 6 }, (_, i) => `module${i + 1}.html`)];
 await fs.mkdir(path.join(dist, 'course'), { recursive: true });
-for (const name of original) await fs.cp(path.join(root, name), path.join(dist, name), { recursive: true });
+for (const name of original) {
+  if (name === 'locales') { try { await fs.stat(path.join(root, name)); } catch { continue; } }
+  await fs.cp(path.join(root, name), path.join(dist, name), { recursive: true });
+}
 for (const item of await fs.readdir(path.join(root, 'course'), { withFileTypes: true })) {
   if ((item.isFile() && /\.(?:html|js|css)$/.test(item.name)) || item.name === 'illustrations')
     await fs.cp(path.join(root, 'course', item.name), path.join(dist, 'course', item.name), { recursive: true });

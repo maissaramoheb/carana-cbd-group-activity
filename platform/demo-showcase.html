@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>CARANA Interactive Learning Showcase (Ungated Institutional Preview)</title>
   <link rel="stylesheet" href="./platform.css">
+  <link rel="stylesheet" href="../css/i18n-rtl.css">
+  <script src="../platform/i18n.js"></script>
   <style>
     body { background: #fff; margin: 0; padding: 18px; }
     .showcase-wrap { max-width: 980px; margin: 0 auto; }
+    .showcase-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .showcase-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 20px; }
     .showcase-tabs button[aria-selected="true"] { background: var(--teal); color: #fff; border-color: var(--teal); }
     .showcase-note { font-size: 13px; margin: 8px 0 0; }
@@ -15,13 +18,16 @@
 </head>
 <body>
   <main class="showcase-wrap" id="showcase-main">
-    <span class="eyebrow">Ungated Institutional Preview · Lessons 2–3 Samples</span>
-    <h1 style="font-size: clamp(24px, 3vw, 34px); margin: 8px 0 10px;">Explore interactive tools without section gating</h1>
-    <p class="showcase-note status">Scratch demonstration sandbox only — changes here stay temporary and do not overwrite your saved course progress.</p>
-    <div class="showcase-tabs" role="tablist" aria-label="Ungated demonstration modules">
-      <button type="button" role="tab" id="tab-priority" aria-selected="true" data-tab="priority">1. Priority Trade-Offs (02-03)</button>
-      <button type="button" role="tab" id="tab-smart" aria-selected="false" data-tab="smart">2. SMART Drafting &amp; Self-Check (02-04)</button>
-      <button type="button" role="tab" id="tab-logframe" aria-selected="false" data-tab="logframe">3. Logframe 4-Column Logic (03-10)</button>
+    <div class="showcase-top">
+      <span class="eyebrow" data-i18n="demo.showcase.eyebrow">Ungated Institutional Preview · Lessons 2–3 Samples</span>
+      <span id="showcase-lang-slot"></span>
+    </div>
+    <h1 style="font-size: clamp(24px, 3vw, 34px); margin: 8px 0 10px;" data-i18n="demo.showcase.heading">Explore interactive tools without section gating</h1>
+    <p class="showcase-note status" data-i18n="demo.showcase.sandboxNote">Scratch demonstration sandbox only — changes here stay temporary and do not overwrite your saved course progress.</p>
+    <div class="showcase-tabs" role="tablist" aria-label="Ungated demonstration modules" data-i18n-aria-label="demo.showcase.tablistAria">
+      <button type="button" role="tab" id="tab-priority" aria-selected="true" data-tab="priority" data-i18n="demo.showcase.tabs.priority">1. Priority Trade-Offs (02-03)</button>
+      <button type="button" role="tab" id="tab-smart" aria-selected="false" data-tab="smart" data-i18n="demo.showcase.tabs.smart">2. SMART Drafting &amp; Self-Check (02-04)</button>
+      <button type="button" role="tab" id="tab-logframe" aria-selected="false" data-tab="logframe" data-i18n="demo.showcase.tabs.logframe">3. Logframe 4-Column Logic (03-10)</button>
     </div>
     <section id="showcase-stage" role="tabpanel" aria-live="polite"></section>
   </main>
@@ -68,39 +74,112 @@
         { role: 'Col 4 · Assumption / Risk', label: 'External condition', detail: 'Key Assumption: Counterpart station commanders maintain shift handover time and protect reviewer independence.' }
       ];
 
+      let activeTab = 'priority';
+
+      function getShowcaseContent() {
+        const i18n = window.CARANA_I18N;
+        if (!i18n || i18n.getLang() === 'en') {
+          return {
+            title: 'CARANA Interactive Learning Showcase (Ungated Institutional Preview)',
+            priority: SAMPLE_PRIORITY,
+            builder: SAMPLE_BUILDER,
+            logframe: {
+              eyebrow: 'Explore horizontal alignment · Screen 03-10',
+              heading: 'Horizontal logic across the four logical-framework columns',
+              caption: 'Read left to right: Result requires Verification and Source, contingent on External Conditions.',
+              defaultFeedback: 'Select any logframe column above to inspect how one planning row connects.',
+              nodes: LOGFRAME_NODES
+            }
+          };
+        }
+        const ui = i18n.getPack('ui') || {};
+        const sc = (ui.demo && ui.demo.showcase) || {};
+        const p = sc.priority || {};
+        const b = sc.builder || {};
+        const lf = sc.logframe || {};
+        return {
+          title: sc.pageTitle || 'CARANA Interactive Learning Showcase',
+          priority: {
+            type: 'priority',
+            title: p.title || SAMPLE_PRIORITY.title,
+            context: p.context || SAMPLE_PRIORITY.context,
+            criteria: Array.isArray(p.criteria) ? p.criteria : SAMPLE_PRIORITY.criteria,
+            alternatives: SAMPLE_PRIORITY.alternatives.map((a, idx) => ({
+              label: (p.alternatives && p.alternatives[idx] && p.alternatives[idx].label) || a.label,
+              ratings: a.ratings,
+              constraint: (p.alternatives && p.alternatives[idx] && p.alternatives[idx].constraint) || a.constraint
+            })),
+            debrief: p.debrief || SAMPLE_PRIORITY.debrief
+          },
+          builder: {
+            type: 'builder',
+            title: b.title || SAMPLE_BUILDER.title,
+            context: b.context || SAMPLE_BUILDER.context,
+            fields: SAMPLE_BUILDER.fields.map((f, idx) => ({
+              label: (b.fields && b.fields[idx] && b.fields[idx].label) || f.label,
+              prompt: (b.fields && b.fields[idx] && b.fields[idx].prompt) || f.prompt,
+              check: (b.fields && b.fields[idx] && b.fields[idx].check) || f.check
+            })),
+            review: b.review || SAMPLE_BUILDER.review,
+            example: b.example || SAMPLE_BUILDER.example,
+            debrief: b.debrief || SAMPLE_BUILDER.debrief
+          },
+          logframe: {
+            eyebrow: lf.eyebrow || 'Explore horizontal alignment · Screen 03-10',
+            heading: lf.heading || 'Horizontal logic across the four logical-framework columns',
+            caption: lf.caption || 'Read left to right: Result requires Verification and Source, contingent on External Conditions.',
+            defaultFeedback: lf.defaultFeedback || 'Select any logframe column above to inspect how one planning row connects.',
+            nodes: Array.isArray(lf.nodes) ? lf.nodes : LOGFRAME_NODES
+          }
+        };
+      }
+
       function renderTab(tabId) {
-        tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === tabId)));
-        if (tabId === 'priority') {
-          stage.innerHTML = tools.html(SAMPLE_PRIORITY);
-          tools.mount(SAMPLE_PRIORITY, scratchDrafts.priority, d => { scratchDrafts.priority = d; }, document);
-        } else if (tabId === 'smart') {
-          stage.innerHTML = tools.html(SAMPLE_BUILDER);
-          tools.mount(SAMPLE_BUILDER, scratchDrafts.smart, d => { scratchDrafts.smart = d; }, document);
+        activeTab = tabId || activeTab;
+        const data = getShowcaseContent();
+        document.title = data.title;
+        if (window.CARANA_I18N) window.CARANA_I18N.applyStaticDom(document);
+        tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === activeTab)));
+        if (activeTab === 'priority') {
+          stage.innerHTML = tools.html(data.priority);
+          tools.mount(data.priority, scratchDrafts.priority, d => { scratchDrafts.priority = d; }, document);
+        } else if (activeTab === 'smart') {
+          stage.innerHTML = tools.html(data.builder);
+          tools.mount(data.builder, scratchDrafts.smart, d => { scratchDrafts.smart = d; }, document);
         } else {
+          const lf = data.logframe;
+          const esc = window.CARANA_I18N ? window.CARANA_I18N.esc : (x => String(x));
           stage.innerHTML =
             '<div class="visual" data-kind="chain" data-layout="logframe-row">' +
-            '<span class="eyebrow">Explore horizontal alignment · Screen 03-10</span>' +
-            '<h2>Horizontal logic across the four logical-framework columns</h2>' +
+            '<span class="eyebrow">' + esc(lf.eyebrow) + '</span>' +
+            '<h2>' + esc(lf.heading) + '</h2>' +
             '<div class="nodes nodes-logframe">' +
-            LOGFRAME_NODES.map((n, i) =>
+            lf.nodes.map((n, i) =>
               '<button type="button" data-node="' + i + '" aria-pressed="false">' +
-              '<span class="node-role">' + n.role + '</span><span class="node-label">' + n.label + '</span></button>'
+              '<span class="node-role">' + esc(n.role) + '</span><span class="node-label">' + esc(n.label) + '</span></button>'
             ).join('') +
             '</div>' +
-            '<p class="diagram-caption">Read left to right: Result requires Verification and Source, contingent on External Conditions.</p>' +
-            '<div id="concept-feedback" class="reveal" role="status">Select any logframe column above to inspect how one planning row connects.</div>' +
+            '<p class="diagram-caption">' + esc(lf.caption) + '</p>' +
+            '<div id="concept-feedback" class="reveal" role="status">' + esc(lf.defaultFeedback) + '</div>' +
             '</div>';
           stage.querySelectorAll('[data-node]').forEach(btn => {
             btn.onclick = () => {
               stage.querySelectorAll('[data-node]').forEach(n => n.setAttribute('aria-pressed', String(n === btn)));
-              document.getElementById('concept-feedback').textContent = LOGFRAME_NODES[+btn.dataset.node].detail;
+              document.getElementById('concept-feedback').textContent = lf.nodes[+btn.dataset.node].detail;
             };
           });
         }
       }
 
       tabs.forEach(t => { t.onclick = () => renderTab(t.dataset.tab); });
-      renderTab('priority');
+      if (window.CARANA_I18N) {
+        window.CARANA_I18N.mountSwitcher('#showcase-lang-slot', { variant: 'light' });
+        window.CARANA_I18N.onChange(() => renderTab(activeTab));
+        if (window.CARANA_I18N.getLang() === 'en') renderTab('priority');
+        else window.CARANA_I18N.ready(['ui']).then(() => renderTab('priority'));
+      } else {
+        renderTab('priority');
+      }
     })();
   </script>
 </body>

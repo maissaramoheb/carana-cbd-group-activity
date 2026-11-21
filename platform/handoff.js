@@ -49,6 +49,24 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[c]));
 
+  function ht(key, vars, fallback) {
+    const i18n = (typeof global !== 'undefined' && global.CARANA_I18N) || (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || null;
+    if (i18n && i18n.getLang() !== 'en') return i18n.t('handoff.' + key, vars, fallback);
+    return fallback;
+  }
+  function getModuleTitle(num) {
+    const base = MODULE_META[num]?.title || '';
+    const i18n = (typeof global !== 'undefined' && global.CARANA_I18N) || (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || null;
+    if (!i18n || i18n.getLang() === 'en') return base;
+    return i18n.getPack('ui')?.handoff?.moduleTitles?.[String(num)] || base;
+  }
+  function getFieldLabels(sourceId, srcFallback, tgtFallback) {
+    const i18n = (typeof global !== 'undefined' && global.CARANA_I18N) || (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || null;
+    if (!i18n || i18n.getLang() === 'en') return { sourceLabel: srcFallback, targetLabel: tgtFallback };
+    const fl = i18n.getPack('ui')?.handoff?.fieldLabels?.[sourceId];
+    return { sourceLabel: fl?.src || srcFallback, targetLabel: fl?.tgt || tgtFallback };
+  }
+
   const cleanText = s => (typeof s === 'string' ? s.trim().slice(0, MAX_TEXT) : '');
 
   function getByPath(obj, pathStr) {
@@ -142,8 +160,11 @@
         ? isDefaultContingencyPlaceholder(existingText)
         : false;
       const hasExistingLearnerText = Boolean(existingText && !isDefaultPlaceholder);
+      const labels = getFieldLabels(r.sourceId, r.sourceLabel, r.targetLabel);
       return {
         ...r,
+        sourceLabel: labels.sourceLabel,
+        targetLabel: labels.targetLabel,
         hasDraft: Boolean(r.draftText),
         existingText,
         hasExistingLearnerText,
@@ -209,6 +230,7 @@
     const rows = buildMapping(num, lessonDrafts, existingLabState);
     const writtenFields = [];
     const skippedConflicts = [];
+    let wroteObjective1 = false;
 
     for (const r of rows) {
       if (!r.hasDraft) continue;
@@ -218,9 +240,10 @@
       }
       setByPath(nextLabState, r.targetPath, r.draftText);
       writtenFields.push(r.targetLabel);
+      if (r.targetPath.startsWith('module2.smartObjectives.0.')) wroteObjective1 = true;
     }
 
-    if (num === 2 && writtenFields.some(w => w.includes('Objective 1')) && nextLabState.module2?.smartObjectives?.[0]) {
+    if (num === 2 && wroteObjective1 && nextLabState.module2?.smartObjectives?.[0]) {
       const so = nextLabState.module2.smartObjectives[0];
       so.fullStatement = [so.specific, so.measurable, so.achievable, so.relevant, so.timeBound].filter(Boolean).join(' · ').slice(0, MAX_TEXT);
     }
@@ -229,20 +252,22 @@
   }
 
   function formatHandoffText(lessonNumber, lessonTitle, lessonDrafts, currentLabState) {
-    const meta = MODULE_META[Number(lessonNumber)];
+    const num = Number(lessonNumber);
+    const meta = MODULE_META[num];
     if (!meta) return '';
     const rows = buildMapping(lessonNumber, lessonDrafts, currentLabState);
+    const title = getModuleTitle(num);
     const lines = [
-      'CARANA CBD E-LEARNING — PRACTICAL WORKBENCH HANDOFF SHEET',
-      'Source lesson: Lesson ' + lessonNumber + ' — ' + lessonTitle,
-      'Target workbench: ' + meta.title + ' (' + meta.targetSummary + ')',
-      'Governance note: Browser-local preparation aid only; not automatically graded or verified.',
+      'CARANA CBD E-LEARNING — ' + ht('eyebrow', null, 'PRACTICAL WORKBENCH HANDOFF').toUpperCase(),
+      ht('colDraftField', { num }, 'Lesson ' + num) + ' — ' + lessonTitle,
+      title + ' (' + meta.targetSummary + ')',
+      ht('previewNotice', null, 'Governance note: Browser-local preparation aid only; not automatically graded or verified.'),
       ''
     ];
     for (const r of rows) {
       lines.push('--- ' + r.sourceLabel + ' → ' + r.targetLabel + ' ---');
-      lines.push('Lesson draft: ' + (r.hasDraft ? r.draftText : '(not yet drafted in this lesson)'));
-      if (r.hasExistingLearnerText) lines.push('Existing Module ' + lessonNumber + ' workbench entry: ' + r.existingText);
+      lines.push((r.hasDraft ? r.draftText : '(' + ht('noDraftYet', null, 'not yet drafted in this lesson') + ')'));
+      if (r.hasExistingLearnerText) lines.push(r.existingText);
       lines.push('');
     }
     return lines.join('\n');
@@ -267,36 +292,37 @@
     const num = Number(lesson.number);
     const meta = MODULE_META[num];
     if (!meta) return '';
+    const modTitle = getModuleTitle(num);
     const rows = buildMapping(num, lessonDrafts, currentLabState);
     const draftedCount = rows.filter(r => r.hasDraft).length;
     const conflictCount = rows.filter(r => r.willConflict).length;
 
     return '<section class="handoff-card" aria-labelledby="handoff-heading">' +
-      '<span class="eyebrow">Practical workbench handoff</span>' +
-      '<h2 id="handoff-heading">Reviewable transfer to ' + esc(meta.title) + '</h2>' +
-      '<p>Compare what you drafted in Lesson ' + num + ' against the corresponding fields inside <code>module' + num + '.html</code>. Opening the workbench never changes your saved workbench data unless you explicitly stage selected fields below.</p>' +
-      '<p class="status">' + draftedCount + ' of ' + rows.length + ' mapped prompt field(s) drafted in Lesson ' + num +
-      (conflictCount > 0 ? ' · ' + conflictCount + ' field(s) already contain custom workbench text (preserved by default).' : '.') + '</p>' +
-      '<div class="table-scroll"><table class="handoff-table"><thead><tr>' +
-      '<th scope="col">Lesson ' + num + ' draft field</th>' +
-      '<th scope="col">Your current draft</th>' +
-      '<th scope="col">Target workbench field & status</th>' +
+      '<span class="eyebrow">' + esc(ht('eyebrow', null, 'Practical workbench handoff')) + '</span>' +
+      '<h2 id="handoff-heading">' + esc(ht('headingTpl', { title: modTitle }, 'Reviewable transfer to ' + modTitle)) + '</h2>' +
+      '<p>' + esc(ht('introTpl', { num }, 'Compare what you drafted in Lesson ' + num + ' against the corresponding fields inside module' + num + '.html. Opening the workbench never changes your saved workbench data unless you explicitly stage selected fields below.')) + '</p>' +
+      '<p class="status">' + esc(ht('statusSummaryTpl', { drafted: draftedCount, total: rows.length, num }, draftedCount + ' of ' + rows.length + ' mapped prompt field(s) drafted in Lesson ' + num)) +
+      (conflictCount > 0 ? esc(ht('conflictSuffixTpl', { conflicts: conflictCount }, ' · ' + conflictCount + ' field(s) already contain custom workbench text (preserved by default).')) : '.') + '</p>' +
+      '<div class="table-scroll" role="region" tabindex="0"><table class="handoff-table"><thead><tr>' +
+      '<th scope="col">' + esc(ht('colDraftField', { num }, 'Lesson ' + num + ' draft field')) + '</th>' +
+      '<th scope="col">' + esc(ht('colCurrentDraft', null, 'Your current draft')) + '</th>' +
+      '<th scope="col">' + esc(ht('colTargetStatus', null, 'Target workbench field & status')) + '</th>' +
       '</tr></thead><tbody>' +
       rows.map(r =>
         '<tr>' +
         '<th scope="row">' + esc(r.sourceLabel) + '</th>' +
-        '<td>' + (r.hasDraft ? '<div class="handoff-snippet">' + esc(r.draftText) + '</div>' : '<span class="muted">No draft saved yet</span>') + '</td>' +
+        '<td>' + (r.hasDraft ? '<div class="handoff-snippet" dir="auto">' + esc(r.draftText) + '</div>' : '<span class="muted">' + esc(ht('noDraftYet', null, 'No draft saved yet')) + '</span>') + '</td>' +
         '<td><strong>' + esc(r.targetLabel) + '</strong><br><span class="status">' +
-        (r.hasExistingLearnerText ? (r.willConflict ? 'Has existing learner entry (protected unless overwrite opted in)' : 'Matches existing workbench text') : 'Empty or curriculum placeholder in workbench') +
+        esc(r.hasExistingLearnerText ? (r.willConflict ? ht('hasExistingConflict', null, 'Has existing learner entry (protected unless overwrite opted in)') : ht('matchesExisting', null, 'Matches existing workbench text')) : ht('emptyPlaceholder', null, 'Empty or curriculum placeholder in workbench')) +
         '</span></td>' +
         '</tr>'
       ).join('') +
       '</tbody></table></div>' +
       '<div class="handoff-actions">' +
-      '<button type="button" id="handoff-copy" class="small-btn">Copy handoff sheet</button>' +
-      '<button type="button" id="handoff-download" class="small-btn">Download handoff note (.txt)</button>' +
-      '<button type="button" id="handoff-preview-btn" class="small-btn"' + (draftedCount === 0 ? ' disabled' : '') + '>Preview copy to Module ' + num + ' workbench</button>' +
-      '<a class="action" href="' + esc(lesson.activity || meta.url) + '" target="_blank" rel="noopener noreferrer">Open original Lesson ' + num + ' workbench ↗</a>' +
+      '<button type="button" id="handoff-copy" class="small-btn">' + esc(ht('copyBtn', null, 'Copy handoff sheet')) + '</button>' +
+      '<button type="button" id="handoff-download" class="small-btn">' + esc(ht('downloadBtn', null, 'Download handoff note (.txt)')) + '</button>' +
+      '<button type="button" id="handoff-preview-btn" class="small-btn"' + (draftedCount === 0 ? ' disabled' : '') + '>' + esc(ht('previewBtnTpl', { num }, 'Preview copy to Module ' + num + ' workbench')) + '</button>' +
+      '<a class="action" href="' + esc(lesson.activity || meta.url) + '" target="_blank" rel="noopener noreferrer">' + esc(ht('openWorkbenchBtnTpl', { num }, 'Open original Lesson ' + num + ' workbench ↗')) + '</a>' +
       '</div>' +
       '<div id="handoff-preview-box" class="restore-preview" hidden></div>' +
       '<p id="handoff-status" class="status" role="status"></p>' +
@@ -325,12 +351,12 @@
         try {
           if (global.navigator?.clipboard?.writeText) {
             await global.navigator.clipboard.writeText(text);
-            statusEl.textContent = 'Copied structured Lesson ' + num + ' handoff sheet to clipboard.';
+            statusEl.textContent = ht('copiedOkTpl', { num }, 'Copied structured Lesson ' + num + ' handoff sheet to clipboard.');
           } else {
-            statusEl.textContent = 'Clipboard unavailable here; use Download handoff note (.txt).';
+            statusEl.textContent = ht('clipUnavailable', null, 'Clipboard unavailable here; use Download handoff note (.txt).');
           }
         } catch (_) {
-          statusEl.textContent = 'Clipboard blocked; use Download handoff note (.txt).';
+          statusEl.textContent = ht('clipBlocked', null, 'Clipboard blocked; use Download handoff note (.txt).');
         }
       };
     }
@@ -340,7 +366,7 @@
         const text = formatHandoffText(num, lesson.title, drafts, readLabSafe(storage));
         if (typeof downloadFn === 'function') {
           downloadFn('carana-lesson' + num + '-handoff-note.txt', text, 'text/plain');
-          statusEl.textContent = 'Downloaded Lesson ' + num + ' handoff note locally.';
+          statusEl.textContent = ht('downloadedOkTpl', { num }, 'Downloaded Lesson ' + num + ' handoff note locally.');
         }
       };
     }
@@ -356,22 +382,22 @@
 
         previewBox.hidden = false;
         previewBox.innerHTML =
-          '<h3>Dry-run workbench transfer preview (Module ' + num + ')</h3>' +
-          '<p>An automatic backup of existing <code>carana_cbd_lab_v1</code> data will be saved before copying.</p>' +
+          '<h3>' + esc(ht('previewHeadingTpl', { num }, 'Dry-run workbench transfer preview (Module ' + num + ')')) + '</h3>' +
+          '<p>' + esc(ht('previewNotice', null, 'An automatic backup of existing carana_cbd_lab_v1 data will be saved before copying.')) + '</p>' +
           '<ul class="restore-list">' +
           populated.map(r =>
             '<li><strong>' + esc(r.targetLabel) + '</strong>: ' +
-            (r.willConflict ? 'Conflict detected — will skip unless overwrite is checked.' : 'Ready to populate cleanly.') +
+            esc(r.willConflict ? ht('conflictDetect', null, 'Conflict detected — will skip unless overwrite is checked.') : ht('readyClean', null, 'Ready to populate cleanly.')) +
             '</li>'
           ).join('') +
           '</ul>' +
           (conflicts.length > 0
-            ? '<label class="handoff-optin"><input type="checkbox" id="handoff-overwrite"> Explicitly overwrite ' + conflicts.length + ' existing workbench field(s) listed above (a pre-transfer backup is kept)</label>'
+            ? '<label class="handoff-optin"><input type="checkbox" id="handoff-overwrite"> ' + esc(ht('overwriteOptinTpl', { count: conflicts.length }, 'Explicitly overwrite ' + conflicts.length + ' existing workbench field(s) listed above (a pre-transfer backup is kept)')) + '</label>'
             : '') +
           '<div class="restore-actions">' +
-          '<button type="button" id="handoff-confirm" class="primary">Copy approved fields into Module ' + num + '</button>' +
-          (hasUndoBackup ? '<button type="button" id="handoff-undo">Undo last transfer</button>' : '') +
-          '<button type="button" id="handoff-cancel">Cancel</button>' +
+          '<button type="button" id="handoff-confirm" class="primary">' + esc(ht('confirmCopyTpl', { num }, 'Copy approved fields into Module ' + num)) + '</button>' +
+          (hasUndoBackup ? '<button type="button" id="handoff-undo">' + esc(ht('undoBtn', null, 'Undo last transfer')) + '</button>' : '') +
+          '<button type="button" id="handoff-cancel">' + esc(ht('cancelBtn', null, 'Cancel')) + '</button>' +
           '</div>';
 
         doc.getElementById('handoff-cancel').onclick = () => {
@@ -392,13 +418,13 @@
               }
               storage.setItem(LAB_KEY, JSON.stringify(res.nextLabState));
               previewBox.hidden = true;
-              const msg = 'Staged ' + res.writtenFields.length + ' field(s) into Module ' + num + ' workbench' +
-                (res.skippedConflicts.length ? ' (' + res.skippedConflicts.length + ' existing field(s) preserved untouched).' : '.') +
-                ' Open Module ' + num + ' to review and refine.';
+              const msg = ht('stagedMsgTpl', { written: res.writtenFields.length, num }, 'Staged ' + res.writtenFields.length + ' field(s) into Module ' + num + ' workbench') +
+                (res.skippedConflicts.length ? ht('skippedSuffixTpl', { skipped: res.skippedConflicts.length }, ' (' + res.skippedConflicts.length + ' existing field(s) preserved untouched).') : '.') +
+                ht('reviewRefineSuffixTpl', { num }, ' Open Module ' + num + ' to review and refine.');
               if (typeof onRefresh === 'function') onRefresh(msg);
               else statusEl.textContent = msg;
             } catch (_) {
-              statusEl.textContent = 'Browser storage prevented writing to workbench storage; download your handoff note instead.';
+              statusEl.textContent = ht('storageBlocked', null, 'Browser storage prevented writing to workbench storage; download your handoff note instead.');
             }
           };
         }
@@ -413,10 +439,11 @@
               if (prev && prev._emptyBeforeHandoff) storage.removeItem(LAB_KEY);
               else storage.setItem(LAB_KEY, JSON.stringify(prev));
               storage.removeItem(LAB_BACKUP_KEY);
-              if (typeof onRefresh === 'function') onRefresh('Rolled back last Module ' + num + ' handoff transfer.');
-              else statusEl.textContent = 'Rolled back last transfer.';
+              const rbMsg = ht('rolledBackTpl', { num }, 'Rolled back last Module ' + num + ' handoff transfer.');
+              if (typeof onRefresh === 'function') onRefresh(rbMsg);
+              else statusEl.textContent = rbMsg;
             } catch (_) {
-              statusEl.textContent = 'Unable to restore prior workbench backup cleanly.';
+              statusEl.textContent = ht('undoError', null, 'Unable to restore prior workbench backup cleanly.');
             }
           };
         }

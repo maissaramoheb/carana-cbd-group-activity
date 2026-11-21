@@ -151,47 +151,133 @@ const microCases={
   feedback:'Check the inconsistency with additional records, interviews and work observation before concluding a cause or recommending an intervention.'
  }
 };
+function vjStrings() {
+ const i18n=window.CARANA_I18N;
+ const isEn=!i18n||i18n.getLang()==='en';
+ return {
+  isEn,
+  pack:!isEn?i18n.getPack('course-l1')?.visualJourney:null,
+  t:(k,vars,fb)=>isEn?fb:i18n.t(k,vars,fb),
+  rawList:(k,fb)=>isEn?fb:i18n.rawList(k,fb)
+ };
+}
+function localizedEntry(id) {
+ const st=vjStrings();
+ const base=scenes[id]||exercises[id];
+ if(!base)return null;
+ if(st.isEn||!st.pack)return base;
+ if(base.cases){
+  const loc=st.pack.exercises?.[id];
+  if(!loc)return base;
+  return {
+   ...base,
+   eyebrow:loc.eyebrow||base.eyebrow,
+   title:loc.title||base.title,
+   intro:loc.intro||base.intro,
+   options:Array.isArray(loc.options)&&loc.options.length===base.options.length?loc.options:base.options,
+   cases:base.cases.map((c,idx)=>{
+    const lc=loc.cases&&loc.cases[idx];
+    return [lc?lc[0]:c[0], c[1], lc?(lc[1]||lc[2]||c[2]):c[2]];
+   })
+  };
+ }
+ const loc=st.pack.scenes?.[id];
+ if(!loc)return base;
+ const markMap=st.t('visualJourney.markMap',null,null)||{};
+ const uiPack=!st.isEn&&window.CARANA_I18N.getPack('ui');
+ const marksObj=uiPack&&uiPack.visualJourney&&uiPack.visualJourney.markMap||{};
+ return {
+  ...base,
+  eyebrow:loc.eyebrow||base.eyebrow,
+  title:loc.title||base.title,
+  intro:loc.intro||base.intro,
+  nodes:base.nodes.map((n,idx)=>{
+   const ln=loc.nodes&&loc.nodes[idx];
+   return {
+    label:(ln&&ln.label)||n.label,
+    question:(ln&&ln.question)||n.question,
+    explain:(ln&&ln.explain)||n.explain,
+    mark:marksObj[n.mark]||n.mark,
+    iconKey:n.label,
+    _canonical:{label:n.label,question:n.question,explain:n.explain}
+   };
+  })
+ };
+}
+function localizedMicro(id) {
+ const base=microCases[id];
+ if(!base)return null;
+ const st=vjStrings();
+ const loc=!st.isEn&&st.pack?.microCases?.[id];
+ if(!loc)return base;
+ return {
+  ...base,
+  prompt:loc.prompt||base.prompt,
+  answers:Array.isArray(loc.answers)&&loc.answers.length===base.answers.length?loc.answers:base.answers,
+  feedback:loc.feedback||base.feedback
+ };
+}
 function microHTML(id){
- const c=microCases[id];if(!c)return '';
- return '<div class="vj-micro" aria-label="Apply the visual concept">'+
-  '<div class="vj-micro-label">YOUR TURN · 1 SHORT DECISION</div>'+
+ const c=localizedMicro(id);if(!c)return '';
+ const st=vjStrings();
+ return '<div class="vj-micro" aria-label="'+esc(st.t('visualJourney.microAria',null,'Apply the visual concept'))+'">'+
+  '<div class="vj-micro-label">'+esc(st.t('visualJourney.microTurn',null,'YOUR TURN · 1 SHORT DECISION'))+'</div>'+
   '<p class="vj-micro-prompt">'+esc(c.prompt)+'</p>'+
-  '<div class="vj-micro-answers" role="group" aria-label="Choose the most defensible answer">'+
+  '<div class="vj-micro-answers" role="group" aria-label="'+esc(st.t('visualJourney.microGroupAria',null,'Choose the most defensible answer'))+'">'+
    c.answers.map((a,i)=>'<button type="button" class="vj-micro-answer" data-vj-mini="'+i+'" aria-pressed="false">'+esc(a)+'</button>').join('')+
-  '</div><div id="vj-mini-feedback" class="vj-micro-feedback" role="status" aria-live="polite">Select an answer to receive an explanation. This practice is not graded.</div></div>';
+  '</div><div id="vj-mini-feedback" class="vj-micro-feedback" role="status" aria-live="polite">'+esc(st.t('visualJourney.microPromptDefault',null,'Select an answer to receive an explanation. This practice is not graded.'))+'</div></div>';
 }
 function head(e){
  return '<div class="vj-heading"><span class="vj-eyebrow">'+esc(e.eyebrow)+'</span><h2>'+esc(e.title)+'</h2><p>'+esc(e.intro)+'</p></div>';
 }
 function sceneHTML(id,e){
+ const st=vjStrings();
+ const centerHtml=e.type==='wheel'?st.t('visualJourney.centerWheel',null,'OPERATING<br>CONTEXT'):
+  e.type==='triangle'?st.t('visualJourney.centerTriangle',null,'COMPARE<br>EVIDENCE'):
+  e.type==='orbit'?st.t('visualJourney.centerOrbit',null,'POLICE<br>COUNTERPART'):
+  st.t('visualJourney.centerOverlap',null,'SHARED<br>TEAM');
  const body='<div class="vj-nodes vj-'+esc(e.type)+'" role="group" aria-label="'+esc(e.title)+'">'+
   e.nodes.map((n,i)=>'<button type="button" class="vj-node" data-vj-item="'+i+'" aria-pressed="false">'+
-    '<span class="vj-node-mark" aria-hidden="true">'+(id==='02-01'?glyph(n.label):esc(n.mark))+'</span><span class="vj-node-label">'+esc(n.label)+'</span></button>').join('')+
-   ((e.type==='wheel'||e.type==='triangle'||e.type==='orbit'||e.type==='overlap')?'<div class="vj-center" aria-hidden="true">'+(e.type==='wheel'?'OPERATING<br>CONTEXT':e.type==='triangle'?'COMPARE<br>EVIDENCE':e.type==='orbit'?'POLICE<br>COUNTERPART':'SHARED<br>TEAM')+'</div>':'')+'</div>';
- return '<section class="vj-stage" aria-label="Interactive explanatory visual">'+head(e)+body+
-  '<div class="vj-result" id="vj-result" role="status" aria-live="polite"><strong>Choose one part of the illustration</strong><p>Reveal its analytical question and meaning.</p></div>'+
-  '<div class="vj-foot"><span>Explore the diagram, then continue with the lesson.</span><span id="vj-count">0 of '+e.nodes.length+' explored</span></div><div class="vj-progress" aria-hidden="true"><i id="vj-progress-fill"></i></div>'+microHTML(id)+'</section>';
+    '<span class="vj-node-mark" aria-hidden="true">'+(id==='02-01'?glyph(n.iconKey||n.label):esc(n.mark))+'</span><span class="vj-node-label">'+esc(n.label)+'</span></button>').join('')+
+   ((e.type==='wheel'||e.type==='triangle'||e.type==='orbit'||e.type==='overlap')?'<div class="vj-center" aria-hidden="true">'+centerHtml+'</div>':'')+'</div>';
+ const initCount=st.isEn?('0 of '+e.nodes.length+' explored'):st.t('visualJourney.exploredOf',{done:0,total:e.nodes.length},'0 of '+e.nodes.length+' explored');
+ return '<section class="vj-stage" aria-label="'+esc(e.title)+'">'+head(e)+body+
+  '<div class="vj-result" id="vj-result" role="status" aria-live="polite"><strong>'+esc(st.t('visualJourney.choosePartTitle',null,'Choose one part of the illustration'))+'</strong><p>'+esc(st.t('visualJourney.choosePartBody',null,'Reveal its analytical question and meaning.'))+'</p></div>'+
+  '<div class="vj-foot"><span>'+esc(st.t('visualJourney.footExplore',null,'Explore the diagram, then continue with the lesson.'))+'</span><span id="vj-count">'+esc(initCount)+'</span></div><div class="vj-progress" aria-hidden="true"><i id="vj-progress-fill"></i></div>'+microHTML(id)+'</section>';
 }
 function exerciseHTML(id,e){
- return '<section class="vj-stage vj-exercise" aria-label="Interactive classification exercise">'+head(e)+
-  '<div class="vj-case"><span id="vj-case-number">EXAMPLE 1 OF '+e.cases.length+'</span><strong id="vj-case-text">'+esc(e.cases[0][0])+'</strong></div>'+
-  (e.type==='swot'?'<div class="vj-swot-wrap" aria-label="SWOT four-quadrant decision matrix"><div class="vj-axis-x"><span>FAVOURABLE</span><span>UNFAVOURABLE</span></div><div class="vj-axis-y" aria-hidden="true"><span>INTERNAL</span><span>EXTERNAL</span></div>':'')+'<div class="vj-answers '+(e.type==='swot'?'vj-swot':'vj-classify')+'" role="group" aria-label="Choose a classification">'+e.options.map((o,i)=>'<button type="button" class="vj-answer" data-vj-answer="'+i+'" aria-pressed="false"><span class="vj-answer-tag">'+(e.type==='swot'?['S','W','O','T'][i]:String(i+1).padStart(2,'0'))+'</span>'+esc(o)+'</button>').join('')+'</div>'+(e.type==='swot'?'</div>':'')+
-  '<div class="vj-result" id="vj-result" role="status" aria-live="polite"><strong>Make a classification</strong><p>Choose one option to reveal source-aware feedback.</p></div>'+
-  '<div class="vj-foot"><span>Formative practice · Not an official CARANA answer key</span><button type="button" class="vj-next" id="vj-next" hidden>Next example →</button></div></section>';
+ const st=vjStrings();
+ const prog=st.isEn?('EXAMPLE 1 OF '+e.cases.length):st.t('visualJourney.exampleProgress',{current:1,total:e.cases.length},'EXAMPLE 1 OF '+e.cases.length);
+ const swotTags=st.rawList('visualJourney.swotTags',['S','W','O','T']);
+ const fav=st.t('visualJourney.swotFavourable',null,'FAVOURABLE');
+ const unfav=st.t('visualJourney.swotUnfavourable',null,'UNFAVOURABLE');
+ const intl=st.t('visualJourney.swotInternal',null,'INTERNAL');
+ const extl=st.t('visualJourney.swotExternal',null,'EXTERNAL');
+ return '<section class="vj-stage vj-exercise" aria-label="'+esc(e.title)+'">'+head(e)+
+  '<div class="vj-case"><span id="vj-case-number">'+esc(prog)+'</span><strong id="vj-case-text">'+esc(e.cases[0][0])+'</strong></div>'+
+  (e.type==='swot'?'<div class="vj-swot-wrap" aria-label="'+esc(e.title)+'"><div class="vj-axis-x"><span>'+esc(fav)+'</span><span>'+esc(unfav)+'</span></div><div class="vj-axis-y" aria-hidden="true"><span>'+esc(intl)+'</span><span>'+esc(extl)+'</span></div>':'')+'<div class="vj-answers '+(e.type==='swot'?'vj-swot':'vj-classify')+'" role="group" aria-label="'+esc(st.t('visualJourney.makeChoice',null,'Choose a classification'))+'">'+e.options.map((o,i)=>'<button type="button" class="vj-answer" data-vj-answer="'+i+'" aria-pressed="false"><span class="vj-answer-tag">'+(e.type==='swot'?(swotTags[i]||['S','W','O','T'][i]):String(i+1).padStart(2,'0'))+'</span>'+esc(o)+'</button>').join('')+'</div>'+(e.type==='swot'?'</div>':'')+
+  '<div class="vj-result" id="vj-result" role="status" aria-live="polite"><strong>'+esc(st.t('visualJourney.makeChoice',null,'Make a classification'))+'</strong><p>'+esc(st.t('visualJourney.makeChoiceDesc',null,'Choose one option to reveal source-aware feedback.'))+'</p></div>'+
+  '<div class="vj-foot"><span>'+esc(st.t('visualJourney.practiceFoot',null,'Formative practice · Not an official CARANA answer key'))+'</span><button type="button" class="vj-next" id="vj-next" hidden>'+esc(st.t('visualJourney.nextArrow',null,'Next example →'))+'</button></div></section>';
 }
 function html(section,screen){
  const id=key(section,screen);
- const e=scenes[id]||exercises[id];
+ const e=localizedEntry(id);
  return e?(e.cases?exerciseHTML(id,e):sceneHTML(id,e)):'';
 }
 function mount(section,screen){
- const id=key(section,screen),e=scenes[id]||exercises[id];
+ const id=key(section,screen),base=scenes[id]||exercises[id],e=localizedEntry(id),st=vjStrings();
  window.CARANA_VISUAL_JOURNEY.active=null;
  const root=document.querySelector('.vj-stage');
  if(!root||!e)return;
+ if(e.type==='quadrant'){
+  const ay=st.t('visualJourney.axisY',null,'INFLUENCE ↑').replace(/"/g,'\\"');
+  const ax=st.t('visualJourney.axisX',null,'INTEREST →').replace(/"/g,'\\"');
+  root.style.setProperty('--vj-axis-y','"'+ay+'"');
+  root.style.setProperty('--vj-axis-x','"'+ax+'"');
+ }
  const response=root.querySelector('#vj-result');
  if(e.cases){
-  window.CARANA_EXPLORATION?.trackPractice({lessonId:'cbd-1',screenId:id,items:e.options.map(label=>({label,detail:JSON.stringify(e.cases)})),buttons:root.querySelectorAll('[data-vj-answer]'),container:root});
+  window.CARANA_EXPLORATION?.trackPractice({lessonId:'cbd-1',screenId:id,items:base.options.map(label=>({label,detail:JSON.stringify(base.cases)})),buttons:root.querySelectorAll('[data-vj-answer]'),container:root});
   let current=0,answered=false;
   const answers=[...root.querySelectorAll('[data-vj-answer]')];
   const next=root.querySelector('#vj-next'),label=root.querySelector('#vj-case-number'),question=root.querySelector('#vj-case-text');
@@ -202,9 +288,10 @@ function mount(section,screen){
    response.classList.toggle('vj-reflect',!correct);
    response.dataset.readExplanation='true';
    response.dataset.readTitle=e.options[index]||'Classification feedback';
-   response.innerHTML='<strong>'+(correct?'A defensible classification.':'Look again at the analytical boundary.')+'</strong><p>'+esc(c[2])+'</p>';
+   const headingTxt=correct?st.t('visualJourney.goodChoice',null,'A defensible classification.'):st.t('visualJourney.retryChoice',null,'Look again at the analytical boundary.');
+   response.innerHTML='<strong>'+esc(headingTxt)+'</strong><p>'+esc(c[2])+'</p>';
    response.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:e.options[index],target:response}}));
-   if(current<e.cases.length-1){next.hidden=false;next.textContent='Next example →';}
+   if(current<e.cases.length-1){next.hidden=false;next.textContent=st.t('visualJourney.nextArrow',null,'Next example →');}
    else {next.hidden=true;}
   };
   answers.forEach(b=>b.addEventListener('click',()=>choose(Number(b.dataset.vjAnswer))));
@@ -215,9 +302,9 @@ function mount(section,screen){
    response.className='vj-result';
    delete response.dataset.readExplanation;
    delete response.dataset.readTitle;
-   response.innerHTML='<strong>Make a classification</strong><p>Choose one option to reveal why it fits.</p>';
+   response.innerHTML='<strong>'+esc(st.t('visualJourney.makeChoice',null,'Make a classification'))+'</strong><p>'+esc(st.t('visualJourney.makeChoiceReveal',null,'Choose one option to reveal why it fits.'))+'</p>';
    response.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{reset:true,target:response}}));
-   label.textContent='EXAMPLE '+(current+1)+' OF '+e.cases.length;
+   label.textContent=st.isEn?('EXAMPLE '+(current+1)+' OF '+e.cases.length):st.t('visualJourney.exampleProgress',{current:current+1,total:e.cases.length},'EXAMPLE '+(current+1)+' OF '+e.cases.length);
    question.textContent=e.cases[current][0];
   });
   return;
@@ -242,11 +329,11 @@ function mount(section,screen){
   response.dataset.readTitle=n.label;
   response.innerHTML='<span class="vj-selected-tag">'+esc(n.label)+'</span><strong>'+esc(n.question)+'</strong><p>'+esc(n.explain)+'</p>';
   response.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:n.label,target:response}}));
-  count.textContent=selected.size+' of '+buttons.length+' explored';
+  count.textContent=st.isEn?(selected.size+' of '+buttons.length+' explored'):st.t('visualJourney.exploredOf',{done:selected.size,total:buttons.length},selected.size+' of '+buttons.length+' explored');
   if(fill)fill.style.width=(100*selected.size/buttons.length)+'%';
  }));
  }
- const micro=microCases[id];
+ const micro=localizedMicro(id);
  if(micro){
   const options=[...root.querySelectorAll('[data-vj-mini]')];
   const feedback=root.querySelector('#vj-mini-feedback');
@@ -255,8 +342,9 @@ function mount(section,screen){
    options.forEach((b,j)=>{b.classList.toggle('chosen',j===i);b.setAttribute('aria-pressed',String(j===i));});
    feedback.className='vj-micro-feedback '+(correct?'correct':'reflect');
    feedback.dataset.readExplanation='true';
-   feedback.dataset.readTitle=correct?'Well reasoned':'Reconsider the evidence';
-   feedback.textContent=(correct?'Well reasoned. ':'Reconsider the evidence. ')+micro.feedback;
+   feedback.dataset.readTitle=correct?st.t('visualJourney.wellReasonedTitle',null,'Well reasoned'):st.t('visualJourney.reconsiderTitle',null,'Reconsider the evidence');
+   const prefix=correct?st.t('visualJourney.wellReasoned',null,'Well reasoned. '):st.t('visualJourney.reconsiderEvidence',null,'Reconsider the evidence. ');
+   feedback.textContent=prefix+micro.feedback;
    feedback.dispatchEvent(new CustomEvent('carana:explanation-updated',{bubbles:true,detail:{id:String(i),target:feedback}}));
   }));
  }

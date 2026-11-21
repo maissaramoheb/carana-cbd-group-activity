@@ -10,7 +10,7 @@ test('release build publishes exactly the locked media and refuses drift or abse
   const project = path.resolve(__dirname, '../..');
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'cbd-build-integrity-'));
   t.after(() => fs.rmSync(tmp, {recursive: true, force: true}));
-  for (const name of ['course','platform','curricula','css','js','tools','index.html','CARANA_CBD_Group_Activity.html',
+  for (const name of ['course','platform','curricula','locales','css','js','tools','index.html','CARANA_CBD_Group_Activity.html',
     'module1.html','module2.html','module3.html','module4.html','module5.html','module6.html'])
     fs.cpSync(path.join(project, name), path.join(tmp,name), {recursive:true});
   fs.writeFileSync(path.join(tmp, 'private-placeholder.txt'), 'not a public asset');

@@ -28,19 +28,63 @@
   ];
 
   const host = document.getElementById('vc-samples');
-  for (const p of PASSAGES) {
-    const sec = document.createElement('section');
-    sec.innerHTML =
-      `<div class="vc-passage-box"><h2>${p.title}</h2><p>${p.text}</p></div>` +
-      '<div class="vc-grid">' +
-      p.candidates.map(c =>
-        `<article class="vc-card ${c.rec ? 'recommended' : ''}">` +
-        `<div class="vc-card-head"><h3>${c.name}</h3><span class="vc-tag">${c.tag}</span></div>` +
-        `<p class="vc-meta">${c.note}</p>` +
-        `<audio controls preload="none" src="./audio/en/comparison/${c.file}"></audio>` +
-        '</article>'
-      ).join('') +
-      '</div>';
-    host.append(sec);
+  const tableEl = document.querySelector('.vc-table');
+  const i18n = window.CARANA_I18N;
+  const enTitle = document.title;
+  const enTableHtml = tableEl ? tableEl.innerHTML : '';
+
+  function render() {
+    host.querySelectorAll('audio').forEach(a => { try { a.pause(); } catch (_) {} });
+    const isEn = !i18n || i18n.getLang() === 'en';
+    const esc = i18n ? i18n.esc : (s => String(s));
+    document.title = isEn ? enTitle : i18n.t('voicePages.comparisonTitle', null, enTitle);
+    if (i18n) i18n.applyStaticDom(document);
+
+    const ui = !isEn && i18n ? (i18n.getPack('ui') || {}) : {};
+    const vp = ui.voicePages || {};
+    const locPassages = Array.isArray(vp.comparisonPassages) ? vp.comparisonPassages : null;
+
+    host.innerHTML = '';
+    PASSAGES.forEach((p, idx) => {
+      const lp = locPassages && locPassages[idx];
+      const title = (lp && lp.title) || p.title;
+      const text = (lp && lp.text) || p.text;
+      const sec = document.createElement('section');
+      sec.innerHTML =
+        `<div class="vc-passage-box"><h2>${esc(title)}</h2><p>${esc(text)}</p></div>` +
+        '<div class="vc-grid">' +
+        p.candidates.map((c, cIdx) => {
+          const lc = lp && lp.candidates && lp.candidates[cIdx];
+          const cname = (lc && lc.name) || c.name;
+          const ctag = (lc && lc.tag) || c.tag;
+          const cnote = (lc && lc.note) || c.note;
+          return `<article class="vc-card ${c.rec ? 'recommended' : ''}">` +
+            `<div class="vc-card-head"><h3>${esc(cname)}</h3><span class="vc-tag">${esc(ctag)}</span></div>` +
+            `<p class="vc-meta">${esc(cnote)}</p>` +
+            `<audio controls preload="none" src="./audio/en/comparison/${c.file}"></audio>` +
+            '</article>';
+        }).join('') +
+        '</div>';
+      host.append(sec);
+    });
+
+    if (tableEl) {
+      if (isEn) {
+        tableEl.innerHTML = enTableHtml;
+      } else if (Array.isArray(vp.comparisonCols) && Array.isArray(vp.comparisonRows)) {
+        tableEl.innerHTML =
+          '<thead><tr>' + vp.comparisonCols.map(c => `<th>${esc(c)}</th>`).join('') + '</tr></thead>' +
+          '<tbody>' + vp.comparisonRows.map(r => '<tr><td><strong>' + esc(r[0]) + '</strong></td>' + r.slice(1).map(cell => '<td>' + esc(cell) + '</td>').join('') + '</tr>').join('') + '</tbody>';
+      }
+    }
+  }
+
+  if (i18n) {
+    i18n.mountSwitcher('#vc-lang-slot', { variant: 'light' });
+    i18n.onChange(render);
+    if (i18n.getLang() === 'en') render();
+    else i18n.ready(['ui']).then(render);
+  } else {
+    render();
   }
 })();

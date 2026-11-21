@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="./visual-journey.css">
   <link rel="stylesheet" href="./illustrations.css">
   <link rel="stylesheet" href="./hybrid-visuals.css">
+  <link rel="stylesheet" href="../css/i18n-rtl.css">
+  <script src="../platform/i18n.js"></script>
   <style>
     *{box-sizing:border-box}
     body{margin:0;background:#f4f8fa;color:#1b364b;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -65,25 +67,25 @@
   <script src="./visual-gallery.js" defer></script>
 </head>
 <body class="is-learning">
-  <a class="skip-link" href="#vg-display">Skip to selected illustration</a>
+  <a class="skip-link" href="#vg-display" data-i18n="gallery.skipLink">Skip to selected illustration</a>
   <header class="vg-header">
-    <div class="vg-top"><span class="vg-brand">CARANA / CBD E-LEARNING</span><a class="vg-link" href="./">Return to full Lesson 1</a></div>
-    <div class="vg-headline"><div class="vg-eyebrow">LESSON 1 · VISUAL LEARNING PREVIEW</div><h1>Explore the illustrations directly.</h1>
-    <p class="vg-description">Every screen has an interactive educational illustration, and three selected screens also include the cinematic stories you approved. Explore both together without affecting your course progress.</p></div>
+    <div class="vg-top"><span class="vg-brand" data-i18n="gallery.brand">CARANA / CBD E-LEARNING</span><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span id="vg-lang-slot"></span><a class="vg-link" href="./" data-i18n="gallery.backLink">Return to full Lesson 1</a></div></div>
+    <div class="vg-headline"><div class="vg-eyebrow" data-i18n="gallery.eyebrow">LESSON 1 · VISUAL LEARNING PREVIEW</div><h1 data-i18n="gallery.heading">Explore the illustrations directly.</h1>
+    <p class="vg-description" data-i18n="gallery.description">Every screen has an interactive educational illustration, and three selected screens also include the cinematic stories you approved. Explore both together without affecting your course progress.</p></div>
   </header>
   <main class="vg-shell">
     <nav class="vg-sidebar" aria-label="Lesson 1 visual screen selection">
-      <h2>SELECT AN ILLUSTRATION</h2>
-      <div class="vg-list" id="vg-list"><p>Loading visuals…</p></div>
+      <h2 data-i18n="gallery.sidebarTitle">SELECT AN ILLUSTRATION</h2>
+      <div class="vg-list" id="vg-list"><p data-i18n="common.loading">Loading visuals…</p></div>
     </nav>
     <div class="vg-main">
-      <div class="vg-toolbar"><span class="vg-location" id="vg-location" aria-live="polite">Loading…</span>
-        <div class="vg-controls"><button id="vg-prev" class="vg-nav" type="button">← Previous</button><button id="vg-next" class="vg-nav" type="button">Next visual →</button></div>
+      <div class="vg-toolbar"><span class="vg-location" id="vg-location" aria-live="polite" data-i18n="common.loading">Loading…</span>
+        <div class="vg-controls"><button id="vg-prev" class="vg-nav" type="button" data-i18n="gallery.prevBtn">← Previous</button><button id="vg-next" class="vg-nav" type="button" data-i18n="gallery.nextBtn">Next visual →</button></div>
       </div>
-      <div class="vg-card" id="vg-display"><div class="vg-card-header"><h2>Visual explanations</h2><p>Select a lesson screen.</p></div></div>
-      <div class="vg-aside-note"><strong>How to use this preview:</strong> Select a part of any diagram to reveal its meaning. The SWOT and capacity-classification screens have short practice cases. This gallery is for visual review and does not bypass or modify the full course's knowledge checkpoints.</div>
+      <div class="vg-card" id="vg-display"><div class="vg-card-header"><h2 data-i18n="gallery.defaultHeaderTitle">Visual explanations</h2><p data-i18n="gallery.defaultHeaderPrompt">Select a lesson screen.</p></div></div>
+      <div class="vg-aside-note"><strong data-i18n="gallery.asideLabel">How to use this preview:</strong> <span data-i18n="gallery.asideText">Select a part of any diagram to reveal its meaning. The SWOT and capacity-classification screens have short practice cases. This gallery is for visual review and does not bypass or modify the full course's knowledge checkpoints.</span></div>
     </div>
   </main>
-  <footer class="vg-footer">Independent instructional adaptation of UNPOL CBD JST Lesson 1 · Conceptual examples are illustrative, not official CARANA activity answers.</footer>
+  <footer class="vg-footer" data-i18n="gallery.footer">Independent instructional adaptation of UNPOL CBD JST Lesson 1 · Conceptual examples are illustrative, not official CARANA activity answers.</footer>
 </body>
 </html>

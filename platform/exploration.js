@@ -14,10 +14,18 @@
     for (const c of String(text)) { n ^= c.charCodeAt(0); n = Math.imul(n, 16777619); }
     return (n >>> 0).toString(16).padStart(8, '0');
   }
+  function et(key, vars, fallback) {
+    const i18n = (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || (typeof window !== 'undefined' && window.CARANA_I18N) || null;
+    if (i18n && i18n.getLang() !== 'en') return i18n.t('exploration.' + key, vars, fallback);
+    return fallback;
+  }
   // Semantic identifiers survive rearrangement; changed explanatory content gets a new revision.
-  const nodeId = item => 'n-' + hash(item.id || item.label);
+  const nodeId = item => 'n-' + hash((item && item._canonical && (item._canonical.id || item._canonical.label)) || item.id || item.label);
   function descriptor(lessonId, screenId, items) {
-    const signature = items.map(n => [nodeId(n), n.label, n.question || '', n.detail || n.explain || ''].join('|')).sort().join('\n');
+    const signature = items.map(n => {
+      const c = n && n._canonical ? n._canonical : n;
+      return [nodeId(n), c.label, c.question || '', c.detail || c.explain || ''].join('|');
+    }).sort().join('\n');
     return { key: lessonId + '/' + screenId + '/' + hash(signature), ids: items.map(nodeId) };
   }
   const empty = () => ({ version: 1, records: {} });
@@ -103,14 +111,14 @@
         if (feedback?.id) button.setAttribute('aria-controls', feedback.id);
         let badge = button.querySelector('.exploration-state');
         if (!badge) { badge = doc.createElement('span'); badge.className = 'exploration-state'; button.append(badge); }
-        badge.textContent = ' '+(selected ? 'Viewing' : seen ? 'Explored' : 'Explore');
+        badge.textContent = ' '+(selected ? et('viewing', null, 'Viewing') : seen ? et('explored', null, 'Explored') : et('explore', null, 'Explore'));
         button.removeAttribute('aria-label');
         if(button.hasAttribute('data-lab-area')&&!button.querySelector('.exploration-cell-name')){const name=doc.createElement('span');name.className='exploration-cell-name';name.textContent=items[i].label+' ';button.prepend(name);}
       });
-      if (count) { count.textContent = 'Explanations ' + state.seen.length + ' of ' + all.length + ' explored'; count.setAttribute('aria-live', 'polite'); }
+      if (count) { count.textContent = et('countExplored', { done: state.seen.length, total: all.length }, 'Explanations ' + state.seen.length + ' of ' + all.length + ' explored'); count.setAttribute('aria-live', 'polite'); }
       if (fill) fill.style.width = (100 * state.seen.length / all.length) + '%';
-      storageNote.textContent = store.failed ? 'Exploration history could not save on this device. Export a backup before closing. Checkpoint progress is recorded separately.' : '';
-      practiceNote.textContent = state.practice ? 'Practice attempted · separate from checkpoint achievement' : '';
+      storageNote.textContent = store.failed ? et('storageFailed', null, 'Exploration history could not save on this device. Export a backup before closing. Checkpoint progress is recorded separately.') : '';
+      practiceNote.textContent = state.practice ? et('practiceAttempted', null, 'Practice attempted · separate from checkpoint achievement') : '';
       if (feedback) feedback.dataset.feedback = 'explanation';
     }
     function select(i, save = true) {
@@ -133,10 +141,10 @@
       if (reminder && !reminder.hidden) { state.dismissed = true; store.update(d, state); action(); return; }
       nextAction = action;
       if (!reminder) {
-        reminder = doc.createElement('section'); reminder.className = 'exploration-reminder'; reminder.setAttribute('aria-label', 'Optional exploration reminder');
-        const text = doc.createElement('p'); text.setAttribute('role', 'status'); text.textContent = 'Some explanations are still unexplored. They may help your reasoning; opening them is not a knowledge check.';
-        const review = doc.createElement('button'); review.type = 'button'; review.className = 'exploration-review'; review.textContent = 'Review remaining explanations';
-        const anyway = doc.createElement('button'); anyway.type = 'button'; anyway.className = 'exploration-anyway'; anyway.textContent = 'Continue anyway →';
+        reminder = doc.createElement('section'); reminder.className = 'exploration-reminder'; reminder.setAttribute('aria-label', et('reminderAria', null, 'Optional exploration reminder'));
+        const text = doc.createElement('p'); text.setAttribute('role', 'status'); text.textContent = et('reminderText', null, 'Some explanations are still unexplored. They may help your reasoning; opening them is not a knowledge check.');
+        const review = doc.createElement('button'); review.type = 'button'; review.className = 'exploration-review'; review.textContent = et('reviewRemaining', null, 'Review remaining explanations');
+        const anyway = doc.createElement('button'); anyway.type = 'button'; anyway.className = 'exploration-anyway'; anyway.textContent = et('continueAnyway', null, 'Continue anyway →');
         review.onclick = () => { reminder.hidden = true; const i = d.ids.findIndex(id => !state.seen.includes(id)); all[Math.max(0, i)].focus(); all[Math.max(0, i)].scrollIntoView({ block: 'center', behavior: 'instant' }); };
         anyway.onclick = () => { state.dismissed = true; store.update(d, state); nextAction(); };
         reminder.append(text, review, anyway);
@@ -151,8 +159,8 @@
     if (!container) return;
     const d=descriptor(lessonId,screenId,items), note=container.ownerDocument.createElement('p');
     note.className='practice-history';note.setAttribute('role','status');container.append(note);
-    const paint=()=>{note.textContent=store.get(d).practice?'Practice attempted · separate from checkpoint achievement':'';};
-    [...buttons].forEach(button=>button.addEventListener('click',()=>{store.update(d,{practice:true});paint();if(store.failed)note.textContent+=' · History could not save; export before closing.';}));paint();
+    const paint=()=>{note.textContent=store.get(d).practice?et('practiceAttempted', null, 'Practice attempted · separate from checkpoint achievement'):'';};
+    [...buttons].forEach(button=>button.addEventListener('click',()=>{store.update(d,{practice:true});paint();if(store.failed)note.textContent+=et('practiceFailed', null, ' · History could not save; export before closing.');}));paint();
   }
   return { KEY, MAX_BYTES, descriptor, validate, createStore, store, bind, trackPractice };
 });

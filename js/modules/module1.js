@@ -22,6 +22,10 @@
   let activeStage = 'stage-team';
   let activeModalCellKey = null;
 
+  const tw = (key, vars, fallback) => (Storage && Storage.wbT ? Storage.wbT(key, vars, fallback !== undefined ? fallback : key) : (fallback !== undefined ? fallback : key));
+  const scLoc = () => (Scenario && Scenario.getLocalized ? Scenario.getLocalized() : Scenario);
+  const glLoc = () => (Glossary && Glossary.getLocalized ? Glossary.getLocalized() : Glossary);
+
   const STAGES = [
     { id: 'stage-team', label: '1. Orientation & Team', short: 'Orientation' },
     { id: 'stage-conflict', label: '2. Conflict & Response Analysis', short: 'Conflict Analysis' },
@@ -30,6 +34,22 @@
     { id: 'stage-swot', label: '5. SWOT & Points of Entry', short: 'SWOT Analysis' },
     { id: 'stage-baseline', label: '6. Baseline & Synthesis', short: 'Baseline & Review' }
   ];
+
+  function applyLocaleToModule() {
+    renderStageTabs();
+    updateCompletionBadge();
+    renderStakeholders();
+    renderStakeholderQuadrants();
+    renderMatrix();
+    renderSwot();
+    renderBaseline();
+    renderScenarioDrawerList(document.getElementById('scenarioSearchInput')?.value);
+    renderGlossaryList(document.getElementById('glossarySearchInput')?.value);
+    Storage.renderCurriculumTrack(1);
+    if (activeModalCellKey && document.getElementById('cellModalBackdrop')?.classList.contains('open')) {
+      openCellModal(activeModalCellKey);
+    }
+  }
 
   function init() {
     state = Storage.loadLabState();
@@ -45,10 +65,13 @@
     renderScenarioDrawerList();
     renderGlossaryList();
     Storage.renderCurriculumTrack(1);
-    updateSaveIndicator('Loaded local data');
+    updateSaveIndicator(tw('Loaded local data'));
     updateRoleView();
     setupAutosaveListener();
     setupLifecycleListeners();
+    if (Storage && Storage.initWorkbenchI18n) {
+      Storage.initWorkbenchI18n(applyLocaleToModule);
+    }
   }
 
   const dirtyFields = new Set();
@@ -205,12 +228,12 @@
     }
     const ok = Storage.saveLabState(state);
     if (!ok) {
-      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+      updateSaveIndicator(tw('⚠️ Storage full or blocked! Export JSON.'), true);
     } else {
       dirtyFields.clear();
       deletedStakeholderIds.clear();
       syncBaselineStakeholders();
-      updateSaveIndicator(statusMsg || 'Saved locally');
+      updateSaveIndicator(statusMsg || tw('Saved locally'));
     }
     Storage.renderCurriculumTrack(1);
     return ok;
@@ -219,7 +242,7 @@
   function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
-      el.textContent = msg || 'Saved locally on this device';
+      el.textContent = msg || tw('Saved locally on this device');
       el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
@@ -239,7 +262,7 @@
       }
     });
     document.addEventListener('input', debounce(() => {
-      save('Autosaved');
+      save(tw('Autosaved'));
       renderStakeholderQuadrants();
       updateSwotCountBadge();
     }, 600));
@@ -258,10 +281,10 @@
     const badge = document.getElementById('stageCompleteFooterBadge');
     if (!badge) return;
     if (state.module1 && state.module1.confirmed) {
-      badge.textContent = '✓ Phase 1 Self-Confirmed · Ready for Module 2';
+      badge.textContent = tw('✓ Phase 1 Self-Confirmed · Ready for Module 2');
       badge.style.color = 'var(--ok)';
     } else {
-      badge.textContent = 'Phase 1 In Progress · Pending Self-Confirmation';
+      badge.textContent = tw('Phase 1 In Progress · Pending Self-Confirmation');
       badge.style.color = 'var(--navy)';
     }
   }
@@ -470,7 +493,7 @@
     container.innerHTML = STAGES.map((s, idx) => `
       <button class="stage-tab ${s.id === activeStage ? 'active' : ''}" data-stage="${s.id}" type="button">
         <span class="badge">0${idx + 1}</span>
-        <span>${escapeHtml(s.short)}</span>
+        <span>${escapeHtml(tw(s.short))}</span>
       </button>
     `).join('');
 
@@ -585,61 +608,81 @@
     if (el) el.value = val || '';
   }
 
+  function displayStakeholderField(s, field) {
+    const cur = s[field] || '';
+    const loc = scLoc();
+    const enDef = Scenario.DEFAULT_STAKEHOLDERS?.find(x => x.id === s.id);
+    const locDef = loc.DEFAULT_STAKEHOLDERS?.find(x => x.id === s.id);
+    if (enDef && locDef && cur === enDef[field] && locDef[field]) return locDef[field];
+    return cur;
+  }
+
   /* Stakeholder Analysis */
   function renderStakeholders() {
     const container = document.getElementById('stakeholderList');
     if (!container) return;
+
+    const loc = scLoc();
+    const roleLabels = loc.ROLE_LABELS || {};
+    const lvlLabels = loc.LEVEL_LABELS || {};
 
     // Ensure every stakeholder has a valid stable ID
     state.module1.stakeholders.forEach((s, idx) => {
       if (s && !s.id) s.id = 'sh-' + (idx + 1);
     });
 
-    container.innerHTML = state.module1.stakeholders.map((s, idx) => `
+    container.innerHTML = state.module1.stakeholders.map((s, idx) => {
+      const dispName = displayStakeholderField(s, 'name');
+      const dispNeeds = displayStakeholderField(s, 'needs');
+      const dispStrategy = displayStakeholderField(s, 'strategy');
+      const unnamedLbl = tw('Unnamed Stakeholder');
+      const actorTitle = tw('Actor #{idx}: {name}', { idx: idx + 1, name: dispName || unnamedLbl }, `Actor #${idx + 1}: ${dispName || unnamedLbl}`);
+      return `
       <div class="card" style="margin-bottom: 12px; background: #ffffff;" data-idx="${idx}" data-stakeholder-id="${s.id}">
         <div style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; background: var(--wash); border-bottom: 1px solid var(--line);">
-          <strong id="stakeHeader-${s.id}">Actor #${idx + 1}: ${escapeHtml(s.name || 'Unnamed Stakeholder')}</strong>
-          <button class="btn btn-sm btn-danger remove-stakeholder-btn" data-id="${s.id}" data-remove="${idx}" type="button" aria-label="Remove stakeholder ${escapeHtml(s.name || (idx + 1))}">Remove</button>
+          <strong id="stakeHeader-${s.id}" dir="auto" data-learner-text>${escapeHtml(actorTitle)}</strong>
+          <button class="btn btn-sm btn-danger remove-stakeholder-btn" data-id="${s.id}" data-remove="${idx}" type="button" aria-label="${escapeHtml(tw('Remove stakeholder {name}', { name: dispName || (idx + 1) }, 'Remove stakeholder ' + (dispName || (idx + 1))))}">${escapeHtml(tw('Remove'))}</button>
         </div>
         <div style="padding: 14px 16px;" class="grid-3">
           <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label" for="stake-${s.id}-name">Stakeholder Name / Entity</label>
-            <input id="stake-${s.id}-name" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="name" value="${escapeHtml(s.name)}" placeholder="e.g. Public Prosecutors" aria-label="Stakeholder name">
+            <label class="form-label" for="stake-${s.id}-name">${escapeHtml(tw('Stakeholder Name / Entity'))}</label>
+            <input id="stake-${s.id}-name" dir="auto" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="name" value="${escapeHtml(dispName)}" placeholder="${escapeHtml(tw('e.g. Public Prosecutors'))}" aria-label="${escapeHtml(tw('Stakeholder name'))}">
           </div>
           <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label" for="stake-${s.id}-role">Role in CBD</label>
-            <select id="stake-${s.id}-role" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="role" aria-label="Stakeholder role in CBD">
+            <label class="form-label" for="stake-${s.id}-role">${escapeHtml(tw('Role in CBD'))}</label>
+            <select id="stake-${s.id}-role" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="role" aria-label="${escapeHtml(tw('Stakeholder role in CBD'))}">
               ${['Owner', 'Enabler', 'Affected group', 'Influencer', 'Potential blocker'].map(r => `
-                <option value="${r}" ${r === s.role ? 'selected' : ''}>${r}</option>
+                <option value="${r}" ${r === s.role ? 'selected' : ''}>${escapeHtml(roleLabels[r] || r)}</option>
               `).join('')}
             </select>
           </div>
           <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label">Influence vs Interest</label>
+            <label class="form-label">${escapeHtml(tw('Influence vs Interest'))}</label>
             <div style="display: flex; gap: 6px;">
-              <select id="stake-${s.id}-influence" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="influence" title="Influence" aria-label="Stakeholder influence level">
-                <option value="High" ${s.influence === 'High' ? 'selected' : ''}>Inf: High</option>
-                <option value="Medium" ${s.influence === 'Medium' ? 'selected' : ''}>Inf: Med</option>
-                <option value="Low" ${s.influence === 'Low' ? 'selected' : ''}>Inf: Low</option>
+              <select id="stake-${s.id}-influence" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="influence" title="${escapeHtml(tw('Influence'))}" aria-label="${escapeHtml(tw('Stakeholder influence level'))}">
+                <option value="High" ${s.influence === 'High' ? 'selected' : ''}>${escapeHtml(tw('Inf: High'))}</option>
+                <option value="Medium" ${s.influence === 'Medium' ? 'selected' : ''}>${escapeHtml(tw('Inf: Med'))}</option>
+                <option value="Low" ${s.influence === 'Low' ? 'selected' : ''}>${escapeHtml(tw('Inf: Low'))}</option>
               </select>
-              <select id="stake-${s.id}-interest" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="interest" title="Interest" aria-label="Stakeholder interest level">
-                <option value="High" ${s.interest === 'High' ? 'selected' : ''}>Int: High</option>
-                <option value="Medium" ${s.interest === 'Medium' ? 'selected' : ''}>Int: Med</option>
-                <option value="Low" ${s.interest === 'Low' ? 'selected' : ''}>Int: Low</option>
+              <select id="stake-${s.id}-interest" class="form-select stake-field" data-id="${s.id}" data-idx="${idx}" data-field="interest" title="${escapeHtml(tw('Interest'))}" aria-label="${escapeHtml(tw('Stakeholder interest level'))}">
+                <option value="High" ${s.interest === 'High' ? 'selected' : ''}>${escapeHtml(tw('Int: High'))}</option>
+                <option value="Medium" ${s.interest === 'Medium' ? 'selected' : ''}>${escapeHtml(tw('Int: Med'))}</option>
+                <option value="Low" ${s.interest === 'Low' ? 'selected' : ''}>${escapeHtml(tw('Int: Low'))}</option>
               </select>
             </div>
           </div>
           <div class="form-group col-full" style="margin-bottom: 0;">
-            <label class="form-label" for="stake-${s.id}-needs">Motivations, Needs & Perceived Obstacles</label>
-            <input id="stake-${s.id}-needs" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="needs" value="${escapeHtml(s.needs || '')}" placeholder="What drives or concerns this stakeholder?" aria-label="Stakeholder motivations and needs">
+            <label class="form-label" for="stake-${s.id}-needs">${escapeHtml(tw('Motivations, Needs & Perceived Obstacles'))}</label>
+            <input id="stake-${s.id}-needs" dir="auto" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="needs" value="${escapeHtml(dispNeeds)}" placeholder="${escapeHtml(tw('What drives or concerns this stakeholder?'))}" aria-label="${escapeHtml(tw('Stakeholder motivations and needs'))}">
           </div>
           <div class="form-group col-full" style="margin-bottom: 0;">
-            <label class="form-label" for="stake-${s.id}-strategy">Engagement & Communication Strategy</label>
-            <input id="stake-${s.id}-strategy" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="strategy" value="${escapeHtml(s.strategy || '')}" placeholder="How will UNPOL CBD advisers engage them?" aria-label="Stakeholder engagement and communication strategy">
+            <label class="form-label" for="stake-${s.id}-strategy">${escapeHtml(tw('Engagement & Communication Strategy'))}</label>
+            <input id="stake-${s.id}-strategy" dir="auto" class="form-input stake-field" data-id="${s.id}" data-idx="${idx}" data-field="strategy" value="${escapeHtml(dispStrategy)}" placeholder="${escapeHtml(tw('How will UNPOL CBD advisers engage them?'))}" aria-label="${escapeHtml(tw('Stakeholder engagement and communication strategy'))}">
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     container.querySelectorAll('.stake-field').forEach(el => {
       el.addEventListener('input', e => {
@@ -655,7 +698,7 @@
         if (f === 'name') {
           const h = document.getElementById(`stakeHeader-${shId}`);
           if (h) {
-            h.textContent = `Actor #${+e.target.dataset.idx + 1}: ${e.target.value || 'Unnamed Stakeholder'}`;
+            h.textContent = tw('Actor #{idx}: {name}', { idx: +e.target.dataset.idx + 1, name: e.target.value || tw('Unnamed Stakeholder') });
           }
         }
         invalidateConfirmation();
@@ -696,6 +739,7 @@
     const qGreen = document.getElementById('quadGreen');
     if (!qRed || !qBlue || !qOrange || !qGreen) return;
 
+    const roleLabels = scLoc().ROLE_LABELS || {};
     qRed.innerHTML = '';
     qBlue.innerHTML = '';
     qOrange.innerHTML = '';
@@ -703,10 +747,11 @@
 
     state.module1.stakeholders.forEach(s => {
       if (!s.name) return;
+      const dispName = displayStakeholderField(s, 'name');
       const cardHtml = `
         <div class="stakeholder-badge">
-          <span>${escapeHtml(s.name)}</span>
-          <span style="font-size: 0.72rem; color: var(--muted);">${escapeHtml(s.role)}</span>
+          <span dir="auto" data-learner-text>${escapeHtml(dispName)}</span>
+          <span style="font-size: 0.72rem; color: var(--muted);">${escapeHtml(roleLabels[s.role] || s.role)}</span>
         </div>
       `;
 
@@ -724,9 +769,10 @@
       }
     });
 
+    const emptyQuad = tw('No stakeholders in this quadrant yet.');
     [qRed, qBlue, qOrange, qGreen].forEach(q => {
       if (!q.children.length) {
-        q.innerHTML = '<span style="color: var(--muted); font-size: 0.8rem; font-style: italic;">No stakeholders in this quadrant yet.</span>';
+        q.innerHTML = `<span style="color: var(--muted); font-size: 0.8rem; font-style: italic;">${escapeHtml(emptyQuad)}</span>`;
       }
     });
   }
@@ -736,6 +782,7 @@
     const tableHost = document.getElementById('matrixTableHost');
     if (!tableHost) return;
 
+    const loc = scLoc();
     const isFacilitator = state.session.role === 'facilitator';
     const showExpectedOverlay = isFacilitator || !!state.module1.showExpectedGuide;
 
@@ -743,17 +790,17 @@
       <table class="matrix-table">
         <thead>
           <tr>
-            <th>UNPOL CBD Areas ↓ / Cross-Cutting Dimensions →</th>
-            ${Scenario.DIMENSIONS.map(d => `<th>${escapeHtml(d.name)}</th>`).join('')}
+            <th>${escapeHtml(tw('UNPOL CBD Areas ↓ / Cross-Cutting Dimensions →'))}</th>
+            ${loc.DIMENSIONS.map(d => `<th>${escapeHtml(d.name)}</th>`).join('')}
           </tr>
         </thead>
         <tbody>
     `;
 
-    Scenario.AREAS.forEach(area => {
+    loc.AREAS.forEach(area => {
       html += `
         <tr>
-          <td colspan="${Scenario.DIMENSIONS.length + 1}" class="area-group-th">
+          <td colspan="${loc.DIMENSIONS.length + 1}" class="area-group-th">
             ${escapeHtml(area.name)}
           </td>
         </tr>
@@ -763,18 +810,21 @@
         html += `<tr>`;
         html += `<td class="subarea-td">${escapeHtml(sub.name)}</td>`;
 
-        Scenario.DIMENSIONS.forEach(dim => {
+        loc.DIMENSIONS.forEach(dim => {
           const cellKey = `${sub.id}|${dim.id}`;
           const cellData = state.module1.matrixCells[cellKey] || { paragraphs: [], notes: '' };
           const count = (cellData.paragraphs || []).length;
+          const badgeTxt = count > 1
+            ? tw('issuePlural', { count }, `${count} issues`)
+            : tw('issueSingular', { count }, `${count} issue`);
 
           html += `
             <td class="matrix-cell ${count > 0 ? 'has-content' : ''}" 
-                data-cellkey="${cellKey}" tabindex="0" role="button" aria-label="${sub.name} in ${dim.name}">
+                data-cellkey="${cellKey}" tabindex="0" role="button" aria-label="${escapeHtml(sub.name + ' × ' + dim.name)}">
               <div style="font-size: 0.75rem; color: var(--muted); margin-bottom: 4px;">
-                ${count > 0 ? `<span class="cell-badge">${count} issue${count > 1 ? 's' : ''}</span>` : '<span style="opacity:0.4;">—</span>'}
+                ${count > 0 ? `<span class="cell-badge">${escapeHtml(badgeTxt)}</span>` : '<span style="opacity:0.4;">—</span>'}
               </div>
-              <div style="max-height: 48px; overflow: hidden; text-overflow: ellipsis; font-size: 0.72rem; color: var(--ink);">
+              <div dir="auto" data-learner-text style="max-height: 48px; overflow: hidden; text-overflow: ellipsis; font-size: 0.72rem; color: var(--ink);">
                 ${cellData.notes ? escapeHtml(cellData.notes.slice(0, 40)) + '...' : ''}
               </div>
             </td>
@@ -788,9 +838,9 @@
     html += `</tbody></table>`;
 
     const nonEmptyCells = [];
-    Scenario.AREAS.forEach(area => {
+    loc.AREAS.forEach(area => {
       area.subcategories.forEach(sub => {
-        Scenario.DIMENSIONS.forEach(dim => {
+        loc.DIMENSIONS.forEach(dim => {
           const cellKey = `${sub.id}|${dim.id}`;
           const cellData = state.module1.matrixCells[cellKey];
           if (cellData && ((cellData.paragraphs && cellData.paragraphs.length > 0) || (cellData.notes && cellData.notes.trim().length > 0))) {
@@ -809,16 +859,16 @@
     html += `
       <div class="printable-matrix-summary print-only-section" style="margin-top: 28px;">
         <h4 style="font-size: 1.05rem; color: var(--navy); margin-bottom: 12px; border-bottom: 2px solid var(--un-blue); padding-bottom: 6px;">
-          Structured Diagnostic Matrix Findings & Evidence Register
+          ${escapeHtml(tw('Structured Diagnostic Matrix Findings & Evidence Register'))}
         </h4>
-        ${nonEmptyCells.length === 0 ? '<p style="font-size: 0.88rem; color: var(--muted); font-style: italic;">No specific matrix findings or paragraph references recorded yet.</p>' : `
+        ${nonEmptyCells.length === 0 ? `<p style="font-size: 0.88rem; color: var(--muted); font-style: italic;">${escapeHtml(tw('No specific matrix findings or paragraph references recorded yet.'))}</p>` : `
           <table class="table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
             <thead>
-              <tr style="background: var(--wash); text-align: left;">
-                <th style="padding: 8px; border: 1px solid var(--line); width: 25%;">Area & Sub-Category</th>
-                <th style="padding: 8px; border: 1px solid var(--line); width: 20%;">Dimension</th>
-                <th style="padding: 8px; border: 1px solid var(--line); width: 15%;">Scenario Ref</th>
-                <th style="padding: 8px; border: 1px solid var(--line); width: 40%;">Diagnostic Finding & Notes</th>
+              <tr style="background: var(--wash); text-align: start;">
+                <th style="padding: 8px; border: 1px solid var(--line); width: 25%;">${escapeHtml(tw('Area & Sub-Category'))}</th>
+                <th style="padding: 8px; border: 1px solid var(--line); width: 20%;">${escapeHtml(tw('Dimension'))}</th>
+                <th style="padding: 8px; border: 1px solid var(--line); width: 15%;">${escapeHtml(tw('Scenario Ref'))}</th>
+                <th style="padding: 8px; border: 1px solid var(--line); width: 40%;">${escapeHtml(tw('Diagnostic Finding & Notes'))}</th>
               </tr>
             </thead>
             <tbody>
@@ -832,9 +882,9 @@
                     ${escapeHtml(c.dimName)}
                   </td>
                   <td style="padding: 8px; border: 1px solid var(--line); vertical-align: top;">
-                    ${c.paragraphs.length > 0 ? c.paragraphs.map(p => `<span class="badge" style="display:inline-block; margin:2px 2px 2px 0;">Para ${p}</span>`).join('') : '—'}
+                    ${c.paragraphs.length > 0 ? c.paragraphs.map(p => `<span class="badge" style="display:inline-block; margin:2px 2px 2px 0;">${escapeHtml(tw('Para {id}', { id: p }, `Para ${p}`))}</span>`).join('') : '—'}
                   </td>
-                  <td style="padding: 8px; border: 1px solid var(--line); vertical-align: top; white-space: pre-wrap; word-break: break-word;">
+                  <td dir="auto" data-learner-text style="padding: 8px; border: 1px solid var(--line); vertical-align: top; white-space: pre-wrap; word-break: break-word;">
                     ${escapeHtml(c.notes || '—')}
                   </td>
                 </tr>
@@ -864,10 +914,11 @@
     modalOpenerEl = document.activeElement;
     activeModalCellKey = cellKey;
     const [subId, dimId] = cellKey.split('|');
+    const loc = scLoc();
     let subName = subId;
     let areaName = '';
 
-    for (const a of Scenario.AREAS) {
+    for (const a of loc.AREAS) {
       const match = a.subcategories.find(s => s.id === subId);
       if (match) {
         subName = match.name;
@@ -876,7 +927,7 @@
       }
     }
 
-    const dim = Scenario.DIMENSIONS.find(d => d.id === dimId);
+    const dim = loc.DIMENSIONS.find(d => d.id === dimId);
     const dimName = dim ? dim.name : dimId;
 
     document.getElementById('modalCellTitle').textContent = `${subName} × ${dimName}`;
@@ -889,12 +940,12 @@
     const paraHost = document.getElementById('modalCellParaPills');
     const selectedParas = new Set((cellData.paragraphs || []).filter(p => Number.isInteger(p) && p > 0));
 
-    paraHost.innerHTML = Scenario.PARAGRAPHS.map(p => {
+    paraHost.innerHTML = loc.PARAGRAPHS.map(p => {
       const isSel = selectedParas.has(p.id);
       return `
         <button type="button" class="btn btn-sm ${isSel ? 'btn-primary' : 'btn-ghost'}" 
                 style="margin: 2px; border: 1px solid var(--line);" data-para-id="${p.id}">
-          Para ${p.id}
+          ${escapeHtml(tw('Para {id}', { id: p.id }, `Para ${p.id}`))}
         </button>
       `;
     }).join('');
@@ -940,7 +991,7 @@
     };
 
     invalidateConfirmation();
-    save('Updated matrix cell');
+    save(tw('Updated matrix cell'));
     closeCellModal();
     renderMatrix();
   }
@@ -972,18 +1023,18 @@
     if (!host) return;
 
     if (!items || items.length === 0) {
-      host.innerHTML = `<span style="color: var(--muted); font-size: 0.82rem; font-style: italic;">No items added yet.</span>`;
+      host.innerHTML = `<span style="color: var(--muted); font-size: 0.82rem; font-style: italic;">${escapeHtml(tw('No items added yet.'))}</span>`;
       return;
     }
 
     host.innerHTML = items.map((item, idx) => `
       <div class="swot-item-pill">
         <div>
-          <span>${escapeHtml(item.text)}</span>
-          ${item.isEntryPoint ? '<span class="cell-badge" style="background:#0c6a99; margin-left:6px;">CBD Entry Point</span>' : ''}
-          ${item.isRisk ? '<span class="cell-badge" style="background:#a62727; margin-left:6px;">CBD Risk</span>' : ''}
+          <span dir="auto" data-learner-text>${escapeHtml(item.text)}</span>
+          ${item.isEntryPoint ? `<span class="cell-badge" style="background:#0c6a99; margin-inline-start:6px;">${escapeHtml(tw('CBD Entry Point'))}</span>` : ''}
+          ${item.isRisk ? `<span class="cell-badge" style="background:#a62727; margin-inline-start:6px;">${escapeHtml(tw('CBD Risk'))}</span>` : ''}
         </div>
-        <button class="remove-btn" type="button" data-cat="${categoryKey}" data-idx="${idx}" title="Remove item" aria-label="Remove SWOT item: ${escapeHtml(item.text)}">×</button>
+        <button class="remove-btn" type="button" data-cat="${categoryKey}" data-idx="${idx}" title="${escapeHtml(tw('Remove item'))}" aria-label="${escapeHtml(tw('Remove SWOT item: {text}', { text: item.text }, `Remove SWOT item: ${item.text}`))}">×</button>
       </div>
     `).join('');
 
@@ -1005,7 +1056,7 @@
     const isRisk = document.getElementById('newSwotIsRisk')?.checked || false;
 
     if (!text) {
-      alert('Please enter an issue or finding description.');
+      alert(tw('Please enter an issue or finding description.'));
       return;
     }
 
@@ -1016,7 +1067,7 @@
     if (document.getElementById('newSwotIsEntryPoint')) document.getElementById('newSwotIsEntryPoint').checked = false;
     if (document.getElementById('newSwotIsRisk')) document.getElementById('newSwotIsRisk').checked = false;
 
-    save('Added SWOT item');
+    save(tw('Added SWOT item'));
     renderSwot();
   }
 
@@ -1025,7 +1076,7 @@
     const total = (s.strengths?.length || 0) + (s.weaknesses?.length || 0) + (s.opportunities?.length || 0) + (s.threats?.length || 0);
     const badge = document.getElementById('swotCountBadge');
     if (badge) {
-      badge.textContent = `${total} items (Recommended: 15–20)`;
+      badge.textContent = tw('{total} items (Recommended: 15–20)', { total }, `${total} items (Recommended: 15–20)`);
       badge.style.background = total >= 15 ? 'var(--ok)' : 'var(--warn)';
       badge.style.color = '#ffffff';
     }
@@ -1038,12 +1089,12 @@
 
     host.innerHTML = state.module1.baseline.map((b, idx) => `
       <tr data-idx="${idx}">
-        <td><input class="form-input base-field" data-idx="${idx}" data-field="area" value="${escapeHtml(b.area || '')}" placeholder="Domain / Area" aria-label="Baseline domain or area for row ${idx + 1}"></td>
-        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="asIsEvidence" style="min-height: 80px;" aria-label="Current baseline AS-IS evidence for row ${idx + 1}">${escapeHtml(b.asIsEvidence || '')}</textarea></td>
-        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="baselineMetric" style="min-height: 80px;" aria-label="Baseline metric for row ${idx + 1}">${escapeHtml(b.baselineMetric || '')}</textarea></td>
-        <td><textarea class="form-textarea base-field" data-idx="${idx}" data-field="tobeTarget" style="min-height: 80px;" aria-label="Target TO-BE state for row ${idx + 1}">${escapeHtml(b.tobeTarget || '')}</textarea></td>
-        <td><input class="form-input base-field" data-idx="${idx}" data-field="verificationSource" value="${escapeHtml(b.verificationSource || '')}" aria-label="Means of verification for row ${idx + 1}"></td>
-        <td><button class="btn btn-sm btn-danger remove-base-btn" data-idx="${idx}" type="button" aria-label="Remove baseline row ${idx + 1}">×</button></td>
+        <td><input dir="auto" class="form-input base-field" data-idx="${idx}" data-field="area" value="${escapeHtml(b.area || '')}" placeholder="${escapeHtml(tw('Domain / Area'))}" aria-label="${escapeHtml(tw('Baseline domain or area'))}"></td>
+        <td><textarea dir="auto" class="form-textarea base-field" data-idx="${idx}" data-field="asIsEvidence" style="min-height: 80px;" aria-label="${escapeHtml(tw('Current baseline AS-IS evidence'))}">${escapeHtml(b.asIsEvidence || '')}</textarea></td>
+        <td><textarea dir="auto" class="form-textarea base-field" data-idx="${idx}" data-field="baselineMetric" style="min-height: 80px;" aria-label="${escapeHtml(tw('Baseline metric'))}">${escapeHtml(b.baselineMetric || '')}</textarea></td>
+        <td><textarea dir="auto" class="form-textarea base-field" data-idx="${idx}" data-field="tobeTarget" style="min-height: 80px;" aria-label="${escapeHtml(tw('Target TO-BE state'))}">${escapeHtml(b.tobeTarget || '')}</textarea></td>
+        <td><input dir="auto" class="form-input base-field" data-idx="${idx}" data-field="verificationSource" value="${escapeHtml(b.verificationSource || '')}" aria-label="${escapeHtml(tw('Means of verification'))}"></td>
+        <td><button class="btn btn-sm btn-danger remove-base-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove baseline row {idx}', { idx: idx + 1 }, `Remove baseline row ${idx + 1}`))}">×</button></td>
       </tr>
     `).join('');
 
@@ -1087,7 +1138,7 @@
     if (!host) return;
 
     const q = (searchQuery || '').toLowerCase().trim();
-    let paragraphs = Scenario.PARAGRAPHS;
+    let paragraphs = scLoc().PARAGRAPHS;
 
     if (q) {
       paragraphs = paragraphs.filter(p =>
@@ -1098,7 +1149,7 @@
 
     host.innerHTML = paragraphs.map(p => `
       <div class="para-item" id="drawer-para-${p.id}">
-        <span class="para-badge">Paragraph ${p.id}</span>
+        <span class="para-badge">${escapeHtml(tw('Paragraph {id}', { id: p.id }, `Paragraph ${p.id}`))}</span>
         <p style="margin: 4px 0 0;">${escapeHtml(p.text)}</p>
       </div>
     `).join('');
@@ -1133,7 +1184,7 @@
     if (!host) return;
 
     const q = (searchQuery || '').toLowerCase().trim();
-    let terms = Glossary.TERMS;
+    let terms = glLoc().TERMS;
 
     if (q) {
       terms = terms.filter(t =>
@@ -1198,13 +1249,13 @@
     });
 
     // Save button
-    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
+    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save(tw('Saved locally')));
 
     // Confirmation checkbox listener
     const confirmBox = document.getElementById('confirmModule1') || document.getElementById('selfConfirmCheck');
     confirmBox?.addEventListener('change', e => {
       state.module1.confirmed = e.target.checked;
-      save(e.target.checked ? 'Phase 1 Confirmed' : 'Confirmation withdrawn');
+      save(e.target.checked ? tw('Phase {num} Confirmed', { num: 1 }, 'Phase 1 Confirmed') : tw('Confirmation withdrawn'));
       updateCompletionBadge();
     });
 
@@ -1331,9 +1382,9 @@
           renderMatrix();
           renderSwot();
           renderBaseline();
-          alert('Module 1 data imported successfully.');
+          alert(tw('Module {num} data imported successfully.', { num: 1 }, 'Module 1 data imported successfully.'));
         } else {
-          alert('Import failed: ' + res.error);
+          alert(tw('Import failed: ') + res.error);
         }
       };
       reader.readAsText(file);
@@ -1341,7 +1392,7 @@
 
     // Reset Activity
     document.getElementById('resetActivityBtn')?.addEventListener('click', () => {
-      if (confirm('Are you sure you want to reset all data for this learning lab? This action cannot be undone.')) {
+      if (confirm(tw('Are you sure you want to reset all data for this learning lab? This action cannot be undone.'))) {
         state = Storage.resetLabState();
         populateFormFields();
         renderStakeholders();
@@ -1350,7 +1401,7 @@
         renderSwot();
         renderBaseline();
         setStage('stage-team');
-        alert('Learning lab reset to blank state.');
+        alert(tw('Learning lab reset to blank state.'));
       }
     });
 
@@ -1358,7 +1409,7 @@
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
       if (!state.module1?.confirmed) {
-        const proceed = confirm('Note: Phase 1 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        const proceed = confirm(tw('Note: Phase 1 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?'));
         if (!proceed) return;
       }
       if (Storage.preparePrintableContent) Storage.preparePrintableContent();

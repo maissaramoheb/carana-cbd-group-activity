@@ -1,11 +1,82 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CARANA institutional demonstration</title><link rel="stylesheet" href="./platform.css"></head><body>
-<a class="skip" href="#main">Skip to content</a><header><a class="brand" href="../course/#home">CARANA <span>E-LEARNING</span></a><nav aria-label="Demonstration"><a href="../course/#home">CBD home</a><a href="../course/#lesson-1">Lesson 1</a><a href="#partnership">Partnership</a></nav></header>
-<main id="main" tabindex="-1"><section class="demo-hero"><span class="eyebrow">An invitation to review and develop</span><h1>Make the connection between learning and professional judgement.</h1><p class="lead">A reusable interactive environment designed to improve access, consistency and practical application within UN Police job-specific training.</p><a class="action" href="#try">Try a working learning interaction ↓</a></section>
-<section><h2>The training challenge</h2><p>Experienced police practitioners need to connect analytical tools with unfamiliar institutional settings. Reading a framework is one step; explaining a decision and applying it with counterparts require further practice, feedback and discussion.</p><p>This independent adaptation provides self-paced explanations and practical workbenches as preparation for that human learning process. It does not replace facilitated assessment or establish measured learning effectiveness.</p></section>
-<div class="cards"><article class="card"><span class="eyebrow">Working implementation</span><h2>CBD Lesson 1</h2><p>18 screens, 18 disclosed AI narration tracks, conceptual explorations, three cinematic scenes and 36 checkpoint questions, connected to the original CARANA activity.</p><a class="action" href="../course/#lesson-1">Open the guided lesson</a></article><article class="card"><span class="eyebrow">Review adaptations</span><h2>The CBD sequence</h2><p>Explore Lessons 2–6 from the official 2023 plans. The review lessons now include structured drafting, evidence classification, weighting and risk exploration, with transcripts and checkpoints. Expert validation, recordings and artwork production remain gated.</p><a class="action" href="../course/#home">Explore the CBD journey</a></article><article class="card"><span class="eyebrow">Verified source inventory</span><h2>MMA and COP</h2><p>Separate official sequences and objectives are inventoried. Digital conversions and activity integration are proposed work, with no complete MMA or COP course claimed.</p><a class="action" href="./?view=curricula">Inspect curriculum status</a></article></div>
-<section id="try"><span class="eyebrow">Guided demonstration · actual application</span><h2>Test interactive tools &amp; visual models without section gating</h2><p>Compare weighted reform trade-offs, test SMART self-check prompts, or switch to Lesson 1 interactive visual diagrams without checkpoint gates. Open the full platform whenever you are ready to study sequentially.</p><label for="scene">Choose a demonstration</label> <select id="scene"><option value="showcase">Ungated Lessons 2–3 showcase (Priority, SMART, Logframe)</option><option value="04-02">Lesson 1 · Triangulation of evidence</option><option value="02-01">Lesson 1 · PESTEL-S context</option><option value="04-03">Lesson 1 · Stakeholder power and interest</option><option value="05-02">Lesson 1 · Five by six CBD matrix</option><option value="06-01">Lesson 1 · SWOT classification</option><option value="cbd2">Lesson 2 full review lesson (guided checkpoints)</option></select><p><a id="open-gallery" href="./demo-showcase.html" target="_blank" rel="noopener noreferrer">Open this demonstration in a full window ↗</a></p><iframe id="learning-demo" title="CARANA interactive demonstration showcase" loading="lazy" src="./demo-showcase.html"></iframe></section>
-<section><h2>From a defensible diagnosis to practical work</h2><p>The learning sequence connects situation, objectives, planning, implementation, evaluation and transition. Existing workbenches remain independently accessible. A learner can export their own activity work; completion is self-reported and does not amount to independent performance assessment.</p><a class="action" href="../course/#activities">Open the original practice library</a></section>
-<section id="partnership"><span class="eyebrow">Partnership options</span><h2>Choose the capability to develop</h2><p>Indicative USD planning scenarios cover development, instructional design, curriculum expertise, media, quality assurance, accessibility, hosting, support, maintenance and evaluation. These are internal assumptions, not quotations or approved funding requests. Field validation is deferred until the owner authorises it.</p><div class="table-scroll"><table><caption>Illustrative funding envelopes, including 10% contingency</caption><thead><tr><th>Scenario</th><th>Proposed scope</th><th>Planning allowance</th></tr></thead><tbody><tr><th>A — CBD completion</th><td>Conversion, validation and packaging of the CBD curriculum</td><td>$77,880</td></tr><tr><th>B — Multi-curriculum pilot</th><td>CBD plus initial source-grounded MMA/COP conversion</td><td>$120,340</td></tr><tr><th>C — Institutional capability</th><td>Platform, curricula, quality assurance, operations and sustainability</td><td>$202,400</td></tr></tbody></table></div><p>Prospective partners can contribute curriculum review, training expertise, accessibility review, permissions, implementation support and a later learner evaluation. No sponsorship commitment is implied.</p></section>
-<div class="banner"><strong>Evidence boundary</strong><p>Software and browser checks demonstrate functioning learning paths. They do not demonstrate improved workplace performance, formal curriculum acceptance, licensing clearance or United Nations endorsement. No field pilot has been initiated.</p></div></main><footer>CARANA E-Learning · Independent instructional adaptation · Institutional discussion preview</footer>
-<script>document.getElementById('scene').addEventListener('change',function(){const url=this.value==='showcase'?'./demo-showcase.html':this.value==='cbd2'?'./?course=cbd&lesson=cbd-2':'../course/visual-gallery.html#'+this.value;document.getElementById('learning-demo').src=url;document.getElementById('open-gallery').href=url;});</script></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CARANA institutional demonstration</title><link rel="stylesheet" href="./platform.css"><link rel="stylesheet" href="../css/i18n-rtl.css"><script src="../platform/i18n.js"></script></head><body>
+<a class="skip" href="#main" data-i18n="common.skipToContent">Skip to content</a><header><a class="brand" href="../course/#home"><span data-i18n="demo.brandName">CARANA</span> <span data-i18n="demo.brandTag">E-LEARNING</span></a><nav aria-label="Demonstration"><a href="../course/#home" data-i18n="nav.home">CBD home</a><a href="../course/#lesson-1" data-i18n="nav.lesson1">Lesson 1</a><a href="#partnership" data-i18n="demo.navPartnership">Partnership</a></nav><div id="demo-lang-slot"></div></header>
+<main id="main" tabindex="-1"><section class="demo-hero"><span class="eyebrow" data-i18n="demo.eyebrow">An invitation to review and develop</span><h1 data-i18n="demo.heading">Make the connection between learning and professional judgement.</h1><p class="lead" data-i18n="demo.lead">A reusable interactive environment designed to improve access, consistency and practical application within UN Police job-specific training.</p><a class="action" href="#try" data-i18n="demo.tryAction">Try a working learning interaction ↓</a></section>
+<section><h2 data-i18n="demo.challengeTitle">The training challenge</h2><p data-i18n="demo.challengeBody1">Experienced police practitioners need to connect analytical tools with unfamiliar institutional settings. Reading a framework is one step; explaining a decision and applying it with counterparts require further practice, feedback and discussion.</p><p data-i18n="demo.challengeBody2">This independent adaptation provides self-paced explanations and practical workbenches as preparation for that human learning process. It does not replace facilitated assessment or establish measured learning effectiveness.</p></section>
+<div class="cards" id="demo-cards"><article class="card"><span class="eyebrow">Working implementation</span><h2>CBD Lesson 1</h2><p>18 screens, 18 disclosed AI narration tracks, conceptual explorations, three cinematic scenes and 36 checkpoint questions, connected to the original CARANA activity.</p><a class="action" href="../course/#lesson-1">Open the guided lesson</a></article><article class="card"><span class="eyebrow">Review adaptations</span><h2>The CBD sequence</h2><p>Explore Lessons 2–6 from the official 2023 plans. The review lessons now include structured drafting, evidence classification, weighting and risk exploration, with transcripts and checkpoints. Expert validation, recordings and artwork production remain gated.</p><a class="action" href="../course/#home">Explore the CBD journey</a></article><article class="card"><span class="eyebrow">Verified source inventory</span><h2>MMA and COP</h2><p>Separate official sequences and objectives are inventoried. Digital conversions and activity integration are proposed work, with no complete MMA or COP course claimed.</p><a class="action" href="./?view=curricula">Inspect curriculum status</a></article></div>
+<section id="try"><span class="eyebrow" data-i18n="demo.tryEyebrow">Guided demonstration · actual application</span><h2 data-i18n="demo.tryHeading">Test interactive tools &amp; visual models without section gating</h2><p data-i18n="demo.tryLead">Compare weighted reform trade-offs, test SMART self-check prompts, or switch to Lesson 1 interactive visual diagrams without checkpoint gates. Open the full platform whenever you are ready to study sequentially.</p><label for="scene" data-i18n="demo.chooseLabel">Choose a demonstration</label> <select id="scene"><option value="showcase">Ungated Lessons 2–3 showcase (Priority, SMART, Logframe)</option><option value="04-02">Lesson 1 · Triangulation of evidence</option><option value="02-01">Lesson 1 · PESTEL-S context</option><option value="04-03">Lesson 1 · Stakeholder power and interest</option><option value="05-02">Lesson 1 · Five by six CBD matrix</option><option value="06-01">Lesson 1 · SWOT classification</option><option value="cbd2">Lesson 2 full review lesson (guided checkpoints)</option></select><p><a id="open-gallery" href="./demo-showcase.html" target="_blank" rel="noopener noreferrer" data-i18n="demo.openFullWindow">Open this demonstration in a full window ↗</a></p><iframe id="learning-demo" title="CARANA interactive demonstration showcase" loading="lazy" src="./demo-showcase.html"></iframe></section>
+<section><h2 data-i18n="demo.processHeading">From a defensible diagnosis to practical work</h2><p data-i18n="demo.processBody">The learning sequence connects situation, objectives, planning, implementation, evaluation and transition. Existing workbenches remain independently accessible. A learner can export their own activity work; completion is self-reported and does not amount to independent performance assessment.</p><a class="action" href="../course/#activities" data-i18n="demo.processBtn">Open the original practice library</a></section>
+<section id="partnership"><span class="eyebrow" data-i18n="demo.partnershipEyebrow">Partnership options</span><h2 data-i18n="demo.partnershipHeading">Choose the capability to develop</h2><p data-i18n="demo.partnershipLead">Indicative USD planning scenarios cover development, instructional design, curriculum expertise, media, quality assurance, accessibility, hosting, support, maintenance and evaluation. These are internal assumptions, not quotations or approved funding requests. Field validation is deferred until the owner authorises it.</p><div class="table-scroll" role="region" tabindex="0" aria-label="Illustrative funding envelopes"><table id="demo-partnership-table"><caption data-i18n="demo.tableCaption">Illustrative funding envelopes, including 10% contingency</caption><thead><tr><th>Scenario</th><th>Proposed scope</th><th>Planning allowance</th></tr></thead><tbody><tr><th>A — CBD completion</th><td>Conversion, validation and packaging of the CBD curriculum</td><td>$77,880</td></tr><tr><th>B — Multi-curriculum pilot</th><td>CBD plus initial source-grounded MMA/COP conversion</td><td>$120,340</td></tr><tr><th>C — Institutional capability</th><td>Platform, curricula, quality assurance, operations and sustainability</td><td>$202,400</td></tr></tbody></table></div><p data-i18n="demo.partnershipNote">Prospective partners can contribute curriculum review, training expertise, accessibility review, permissions, implementation support and a later learner evaluation. No sponsorship commitment is implied.</p></section>
+<div class="banner"><strong data-i18n="demo.evidenceHeading">Evidence boundary</strong><p data-i18n="demo.evidenceBody">Software and browser checks demonstrate functioning learning paths. They do not demonstrate improved workplace performance, formal curriculum acceptance, licensing clearance or United Nations endorsement. No field pilot has been initiated.</p></div></main><footer data-i18n="demo.footer">CARANA E-Learning · Independent instructional adaptation · Institutional discussion preview</footer>
+<script>(function () {
+  'use strict';
+  const i18n = window.CARANA_I18N;
+  const sceneEl = document.getElementById('scene');
+  const iframeEl = document.getElementById('learning-demo');
+  const openLinkEl = document.getElementById('open-gallery');
+  const cardsEl = document.getElementById('demo-cards');
+  const tableEl = document.getElementById('demo-partnership-table');
+  const enTitle = document.title;
+  const enCardsHtml = cardsEl.innerHTML;
+  const enSceneLabels = {};
+  for (const opt of sceneEl.options) enSceneLabels[opt.value] = opt.textContent;
+  const enTableHtml = tableEl.innerHTML;
+  const enIframeTitle = iframeEl.getAttribute('title') || '';
+
+  function buildDemoUrl(val) {
+    const lang = i18n ? i18n.getLang() : 'en';
+    const q = lang && lang !== 'en' ? ('lang=' + encodeURIComponent(lang)) : '';
+    if (val === 'showcase') return './demo-showcase.html' + (q ? '?' + q : '');
+    if (val === 'cbd2') return './?course=cbd&lesson=cbd-2' + (q ? '&' + q : '');
+    return '../course/visual-gallery.html' + (q ? '?' + q : '') + '#' + val;
+  }
+
+  function syncIframe(forceReload) {
+    const url = buildDemoUrl(sceneEl.value);
+    if (forceReload || iframeEl.getAttribute('src') !== url) {
+      iframeEl.src = url;
+    }
+    openLinkEl.href = url;
+  }
+
+  function applyLocale() {
+    if (!i18n) return;
+    const isEn = i18n.getLang() === 'en';
+    document.title = isEn ? enTitle : i18n.t('demo.title', null, enTitle);
+    iframeEl.setAttribute('title', isEn ? enIframeTitle : i18n.t('demo.iframeTitle', null, enIframeTitle));
+    i18n.applyStaticDom(document);
+
+    if (isEn) {
+      cardsEl.innerHTML = enCardsHtml;
+      for (const opt of sceneEl.options) opt.textContent = enSceneLabels[opt.value] || opt.textContent;
+      tableEl.innerHTML = enTableHtml;
+    } else {
+      const ui = i18n.getPack('ui') || {};
+      const demo = ui.demo || {};
+      if (Array.isArray(demo.cards) && demo.cards.length === 3) {
+        const hrefs = ['../course/#lesson-1', '../course/#home', './?view=curricula'];
+        cardsEl.innerHTML = demo.cards.map((c, idx) =>
+          '<article class="card"><span class="eyebrow">' + i18n.esc(c.eyebrow) + '</span><h2>' + i18n.esc(c.title) + '</h2><p>' + i18n.esc(c.body) + '</p><a class="action" href="' + hrefs[idx] + '">' + i18n.esc(c.cta) + '</a></article>'
+        ).join('');
+      }
+      if (demo.sceneOptions) {
+        for (const opt of sceneEl.options) {
+          opt.textContent = demo.sceneOptions[opt.value] || enSceneLabels[opt.value] || opt.textContent;
+        }
+      }
+      if (Array.isArray(demo.tableHeaders) && Array.isArray(demo.tableRows)) {
+        tableEl.innerHTML = '<caption>' + i18n.esc(demo.tableCaption || '') + '</caption>' +
+          '<thead><tr>' + demo.tableHeaders.map(h => '<th>' + i18n.esc(h) + '</th>').join('') + '</tr></thead>' +
+          '<tbody>' + demo.tableRows.map(r => '<tr><th>' + i18n.esc(r[0]) + '</th><td>' + i18n.esc(r[1]) + '</td><td>' + i18n.esc(r[2]) + '</td></tr>').join('') + '</tbody>';
+      }
+    }
+    syncIframe(true);
+  }
+
+  sceneEl.addEventListener('change', () => syncIframe(false));
+  if (i18n) {
+    i18n.mountSwitcher('#demo-lang-slot', { variant: 'light' });
+    i18n.onChange(applyLocale);
+    i18n.ready(['ui']).then(applyLocale);
+  }
+})();</script></body></html>
