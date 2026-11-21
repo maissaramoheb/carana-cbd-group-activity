@@ -1,6 +1,6 @@
 
 > carana-cbd-elearning@0.10.0 test
-> node tests/run-tests.js && node course/tests/v05-smoke.cjs && node --test course/tests/build-integrity.cjs && node --test tests/platform/content.cjs && node --test tests/platform/learning-tools.cjs && node --test tests/platform/progress-recovery.cjs && node --test tests/platform/handoff.cjs && node --test tests/platform/notebook.cjs && node --test tests/platform/exploration.cjs && node --test tests/support/tutor.cjs tests/support/provider.cjs tests/support/remote-proxy.cjs tests/support/pilot-ops.cjs tests/support/service-supervisor.cjs tests/support/run07.cjs
+> node tests/run-tests.js && node course/tests/v05-smoke.cjs && node --test course/tests/build-integrity.cjs && node --test tests/platform/content.cjs && node --test tests/platform/learning-tools.cjs && node --test tests/platform/progress-recovery.cjs && node --test tests/platform/handoff.cjs && node --test tests/platform/notebook.cjs && node --test tests/platform/exploration.cjs && node --test tests/support/tutor.cjs tests/support/provider.cjs tests/support/remote-proxy.cjs tests/support/pilot-ops.cjs tests/support/service-supervisor.cjs tests/support/run07.cjs && node --test tests/i18n/trilingual.cjs tests/i18n/language-race.cjs
 
 
 ======================================================
@@ -114,7 +114,7 @@ TEST RESULTS: 65 passed, 0 failed
 ======================================================
 
 CARANA CBD v0.5 smoke PASS · 33 assertions
-✔ release build publishes exactly the locked media and refuses drift or absence (1450.719333ms)
+✔ release build publishes exactly the locked media and refuses drift or absence (575.634375ms)
 ℹ tests 1
 ℹ suites 0
 ℹ pass 1
@@ -122,9 +122,9 @@ CARANA CBD v0.5 smoke PASS · 33 assertions
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1492.74375
-✔ additional CBD lessons have variable source-mapped sections, media specifications and assessments (5.535041ms)
-✔ sponsor budget reconciles every item and demo uses the same totals (31.870166ms)
+ℹ duration_ms 608.064
+✔ additional CBD lessons have variable source-mapped sections, media specifications and assessments (2.773709ms)
+✔ sponsor budget reconciles every item and demo uses the same totals (6.301667ms)
 ℹ tests 2
 ℹ suites 0
 ℹ pass 2
@@ -132,12 +132,12 @@ CARANA CBD v0.5 smoke PASS · 33 assertions
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 83.9265
-✔ drafts retain only bounded fields owned by the actual exercise (0.529125ms)
-✔ changing weights changes the illustrative ranking without dropping constraints (0.154958ms)
-✔ authored tool HTML escapes content rather than interpreting it as markup (0.208958ms)
-✔ E14: priority ranking exposes ties explicitly and pauses numeric ordering when all weights are zero (0.211334ms)
-✔ E15: risk validation and analysis distinguish response strategies and asymmetric likelihood/impact pairs (0.369042ms)
+ℹ duration_ms 41.669834
+✔ drafts retain only bounded fields owned by the actual exercise (0.521208ms)
+✔ changing weights changes the illustrative ranking without dropping constraints (0.15275ms)
+✔ authored tool HTML escapes content rather than interpreting it as markup (0.205916ms)
+✔ E14: priority ranking exposes ties explicitly and pauses numeric ordering when all weights are zero (0.479291ms)
+✔ E15: risk validation and analysis distinguish response strategies and asymmetric likelihood/impact pairs (0.139625ms)
 ℹ tests 5
 ℹ suites 0
 ℹ pass 5
@@ -145,13 +145,13 @@ CARANA CBD v0.5 smoke PASS · 33 assertions
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 37.935084
-✔ E02: safeProgress preserves drafts across multiple content revisions without granting mastery (1.049458ms)
-✔ E02: legacy history without drafts never fabricates recoverable draft text (0.092958ms)
-✔ E03: platform import rejects corrupt, oversized, prototype-polluted, and wrong-product backups safely (0.343709ms)
-✔ E03: platform import handles incompatible version migration, duplicates, and conflicting drafts without overwriting (0.457791ms)
-✔ E03: Lesson 1 backup validation rejects platform files and merges Lesson 1 progress cleanly (2.900334ms)
-✔ E04 & E07: catalog status labels and printable study summary escape HTML and support Arabic/RTL safely (0.612542ms)
+ℹ duration_ms 35.08275
+✔ E02: safeProgress preserves drafts across multiple content revisions without granting mastery (0.689375ms)
+✔ E02: legacy history without drafts never fabricates recoverable draft text (0.073375ms)
+✔ E03: platform import rejects corrupt, oversized, prototype-polluted, and wrong-product backups safely (0.255708ms)
+✔ E03: platform import handles incompatible version migration, duplicates, and conflicting drafts without overwriting (0.320084ms)
+✔ E03: Lesson 1 backup validation rejects platform files and merges Lesson 1 progress cleanly (0.778583ms)
+✔ E04 & E07: catalog status labels and printable study summary escape HTML and support Arabic/RTL safely (0.523791ms)
 ℹ tests 6
 ℹ suites 0
 ℹ pass 6
@@ -159,11 +159,11 @@ CARANA CBD v0.5 smoke PASS · 33 assertions
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 44.988167
-✔ E09: handoff triggers on the intended synthesis screens of Lessons 2-6 only (0.871375ms)
-✔ E09: handoff builds accurate field mapping and preserves untouched workbench conflicts by default (3.173625ms)
-✔ E09: explicit opt-in overwrite updates conflicting fields and Lesson 3-6 handoffs map cleanly without corrupting IDs (1.05275ms)
-✔ E09: HTML handoff output escapes user-entered HTML and rejects prototype-pollution keys cleanly (0.737208ms)
+ℹ duration_ms 39.21825
+✔ E09: handoff triggers on the intended synthesis screens of Lessons 2-6 only (0.545375ms)
+✔ E09: handoff builds accurate field mapping and preserves untouched workbench conflicts by default (1.196125ms)
+✔ E09: explicit opt-in overwrite updates conflicting fields and Lesson 3-6 handoffs map cleanly without corrupting IDs (0.574542ms)
+✔ E09: HTML handoff output escapes user-entered HTML and rejects prototype-pollution keys cleanly (0.237958ms)
 ℹ tests 4
 ℹ suites 0
 ℹ pass 4
@@ -171,12 +171,12 @@ CARANA CBD v0.5 smoke PASS · 33 assertions
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 56.575625
-✔ E08: initial state is strictly isolated, separated, and bounded (0.333542ms)
-✔ E08: updating upstream Phase 1 flags populated downstream Phase 2 and Phase 3 without mutating their text (0.646334ms)
-✔ E08: explicit platform pull candidate separates evidence and gap fields read-only (0.214958ms)
-✔ E08: import validation rejects wrong-product, corrupt, oversized, and prototype-polluting files (1.168375ms)
-✔ E08: printable advisory thread brief escapes user XSS payloads and carries no automated correctness claims (0.29075ms)
+ℹ duration_ms 35.5205
+✔ E08: initial state is strictly isolated, separated, and bounded (0.304917ms)
+✔ E08: updating upstream Phase 1 flags populated downstream Phase 2 and Phase 3 without mutating their text (0.507ms)
+✔ E08: explicit platform pull candidate separates evidence and gap fields read-only (0.206584ms)
+✔ E08: import validation rejects wrong-product, corrupt, oversized, and prototype-polluting files (0.785583ms)
+✔ E08: printable advisory thread brief escapes user XSS payloads and carries no automated correctness claims (0.243916ms)
 ℹ tests 5
 ℹ suites 0
 ℹ pass 5
@@ -184,13 +184,13 @@ CARANA CBD v0.5 smoke PASS · 33 assertions
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 40.106916
-✔ semantic IDs survive order changes; content revisions preserve separate review histories (0.883167ms)
-✔ legacy absence, corruption, malformed or oversized supplemental history cannot write other domains (0.652917ms)
-✔ merge unions exploration and skip choice; replace only affects selected lessons; no sensitive draft fields copied (0.295459ms)
-✔ storage denial retains in-memory history for export and reports failure; records/revisions remain bounded (0.340709ms)
-✔ two browser tabs preserve one another's explanatory history without touching other stores (0.098458ms)
-✔ all current explanatory diagrams provide distinct semantic node IDs (2.67125ms)
+ℹ duration_ms 34.580167
+✔ semantic IDs survive order changes; content revisions preserve separate review histories (0.881084ms)
+✔ legacy absence, corruption, malformed or oversized supplemental history cannot write other domains (0.543792ms)
+✔ merge unions exploration and skip choice; replace only affects selected lessons; no sensitive draft fields copied (0.299041ms)
+✔ storage denial retains in-memory history for export and reports failure; records/revisions remain bounded (0.206ms)
+✔ two browser tabs preserve one another's explanatory history without touching other stores (0.089667ms)
+✔ all current explanatory diagrams provide distinct semantic node IDs (2.171ms)
 ℹ tests 6
 ℹ suites 0
 ℹ pass 6
@@ -198,36 +198,36 @@ CARANA CBD v0.5 smoke PASS · 33 assertions
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 43.087209
+ℹ duration_ms 39.147958
 ▶ Follow-up 06 operations: named auth, per-user rate limits, bounded queue, overload, idle unload
-  ✔ enforces scrypt user auth, instant revocation, reinstate, and global reviewer kill switch (219.654709ms)
-  ✔ queues concurrent requests up to maxQueue, streams queued events, rejects overload, handles cancellation, and triggers idle unload (223.684042ms)
-  ✔ rejects requests under host memory pressure before calling provider (16.384583ms)
-✔ Follow-up 06 operations: named auth, per-user rate limits, bounded queue, overload, idle unload (460.624583ms)
-✔ provider rejects unverified references, unsupported numbers, domain violations, procurement fabrications and invalid structured replies (42.311125ms)
-✔ provider sends allowlisted current-context metadata, schema enum sourceIds and excludes arbitrary context fields (1.038833ms)
+  ✔ enforces scrypt user auth, instant revocation, reinstate, and global reviewer kill switch (169.149167ms)
+  ✔ queues concurrent requests up to maxQueue, streams queued events, rejects overload, handles cancellation, and triggers idle unload (220.267333ms)
+  ✔ rejects requests under host memory pressure before calling provider (14.370625ms)
+✔ Follow-up 06 operations: named auth, per-user rate limits, bounded queue, overload, idle unload (404.257208ms)
+✔ provider rejects unverified references, unsupported numbers, domain violations, procurement fabrications and invalid structured replies (12.872875ms)
+✔ provider sends allowlisted current-context metadata, schema enum sourceIds and excludes arbitrary context fields (0.468541ms)
 ▶ Remote owner-preview proxy and gateway tunnel security
-  ✔ fails closed 404 when CARANA_AI_ENABLED is unset or not true, and rejects non-https upstream without test flag (22.951959ms)
-  ✔ proxies end-to-end across remote proxy -> gateway -> retrieval + grounded AI + TTS while blocking abuse and offline cleanly (87.708416ms)
-✔ Remote owner-preview proxy and gateway tunnel security (111.614167ms)
+  ✔ fails closed 404 when CARANA_AI_ENABLED is unset or not true, and rejects non-https upstream without test flag (10.018875ms)
+  ✔ proxies end-to-end across remote proxy -> gateway -> retrieval + grounded AI + TTS while blocking abuse and offline cleanly (57.664375ms)
+✔ Remote owner-preview proxy and gateway tunnel security (68.155542ms)
 ▶ Run 07 retrieval, incremental verified streaming, repair, and gateway contracts
-  ✔ retrieves realistic practitioner paraphrases, follow-ups with history, and declines out-of-scope traps (50.298542ms)
-  ✔ validateEvidence accepts word numerals, verified lesson labels, and ordered list prefixes while rejecting ungrounded digits (0.922666ms)
-  ✔ streams verified answer segment before example finishes and supports bounded single self-repair (9.353041ms)
-  ✔ gateway streams early stage/segment NDJSON cleanly and validates bounded history payloads (53.038667ms)
-  ✔ enforces explicit audio initiation, cleanup, mutual exclusion, and muted browser test isolation (20.887041ms)
-✔ Run 07 retrieval, incremental verified streaming, repair, and gateway contracts (135.317417ms)
+  ✔ retrieves realistic practitioner paraphrases, follow-ups with history, and declines out-of-scope traps (28.304875ms)
+  ✔ validateEvidence accepts word numerals, verified lesson labels, and ordered list prefixes while rejecting ungrounded digits (0.854375ms)
+  ✔ streams verified answer segment before example finishes and supports bounded single self-repair (8.708875ms)
+  ✔ gateway streams early stage/segment NDJSON cleanly and validates bounded history payloads (39.158458ms)
+  ✔ enforces explicit audio initiation, cleanup, mutual exclusion, and muted browser test isolation (3.273125ms)
+✔ Run 07 retrieval, incremental verified streaming, repair, and gateway contracts (80.845417ms)
 ▶ Always-on service supervisor recovery & pilot-users CLI
-  ✔ auto-restarts crashed gateway and tunnel children, triggers unhealthy probe kill, respects emergency-stop, and keeps logs clean (286.397584ms)
-  ✔ manages named owner and reviewer credentials cleanly via tools/pilot-users.cjs (298.795084ms)
-✔ Always-on service supervisor recovery & pilot-users CLI (585.774083ms)
-✔ retrieval uses authorized context and excludes assessment answer structures (15.054792ms)
-✔ unauthorized, cross-origin, wrong-host, oversized and invalid-context requests cannot invoke inference (31.804084ms)
-✔ active checkpoints and protected answer-key requests receive labelled source guidance without inference (7.619917ms)
-✔ rate limits, provider failure and timeout fail clearly without fabricated AI content (63.485333ms)
-✔ only one inference runs; cancellation releases its slot; no endpoint exposes private files or permissive CORS (44.104958ms)
-✔ all current-screen study actions stay anchored to the actual teaching screen (10.321875ms)
-✔ gateway passes authoritative context, retrieves improved-skills wording and safely declines unsupported evidence questions (16.179417ms)
+  ✔ auto-restarts crashed gateway and tunnel children, triggers unhealthy probe kill, respects emergency-stop, and keeps logs clean (271.274792ms)
+  ✔ manages named owner and reviewer credentials cleanly via tools/pilot-users.cjs (241.398666ms)
+✔ Always-on service supervisor recovery & pilot-users CLI (513.098791ms)
+✔ retrieval uses authorized context and excludes assessment answer structures (6.764541ms)
+✔ unauthorized, cross-origin, wrong-host, oversized and invalid-context requests cannot invoke inference (22.724583ms)
+✔ active checkpoints and protected answer-key requests receive labelled source guidance without inference (5.34725ms)
+✔ rate limits, provider failure and timeout fail clearly without fabricated AI content (53.957708ms)
+✔ only one inference runs; cancellation releases its slot; no endpoint exposes private files or permissive CORS (35.680209ms)
+✔ all current-screen study actions stay anchored to the actual teaching screen (6.315083ms)
+✔ gateway passes authoritative context, retrieves improved-skills wording and safely declines unsupported evidence questions (9.9095ms)
 ℹ tests 21
 ℹ suites 4
 ℹ pass 21
@@ -235,4 +235,21 @@ CARANA CBD v0.5 smoke PASS · 33 assertions
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 653.71575
+ℹ duration_ms 558.574417
+✔ last choice wins over delayed French: ar (1.117125ms)
+✔ last choice wins over delayed French: en (0.609792ms)
+✔ a failed superseded pack cannot add a fallback notice to the final language (0.3575ms)
+✔ one failed surface is not hidden by a later successful surface (0.326083ms)
+✔ CARANA_I18N switches en -> fr-FR -> ar -> en cleanly, sets RTL attrs, persists preference, and halts audio (2.245625ms)
+✔ Workbenches Storage & localized Scenario/Glossary keep EN exports compatible across FR/AR switches (3.896667ms)
+✔ Multilingual AI retrieval anchors FR/AR queries on canonical English passages and declines FR/AR OOD traps (26.857666ms)
+✔ validateEvidence and gateway protect answer keys in FR/AR, support Arabic-Indic numerals, and enforce valid lang codes (33.243917ms)
+✔ Local TTS exposes language-tagged voices without English fallback for FR/AR normalization (0.38125ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 103.15125

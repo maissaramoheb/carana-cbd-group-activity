@@ -256,7 +256,7 @@ test('validateEvidence and gateway protect answer keys in FR/AR, support Arabic-
         {
           sourceIds: ['cbd-4:04-02'],
           answer: 'Les 7 principes s appuient sur le registre des achats qui recense les ateliers.',
-          example: context.lang === 'ar' ? 'مثال افتراضي.' : context.lang === 'fr-FR' ? 'Exemple fictif.' : '',
+          example: '',
           uncertainty: ''
         },
         passages
@@ -283,7 +283,7 @@ test('validateEvidence and gateway protect answer keys in FR/AR, support Arabic-
         return {
           answer: context.lang === 'fr-FR' ? 'Réponse française ancrée sur la triangulation.' : context.lang === 'ar' ? 'إجابة عربية موثقة حول التثليث.' : 'English grounded answer.',
           sources: [],
-          example: '',
+          example: context.lang === 'ar' ? 'مثال افتراضي.' : context.lang === 'fr-FR' ? 'Exemple fictif.' : '',
           uncertainty: ''
         };
       }

@@ -1,50 +1,17 @@
-✔ last choice wins over delayed French: ar (1.076625ms)
-✔ last choice wins over delayed French: en (0.505791ms)
-✔ a failed superseded pack cannot add a fallback notice to the final language (0.284625ms)
-✔ one failed surface is not hidden by a later successful surface (0.276875ms)
-✔ CARANA_I18N switches en -> fr-FR -> ar -> en cleanly, sets RTL attrs, persists preference, and halts audio (2.170334ms)
-✔ Workbenches Storage & localized Scenario/Glossary keep EN exports compatible across FR/AR switches (3.512084ms)
-✔ Multilingual AI retrieval anchors FR/AR queries on canonical English passages and declines FR/AR OOD traps (25.712292ms)
-✖ validateEvidence and gateway protect answer keys in FR/AR, support Arabic-Indic numerals, and enforce valid lang codes (1.850916ms)
-✔ Local TTS exposes language-tagged voices without English fallback for FR/AR normalization (0.363208ms)
+✔ last choice wins over delayed French: ar (1.113833ms)
+✔ last choice wins over delayed French: en (0.595084ms)
+✔ a failed superseded pack cannot add a fallback notice to the final language (0.354334ms)
+✔ one failed surface is not hidden by a later successful surface (0.317458ms)
+✔ CARANA_I18N switches en -> fr-FR -> ar -> en cleanly, sets RTL attrs, persists preference, and halts audio (2.246541ms)
+✔ Workbenches Storage & localized Scenario/Glossary keep EN exports compatible across FR/AR switches (3.7885ms)
+✔ Multilingual AI retrieval anchors FR/AR queries on canonical English passages and declines FR/AR OOD traps (26.626417ms)
+✔ validateEvidence and gateway protect answer keys in FR/AR, support Arabic-Indic numerals, and enforce valid lang codes (32.934625ms)
+✔ Local TTS exposes language-tagged voices without English fallback for FR/AR normalization (0.389125ms)
 ℹ tests 9
 ℹ suites 0
-ℹ pass 8
-ℹ fail 1
+ℹ pass 9
+ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 70.61075
-
-✖ failing tests:
-
-test at tests/i18n/trilingual.cjs:213:1
-✖ validateEvidence and gateway protect answer keys in FR/AR, support Arabic-Indic numerals, and enforce valid lang codes (1.850916ms)
-  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /procurement register/. Input:
-  
-  'ReferenceError: context is not defined'
-  
-      at TestContext.<anonymous> (/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/tests/i18n/trilingual.cjs:253:10)
-      at Test.runInAsyncScope (node:async_hooks:226:14)
-      at Test.run (node:internal/test_runner/test:1402:25)
-      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
-      at Test.postRun (node:internal/test_runner/test:1542:19)
-      at Test.run (node:internal/test_runner/test:1467:12)
-      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
-    generatedMessage: true,
-    code: 'ERR_ASSERTION',
-    actual: ReferenceError: context is not defined
-        at /Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/tests/i18n/trilingual.cjs:259:20
-        at getActual (node:assert:580:5)
-        at strict.throws (node:assert:728:24)
-        at TestContext.<anonymous> (/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/CARANA-CBD-E-Learning/tests/i18n/trilingual.cjs:253:10)
-        at Test.runInAsyncScope (node:async_hooks:226:14)
-        at Test.run (node:internal/test_runner/test:1402:25)
-        at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
-        at Test.postRun (node:internal/test_runner/test:1542:19)
-        at Test.run (node:internal/test_runner/test:1467:12)
-        at async Test.processPendingSubtests (node:internal/test_runner/test:974:7),
-    expected: /procurement register/,
-    operator: 'throws',
-    diff: 'simple'
-  }
+ℹ duration_ms 102.169916
