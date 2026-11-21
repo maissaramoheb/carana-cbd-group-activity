@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-22",
+  "confirmedDuringRefinement": [
+    {
+      "issue": "At 320px, enlarged Implementation phase label exceeded its text box",
+      "measuredBefore": {
+        "clientWidth": 87,
+        "scrollWidth": 101
+      },
+      "correction": "Single-column cycle fallback at widths up to 360px",
+      "verifiedAfter": "All six narrow-layout language/page cases pass with no clipped text"
+    }
+  ],
+  "auditClarifications": [
+    "Reduced-motion checks compare decorative transforms and transition/animation settings, while allowing ordinary caption-content reflow.",
+    "Full rendered bounds are used for dimensional-cycle screenshots so raised surfaces are not clipped by the evidence crop."
+  ]
+}

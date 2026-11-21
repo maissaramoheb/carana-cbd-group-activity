@@ -95,28 +95,6 @@
     return stored || 'en';
   }
 
-  function ensureReleaseNotice() {
-    if (typeof document === 'undefined' || typeof document.getElementById !== 'function' ||
-        !document.body || typeof document.body.insertBefore !== 'function') return;
-    let notice = document.getElementById('carana-release-notice');
-    if (!notice) {
-      notice = document.createElement('aside');
-      notice.id = 'carana-release-notice';
-      notice.className = 'carana-release-notice';
-      notice.setAttribute('role', 'note');
-      notice.setAttribute('data-i18n-skip', '');
-      document.body.insertBefore(notice, document.body.firstChild);
-    }
-    const messages = {
-      en: 'French and Arabic are educational adaptations pending institutional validation. Some narration remains under development.',
-      'fr-FR': 'Les versions française et arabe sont des adaptations pédagogiques en attente de validation institutionnelle. Certains contenus audio sont encore en développement.',
-      ar: 'النسختان الفرنسية والعربية تكييفات تعليمية قيد التحقق المؤسسي. بعض التسجيلات الصوتية لا تزال قيد التطوير.'
-    };
-    notice.textContent = messages[currentLang] || messages.en;
-    notice.setAttribute('lang', currentLang);
-    notice.setAttribute('dir', resolveLocaleMeta(currentLang).dir);
-  }
-
   function applyDocumentAttributes(code) {
     if (typeof document === 'undefined' || !document.documentElement) return;
     const meta = resolveLocaleMeta(code);
@@ -125,15 +103,11 @@
     html.setAttribute('dir', meta.dir);
     html.dataset.lang = meta.code;
     html.dataset.dir = meta.dir;
-    ensureReleaseNotice();
   }
 
   currentLang = detectInitialLang();
   pendingLang = currentLang;
   applyDocumentAttributes(currentLang);
-  if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
-    document.addEventListener('DOMContentLoaded', ensureReleaseNotice);
-  }
 
   function esc(x) {
     return String(x == null ? '' : x)
@@ -270,7 +244,6 @@
   }
 
   function applyStaticDom(rootNode) {
-    ensureReleaseNotice();
     if (typeof document === 'undefined') return;
     const scope = rootNode || document;
     const elements = scope.querySelectorAll('[data-i18n], [data-i18n-html], [data-i18n-placeholder], [data-i18n-aria-label], [data-i18n-title]');

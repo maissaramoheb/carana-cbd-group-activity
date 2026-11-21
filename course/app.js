@@ -416,7 +416,7 @@
       '<section class="quick-exercise-panel"><div class="quick-exercise-icon"><span>60</span><small>MIN</small></div><div class="quick-exercise-copy"><span class="activity-card-tag">'+clean(tr('quickTag','FACILITATED LEARNING / SHORT FORMAT'))+'</span><h3>'+clean(tr('quickTitle','CARANA 60-minute Group Exercise'))+'</h3><p>'+clean(tr('quickDesc','The preserved short-format activity for facilitated syndicate discussions, rapid diagnosis, and a condensed CBD assessment.'))+'</p></div><a class="btn primary" target="_blank" rel="noopener noreferrer" href="'+activityQuickLink+'">'+clean(tr('quickBtn','Open quick exercise'))+' <span aria-hidden="true">↗</span></a></section>'+
       '<div class="hub-notice"><strong>'+clean(tr('noticeTitle','Preservation and completion'))+'</strong><p>'+clean(tr('noticeBody','These are links to the unmodified original activity implementations included in the course deployment. All activities are accessible here for practice. To receive Lesson 1 local completion status, pass its six assessments and complete the workbench confirmation step in the guided learning pathway. No formal certificate is issued.'))+'</p></div></section></main>'+
       '<footer class="footer shell"><span>'+clean(tr('footerLeft','CARANA CBD E-Learning · Activities Hub'))+'</span><span>'+clean(tr('footerRight','Independent instructional adaptation · No UN endorsement implied.'))+'</span></footer></div>';
-    if (i18n) i18n.mountSwitcher('#activities-lang-slot', { variant: 'light' });
+    if (i18n) i18n.mountSwitcher('#activities-lang-slot');
     for(const id of ['activities-lesson','hub-resume'])$(id).addEventListener('click',resume);
   }
   function railHTML() {

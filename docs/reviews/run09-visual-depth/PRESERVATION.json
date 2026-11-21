@@ -1,0 +1,24 @@
+{
+  "baseline": "cfe96ab3675d5466a417a5475c171cb8a76a59e0",
+  "protectedPaths": [
+    "curricula",
+    "locales",
+    "tutor",
+    "js",
+    "module1.html",
+    "module2.html",
+    "module3.html",
+    "module4.html",
+    "module5.html",
+    "module6.html",
+    "CARANA_CBD_Group_Activity.html",
+    "course/audio",
+    "course/lesson1-data.js",
+    "course/lesson1-player.js",
+    "platform/learning-tools.js",
+    "platform/progress-core.js",
+    "platform/notebook-core.js"
+  ],
+  "unchanged": true,
+  "status": "PASS"
+}

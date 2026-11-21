@@ -1,0 +1,173 @@
+{
+  "method": "5 alternating local runs per page; identical machine, browser and font fallback; diagnostic, not production Core Web Vitals",
+  "rows": [
+    {
+      "name": "Run08",
+      "view": "home",
+      "run": 0,
+      "loadMs": 22.200000001117587
+    },
+    {
+      "name": "Run08",
+      "view": "activities",
+      "run": 0,
+      "loadMs": 17.299999998882413
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 0,
+      "loadMs": 19.59999999962747
+    },
+    {
+      "name": "Run09",
+      "view": "activities",
+      "run": 0,
+      "loadMs": 17.300000000745058
+    },
+    {
+      "name": "Run08",
+      "view": "home",
+      "run": 1,
+      "loadMs": 19.40000000037253
+    },
+    {
+      "name": "Run08",
+      "view": "activities",
+      "run": 1,
+      "loadMs": 17.700000001117587
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 1,
+      "loadMs": 18.59999999962747
+    },
+    {
+      "name": "Run09",
+      "view": "activities",
+      "run": 1,
+      "loadMs": 17.199999999254942
+    },
+    {
+      "name": "Run08",
+      "view": "home",
+      "run": 2,
+      "loadMs": 20.300000000745058
+    },
+    {
+      "name": "Run08",
+      "view": "activities",
+      "run": 2,
+      "loadMs": 17.699999999254942
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 2,
+      "loadMs": 20.800000000745058
+    },
+    {
+      "name": "Run09",
+      "view": "activities",
+      "run": 2,
+      "loadMs": 18.40000000037253
+    },
+    {
+      "name": "Run08",
+      "view": "home",
+      "run": 3,
+      "loadMs": 20.5
+    },
+    {
+      "name": "Run08",
+      "view": "activities",
+      "run": 3,
+      "loadMs": 18.199999999254942
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 3,
+      "loadMs": 20.40000000037253
+    },
+    {
+      "name": "Run09",
+      "view": "activities",
+      "run": 3,
+      "loadMs": 18.40000000037253
+    },
+    {
+      "name": "Run08",
+      "view": "home",
+      "run": 4,
+      "loadMs": 21
+    },
+    {
+      "name": "Run08",
+      "view": "activities",
+      "run": 4,
+      "loadMs": 17.09999999962747
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 4,
+      "loadMs": 18.699999999254942
+    },
+    {
+      "name": "Run09",
+      "view": "activities",
+      "run": 4,
+      "loadMs": 17.699999999254942
+    }
+  ],
+  "narrow": [
+    {
+      "lang": "en",
+      "view": "home",
+      "width": 320,
+      "clipped": [],
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "view": "activities",
+      "width": 320,
+      "clipped": [],
+      "pass": true
+    },
+    {
+      "lang": "fr-FR",
+      "view": "home",
+      "width": 320,
+      "clipped": [],
+      "pass": true
+    },
+    {
+      "lang": "fr-FR",
+      "view": "activities",
+      "width": 320,
+      "clipped": [],
+      "pass": true
+    },
+    {
+      "lang": "ar",
+      "view": "home",
+      "width": 320,
+      "clipped": [],
+      "pass": true
+    },
+    {
+      "lang": "ar",
+      "view": "activities",
+      "width": 320,
+      "clipped": [],
+      "pass": true
+    }
+  ],
+  "newStylesheetBytes": 11948,
+  "newStylesheetGzipBytes": 2851,
+  "newAppDependencies": 0,
+  "status": "PASS"
+}

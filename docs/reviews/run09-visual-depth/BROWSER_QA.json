@@ -1,0 +1,181 @@
+{
+  "status": "PASS",
+  "base": "http://127.0.0.1:8688",
+  "rows": [
+    {
+      "type": "accessibility",
+      "label": "chromium-desktop en selected cycle",
+      "violations": []
+    },
+    {
+      "type": "accessibility",
+      "label": "chromium-desktop en workbench hub",
+      "violations": []
+    },
+    {
+      "type": "functional",
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "no-preference",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "accessibility",
+      "label": "chromium-desktop fr-FR selected cycle",
+      "violations": []
+    },
+    {
+      "type": "accessibility",
+      "label": "chromium-desktop fr-FR workbench hub",
+      "violations": []
+    },
+    {
+      "type": "functional",
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "no-preference",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "accessibility",
+      "label": "chromium-desktop ar selected cycle",
+      "violations": []
+    },
+    {
+      "type": "accessibility",
+      "label": "chromium-desktop ar workbench hub",
+      "violations": []
+    },
+    {
+      "type": "functional",
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "no-preference",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "no-preference",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "no-preference",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "no-preference",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "chromium-tablet",
+      "lang": "en",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "reduce",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "chromium-tablet",
+      "lang": "fr-FR",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "reduce",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "chromium-tablet",
+      "lang": "ar",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "reduce",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "reduce",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "reduce",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    },
+    {
+      "type": "functional",
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "cyclePhases": 6,
+      "workbenches": 6,
+      "quickExercise": true,
+      "keyboard": true,
+      "reducedMotion": "reduce",
+      "progressAndDrafts": true,
+      "bannerAbsent": true
+    }
+  ],
+  "errors": []
+}

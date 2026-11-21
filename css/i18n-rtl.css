@@ -457,14 +457,3 @@ textarea[dir="auto"],
     gap: 8px;
   }
 }
-
-/* Required production disclosure; informational, persistent and never overlays controls. */
-.carana-release-notice {
-  padding: 10px 20px;
-  border-block-end: 1px solid #cbdce7;
-  background: #e8f5fd;
-  color: #12304a;
-  font: 400 13px/1.6 system-ui, sans-serif;
-  text-align: start;
-  overflow-wrap: anywhere;
-}
