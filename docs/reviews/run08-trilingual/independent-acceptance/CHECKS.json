@@ -40,5 +40,26 @@
   "englishMedia": "1214 unchanged audio files",
   "humanLinguistic": "PENDING",
   "humanSME": "PENDING",
-  "productionApproval": false
+  "productionApproval": false,
+  "actualProtectedDeployment": {
+    "status": "PASS",
+    "records": 115,
+    "profiles": [
+      "Chromium desktop",
+      "WebKit desktop",
+      "WebKit mobile"
+    ],
+    "lessonsAndWorkbenches": "all six in all three languages",
+    "genuineAiUiLanguages": [
+      "en",
+      "fr-FR",
+      "ar"
+    ],
+    "pageErrors": 0
+  },
+  "deployedEnglishMedia": {
+    "availabilityAndSizeChecks": 1214,
+    "originalNarrationHashes": 18,
+    "status": "PASS"
+  }
 }

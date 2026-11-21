@@ -1,0 +1,61 @@
+{
+  "reviewDate": "2026-11-21",
+  "previewUrl": "https://carana-cbd-elearning-rq45l3gtm-delta4ce20-5830s-projects.vercel.app",
+  "ownerReviewUrl": "https://carana-cbd-elearning-rq45l3gtm-delta4ce20-5830s-projects.vercel.app/platform/review/run08/",
+  "deploymentId": "dpl_BJ83bUUTFqgh7pkADrW49MKddidz",
+  "target": "preview",
+  "deploymentState": "READY",
+  "deployedSourceCommit": "31e0c32752a47e35dacc985bf5b41502d5ee290d",
+  "githubBranch": "run08/trilingual-learning-experience",
+  "githubBranchUrl": "https://github.com/maissaramoheb/carana-cbd-group-activity/tree/run08/trilingual-learning-experience",
+  "branchHeadNote": "Later acceptance-evidence commits do not alter the deployed runtime. The final local and remote branch heads are verified after the evidence commit.",
+  "protection": {
+    "enabled": true,
+    "unauthenticatedResponse": 302,
+    "method": "Vercel authentication; origin-scoped short-lived OIDC for independent automation"
+  },
+  "actualDeployedBrowserChecks": {
+    "status": "PASS",
+    "records": 115,
+    "profiles": [
+      "Chromium desktop",
+      "WebKit desktop",
+      "WebKit mobile"
+    ],
+    "lessonsAndWorkbenches": "all six in all three languages",
+    "genuineAiUiLanguages": [
+      "en",
+      "fr-FR",
+      "ar"
+    ],
+    "pageErrors": 0
+  },
+  "deployedEnglishMedia": {
+    "availabilityAndSizeChecks": 1214,
+    "originalNarrationHashes": 18,
+    "status": "PASS"
+  },
+  "production": {
+    "unchanged": true,
+    "mainCommit": "199d0ad573e017c60f15dfb736a095dbc94ceb4e",
+    "aliases": {
+      "cbd.maissara.tech": "dpl_HWD2kUZ1SsaNjeUx7w7aH8Rp5irQ",
+      "e-learning.maissara.tech": "dpl_HWD2kUZ1SsaNjeUx7w7aH8Rp5irQ"
+    },
+    "originalSupervisorPid": 25719,
+    "originalGatewayPid": 25745,
+    "processesStillRunning": true,
+    "productionApproval": false
+  },
+  "finalBackup": {
+    "directory": "/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/Backups/CARANA-CBD-E-Learning/2026-11-21_Run08-Independent-Acceptance",
+    "receipt": "/Users/maissaraselim/Library/CloudStorage/OneDrive-Personal/Consultancy/CBD E Lap/Backups/CARANA-CBD-E-Learning/2026-11-21_Run08-Independent-Acceptance/verification-receipt.json",
+    "verificationStatus": "See independently generated receipt in the backup directory"
+  },
+  "remainingAcceptance": [
+    "French and Arabic professional linguistic review",
+    "UNPOL instructional/terminology review; glossary provenance confirmation",
+    "Physical iPhone/Safari audible narration"
+  ],
+  "productionRecommendation": "HOLD pending owner acceptance and remaining validation"
+}

@@ -1,0 +1,7 @@
+Vercel CLI 59.1.3 (Node.js 26.9.0)
+Retrieving project…
+Downloading `development` environment variables
+chromium-desktop protected preview checks passed
+webkit-desktop protected preview checks passed
+webkit-mobile protected preview checks passed
+PASS actual protected deployment; 115 records
