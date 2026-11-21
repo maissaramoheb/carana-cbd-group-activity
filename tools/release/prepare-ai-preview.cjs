@@ -27,6 +27,12 @@ for (const route of vercelConfig.routes || []) {
     route.dest = '/CARANA_CBD_Group_Activity';
   }
 }
+// Vercel serves these static HTML files under clean URLs. Preserve legacy .html links
+// by rewriting internally, so language query parameters and relative links survive.
+vercelConfig.routes.unshift({
+  src: '^/(module[1-6]|CARANA_CBD_Group_Activity|index|platform/(?:index|notebook|demo|demo-showcase)|platform/review/run08/index|course/(?:index|visual-gallery|voice-audition))\\.html$',
+  dest: '/$1'
+});
 fs.writeFileSync(configPath, JSON.stringify(vercelConfig, null, 2) + '\n');
 
 const manifestPath = path.join(outputDir, 'static/release-manifest.json');
