@@ -1,0 +1,17 @@
+✔ last choice wins over delayed French: ar (1.113833ms)
+✔ last choice wins over delayed French: en (0.595084ms)
+✔ a failed superseded pack cannot add a fallback notice to the final language (0.354334ms)
+✔ one failed surface is not hidden by a later successful surface (0.317458ms)
+✔ CARANA_I18N switches en -> fr-FR -> ar -> en cleanly, sets RTL attrs, persists preference, and halts audio (2.246541ms)
+✔ Workbenches Storage & localized Scenario/Glossary keep EN exports compatible across FR/AR switches (3.7885ms)
+✔ Multilingual AI retrieval anchors FR/AR queries on canonical English passages and declines FR/AR OOD traps (26.626417ms)
+✔ validateEvidence and gateway protect answer keys in FR/AR, support Arabic-Indic numerals, and enforce valid lang codes (32.934625ms)
+✔ Local TTS exposes language-tagged voices without English fallback for FR/AR normalization (0.389125ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 102.169916

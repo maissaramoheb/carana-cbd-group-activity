@@ -1,0 +1,3 @@
+AUDIO SAFETY PASS (chromium-desktop): zero autoplay, stale async cancel clean, failed-audio safe, mutual exclusion & navigation stop verified.
+AUDIO SAFETY PASS (webkit-desktop): zero autoplay, stale async cancel clean, failed-audio safe, mutual exclusion & navigation stop verified.
+AUDIO SAFETY PASS (webkit-mobile): zero autoplay, stale async cancel clean, failed-audio safe, mutual exclusion & navigation stop verified.

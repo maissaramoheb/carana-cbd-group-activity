@@ -1,0 +1,1568 @@
+{
+  "lesson": {
+    "title": "Analyse de la situation",
+    "subtitle": "Comprendre l’environnement avant de concevoir le changement",
+    "source": "Formation spécialisée UNPOL sur le renforcement et le développement des capacités (CBD), Leçon 1 (2021 ; PDF daté de 07/2023)",
+    "objectives": [
+      "Expliquer pourquoi l’analyse situationnelle fondée sur des preuves doit précéder toute planification de réforme",
+      "Différencier l’analyse de conflit, l’analyse des réponses existantes et l’analyse CBD",
+      "Appliquer l’outil PESTEL-S et reconnaître les méthodes complémentaires d’analyse de conflit",
+      "Identifier les parties prenantes, leurs intérêts, leur influence et les modalités d’engagement adaptées",
+      "Classer les problèmes selon les cinq domaines CBD et les six dimensions transversales",
+      "Identifier des points d’entrée SWOT et construire une situation de référence défendable"
+    ],
+    "sections": [
+      {
+        "title": "Partir de la situation réelle",
+        "duration": "7–10 min",
+        "screens": [
+          {
+            "title": "La décision avant la décision",
+            "kicker": "La première responsabilité du conseiller",
+            "lead": "Imaginez votre arrivée à Galasi (fictive). Un homologue vous demande d’organiser sans délai une formation aux techniques d’enquête. La formation est-elle déjà la bonne réponse ?",
+            "points": [
+              "Un problème de performance visible n’établit pas à lui seul sa cause profonde.",
+              "Examinez le contexte de la mission, l’appui déjà en cours et les capacités réelles de l’homologue avant de choisir une intervention.",
+              "Toute amélioration commence par la compréhension de l’état actuel étayé par des preuves."
+            ],
+            "takeaway": "Diagnostiquer avant de prescrire.",
+            "visualTitle": "Un point d’entrée rigoureux",
+            "visual": [
+              "Problème signalé",
+              "Preuves et contexte",
+              "Problème vérifié",
+              "Réponse CBD adaptée"
+            ],
+            "sourcePage": "1, 4–5"
+          },
+          {
+            "title": "Trois angles, un diagnostic cohérent",
+            "kicker": "Chaque analyse répond à une question distincte",
+            "lead": "L’analyse de la situation n’est pas une simple liste à cocher. La leçon combine trois perspectives complémentaires.",
+            "points": [
+              "Analyse de conflit : quelles dynamiques politiques, socioéconomiques, juridiques, sécuritaires et autres façonnent l’environnement ?",
+              "Analyse des réponses : quelles organisations et quels acteurs interviennent déjà, et selon quelles modalités ?",
+              "Analyse CBD : comment l’institution homologue fonctionne-t-elle concrètement, et quelles capacités, structures et contraintes existent ?"
+            ],
+            "takeaway": "Contexte → réponses existantes → réalité de l’homologue.",
+            "visualTitle": "La séquence analytique",
+            "visual": [
+              "1 · Conflit",
+              "2 · Réponses",
+              "3 · CBD"
+            ],
+            "sourcePage": "1–2, 5, 9, 11"
+          },
+          {
+            "title": "Établir votre point de départ",
+            "kicker": "Pourquoi les preuves comptent",
+            "lead": "Sans point de départ précis, aucune amélioration ultérieure ne peut être démontrée de façon crédible.",
+            "points": [
+              "Distinguez ce que les acteurs pensent qu’il se passe de ce que les preuves étayent réellement.",
+              "Conservez à la fois les observations qualitatives et les mesures quantitatives.",
+              "Les données de référence mesurent l’état initial pour évaluer le progrès ultérieur — ce ne sont ni une cible future ni une liste d’activités."
+            ],
+            "takeaway": "On ne peut pas mesurer le changement de manière crédible sans situation de référence.",
+            "visualTitle": "Des preuves à l’évaluation",
+            "visual": [
+              "État initial",
+              "Intervention CBD",
+              "Observation ultérieure",
+              "Comparaison"
+            ],
+            "sourcePage": "1, 5, 19"
+          }
+        ],
+        "quiz": [
+          {
+            "q": "Un homologue signale la faiblesse des enquêtes et réclame une formation. Que doit faire le conseiller CBD en premier ?",
+            "options": [
+              "Approuver le cours immédiatement",
+              "Recueillir des preuves et examiner les contraintes sous-jacentes",
+              "Fixer un objectif chiffré de policiers à former",
+              "Rédiger un plan de transition"
+            ],
+            "why": "La formation n’est qu’une intervention possible parmi d’autres ; le programme place l’analyse systématique en premier.",
+            "optionFeedback": [
+              "Approuver la formation sans délai suppose à tort que le manque de compétences est le seul goulot d’étranglement avant d’avoir vérifié procédures, matériel ou encadrement.",
+              "Point de départ diagnostique exact.",
+              "Fixer des quotas d’agents formés avant le diagnostic risque de former du personnel face à un obstacle d’une autre nature.",
+              "La planification de la transition fixe les modalités de transfert une fois les capacités établies, et non avant le diagnostic."
+            ]
+          },
+          {
+            "q": "Quel angle analytique cherche à savoir qui intervient déjà dans l’environnement de réforme ?",
+            "options": [
+              "L’analyse des réponses existantes",
+              "La comparaison de référence",
+              "La seule grille d’évaluation des acteurs",
+              "La revue de mise en œuvre"
+            ],
+            "why": "L’analyse des réponses identifie les acteurs présents, les programmes en cours, leurs motivations et les recoupements éventuels.",
+            "optionFeedback": [
+              "Angle analytique exact pour cartographier les initiatives déjà en place.",
+              "La comparaison de référence mesure l’évolution institutionnelle dans le temps plutôt que la carte des partenaires.",
+              "Une simple fiche de parties prenantes peut manquer les chevauchements de programmes, financements et risques de coordination.",
+              "La revue de mise en œuvre suit l’exécution d’un plan déjà lancé."
+            ]
+          },
+          {
+            "q": "Quel énoncé décrit le mieux l’objet des données de référence (baseline) ?",
+            "options": [
+              "Elles représentent la cible future",
+              "Elles prouvent que l’intervention choisie va réussir",
+              "Elles documentent l’état initial pour permettre une comparaison ultérieure",
+              "Elles remplacent le besoin d’évaluation"
+            ],
+            "why": "Les données de référence saisissent l’état actuel (« tel quel ») et rendent l’évaluation ultérieure possible.",
+            "optionFeedback": [
+              "La cible future décrit l’état souhaité à terme ; les données de référence enregistrent la situation actuelle.",
+              "Les données de référence décrivent le point de départ sans garantir le succès futur d’une intervention.",
+              "Formulation exacte de l’objet des données de référence.",
+              "Les données de référence rendent l’évaluation ultérieure crédible au lieu de s’y substituer."
+            ]
+          },
+          {
+            "q": "L’analyse de conflit aide avant tout le conseiller à comprendre :",
+            "options": [
+              "Uniquement la hiérarchie policière",
+              "L’environnement politique, socioéconomique, juridique et sécuritaire au sens large",
+              "Le budget final de formation",
+              "Uniquement les compétences individuelles des agents"
+            ],
+            "why": "L’analyse de conflit porte sur le contexte opérationnel global, et non sur les seuls rouages internes de la police.",
+            "optionFeedback": [
+              "La seule pyramide hiérarchique interne ignore les moteurs plus larges de tension, de légitimité et d’incitations.",
+              "Périmètre exact de l’analyse de conflit.",
+              "Les budgets sont des intrants financiers définis plus tard lors de la planification, non l’objet de l’analyse de conflit.",
+              "Les compétences individuelles relèvent de l’évaluation interne et non de l’analyse contextuelle du conflit."
+            ]
+          },
+          {
+            "q": "Quelle séquence est conforme à une démarche CBD fondée sur les preuves ?",
+            "options": [
+              "Activité → objectif → analyse",
+              "Cible → achats → rapport",
+              "Analyse → écarts identifiés → réponse éclairée",
+              "Formation → référence → diagnostic"
+            ],
+            "why": "La situation de départ et les déficits vérifiés doivent orienter toute réponse ultérieure.",
+            "optionFeedback": [
+              "Choisir activités et objectifs avant l’analyse risque de traiter des symptômes au lieu de contraintes vérifiées.",
+              "Passer directement aux cibles et aux achats omet de comprendre ce qui doit changer et pourquoi.",
+              "Séquence exacte du CBD fondé sur des preuves.",
+              "Dispenser une formation avant d’établir la situation de référence ou de diagnostiquer les blocages compromet la redevabilité."
+            ]
+          },
+          {
+            "q": "Une description narrative d’un processus existant de suivi des dossiers peut faire partie des données de référence.",
+            "options": [
+              "Faux ; seules les données chiffrées sont recevables",
+              "Vrai ; informations qualitatives et quantitatives peuvent être utilisées",
+              "Seulement si l’état final cible est déjà atteint",
+              "Seulement si elle est rédigée par un consultant externe"
+            ],
+            "why": "La leçon reconnaît aussi bien les indicateurs numériques que les descriptions qualitatives vérifiées comme éléments de référence.",
+            "optionFeedback": [
+              "Les descriptions qualitatives de procédures et les observations étayées constituent des références valides aux côtés des chiffres.",
+              "Reconnaissance exacte de la complémentarité des preuves qualitatives et quantitatives.",
+              "Les données de référence documentent la réalité de départ avant l’atteinte des cibles, et non après.",
+              "Les données de référence proviennent d’un recueil conjoint entre homologues et UNPOL, et pas seulement de consultants externes."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Lire l’environnement du conflit",
+        "duration": "8–12 min",
+        "screens": [
+          {
+            "title": "Structurer le contexte avec PESTEL-S",
+            "kicker": "Analyse de conflit",
+            "lead": "PESTEL-S est le cadre structurant retenu par la leçon pour passer en revue les principaux moteurs contextuels.",
+            "points": [
+              "Les facteurs politiques, économiques et sociaux façonnent les incitations, les institutions et la confiance.",
+              "Les facteurs technologiques, environnementaux et juridiques influencent l’exécution du service et l’autorité légitime.",
+              "La dimension Sécurité constitue l’angle supplémentaire essentiel en contexte de conflit ou de post-conflit."
+            ],
+            "takeaway": "Ne confondez pas un balayage contextuel avec une analyse complète de conflit.",
+            "visualTitle": "Sept dimensions",
+            "visual": [
+              "Politique",
+              "Économique",
+              "Sociale",
+              "Technologique",
+              "Environnementale",
+              "Juridique",
+              "Sécurité"
+            ],
+            "sourcePage": "6–7"
+          },
+          {
+            "title": "Lire les systèmes, pas seulement les symptômes",
+            "kicker": "Approfondir l’analyse",
+            "lead": "La leçon recense des méthodes complémentaires pour comprendre les dynamiques de conflit lorsque le contexte l’exige.",
+            "points": [
+              "La cartographie des acteurs analyse le pouvoir et les intérêts ainsi que les positions, intérêts et besoins (PIN).",
+              "Les arbres de conflit, l’analyse d’escalade et l’analyse besoins/craintes mettent au jour les liens de causalité.",
+              "Le conseiller CBD n’a pas à conduire personnellement chaque étude spécialisée, mais doit en comprendre la portée et solliciter l’expertise adaptée."
+            ],
+            "takeaway": "Recourez aux méthodes complémentaires lorsque PESTEL-S seul ne suffit pas à expliquer la situation.",
+            "visualTitle": "Méthodes complémentaires",
+            "visual": [
+              "Acteurs / PIN",
+              "Arbre de conflit",
+              "Analyse d’escalade",
+              "Besoins et craintes"
+            ],
+            "sourcePage": "6–7"
+          },
+          {
+            "title": "Le droit et le contexte institutionnel comptent",
+            "kicker": "Interpréter avant d’importer une solution",
+            "lead": "Une réforme efficace dans un pays ne se transpose pas mécaniquement dans un autre.",
+            "points": [
+              "Des traditions juridiques différentes déterminent les pouvoirs, devoirs et garanties des forces de l’ordre.",
+              "Il faut distinguer loi écrite, directives administratives et pratique réelle sur le terrain.",
+              "Les incitations politiques, les structures SSR, la culture et les ressources déterminent ce qui est légitime, faisable et durable."
+            ],
+            "takeaway": "Ne présumez jamais qu’un modèle policier familier est automatiquement transférable.",
+            "visualTitle": "Filtre d’adéquation locale",
+            "visual": [
+              "Légal ?",
+              "Pertinent localement ?",
+              "Approprié par les acteurs ?",
+              "Faisable ?"
+            ],
+            "sourcePage": "2, 8"
+          }
+        ],
+        "quiz": [
+          {
+            "q": "Que représente le dernier « S » de PESTEL-S dans ce programme ?",
+            "options": [
+              "Stratégie",
+              "Sécurité",
+              "Soutenabilité (durabilité)",
+              "Structure des effectifs"
+            ],
+            "why": "La sécurité est ajoutée explicitement à PESTEL pour les environnements de conflit et de post-conflit.",
+            "optionFeedback": [
+              "La stratégie est un produit de planification ; PESTEL-S classe les facteurs contextuels du pays hôte.",
+              "Ajout exact propre aux contextes de mission.",
+              "La durabilité est un critère transversal et non le septième domaine de PESTEL-S.",
+              "Les effectifs relèvent des services de soutien internes dans l’analyse institutionnelle plutôt que de PESTEL-S."
+            ]
+          },
+          {
+            "q": "Quel élément N’EST PAS une catégorie PESTEL-S ?",
+            "options": [
+              "Juridique",
+              "Technologique",
+              "Heures de formation individuelle",
+              "Environnementale"
+            ],
+            "why": "Les heures de formation constituent une mesure opérationnelle éventuelle, et non une catégorie contextuelle.",
+            "optionFeedback": [
+              "Le juridique correspond au L de PESTEL-S (compétences légales et cadre judiciaire).",
+              "Le technologique correspond au T de PESTEL-S (infrastructures et systèmes techniques).",
+              "Exactement identifié comme une mesure d’activité et non comme un domaine PESTEL-S.",
+              "L’environnement correspond au second E de PESTEL-S (conditions matérielles et physiques)."
+            ]
+          },
+          {
+            "q": "Un conseiller étudie les positions déclarées des acteurs, leurs intérêts profonds et leurs besoins fondamentaux. Quel modèle correspond ?",
+            "options": [
+              "PIN",
+              "SWOT uniquement",
+              "Cadre logique",
+              "Écart d’indicateur KPI"
+            ],
+            "why": "PIN signifie Position, Intérêt et Besoin (Need).",
+            "optionFeedback": [
+              "Cadre exact pour analyser positions, intérêts et besoins.",
+              "Le SWOT classe forces/faiblesses internes et opportunités/menaces externes plutôt que les ressorts d’un acteur.",
+              "Le cadre logique organise objectifs, indicateurs, vérification et hypothèses en Leçon 3.",
+              "L’écart KPI mesure la différence entre une cible prévue et les données d’exécution observées."
+            ]
+          },
+          {
+            "q": "Quel est l’usage justifié d’un arbre de conflit ?",
+            "options": [
+              "Noter automatiquement le personnel",
+              "Explorer les facteurs sous-jacents et les effets d’un conflit",
+              "Certifier la réussite d’un programme",
+              "Remplacer tout dialogue avec les parties prenantes"
+            ],
+            "why": "L’arbre de conflit aide à démêler causes profondes, problème apparent et conséquences.",
+            "optionFeedback": [
+              "L’évaluation individuelle relève des ressources humaines, non de l’analyse causale d’un conflit.",
+              "Usage exact de l’arbre de conflit.",
+              "La vérification d’un programme appartient au suivi et à l’évaluation.",
+              "L’arbre de conflit soutient le dialogue et le diagnostic conjoint ; il ne les remplace jamais."
+            ]
+          },
+          {
+            "q": "Tout conseiller CBD doit-il rédiger personnellement une analyse complète de conflit ?",
+            "options": [
+              "Oui, sans appui extérieur",
+              "Non ; comprendre les liens et solliciter ou faciliter l’expertise adaptée si nécessaire",
+              "Non ; le contexte de conflit est sans rapport avec le CBD",
+              "Seulement après la transition"
+            ],
+            "why": "La leçon distingue le fait de comprendre et d’intégrer l’analyse de celui de réaliser soi-même chaque étude spécialisée.",
+            "optionFeedback": [
+              "Mener seul une analyse spécialisée sans expertise ni regard local expose à des conclusions étroites et non vérifiées.",
+              "Distinction exacte entre la maîtrise des liens contextuels et la conduite personnelle d’études expertes.",
+              "Ignorer le contexte de conflit expose à nuire involontairement et à fragiliser la légitimité nationale.",
+              "Attendre la transition arrive beaucoup trop tard pour éclairer la conception de la réforme."
+            ]
+          },
+          {
+            "q": "Pourquoi un conseiller doit-il examiner le système juridique du pays hôte ?",
+            "options": [
+              "Pour copier mot pour mot les SOP de son pays d’origine",
+              "Pour évaluer la légitimité, les pouvoirs légaux et les limites encadrant le changement",
+              "Parce que le droit est indépendant de la planification des réformes",
+              "Pour contourner la consultation des homologues"
+            ],
+            "why": "Les traditions juridiques et les textes législatifs encadrent ce qu’une réforme peut légitimement entreprendre.",
+            "optionFeedback": [
+              "Importer des procédures nationales sans base légale locale porte atteinte à la souveraineté et peut être illégal.",
+              "Raison exacte de l’examen du cadre juridique national.",
+              "La loi et le mandat définissent ce qui est licite, applicable et durable dans une réforme policière.",
+              "L’analyse juridique fonde un partenariat licite avec l’homologue et non son contournement."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Comprendre les réponses existantes",
+        "duration": "7–10 min",
+        "screens": [
+          {
+            "title": "Vous ne partez pas de zéro",
+            "kicker": "Analyse des réponses existantes",
+            "lead": "Plusieurs acteurs travaillent souvent déjà avec la même institution, parfois avec des priorités différentes.",
+            "points": [
+              "Cartographiez les engagements onusiens, nationaux, bilatéraux et de la société civile pertinents pour l’homologue.",
+              "Repérez les mandats, ressources et actions qui se complètent ou se chevauchent.",
+              "Évitez de considérer d’emblée les autres intervenants comme des obstacles — ou de présumer leur alignement."
+            ],
+            "takeaway": "Savoir qui fait quoi, où et dans quel but.",
+            "visualTitle": "Cartographier le paysage des réponses",
+            "visual": [
+              "Qui est présent ?",
+              "Que fait-il ?",
+              "Avec qui ?",
+              "Dans quel but ?"
+            ],
+            "sourcePage": "9–10"
+          },
+          {
+            "title": "Les intérêts ne sont pas toujours visibles",
+            "kicker": "Comprendre les incitations",
+            "lead": "La position officielle d’un acteur peut différer de ses intérêts ou besoins réels.",
+            "points": [
+              "Les équilibres de pouvoir, incitations institutionnelles et contraintes budgétaires influencent la coopération.",
+              "La réticence d’un homologue face aux acteurs extérieurs peut reposer sur des préoccupations légitimes.",
+              "Évaluez l’effet potentiel de l’intervention sur la légitimité, les relations et l’appropriation locale."
+            ],
+            "takeaway": "Comprendre les motivations avant de concevoir l’engagement.",
+            "visualTitle": "Regarder au-delà du titre officiel",
+            "visual": [
+              "Position",
+              "Intérêt",
+              "Besoin",
+              "Impact potentiel"
+            ],
+            "sourcePage": "9"
+          },
+          {
+            "title": "Coordonner pour éviter des effets contre-productifs",
+            "kicker": "De la cartographie à l’engagement responsable",
+            "lead": "Même des initiatives bien intentionnées peuvent faire double emploi, épuiser les homologues ou contrarier d’autres réformes.",
+            "points": [
+              "Recherchez la collaboration avec les acteurs pertinents dans les limites de votre mandat et autorité.",
+              "Coordonnez le calendrier, les besoins d’information et les appuis lorsque cela est indiqué.",
+              "Consignez les risques et opportunités de coordination pour la synthèse SWOT ultérieure."
+            ],
+            "takeaway": "Une bonne coordination fait partie intégrante de l’analyse, pas d’un ajout tardif.",
+            "visualTitle": "Risques à prévenir",
+            "visual": [
+              "Doublons",
+              "Essoufflement des homologues",
+              "Incitations contradictoires",
+              "Gaspillage de ressources"
+            ],
+            "sourcePage": "9–10"
+          }
+        ],
+        "quiz": [
+          {
+            "q": "Quel est le postulat de base de l’analyse des réponses existantes ?",
+            "options": [
+              "Aucune réforme n’a commencé avant l’arrivée d’UNPOL",
+              "Des acteurs et initiatives peuvent déjà être à l’œuvre dans le même domaine",
+              "Seules les entités de l’ONU comptent",
+              "Tous les acteurs poursuivent exactement le même objectif"
+            ],
+            "why": "La leçon souligne que les conseillers trouvent rarement une page blanche à leur arrivée.",
+            "optionFeedback": [
+              "Présumer une table rase ignore des années d’efforts nationaux, bilatéraux et civils déjà engagés.",
+              "Postulat exact de l’analyse des réponses.",
+              "Les partenaires bilatéraux, régionaux et la société civile influencent fortement le terrain aux côtés de l’ONU.",
+              "Les intervenants poursuivent souvent des mandats différents, concurrents ou qui se recoupent."
+            ]
+          },
+          {
+            "q": "Pourquoi analyser les motivations des parties prenantes ?",
+            "options": [
+              "Pour remplacer les preuves par l’intuition",
+              "Pour comprendre les coopérations possibles, les tensions et les points de résistance",
+              "Pour classer tout acteur comme un adversaire",
+              "Pour éviter d’avoir à communiquer"
+            ],
+            "why": "Les motivations conditionnent l’engagement constructif et les effets réels d’une activité CBD.",
+            "optionFeedback": [
+              "Analyser les incitations consolide la preuve structurée au lieu de la remplacer par des conjectures.",
+              "Finalité exacte de l’examen des motivations.",
+              "Présumer l’hostilité durcit les blocages et masque des préoccupations légitimes.",
+              "Comprendre les motivations permet au contraire d’engager un dialogue ciblé et respectueux."
+            ]
+          },
+          {
+            "q": "Deux bailleurs proposent des formations redondantes à la même unité. Quelle préoccupation domine ?",
+            "options": [
+              "Coordination, doublons et essoufflement de l’homologue",
+              "Absence d’un seul indicateur futur",
+              "Localisation géographique de l’unité uniquement",
+              "Nécessité de sauter l’analyse des réponses"
+            ],
+            "why": "Le programme insiste explicitement sur les doublons, la fatigue des homologues et l’efficience des ressources.",
+            "optionFeedback": [
+              "Diagnostic exact d’interventions extérieures non coordonnées.",
+              "Ajouter un futur KPI n’empêchera pas deux formations parallèles d’épuiser les effectifs disponibles.",
+              "La localisation est secondaire ; le risque vient du chevauchement des appuis non coordonnés.",
+              "Des formations redondantes rendent l’analyse des réponses indispensable et non superflue."
+            ]
+          },
+          {
+            "q": "Un homologue national hésite à rejoindre un nouveau programme extérieur. Le conseiller doit :",
+            "options": [
+              "Conclure à son incompétence",
+              "Explorer ses préoccupations, intérêts et implications pour l’engagement",
+              "Ignorer l’avis de l’homologue",
+              "Imposer l’activité immédiatement"
+            ],
+            "why": "Comprendre les réserves de l’homologue fonde une coopération légitime et durable.",
+            "optionFeedback": [
+              "Une réticence reflète souvent des contraintes opérationnelles, un manque de moyens ou une méfiance légitime.",
+              "Réaction consultative exacte.",
+              "Avancer sans adhésion nationale compromet l’appropriation et la continuité.",
+              "Imposer un projet sans appropriation contredit les principes CBD et menace sa survie."
+            ]
+          },
+          {
+            "q": "Une initiative internationale déjà en place constitue automatiquement un partenaire fiable et aligné.",
+            "options": [
+              "Vrai",
+              "Faux ; ses objectifs, pratiques et alignements doivent être vérifiés",
+              "Vrai uniquement si son budget est plus élevé",
+              "Vrai si elle est antérieure à la mission"
+            ],
+            "why": "D’autres acteurs peuvent être des partenaires ou générer des tensions selon leurs priorités et leur conduite.",
+            "optionFeedback": [
+              "La simple présence sur place ne garantit ni le respect des droits humains ni la complémentarité.",
+              "Vérification critique exacte vis-à-vis des partenaires existants.",
+              "L’ampleur d’un budget ne prouve ni la conformité aux droits humains ni la pertinence locale.",
+              "L’ancienneté ne garantit pas l’alignement avec les priorités actuelles du CBD d’UNPOL."
+            ]
+          },
+          {
+            "q": "Les constats de l’analyse des réponses alimentent directement quel outil analytique ultérieur ?",
+            "options": [
+              "L’analyse SWOT",
+              "La seule attestation individuelle finale",
+              "Les seuls états de paie",
+              "Aucun ; ils sont écartés"
+            ],
+            "why": "Les opportunités et risques liés aux autres intervenants nourrissent directement l’analyse SWOT.",
+            "optionFeedback": [
+              "Lien exact entre l’analyse des réponses et les Opportunités/Menaces externes du SWOT.",
+              "Les modules CARANA sont des outils formatifs de diagnostic et non des certificats administratifs.",
+              "La paie relève des services d’appui internes et non de l’analyse des réponses extérieures.",
+              "Écarter ces constats romprait la chaîne de preuves menant à la synthèse SWOT."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Diagnostiquer l’institution homologue",
+        "duration": "8–12 min",
+        "screens": [
+          {
+            "title": "Que se passe-t-il réellement dans l’institution ?",
+            "kicker": "Analyse CBD",
+            "lead": "L’analyse CBD examine les systèmes réels, les pratiques de terrain, la structure et les contraintes de l’homologue.",
+            "points": [
+              "Ciblez l’organisation, le service ou l’unité qui portera le changement.",
+              "Observez le fonctionnement effectif plutôt que de vous limiter aux textes et organigrammes officiels.",
+              "Identifiez les points nécessitant une enquête approfondie pour éclairer ensuite le SWOT et la situation de référence."
+            ],
+            "takeaway": "Partez de la réalité de l’homologue et de l’appropriation locale.",
+            "visualTitle": "Niveaux à analyser",
+            "visual": [
+              "Environnement porteur",
+              "Organisation / service",
+              "Praticien individuel"
+            ],
+            "sourcePage": "11, 20"
+          },
+          {
+            "title": "Trianguler ce que vous entendez",
+            "kicker": "Méthodes de recueil des preuves",
+            "lead": "Un seul entretien permet rarement d’établir un tableau opérationnel complet.",
+            "points": [
+              "Combinez de manière adaptée entretiens, questionnaires, observation directe et examen des documents de travail.",
+              "Invitez les homologues à s’auto-évaluer afin de renforcer leur participation et leur appropriation.",
+              "Distinguez les déclarations, les faits observés et les archives ; vérifiez tout écart avant de conclure."
+            ],
+            "takeaway": "La solidité d’une analyse dépend de la qualité et de la diversité des preuves.",
+            "visualTitle": "Sources de preuves",
+            "visual": [
+              "Entretiens",
+              "Observation",
+              "Enquêtes",
+              "Documents de travail",
+              "Auto-évaluation"
+            ],
+            "sourcePage": "11"
+          },
+          {
+            "title": "Cartographier acteurs, pouvoir et intérêt",
+            "kicker": "Analyse des parties prenantes",
+            "lead": "Les parties prenantes regroupent ceux qui participent, influent ou subissent les effets des activités CBD.",
+            "points": [
+              "Recensez les décideurs formels mais aussi les acteurs exerçant une influence informelle.",
+              "Évaluez leur degré d’intérêt, de pouvoir et l’impact potentiel sur leurs fonctions.",
+              "Adaptez l’engagement et la communication à leur rôle et révisez cette carte dans le temps."
+            ],
+            "takeaway": "Pouvoir et intérêt orientent l’engagement — sans étiquetage simpliste de « bons » ou « mauvais » acteurs.",
+            "visualTitle": "Matrice pouvoir / intérêt",
+            "visual": [
+              "Fort pouvoir · fort intérêt",
+              "Fort pouvoir · moindre intérêt",
+              "Moindre pouvoir · fort intérêt",
+              "Moindre pouvoir · moindre intérêt"
+            ],
+            "sourcePage": "12–13"
+          }
+        ],
+        "quiz": [
+          {
+            "q": "L’objet principal de l’analyse CBD est :",
+            "options": [
+              "Uniquement l’histoire régionale du conflit",
+              "La manière dont un homologue précis fonctionne et exerce ses missions aujourd’hui",
+              "Le seul budget du bailleur",
+              "L’évaluation finale après le transfert"
+            ],
+            "why": "L’analyse CBD saisit la réalité organisationnelle et policière actuelle (« telle quelle ») de l’homologue.",
+            "optionFeedback": [
+              "L’histoire régionale éclaire le contexte large, tandis que l’analyse CBD diagnostique l’institution homologue elle-même.",
+              "Objet exact de l’analyse institutionnelle CBD.",
+              "Les ressources financières intéressent la planification, non le cœur du diagnostic capacitaire.",
+              "L’évaluation après transfert intervient en fin de cycle, alors que l’analyse CBD porte sur l’état initial."
+            ]
+          },
+          {
+            "q": "Quelle combinaison offre des preuves plus solides qu’un entretien isolé ?",
+            "options": [
+              "Entretiens, observation directe et examen des documents de travail pertinents",
+              "Une seule affirmation non vérifiée",
+              "Un programme de cours déjà arrêté d’avance",
+              "Les seules impressions d’acteurs extérieurs"
+            ],
+            "why": "La diversité des sources permet de corroborer ou de nuancer l’impression initiale.",
+            "optionFeedback": [
+              "Triangulation exacte entre sources complémentaires.",
+              "Une allégation non recoupée ne peut fonder ni diagnostic ni situation de référence.",
+              "Un plan de cours préétabli reflète l’offre plutôt que les besoins avérés de l’institution.",
+              "Des perceptions externes seules méconnaissent la pratique réelle des services et procédures."
+            ]
+          },
+          {
+            "q": "Pourquoi l’appropriation locale est-elle déterminante ?",
+            "options": [
+              "Elle supprime toute redevabilité",
+              "Elle soutient l’adhésion, la volonté politique et un changement durable",
+              "Elle dispense d’effectuer une analyse",
+              "Elle transfère automatiquement toutes les responsabilités de l’ONU"
+            ],
+            "why": "Le programme place l’appropriation locale au cœur d’un renforcement durable des capacités.",
+            "optionFeedback": [
+              "L’appropriation locale renforce la redevabilité partagée au lieu de la supprimer.",
+              "Justification exacte de l’appropriation locale.",
+              "L’appropriation locale passe par une analyse et un partage d’informations conjoints.",
+              "UNPOL continue d’exécuter son mandat d’appui sans abandonner prématurément ses responsabilités."
+            ]
+          },
+          {
+            "q": "Un représentant communautaire sans fonction officielle exerce une forte influence informelle. Le conseiller doit :",
+            "options": [
+              "L’exclure d’office",
+              "Évaluer son influence réelle et la pertinence de l’associer",
+              "Ne compter que les titres hiérarchiques officiels",
+              "Le classer dans le SWOT avant de connaître ses intérêts"
+            ],
+            "why": "L’influence réelle dépasse souvent le seul périmètre de l’autorité formelle.",
+            "optionFeedback": [
+              "Écarter des voix communautaires influentes crée des angles morts sur la légitimité et les tensions.",
+              "Pratique exacte pour cartographier acteurs formels et informels.",
+              "Les organigrammes masquent souvent la manière réelle dont se forment confiance, décisions et griefs.",
+              "Qualifier un acteur d’opportunité ou de menace sans connaître ses intérêts court-circuite l’analyse."
+            ]
+          },
+          {
+            "q": "Quelles caractéristiques structurent la matrice d’analyse des parties prenantes ?",
+            "options": [
+              "L’intérêt et l’influence (pouvoir)",
+              "Le grade et la rémunération uniquement",
+              "L’âge et la distance géographique uniquement",
+              "Le nombre de diapositives présentées"
+            ],
+            "why": "La leçon s’appuie sur l’intérêt, l’influence et les modalités d’engagement correspondantes.",
+            "optionFeedback": [
+              "Dimensions exactes de la matrice à quatre quadrants.",
+              "Des données individuelles RH n’expliquent ni le pouvoir institutionnel ni les ressorts face à la réforme.",
+              "La démographie ou l’éloignement seuls ne guident pas une stratégie d’engagement.",
+              "Compter des diapositives mesure un produit matériel et non les dynamiques d’acteurs."
+            ]
+          },
+          {
+            "q": "L’analyse des parties prenantes ne doit plus jamais être revue une fois le projet démarré.",
+            "options": [
+              "Vrai",
+              "Faux ; les acteurs, leurs attentes et leur influence évoluent",
+              "Vrai si le tableau comporte quatre quadrants",
+              "Vrai uniquement pour les agences de l’ONU"
+            ],
+            "why": "Les besoins, positions et rapports d’influence des acteurs peuvent changer au cours du cycle.",
+            "optionFeedback": [
+              "Une carte figée devient vite obsolète lorsque la direction, les priorités politiques ou la sécurité changent.",
+              "Constat exact du caractère itératif de la cartographie des parties prenantes.",
+              "Les quatre quadrants ne constituent qu’une photographie à un instant donné.",
+              "Tous les acteurs, nationaux comme internationaux, peuvent évoluer au fil de l’activité."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Utiliser la matrice CBD",
+        "duration": "8–12 min",
+        "screens": [
+          {
+            "title": "Cinq domaines de capacité institutionnelle",
+            "kicker": "L’axe des domaines",
+            "lead": "La leçon définit cinq grands domaines permettant d’évaluer les capacités de la police nationale.",
+            "points": [
+              "Services de police : savoir-faire, pratiques, commandement et contrôle opérationnel.",
+              "Services de soutien (enabling services) : ressources humaines, formation, finances, logistique et appui.",
+              "Formulation des politiques policières ; mécanismes de redevabilité ; et engagement des parties prenantes."
+            ],
+            "takeaway": "Une faiblesse dans les résultats d’enquête peut provenir d’un maillon bien extérieur aux compétences d’un enquêteur.",
+            "visualTitle": "Cinq domaines CBD",
+            "visual": [
+              "Services de police",
+              "Services de soutien",
+              "Politiques policières",
+              "Mécanismes de redevabilité",
+              "Engagement des parties prenantes"
+            ],
+            "sourcePage": "14–15"
+          },
+          {
+            "title": "Six dimensions traversent chaque domaine",
+            "kicker": "L’axe des dimensions",
+            "lead": "Un même problème institutionnel peut produire des effets sur plusieurs exigences transversales.",
+            "points": [
+              "Pratique policière, durabilité environnementale et prévention des conflits.",
+              "Droits de l’homme, genre et protection globale des civils (CPOC).",
+              "Droits de l’homme et protection sont des obligations analytiques substantielles, jamais un ajout cosmétique."
+            ],
+            "takeaway": "Les 5 domaines × 6 dimensions offrent une grille de classification rigoureuse.",
+            "visualTitle": "Six dimensions transversales",
+            "visual": [
+              "Pratique policière",
+              "Durabilité environnementale",
+              "Prévention des conflits",
+              "Droits de l’homme",
+              "Genre",
+              "CPOC"
+            ],
+            "sourcePage": "16–17"
+          },
+          {
+            "title": "Passer des observations aux problématiques structurées",
+            "kicker": "La matrice analytique 5 × 6",
+            "lead": "L’objectif est de relier chaque constat étayé au domaine et à la dimension les plus pertinents.",
+            "points": [
+              "Examinez chaque élément de preuve pour identifier la problématique institutionnelle ou capacitaire sous-jacente.",
+              "Sélectionnez le domaine CBD et la dimension spécialisée pertinents et justifiez ce rattachement.",
+              "Évitez de tout ranger par réflexe sous « pratique policière » lorsqu’une autre dimension éclaire mieux le problème."
+            ],
+            "takeaway": "Une matrice utile consigne des constats justifiés — non une liste de suppositions.",
+            "visualTitle": "Logique de classification",
+            "visual": [
+              "Élément de preuve",
+              "Domaine CBD",
+              "Dimension pertinente",
+              "Problème à approfondir"
+            ],
+            "sourcePage": "14–18, 20–21"
+          }
+        ],
+        "quiz": [
+          {
+            "q": "Combien de grands domaines CBD la Leçon 1 identifie-t-elle ?",
+            "options": [
+              "Quatre",
+              "Cinq",
+              "Six",
+              "Sept"
+            ],
+            "why": "Le programme définit cinq domaines d’analyse institutionnelle CBD.",
+            "optionFeedback": [
+              "Quatre oublie l’un des cinq domaines fondamentaux de la matrice.",
+              "Nombre exact des domaines institutionnels dans la matrice 5×6.",
+              "Six correspond aux dimensions transversales en colonnes, non aux cinq domaines en lignes.",
+              "Sept correspond aux domaines PESTEL-S, alors que la matrice institutionnelle compte cinq domaines."
+            ]
+          },
+          {
+            "q": "Quel exemple relève des « services de soutien » (enabling services) ?",
+            "options": [
+              "L’acquisition et la logistique de la flotte de véhicules",
+              "La prise de parole publique d’un acteur du conflit",
+              "Une cérémonie de remise de prix d’évaluation",
+              "Un événement politique purement extérieur"
+            ],
+            "why": "Les services de soutien couvrent ressources humaines, budget, marchés publics et logistique.",
+            "optionFeedback": [
+              "Exemple exact de service de soutien.",
+              "Les prises de position publiques relèvent de l’analyse de conflit/PIN, non des services de soutien internes.",
+              "Une cérémonie ne constitue pas un système administratif ou logistique structurant.",
+              "Un événement politique extérieur appartient au cadre PESTEL-S et au SWOT externe."
+            ]
+          },
+          {
+            "q": "Quel élément figure parmi les six dimensions transversales ?",
+            "options": [
+              "Visibilité du bailleur",
+              "Genre",
+              "Ancienneté du grade",
+              "Rapidité d’acheminement"
+            ],
+            "why": "Le genre est l’une des six dimensions analytiques transversales obligatoires.",
+            "optionFeedback": [
+              "La communication de visibilité n’est pas une dimension analytique transversale.",
+              "Dimension transversale exacte du cadre 5×6.",
+              "L’ancienneté relève de la gestion interne du personnel, non des dimensions transversales.",
+              "La vitesse d’exécution est un paramètre opérationnel et non une dimension transversale."
+            ]
+          },
+          {
+            "q": "Un mécanisme de plainte n’enquête pas sur les allégations d’atteintes aux droits. Quel domaine CBD convient d’abord ?",
+            "options": [
+              "Mécanismes de redevabilité",
+              "Achats informatiques uniquement",
+              "Collecte de fonds internationale",
+              "Conception de campagnes sur les réseaux sociaux"
+            ],
+            "why": "La redevabilité couvre contrôle interne, inspection, enquêtes administratives et responsabilité.",
+            "optionFeedback": [
+              "Domaine de départ exact pour les lacunes de contrôle et de traitement des plaintes.",
+              "Acheter du matériel seul ne corrige ni le manque d’indépendance ni l’absence d’enquêtes de contrôle.",
+              "Mobiliser des fonds extérieurs ne remplace pas des mécanismes internes de redevabilité.",
+              "La communication externe ne remédie pas à l’absence d’enquête sur des violations alléguées."
+            ]
+          },
+          {
+            "q": "Quelle dimension traite de la protection de l’enfance et des violences sexuelles liées aux conflits ?",
+            "options": [
+              "Protection globale des civils (CPOC)",
+              "Passation des marchés",
+              "Formulation des politiques comme dimension",
+              "Logement des agents"
+            ],
+            "why": "La dimension CPOC englobe notamment la protection des enfants et la lutte contre les violences sexuelles liées aux conflits.",
+            "optionFeedback": [
+              "Dimension transversale exacte couvrant la CPOC, la protection de l’enfance et les VSLC.",
+              "Les marchés publics relèvent des services de soutien (domaine), non d’une dimension de protection.",
+              "La formulation des politiques policières est l’un des cinq domaines en ligne, non une dimension transversale.",
+              "Le logement concerne le soutien RH/logistique et non la protection des civils."
+            ]
+          },
+          {
+            "q": "Quelle pratique correspond le mieux à l’usage attendu de la matrice ?",
+            "options": [
+              "Noter uniquement des numéros de paragraphes sans formuler le problème",
+              "Classer des problématiques étayées par des preuves selon le domaine et la dimension adaptés",
+              "Tout classer automatiquement sous « pratique policière »",
+              "Négliger les dimensions spécialisées"
+            ],
+            "why": "L’exercice exige une classification thématique justifiée croisant le domaine et la dimension appropriés.",
+            "optionFeedback": [
+              "Citer des numéros sans énoncer l’écart identifié ne fournit aucune base exploitable pour la suite.",
+              "Usage rigoureux exact de la matrice 5×6.",
+              "Tout regrouper sous la pratique policière masque les blocages de gouvernance, de logistique ou de contrôle.",
+              "Ignorer les dimensions spécialisées passe à côté des risques en droits humains, genre et protection."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Synthétiser et établir une référence",
+        "duration": "8–12 min",
+        "screens": [
+          {
+            "title": "Des constats vers le SWOT",
+            "kicker": "Synthèse structurée",
+            "lead": "Une fois les enjeux dégagés par l’analyse CBD, évaluez-les comme forces, faiblesses, opportunités ou menaces face au changement envisagé.",
+            "points": [
+              "Forces et faiblesses examinent les facteurs internes à l’institution ou au système analysé.",
+              "Opportunités et menaces examinent les conditions ou influences externes déterminantes.",
+              "Rattachez chaque ligne aux constats antérieurs ; évitez les énoncés vagues ou inventés."
+            ],
+            "takeaway": "Le SWOT doit être fondé sur les preuves et succéder à l’analyse — sans jamais la remplacer.",
+            "visualTitle": "Grille SWOT",
+            "visual": [
+              "Forces · interne",
+              "Faiblesses · interne",
+              "Opportunités · externe",
+              "Menaces · externe"
+            ],
+            "sourcePage": "10, 18, 20"
+          },
+          {
+            "title": "Consigner une situation de référence évaluable",
+            "kicker": "Passerelle vers les phases suivantes",
+            "lead": "Les données de référence figent l’état constaté avant toute intervention ou fixation de cibles.",
+            "points": [
+              "Les éléments quantitatifs peuvent inclure des dénombrements, taux, proportions ou délais vérifiés.",
+              "Les éléments qualitatifs peuvent inclure des procédures documentées, pratiques observées et descriptions structurées.",
+              "Indiquez autant que possible les sources, la période d’observation, les limites et la méthode future de vérification."
+            ],
+            "takeaway": "Un état de référence documenté permet ensuite la comparaison rigoureuse avec l’état souhaité.",
+            "visualTitle": "Exemple de référence · purement illustratif",
+            "visual": [
+              "Écart : suivi hétérogène des dossiers",
+              "État initial : aucun registre central vérifié",
+              "Preuve : examen de dossiers + entretiens",
+              "Mesure ultérieure : adoption effective"
+            ],
+            "sourcePage": "19"
+          },
+          {
+            "title": "Vous êtes prêt pour l’atelier CARANA",
+            "kicker": "Appliquer toute la séquence",
+            "lead": "Dans l’exercice CARANA, examinez les services fictifs d’enquête criminelle de Galasi à l’aide des outils analytiques de la leçon.",
+            "points": [
+              "Étudiez le scénario et le contexte des acteurs avant de proposer une solution.",
+              "Construisez un diagnostic structuré à travers la matrice domaines×dimensions, le SWOT et la situation de référence.",
+              "Appuyez-vous sur ces constats pour dégager des points d’entrée crédibles vers la phase suivante du cycle CBD."
+            ],
+            "takeaway": "Validez le dernier point de contrôle pour accéder à l’étape pratique guidée.",
+            "visualTitle": "Transposer les acquis en pratique",
+            "visual": [
+              "Contexte",
+              "Acteurs",
+              "Institution",
+              "SWOT + référence",
+              "Exercice"
+            ],
+            "sourcePage": "18–21 ; exercice du participant (Annexe A), outils vierges (Annexe E)"
+          }
+        ],
+        "quiz": [
+          {
+            "q": "À quel moment faut-il réaliser le SWOT dans la Leçon 1 ?",
+            "options": [
+              "Avant toute collecte d’information",
+              "Après avoir dégagé les problématiques grâce à l’analyse CBD",
+              "Uniquement après le plan final de transition",
+              "À la place de l’analyse des parties prenantes"
+            ],
+            "why": "La leçon place la synthèse SWOT après l’identification analytique des constats.",
+            "optionFeedback": [
+              "Dresser un SWOT avant l’analyse remplit les cases d’hypothèses non vérifiées.",
+              "Séquence exacte : preuves et diagnostic institutionnel alimentent la synthèse SWOT.",
+              "Faire le SWOT au moment de la transition arrive trop tard pour orienter les objectifs.",
+              "Le SWOT complète l’analyse de conflit et des acteurs sans s’y substituer."
+            ]
+          },
+          {
+            "q": "Une équipe compétente déjà en place pour la tenue des archives constitue avant tout :",
+            "options": [
+              "Une force",
+              "Une menace",
+              "Une opportunité externe",
+              "Un indicateur cible"
+            ],
+            "why": "Une capacité interne existante relève des forces de l’organisation.",
+            "optionFeedback": [
+              "Classification exacte en tant que force organisationnelle interne.",
+              "Une équipe compétente soutient la capacité institutionnelle plutôt que de la menacer de l’extérieur.",
+              "Les opportunités viennent de l’extérieur de l’institution, alors que cette équipe en fait partie.",
+              "Un indicateur cible mesure une évolution future visée, non un atout interne déjà présent."
+            ]
+          },
+          {
+            "q": "Un nouveau programme de bailleur extérieur susceptible d’appuyer la réforme constitue avant tout :",
+            "options": [
+              "Une faiblesse",
+              "Une opportunité",
+              "Une force interne",
+              "Une valeur de référence"
+            ],
+            "why": "Un appui extérieur potentiel se classe en principe parmi les opportunités, sous réserve de vérification.",
+            "optionFeedback": [
+              "Un appui extérieur n’est pas une faiblesse interne, même si sa coordination reste à examiner.",
+              "Classification SWOT exacte en tant qu’opportunité externe.",
+              "Cet appui provenant d’un partenaire extérieur, il ne relève pas des forces internes.",
+              "Une valeur de référence décrit la performance initiale et non une perspective d’appui extérieur."
+            ]
+          },
+          {
+            "q": "Quel exemple constitue une donnée de référence qualitative défendable ?",
+            "options": [
+              "Améliorer rapidement la confiance",
+              "L’examen des dossiers montre une tenue hétérogène des archives, consignée avec sa source",
+              "Former 100 agents le mois prochain",
+              "Atteindre l’excellence opérationnelle"
+            ],
+            "why": "La référence doit décrire un état actuel observé et rattaché à une source vérifiable.",
+            "optionFeedback": [
+              "Il s’agit d’une intention générale et non d’un constat observé et sourcé.",
+              "Exemple exact de référence qualitative mentionnant l’état actuel et la source de preuve.",
+              "Former 100 agents décrit un produit futur d’activité, non la situation initiale.",
+              "Formulation subjective d’un souhait ne décrivant pas ce qui existe aujourd’hui."
+            ]
+          },
+          {
+            "q": "Quelle différence essentielle sépare la situation de référence (baseline) de la cible (target) ?",
+            "options": [
+              "Aucune différence",
+              "La situation de référence mesure l’état actuel ; la cible désigne l’état futur visé",
+              "La référence est toujours chiffrée ; la cible est toujours narrative",
+              "La cible doit précéder l’analyse"
+            ],
+            "why": "La leçon distingue rigoureusement la réalité actuelle (« telle quelle ») du résultat futur attendu.",
+            "optionFeedback": [
+              "Confondre état initial et cible empêche toute mesure crédible du progrès.",
+              "Distinction exacte entre situation de référence et cible.",
+              "Toutes deux peuvent combiner données chiffrées et constats qualitatifs vérifiés.",
+              "Les cibles découlent d’un diagnostic vérifié et des données de référence, jamais l’inverse."
+            ]
+          },
+          {
+            "q": "Que doit apporter le conseiller dans l’exercice pratique CARANA ?",
+            "options": [
+              "Une solution toute faite arrêtée d’avance",
+              "Une démarche articulée d’analyse, preuves, parties prenantes, matrice, SWOT et référence",
+              "Uniquement un texte de présentation",
+              "Uniquement un budget prévisionnel"
+            ],
+            "why": "L’exercice met en pratique l’ensemble de la chaîne analytique vue au long de la leçon.",
+            "optionFeedback": [
+              "Une solution préfabriquée ignore les contraintes réelles de l’homologue et rompt l’approche par les preuves.",
+              "Synthèse intégrée exacte transférée vers l’atelier pratique CARANA.",
+              "Un discours sans preuves, cartographie des acteurs, matrice et référence ne justifie aucune réforme.",
+              "La budgétisation intervient après la définition des objectifs et des activités, non à la place du diagnostic."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "experience": {
+    "decisions": {
+      "01-01": {
+        "label": "Première décision à Galasi",
+        "prompt": "Un homologue demande un nouveau cours d’enquête dès demain. Vous n’avez encore ni examiné de dossiers ni observé le travail réel. Quel est le premier geste le plus défendable ?",
+        "options": [
+          {
+            "label": "Approuver immédiatement la formation demandée",
+            "feedback": "La demande peut sembler légitime, mais la formation reste une solution tant que le problème n’a pas été diagnostiqué."
+          },
+          {
+            "label": "Convenir avec l’homologue d’une démarche de recueil de preuves",
+            "feedback": "Bonne orientation. Cernez le problème, réunissez des preuves fiables et évaluez les causes avant de choisir une intervention."
+          },
+          {
+            "label": "Rejeter d’emblée toute formation comme inutile",
+            "feedback": "C’est également prématuré. Une formation peut être utile, mais la décision doit suivre les faits."
+          }
+        ]
+      },
+      "02-01": {
+        "label": "Contexte sous pression",
+        "prompt": "Cas fictif : l’évolution des conditions de sécurité empêche les patrouilles d’accéder à certains quartiers. Quel prisme PESTEL-S examiner en premier ?",
+        "options": [
+          {
+            "label": "Sécurité",
+            "feedback": "Exact. Partez de la contrainte sécuritaire, puis examinez ses effets sociaux, politiques et sur le service public."
+          },
+          {
+            "label": "Technologique",
+            "feedback": "La technologie peut intervenir plus tard, mais la contrainte immédiate ici relève de la sécurité."
+          },
+          {
+            "label": "Environnemental",
+            "feedback": "L’environnement physique peut compter, mais la cause décrite est l’insécurité."
+          }
+        ]
+      },
+      "03-01": {
+        "label": "Un programme qui se chevauche",
+        "prompt": "Un autre partenaire international travaille déjà avec votre homologue sur la gestion des dossiers. Que devez-vous faire ?",
+        "options": [
+          {
+            "label": "Lancer un projet parallèle sans concertation",
+            "feedback": "Cette démarche expose à des doublons et à l’épuisement des équipes homologues."
+          },
+          {
+            "label": "Cartographier son programme, son mandat et les priorités nationales, puis étudier la coordination",
+            "feedback": "Bonne orientation. Identifiez l’existant et examinez les pistes de complémentarité dans le cadre de votre mandat."
+          },
+          {
+            "label": "Présumer que ce partenaire bloque la réforme",
+            "feedback": "Aucune preuve n’autorise ce jugement. Examinez d’abord ses activités et intérêts réels."
+          }
+        ]
+      },
+      "04-02": {
+        "label": "Comparer les sources de preuve",
+        "prompt": "Un superviseur affirme que chaque dossier fait l’objet d’un contrôle qualité, mais l’échantillon consulté ne comporte aucun visa de révision. Quelle étape suit ?",
+        "options": [
+          {
+            "label": "Conclure que les superviseurs mentent tous",
+            "feedback": "L’écart constaté compte, mais aucun fait n’étaye un procès d’intention."
+          },
+          {
+            "label": "Valider l’entretien au nom du rang hiérarchique du superviseur",
+            "feedback": "Une seule déclaration ne suffit pas lorsque d’autres pièces montrent le contraire."
+          },
+          {
+            "label": "Clarifier la procédure, observer la pratique réelle et contrôler un second échantillon adapté",
+            "feedback": "Exact. Recoupez témoignages, observations et archives avant toute conclusion."
+          }
+        ]
+      },
+      "04-03": {
+        "label": "Un acteur sans titre officiel",
+        "prompt": "Une représentante communautaire respectée détient peu d’autorité hiérarchique formelle mais est directement concernée par la réforme policière. Comment la situer ?",
+        "options": [
+          {
+            "label": "L’écarter parce qu’elle ne commande aucun policier",
+            "feedback": "Le grade formel ne résume pas à lui seul la pertinence d’une partie prenante."
+          },
+          {
+            "label": "Noter son intérêt et son influence réelle, et prévoir un dialogue substantiel",
+            "feedback": "Exact. L’analyse des acteurs intègre les personnes affectées et l’influence informelle."
+          },
+          {
+            "label": "La classer d’office parmi les opposants",
+            "feedback": "Aucun fait ne justifie cette étiquette."
+          }
+        ]
+      },
+      "05-03": {
+        "label": "Classer un écart de capacité",
+        "prompt": "Un constat vérifié montre l’absence de suivi fiable de l’entretien des véhicules et de disponibilité du parc. Quel domaine CBD convient en priorité ?",
+        "options": [
+          {
+            "label": "Services de soutien (enabling services)",
+            "feedback": "Bonne orientation. Logistique et maintenance soutiennent l’aptitude opérationnelle ; justifiez aussi les dimensions transversales utiles."
+          },
+          {
+            "label": "Engagement des parties prenantes uniquement",
+            "feedback": "La relation aux acteurs peut en souffrir, mais l’écart premier relève des systèmes d’appui."
+          },
+          {
+            "label": "Compétences individuelles d’enquête uniquement",
+            "feedback": "Une faille d’enregistrement logistique ne se ramène pas aux aptitudes individuelles d’enquêteurs."
+          }
+        ]
+      },
+      "06-02": {
+        "label": "Qu’est-ce qu’une véritable situation de référence ?",
+        "prompt": "Quelle proposition décrit une donnée de référence actuelle plutôt qu’une cible future ou une estimation gratuite ?",
+        "options": [
+          {
+            "label": "Tous les dossiers seront contrôlés sous 48 heures",
+            "feedback": "C’est une cible future souhaitée, et non une mesure de l’état présent."
+          },
+          {
+            "label": "Un échantillon contrôlé sur la période actuelle révèle un visa de supervision dans 12 dossiers sur 40",
+            "feedback": "Forme illustrative exacte : état actuel observé, échantillon et période précisés (chiffres fictifs hors diagnostic CARANA)."
+          },
+          {
+            "label": "Nous supposons que la plupart des dossiers sont revus",
+            "feedback": "Une simple supposition n’offre pas de base de référence crédible."
+          }
+        ]
+      }
+    },
+    "rights": "Adaptation pédagogique indépendante de la Leçon 1 UNPOL CBD (2021 ; PDF 07/2023). Sauf mention contraire, les scénarios sont purement didactiques. Sans approbation officielle de l’ONU ni divulgation des corrigés réservés à l’Annexe D.",
+    "tracks": {
+      "01-01": {
+        "title": "La décision avant la décision",
+        "script": "Imaginez votre arrivée à Galasi face à une demande bien connue : nos enquêteurs ont besoin d’une formation de toute urgence. La requête paraît raisonnable. Pourtant, que savons-nous réellement ? Peut-être manquent-ils de techniques d’audition ; mais peut-être les dossiers ne sont-ils pas relus, l’encadrement saturé ou les moyens absents. Ce sont des diagnostics très différents. Le conseiller CBD ne commence pas par choisir un stage : son premier acte professionnel consiste à déterminer quelles preuves permettent de trancher. Cette discipline préserve les ressources et fonde l’appropriation nationale."
+      },
+      "01-02": {
+        "title": "Trois angles, un diagnostic cohérent",
+        "script": "Cette première leçon relie trois questions indissociables. D’abord, quelles dynamiques marquent le conflit et le contexte d’intervention ? Ensuite, qui répond déjà sur place, et avec quels moyens ? Enfin, comment l’institution partenaire fonctionne-t-elle au quotidien ? Ces trois prismes — conflit, réponses et analyse CBD — éclairent un même tableau. Une faiblesse interne d’unité peut tenir à l’insécurité extérieure, à un programme concurrent ou à ses propres règles. Gardez toujours ces trois vues ensemble avant de conclure."
+      },
+      "01-03": {
+        "title": "Établir votre point de départ",
+        "script": "Comment prouver, dans six mois, qu’une action a réellement amélioré le service ? Il vous faut une description rigoureuse de la situation antérieure à l’intervention : c’est la référence de départ (baseline). Elle peut inclure des délais mesurés, mais aussi des pratiques observées ou des procédures documentées. La cible indique où aller ; la référence indique d’où l’on part. Confondre les deux mène à comptabiliser des activités sans jamais démontrer d’impact."
+      },
+      "02-01": {
+        "title": "Structurer le contexte avec PESTEL-S",
+        "script": "La leçon mobilise l’outil PESTEL-S comme premier balayage ordonné : facteurs politiques, économiques, sociaux, technologiques, environnementaux et juridiques, complétés par la sécurité — décisive en sortie de conflit. Ce n’est pas une grille mécanique mais un moyen de poser de meilleures questions sur ce qui conditionne la police."
+      },
+      "02-02": {
+        "title": "Lire les systèmes, pas seulement les symptômes",
+        "script": "PESTEL-S oriente le regard, mais exige parfois des outils plus fins : cartographie d’acteurs, analyse positions-intérêts-besoins, arbres de conflit ou analyse d’escalade. Le conseiller n’a pas à tout mener seul ; il doit reconnaître quand le contexte pèse sur la réforme et solliciter l’appui spécialisé adéquat."
+      },
+      "02-03": {
+        "title": "Le droit et le contexte institutionnel comptent",
+        "script": "Avant de recommander une méthode qui a réussi ailleurs, marquez un temps d’arrêt : est-elle conforme aux pouvoirs légaux de l’État hôte, aux garanties des droits humains et aux réalités budgétaires et organisationnelles locales ? Un bon appui CBD aide l’homologue à développer une pratique légitime et durable chez lui."
+      },
+      "03-01": {
+        "title": "Vous ne partez pas de zéro",
+        "script": "Sur le terrain, la page n’est presque jamais vierge. Services nationaux, agences onusiennes, bailleurs bilatéraux et société civile interagissent déjà. Cartographiez qui agit, selon quel mandat et avec quel effet, sans présumer automatiquement alliance ou blocage."
+      },
+      "03-02": {
+        "title": "Les intérêts ne sont pas toujours visibles",
+        "script": "Une déclaration officielle d’adhésion ou de réserve ne suffit pas. Derrière une position publique peuvent se cacher la crainte de perdre des ressources, le souvenir de promesses non tenues ou d’autres priorités. Explorer positions, intérêts et besoins vise à comprendre ces ressorts avec respect pour bâtir une appropriation authentique."
+      },
+      "03-03": {
+        "title": "Coordonner pour éviter des effets contre-productifs",
+        "script": "Deux ateliers parallèles destinés à une même petite brigade peuvent vider les patrouilles tout en affichant chacun des chiffres positifs. C’est l’essoufflement de l’homologue. La coordination des calendriers, objectifs et informations prévient ces doublons."
+      },
+      "04-01": {
+        "title": "Que se passe-t-il réellement dans l’institution ?",
+        "script": "L’analyse CBD plonge dans le fonctionnement concret de l’institution : au-delà de l’organigramme officiel, comment circulent les dossiers, comment s’exerce la supervision, et quelles conditions matérielles pèsent sur les agents ? Associez les homologues dès l’origine à cette description."
+      },
+      "04-02": {
+        "title": "Trianguler ce que vous entendez",
+        "script": "Lorsqu’un chef de service assure que tous les procès-verbaux sont relus mais que les archives montrent autre chose, l’analyse ne tranche pas sur parole. Entretiens, observations directes et pièces écrites doivent être confrontés — en respectant la confidentialité et le consentement."
+      },
+      "04-03": {
+        "title": "Cartographier acteurs, pouvoir et intérêt",
+        "script": "L’autorité hiérarchique officielle ne dit pas tout de l’influence réelle sur une réforme. Repérez qui est touché et qui peut influer de façon formelle ou informelle, afin d’adapter l’écoute et la concertation au fil du projet."
+      },
+      "05-01": {
+        "title": "Cinq domaines de capacité institutionnelle",
+        "script": "La grille CBD élargit le regard au-delà de l’agent individuel : services de police, services de soutien, politiques policières, mécanismes de redevabilité et engagement des parties prenantes. Chaque constat doit reposer sur des faits vérifiés."
+      },
+      "05-02": {
+        "title": "Six dimensions traversent chaque domaine",
+        "script": "Six dimensions transversales — pratique policière, durabilité environnementale, prévention des conflits, droits de l’homme, genre et protection globale des civils — interrogent chaque domaine pour vérifier les effets concrets d’un changement sur la population et les agents."
+      },
+      "05-03": {
+        "title": "Passer des observations aux problématiques structurées",
+        "script": "L’enjeu n’est pas de remplir toutes les cases de la matrice 5×6, mais de rattacher chaque constat étayé au domaine et à la dimension les plus éclairants pour concevoir ensuite une réponse juste."
+      },
+      "06-01": {
+        "title": "Des constats vers le SWOT",
+        "script": "Le SWOT synthétise les analyses précédentes : forces et faiblesses internes à l’institution ; opportunités et menaces issues de son environnement. Chaque entrée doit remonter à des faits prouvés, et jamais se substituer au diagnostic."
+      },
+      "06-02": {
+        "title": "Consigner une situation de référence évaluable",
+        "script": "Une bonne référence décrit clairement ce qui a été observé, quand, comment et avec quelles limites — sans y mêler de cibles futures ni d’estimations gratuites. Elle rendra l’évaluation future crédible."
+      },
+      "06-03": {
+        "title": "Vous êtes prêt pour l’atelier CARANA",
+        "script": "Vous disposez désormais de toute la séquence diagnostique. Dans l’atelier pratique Module 1, analysez les informations du scénario CARANA, vérifiez vos sources, distinguez faits et hypothèses et posez les bases solides de la phase suivante."
+      }
+    }
+  },
+  "visualJourney": {
+    "scenes": {
+      "01-01": {
+        "eyebrow": "CHEMINEMENT DIAGNOSTIQUE",
+        "title": "Une demande n’est pas un diagnostic",
+        "intro": "Sélectionnez chaque étape pour suivre le raisonnement avant de retenir une formation.",
+        "nodes": [
+          {
+            "label": "Problème signalé",
+            "question": "Qu’a demandé l’homologue ?",
+            "explain": "Une demande de cours en techniques d’enquête indique ce qu’un interlocuteur propose — non la cause réelle du déficit."
+          },
+          {
+            "label": "Causes possibles",
+            "question": "Qu’est-ce qui peut aussi expliquer la situation ?",
+            "explain": "Examinez la supervision, le suivi des dossiers, le matériel, les incitations et les compétences comme autant d’hypothèses à vérifier."
+          },
+          {
+            "label": "Vérifier les preuves",
+            "question": "Quels faits permettent de trancher ?",
+            "explain": "Confrontez archives, observations réelles et points de vue internes avant de poser un diagnostic."
+          },
+          {
+            "label": "Choisir la réponse",
+            "question": "Quelle intervention convient réellement ?",
+            "explain": "C’est seulement ensuite qu’on envisage une formation ou une autre action conforme au mandat et à l’appropriation locale."
+          }
+        ]
+      },
+      "01-02": {
+        "eyebrow": "TROIS PRISMES COMPLÉMENTAIRES",
+        "title": "Une même situation, trois questions",
+        "intro": "Découvrez comment chaque angle d’analyse oriente les recherches indispensables.",
+        "nodes": [
+          {
+            "label": "Conflit",
+            "question": "Qu’est-ce qui façonne l’environnement ?",
+            "explain": "Les facteurs politiques, économiques, sociaux, juridiques, technologiques, environnementaux et sécuritaires délimitent ce qui est possible."
+          },
+          {
+            "label": "Réponses",
+            "question": "Qui agit déjà et avec quel appui ?",
+            "explain": "Recensez partenaires, mandats et programmes en cours avant toute nouvelle proposition."
+          },
+          {
+            "label": "CBD",
+            "question": "Comment opère l’homologue aujourd’hui ?",
+            "explain": "Analysez capacités, procédures et blocages réels avec la participation directe des acteurs nationaux."
+          }
+        ]
+      },
+      "01-03": {
+        "eyebrow": "DES PREUVES À L’ÉVALUATION",
+        "title": "Une référence rend le progrès observable",
+        "intro": "Suivez la chaîne méthodologique qui permet d’évaluer honnêtement le changement.",
+        "nodes": [
+          {
+            "label": "Référence initiale",
+            "question": "Quel est l’état de départ attesté ?",
+            "explain": "Consignez la situation avant toute action avec sources, période, méthode et limites."
+          },
+          {
+            "label": "Intervention",
+            "question": "Quel appui est effectivement conduit ?",
+            "explain": "Documentez ce qui a été exécuté ; l’activité seule ne prouve pas le renforcement institutionnel."
+          },
+          {
+            "label": "Mesure ultérieure",
+            "question": "Comment vérifier à nouveau la situation ?",
+            "explain": "Utilisez des sources comparables en documentant tout ajustement de méthode."
+          },
+          {
+            "label": "Comparaison",
+            "question": "Le changement est-il démontré ?",
+            "explain": "Comparez à la situation initiale avant toute affirmation sur les résultats ou l’impact."
+          }
+        ]
+      },
+      "02-01": {
+        "eyebrow": "EXPLORATEUR CONTEXTUEL PESTEL-S",
+        "title": "Sept dimensions autour d’un même service de police",
+        "intro": "Cliquez sur chaque dimension ; ces questions guident l’enquête et ne constituent pas des constats figés sur Carana.",
+        "nodes": [
+          { "label": "Politique", "question": "Qui autorise, appuie ou freine la réforme ?", "explain": "Gouvernance, autorité décisionnelle, incitations et portage politique." },
+          { "label": "Économique", "question": "Quelles pressions financières pèsent sur le service ?", "explain": "Ressources, budgets, conditions de vie et viabilité à long terme." },
+          { "label": "Sociale", "question": "Comment la population vit-elle le service policier ?", "explain": "Confiance, inclusion, attentes et relations police-communauté." },
+          { "label": "Technologique", "question": "Quels systèmes facilitent ou entravent le travail ?", "explain": "Circulation de l’information, équipements et fiabilité technique." },
+          { "label": "Environnementale", "question": "Quelles conditions matérielles affectent le service ?", "explain": "Contraintes géographiques, climatiques et d’infrastructure." },
+          { "label": "Juridique", "question": "Quels pouvoirs légaux et garanties s’appliquent ?", "explain": "Compétences légales, procédures, traditions juridiques et droits humains." },
+          { "label": "Sécurité", "question": "Comment l’insécurité modifie-t-elle le terrain ?", "explain": "Menaces, accès aux zones, et contraintes pesant sur la réforme." }
+        ]
+      },
+      "02-02": {
+        "eyebrow": "ARBRE DE CONFLIT",
+        "title": "Distinguer causes profondes, problème apparent et effets",
+        "intro": "Un arbre de conflit montre pourquoi traiter le seul symptôme laisse subsister ses moteurs.",
+        "nodes": [
+          { "label": "Causes profondes", "question": "Qu’est-ce qui nourrit le problème ?", "explain": "Incitations, exclusions, conflits de ressources ou règles institutionnelles à vérifier localement." },
+          { "label": "Problème apparent", "question": "Que se passe-t-il concrètement ?", "explain": "Décrivez la tension ou défaillance observable sans la confondre avec son origine." },
+          { "label": "Effets possibles", "question": "Quelles conséquences peuvent en découler ?", "explain": "Notez les impacts constatés et risques d’escalade sans confondre hypothèse et certitude." }
+        ]
+      },
+      "02-03": {
+        "eyebrow": "FILTRE D’ADÉQUATION LOCALE",
+        "title": "Une bonne pratique ailleurs n’est pas d’office adaptée ici",
+        "intro": "Examinez quatre verrous avant de transposer une pratique extérieure.",
+        "nodes": [
+          { "label": "Base légale", "question": "Le droit national l’autorise-t-il ?", "explain": "Vérifiez compétences légales, mandat et garde-fous juridiques." },
+          { "label": "Droits et légitimité", "question": "Protège-t-elle les personnes concernées ?", "explain": "Conformité aux droits humains, garanties de procédure, redevabilité et confiance publique." },
+          { "label": "Appropriation locale", "question": "Qui portera durablement ce changement ?", "explain": "Associez direction et praticiens pour intégrer leurs priorités et contraintes réelles." },
+          { "label": "Faisabilité", "question": "Est-ce soutenable dans la durée ?", "explain": "Budgets, effectifs, incitations internes et conditions concrètes de mise en œuvre." }
+        ]
+      },
+      "03-01": {
+        "eyebrow": "PAYSAGE DES RÉPONSES",
+        "title": "L’institution part rarement d’une page blanche",
+        "intro": "Explorez les grandes catégories d’acteurs dont les appuis et priorités doivent être repérés.",
+        "nodes": [
+          { "label": "Homologues nationaux", "question": "Quelles autorités nationales agissent ?", "explain": "Clarifiez compétences, priorités nationales et circuits de décision." },
+          { "label": "ONU et mission", "question": "Quels appuis onusiens existent déjà ?", "explain": "Recensez les mandats et programmes de la mission et des agences." },
+          { "label": "Partenaires bilatéraux", "question": "Quelles autres aides sont en cours ?", "explain": "Repérez objectifs, calendrier, ressources et risques de doublon." },
+          { "label": "Société civile", "question": "Qui d’autre agit ou est concerné ?", "explain": "Écoutez organisations et communautés concernées dans le respect du cadre applicable." }
+        ]
+      },
+      "03-02": {
+        "eyebrow": "POSITION · INTÉRÊT · BESOIN",
+        "title": "Ce qui est dit n’est souvent que la partie émergée",
+        "intro": "Explorez les trois strates du modèle PIN comme des hypothèses à vérifier par le dialogue, jamais des procès d’intention.",
+        "nodes": [
+          { "label": "Position", "question": "Qu’a déclaré l’acteur officiellement ?", "explain": "Consignez la demande ou posture exprimée sans l’interpréter hâtivement." },
+          { "label": "Intérêt", "question": "Quel objectif peut motiver cette position ?", "explain": "Cernez les priorités ou inquiétudes sous-jacentes via un échange respectueux." },
+          { "label": "Besoin", "question": "Quelle exigence fondamentale est en jeu ?", "explain": "Sécurité, reconnaissance, moyens ou viabilité institutionnelle à valider avec l’interlocuteur." }
+        ]
+      },
+      "03-03": {
+        "eyebrow": "COORDINATION ET EFFETS INATTENDUS",
+        "title": "Deux bons programmes peuvent épuiser la même équipe",
+        "intro": "Observez comment deux flux d’appui non coordonnés créent des tensions, et comment la coordination les résout.",
+        "nodes": [
+          { "label": "Programme A", "question": "Que délivre déjà le Programme A ?", "explain": "Vérifiez objectifs, publics ciblés, calendrier et charge imposée à l’unité." },
+          { "label": "Programme B", "question": "Où le Programme B risque-t-il le doublon ?", "explain": "Comparez bénéficiaires, dates et exigences de rapport avec l’existant." },
+          { "label": "Passerelle de coordination", "question": "Qu’apporte la concertation ?", "explain": "Avec l’accord de l’homologue, aligner séquences et partages d’informations évite doublons et lassitude." }
+        ]
+      },
+      "04-01": {
+        "eyebrow": "TROIS NIVEAUX DE CAPACITÉ",
+        "title": "La performance dépend de bien plus que du savoir individuel",
+        "intro": "Explorez ces trois niveaux avant d’imputer une faiblesse au seul manque de formation.",
+        "nodes": [
+          { "label": "Environnement porteur", "question": "Quelles règles extérieures encadrent le mandat ?", "explain": "Lois, politiques nationales, ressources publiques et contexte institutionnel." },
+          { "label": "Institution / unité", "question": "Quels systèmes internes guident l’action ?", "explain": "Supervision, procédures, redevabilité, dotation en personnel et logistique." },
+          { "label": "Praticien", "question": "Que peuvent faire les agents en poste ?", "explain": "Compétences et pratiques individuelles indissociables de leurs conditions matérielles." }
+        ]
+      },
+      "04-02": {
+        "eyebrow": "TRIANGULATION DES PREUVES",
+        "title": "Trois sources. Un constat bien plus défendable.",
+        "intro": "Cliquez sur chaque source pour voir son apport et ses limites.",
+        "nodes": [
+          { "label": "Entretiens", "question": "Que disent les différents interlocuteurs ?", "explain": "Recueillez le vécu d’agents et d’encadrants ; toute déclaration demande recoupement." },
+          { "label": "Observation", "question": "Que se passe-t-il en situation réelle ?", "explain": "Observez les tâches avec autorisation ; une visite ponctuelle ne suffit pas toujours." },
+          { "label": "Archives & pièces", "question": "Que révèlent les documents produits ?", "explain": "Examinez registres, procès-verbaux et comptes rendus pour vérifier la pratique documentée." }
+        ]
+      },
+      "04-03": {
+        "eyebrow": "MATRICE POUVOIR / INTÉRÊT",
+        "title": "Adapter l’engagement au pouvoir et à l’intérêt",
+        "intro": "L’axe horizontal mesure l’intérêt ; l’axe vertical mesure l’influence. Explorez chaque quadrant.",
+        "nodes": [
+          { "label": "Forte influence · moindre intérêt", "question": "Maintenir un dialogue adapté", "explain": "Suivre les décisions clés, cerner les freins et consulter en temps utile." },
+          { "label": "Forte influence · fort intérêt", "question": "Associer étroitement", "explain": "Impliquer les décideurs pertinents et réévaluer régulièrement l’évolution de leur position." },
+          { "label": "Moindre influence · moindre intérêt", "question": "Suivre et garder la porte ouverte", "explain": "Ne pas exclure ces groupes ni figer l’évaluation de leur intérêt futur." },
+          { "label": "Moindre influence · fort intérêt", "question": "Écouter et faire participer", "explain": "Les groupes directement concernés détiennent souvent des informations cruciales malgré une faible autorité formelle." }
+        ]
+      },
+      "05-01": {
+        "eyebrow": "CINQ DOMAINES DE CAPACITÉ CBD",
+        "title": "La capacité institutionnelle repose sur cinq piliers",
+        "intro": "Explorez chaque domaine avant d’affecter un constat vérifié.",
+        "nodes": [
+          { "label": "Services de police", "question": "Comment le service opérationnel est-il rendu ?", "explain": "Qualité professionnelle, commandement, contrôle et service rendu au public." },
+          { "label": "Services de soutien", "question": "Quels systèmes appuient le terrain ?", "explain": "Effectifs, formation, finances, logistique et gestion des moyens." },
+          { "label": "Politiques policières", "question": "Comment les normes internes sont-elles formulées ?", "explain": "Élaboration, clarté et mise à jour des doctrines et règlements." },
+          { "label": "Mécanismes de redevabilité", "question": "Comment conduites et résultats sont-ils contrôlés ?", "explain": "Contrôle interne, traitement des plaintes, inspection et obligation de rendre compte." },
+          { "label": "Engagement des acteurs", "question": "Comment l’institution coopère-t-elle ?", "explain": "Concertation avec la société civile, les autres autorités et les partenaires." }
+        ]
+      },
+      "06-02": {
+        "eyebrow": "RÉFÉRENCE ACTUELLE ≠ CIBLE FUTURE",
+        "title": "Séparer le constat initial du résultat visé",
+        "intro": "Les chiffres ci-dessous sont des illustrations didactiques fictives et non des constats sur Carana.",
+        "nodes": [
+          { "label": "Preuve initiale (tel quel)", "question": "Qu’a-t-on vérifié avant le projet ?", "explain": "Exemple fictif : 12 dossiers sur 40 contrôlés comportaient un visa hiérarchique sur la période retenue, avec limites précisées." },
+          { "label": "État futur souhaité", "question": "À quoi ressemblerait le résultat convenu ?", "explain": "Une cible se fixe lors de la planification ; elle ne remplace jamais la mesure de départ." },
+          { "label": "Méthode comparable", "question": "Pourra-t-on mesurer de la même façon plus tard ?", "explain": "Documentez échantillon, définitions, période et source pour garantir la comparabilité." }
+        ]
+      },
+      "06-03": {
+        "eyebrow": "PROCHAINE ÉTAPE : L’ATELIER PRATIQUE",
+        "title": "Transférer vos constats vers l’exercice CARANA",
+        "intro": "Explorez le passage du diagnostic vers l’atelier pratique (sans divulgation des réponses de l’exercice).",
+        "nodes": [
+          { "label": "Contexte", "question": "Quelles conditions générales pèsent ?", "explain": "Reprenez les observations contextuelles vérifiées." },
+          { "label": "Réponses", "question": "Qui est déjà mobilisé ?", "explain": "Intégrez la carte des acteurs, intérêts et influences." },
+          { "label": "Institution", "question": "Comment fonctionne l’homologue ?", "explain": "Reliez les écarts aux domaines et dimensions pertinents." },
+          { "label": "Synthèse", "question": "Quels constats tiennent devant les preuves ?", "explain": "Fondez SWOT et situation de référence sur des sources vérifiées." },
+          { "label": "Atelier pratique", "question": "Comment mettre en œuvre ?", "explain": "Appliquez ces outils dans l’atelier CARANA avant de choisir les objectifs futurs." }
+        ]
+      }
+    },
+    "exercises": {
+      "05-03": {
+        "eyebrow": "CLASSER UN ENJEU INSTITUTIONNEL",
+        "title": "Passer d’une observation au domaine CBD principal",
+        "intro": "Entraînez-vous sur des exemples inventés (non tirés du corrigé Annexe D).",
+        "options": [
+          "Services de police",
+          "Services de soutien",
+          "Politiques policières",
+          "Mécanismes de redevabilité",
+          "Engagement des parties prenantes"
+        ],
+        "cases": [
+          [
+            "Des retards répétés dans les achats publics bloquent le remplacement d’équipements essentiels.",
+            "L’enjeu premier relève des achats et de la logistique : services de soutien (d’autres dimensions peuvent s’y rattacher)."
+          ],
+          [
+            "Les décisions d’examen des plaintes ne sont ni documentées de façon régulière ni communiquées en interne.",
+            "L’enjeu premier concerne le contrôle interne et l’obligation de rendre compte : mécanismes de redevabilité."
+          ],
+          [
+            "Aucun canal régulier de concertation n’existe avec les représentants communautaires concernés.",
+            "L’enjeu premier touche les relations extérieures et la participation : engagement des parties prenantes."
+          ]
+        ]
+      },
+      "06-01": {
+        "eyebrow": "TRI SWOT FONDÉ SUR LES PREUVES",
+        "title": "Classer le fait avéré, pas la première impression",
+        "intro": "Choisissez le quadrant de chaque observation fictive : forces/faiblesses sont internes ; opportunités/menaces sont externes.",
+        "options": [
+          "Force · interne",
+          "Faiblesse · interne",
+          "Opportunité · externe",
+          "Menace · externe"
+        ],
+        "cases": [
+          [
+            "Une procédure écrite de revue des dossiers est appliquée avec constance par l’unité.",
+            "Une pratique interne fonctionnelle est une force, dès lors que les faits la confirment."
+          ],
+          [
+            "Le suivi des dossiers reste irrégulier d’une équipe de quart à l’autre dans le service.",
+            "Une limite interne de fonctionnement est une faiblesse, non une menace externe."
+          ],
+          [
+            "Un partenaire extérieur propose une nouvelle plateforme de coordination susceptible d’appuyer le service.",
+            "Une condition externe potentiellement favorable est une opportunité, sous réserve de vérification."
+          ],
+          [
+            "L’insécurité empêche l’accès à plusieurs secteurs périphériques desservis par le poste.",
+            "Une contrainte sécuritaire extérieure défavorable constitue une menace."
+          ]
+        ]
+      }
+    },
+    "microCases": {
+      "02-01": {
+        "prompt": "Exemple fictif : les enquêteurs ne peuvent plus consulter les dossiers numériques à cause de pannes réseau répétées. Quelle dimension PESTEL-S explorer en priorité ?",
+        "answers": ["Politique", "Technologique", "Environnementale"],
+        "feedback": "Commencez par la dimension technologique pour examiner l’infrastructure d’information, tout en vérifiant les contraintes financières et sécuritaires liées."
+      },
+      "04-03": {
+        "prompt": "Exemple fictif : une association communautaire manifeste un vif intérêt pour la réforme mais détient peu d’autorité formelle. Où la situer ?",
+        "answers": ["Forte influence · fort intérêt", "Moindre influence · fort intérêt", "Moindre influence · moindre intérêt"],
+        "feedback": "Fort intérêt et moindre influence formelle est le bon classement initial. Écoutez et associez utilement cet acteur ; son savoir de terrain est précieux."
+      },
+      "04-02": {
+        "prompt": "Exemple fictif : un supérieur affirme que tous les dossiers sont contrôlés, mais plusieurs dossiers consultés n’ont aucun visa. Que faire ?",
+        "answers": ["Conclure à la mauvaise foi du supérieur", "Vérifier procédures, observations directes et registres", "Programmer aussitôt une nouvelle formation"],
+        "feedback": "Vérifiez l’écart par d’autres pièces, entretiens et observations avant de conclure à une cause ou à une formation."
+      }
+    }
+  },
+  "labs": {
+    "matrixEyebrow": "LA MATRICE CBD 5 × 6",
+    "matrixTitle": "Explorer chaque croisement",
+    "matrixIntro": "Sélectionnez une cellule pour croiser un domaine institutionnel avec une dimension transversale. Outil de questionnement analytique et non matrice Carana préremplie.",
+    "matrixCorner": "Domaine CBD ↓ / Dimension →",
+    "matrixCaption": "Cinq domaines CBD et six dimensions transversales",
+    "matrixPromptTitle": "Sélectionnez l’une des 30 intersections",
+    "matrixPromptBody": "Chaque croisement invite à formuler une question d’analyse étayée par des preuves.",
+    "matrixQuestionPrompt": "Demandez-vous quel constat vérifié, le cas échéant, relève réellement de cette intersection.",
+    "areas": [
+      ["Services de police", "Opérations, prestation de service et pratique policière professionnelle"],
+      ["Services de soutien", "Ressources humaines, formation, finances, logistique et appui technique"],
+      ["Formulation des politiques policières", "Politique institutionnelle, règlements et élaboration des directives"],
+      ["Mécanismes de redevabilité", "Contrôle interne, révision, responsabilité et obligation de rendre compte"],
+      ["Engagement des parties prenantes", "Relations avec les acteurs internes et externes concernés"]
+    ],
+    "dimensions": [
+      ["Pratique policière", "Examiner la qualité, l’adéquation et l’exécution des pratiques policières opérationnelles."],
+      ["Durabilité environnementale", "Vérifier les conséquences environnementales et l’usage durable des ressources lorsque pertinent."],
+      ["Prévention des conflits", "Évaluer si la pratique institutionnelle réduit ou aggrave les facteurs de tension et de conflit."],
+      ["Droits de l’homme", "Examiner le respect des droits, des pouvoirs légaux, des garanties et de la redevabilité."],
+      ["Genre", "Évaluer l’égalité de traitement, la participation, les effets différenciés selon le genre et l’accès au service."],
+      ["Protection globale des civils (CPOC)", "Examiner l’impact des pratiques sur la protection globale des civils."]
+    ],
+    "explorations": {
+      "01-02": {
+        "eyebrow": "PRISMES D’ANALYSE INTERACTIFS",
+        "title": "Examiner un même cas sous trois questions",
+        "intro": "Sélectionnez un prisme pour découvrir ce qu’il faut vérifier avant toute réponse CBD.",
+        "parts": [
+          ["Analyse de conflit", "Que se passe-t-il dans l’environnement général ?", "Examiner les conditions politiques, sociales, juridiques et sécuritaires qui encadrent la performance de l’institution."],
+          ["Analyse des réponses", "Qui intervient déjà sur place ?", "Recenser les appuis existants, mandats, acteurs et motivations pour repérer complémentarités, doublons et fatigue des homologues."],
+          ["Analyse CBD", "Comment l’homologue fonctionne-t-il en pratique ?", "Étudier services policiers, appuis, politiques, redevabilité et engagement par entretiens, observations, pièces et auto-évaluation."]
+        ]
+      },
+      "02-01": {
+        "eyebrow": "EXPLORATEUR PESTEL-S",
+        "title": "Sept dimensions contextuelles",
+        "intro": "Choisissez chaque dimension pour afficher une question d’enquête.",
+        "parts": [
+          ["Politique", "Comment les incitations politiques influencent-elles la réforme ?", "Interrogez les circuits décisionnels, l’engagement réel des autorités et les pressions politiques."],
+          ["Économique", "Quelles pressions financières pèsent sur les agents et services ?", "Examinez budgets, soldes, conjoncture économique et capacité réaliste de pérennisation."],
+          ["Sociale", "Quelle est l’expérience vécue par la population ?", "Explorez la confiance, les attentes, les exclusions et l’accès effectif aux services de police."],
+          ["Technologique", "Quels systèmes techniques existent ?", "Vérifiez l’infrastructure d’information et sa fiabilité réelle au quotidien."],
+          ["Environnementale", "Quelles contraintes physiques influencent le service ?", "Prenez en compte climat, accessibilité géographique et état des installations."],
+          ["Juridique", "Quels textes et garanties encadrent l’action policière ?", "Vérifiez compétences légales, garanties procédurales et traditions juridiques nationales."],
+          ["Sécurité", "Comment l’insécurité affecte-t-elle l’institution ?", "Évaluez menaces, accès au territoire et contraintes opérationnelles immédiates."]
+        ]
+      },
+      "04-03": {
+        "eyebrow": "PRISME D’ENGAGEMENT DES ACTEURS",
+        "title": "Pouvoir et intérêt ne résument pas les personnes",
+        "intro": "Explorez quatre quadrants visant un engagement proportionné et respectueux — jamais un étiquetage figé.",
+        "parts": [
+          ["Forte influence · fort intérêt", "Associer étroitement", "Comprendre les attentes, favoriser une participation adaptée et réévaluer les évolutions."],
+          ["Forte influence · moindre intérêt", "Tenir informé et consulter au besoin", "Tenir compte de l’autorité décisionnelle et repérer les moments critiques de consultation."],
+          ["Moindre influence · fort intérêt", "Écouter et associer réellement", "Les personnes affectées possèdent souvent une expertise essentielle malgré un statut hiérarchique limité."],
+          ["Moindre influence · moindre intérêt", "Suivre et laisser l’accès ouvert", "L’intérêt et l’influence évoluent dans le temps ; aucun groupe n’est définitivement accessoire."]
+        ]
+      },
+      "06-02": {
+        "eyebrow": "RÉFÉRENCE VS CIBLE",
+        "title": "Ne pas confondre situation actuelle et résultat souhaité",
+        "intro": "Sélectionnez chaque élément pour voir le rôle distinct de la preuve initiale, de la cible et de la méthode.",
+        "parts": [
+          ["Référence actuelle", "Qu’a-t-on observé ?", "Exemple fictif : un contrôle sur dossier montre un visa de supervision dans 12 dossiers sur 40 sur la période retenue."],
+          ["Cible future", "Quel résultat vise-t-on ?", "Exemple fictif : une cible future convenue fixerait un seuil vérifiable de visas dans les délais — ce n’est pas un constat actuel."],
+          ["Méthode de vérification", "Comment vérifier plus tard ?", "Fixez échantillonnage, dates, registres et modalités de revue dès le départ pour assurer la comparabilité."]
+        ]
+      }
+    }
+  },
+  "illustrations": {
+    "01-01": {
+      "title": "Enquêter d’abord sur le problème ; choisir ensuite la réponse.",
+      "caption": "Une demande de formation est le point de départ d’une vérification — jamais la preuve que la formation résoudra le problème de capacité sous-jacent.",
+      "alt": "Dans un service de police fictif, un conseiller CBD examine des dossiers d’enquête et des procédures avec un homologue envisageant une formation."
+    },
+    "03-03": {
+      "title": "De bonnes intentions peuvent créer des exigences concurrentes.",
+      "caption": "Deux activités d’appui peuvent sembler utiles séparément tout en créant doublons et surcharge sur la même équipe nationale.",
+      "alt": "Un conseiller et un responsable de police débordé consultent un emploi du temps chargé tandis que deux ateliers parallèles se tiennent en arrière-plan."
+    },
+    "04-02": {
+      "title": "Confronter un témoignage à la pratique observée et aux archives.",
+      "caption": "Entretiens, observations directes et dossiers révèlent des aspects différents d’une même réalité ; tout écart appelle une vérification.",
+      "alt": "Un conseiller et un officier de police comparent des dossiers détaillés tandis qu’un entretien et un contrôle d’archives se déroulent en arrière-plan."
+    }
+  }
+}

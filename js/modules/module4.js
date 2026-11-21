@@ -23,6 +23,10 @@
   let state = null;
   let activeStage = 'stage-mma';
 
+  const tw = (key, vars, fallback) => (Storage && Storage.wbT ? Storage.wbT(key, vars, fallback !== undefined ? fallback : key) : (fallback !== undefined ? fallback : key));
+  const scLoc = () => (Scenario && Scenario.getLocalized ? Scenario.getLocalized() : Scenario);
+  const glLoc = () => (Glossary && Glossary.getLocalized ? Glossary.getLocalized() : Glossary);
+
   const STAGES = [
     { id: 'stage-mma', label: '1. MMA Operational Triad', short: 'MMA Strategy' },
     { id: 'stage-rolereversal', label: '2. Role Reversal & Empathy', short: 'Role Reversal' },
@@ -31,6 +35,17 @@
     { id: 'stage-tracker', label: '5. Implementation Tracker', short: 'Activity Tracker' },
     { id: 'stage-summary', label: '6. Review, Reflection & Handoff', short: 'Review & Handoff' }
   ];
+
+  function applyLocaleToModule() {
+    renderStageTabs();
+    updateCompletionBadge();
+    renderRoleReversal();
+    renderFieldSetbacks();
+    renderActivityTracker();
+    renderScenarioDrawerList(document.getElementById('scenarioSearchInput')?.value);
+    renderGlossaryList(document.getElementById('glossarySearchInput')?.value);
+    Storage.renderCurriculumTrack(4);
+  }
 
   function init() {
     state = Storage.loadLabState();
@@ -46,9 +61,12 @@
     renderScenarioDrawerList();
     renderGlossaryList();
     Storage.renderCurriculumTrack(4);
-    updateSaveIndicator('Loaded local data');
+    updateSaveIndicator(tw('Loaded local data'));
     setupAutosaveListener();
     setupLifecycleListeners();
+    if (Storage && Storage.initWorkbenchI18n) {
+      Storage.initWorkbenchI18n(applyLocaleToModule);
+    }
   }
 
   const dirtyFields = new Set();
@@ -110,10 +128,10 @@
     }
     const ok = Storage.saveLabState(state);
     if (!ok) {
-      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+      updateSaveIndicator('⚠️ ' + tw('Storage full or blocked! Export JSON.'), true);
     } else {
       dirtyFields.clear();
-      updateSaveIndicator(statusMsg || 'Saved locally');
+      updateSaveIndicator(statusMsg || tw('Saved locally'));
     }
     Storage.renderCurriculumTrack(4);
     return ok;
@@ -122,7 +140,7 @@
   function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
-      el.textContent = msg || 'Saved locally on this device';
+      el.textContent = msg || tw('Saved locally on this device');
       el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
@@ -138,7 +156,7 @@
       if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
-      save('Autosaved');
+      save(tw('Autosaved'));
     }, 600));
   }
 
@@ -155,10 +173,10 @@
     const badge = document.getElementById('stageCompleteFooterBadge');
     if (!badge) return;
     if (state.module4 && state.module4.confirmed) {
-      badge.textContent = '✓ Phase 4 Self-Confirmed · Ready for Module 5';
+      badge.textContent = tw('✓ Phase 4 Self-Confirmed · Ready for Module 5');
       badge.style.color = 'var(--ok)';
     } else {
-      badge.textContent = 'Phase 4 In Progress · Pending Self-Confirmation';
+      badge.textContent = tw('Phase 4 In Progress · Pending Self-Confirmation');
       badge.style.color = 'var(--navy)';
     }
   }
@@ -274,7 +292,7 @@
     container.innerHTML = STAGES.map((s, idx) => `
       <button class="stage-tab ${s.id === activeStage ? 'active' : ''}" data-stage="${s.id}" type="button">
         <span class="badge">0${idx + 1}</span>
-        <span>${escapeHtml(s.short)}</span>
+        <span>${escapeHtml(tw(s.short))}</span>
       </button>
     `).join('');
 
@@ -352,40 +370,40 @@
     if (!host) return;
 
     host.innerHTML = state.module4.roleReversal.map((role, idx) => `
-      <div class="card" style="margin-bottom: 20px; border-left: 6px solid var(--navy);">
+      <div class="card" style="margin-bottom: 20px; border-inline-start: 6px solid var(--navy);">
         <div class="card-header" style="background: var(--wash);">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="cell-badge" style="background: var(--navy);">Role #${idx + 1}</span>
-            <h3 style="margin: 0; font-size: 1.15rem; color: var(--navy);">${escapeHtml(role.counterpart)}</h3>
+            <span class="cell-badge" style="background: var(--navy);">${escapeHtml(tw('Role #{idx}', { idx: idx + 1 }, `Role #${idx + 1}`))}</span>
+            <h3 dir="auto" data-learner-text style="margin: 0; font-size: 1.15rem; color: var(--navy);">${escapeHtml(role.counterpart)}</h3>
           </div>
-          <button class="btn btn-sm btn-danger remove-role-btn" data-idx="${idx}" type="button" aria-label="Remove role card ${escapeHtml(role.counterpart || (idx + 1))}">Remove Role</button>
+          <button class="btn btn-sm btn-danger remove-role-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove role card {name}', { name: role.counterpart || (idx + 1) }, `Remove role card ${role.counterpart || (idx + 1)}`))}">${escapeHtml(tw('Remove Role'))}</button>
         </div>
         <div class="card-body">
           <div class="grid-2">
             <div class="form-group col-full">
-              <label class="form-label">Counterpart Designation / Role</label>
-              <input class="form-input role-field" data-idx="${idx}" data-field="counterpart" value="${escapeHtml(role.counterpart)}" aria-label="Counterpart designation and role">
+              <label class="form-label">${escapeHtml(tw('Counterpart Designation / Role'))}</label>
+              <input dir="auto" class="form-input role-field" data-idx="${idx}" data-field="counterpart" value="${escapeHtml(role.counterpart)}" aria-label="${escapeHtml(tw('Counterpart Designation / Role'))}">
             </div>
             <div class="form-group">
               <label class="form-label" style="color: var(--danger);">
-                Perceived Vulnerabilities, Fears & Threats
-                <span class="form-hint">Why might this counterpart resist the CBD initiative? What do they stand to lose?</span>
+                ${escapeHtml(tw('Perceived Vulnerabilities, Fears & Threats'))}
+                <span class="form-hint">${escapeHtml(tw('Why might this counterpart resist the CBD initiative? What do they stand to lose?'))}</span>
               </label>
-              <textarea class="form-textarea role-field" data-idx="${idx}" data-field="perceivedThreats" style="min-height: 80px;" aria-label="Perceived vulnerabilities, fears and threats">${escapeHtml(role.perceivedThreats || '')}</textarea>
+              <textarea dir="auto" class="form-textarea role-field" data-idx="${idx}" data-field="perceivedThreats" style="min-height: 80px;" aria-label="${escapeHtml(tw('Perceived Vulnerabilities, Fears & Threats'))}">${escapeHtml(role.perceivedThreats || '')}</textarea>
             </div>
             <div class="form-group">
               <label class="form-label" style="color: var(--ok-dark);">
-                Unspoken Motivations & Legitimate Incentives
-                <span class="form-hint">What drives them? Career standing, pride, security, peer respect?</span>
+                ${escapeHtml(tw('Unspoken Motivations & Legitimate Incentives'))}
+                <span class="form-hint">${escapeHtml(tw('What drives them? Career standing, pride, security, peer respect?'))}</span>
               </label>
-              <textarea class="form-textarea role-field" data-idx="${idx}" data-field="unspokenIncentives" style="min-height: 80px;" aria-label="Unspoken motivations and legitimate incentives">${escapeHtml(role.unspokenIncentives || '')}</textarea>
+              <textarea dir="auto" class="form-textarea role-field" data-idx="${idx}" data-field="unspokenIncentives" style="min-height: 80px;" aria-label="${escapeHtml(tw('Unspoken Motivations & Legitimate Incentives'))}">${escapeHtml(role.unspokenIncentives || '')}</textarea>
             </div>
             <div class="form-group col-full" style="background: var(--wash-subtle); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--line);">
               <label class="form-label" style="color: var(--navy);">
-                Adviser Engagement & Trust-Building Strategy
-                <span class="form-hint">How will UNPOL CBD advisers interact to build genuine mutual respect and ownership?</span>
+                ${escapeHtml(tw('Adviser Engagement & Trust-Building Strategy'))}
+                <span class="form-hint">${escapeHtml(tw('How will UNPOL CBD advisers interact to build genuine mutual respect and ownership?'))}</span>
               </label>
-              <textarea class="form-textarea role-field" data-idx="${idx}" data-field="respectfulEngagementStrategy" style="min-height: 70px;" aria-label="Adviser engagement and trust-building strategy">${escapeHtml(role.respectfulEngagementStrategy || '')}</textarea>
+              <textarea dir="auto" class="form-textarea role-field" data-idx="${idx}" data-field="respectfulEngagementStrategy" style="min-height: 70px;" aria-label="${escapeHtml(tw('Adviser Engagement & Trust-Building Strategy'))}">${escapeHtml(role.respectfulEngagementStrategy || '')}</textarea>
             </div>
           </div>
         </div>
@@ -435,36 +453,36 @@
         <div class="card-header" style="background: ${sb.status === 'Resolved' ? '#eefbf4' : '#fff9f0'};">
           <div>
             <span class="badge" style="background: ${sb.status === 'Resolved' ? 'var(--ok)' : 'var(--warn)'}; color: #fff; padding: 2px 7px; border-radius: 4px; font-size: 0.72rem; font-weight: 800;">
-              ${escapeHtml(sb.status)}
+              ${escapeHtml(tw(sb.status))}
             </span>
-            <strong style="margin-left: 8px; font-size: 1.05rem; color: var(--navy);">${escapeHtml(sb.title)}</strong>
+            <strong dir="auto" data-learner-text style="margin-inline-start: 8px; font-size: 1.05rem; color: var(--navy);">${escapeHtml(sb.title)}</strong>
           </div>
           <div style="display: flex; gap: 8px; align-items: center;">
-            <select class="form-select setback-status" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto;" aria-label="Setback resolution status">
-              <option value="Scheduled" ${sb.status === 'Scheduled' ? 'selected' : ''}>Status: Scheduled</option>
-              <option value="In Progress" ${sb.status === 'In Progress' ? 'selected' : ''}>Status: In Progress</option>
-              <option value="Resolved" ${sb.status === 'Resolved' ? 'selected' : ''}>Status: Resolved</option>
+            <select class="form-select setback-status" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto;" aria-label="${escapeHtml(tw('Setback resolution status'))}">
+              <option value="Scheduled" ${sb.status === 'Scheduled' ? 'selected' : ''}>${escapeHtml(tw('Status: Scheduled'))}</option>
+              <option value="In Progress" ${sb.status === 'In Progress' ? 'selected' : ''}>${escapeHtml(tw('Status: In Progress'))}</option>
+              <option value="Resolved" ${sb.status === 'Resolved' ? 'selected' : ''}>${escapeHtml(tw('Status: Resolved'))}</option>
             </select>
-            <button class="btn btn-sm btn-danger remove-setback-btn" data-idx="${idx}" type="button" aria-label="Remove setback ${escapeHtml(sb.title || (idx + 1))}">×</button>
+            <button class="btn btn-sm btn-danger remove-setback-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove setback {title}', { title: sb.title || (idx + 1) }, `Remove setback ${sb.title || (idx + 1)}`))}">×</button>
           </div>
         </div>
         <div class="card-body">
           <div class="form-group">
-            <label class="form-label" style="color: var(--danger);">Field Crisis / Obstacle Scenario</label>
-            <textarea class="form-textarea sb-field" data-idx="${idx}" data-field="scenario" style="min-height: 60px;" aria-label="Field crisis and obstacle scenario">${escapeHtml(sb.scenario || '')}</textarea>
+            <label class="form-label" style="color: var(--danger);">${escapeHtml(tw('Field Crisis / Obstacle Scenario'))}</label>
+            <textarea dir="auto" class="form-textarea sb-field" data-idx="${idx}" data-field="scenario" style="min-height: 60px;" aria-label="${escapeHtml(tw('Field Crisis / Obstacle Scenario'))}">${escapeHtml(sb.scenario || '')}</textarea>
           </div>
           <div class="grid-2">
             <div class="form-group">
-              <label class="form-label">Root Cause Analysis (5 Whys / Underlying Friction)</label>
-              <textarea class="form-textarea sb-field" data-idx="${idx}" data-field="rootCause" style="min-height: 70px;" aria-label="Root cause analysis using 5 Whys">${escapeHtml(sb.rootCause || '')}</textarea>
+              <label class="form-label">${escapeHtml(tw('Root Cause Analysis (5 Whys / Underlying Friction)'))}</label>
+              <textarea dir="auto" class="form-textarea sb-field" data-idx="${idx}" data-field="rootCause" style="min-height: 70px;" aria-label="${escapeHtml(tw('Root Cause Analysis (5 Whys / Underlying Friction)'))}">${escapeHtml(sb.rootCause || '')}</textarea>
             </div>
             <div class="form-group">
-              <label class="form-label">Negotiation & Mediation Strategy (Interest-Based)</label>
-              <textarea class="form-textarea sb-field" data-idx="${idx}" data-field="negotiationStrategy" style="min-height: 70px;" aria-label="Negotiation and mediation strategy">${escapeHtml(sb.negotiationStrategy || '')}</textarea>
+              <label class="form-label">${escapeHtml(tw('Negotiation & Mediation Strategy (Interest-Based)'))}</label>
+              <textarea dir="auto" class="form-textarea sb-field" data-idx="${idx}" data-field="negotiationStrategy" style="min-height: 70px;" aria-label="${escapeHtml(tw('Negotiation & Mediation Strategy (Interest-Based)'))}">${escapeHtml(sb.negotiationStrategy || '')}</textarea>
             </div>
             <div class="form-group col-full" style="background: var(--wash); padding: 12px; border-radius: var(--radius-sm);">
-              <label class="form-label" style="color: var(--ok-dark);">Concrete Problem-Solving Action & Protocol</label>
-              <textarea class="form-textarea sb-field" data-idx="${idx}" data-field="resolutionAction" style="min-height: 60px;" aria-label="Concrete problem-solving action and protocol">${escapeHtml(sb.resolutionAction || '')}</textarea>
+              <label class="form-label" style="color: var(--ok-dark);">${escapeHtml(tw('Concrete Problem-Solving Action & Protocol'))}</label>
+              <textarea dir="auto" class="form-textarea sb-field" data-idx="${idx}" data-field="resolutionAction" style="min-height: 60px;" aria-label="${escapeHtml(tw('Concrete Problem-Solving Action & Protocol'))}">${escapeHtml(sb.resolutionAction || '')}</textarea>
             </div>
           </div>
         </div>
@@ -523,27 +541,27 @@
     host.innerHTML = state.module4.activityTracker.map((tr, idx) => `
       <tr data-idx="${idx}">
         <td style="font-weight: 700;">
-          <input class="form-input tr-field" data-idx="${idx}" data-field="activityTitle" value="${escapeHtml(tr.activityTitle || '')}" aria-label="Activity title">
-          <div style="font-size: 0.72rem; color: var(--muted); margin-top: 4px;">Ref: ${escapeHtml(tr.outputRef || 'Output')}</div>
+          <input dir="auto" class="form-input tr-field" data-idx="${idx}" data-field="activityTitle" value="${escapeHtml(tr.activityTitle || '')}" aria-label="${escapeHtml(tw('Activity Title'))}">
+          <div style="font-size: 0.72rem; color: var(--muted); margin-top: 4px;">${escapeHtml(tr.outputRef || 'Output')}</div>
         </td>
         <td>
-          <select class="form-select tr-field" data-idx="${idx}" data-field="status" aria-label="Activity implementation status">
-            <option value="Scheduled" ${tr.status === 'Scheduled' ? 'selected' : ''}>Scheduled</option>
-            <option value="In Progress" ${tr.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
-            <option value="Delayed" ${tr.status === 'Delayed' ? 'selected' : ''}>Delayed</option>
-            <option value="Completed" ${tr.status === 'Completed' ? 'selected' : ''}>Completed</option>
+          <select class="form-select tr-field" data-idx="${idx}" data-field="status" aria-label="${escapeHtml(tw('Activity implementation status'))}">
+            <option value="Scheduled" ${tr.status === 'Scheduled' ? 'selected' : ''}>${escapeHtml(tw('Scheduled'))}</option>
+            <option value="In Progress" ${tr.status === 'In Progress' ? 'selected' : ''}>${escapeHtml(tw('In Progress'))}</option>
+            <option value="Delayed" ${tr.status === 'Delayed' ? 'selected' : ''}>${escapeHtml(tw('Delayed'))}</option>
+            <option value="Completed" ${tr.status === 'Completed' ? 'selected' : ''}>${escapeHtml(tw('Completed'))}</option>
           </select>
         </td>
         <td>
-          <input type="number" class="form-input tr-field" data-idx="${idx}" data-field="progressPercent" min="0" max="100" value="${escapeHtml(String(tr.progressPercent != null ? tr.progressPercent : 0))}" style="width: 70px;" aria-label="Activity progress percentage (0-100)"> %
+          <input type="number" class="form-input tr-field" data-idx="${idx}" data-field="progressPercent" min="0" max="100" value="${escapeHtml(String(tr.progressPercent != null ? tr.progressPercent : 0))}" style="width: 70px;" aria-label="${escapeHtml(tw('Activity progress percentage (0-100)'))}"> %
         </td>
         <td>
-          <textarea class="form-textarea tr-field" data-idx="${idx}" data-field="fieldAdvisoryNote" style="min-height: 60px;" aria-label="Field advisory and mentoring note">${escapeHtml(tr.fieldAdvisoryNote || '')}</textarea>
+          <textarea dir="auto" class="form-textarea tr-field" data-idx="${idx}" data-field="fieldAdvisoryNote" style="min-height: 60px;" aria-label="${escapeHtml(tw('Field advisory and mentoring note'))}">${escapeHtml(tr.fieldAdvisoryNote || '')}</textarea>
         </td>
         <td>
-          <input class="form-input tr-field" type="date" data-idx="${idx}" data-field="lastUpdated" value="${escapeHtml(tr.lastUpdated || '')}" aria-label="Last updated date">
+          <input class="form-input tr-field" type="date" data-idx="${idx}" data-field="lastUpdated" value="${escapeHtml(tr.lastUpdated || '')}" aria-label="${escapeHtml(tw('Last updated date'))}">
         </td>
-        <td><button class="btn btn-sm btn-danger remove-tr-btn" data-idx="${idx}" type="button" aria-label="Remove activity ${escapeHtml(tr.activityTitle || (idx + 1))}">×</button></td>
+        <td><button class="btn btn-sm btn-danger remove-tr-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove activity {title}', { title: tr.activityTitle || (idx + 1) }, `Remove activity ${tr.activityTitle || (idx + 1)}`))}">×</button></td>
       </tr>
     `).join('');
 
@@ -603,12 +621,12 @@
   function importFromModule3Logframe() {
     const m3 = state.module3;
     if (!m3 || !m3.logframe || !m3.logframe.activities || m3.logframe.activities.length === 0) {
-      alert('No activities found in Module 3 Logframe. Complete Module 3 first.');
+      alert(tw('No activities found in Module 3 Logframe. Complete Module 3 first.'));
       return;
     }
 
     if (state.module4.activityTracker.length > 0) {
-      const proceed = confirm('Sync implementation tracker with Module 3 Logframe? Existing activities will be updated with latest Module 3 titles without overwriting your entered progress.');
+      const proceed = confirm(tw('Sync implementation tracker with Module 3 Logframe? Existing activities will be updated with latest Module 3 titles without overwriting your entered progress.'));
       if (!proceed) return;
     }
 
@@ -643,9 +661,9 @@
       }
     });
 
-    save('Synced with Module 3 Logframe');
+    save(tw('Synced with Module 3 Logframe'));
     renderActivityTracker();
-    alert(`Module 3 Sync Complete: ${updated} activities updated, ${added} new activities added.`);
+    alert(tw('Module 3 Sync Complete: {updated} activities updated, {added} new activities added.', { updated, added }, `Module 3 Sync Complete: ${updated} activities updated, ${added} new activities added.`));
   }
 
   /* Scenario Reference Drawer & Glossary */
@@ -653,7 +671,7 @@
     const host = document.getElementById('scenarioDrawerList');
     if (!host) return;
     const q = (searchQuery || '').toLowerCase().trim();
-    let paragraphs = Scenario.PARAGRAPHS;
+    let paragraphs = scLoc().PARAGRAPHS;
     if (q) {
       paragraphs = paragraphs.filter(p =>
         p.id.toString() === q || p.text.toLowerCase().includes(q)
@@ -661,7 +679,7 @@
     }
     host.innerHTML = paragraphs.map(p => `
       <div class="para-item">
-        <span class="para-badge">Paragraph ${p.id}</span>
+        <span class="para-badge">${escapeHtml(tw('Paragraph {id}', { id: p.id }, `Paragraph ${p.id}`))}</span>
         <p style="margin: 4px 0 0;">${escapeHtml(p.text)}</p>
       </div>
     `).join('');
@@ -689,7 +707,7 @@
     const host = document.getElementById('glossaryList');
     if (!host) return;
     const q = (searchQuery || '').toLowerCase().trim();
-    let terms = Glossary.TERMS;
+    let terms = glLoc().TERMS;
     if (q) {
       terms = terms.filter(t =>
         t.term.toLowerCase().includes(q) || t.definition.toLowerCase().includes(q)
@@ -734,13 +752,13 @@
       b.onclick = () => setStage(b.dataset.gotoStage);
     });
 
-    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
+    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save(tw('Saved locally')));
 
     // Confirmation checkbox listener
     const confirmBox = document.getElementById('confirmModule4') || document.getElementById('selfConfirmCheck');
     confirmBox?.addEventListener('change', e => {
       state.module4.confirmed = e.target.checked;
-      save(e.target.checked ? 'Phase 4 Confirmed' : 'Confirmation withdrawn');
+      save(e.target.checked ? tw('Phase {num} Confirmed', { num: 4 }, 'Phase 4 Confirmed') : tw('Confirmation withdrawn'));
       updateCompletionBadge();
     });
 
@@ -820,7 +838,7 @@
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
       if (!state.module4?.confirmed) {
-        const proceed = confirm('Note: Phase 4 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        const proceed = confirm(tw('Note: Phase 4 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?'));
         if (!proceed) return;
       }
       if (Storage.preparePrintableContent) Storage.preparePrintableContent();

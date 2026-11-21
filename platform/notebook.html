@@ -7,16 +7,19 @@
   <title>Connected Evidence-to-Decision Notebook (E08 Prototype) · CARANA E-Learning</title>
   <link rel="stylesheet" href="./platform.css">
   <link rel="stylesheet" href="./notebook.css">
+  <link rel="stylesheet" href="../css/i18n-rtl.css">
+  <script src="../platform/i18n.js"></script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main" data-i18n="common.skipToContent">Skip to content</a>
   <header>
-    <a class="brand" href="../course/#home">CARANA <span>E-LEARNING</span></a>
+    <a class="brand" href="../course/#home"><span data-i18n="notebook.brand">CARANA</span> <span data-i18n="common.brandPlatform">E-LEARNING</span></a>
     <nav aria-label="Platform">
-      <a href="../course/#home">CBD home</a>
-      <a href="./demo.html">Institutional demonstration</a>
-      <a href="../course/#activities">Practice library</a>
+      <a href="../course/#home" data-i18n="nav.home">CBD home</a>
+      <a href="./demo.html" data-i18n="nav.demo">Institutional demonstration</a>
+      <a href="../course/#activities" data-i18n="nav.practiceLibrary">Practice library</a>
     </nav>
+    <div id="notebook-lang-slot"></div>
   </header>
   <main id="main" tabindex="-1">
     <div id="notebook-app" class="app-boot">

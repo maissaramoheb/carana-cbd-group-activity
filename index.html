@@ -6,6 +6,8 @@
   <link rel="icon" href="data:,">
   <title>CARANA CBD Learning Lab · UNPOL Training Portal</title>
   <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/i18n-rtl.css">
+  <script src="platform/i18n.js"></script>
 </head>
 <body>
   <div class="lab-container">
@@ -313,11 +315,13 @@
 
       function renderParas(query) {
         const q = (query || '').toLowerCase().trim();
-        let items = CARANA_SCENARIO.PARAGRAPHS;
+        const scenario = typeof CARANA_SCENARIO.getLocalized === 'function' ? CARANA_SCENARIO.getLocalized() : CARANA_SCENARIO;
+        const tw = window.CARANA_I18N ? window.CARANA_I18N.tw : (s => s);
+        let items = scenario.PARAGRAPHS;
         if (q) items = items.filter(p => p.id.toString() === q || p.text.toLowerCase().includes(q));
         listHost.innerHTML = items.map(p => `
           <div class="para-item">
-            <span class="para-badge">Paragraph ${p.id}</span>
+            <span class="para-badge">${tw('Paragraph {id}', { id: p.id })}</span>
             <p style="margin: 4px 0 0;">${p.text}</p>
           </div>
         `).join('');
@@ -341,7 +345,8 @@
 
       function renderGlossary(query) {
         const q = (query || '').toLowerCase().trim();
-        let terms = CURRICULUM_GLOSSARY.TERMS;
+        const glos = typeof CURRICULUM_GLOSSARY.getLocalized === 'function' ? CURRICULUM_GLOSSARY.getLocalized() : CURRICULUM_GLOSSARY;
+        let terms = glos.TERMS;
         if (q) terms = terms.filter(t => t.term.toLowerCase().includes(q) || t.definition.toLowerCase().includes(q));
         gList.innerHTML = terms.map(t => `
           <div style="border-bottom: 1px solid var(--line); padding: 10px 0;">
@@ -358,6 +363,9 @@
 
       // Dynamic Curriculum Track & Module Cards Status
       function updatePortalState() {
+        const i18n = window.CARANA_I18N;
+        const tw = i18n ? i18n.tw : (s => s);
+        const phaseWord = tw('phaseWord');
         if (window.LabStorage) {
           LabStorage.renderCurriculumTrack();
           const state = LabStorage.loadLabState();
@@ -366,15 +374,21 @@
           const summaryEl = document.getElementById('portalCycleSummaryBadge');
           if (summaryEl) {
             if (cycle.allConfirmed) {
-              summaryEl.textContent = '✓ Full Cycle Self-Confirmed (6/6 Modules Complete · Facilitator Review Ready)';
+              summaryEl.textContent = i18n && i18n.getLang() !== 'en'
+                ? tw('✓ Full Six-Phase Cycle Self-Confirmed (6/6) · Facilitator Review Ready')
+                : '✓ Full Cycle Self-Confirmed (6/6 Modules Complete · Facilitator Review Ready)';
               summaryEl.style.background = '#e6f4ea';
               summaryEl.style.color = '#137333';
             } else if (cycle.confirmedCount > 0) {
-              summaryEl.textContent = `Cycle In Progress (${cycle.confirmedCount}/6 Phases Self-Confirmed · Phases ${cycle.pendingModules.join(', ')} Pending)`;
+              summaryEl.textContent = i18n && i18n.getLang() !== 'en'
+                ? tw('Phase 6 In Progress · Pending Self-Confirmation ({done}/6 Confirmed)', { done: cycle.confirmedCount })
+                : `Cycle In Progress (${cycle.confirmedCount}/6 Phases Self-Confirmed · Phases ${cycle.pendingModules.join(', ')} Pending)`;
               summaryEl.style.background = '#e0f2fe';
               summaryEl.style.color = '#0369a1';
             } else {
-              summaryEl.textContent = 'Six-Phase Cycle In Progress (0/6 Phases Confirmed)';
+              summaryEl.textContent = i18n && i18n.getLang() !== 'en'
+                ? tw('Six-Phase Cycle In Progress')
+                : 'Six-Phase Cycle In Progress (0/6 Phases Confirmed)';
               summaryEl.style.background = 'var(--wash)';
               summaryEl.style.color = 'var(--muted)';
             }
@@ -390,29 +404,30 @@
             const actionBadge = card.querySelector('.action-badge');
 
             if (phaseBadge) {
+              const pPrefix = (i18n && i18n.getLang() !== 'en') ? (phaseWord + ' ' + i) : ('Phase ' + i);
               if (isConfirmed) {
-                phaseBadge.textContent = `Phase ${i} · Confirmed`;
+                phaseBadge.textContent = pPrefix + (i18n && i18n.getLang() !== 'en' ? tw('badgeConfirmed') : ' · Confirmed');
                 phaseBadge.style.background = 'var(--ok)';
                 phaseBadge.style.color = '#fff';
               } else if (status === 'in_progress') {
-                phaseBadge.textContent = `Phase ${i} · In Progress`;
+                phaseBadge.textContent = pPrefix + (i18n && i18n.getLang() !== 'en' ? tw('badgeInProgress') : ' · In Progress');
                 phaseBadge.style.background = 'var(--un-blue)';
                 phaseBadge.style.color = '#fff';
               } else {
-                phaseBadge.textContent = `Phase ${i} · Not Started`;
+                phaseBadge.textContent = pPrefix + (i18n && i18n.getLang() !== 'en' ? tw('badgeNotStarted') : ' · Not Started');
                 phaseBadge.style.background = 'var(--muted)';
                 phaseBadge.style.color = '#fff';
               }
             }
             if (actionBadge) {
               if (isConfirmed) {
-                actionBadge.textContent = '✓ Self-Confirmed';
+                actionBadge.textContent = i18n && i18n.getLang() !== 'en' ? ('✓ ' + tw('Validated by Syndicate')) : '✓ Self-Confirmed';
                 actionBadge.style.color = 'var(--ok)';
               } else if (status === 'in_progress') {
-                actionBadge.textContent = 'In Progress';
+                actionBadge.textContent = tw('In Progress');
                 actionBadge.style.color = 'var(--navy)';
               } else {
-                actionBadge.textContent = 'Ready to Launch';
+                actionBadge.textContent = tw('Ready to Launch');
                 actionBadge.style.color = 'var(--muted)';
               }
             }
@@ -420,7 +435,26 @@
         }
       }
 
-      updatePortalState();
+      function applyLocaleToPortal() {
+        if (window.CARANA_I18N) {
+          window.CARANA_I18N.translateWorkbenchDom(document.body);
+        }
+        renderParas(searchInput.value);
+        renderGlossary(gSearch.value);
+        updatePortalState();
+      }
+
+      if (window.CARANA_I18N) {
+        window.CARANA_I18N.mountSwitcher('.lab-controls-bar', { variant: 'dark', prepend: true });
+        window.CARANA_I18N.onChange(applyLocaleToPortal);
+        if (window.CARANA_I18N.getLang() === 'en') {
+          updatePortalState();
+        } else {
+          window.CARANA_I18N.ready(['ui', 'workbenches']).then(applyLocaleToPortal);
+        }
+      } else {
+        updatePortalState();
+      }
       window.addEventListener('storage', e => {
         if (e.key === LabStorage?.STORAGE_KEY) {
           updatePortalState();

@@ -52,7 +52,7 @@
   display:block;
   width:100%;
   height:auto;
-  aspect-ratio:auto;
+  aspect-ratio:1672 / 941;
   object-fit:contain;
   background:#e0edf0;
 }

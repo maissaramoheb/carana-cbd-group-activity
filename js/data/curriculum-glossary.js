@@ -154,10 +154,22 @@
     }
   ];
 
+  function getLocalized() {
+    const i18n = (typeof window !== 'undefined' && window.CARANA_I18N) || (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || null;
+    const gl = i18n && i18n.getLang() !== 'en' ? i18n.getPack('workbenches')?.glossary : null;
+    if (!gl || !Array.isArray(gl.TERMS)) return { TERMS, findTerm: name => TERMS.find(t => t.term.toLowerCase() === (name || '').toLowerCase()) };
+    const locTerms = gl.TERMS;
+    return {
+      TERMS: locTerms,
+      findTerm: name => locTerms.find(t => t.term.toLowerCase() === (name || '').toLowerCase())
+    };
+  }
+
   return {
     TERMS,
     findTerm: function (name) {
       return TERMS.find(t => t.term.toLowerCase() === (name || '').toLowerCase());
-    }
+    },
+    getLocalized
   };
 });

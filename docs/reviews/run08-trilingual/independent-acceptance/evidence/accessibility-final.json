@@ -1,0 +1,152 @@
+[
+  {
+    "lang": "en",
+    "route": "/course/",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/course/#lesson-1",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/platform/?course=cbd&lesson=cbd-3",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/module1.html",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/module2.html",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/module3.html",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/module4.html",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/module5.html",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/module6.html",
+    "violations": []
+  },
+  {
+    "lang": "en",
+    "route": "/platform/notebook.html",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/course/",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/course/#lesson-1",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/platform/?course=cbd&lesson=cbd-3",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/module1.html",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/module2.html",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/module3.html",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/module4.html",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/module5.html",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/module6.html",
+    "violations": []
+  },
+  {
+    "lang": "fr-FR",
+    "route": "/platform/notebook.html",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/course/",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/course/#lesson-1",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/platform/?course=cbd&lesson=cbd-3",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/module1.html",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/module2.html",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/module3.html",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/module4.html",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/module5.html",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/module6.html",
+    "violations": []
+  },
+  {
+    "lang": "ar",
+    "route": "/platform/notebook.html",
+    "violations": []
+  }
+]

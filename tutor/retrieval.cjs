@@ -7,9 +7,414 @@ const STOP = new Set(
     'difference between versus official lesson say said says tell told ask asked show shown explain explains explained clarify clarification summarize summary summarise recap overview break down describe give provide help understanding understand know think mean means meant meaning remember point points takeaway takeaways key main core rule rules ' +
     'please simply simple plain concise brief short quick easily clear clearly step steps part parts aspect aspects area areas concept concepts idea ideas topic topics issue issues note notes word words term terms ' +
     'invented scenario scenarios example examples case story slide screen page section module framework practical professional real actually really basically essentially suppose imagine consider wait well even still also instead already without using use used make makes made want need needs work works thing things way ways good better best bad right wrong yes dont doesnt didnt isnt arent cant couldnt wouldnt shouldnt wont anyone someone everyone anything something everything nothing ' +
-    'cite citing citation reference ref annex chapter paragraph para url fake ignore prior instructions plus plu id ids list new newly team staff officer officers person people field unit units station stations country mission local partner'
+    'cite citing citation reference ref annex chapter paragraph para url fake ignore prior instructions plus plu id ids list new newly team staff officer officers person people field unit units station stations country mission local partner ' +
+    'le la les un une des du de dans avec pour sur par est sont que qui quoi comment pourquoi quel quelle quels quelles etre avoir faire ce cet cette ces cela ceci ca entre mon ma mes votre vos notre nos vous nous ils elles plus moins tout tous toute sans ou donc mais car puis ' +
+    'explique expliquez expliquant expliquer simplement simple exemple exemples pratique professionnel ecran diapositive lecon notion notions concept concepts retenir comparez comparer principaux raisonnement verifier passage ' +
+    'في من على الي عن مع بين ما هو هي هم هذا هذه ذلك تلك التي الذي الذين كيف لماذا هل ان او لا نعم غير كل بعض اي حول نحو عبر خلال بعد قبل لدى يمكن يجب اشرح وضح بسط باختصار مثال امثله شاشه درس موضوع مفهوم مفاهيم قارن تذكر نقاط مهمه فقره استدلال تبرير تقييم'
   ).split(' ')
 );
+
+const MULTILINGUAL_TOKEN_MAP = {
+  // French UNPOL / CBD vocabulary -> canonical English stem(s)
+  situationnel: 'analysis',
+  situationnelle: 'analysis',
+  analyse: 'analysis',
+  analyser: 'analysis',
+  ecart: 'gap',
+  ecarts: 'gap',
+  lacune: 'gap',
+  lacunes: 'gap',
+  capacite: 'capacity',
+  capacites: 'capacity',
+  competence: 'competence',
+  competences: 'competence',
+  aptitude: 'capability',
+  aptitudes: 'capability',
+  diagnostiquer: 'diagnose',
+  diagnostic: 'diagnose',
+  symptome: 'symptom',
+  symptomes: 'symptom',
+  profonde: 'cause',
+  profondes: 'cause',
+  cause: 'cause',
+  causes: 'cause',
+  arbre: 'tree',
+  conflit: 'conflict',
+  conflits: 'conflict',
+  facteur: 'driver',
+  facteurs: 'driver',
+  moteur: 'driver',
+  moteurs: 'driver',
+  partie: 'stakeholder',
+  parties: 'stakeholder',
+  prenante: 'stakeholder',
+  prenantes: 'stakeholder',
+  acteurs: 'stakeholder',
+  interet: 'interest',
+  interets: 'interest',
+  pouvoir: 'power',
+  influence: 'influence',
+  quadrant: 'quadrant',
+  quadrants: 'quadrant',
+  ffom: 'swot',
+  force: 'strength',
+  forces: 'strength',
+  faiblesse: 'weakness',
+  faiblesses: 'weakness',
+  opportunite: 'opportunity',
+  opportunites: 'opportunity',
+  menace: 'threat',
+  menaces: 'threat',
+  politique: 'political',
+  economique: 'economic',
+  technologique: 'technological',
+  environnemental: 'environmental',
+  environnementale: 'environmental',
+  juridique: 'legal',
+  legal: 'legal',
+  securite: 'security',
+  securitaire: 'security',
+  triangulation: 'triangulation',
+  trianguler: 'triangulation',
+  preuve: 'evidence',
+  preuves: 'evidence',
+  donnee: 'data',
+  donnees: 'data',
+  verifier: 'verify',
+  verification: 'verify',
+  moyen: 'verify',
+  moyens: 'verify',
+  source: 'source',
+  sources: 'source',
+  base: 'baseline',
+  reference: 'baseline',
+  objectif: 'objective',
+  objectifs: 'objective',
+  specifique: 'specific',
+  mesurable: 'measurable',
+  atteignable: 'achievable',
+  realiste: 'relevant',
+  pertinent: 'relevant',
+  temporel: 'time-bound',
+  priorisation: 'priority',
+  prioriser: 'priority',
+  priorite: 'priority',
+  priorites: 'priority',
+  ponderation: 'weight',
+  poids: 'weight',
+  critere: 'criteria',
+  criteres: 'criteria',
+  score: 'score',
+  cadre: 'logframe',
+  logique: 'logframe',
+  logframe: 'logframe',
+  produit: 'output',
+  produits: 'output',
+  livrable: 'deliverable',
+  livrables: 'deliverable',
+  realisation: 'outcome',
+  realisations: 'outcome',
+  resultat: 'outcome',
+  resultats: 'outcome',
+  effet: 'outcome',
+  effets: 'outcome',
+  impact: 'impact',
+  changement: 'change',
+  theorie: 'theory',
+  hypothese: 'assumption',
+  hypotheses: 'assumption',
+  supposition: 'assumption',
+  risque: 'risk',
+  risques: 'risk',
+  probabilite: 'likelihood',
+  attenuation: 'mitigate',
+  attenuer: 'mitigate',
+  indicateur: 'indicator',
+  indicateurs: 'indicator',
+  mesure: 'measure',
+  mesurer: 'measure',
+  budgetisation: 'rbb',
+  budget: 'budget',
+  ressource: 'resource',
+  ressources: 'resource',
+  intrant: 'input',
+  intrants: 'input',
+  activite: 'activity',
+  activites: 'activity',
+  atelier: 'workshop',
+  ateliers: 'workshop',
+  formation: 'train',
+  former: 'train',
+  registre: 'register',
+  achats: 'procurement',
+  approvisionnement: 'procurement',
+  suivi: 'monitor',
+  mentorat: 'mentor',
+  conseil: 'advise',
+  accompagner: 'mentor',
+  communication: 'communicate',
+  communiquer: 'communicate',
+  clarte: 'clarity',
+  courtoisie: 'courtesy',
+  completude: 'completeness',
+  concision: 'conciseness',
+  exactitude: 'correctness',
+  coherence: 'coherence',
+  negociation: 'mediate',
+  mediation: 'mediate',
+  besoin: 'need',
+  besoins: 'need',
+  position: 'position',
+  positions: 'position',
+  appropriation: 'ownership',
+  approprier: 'ownership',
+  homologue: 'counterpart',
+  homologues: 'counterpart',
+  contrepartie: 'counterpart',
+  local: 'local',
+  locale: 'local',
+  locales: 'local',
+  adapter: 'adapt',
+  adaptation: 'adapt',
+  importe: 'foreign',
+  importee: 'foreign',
+  etranger: 'foreign',
+  etrangere: 'foreign',
+  procedure: 'sop',
+  procedures: 'sop',
+  culture: 'culture',
+  culturel: 'culture',
+  culturelle: 'culture',
+  evaluation: 'evaluate',
+  evaluer: 'evaluate',
+  impartialite: 'impartial',
+  credibilite: 'credible',
+  credible: 'credible',
+  attribution: 'attribute',
+  causalite: 'causal',
+  comparaison: 'compare',
+  comparer: 'compare',
+  ecart_mesure: 'discrepancy',
+  divergence: 'discrepancy',
+  ajustement: 'adjust',
+  recommandation: 'recommendation',
+  recommandations: 'recommendation',
+  transition: 'transition',
+  passation: 'handover',
+  transfert: 'handover',
+  retrait: 'exit',
+  desengagement: 'exit',
+  durabilite: 'sustain',
+  perennite: 'sustain',
+  durablement: 'sustain',
+  maturite: 'ready',
+  pret: 'ready',
+  prete: 'ready',
+  coordonner: 'coordinate',
+  coordination: 'coordinate',
+  donateur: 'donor',
+  donateurs: 'donor',
+  bailleur: 'donor',
+  bailleurs: 'donor',
+  police: 'police',
+  policier: 'police',
+  policiers: 'police',
+  maintien: 'peacekeeping',
+  paix: 'peacekeeping',
+  droits: 'rights',
+  homme: 'rights',
+  recensement: 'census',
+  verification_antecedents: 'vetting',
+  mandat: 'mandate',
+  // Arabic UNPOL / CBD vocabulary (diacritics/hamza normalized) -> canonical English stem(s)
+  وضع: 'analysis',
+  وضعي: 'analysis',
+  موقف: 'context',
+  تحليل: 'analysis',
+  فجوه: 'gap',
+  فجوات: 'gap',
+  ثغره: 'gap',
+  نقص: 'gap',
+  قدره: 'capacity',
+  قدرات: 'capacity',
+  كفاءه: 'competence',
+  كفاءات: 'competence',
+  مهاره: 'skill',
+  مهارات: 'skill',
+  تشخيص: 'diagnose',
+  عرض: 'symptom',
+  اعراض: 'symptom',
+  جذور: 'cause',
+  جذري: 'cause',
+  سبب: 'cause',
+  اسباب: 'cause',
+  شجره: 'tree',
+  نزاع: 'conflict',
+  محرك: 'driver',
+  دوافع: 'driver',
+  اصحاب: 'stakeholder',
+  مصلحه: 'interest',
+  مصالح: 'interest',
+  معنيين: 'stakeholder',
+  اطراف: 'stakeholder',
+  نفوذ: 'influence',
+  تاثير: 'influence',
+  اهتمام: 'interest',
+  مربع: 'quadrant',
+  رباعي: 'quadrant',
+  قوه: 'strength',
+  ضعف: 'weakness',
+  فرص: 'opportunity',
+  فرصه: 'opportunity',
+  تهديد: 'threat',
+  تهديدات: 'threat',
+  بيستل: 'pestel',
+  سياسي: 'political',
+  اقتصادي: 'economic',
+  اجتماعي: 'social',
+  تقني: 'technological',
+  تكنولوجي: 'technological',
+  بيئي: 'environmental',
+  قانوني: 'legal',
+  امني: 'security',
+  تثليث: 'triangulation',
+  مقاطعه: 'triangulation',
+  دليل: 'evidence',
+  ادله: 'evidence',
+  بيانات: 'data',
+  تحقق: 'verify',
+  وسيله: 'verify',
+  وسائل: 'verify',
+  مصدر: 'source',
+  مصادر: 'source',
+  اساس: 'baseline',
+  مرجعي: 'baseline',
+  مرجعيه: 'baseline',
+  هدف: 'objective',
+  اهداف: 'objective',
+  ذكي: 'smart',
+  ذكيه: 'smart',
+  محدد: 'specific',
+  قياس: 'measure',
+  قابل: 'achievable',
+  واقعي: 'relevant',
+  زمني: 'time-bound',
+  اولويه: 'priority',
+  اولويات: 'priority',
+  ترجيح: 'weight',
+  وزن: 'weight',
+  اوزان: 'weight',
+  معيار: 'criteria',
+  معايير: 'criteria',
+  اطار: 'logframe',
+  منطقي: 'logframe',
+  مصفوفه: 'matrix',
+  مخرج: 'output',
+  مخرجات: 'output',
+  نتيجه: 'outcome',
+  نتائج: 'outcome',
+  اثر: 'impact',
+  تغيير: 'change',
+  نظريه: 'theory',
+  افتراض: 'assumption',
+  افتراضات: 'assumption',
+  خطر: 'risk',
+  مخاطر: 'risk',
+  احتمال: 'likelihood',
+  احتماليه: 'likelihood',
+  تخفيف: 'mitigate',
+  مؤشر: 'indicator',
+  مؤشرات: 'indicator',
+  موازنه: 'budget',
+  ميزانيه: 'budget',
+  موارد: 'resource',
+  مدخل: 'input',
+  مدخلات: 'input',
+  نشاط: 'activity',
+  انشطه: 'activity',
+  ورشه: 'workshop',
+  ورش: 'workshop',
+  تدريب: 'train',
+  سجل: 'register',
+  مشتريات: 'procurement',
+  رصد: 'monitor',
+  متابعه: 'monitor',
+  توجيه: 'mentor',
+  ارشاد: 'mentor',
+  استشاره: 'advise',
+  تواصل: 'communicate',
+  اتصال: 'communicate',
+  لباقه: 'courtesy',
+  وضوح: 'clarity',
+  دقه: 'correctness',
+  ترابط: 'coherence',
+  شموليه: 'completeness',
+  ايجاز: 'conciseness',
+  تفاوض: 'mediate',
+  وساطه: 'mediate',
+  احتياج: 'need',
+  احتياجات: 'need',
+  مواقف: 'position',
+  موقفهم: 'position',
+  ملكيه: 'ownership',
+  محلي: 'local',
+  محليه: 'local',
+  نظير: 'counterpart',
+  نظراء: 'counterpart',
+  شريك: 'partner',
+  شركاء: 'partner',
+  تكييف: 'adapt',
+  مواءمه: 'adapt',
+  مستورد: 'foreign',
+  مستورده: 'foreign',
+  اجنبي: 'foreign',
+  اجراءات: 'sop',
+  ثقافه: 'culture',
+  ثقافي: 'culture',
+  تقييم: 'evaluate',
+  تقويم: 'evaluate',
+  حياد: 'impartial',
+  حياديه: 'impartial',
+  نزاهه: 'credible',
+  مصداقيه: 'credible',
+  عزو: 'attribute',
+  سببيه: 'causal',
+  مقارنه: 'compare',
+  تضارب: 'discrepancy',
+  تباين: 'discrepancy',
+  تعديل: 'adjust',
+  تكييف_مسار: 'adjust',
+  توصيه: 'recommendation',
+  توصيات: 'recommendation',
+  انتقال: 'transition',
+  تسليم: 'handover',
+  خروج: 'exit',
+  انسحاب: 'exit',
+  استدامه: 'sustain',
+  مستدام: 'sustain',
+  جاهزيه: 'ready',
+  تنسيق: 'coordinate',
+  مانح: 'donor',
+  مانحين: 'donor',
+  جهات: 'donor',
+  شرطه: 'police',
+  شرطي: 'police',
+  شرطيه: 'police',
+  ضابط: 'police',
+  ضباط: 'police',
+  حفظ: 'peacekeeping',
+  سلام: 'peacekeeping',
+  حقوق: 'rights',
+  انسان: 'rights',
+  فحص: 'vetting',
+  تعداد: 'census',
+  ولايه: 'mandate',
+  مشروع: 'qip',
+  مشاريع: 'qip',
+  سريع: 'quick',
+  ثقه: 'trust',
+  دعم: 'support'
+};
 
 const SHORT_DOMAIN_MAP = {
   '7cs': 'seven courtesy',
@@ -87,23 +492,67 @@ function stem(w) {
   return w;
 }
 
-function preprocess(s) {
+function normalizeUnicode(s) {
   return String(s || '')
+    .replace(/[\u0660-\u0669]/g, ch => String(ch.charCodeAt(0) - 0x0660))
+    .replace(/[\u06F0-\u06F9]/g, ch => String(ch.charCodeAt(0) - 0x06F0))
+    .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+    .replace(/[إأآٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/ؤ/g, 'و')
+    .replace(/ئ/g, 'ي')
+    .replace(/؟/g, '?')
+    .replace(/،/g, ',')
+    .replace(/œ/gi, 'oe')
+    .replace(/æ/gi, 'ae')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+function preprocess(s) {
+  return normalizeUnicode(s)
     .replace(/https?:\/\/\S+/gi, ' ')
     .replace(/\b(?:cbd-\d+:\d{2,3}-\d{2,3}|plan-cbd-\d+:p\d+)\b/gi, ' ')
     .replace(/\b(?:page|pp?\.|unscr|annex)\s*[a-z0-9-]+\b/gi, ' ')
-    .replace(/([2-7])\s+cs\b/gi, '$1 courtesy')
+    .replace(/([2-7])\s*(?:cs|c)\b/gi, '$1 courtesy')
+    .replace(/\b(?:sept|7)\s*c\b/gi, 'seven courtesy')
     .replace(/\b([2-7])cs\b/gi, '$1 courtesy')
     .replace(/\bpestel-?s\b/gi, 'pestel')
     .replace(/\bsmart\b/gi, 'smart testable specific measurable')
     .toLowerCase();
 }
 
+function stripArabicPrefixCandidates(tok) {
+  const forms = [tok];
+  let cur = tok;
+  if (/^[وفبكل]/.test(cur) && cur.length > 3) forms.push(cur.slice(1));
+  if (cur.startsWith('ال') && cur.length > 4) forms.push(cur.slice(2));
+  if (/^[وبفل]ال/.test(cur) && cur.length > 5) forms.push(cur.slice(3));
+  return forms;
+}
+
 function terms(s, { keepShortTokens = false } = {}) {
   const cleaned = preprocess(s);
-  const raw = cleaned.match(/[a-z0-9][a-z0-9-]{1,}/g) || [];
+  const raw = cleaned.match(/[a-z0-9][a-z0-9-]{1,}|[\u0600-\u06FF]+/g) || [];
   const out = [];
   for (const tok of raw) {
+    if (/^[\u0600-\u06FF]+$/.test(tok)) {
+      if (tok.length < 2) continue;
+      let matched = null;
+      for (const cand of stripArabicPrefixCandidates(tok)) {
+        if (STOP.has(cand)) {
+          matched = '';
+          break;
+        }
+        if (Object.prototype.hasOwnProperty.call(MULTILINGUAL_TOKEN_MAP, cand)) {
+          matched = MULTILINGUAL_TOKEN_MAP[cand];
+          break;
+        }
+      }
+      if (matched) out.push(stem(matched));
+      continue;
+    }
     if (Object.prototype.hasOwnProperty.call(SHORT_DOMAIN_MAP, tok)) {
       const mapped = SHORT_DOMAIN_MAP[tok];
       if (!mapped) continue;
@@ -119,7 +568,13 @@ function terms(s, { keepShortTokens = false } = {}) {
     }
     const sTok = stem(tok);
     if (STOP.has(tok) || STOP.has(sTok)) continue;
-    out.push(sTok);
+    if (Object.prototype.hasOwnProperty.call(MULTILINGUAL_TOKEN_MAP, tok)) {
+      out.push(stem(MULTILINGUAL_TOKEN_MAP[tok]));
+    } else if (Object.prototype.hasOwnProperty.call(MULTILINGUAL_TOKEN_MAP, sTok)) {
+      out.push(stem(MULTILINGUAL_TOKEN_MAP[sTok]));
+    } else {
+      out.push(sTok);
+    }
   }
   return out;
 }
@@ -228,7 +683,11 @@ const EXTERNAL_UNSUPPORTED_TERMS = new Set([
   'conviction', 'ceiling', 'usd', 'dollar', 'euro', 'iso', 'serial',
   'weather', 'quantum', 'caliber', 'pistol', 'rifle', 'gps', 'coordinates',
   'headquarter', 'headquarters', 'airline', 'fly', 'flight', 'kilometer',
-  'kilometre', 'football', 'cup', 'reimbursement', 'medical'
+  'kilometre', 'football', 'cup', 'reimbursement', 'medical',
+  'salaire', 'indemnite', 'indemnites', 'prime', 'plafond', 'meteo',
+  'coordonnees', 'avion', 'vol', 'kilometre', 'kilometres', 'remboursement',
+  'راتب', 'الراتب', 'رواتب', 'بدل', 'مكافاه', 'علاوه', 'طقس', 'الطقس',
+  'احداثيات', 'طيران', 'تذكره', 'كيلومتر', 'دولار', 'يورو', 'مسدس', 'بندقيه'
 ]);
 
 const EXTERNAL_QUANT_PHRASES = [
@@ -246,12 +705,20 @@ const EXTERNAL_QUANT_PHRASES = [
   /\bdaily\s+subsistence\b/i,
   /\biso\s+standard\b/i,
   /\bgps\s+coordinates?\b/i,
-  /\bexactly?\s+(?:how\s+many|what\s+percent|what\s+ratio|what\s+usd|what\s+rate)\b/i
+  /\bexactly?\s+(?:how\s+many|what\s+percent|what\s+ratio|what\s+usd|what\s+rate)\b/i,
+  /\bratio\s+(?:exact|d[' ]effectif|de\s+dotation)\b/i,
+  /\bpourcentage\s+(?:maximum|fixe)\b/i,
+  /\bfrais\s+g[ée]n[ée]raux\b/i,
+  /\bcoordonn[ée]es\s+gps\b/i,
+  /\bbar[èe]me\s+(?:de\s+)?salaire\b/i,
+  /(?:نسبه|عدد)\s+(?:دقيقه|الدقيق|التوظيف|المركبات|الاجماليه)/i,
+  /(?:الراتب|الاجر|البدل)\s+(?:الشهري|اليومي)/i,
+  /(?:احداثيات|نطاق)\s+gps/i
 ];
 
-const DEICTIC_ANCHOR_RE = /\b(this screen|this slide|this page|shown here|this concept|this framework|this model|from here|explain that|summarize that|summarise that|clarify that)\b/i;
+const DEICTIC_ANCHOR_RE = /\b(this screen|this slide|this page|shown here|this concept|this framework|this model|from here|explain that|summarize that|summarise that|clarify that|cet ecran|cette diapositive|cette page|ce concept|ce cadre|ce modele|explique cela|expliquez cela|resumez cela)\b|(?:هذه الشاشه|هذه الصفحه|هذا المفهوم|هذا النموذج|هذا الاطار|اشرح هذا|لخص هذا|هنا)/i;
 const GENERIC_MODIFIER_TERMS = new Set(['police', 'practice', 'deploy', 'matter', 'cbd', 'unpol', 'advise', 'support', 'context', 'situation', 'capacity', 'project', 'successful']);
-const FOLLOWUP_DEICTIC_RE = /^(?:wait|so|and|but|then|what if|what about|how about|why isn|why is that|give.*example of that|explain that|compare those|which one|who owns|who should|can you)\b|\b(?:that|those|these|the second one|the first one|the middle one|this slide|this screen|this page|shown here|here)\b/i;
+const FOLLOWUP_DEICTIC_RE = /^(?:wait|so|and|but|then|what if|what about|how about|why isn|why is that|give.*example of that|explain that|compare those|which one|who owns|who should|can you|alors|donc|et si|mais|pourquoi|donne.*exemple|expliquez cela|comparez)\b|\b(?:that|those|these|the second one|the first one|the middle one|this slide|this screen|this page|shown here|here|cet ecran|ce cadre|ce modele|ceux-la|celles-ci)\b|^(?:اذن|اذا|طيب|لكن|وماذا|لماذا|كيف|اشرح ذلك|قارن|اعط مثال)|(?:هذه الشاشه|هذا النموذج|هذا المفهوم|تلك النقاط)/i;
 
 function createRetriever(index = JSON.parse(fs.readFileSync(path.join(__dirname, 'knowledge.json')))) {
   const records = index.records;
@@ -278,9 +745,16 @@ function createRetriever(index = JSON.parse(fs.readFileSync(path.join(__dirname,
   }
 
   function isOffScopeQuantitativeTrap(question) {
-    const rawTokens = preprocess(question).match(/[a-z0-9-]+/g) || [];
-    if (EXTERNAL_QUANT_PHRASES.some(re => re.test(question))) return true;
-    const hasExtTerm = rawTokens.some(t => EXTERNAL_UNSUPPORTED_TERMS.has(t) || (t !== 'coordinate' && t !== 'coordinates' && EXTERNAL_UNSUPPORTED_TERMS.has(stem(t))));
+    const normQ = normalizeUnicode(question).toLowerCase();
+    const rawTokens = preprocess(question).match(/[a-z0-9-]+|[\u0600-\u06FF]+/g) || [];
+    if (EXTERNAL_QUANT_PHRASES.some(re => re.test(normQ) || re.test(question))) return true;
+    const hasExtTerm = rawTokens.some(t => {
+      if (EXTERNAL_UNSUPPORTED_TERMS.has(t)) return true;
+      if (/^[\u0600-\u06FF]+$/.test(t)) {
+        return stripArabicPrefixCandidates(t).some(c => EXTERNAL_UNSUPPORTED_TERMS.has(c));
+      }
+      return t !== 'coordinate' && t !== 'coordinates' && EXTERNAL_UNSUPPORTED_TERMS.has(stem(t));
+    });
     if (hasExtTerm) return true;
     return false;
   }
@@ -300,21 +774,23 @@ function createRetriever(index = JSON.parse(fs.readFileSync(path.join(__dirname,
 
     const qBaseRaw = terms(qStr, { keepShortTokens: true });
     const qBase = [...new Set(qBaseRaw)];
+    const normQ = normalizeUnicode(qStr);
 
-    const uiActionRe = /^(Explain this screen|Give.*example.*this concept|What should I remember|Compare the main concepts|Help me check my reasoning)/i;
+    const uiActionRe = /^(Explain this screen|Give.*example.*this concept|What should I remember|Compare the main concepts|Help me check my reasoning|Expliquez cet ecran|Donnez un exemple policier|Que faut-il retenir|Comparez les concepts principaux|Aidez-moi a verifier mon raisonnement|اشرح هذه الشاشه|اعط مثالا مهنيا شرطيا|ما اهم النقاط|قارن بين المفاهيم|ساعدني على فحص منطق)/i;
     const qNonGeneric = qBase.filter(w => !GENERIC_MODIFIER_TERMS.has(w));
     const deicticScreenIntent =
-      uiActionRe.test(qStr) ||
-      (DEICTIC_ANCHOR_RE.test(qStr) && qNonGeneric.length <= 1) ||
-      /\b(this screen|this slide|this page|shown here|this concept|this framework|this model|from here)\b/i.test(qStr) ||
-      (qBase.length <= 1 && /\b(explain|clarify|summarize|summarise|recap|understand|remember|break down|takeaway|example|that|it|here)\b/i.test(qStr));
+      uiActionRe.test(normQ) ||
+      (DEICTIC_ANCHOR_RE.test(normQ) && qNonGeneric.length <= 1) ||
+      /\b(this screen|this slide|this page|shown here|this concept|this framework|this model|from here|cet ecran|cette diapositive|cette page|ce concept|ce cadre|ce modele)\b/i.test(normQ) ||
+      /(?:هذه الشاشه|هذه الصفحه|هذا المفهوم|هذا النموذج|هذا الاطار)/.test(normQ) ||
+      (qBase.length <= 1 && (/\b(explain|clarify|summarize|summarise|recap|understand|remember|break down|takeaway|example|that|it|here|expliquer|expliquez|resumez|retenir|comprendre|exemple|ici)\b/i.test(normQ) || /(?:اشرح|لخص|تذكر|وضح|فهم|مثال|هنا)/.test(normQ)));
 
-    if (uiActionRe.test(qStr) || (DEICTIC_ANCHOR_RE.test(qStr) && qNonGeneric.length <= 1)) {
+    if (uiActionRe.test(normQ) || (DEICTIC_ANCHOR_RE.test(normQ) && qNonGeneric.length <= 1)) {
       return [{ ...current, text: current.text.slice(0, 2250) }];
     }
 
     // Extract bounded follow-up boost terms when the query contains deictic/follow-up markers
-    const isFollowUp = history.length > 0 && (FOLLOWUP_DEICTIC_RE.test(qStr) || qBase.length <= 4);
+    const isFollowUp = history.length > 0 && (FOLLOWUP_DEICTIC_RE.test(normQ) || qBase.length <= 4);
     const historyTerms = new Set();
     const historyIds = new Set();
     if (isFollowUp) {

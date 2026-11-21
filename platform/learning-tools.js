@@ -6,6 +6,31 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[c]));
 
+  function getI18n() {
+    return (typeof global !== 'undefined' && global.CARANA_I18N) || (typeof globalThis !== 'undefined' && globalThis.CARANA_I18N) || null;
+  }
+  function lt(key, vars, fallback) {
+    const i18n = getI18n();
+    if (i18n && i18n.getLang() !== 'en') return i18n.t('learningTools.' + key, vars, fallback);
+    return fallback;
+  }
+  function ltRaw(key) {
+    const i18n = getI18n();
+    if (!i18n || i18n.getLang() === 'en') return undefined;
+    const pack = i18n.getPack('ui');
+    let cur = pack && pack.learningTools;
+    for (const part of String(key).split('.')) {
+      if (!cur || typeof cur !== 'object') return undefined;
+      cur = cur[part];
+    }
+    return cur;
+  }
+  function getRiskStrategy(key) {
+    const base = RISK_STRATEGIES[key] || RISK_STRATEGIES.prevent;
+    const loc = ltRaw('strategies.' + (RISK_STRATEGIES[key] ? key : 'prevent'));
+    return loc && loc.label ? loc : base;
+  }
+
   const RISK_STRATEGIES = {
     prevent: {
       label: 'Prevent / reduce likelihood',
@@ -82,69 +107,72 @@
   }
 
   function html(x) {
-    const prefix = '<section class="applied-lab" aria-labelledby="lab-title"><span class="eyebrow">Practise · independently authored example</span><h2 id="lab-title">' + esc(x.title) + '</h2><p>' + esc(x.context) + '</p>';
+    const prefix = '<section class="applied-lab" aria-labelledby="lab-title"><span class="eyebrow">' + esc(lt('eyebrow', null, 'Practise · independently authored example')) + '</span><h2 id="lab-title">' + esc(x.title) + '</h2><p>' + esc(x.context) + '</p>';
     if (x.type === 'builder') {
+      const zeroCount = lt('charCount', { len: 0, max: MAX_CHARS }, '0 / ' + MAX_CHARS + ' characters');
       return prefix +
-        '<p class="status">Use invented or non-sensitive details. Drafts stay in this browser and are included in your progress export. Text is not automatically graded or approved.</p>' +
+        '<p class="status">' + esc(lt('builderStatus', null, 'Use invented or non-sensitive details. Drafts stay in this browser and are included in your progress export. Text is not automatically graded or approved.')) + '</p>' +
         '<div class="draft-grid">' + x.fields.map((f, i) =>
           '<div class="draft-field-card">' +
           '<label for="lab-field-' + i + '">' + esc(f.label) + '</label>' +
           '<p class="field-hint" id="lab-hint-' + i + '">' + esc(f.prompt) + '</p>' +
-          '<textarea id="lab-field-' + i + '" data-field="' + i + '" maxlength="' + MAX_CHARS + '" rows="3" aria-describedby="lab-hint-' + i + ' lab-count-' + i + '"></textarea>' +
-          '<div class="field-meta"><span class="char-count" id="lab-count-' + i + '" aria-live="off">0 / ' + MAX_CHARS + ' characters</span></div>' +
-          '<p class="field-check" id="lab-check-item-' + i + '" hidden><strong>Self-check criterion:</strong> ' + esc(f.check || x.review) + '</p>' +
+          '<textarea id="lab-field-' + i + '" data-field="' + i + '" dir="auto" maxlength="' + MAX_CHARS + '" rows="3" aria-describedby="lab-hint-' + i + ' lab-count-' + i + '"></textarea>' +
+          '<div class="field-meta"><span class="char-count" id="lab-count-' + i + '" aria-live="off">' + esc(zeroCount) + '</span></div>' +
+          '<p class="field-check" id="lab-check-item-' + i + '" hidden><strong>' + esc(lt('selfCheckLabel', null, 'Self-check criterion:')) + '</strong> ' + esc(f.check || x.review) + '</p>' +
           '</div>'
         ).join('') + '</div>' +
         '<div id="lab-archive-slot"></div>' +
-        '<button type="button" id="lab-check">Open self-review prompts</button>' +
+        '<button type="button" id="lab-check">' + esc(lt('openPrompts', null, 'Open self-review prompts')) + '</button>' +
         '<div id="lab-feedback" class="feedback self-review" role="status" hidden></div>' +
-        '<details class="worked-example"><summary>Compare with an illustrative approach</summary><p>' + esc(x.example) + '</p><p><strong>Debrief:</strong> ' + esc(x.debrief) + '</p></details></section>';
+        '<details class="worked-example"><summary>' + esc(lt('workedSummary', null, 'Compare with an illustrative approach')) + '</summary><p>' + esc(x.example) + '</p><p><strong>' + esc(lt('debriefLabel', null, 'Debrief:')) + '</strong> ' + esc(x.debrief) + '</p></details></section>';
     }
     if (x.type === 'classify') {
       return prefix +
         '<div class="classification">' + x.items.map((item, i) =>
-          '<div class="classify-row"><label for="lab-class-' + i + '">' + esc(item.text) + '</label><select id="lab-class-' + i + '" data-class="' + i + '"><option value="">Choose a category</option>' +
+          '<div class="classify-row"><label for="lab-class-' + i + '">' + esc(item.text) + '</label><select id="lab-class-' + i + '" data-class="' + i + '"><option value="">' + esc(lt('chooseCat', null, 'Choose a category')) + '</option>' +
           x.categories.map((c, j) => '<option value="' + j + '">' + esc(c) + '</option>').join('') +
           '</select><p id="lab-item-' + i + '" class="quiz-hint" hidden></p></div>'
         ).join('') + '</div>' +
         '<div id="lab-archive-slot"></div>' +
-        '<button type="button" id="lab-check">Check my reasoning</button>' +
+        '<button type="button" id="lab-check">' + esc(lt('checkReasoning', null, 'Check my reasoning')) + '</button>' +
         '<div id="lab-feedback" class="feedback" role="status" hidden></div></section>';
     }
     if (x.type === 'priority') {
       return prefix +
-        '<p class="status">Invented ratings, not the official participant scoring chart. Move a weighting to examine sensitivity; a high total never overrides a prerequisite or tie.</p>' +
+        '<p class="status">' + esc(lt('priorityNote', null, 'Invented ratings, not the official participant scoring chart. Move a weighting to examine sensitivity; a high total never overrides a prerequisite or tie.')) + '</p>' +
         '<div class="weights">' + x.criteria.map((c, i) =>
-          '<label>' + esc(c) + ' <output id="weight-' + i + '">1</output><input aria-label="' + esc(c) + ' weighting" type="range" min="0" max="5" value="1" data-weight="' + i + '"></label>'
+          '<label>' + esc(c) + ' <output id="weight-' + i + '">1</output><input aria-label="' + esc(lt('weightingAria', { name: c }, c + ' weighting')) + '" type="range" min="0" max="5" value="1" data-weight="' + i + '"></label>'
         ).join('') + '</div>' +
         '<div class="priority-actions">' +
-        '<button type="button" id="priority-save-snapshot" class="small-btn">Save current weights as Snapshot A</button>' +
-        '<button type="button" id="priority-reset" class="small-btn">Reset to equal weights (1)</button>' +
-        '<button type="button" id="priority-clear-snapshot" class="small-btn" hidden>Clear Snapshot A</button>' +
+        '<button type="button" id="priority-save-snapshot" class="small-btn">' + esc(lt('saveSnapshot', null, 'Save current weights as Snapshot A')) + '</button>' +
+        '<button type="button" id="priority-reset" class="small-btn">' + esc(lt('resetWeights', null, 'Reset to equal weights (1)')) + '</button>' +
+        '<button type="button" id="priority-clear-snapshot" class="small-btn" hidden>' + esc(lt('clearSnapshot', null, 'Clear Snapshot A')) + '</button>' +
         '</div>' +
-        '<div class="table-scroll"><table><caption>Illustrative options, ratings and constraints</caption><thead><tr><th scope="col">Option</th>' +
+        '<div class="table-scroll" role="region" tabindex="0" aria-label="' + esc(lt('priorityCaption', null, 'Illustrative options, ratings and constraints')) + '"><table><caption>' + esc(lt('priorityCaption', null, 'Illustrative options, ratings and constraints')) + '</caption><thead><tr><th scope="col">' + esc(lt('colOption', null, 'Option')) + '</th>' +
         x.criteria.map(c => '<th scope="col">' + esc(c) + '</th>').join('') +
-        '<th scope="col">Constraint</th></tr></thead><tbody>' +
+        '<th scope="col">' + esc(lt('colConstraint', null, 'Constraint')) + '</th></tr></thead><tbody>' +
         x.alternatives.map(a => '<tr><th scope="row">' + esc(a.label) + '</th>' + a.ratings.map(r => '<td>' + r + '</td>').join('') + '<td>' + esc(a.constraint) + '</td></tr>').join('') +
         '</tbody></table></div>' +
         '<div id="priority-result" class="reveal" aria-live="off"></div>' +
         '<p id="priority-live" class="status" role="status"></p>' +
         '<div id="priority-compare" class="priority-compare" hidden></div>' +
         '<div id="lab-archive-slot"></div>' +
-        '<p><strong>Discuss:</strong> ' + esc(x.debrief) + '</p></section>';
+        '<p><strong>' + esc(lt('discussLabel', null, 'Discuss:')) + '</strong> ' + esc(x.debrief) + '</p></section>';
     }
     if (x.type === 'risk') {
+      const rLevels = ltRaw('riskLevels');
+      const lv = Array.isArray(rLevels) && rLevels.length === 3 ? rLevels : ['1 · low', '2 · medium', '3 · high'];
       return prefix +
-        '<div class="risk-inputs"><label>Likelihood<select id="risk-likelihood"><option value="1">1 · low</option><option value="2" selected>2 · medium</option><option value="3">3 · high</option></select></label>' +
-        '<label>Impact<select id="risk-impact"><option value="1">1 · low</option><option value="2" selected>2 · medium</option><option value="3">3 · high</option></select></label>' +
-        '<label>Primary response strategy<select id="risk-strategy">' +
-        Object.keys(RISK_STRATEGIES).map(k => '<option value="' + k + '">' + esc(RISK_STRATEGIES[k].label) + '</option>').join('') +
+        '<div class="risk-inputs"><label>' + esc(lt('likelihood', null, 'Likelihood')) + '<select id="risk-likelihood"><option value="1">' + esc(lv[0]) + '</option><option value="2" selected>' + esc(lv[1]) + '</option><option value="3">' + esc(lv[2]) + '</option></select></label>' +
+        '<label>' + esc(lt('impact', null, 'Impact')) + '<select id="risk-impact"><option value="1">' + esc(lv[0]) + '</option><option value="2" selected>' + esc(lv[1]) + '</option><option value="3">' + esc(lv[2]) + '</option></select></label>' +
+        '<label>' + esc(lt('strategyLabel', null, 'Primary response strategy')) + '<select id="risk-strategy">' +
+        Object.keys(RISK_STRATEGIES).map(k => '<option value="' + k + '">' + esc(getRiskStrategy(k).label) + '</option>').join('') +
         '</select></label></div>' +
-        '<div id="risk-grid" class="risk-grid" aria-label="Three by three likelihood and impact matrix">' +
-        [3, 2, 1].flatMap(impact => [1, 2, 3].map(likelihood => '<span data-risk="' + likelihood + '-' + impact + '">Likelihood ' + likelihood + '<br>Impact ' + impact + '</span>')).join('') +
+        '<div id="risk-grid" class="risk-grid" aria-label="' + esc(lt('riskGridAria', null, 'Three by three likelihood and impact matrix')) + '">' +
+        [3, 2, 1].flatMap(impact => [1, 2, 3].map(likelihood => '<span data-risk="' + likelihood + '-' + impact + '">' + esc(lt('riskCell', { l: likelihood, i: impact }, 'Likelihood ' + likelihood + '<br>Impact ' + impact)).replace(/&lt;br\s*\/?&gt;/gi, '<br>') + '</span>')).join('') +
         '</div><div id="risk-result" class="reveal" role="status"></div>' +
         '<div id="lab-archive-slot"></div>' +
-        '<p><strong>Debrief:</strong> ' + esc(x.debrief) + '</p></section>';
+        '<p><strong>' + esc(lt('debriefLabel', null, 'Debrief:')) + '</strong> ' + esc(x.debrief) + '</p></section>';
     }
     return '';
   }
@@ -160,13 +188,13 @@
       return { label: itemText, display: catText };
     }
     if (x.type === 'priority') {
-      if (key === 'snapshot') return { label: 'Saved snapshot weights', display: Array.isArray(val) ? val.join(', ') : String(val) };
+      if (key === 'snapshot') return { label: lt('archiveSnapLabel', null, 'Saved snapshot weights'), display: Array.isArray(val) ? val.join(', ') : String(val) };
       const crit = x.criteria?.[Number(key)] || ('Criterion ' + (Number(key) + 1));
-      return { label: crit + ' weighting', display: String(val) + ' / 5' };
+      return { label: lt('archiveWeightLabel', { crit }, crit + ' weighting'), display: String(val) + ' / 5' };
     }
     if (x.type === 'risk') {
-      if (key === 'strategy') return { label: 'Response strategy', display: RISK_STRATEGIES[val]?.label || String(val) };
-      return { label: key === 'likelihood' ? 'Likelihood' : 'Impact', display: String(val) + ' / 3' };
+      if (key === 'strategy') return { label: lt('archiveStratLabel', null, 'Response strategy'), display: getRiskStrategy(val)?.label || String(val) };
+      return { label: key === 'likelihood' ? lt('likelihood', null, 'Likelihood') : lt('impact', null, 'Impact'), display: String(val) + ' / 3' };
     }
     return { label: String(key), display: String(val) };
   }
@@ -183,7 +211,7 @@
         allZero: true,
         hasTies: false,
         ranked,
-        text: 'All criterion weightings are set to 0. Weighted ranking is paused because no criterion carries weight; raise at least one weighting above 0 or compare prerequisites and constraints directly.'
+        text: lt('allZeroText', null, 'All criterion weightings are set to 0. Weighted ranking is paused because no criterion carries weight; raise at least one weighting above 0 or compare prerequisites and constraints directly.')
       };
     }
     const tiedGroups = [];
@@ -191,12 +219,17 @@
     ranked.forEach(item => {
       if (item.tied && !seenTieScore.has(item.score)) {
         seenTieScore.add(item.score);
-        const names = ranked.filter(r => r.score === item.score).map(r => r.label).join(' and ');
-        tiedGroups.push('Tie at rank #' + item.rankPosition + ' (' + item.score + ' weighted points): ' + names + ' — decide on prerequisites and constraints.');
+        const names = ranked.filter(r => r.score === item.score).map(r => r.label).join(lt('tieSummaryJoin', null, ' and '));
+        tiedGroups.push(lt('tieGroupTpl', { rank: item.rankPosition, score: item.score, names }, 'Tie at rank #' + item.rankPosition + ' (' + item.score + ' weighted points): ' + names + ' — decide on prerequisites and constraints.'));
       }
     });
     const linesText = ranked
-      .map(a => (a.tied ? 'Tie #' + a.rankPosition : '#' + a.rankPosition) + ' ' + a.label + ': ' + a.score + ' weighted points. ' + a.constraint)
+      .map(a => lt('lineItemTpl', {
+        prefix: a.tied ? lt('linePrefixTie', { rank: a.rankPosition }, 'Tie #' + a.rankPosition) : lt('linePrefixRank', { rank: a.rankPosition }, '#' + a.rankPosition),
+        label: a.label,
+        score: a.score,
+        constraint: a.constraint
+      }, (a.tied ? 'Tie #' + a.rankPosition : '#' + a.rankPosition) + ' ' + a.label + ': ' + a.score + ' weighted points. ' + a.constraint))
       .join(' ');
     return {
       allZero: false,
@@ -210,17 +243,19 @@
   function formatRiskAnalysis(likelihood, impact, strategyKey) {
     const l = Math.max(1, Math.min(3, Number(likelihood) || 2));
     const i = Math.max(1, Math.min(3, Number(impact) || 2));
-    const strat = RISK_STRATEGIES[strategyKey] || RISK_STRATEGIES.prevent;
+    const strat = getRiskStrategy(strategyKey);
     const asymmetry = l !== i
-      ? ' Note why (' + l + ',' + i + ') differs from (' + i + ',' + l + ') despite product ' + (l * i) + ': high impact requires contingency readiness even when likelihood is low, while high likelihood requires upstream prevention.'
+      ? lt('riskAsym', { l, i, prod: l * i }, ' Note why (' + l + ',' + i + ') differs from (' + i + ',' + l + ') despite product ' + (l * i) + ': high impact requires contingency readiness even when likelihood is low, while high likelihood requires upstream prevention.')
       : '';
-    return 'Selected likelihood ' + l + ', impact ' + i + '. Illustrative product ' + (l * i) +
+    const severity = i === 3
+      ? lt('riskSevere', null, 'A severe consequence still needs attention even if unlikely.')
+      : lt('riskGeneral', null, 'Consider both prevention and impact reduction, and identify who will review the response.');
+    return lt('riskSummary', {
+      l, i, prod: l * i, severity, asym: asymmetry, stratLabel: strat.label, stratGuidance: strat.guidance
+    }, 'Selected likelihood ' + l + ', impact ' + i + '. Illustrative product ' + (l * i) +
       '; this is a discussion aid, not an authorised acceptance threshold. ' +
-      (i === 3
-        ? 'A severe consequence still needs attention even if unlikely.'
-        : 'Consider both prevention and impact reduction, and identify who will review the response.') +
-      asymmetry + ' Selected response focus (' + strat.label + '): ' + strat.guidance +
-      ' Carry trigger thresholds and ownership into your contingency plan.';
+      severity + asymmetry + ' Selected response focus (' + strat.label + '): ' + strat.guidance +
+      ' Carry trigger thresholds and ownership into your contingency plan.');
   }
 
   function renderArchivedDrafts(x, saved, archivedDrafts, doc, applyHandler) {
@@ -230,12 +265,12 @@
     const panel = doc.createElement('details');
     panel.className = 'archived-drafts';
     const summary = doc.createElement('summary');
-    summary.textContent = 'Previous-version draft archive (' + archivedDrafts.length + ' saved revision' + (archivedDrafts.length > 1 ? 's' : '') + ')';
+    summary.textContent = lt('archiveSummary', { count: archivedDrafts.length }, 'Previous-version draft archive (' + archivedDrafts.length + ' saved revision' + (archivedDrafts.length > 1 ? 's' : '') + ')');
     panel.appendChild(summary);
 
     const notice = doc.createElement('p');
     notice.className = 'status';
-    notice.textContent = 'Read-only record from an earlier content version. Inspect it here or copy items into your current draft explicitly; nothing overwrites your active text automatically.';
+    notice.textContent = lt('archiveNotice', null, 'Read-only record from an earlier content version. Inspect it here or copy items into your current draft explicitly; nothing overwrites your active text automatically.');
     panel.appendChild(notice);
 
     archivedDrafts.forEach((entry, revIdx) => {
@@ -243,7 +278,9 @@
       card.className = 'archived-revision';
       const head = doc.createElement('div');
       head.className = 'archived-rev-head';
-      head.textContent = 'Version: ' + entry.contentVersion + (entry.archivedAt ? ' · Archived ' + entry.archivedAt.slice(0, 10) : '');
+      const dateStr = entry.archivedAt ? entry.archivedAt.slice(0, 10) : '';
+      head.textContent = lt('archiveRevHead', { ver: entry.contentVersion }, 'Version: ' + entry.contentVersion) +
+        (dateStr ? lt('archiveArchivedSuffix', { date: dateStr }, ' · Archived ' + dateStr) : '');
       card.appendChild(head);
 
       const keys = Object.keys(entry.fields || {});
@@ -255,6 +292,7 @@
         strong.textContent = label;
         const pre = doc.createElement('p');
         pre.className = 'archived-text';
+        pre.setAttribute('dir', 'auto');
         pre.textContent = display;
         row.appendChild(strong);
         row.appendChild(pre);
@@ -267,25 +305,25 @@
           copyBtn.className = 'archived-copy-btn';
           copyBtn.dataset.archiveRev = String(revIdx);
           copyBtn.dataset.archiveField = String(k);
-          copyBtn.textContent = 'Copy into current draft';
+          copyBtn.textContent = lt('copyIntoDraft', null, 'Copy into current draft');
           const msgSpan = doc.createElement('span');
           msgSpan.className = 'status archived-copy-status';
           copyBtn.onclick = () => {
             const currentVal = String(saved[k] || '');
             if (currentVal === display) {
-              msgSpan.textContent = 'Current field already matches this archived text.';
+              msgSpan.textContent = lt('alreadyMatches', null, 'Current field already matches this archived text.');
               return;
             }
             if (currentVal.trim() && copyBtn.dataset.confirmOverwrite !== 'true') {
               copyBtn.dataset.confirmOverwrite = 'true';
-              copyBtn.textContent = 'Confirm overwrite current field';
-              msgSpan.textContent = 'Current field has text; click again to confirm replacing it.';
+              copyBtn.textContent = lt('confirmOverwriteBtn', null, 'Confirm overwrite current field');
+              msgSpan.textContent = lt('confirmOverwrite', null, 'Current field has text; click again to confirm replacing it.');
               return;
             }
             copyBtn.dataset.confirmOverwrite = 'false';
-            copyBtn.textContent = 'Copy into current draft';
+            copyBtn.textContent = lt('copyIntoDraft', null, 'Copy into current draft');
             applyHandler({ [k]: display });
-            msgSpan.textContent = 'Copied into active field.';
+            msgSpan.textContent = lt('copiedIntoActive', null, 'Copied into active field.');
           };
           btnWrap.appendChild(copyBtn);
           btnWrap.appendChild(msgSpan);
@@ -298,7 +336,7 @@
         const fillEmptyBtn = doc.createElement('button');
         fillEmptyBtn.type = 'button';
         fillEmptyBtn.className = 'archived-fill-empty';
-        fillEmptyBtn.textContent = 'Copy into empty fields only';
+        fillEmptyBtn.textContent = lt('copyEmptyOnly', null, 'Copy into empty fields only');
         const revStatus = doc.createElement('span');
         revStatus.className = 'status archived-copy-status';
         fillEmptyBtn.onclick = () => {
@@ -311,11 +349,11 @@
             }
           }
           if (copied === 0) {
-            revStatus.textContent = 'No empty matching fields to fill; use individual copy buttons to replace.';
+            revStatus.textContent = lt('noEmptyFields', null, 'No empty matching fields to fill; use individual copy buttons to replace.');
             return;
           }
           applyHandler(patch);
-          revStatus.textContent = 'Copied ' + copied + ' field(s) into empty inputs.';
+          revStatus.textContent = lt('copiedNEmpty', { count: copied }, 'Copied ' + copied + ' field(s) into empty inputs.');
         };
         card.appendChild(fillEmptyBtn);
         card.appendChild(revStatus);
@@ -323,21 +361,21 @@
         const applyBtn = doc.createElement('button');
         applyBtn.type = 'button';
         applyBtn.className = 'archived-fill-empty';
-        applyBtn.textContent = 'Restore archived selections';
+        applyBtn.textContent = lt('restoreSelections', null, 'Restore archived selections');
         const revStatus = doc.createElement('span');
         revStatus.className = 'status archived-copy-status';
         applyBtn.onclick = () => {
           const hasExisting = Object.keys(saved).length > 0;
           if (hasExisting && applyBtn.dataset.confirmOverwrite !== 'true') {
             applyBtn.dataset.confirmOverwrite = 'true';
-            applyBtn.textContent = 'Confirm replace current selections';
-            revStatus.textContent = 'Active selections exist; click again to confirm.';
+            applyBtn.textContent = lt('confirmReplaceSel', null, 'Confirm replace current selections');
+            revStatus.textContent = lt('activeSelExist', null, 'Active selections exist; click again to confirm.');
             return;
           }
           applyBtn.dataset.confirmOverwrite = 'false';
-          applyBtn.textContent = 'Restore archived selections';
+          applyBtn.textContent = lt('restoreSelections', null, 'Restore archived selections');
           applyHandler(entry.fields);
-          revStatus.textContent = 'Archived selections restored.';
+          revStatus.textContent = lt('selRestored', null, 'Archived selections restored.');
         };
         card.appendChild(applyBtn);
         card.appendChild(revStatus);
@@ -361,10 +399,10 @@
       const remaining = MAX_CHARS - len;
       counter.classList.toggle('char-warn', remaining <= 150);
       counter.textContent = len >= MAX_CHARS
-        ? MAX_CHARS + ' / ' + MAX_CHARS + ' characters (maximum local field limit reached)'
+        ? lt('charMax', { len: MAX_CHARS, max: MAX_CHARS }, MAX_CHARS + ' / ' + MAX_CHARS + ' characters (maximum local field limit reached)')
         : remaining <= 150
-          ? len + ' / ' + MAX_CHARS + ' characters (' + remaining + ' remaining)'
-          : len + ' / ' + MAX_CHARS + ' characters';
+          ? lt('charRem', { len, max: MAX_CHARS, rem: remaining }, len + ' / ' + MAX_CHARS + ' characters (' + remaining + ' remaining)')
+          : lt('charCount', { len, max: MAX_CHARS }, len + ' / ' + MAX_CHARS + ' characters');
     }
 
     if (x.type === 'builder') {
@@ -391,7 +429,7 @@
         feedback.innerHTML = '';
         if (missing.length) {
           const lead = doc.createElement('span');
-          lead.textContent = 'Draft fields still open: ';
+          lead.textContent = lt('openDraftFields', null, 'Draft fields still open: ');
           feedback.appendChild(lead);
           missing.forEach(({ f, i }, idx) => {
             if (idx > 0) feedback.appendChild(doc.createTextNode('; '));
@@ -403,10 +441,10 @@
             feedback.appendChild(jump);
           });
           const tail = doc.createElement('span');
-          tail.textContent = '. No judgement score has been assigned. Use the self-check criteria above each field as you draft.';
+          tail.textContent = lt('selfReviewTail', null, '. No judgement score has been assigned. Use the self-check criteria above each field as you draft.');
           feedback.appendChild(tail);
         } else {
-          feedback.textContent = 'All fields contain text; your draft is ready for self-review, not automatically approved or quality-checked. Review each field against its self-check criterion above and compare with the illustrative approach below. ' + x.review;
+          feedback.textContent = lt('allFieldsReady', { review: x.review }, 'All fields contain text; your draft is ready for self-review, not automatically approved or quality-checked. Review each field against its self-check criterion above and compare with the illustrative approach below. ' + x.review);
         }
       };
 
@@ -439,18 +477,18 @@
           const el = doc.getElementById('lab-item-' + i);
           el.hidden = false;
           if (saved[i] === undefined) {
-            el.textContent = 'Choose a category before comparing your reasoning.';
+            el.textContent = lt('chooseCatHint', null, 'Choose a category before comparing your reasoning.');
             unanswered++;
           } else {
             const ok = saved[i] === item.answer;
             if (ok) correct++;
-            el.textContent = (ok ? 'This fits. ' : 'Reconsider the distinction. ') + item.feedback;
+            el.textContent = (ok ? lt('itemFits', null, 'This fits. ') : lt('reconsiderCat', null, 'Reconsider the distinction. ')) + item.feedback;
           }
         });
         feedback.hidden = false;
         feedback.textContent = unanswered
-          ? unanswered + ' item(s) still need a choice.'
-          : correct + ' of ' + x.items.length + ' classifications fit the teaching example. Explain the evidence for your choices; this does not alter checkpoint scores.';
+          ? lt('itemsNeedChoice', { count: unanswered }, unanswered + ' item(s) still need a choice.')
+          : lt('classifyScoreSummary', { correct, total: x.items.length }, correct + ' of ' + x.items.length + ' classifications fit the teaching example. Explain the evidence for your choices; this does not alter checkpoint scores.');
       };
       renderArchivedDrafts(x, saved, opts?.archivedDrafts, doc, patch => {
         const clean = validDraft(x, patch);
@@ -482,19 +520,22 @@
         const snapSummary = summarizePriority(x, snapWeights);
         compareEl.hidden = false;
         compareEl.innerHTML =
-          '<h3>Snapshot A vs Current weightings</h3>' +
-          '<p class="status">Snapshot A: [' + esc(snapWeights.join(', ')) + '] · Current: [' + esc(inputs.map(el => el.value).join(', ')) + ']</p>' +
-          '<div class="table-scroll"><table><thead><tr><th scope="col">Option</th><th scope="col">Snapshot A</th><th scope="col">Current</th><th scope="col">Shift</th></tr></thead><tbody>' +
+          '<h3>' + esc(lt('snapVsCurrent', null, 'Snapshot A vs Current weightings')) + '</h3>' +
+          '<p class="status">' + esc(lt('snapLegend', { snap: snapWeights.join(', '), cur: inputs.map(el => el.value).join(', ') }, 'Snapshot A: [' + snapWeights.join(', ') + '] · Current: [' + inputs.map(el => el.value).join(', ') + ']')) + '</p>' +
+          '<div class="table-scroll" role="region" tabindex="0"><table><thead><tr><th scope="col">' + esc(lt('colOption', null, 'Option')) + '</th><th scope="col">' + esc(lt('colSnapA', null, 'Snapshot A')) + '</th><th scope="col">' + esc(lt('colCurrent', null, 'Current')) + '</th><th scope="col">' + esc(lt('colShift', null, 'Shift')) + '</th></tr></thead><tbody>' +
           currentSummary.ranked.map(cur => {
             const prev = snapSummary.ranked.find(p => p.label === cur.label) || cur;
             const delta = prev.rankPosition - cur.rankPosition;
             const shiftText = currentSummary.allZero || snapSummary.allZero
-              ? 'Zero weight pause'
-              : (delta > 0 ? '↑ Up ' + delta : delta < 0 ? '↓ Down ' + Math.abs(delta) : 'Unchanged');
+              ? lt('zeroWeightPause', null, 'Zero weight pause')
+              : (delta > 0 ? lt('shiftUp', { n: delta }, '↑ Up ' + delta) : delta < 0 ? lt('shiftDown', { n: Math.abs(delta) }, '↓ Down ' + Math.abs(delta)) : lt('shiftUnchanged', null, 'Unchanged'));
+            const tieLbl = lt('tieTag', null, ' (Tie)');
+            const ptsLbl = lt('ptsUnit', null, 'pts');
+            const pausedLbl = lt('pausedZero', null, 'Paused (all 0)');
             return '<tr><th scope="row">' + esc(cur.label) + '</th><td>' +
-              (snapSummary.allZero ? 'Paused (all 0)' : '#' + prev.rankPosition + (prev.tied ? ' (Tie)' : '') + ' · ' + prev.score + ' pts') +
+              (snapSummary.allZero ? pausedLbl : '#' + prev.rankPosition + (prev.tied ? tieLbl : '') + ' · ' + prev.score + ' ' + ptsLbl) +
               '</td><td>' +
-              (currentSummary.allZero ? 'Paused (all 0)' : '#' + cur.rankPosition + (cur.tied ? ' (Tie)' : '') + ' · ' + cur.score + ' pts') +
+              (currentSummary.allZero ? pausedLbl : '#' + cur.rankPosition + (cur.tied ? tieLbl : '') + ' · ' + cur.score + ' ' + ptsLbl) +
               '</td><td>' + esc(shiftText) + '</td></tr>';
           }).join('') +
           '</tbody></table></div>';
@@ -511,10 +552,10 @@
         resultEl.classList.toggle('warning', summary.allZero || summary.hasTies);
         if (announceLive && liveEl) {
           liveEl.textContent = summary.allZero
-            ? 'All criteria weightings are 0; numeric ranking is paused.'
+            ? lt('liveAllZero', null, 'All criteria weightings are 0; numeric ranking is paused.')
             : (summary.hasTies
               ? summary.tieSummary
-              : 'Top weighted option is now ' + summary.ranked[0].label + ' at ' + summary.ranked[0].score + ' weighted points.');
+              : lt('liveTopOption', { label: summary.ranked[0].label, score: summary.ranked[0].score }, 'Top weighted option is now ' + summary.ranked[0].label + ' at ' + summary.ranked[0].score + ' weighted points.'));
         }
         renderCompare(summary);
       };

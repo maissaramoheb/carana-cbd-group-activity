@@ -35,30 +35,33 @@
     .vc-table th, .vc-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e3edf2; }
     .vc-table th { color: #0f5c6e; font-weight: 700; background: #f6fafc; }
   </style>
+  <link rel="stylesheet" href="../css/i18n-rtl.css">
+  <script src="../platform/i18n.js"></script>
 </head>
 <body>
   <div class="vc-shell">
     <header class="vc-header">
       <div>
-        <span class="vc-eyebrow">CARANA RUN 06 · FOLLOW-UP 04 · WORKSTREAM A</span>
-        <h1>Read Aloud Voice Quality &amp; Neural Comparison</h1>
+        <span class="vc-eyebrow" data-i18n="voicePages.comparisonEyebrow">CARANA RUN 06 · FOLLOW-UP 04 · WORKSTREAM A</span>
+        <h1 data-i18n="voicePages.comparisonHeading">Read Aloud Voice Quality &amp; Neural Comparison</h1>
       </div>
       <nav class="vc-nav" aria-label="Course links">
-        <a href="./#lesson-1" class="primary">Open Lesson 1 Studio →</a>
-        <a href="../platform/?course=cbd&lesson=cbd-2">Open Lesson 2 →</a>
-        <a href="./#home">CBD Home</a>
+        <span id="vc-lang-slot"></span>
+        <a href="./#lesson-1" class="primary" data-i18n="voicePages.comparisonNavStudio">Open Lesson 1 Studio →</a>
+        <a href="../platform/?course=cbd&lesson=cbd-2" data-i18n="voicePages.comparisonNavLesson2">Open Lesson 2 →</a>
+        <a href="./#home" data-i18n="voicePages.comparisonNavHome">CBD Home</a>
       </nav>
     </header>
 
     <section class="vc-intro">
-      <p><strong>Why this upgrade was built:</strong> macOS and Chromium expose only legacy <code>quality=1</code> compact voices (such as <em>Samantha</em>) and Eloquence voices to browser <code>window.speechSynthesis</code>, causing robotic narration on public previews.</p>
-      <p><strong>Selected architecture:</strong> Open-weight <strong>Kokoro-82M</strong> neural speech (Apache-2.0, zero paid subscription) pre-rendered into fast static per-passage MP3 clips across all 56 screens and interactive diagram explanations—plus live loopback local synthesis and UNPOL acronym pronunciation normalization.</p>
+      <p><strong data-i18n="voicePages.comparisonWhyLabel">Why this upgrade was built:</strong> <span data-i18n="voicePages.comparisonWhyText">macOS and Chromium expose only legacy <code>quality=1</code> compact voices (such as <em>Samantha</em>) and Eloquence voices to browser <code>window.speechSynthesis</code>, causing robotic narration on public previews.</span></p>
+      <p><strong data-i18n="voicePages.comparisonArchLabel">Selected architecture:</strong> <span data-i18n="voicePages.comparisonArchText">Open-weight <strong>Kokoro-82M</strong> neural speech (Apache-2.0, zero paid subscription) pre-rendered into fast static per-passage MP3 clips across all 56 screens and interactive diagram explanations—plus live loopback local synthesis and UNPOL acronym pronunciation normalization.</span></p>
     </section>
 
     <div id="vc-samples"></div>
 
-    <section class="vc-table-wrap" aria-label="Technical voice evaluation summary">
-      <h2 style="margin:0 0 12px;font:600 18px/1.3 Georgia,serif;">Voice &amp; Architecture Evaluation Matrix</h2>
+    <section class="vc-table-wrap" role="region" tabindex="0" aria-label="Technical voice evaluation summary">
+      <h2 id="vc-matrix-title" style="margin:0 0 12px;font:600 18px/1.3 Georgia,serif;" data-i18n="voicePages.comparisonMatrixTitle">Voice &amp; Architecture Evaluation Matrix</h2>
       <table class="vc-table">
         <thead>
           <tr>

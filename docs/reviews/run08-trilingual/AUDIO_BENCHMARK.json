@@ -1,0 +1,157 @@
+{
+  "generatedAt": "2026-11-20T23:06:56.285Z",
+  "environment": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "nodeVersion": "v26.9.0"
+  },
+  "discoveredVoices": [
+    {
+      "id": "kokoro:af_heart",
+      "lang": "en",
+      "label": "Kokoro Neural · Heart (US)",
+      "license": "Apache-2.0",
+      "local": true
+    },
+    {
+      "id": "kokoro:bf_emma",
+      "lang": "en",
+      "label": "Kokoro Neural · Emma (UK)",
+      "license": "Apache-2.0",
+      "local": true
+    },
+    {
+      "id": "kokoro:am_michael",
+      "lang": "en",
+      "label": "Kokoro Neural · Michael (US)",
+      "license": "Apache-2.0",
+      "local": true
+    },
+    {
+      "id": "kokoro:ff_siwis",
+      "lang": "fr-FR",
+      "label": "Kokoro Neural · Siwis (FR · pending review)",
+      "license": "Apache-2.0",
+      "local": true,
+      "pendingApproval": true
+    },
+    {
+      "id": "apple:nora",
+      "lang": "en",
+      "label": "macOS Native Neural · Voice 4 (Nora)",
+      "license": "macOS System",
+      "local": true
+    },
+    {
+      "id": "apple:thomas",
+      "lang": "fr-FR",
+      "label": "macOS System · Thomas (fr-FR · compact)",
+      "license": "macOS System",
+      "local": true,
+      "pendingApproval": true
+    },
+    {
+      "id": "apple:majed",
+      "lang": "ar",
+      "label": "macOS System · Majed (ar-001 · compact)",
+      "license": "macOS System",
+      "local": true,
+      "pendingApproval": true
+    }
+  ],
+  "offlineArabicEngines": {
+    "kokoroArabicSupport": false,
+    "piperInstalled": false,
+    "espeakNgInstalled": false,
+    "macosSystemArabicVoices": [
+      "com.apple.voice.compact.ar-001.Maged (Majed · quality 1 compact)",
+      "com.apple.voice.super-compact.ar-001.Maged"
+    ]
+  },
+  "samples": [
+    {
+      "id": "fr-kokoro-raw-unpol",
+      "lang": "fr-FR",
+      "voice": "kokoro:ff_siwis",
+      "engine": "kokoro-82m-ff_siwis-raw",
+      "normalizedApplied": false,
+      "spokenInput": "Leçon 1 : Analyse situationnelle UNPOL CBD. Examinez les écarts de capacités selon la matrice 5 × 6 et le cadre PESTEL-S avant de choisir une formation.",
+      "mp3File": "docs/reviews/run08-trilingual/audio-samples/fr-kokoro-raw-unpol.mp3",
+      "durationSec": 11.58,
+      "latencyMs": 2191,
+      "rtf": 0.189,
+      "wavBytes": 555692,
+      "mp3Bytes": 35156
+    },
+    {
+      "id": "fr-kokoro-norm-unpol",
+      "lang": "fr-FR",
+      "voice": "kokoro:ff_siwis",
+      "engine": "kokoro-82m-ff_siwis",
+      "normalizedApplied": true,
+      "spokenInput": "Leçon 1 : Analyse situationnelle U N P O L C B D. Examinez les écarts de capacités selon la matrice 5 par 6 et le cadre PESTEL S avant de choisir une formation.",
+      "mp3File": "docs/reviews/run08-trilingual/audio-samples/fr-kokoro-norm-unpol.mp3",
+      "durationSec": 11.52,
+      "latencyMs": 1634,
+      "rtf": 0.142,
+      "wavBytes": 553162,
+      "mp3Bytes": 35012
+    },
+    {
+      "id": "fr-kokoro-norm-smart",
+      "lang": "fr-FR",
+      "voice": "kokoro:ff_siwis",
+      "engine": "kokoro-82m-ff_siwis",
+      "normalizedApplied": true,
+      "spokenInput": "Les objectifs SMART distinguent les produits (livrables directs) des réalisations durables sous appropriation locale avec les homologues CNPS et le D P O / O H C H R.",
+      "mp3File": "docs/reviews/run08-trilingual/audio-samples/fr-kokoro-norm-smart.mp3",
+      "durationSec": 11.06,
+      "latencyMs": 754,
+      "rtf": 0.068,
+      "wavBytes": 531052,
+      "mp3Bytes": 33572
+    },
+    {
+      "id": "fr-macos-thomas-unpol",
+      "lang": "fr-FR",
+      "voice": "apple:thomas",
+      "engine": "apple-compact-thomas-fr",
+      "normalizedApplied": true,
+      "spokenInput": "Leçon 1 : Analyse situationnelle U N P O L C B D. Examinez les écarts de capacités selon la matrice 5 par 6 et le cadre PESTEL S avant de choisir une formation.",
+      "mp3File": "docs/reviews/run08-trilingual/audio-samples/fr-macos-thomas-unpol.mp3",
+      "durationSec": 10.38,
+      "latencyMs": 1371,
+      "rtf": 0.132,
+      "wavBytes": 502176,
+      "mp3Bytes": 31556
+    },
+    {
+      "id": "ar-macos-majed-l1",
+      "lang": "ar",
+      "voice": "apple:majed",
+      "engine": "apple-compact-majed-ar",
+      "normalizedApplied": true,
+      "spokenInput": "الدرس الأول: تحليل الوضع في إطار بناء القدرات الشرطية. افحص فجوات القدرات عبر مصفوفة 5 في 6 وإطار PESTEL S قبل اقتراح أي تدريب.",
+      "mp3File": "docs/reviews/run08-trilingual/audio-samples/ar-macos-majed-l1.mp3",
+      "durationSec": 15.12,
+      "latencyMs": 680,
+      "rtf": 0.045,
+      "wavBytes": 729882,
+      "mp3Bytes": 45812
+    },
+    {
+      "id": "ar-macos-majed-l2",
+      "lang": "ar",
+      "voice": "apple:majed",
+      "engine": "apple-compact-majed-ar",
+      "normalizedApplied": true,
+      "spokenInput": "تُميّز الأهداف الذكية بين المخرجات المباشرة والنتائج المستدامة ضمن الملكية المحلية وترتيبات الانتقال مع الشرطة الوطنية.",
+      "mp3File": "docs/reviews/run08-trilingual/audio-samples/ar-macos-majed-l2.mp3",
+      "durationSec": 13.43,
+      "latencyMs": 637,
+      "rtf": 0.047,
+      "wavBytes": 648730,
+      "mp3Bytes": 40700
+    }
+  ]
+}

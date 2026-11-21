@@ -35,10 +35,13 @@ const validated = await Promise.all(ids.map(async (id, i) => {
 }));
 
 // Stage only known public assets. Do not publish docs, tests or arbitrary workspace files.
-const original = ['platform', 'curricula', 'index.html', 'CARANA_CBD_Group_Activity.html', 'css', 'js',
+const original = ['platform', 'curricula', 'locales', 'index.html', 'CARANA_CBD_Group_Activity.html', 'css', 'js',
   ...Array.from({ length: 6 }, (_, i) => `module${i + 1}.html`)];
 await fs.mkdir(path.join(dist, 'course'), { recursive: true });
-for (const name of original) await fs.cp(path.join(root, name), path.join(dist, name), { recursive: true });
+for (const name of original) {
+  if (name === 'locales') { try { await fs.stat(path.join(root, name)); } catch { continue; } }
+  await fs.cp(path.join(root, name), path.join(dist, name), { recursive: true });
+}
 for (const item of await fs.readdir(path.join(root, 'course'), { withFileTypes: true })) {
   if ((item.isFile() && /\.(?:html|js|css)$/.test(item.name)) || item.name === 'illustrations')
     await fs.cp(path.join(root, 'course', item.name), path.join(dist, 'course', item.name), { recursive: true });
@@ -56,3 +59,14 @@ const manifest = Object.fromEntries(validated.map(({ id, name }) => [id, `./audi
 await fs.writeFile(path.join(dist, 'course/lesson1-audio-manifest.js'),
   `/* Generated from verified local recordings. */\nwindow.CARANA_LESSON1_AUDIO_MANIFEST = ${JSON.stringify(manifest, null, 2)};\nwindow.CARANA_LESSON1_AUDIO_AI_MODE = true;\n`);
 console.log('Course built with 18 verified local recordings; no generation or network required.');
+
+// Closed allowlist for the protected owner review; never publish the docs tree.
+const reviewRoot = 'platform/review/run08';
+for (const name of ['TRILINGUAL_REVIEW_MATRIX.json', 'TERMINOLOGY_GLOSSARY.json']) {
+  const source = name === 'TERMINOLOGY_GLOSSARY.json' ? 'docs/localization/' + name : 'docs/reviews/run08-trilingual/' + name;
+  await fs.copyFile(path.join(root, source), path.join(dist, reviewRoot, name));
+}
+await fs.mkdir(path.join(dist, reviewRoot, 'audio-samples'), { recursive: true });
+for (const name of ['fr-kokoro-norm-smart.mp3', 'fr-kokoro-norm-unpol.mp3', 'fr-kokoro-raw-unpol.mp3', 'fr-macos-thomas-unpol.mp3', 'ar-macos-majed-l1.mp3', 'ar-macos-majed-l2.mp3']) {
+  await fs.copyFile(path.join(root, 'docs/reviews/run08-trilingual/audio-samples', name), path.join(dist, reviewRoot, 'audio-samples', name));
+}

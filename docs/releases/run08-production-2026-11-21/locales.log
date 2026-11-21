@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "summary": {
+    "packsChecked": 8,
+    "uiLeaves": 1432,
+    "courseL1Screens": 18,
+    "courseL1Quizzes": 36,
+    "courseL1Decisions": 7,
+    "lessons26Count": 5,
+    "lessons26Screens": 38,
+    "lessons26Quizzes": 42,
+    "lessons26Decisions": 38,
+    "lessons26Labs": 17,
+    "workbenchStrings": 619,
+    "workbenchDomKeys": 1143,
+    "glossaryEntries": 52,
+    "htmlPagesChecked": 15,
+    "englishLeaks": [],
+    "missingArabicScript": []
+  },
+  "warnings": [],
+  "failures": []
+}

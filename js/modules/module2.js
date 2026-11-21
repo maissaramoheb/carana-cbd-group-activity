@@ -21,6 +21,10 @@
   let state = null;
   let activeStage = 'stage-orientation';
 
+  const tw = (key, vars, fallback) => (Storage && Storage.wbT ? Storage.wbT(key, vars, fallback !== undefined ? fallback : key) : (fallback !== undefined ? fallback : key));
+  const scLoc = () => (Scenario && Scenario.getLocalized ? Scenario.getLocalized() : Scenario);
+  const glLoc = () => (Glossary && Glossary.getLocalized ? Glossary.getLocalized() : Glossary);
+
   const STAGES = [
     { id: 'stage-orientation', label: '1. Strategic Alignment & Orientation', short: 'Strategic Alignment' },
     { id: 'stage-candidates', label: '2. Objective Candidates Pool', short: 'Candidates Pool' },
@@ -29,6 +33,18 @@
     { id: 'stage-kpis', label: '5. Performance Framework (KPIs)', short: 'KPI Framework' },
     { id: 'stage-summary', label: '6. Review, Reflection & Bridge', short: 'Review & Bridge' }
   ];
+
+  function applyLocaleToModule() {
+    renderStageTabs();
+    updateCompletionBadge();
+    renderCandidates();
+    renderPrioritisationTable();
+    renderSmartWizards();
+    renderKpiTable();
+    renderScenarioDrawerList(document.getElementById('scenarioSearchInput')?.value);
+    renderGlossaryList(document.getElementById('glossarySearchInput')?.value);
+    Storage.renderCurriculumTrack(2);
+  }
 
   function init() {
     state = Storage.loadLabState();
@@ -46,9 +62,12 @@
     renderScenarioDrawerList();
     renderGlossaryList();
     Storage.renderCurriculumTrack(2);
-    updateSaveIndicator('Loaded local data');
+    updateSaveIndicator(tw('Loaded local data'));
     setupAutosaveListener();
     setupLifecycleListeners();
+    if (Storage && Storage.initWorkbenchI18n) {
+      Storage.initWorkbenchI18n(applyLocaleToModule);
+    }
   }
 
   const dirtyFields = new Set();
@@ -83,10 +102,10 @@
     }
     const ok = Storage.saveLabState(state);
     if (!ok) {
-      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+      updateSaveIndicator(tw('⚠️ Storage full or blocked! Export JSON.'), true);
     } else {
       dirtyFields.clear();
-      updateSaveIndicator(statusMsg || 'Saved locally');
+      updateSaveIndicator(statusMsg || tw('Saved locally'));
     }
     Storage.renderCurriculumTrack(2);
     return ok;
@@ -95,7 +114,7 @@
   function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
-      el.textContent = msg || 'Saved locally on this device';
+      el.textContent = msg || tw('Saved locally on this device');
       el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
@@ -111,7 +130,7 @@
       if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
-      save('Autosaved');
+      save(tw('Autosaved'));
     }, 600));
   }
 
@@ -128,10 +147,10 @@
     const badge = document.getElementById('stageCompleteFooterBadge');
     if (!badge) return;
     if (state.module2 && state.module2.confirmed) {
-      badge.textContent = '✓ Phase 2 Self-Confirmed · Ready for Module 3';
+      badge.textContent = tw('✓ Phase 2 Self-Confirmed · Ready for Module 3');
       badge.style.color = 'var(--ok)';
     } else {
-      badge.textContent = 'Phase 2 In Progress · Pending Self-Confirmation';
+      badge.textContent = tw('Phase 2 In Progress · Pending Self-Confirmation');
       badge.style.color = 'var(--navy)';
     }
   }
@@ -220,7 +239,7 @@
     container.innerHTML = STAGES.map((s, idx) => `
       <button class="stage-tab ${s.id === activeStage ? 'active' : ''}" data-stage="${s.id}" type="button">
         <span class="badge">0${idx + 1}</span>
-        <span>${escapeHtml(s.short)}</span>
+        <span>${escapeHtml(tw(s.short))}</span>
       </button>
     `).join('');
 
@@ -269,26 +288,28 @@
     const host = document.getElementById('candidatesListHost');
     if (!host) return;
 
+    const untitledObj = tw('Untitled Objective');
+    const userInputLbl = tw('User Input');
     host.innerHTML = state.module2.objectives.map((obj, idx) => `
       <div class="card" style="margin-bottom: 14px; background: #ffffff;" data-obj-idx="${idx}">
         <div style="padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; background: var(--wash); border-bottom: 1px solid var(--line);">
           <div style="display: flex; align-items: center; gap: 8px;">
             <span class="cell-badge" style="background: var(--navy);">#${idx + 1}</span>
-            <strong>${escapeHtml(obj.title || 'Untitled Objective')}</strong>
+            <strong dir="auto" data-learner-text>${escapeHtml(obj.title || untitledObj)}</strong>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 0.8rem; color: var(--muted);">${escapeHtml(obj.source || 'User Input')}</span>
-            <button class="btn btn-sm btn-danger remove-candidate-btn" data-idx="${idx}" type="button" aria-label="Remove objective ${idx + 1}: ${escapeHtml(obj.title || 'Untitled Objective')}">Remove</button>
+            <span style="font-size: 0.8rem; color: var(--muted);">${escapeHtml(tw(obj.source || userInputLbl))}</span>
+            <button class="btn btn-sm btn-danger remove-candidate-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove objective {idx}: {title}', { idx: idx + 1, title: obj.title || untitledObj }, `Remove objective ${idx + 1}: ${obj.title || untitledObj}`))}">${escapeHtml(tw('Remove'))}</button>
           </div>
         </div>
         <div style="padding: 14px 18px;" class="grid-2">
           <div class="form-group col-full" style="margin-bottom: 0;">
-            <label class="form-label">Objective Title</label>
-            <input class="form-input cand-field" data-idx="${idx}" data-field="title" value="${escapeHtml(obj.title)}" placeholder="e.g. Modernise Criminal Evidence Management" aria-label="Candidate objective ${idx + 1} title">
+            <label class="form-label">${escapeHtml(tw('Objective Title'))}</label>
+            <input dir="auto" class="form-input cand-field" data-idx="${idx}" data-field="title" value="${escapeHtml(obj.title)}" placeholder="${escapeHtml(tw('e.g. Modernise Criminal Evidence Management'))}" aria-label="${escapeHtml(tw('Objective Title'))}">
           </div>
           <div class="form-group col-full" style="margin-bottom: 0;">
-            <label class="form-label">Context & Problem Description</label>
-            <textarea class="form-textarea cand-field" data-idx="${idx}" data-field="description" style="min-height: 70px;" aria-label="Candidate objective ${idx + 1} context and problem description">${escapeHtml(obj.description || '')}</textarea>
+            <label class="form-label">${escapeHtml(tw('Context & Problem Description'))}</label>
+            <textarea dir="auto" class="form-textarea cand-field" data-idx="${idx}" data-field="description" style="min-height: 70px;" aria-label="${escapeHtml(tw('Context & Problem Description'))}">${escapeHtml(obj.description || '')}</textarea>
           </div>
         </div>
       </div>
@@ -313,7 +334,7 @@
           renderCandidates();
           renderPrioritisationTable();
         } else {
-          alert('You must maintain at least 2 objectives to allow prioritisation.');
+          alert(tw('You must maintain at least 2 objectives to allow prioritisation.'));
         }
       };
     });
@@ -325,7 +346,7 @@
     const badge = document.getElementById('candidateCountBadge');
     if (badge) {
       const count = state.module2.objectives.length;
-      badge.textContent = `${count} Objectives (Recommended: 6–10)`;
+      badge.textContent = tw('{count} Objectives (Recommended: 6–10)', { count }, `${count} Objectives (Recommended: 6–10)`);
       badge.style.background = (count >= 6 && count <= 10) ? 'var(--ok)' : 'var(--navy)';
       badge.style.color = '#ffffff';
     }
@@ -392,7 +413,7 @@
       });
     }
 
-    alert(`Imported ${importedCount} candidate objectives from Module 1.`);
+    alert(tw('Imported {count} candidate objectives from Module 1.', { count: importedCount }, `Imported ${importedCount} candidate objectives from Module 1.`));
     renderCandidates();
     renderPrioritisationTable();
   }
@@ -453,24 +474,24 @@
       <table class="matrix-table" style="font-size: 0.82rem;">
         <thead>
           <tr>
-            <th rowspan="2" style="width: 220px; text-align: left;">Objectives</th>
-            <th colspan="6" style="background: var(--navy-light);">6 Strategic Assessment Categories (Weight: 2.00)</th>
-            <th rowspan="2" title="Average of 6 strategic categories (1-3)">Raw Strat</th>
-            <th rowspan="2" title="Beneficiary Assessment (Weight 1.00)">Need (1.0)</th>
-            <th rowspan="2" title="Per Lesson 2 p. 22/24: Recorded for completeness, but excluded from sum; formally analysed in Lesson 3">Risk<br><span style="font-size:0.68rem; opacity:0.85;">(M3 Risk)</span></th>
-            <th rowspan="2" title="Implementability (Weight 1.00)">Impl (1.0)</th>
-            <th rowspan="2" title="Complementarity (Weight 0.50)">Comp (0.5)</th>
-            <th rowspan="2" title="Donor Interest (Weight 1.00)">Donor (1.0)</th>
-            <th rowspan="2" style="background: var(--navy); color: #fff;">Overall Score</th>
-            <th rowspan="2" style="background: var(--un-blue); color: #fff;">Rank</th>
+            <th rowspan="2" style="width: 220px; text-align: start;">${escapeHtml(tw('Objectives'))}</th>
+            <th colspan="6" style="background: var(--navy-light);">${escapeHtml(tw('6 Strategic Assessment Categories (Weight: 2.00)'))}</th>
+            <th rowspan="2" title="${escapeHtml(tw('Average of 6 strategic categories (1-3)'))}">${escapeHtml(tw('Raw Strat'))}</th>
+            <th rowspan="2" title="${escapeHtml(tw('Beneficiary Assessment (Weight 1.00)'))}">${escapeHtml(tw('Need (1.0)'))}</th>
+            <th rowspan="2" title="${escapeHtml(tw('Per Lesson 2 p. 22/24: Recorded for completeness, but excluded from sum; formally analysed in Lesson 3'))}">${escapeHtml(tw('Risk'))}<br><span style="font-size:0.68rem; opacity:0.85;">${escapeHtml(tw('(M3 Risk)'))}</span></th>
+            <th rowspan="2" title="${escapeHtml(tw('Implementability (Weight 1.00)'))}">${escapeHtml(tw('Impl (1.0)'))}</th>
+            <th rowspan="2" title="${escapeHtml(tw('Complementarity (Weight 0.50)'))}">${escapeHtml(tw('Comp (0.5)'))}</th>
+            <th rowspan="2" title="${escapeHtml(tw('Donor Interest (Weight 1.00)'))}">${escapeHtml(tw('Donor (1.0)'))}</th>
+            <th rowspan="2" style="background: var(--navy); color: #fff;">${escapeHtml(tw('Overall Score'))}</th>
+            <th rowspan="2" style="background: var(--un-blue); color: #fff;">${escapeHtml(tw('Rank'))}</th>
           </tr>
           <tr>
-            <th style="font-size: 0.72rem;">1. Police</th>
-            <th style="font-size: 0.72rem;">2. Envir</th>
-            <th style="font-size: 0.72rem;">3. Prev</th>
-            <th style="font-size: 0.72rem;">4. Rights</th>
-            <th style="font-size: 0.72rem;">5. Gend</th>
-            <th style="font-size: 0.72rem;">6. CPOC</th>
+            <th style="font-size: 0.72rem;">${escapeHtml(tw('1. Police'))}</th>
+            <th style="font-size: 0.72rem;">${escapeHtml(tw('2. Envir'))}</th>
+            <th style="font-size: 0.72rem;">${escapeHtml(tw('3. Prev'))}</th>
+            <th style="font-size: 0.72rem;">${escapeHtml(tw('4. Rights'))}</th>
+            <th style="font-size: 0.72rem;">${escapeHtml(tw('5. Gend'))}</th>
+            <th style="font-size: 0.72rem;">${escapeHtml(tw('6. CPOC'))}</th>
           </tr>
         </thead>
         <tbody>
@@ -486,8 +507,8 @@
       html += `
         <tr style="${isTop2 ? 'background: #f0f9fd;' : ''}">
           <td style="font-weight: 700;">
-            <div style="color: var(--navy);">${escapeHtml(obj.title)}</div>
-            <div style="font-size: 0.72rem; color: var(--muted); font-weight: normal;">${escapeHtml(obj.source || '')}</div>
+            <div dir="auto" data-learner-text style="color: var(--navy);">${escapeHtml(obj.title)}</div>
+            <div style="font-size: 0.72rem; color: var(--muted); font-weight: normal;">${escapeHtml(tw(obj.source || ''))}</div>
           </td>
           ${renderScoreSelect(obj.id, 'policingPractice', s.policingPractice)}
           ${renderScoreSelect(obj.id, 'environmental', s.environmental)}
@@ -497,7 +518,7 @@
           ${renderScoreSelect(obj.id, 'cpoc', s.cpoc)}
           <td style="text-align: center; font-weight: 700; background: var(--wash);">${obj.rawStrategicScore.toFixed(2)}</td>
           ${renderScoreSelect(obj.id, 'need', s.need)}
-          ${renderScoreSelect(obj.id, 'risk', s.risk, '3=Low, 1=High')}
+          ${renderScoreSelect(obj.id, 'risk', s.risk, tw('3=Low, 1=High'))}
           ${renderScoreSelect(obj.id, 'implementability', s.implementability)}
           ${renderScoreSelect(obj.id, 'complementarity', s.complementarity)}
           ${renderScoreSelect(obj.id, 'donorInterest', s.donorInterest)}
@@ -536,7 +557,7 @@
     const safeCatKey = escapeHtml(catKey);
     return `
       <td style="padding: 4px; text-align: center;">
-        <select class="score-selector" data-obj-id="${safeObjId}" data-cat="${safeCatKey}" title="${titleNote || 'Scale: 1=Low, 2=Medium, 3=High'}" 
+        <select class="score-selector" data-obj-id="${safeObjId}" data-cat="${safeCatKey}" title="${escapeHtml(titleNote || tw('Scale: 1=Low, 2=Medium, 3=High'))}" 
                 aria-label="Score ${safeCatKey} for objective ${safeObjId}"
                 style="width: 44px; padding: 4px 2px; text-align: center; font-size: 0.8rem; border-radius: 4px; border: 1px solid var(--line);">
           <option value="1" ${val === 1 ? 'selected' : ''}>1</option>
@@ -597,59 +618,59 @@
       };
 
       return `
-      <div class="card" style="margin-bottom: 24px; border-left: 6px solid ${idx === 0 ? 'var(--ok)' : 'var(--un-blue)'};">
+      <div class="card" style="margin-bottom: 24px; border-inline-start: 6px solid ${idx === 0 ? 'var(--ok)' : 'var(--un-blue)'};">
         <div class="card-header" style="background: var(--wash);">
           <div>
             <span class="badge" style="background: ${idx === 0 ? 'var(--ok)' : 'var(--un-blue)'}; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 800;">
-              Priority #${idx + 1}
+              ${escapeHtml(tw('Priority #{idx}', { idx: idx + 1 }, `Priority #${idx + 1}`))}
             </span>
-            <h3 style="margin-top: 4px; font-size: 1.2rem;">${escapeHtml(smart.title || obj.title)}</h3>
+            <h3 dir="auto" data-learner-text style="margin-top: 4px; font-size: 1.2rem;">${escapeHtml(smart.title || obj.title)}</h3>
           </div>
-          <span style="font-size: 0.85rem; color: var(--muted);">S.M.A.R.T. Framework Formulation</span>
+          <span style="font-size: 0.85rem; color: var(--muted);">${escapeHtml(tw('S.M.A.R.T. Framework Formulation'))}</span>
         </div>
         <div class="card-body">
           <div class="grid-2">
             <div class="form-group">
               <label class="form-label" for="smart-${idx}-specific">
-                (S) Specific
-                <span class="form-hint">Related directly to mandate and clear operational scope</span>
+                ${escapeHtml(tw('(S) Specific'))}
+                <span class="form-hint">${escapeHtml(tw('Related directly to mandate and clear operational scope'))}</span>
               </label>
-              <textarea id="smart-${idx}-specific" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="specific" aria-label="Priority #${idx + 1} Specific">${escapeHtml(smart.specific || '')}</textarea>
+              <textarea dir="auto" id="smart-${idx}-specific" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="specific" aria-label="${escapeHtml(tw('Priority #{idx}', { idx: idx + 1 }, `Priority #${idx + 1}`) + ' ' + tw('(S) Specific'))}">${escapeHtml(smart.specific || '')}</textarea>
             </div>
             <div class="form-group">
               <label class="form-label" for="smart-${idx}-measurable">
-                (M) Measurable
-                <span class="form-hint">Quantifiable indicators of success (# or %)</span>
+                ${escapeHtml(tw('(M) Measurable'))}
+                <span class="form-hint">${escapeHtml(tw('Quantifiable indicators of success (# or %)'))}</span>
               </label>
-              <textarea id="smart-${idx}-measurable" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="measurable" aria-label="Priority #${idx + 1} Measurable">${escapeHtml(smart.measurable || '')}</textarea>
+              <textarea dir="auto" id="smart-${idx}-measurable" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="measurable" aria-label="${escapeHtml(tw('Priority #{idx}', { idx: idx + 1 }, `Priority #${idx + 1}`) + ' ' + tw('(M) Measurable'))}">${escapeHtml(smart.measurable || '')}</textarea>
             </div>
             <div class="form-group">
               <label class="form-label" for="smart-${idx}-achievable">
-                (A) Achievable
-                <span class="form-hint">Feasible within available mission resources and partnerships</span>
+                ${escapeHtml(tw('(A) Achievable'))}
+                <span class="form-hint">${escapeHtml(tw('Feasible within available mission resources and partnerships'))}</span>
               </label>
-              <textarea id="smart-${idx}-achievable" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="achievable" aria-label="Priority #${idx + 1} Achievable">${escapeHtml(smart.achievable || '')}</textarea>
+              <textarea dir="auto" id="smart-${idx}-achievable" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="achievable" aria-label="${escapeHtml(tw('Priority #{idx}', { idx: idx + 1 }, `Priority #${idx + 1}`) + ' ' + tw('(A) Achievable'))}">${escapeHtml(smart.achievable || '')}</textarea>
             </div>
             <div class="form-group">
               <label class="form-label" for="smart-${idx}-relevant">
-                (R) Realistic & Relevant
-                <span class="form-hint">Falls within authorized mandate tasks and political reality</span>
+                ${escapeHtml(tw('(R) Realistic & Relevant'))}
+                <span class="form-hint">${escapeHtml(tw('Falls within authorized mandate tasks and political reality'))}</span>
               </label>
-              <textarea id="smart-${idx}-relevant" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="relevant" aria-label="Priority #${idx + 1} Realistic & Relevant">${escapeHtml(smart.relevant || '')}</textarea>
+              <textarea dir="auto" id="smart-${idx}-relevant" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="relevant" aria-label="${escapeHtml(tw('Priority #{idx}', { idx: idx + 1 }, `Priority #${idx + 1}`) + ' ' + tw('(R) Realistic & Relevant'))}">${escapeHtml(smart.relevant || '')}</textarea>
             </div>
             <div class="form-group col-full">
               <label class="form-label" for="smart-${idx}-timeBound">
-                (T) Time-Bound
-                <span class="form-hint">Clear implementation horizon (e.g. Month 6, Month 12)</span>
+                ${escapeHtml(tw('(T) Time-Bound'))}
+                <span class="form-hint">${escapeHtml(tw('Clear implementation horizon (e.g. Month 6, Month 12)'))}</span>
               </label>
-              <input id="smart-${idx}-timeBound" class="form-input smart-field" data-obj-id="${safeObjId}" data-field="timeBound" value="${escapeHtml(smart.timeBound || '')}" placeholder="e.g. Completed within 12 months" aria-label="Priority #${idx + 1} Time-Bound">
+              <input dir="auto" id="smart-${idx}-timeBound" class="form-input smart-field" data-obj-id="${safeObjId}" data-field="timeBound" value="${escapeHtml(smart.timeBound || '')}" placeholder="${escapeHtml(tw('e.g. Completed within 12 months'))}" aria-label="${escapeHtml(tw('Priority #{idx}', { idx: idx + 1 }, `Priority #${idx + 1}`) + ' ' + tw('(T) Time-Bound'))}">
             </div>
             <div class="form-group col-full" style="background: var(--wash-subtle); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--line);">
               <label class="form-label" for="smart-${idx}-fullStatement" style="color: var(--navy);">
-                Consolidated SMART Objective Statement
-                <span class="form-hint">Combined formal wording to be transferred into Module 3 Logframe</span>
+                ${escapeHtml(tw('Consolidated SMART Objective Statement'))}
+                <span class="form-hint">${escapeHtml(tw('Combined formal wording to be transferred into Module 3 Logframe'))}</span>
               </label>
-              <textarea id="smart-${idx}-fullStatement" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="fullStatement" style="min-height: 80px; font-weight: 600;" aria-label="Priority #${idx + 1} Consolidated SMART Statement">${escapeHtml(smart.fullStatement || '')}</textarea>
+              <textarea dir="auto" id="smart-${idx}-fullStatement" class="form-textarea smart-field" data-obj-id="${safeObjId}" data-field="fullStatement" style="min-height: 80px; font-weight: 600;" aria-label="${escapeHtml(tw('Consolidated SMART Objective Statement'))}">${escapeHtml(smart.fullStatement || '')}</textarea>
             </div>
           </div>
         </div>
@@ -692,20 +713,20 @@
 
     host.innerHTML = state.module2.kpis.map((kpi, idx) => `
       <tr data-kpi-idx="${idx}">
-        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="name" value="${escapeHtml(kpi.name || '')}" placeholder="Indicator Name" aria-label="KPI indicator name for row ${idx + 1}"></td>
+        <td><input dir="auto" class="form-input kpi-field" data-idx="${idx}" data-field="name" value="${escapeHtml(kpi.name || '')}" placeholder="${escapeHtml(tw('Indicator Name'))}" aria-label="${escapeHtml(tw('Indicator Name'))}"></td>
         <td>
-          <select class="form-select kpi-field" data-idx="${idx}" data-field="type" aria-label="KPI indicator type for row ${idx + 1}">
-            <option value="Quantitative (#)" ${kpi.type === 'Quantitative (#)' ? 'selected' : ''}>Quantitative (#)</option>
-            <option value="Quantitative (%)" ${kpi.type === 'Quantitative (%)' ? 'selected' : ''}>Quantitative (%)</option>
-            <option value="Qualitative condition" ${kpi.type === 'Qualitative condition' ? 'selected' : ''}>Qualitative condition</option>
+          <select class="form-select kpi-field" data-idx="${idx}" data-field="type" aria-label="${escapeHtml(tw('Indicator Type'))}">
+            <option value="Quantitative (#)" ${kpi.type === 'Quantitative (#)' ? 'selected' : ''}>${escapeHtml(tw('Quantitative (#)'))}</option>
+            <option value="Quantitative (%)" ${kpi.type === 'Quantitative (%)' ? 'selected' : ''}>${escapeHtml(tw('Quantitative (%)'))}</option>
+            <option value="Qualitative condition" ${kpi.type === 'Qualitative condition' ? 'selected' : ''}>${escapeHtml(tw('Qualitative condition'))}</option>
           </select>
         </td>
-        <td><textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="baselineValue" style="min-height: 60px;" aria-label="KPI baseline value for row ${idx + 1}">${escapeHtml(kpi.baselineValue || '')}</textarea></td>
-        <td><textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="targetValue" style="min-height: 60px;" aria-label="KPI target value for row ${idx + 1}">${escapeHtml(kpi.targetValue || '')}</textarea></td>
-        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="source" value="${escapeHtml(kpi.source || '')}" aria-label="KPI data source for row ${idx + 1}"></td>
-        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="frequency" value="${escapeHtml(kpi.frequency || '')}" aria-label="KPI reporting frequency for row ${idx + 1}"></td>
-        <td><input class="form-input kpi-field" data-idx="${idx}" data-field="responsible" value="${escapeHtml(kpi.responsible || '')}" aria-label="KPI responsible entity for row ${idx + 1}"></td>
-        <td><button class="btn btn-sm btn-danger remove-kpi-btn" data-idx="${idx}" type="button" aria-label="Remove KPI row ${idx + 1}">×</button></td>
+        <td><textarea dir="auto" class="form-textarea kpi-field" data-idx="${idx}" data-field="baselineValue" style="min-height: 60px;" aria-label="${escapeHtml(tw('KPI baseline value'))}">${escapeHtml(kpi.baselineValue || '')}</textarea></td>
+        <td><textarea dir="auto" class="form-textarea kpi-field" data-idx="${idx}" data-field="targetValue" style="min-height: 60px;" aria-label="${escapeHtml(tw('KPI target value'))}">${escapeHtml(kpi.targetValue || '')}</textarea></td>
+        <td><input dir="auto" class="form-input kpi-field" data-idx="${idx}" data-field="source" value="${escapeHtml(kpi.source || '')}" aria-label="${escapeHtml(tw('KPI data source'))}"></td>
+        <td><input dir="auto" class="form-input kpi-field" data-idx="${idx}" data-field="frequency" value="${escapeHtml(kpi.frequency || '')}" aria-label="${escapeHtml(tw('KPI reporting frequency'))}"></td>
+        <td><input dir="auto" class="form-input kpi-field" data-idx="${idx}" data-field="responsible" value="${escapeHtml(kpi.responsible || '')}" aria-label="${escapeHtml(tw('KPI responsible entity'))}"></td>
+        <td><button class="btn btn-sm btn-danger remove-kpi-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove KPI row {idx}', { idx: idx + 1 }, `Remove KPI row ${idx + 1}`))}">×</button></td>
       </tr>
     `).join('');
 
@@ -753,7 +774,7 @@
     if (!host) return;
 
     const q = (searchQuery || '').toLowerCase().trim();
-    let paragraphs = Scenario.PARAGRAPHS;
+    let paragraphs = scLoc().PARAGRAPHS;
 
     if (q) {
       paragraphs = paragraphs.filter(p =>
@@ -764,7 +785,7 @@
 
     host.innerHTML = paragraphs.map(p => `
       <div class="para-item">
-        <span class="para-badge">Paragraph ${p.id}</span>
+        <span class="para-badge">${escapeHtml(tw('Paragraph {id}', { id: p.id }, `Paragraph ${p.id}`))}</span>
         <p style="margin: 4px 0 0;">${escapeHtml(p.text)}</p>
       </div>
     `).join('');
@@ -801,7 +822,7 @@
     if (!host) return;
 
     const q = (searchQuery || '').toLowerCase().trim();
-    let terms = Glossary.TERMS;
+    let terms = glLoc().TERMS;
 
     if (q) {
       terms = terms.filter(t =>
@@ -847,20 +868,20 @@
       b.onclick = () => setStage(b.dataset.gotoStage);
     });
 
-    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
+    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save(tw('Saved locally')));
 
     // Confirmation checkbox listener
     const confirmBox = document.getElementById('confirmModule2') || document.getElementById('selfConfirmCheck');
     confirmBox?.addEventListener('change', e => {
       state.module2.confirmed = e.target.checked;
-      save(e.target.checked ? 'Phase 2 Confirmed' : 'Confirmation withdrawn');
+      save(e.target.checked ? tw('Phase {num} Confirmed', { num: 2 }, 'Phase 2 Confirmed') : tw('Confirmation withdrawn'));
       updateCompletionBadge();
     });
 
     document.getElementById('importFromM1Btn')?.addEventListener('click', importFromModule1);
 
     document.getElementById('addCandidateBtn')?.addEventListener('click', () => {
-      const title = prompt('Enter Objective Title:');
+      const title = prompt(tw('Enter Objective Title:'));
       if (title && title.trim()) {
         addCandidateObjective(title.trim(), '', 'Participant Formulated');
       }
@@ -928,7 +949,7 @@
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
       if (!state.module2?.confirmed) {
-        const proceed = confirm('Note: Phase 2 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        const proceed = confirm(tw('Note: Phase 2 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?'));
         if (!proceed) return;
       }
       if (Storage.preparePrintableContent) Storage.preparePrintableContent();

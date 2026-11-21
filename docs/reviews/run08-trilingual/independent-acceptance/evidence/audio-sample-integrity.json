@@ -1,0 +1,110 @@
+[
+  {
+    "file": "ar-macos-majed-l1.mp3",
+    "status": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "24000",
+          "channels": 1
+        }
+      ],
+      "format": {
+        "duration": "15.121958"
+      }
+    }
+  },
+  {
+    "file": "ar-macos-majed-l2.mp3",
+    "status": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "24000",
+          "channels": 1
+        }
+      ],
+      "format": {
+        "duration": "13.429875"
+      }
+    }
+  },
+  {
+    "file": "fr-kokoro-norm-smart.mp3",
+    "status": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "24000",
+          "channels": 1
+        }
+      ],
+      "format": {
+        "duration": "11.062667"
+      }
+    }
+  },
+  {
+    "file": "fr-kokoro-norm-unpol.mp3",
+    "status": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "24000",
+          "channels": 1
+        }
+      ],
+      "format": {
+        "duration": "11.523292"
+      }
+    }
+  },
+  {
+    "file": "fr-kokoro-raw-unpol.mp3",
+    "status": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "24000",
+          "channels": 1
+        }
+      ],
+      "format": {
+        "duration": "11.576000"
+      }
+    }
+  },
+  {
+    "file": "fr-macos-thomas-unpol.mp3",
+    "status": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "24000",
+          "channels": 1
+        }
+      ],
+      "format": {
+        "duration": "10.376667"
+      }
+    }
+  }
+]

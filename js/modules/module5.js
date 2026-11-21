@@ -24,6 +24,10 @@
   let state = null;
   let activeStage = 'stage-methodology';
 
+  const tw = (key, vars, fallback) => (Storage && Storage.wbT ? Storage.wbT(key, vars, fallback !== undefined ? fallback : key) : (fallback !== undefined ? fallback : key));
+  const scLoc = () => (Scenario && Scenario.getLocalized ? Scenario.getLocalized() : Scenario);
+  const glLoc = () => (Glossary && Glossary.getLocalized ? Glossary.getLocalized() : Glossary);
+
   const STAGES = [
     { id: 'stage-methodology', label: '1. Methodology & Deming Cycle', short: 'Methodology' },
     { id: 'stage-scenario', label: '2. 8-Month Crisis Scenario', short: 'Crisis Scenario' },
@@ -32,6 +36,16 @@
     { id: 'stage-impact', label: '5. Planning Recalibration', short: 'Recalibration' },
     { id: 'stage-summary', label: '6. Review, Reflection & Handoff', short: 'Review & Handoff' }
   ];
+
+  function applyLocaleToModule() {
+    renderStageTabs();
+    updateCompletionBadge();
+    renderKpiEvaluations();
+    renderAdjustments();
+    renderScenarioDrawerList(document.getElementById('scenarioSearchInput')?.value);
+    renderGlossaryList(document.getElementById('glossarySearchInput')?.value);
+    Storage.renderCurriculumTrack(5);
+  }
 
   function init() {
     state = Storage.loadLabState();
@@ -46,9 +60,12 @@
     renderScenarioDrawerList();
     renderGlossaryList();
     Storage.renderCurriculumTrack(5);
-    updateSaveIndicator('Loaded local data');
+    updateSaveIndicator(tw('Loaded local data'));
     setupAutosaveListener();
     setupLifecycleListeners();
+    if (Storage && Storage.initWorkbenchI18n) {
+      Storage.initWorkbenchI18n(applyLocaleToModule);
+    }
   }
 
   const dirtyFields = new Set();
@@ -127,10 +144,10 @@
     }
     const ok = Storage.saveLabState(state);
     if (!ok) {
-      updateSaveIndicator('⚠️ Storage full or blocked! Export JSON.', true);
+      updateSaveIndicator('⚠️ ' + tw('Storage full or blocked! Export JSON.'), true);
     } else {
       dirtyFields.clear();
-      updateSaveIndicator(statusMsg || 'Saved locally');
+      updateSaveIndicator(statusMsg || tw('Saved locally'));
     }
     Storage.renderCurriculumTrack(5);
     return ok;
@@ -139,7 +156,7 @@
   function updateSaveIndicator(msg, isError) {
     const el = document.getElementById('saveIndicator');
     if (el) {
-      el.textContent = msg || 'Saved locally on this device';
+      el.textContent = msg || tw('Saved locally on this device');
       el.style.color = isError ? 'var(--danger)' : 'var(--ok)';
     }
   }
@@ -155,7 +172,7 @@
       if (e.target && e.target.id) dirtyFields.add(e.target.id);
     });
     document.addEventListener('input', debounce(() => {
-      save('Autosaved');
+      save(tw('Autosaved'));
     }, 600));
   }
 
@@ -172,10 +189,10 @@
     const badge = document.getElementById('stageCompleteFooterBadge');
     if (!badge) return;
     if (state.module5 && state.module5.confirmed) {
-      badge.textContent = '✓ Phase 5 Self-Confirmed · Ready for Module 6';
+      badge.textContent = tw('✓ Phase 5 Self-Confirmed · Ready for Module 6');
       badge.style.color = 'var(--ok)';
     } else {
-      badge.textContent = 'Phase 5 In Progress · Pending Self-Confirmation';
+      badge.textContent = tw('Phase 5 In Progress · Pending Self-Confirmation');
       badge.style.color = 'var(--navy)';
     }
   }
@@ -307,7 +324,7 @@
     container.innerHTML = STAGES.map((s, idx) => `
       <button class="stage-tab ${s.id === activeStage ? 'active' : ''}" data-stage="${s.id}" type="button">
         <span class="badge">0${idx + 1}</span>
-        <span>${escapeHtml(s.short)}</span>
+        <span>${escapeHtml(tw(s.short))}</span>
       </button>
     `).join('');
 
@@ -410,47 +427,47 @@
           <div class="card-header" style="background: var(--wash);">
             <div>
               <span class="badge" style="background: ${statusColor}; color: #fff; padding: 2px 7px; border-radius: 4px; font-size: 0.72rem; font-weight: 800;">
-                ${escapeHtml(kpi.varianceStatus || 'Pending')}
+                ${escapeHtml(tw(kpi.varianceStatus || 'Pending'))}
               </span>
-              <strong style="margin-left: 8px; font-size: 1.05rem; color: var(--navy);">${escapeHtml(kpi.kpiTitle)}</strong>
+              <strong dir="auto" data-learner-text style="margin-inline-start: 8px; font-size: 1.05rem; color: var(--navy);">${escapeHtml(kpi.kpiTitle)}</strong>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
-              <select class="form-select kpi-variance-status" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto;" aria-label="Variance status for ${escapeHtml(kpi.kpiTitle || (idx + 1))}">
-                <option value="On Track" ${kpi.varianceStatus === 'On Track' ? 'selected' : ''}>Status: On Track</option>
-                <option value="Delayed" ${kpi.varianceStatus === 'Delayed' ? 'selected' : ''}>Status: Delayed</option>
-                <option value="Critical Variance" ${kpi.varianceStatus === 'Critical Variance' ? 'selected' : ''}>Status: Critical Variance</option>
-                <option value="Exceeded" ${kpi.varianceStatus === 'Exceeded' ? 'selected' : ''}>Status: Exceeded</option>
+              <select class="form-select kpi-variance-status" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto;" aria-label="${escapeHtml(tw('Variance status'))}">
+                <option value="On Track" ${kpi.varianceStatus === 'On Track' ? 'selected' : ''}>${escapeHtml(tw('Status: On Track'))}</option>
+                <option value="Delayed" ${kpi.varianceStatus === 'Delayed' ? 'selected' : ''}>${escapeHtml(tw('Status: Delayed'))}</option>
+                <option value="Critical Variance" ${kpi.varianceStatus === 'Critical Variance' ? 'selected' : ''}>${escapeHtml(tw('Status: Critical Variance'))}</option>
+                <option value="Exceeded" ${kpi.varianceStatus === 'Exceeded' ? 'selected' : ''}>${escapeHtml(tw('Status: Exceeded'))}</option>
               </select>
-              <button class="btn btn-sm btn-danger remove-kpi-btn" data-idx="${idx}" type="button" aria-label="Remove KPI evaluation ${escapeHtml(kpi.kpiTitle || (idx + 1))}">×</button>
+              <button class="btn btn-sm btn-danger remove-kpi-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove KPI evaluation {title}', { title: kpi.kpiTitle || (idx + 1) }, `Remove KPI evaluation ${kpi.kpiTitle || (idx + 1)}`))}">×</button>
             </div>
           </div>
           <div class="card-body">
             <div class="form-group">
-              <label class="form-label">KPI / Performance Metric Name</label>
-              <input class="form-input kpi-field" data-idx="${idx}" data-field="kpiTitle" value="${escapeHtml(kpi.kpiTitle)}" aria-label="Performance indicator title">
+              <label class="form-label">${escapeHtml(tw('KPI / Performance Metric Name'))}</label>
+              <input dir="auto" class="form-input kpi-field" data-idx="${idx}" data-field="kpiTitle" value="${escapeHtml(kpi.kpiTitle)}" aria-label="${escapeHtml(tw('KPI / Performance Metric Name'))}">
             </div>
             <div class="grid-3" style="margin-bottom: 14px;">
               <div class="form-group">
-                <label class="form-label" style="font-size: 0.8rem; color: var(--muted);">Module 1 Baseline</label>
-                <input class="form-input kpi-field" data-idx="${idx}" data-field="baselineValue" value="${escapeHtml(kpi.baselineValue || '')}" aria-label="Baseline value">
+                <label class="form-label" style="font-size: 0.8rem; color: var(--muted);">${escapeHtml(tw('Module 1 Baseline'))}</label>
+                <input dir="auto" class="form-input kpi-field" data-idx="${idx}" data-field="baselineValue" value="${escapeHtml(kpi.baselineValue || '')}" aria-label="${escapeHtml(tw('Module 1 Baseline'))}">
               </div>
               <div class="form-group">
-                <label class="form-label" style="font-size: 0.8rem; color: var(--navy);">Module 2/3 Planned Target</label>
-                <input class="form-input kpi-field" data-idx="${idx}" data-field="targetValue" value="${escapeHtml(kpi.targetValue || '')}" aria-label="Planned target value">
+                <label class="form-label" style="font-size: 0.8rem; color: var(--navy);">${escapeHtml(tw('Module 2/3 Planned Target'))}</label>
+                <input dir="auto" class="form-input kpi-field" data-idx="${idx}" data-field="targetValue" value="${escapeHtml(kpi.targetValue || '')}" aria-label="${escapeHtml(tw('Module 2/3 Planned Target'))}">
               </div>
               <div class="form-group">
-                <label class="form-label" style="font-size: 0.8rem; color: var(--danger);">Month 8 Actual Measured Reality</label>
-                <input class="form-input kpi-field" data-idx="${idx}" data-field="actualValue" value="${escapeHtml(kpi.actualValue || '')}" aria-label="Month 8 actual measured value">
+                <label class="form-label" style="font-size: 0.8rem; color: var(--danger);">${escapeHtml(tw('Month 8 Actual Measured Reality'))}</label>
+                <input dir="auto" class="form-input kpi-field" data-idx="${idx}" data-field="actualValue" value="${escapeHtml(kpi.actualValue || '')}" aria-label="${escapeHtml(tw('Month 8 Actual Measured Reality'))}">
               </div>
             </div>
             <div class="grid-2">
               <div class="form-group">
-                <label class="form-label" style="color: var(--danger);">Empirical Variance & Bottleneck Analysis</label>
-                <textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="varianceAnalysis" style="min-height: 70px;" aria-label="Empirical variance and bottleneck analysis">${escapeHtml(kpi.varianceAnalysis || '')}</textarea>
+                <label class="form-label" style="color: var(--danger);">${escapeHtml(tw('Empirical Variance & Bottleneck Analysis'))}</label>
+                <textarea dir="auto" class="form-textarea kpi-field" data-idx="${idx}" data-field="varianceAnalysis" style="min-height: 70px;" aria-label="${escapeHtml(tw('Empirical Variance & Bottleneck Analysis'))}">${escapeHtml(kpi.varianceAnalysis || '')}</textarea>
               </div>
               <div class="form-group">
-                <label class="form-label" style="color: var(--ok-dark);">Targeted Corrective Action</label>
-                <textarea class="form-textarea kpi-field" data-idx="${idx}" data-field="correctiveAction" style="min-height: 70px;" aria-label="Targeted corrective action">${escapeHtml(kpi.correctiveAction || '')}</textarea>
+                <label class="form-label" style="color: var(--ok-dark);">${escapeHtml(tw('Targeted Corrective Action'))}</label>
+                <textarea dir="auto" class="form-textarea kpi-field" data-idx="${idx}" data-field="correctiveAction" style="min-height: 70px;" aria-label="${escapeHtml(tw('Targeted Corrective Action'))}">${escapeHtml(kpi.correctiveAction || '')}</textarea>
               </div>
             </div>
           </div>
@@ -513,7 +530,7 @@
     let updated = 0;
 
     if (state.module5.kpiEvaluations.length > 0) {
-      const proceed = confirm('Reconcile evaluation indicators with Module 2 KPIs and Module 3 Logframe outputs? Existing evaluation notes will be preserved.');
+      const proceed = confirm(tw('Reconcile evaluation indicators with Module 2 KPIs and Module 3 Logframe outputs? Existing evaluation notes will be preserved.'));
       if (!proceed) return;
     }
 
@@ -580,9 +597,9 @@
       });
     }
 
-    save('Reconciled Modules 2 & 3 Planning');
+    save(tw('Reconciled Modules 2 & 3 Planning'));
     renderKpiEvaluations();
-    alert(`Reconciliation Complete: ${updated} existing indicators updated, ${importedM2} KPIs and ${importedM3} Logframe outputs added.`);
+    alert(tw('Reconciliation Complete: {updated} existing indicators updated, {m2} KPIs and {m3} Logframe outputs added.', { updated, m2: importedM2, m3: importedM3 }, `Reconciliation Complete: ${updated} existing indicators updated, ${importedM2} KPIs and ${importedM3} Logframe outputs added.`));
   }
 
   /* Stage 4: 3-Tier Adjustment Recommendations */
@@ -598,42 +615,42 @@
           <div class="card-header" style="background: ${adj.reaction === 'Fully Accept' ? '#edf9f2' : adj.reaction === 'Partially Accept' ? '#fff9ec' : '#fef2f2'};">
             <div>
               <span class="badge" style="background: ${reactionBadgeColor}; color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 800;">
-                ${escapeHtml(adj.reaction || 'Pending')}
+                ${escapeHtml(tw(adj.reaction || 'Pending'))}
               </span>
-              <strong style="margin-left: 10px; font-size: 1.05rem; color: var(--navy);">${escapeHtml(adj.recommendationTitle)}</strong>
+              <strong dir="auto" data-learner-text style="margin-inline-start: 10px; font-size: 1.05rem; color: var(--navy);">${escapeHtml(adj.recommendationTitle)}</strong>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
-              <select class="form-select adj-reaction" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto; font-weight: 700;" aria-label="Syndicate decision on ${escapeHtml(adj.recommendationTitle || (idx + 1))}">
-                <option value="Fully Accept" ${adj.reaction === 'Fully Accept' ? 'selected' : ''}>Reaction: Fully Accept</option>
-                <option value="Partially Accept" ${adj.reaction === 'Partially Accept' ? 'selected' : ''}>Reaction: Partially Accept</option>
-                <option value="Reject" ${adj.reaction === 'Reject' ? 'selected' : ''}>Reaction: Reject</option>
+              <select class="form-select adj-reaction" data-idx="${idx}" style="padding: 4px 8px; font-size: 0.8rem; width: auto; font-weight: 700;" aria-label="${escapeHtml(tw('Reaction'))}">
+                <option value="Fully Accept" ${adj.reaction === 'Fully Accept' ? 'selected' : ''}>${escapeHtml(tw('Reaction: Fully Accept'))}</option>
+                <option value="Partially Accept" ${adj.reaction === 'Partially Accept' ? 'selected' : ''}>${escapeHtml(tw('Reaction: Partially Accept'))}</option>
+                <option value="Reject" ${adj.reaction === 'Reject' ? 'selected' : ''}>${escapeHtml(tw('Reaction: Reject'))}</option>
               </select>
-              <button class="btn btn-sm btn-danger remove-adj-btn" data-idx="${idx}" type="button" aria-label="Remove adjustment recommendation ${escapeHtml(adj.recommendationTitle || (idx + 1))}">×</button>
+              <button class="btn btn-sm btn-danger remove-adj-btn" data-idx="${idx}" type="button" aria-label="${escapeHtml(tw('Remove adjustment recommendation {title}', { title: adj.recommendationTitle || (idx + 1) }, `Remove adjustment recommendation ${adj.recommendationTitle || (idx + 1)}`))}">×</button>
             </div>
           </div>
           <div class="card-body">
             <div class="form-group">
-              <label class="form-label">Recommendation Title & Scope</label>
-              <input class="form-input adj-field" data-idx="${idx}" data-field="recommendationTitle" value="${escapeHtml(adj.recommendationTitle)}" aria-label="Recommendation title and scope">
+              <label class="form-label">${escapeHtml(tw('Recommendation Title & Scope'))}</label>
+              <input dir="auto" class="form-input adj-field" data-idx="${idx}" data-field="recommendationTitle" value="${escapeHtml(adj.recommendationTitle)}" aria-label="${escapeHtml(tw('Recommendation Title & Scope'))}">
             </div>
             <div class="grid-2">
               <div class="form-group">
                 <label class="form-label" style="color: var(--navy);">
-                  Decision Justification (Lesson 5 Slide 10)
-                  <span class="form-hint">Why do implementors agree, disagree, or reject parts of this recommendation?</span>
+                  ${escapeHtml(tw('Decision Justification (Lesson 5 Slide 10)'))}
+                  <span class="form-hint">${escapeHtml(tw('Why do implementors agree, disagree, or reject parts of this recommendation?'))}</span>
                 </label>
-                <textarea class="form-textarea adj-field" data-idx="${idx}" data-field="justification" style="min-height: 80px;" aria-label="Decision justification">${escapeHtml(adj.justification || '')}</textarea>
+                <textarea dir="auto" class="form-textarea adj-field" data-idx="${idx}" data-field="justification" style="min-height: 80px;" aria-label="${escapeHtml(tw('Decision Justification (Lesson 5 Slide 10)'))}">${escapeHtml(adj.justification || '')}</textarea>
               </div>
               <div class="form-group">
                 <label class="form-label" style="color: var(--ok-dark);">
-                  Concrete Action Plan & Remedial Measure
-                  <span class="form-hint">What immediate steps will be taken to implement this decision?</span>
+                  ${escapeHtml(tw('Concrete Action Plan & Remedial Measure'))}
+                  <span class="form-hint">${escapeHtml(tw('What immediate steps will be taken to implement this decision?'))}</span>
                 </label>
-                <textarea class="form-textarea adj-field" data-idx="${idx}" data-field="actionPlan" style="min-height: 80px;" aria-label="Action plan and remedial measure">${escapeHtml(adj.actionPlan || '')}</textarea>
+                <textarea dir="auto" class="form-textarea adj-field" data-idx="${idx}" data-field="actionPlan" style="min-height: 80px;" aria-label="${escapeHtml(tw('Concrete Action Plan & Remedial Measure'))}">${escapeHtml(adj.actionPlan || '')}</textarea>
               </div>
               <div class="form-group col-full" style="background: var(--wash-subtle); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--line);">
-                <label class="form-label">Lead Stakeholder & Responsible Entity</label>
-                <input class="form-input adj-field" data-idx="${idx}" data-field="stakeholderOwner" value="${escapeHtml(adj.stakeholderOwner || '')}" aria-label="Lead stakeholder owner">
+                <label class="form-label">${escapeHtml(tw('Lead Stakeholder & Responsible Entity'))}</label>
+                <input dir="auto" class="form-input adj-field" data-idx="${idx}" data-field="stakeholderOwner" value="${escapeHtml(adj.stakeholderOwner || '')}" aria-label="${escapeHtml(tw('Lead Stakeholder & Responsible Entity'))}">
               </div>
             </div>
           </div>
@@ -693,7 +710,7 @@
     const host = document.getElementById('scenarioDrawerList');
     if (!host) return;
     const q = (searchQuery || '').toLowerCase().trim();
-    let paragraphs = Scenario.PARAGRAPHS;
+    let paragraphs = scLoc().PARAGRAPHS;
     if (q) {
       paragraphs = paragraphs.filter(p =>
         p.id.toString() === q || p.text.toLowerCase().includes(q)
@@ -701,7 +718,7 @@
     }
     host.innerHTML = paragraphs.map(p => `
       <div class="para-item">
-        <span class="para-badge">Paragraph ${p.id}</span>
+        <span class="para-badge">${escapeHtml(tw('Paragraph {id}', { id: p.id }, `Paragraph ${p.id}`))}</span>
         <p style="margin: 4px 0 0;">${escapeHtml(p.text)}</p>
       </div>
     `).join('');
@@ -729,7 +746,7 @@
     const host = document.getElementById('glossaryList');
     if (!host) return;
     const q = (searchQuery || '').toLowerCase().trim();
-    let terms = Glossary.TERMS;
+    let terms = glLoc().TERMS;
     if (q) {
       terms = terms.filter(t =>
         t.term.toLowerCase().includes(q) || t.definition.toLowerCase().includes(q)
@@ -774,13 +791,13 @@
       b.onclick = () => setStage(b.dataset.gotoStage);
     });
 
-    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save('Saved locally'));
+    document.getElementById('manualSaveBtn')?.addEventListener('click', () => save(tw('Saved locally')));
 
     // Confirmation checkbox listener
     const confirmBox = document.getElementById('confirmModule5') || document.getElementById('selfConfirmCheck');
     confirmBox?.addEventListener('change', e => {
       state.module5.confirmed = e.target.checked;
-      save(e.target.checked ? 'Phase 5 Confirmed' : 'Confirmation withdrawn');
+      save(e.target.checked ? tw('Phase {num} Confirmed', { num: 5 }, 'Phase 5 Confirmed') : tw('Confirmation withdrawn'));
       updateCompletionBadge();
     });
 
@@ -849,7 +866,7 @@
     document.getElementById('printPdfBtn')?.addEventListener('click', () => {
       collectFormFields();
       if (!state.module5?.confirmed) {
-        const proceed = confirm('Note: Phase 5 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?');
+        const proceed = confirm(tw('Note: Phase 5 has not been self-confirmed yet.\n\nDo you want to export an unconfirmed draft PDF?'));
         if (!proceed) return;
       }
       if (Storage.preparePrintableContent) Storage.preparePrintableContent();

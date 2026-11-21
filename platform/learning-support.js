@@ -35,11 +35,34 @@
     [/\bQ([1-6])\b/g, 'Question $1']
   ];
 
+  const PRONUNCIATION_MAP_FR = [
+    [/\bCARANA\b/g, 'Carana'],
+    [/\bPESTEL-S\b/gi, 'PESTEL S'],
+    [/\bUNPOL\b/g, 'U N P O L'],
+    [/\bUNSCR\b/g, 'U N S C R'],
+    [/\bCBD\b/g, 'C B D'],
+    [/\bMMA\b/g, 'M M A'],
+    [/\bCPOC\b/g, 'C P O C'],
+    [/\bSGBV\b/g, 'S G B V'],
+    [/\bOHCHR\b/g, 'O H C H R'],
+    [/\bDPO\b/g, 'D P O'],
+    [/\bKPIs?\b/g, 'K P I'],
+    [/\bCOP\b/g, 'C O P'],
+    [/5\s*[×x]\s*6\b/gi, '5 par 6']
+  ];
+
+  const PRONUNCIATION_MAP_AR = [
+    [/\bPESTEL-S\b/gi, 'PESTEL S'],
+    [/5\s*[×x]\s*6\b/gi, '5 في 6']
+  ];
+
   const speech = window.speechSynthesis;
   let speechGeneration = 0;
   let current = null;
   let reader = null;
   let panel = null;
+  let panelHandlers = null;
+  let unsubscribeI18n = null;
   let request = null;
   let ttsRequest = null;
   let activeAudio = null;
@@ -55,6 +78,35 @@
   let manifestPromise = null;
   let localTtsInfo = { available: false, voices: [] };
   const dynamicAudioCache = new Map();
+
+  function supportI18n() {
+    return typeof window !== 'undefined' && window.CARANA_I18N ? window.CARANA_I18N : null;
+  }
+
+  function supportLang() {
+    const i18n = supportI18n();
+    return i18n && typeof i18n.getLang === 'function' ? i18n.getLang() : 'en';
+  }
+
+  function supportIsRTL() {
+    return supportLang() === 'ar';
+  }
+
+  function formatStVars(str, vars) {
+    if (!vars || typeof vars !== 'object') return str;
+    return String(str).replace(/\{(\w+)\}/g, (m, k) => (Object.prototype.hasOwnProperty.call(vars, k) ? String(vars[k]) : m));
+  }
+
+  function st(key, vars, enFallback) {
+    const i18n = supportI18n();
+    const lang = supportLang();
+    if (!i18n || lang === 'en' || typeof i18n.t !== 'function') {
+      return formatStVars(enFallback !== undefined ? enFallback : key, vars);
+    }
+    const fullKey = 'support.' + key;
+    const tr = i18n.t(fullKey, vars, enFallback);
+    return formatStVars(tr === fullKey && enFallback !== undefined ? enFallback : tr, vars);
+  }
 
   const esc = v =>
     String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -108,9 +160,10 @@
 
   const normalizeKey = text => String(text || '').replace(/\s+/g, ' ').trim();
 
-  function prepareSpeechText(text) {
+  function prepareSpeechText(text, lang = supportLang()) {
     let out = normalizeKey(text);
-    for (const [pattern, replacement] of PRONUNCIATION_MAP) {
+    const map = lang === 'fr-FR' ? PRONUNCIATION_MAP_FR : lang === 'ar' ? PRONUNCIATION_MAP_AR : PRONUNCIATION_MAP;
+    for (const [pattern, replacement] of map) {
       out = out.replace(pattern, replacement);
     }
     return out;
@@ -206,9 +259,11 @@
 
   function clearFocus() {
     document.querySelectorAll('[data-read-current]').forEach(el => el.removeAttribute('data-read-current'));
+    const defaultLabel = st('readExplanationBtn', null, 'Read this explanation');
     document.querySelectorAll('.support-inline-read[aria-pressed="true"]').forEach(btn => {
       btn.setAttribute('aria-pressed', 'false');
-      btn.textContent = btn.dataset.defaultLabel || 'Read this explanation';
+      btn.innerHTML = '<span aria-hidden="true">🔊</span> <span>' + esc(defaultLabel) + '</span>';
+      btn.dataset.defaultLabel = defaultLabel;
     });
   }
 
@@ -252,7 +307,7 @@
     });
   }
 
-  function stopRead(message = 'Stopped. You can restart this screen.') {
+  function stopRead(message = st('statusStopped', null, 'Stopped. You can restart this screen.')) {
     speechGeneration++;
     releaseAudio();
     releaseSpeech();
@@ -266,12 +321,12 @@
       reader.activeTarget = null;
       clearTimeout(reader.watchdog);
       reader.bar?.setAttribute('data-read-state', 'idle');
-      if (reader.badge) reader.badge.textContent = 'Ready';
+      if (reader.badge) reader.badge.textContent = st('badgeReady', null, 'Ready');
     }
     clearFocus();
     if (reader?.status?.isConnected) {
       reader.status.textContent = message;
-      reader.play.textContent = 'Read screen';
+      reader.play.textContent = st('playBtn', null, 'Read screen');
       reader.pause.disabled = true;
       reader.resume.disabled = true;
       if (reader.stop) reader.stop.disabled = true;
@@ -307,16 +362,24 @@
     if (/(Neural|Natural|Premium|Enhanced|Siri|Online)/i.test(v.name + ' ' + v.voiceURI)) score += 100;
     if (v.localService) score += 20;
     if (/(compact|super-compact)/i.test(v.voiceURI + ' ' + v.name)) score -= 25;
-    if (/\b(Nora|Ava|Zoe|Serena|Jamie|Stephanie|Daniel|Karen|Moira)\b/i.test(v.name)) score += 10;
+    if (/\b(Nora|Ava|Zoe|Serena|Jamie|Stephanie|Daniel|Karen|Moira|Thomas|Am[eé]lie|Audrey|Aur[eé]lie|Majed|Maged|Laila|Tariq)\b/i.test(v.name)) score += 10;
     if (/^Samantha$/i.test(v.name)) score -= 5;
     return score;
   }
 
-  function filterBrowserVoices() {
+  function langVoicePrefix(lang = supportLang()) {
+    if (lang === 'fr-FR' || /^fr(?:-|_|$)/i.test(lang)) return 'fr';
+    if (lang === 'ar' || /^ar(?:-|_|$)/i.test(lang)) return 'ar';
+    return 'en';
+  }
+
+  function filterBrowserVoices(lang = supportLang()) {
     if (!speech?.getVoices) return [];
-    const exclusions = /^(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Fred|Good News|Jester|Junior|Organ|Ralph|Superstar|Trinoids|Whisper|Wobble|Zarvox|Eddy|Flo|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley)\b/i;
+    const prefix = langVoicePrefix(lang);
+    const langRe = new RegExp('^' + prefix + '(?:-|_|$)', 'i');
+    const exclusions = /^(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Fred|Good News|Jester|Junior|Organ|Ralph|Superstar|Trinoids|Whisper|Wobble|Zarvox|Eddy|Flo|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley|Jacques)\b/i;
     const available = speech.getVoices().filter(
-      v => (/^en(?:-|_)/i.test(v.lang) || v.lang === 'en') &&
+      v => langRe.test(v.lang || '') &&
         !exclusions.test(v.name) &&
         !/eloquence/i.test(v.voiceURI || '')
     );
@@ -325,14 +388,15 @@
   }
 
   function splitIntoSpeakableChunks(list) {
+    const isEn = supportLang() === 'en';
     return list.flatMap(item => {
       const clean = normalizeKey(item.text);
       if (!clean) return [];
-      // Preserve single atomic clip lookup for pre-rendered blocks when possible.
-      if (studioClipUrl(clean) || clean.length <= 520) {
+      // Preserve single atomic clip lookup for pre-rendered English blocks when possible.
+      if ((isEn && studioClipUrl(clean)) || clean.length <= 520) {
         return [{ ...item, text: clean }];
       }
-      const chunks = clean.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [clean];
+      const chunks = clean.match(/[^.!?؟]+[.!?؟]+|[^.!?؟]+$/g) || [clean];
       let part = '';
       const out = [];
       for (const sentence of chunks) {
@@ -347,17 +411,19 @@
     });
   }
 
-  async function fetchLocalNeuralWav(text, voiceId, signal) {
+  async function fetchLocalNeuralWav(text, voiceId, signal, lang = supportLang()) {
     if (!access || !localTtsInfo.available) return null;
-    const key = voiceId + '|' + text;
+    const key = lang + '|' + voiceId + '|' + text;
     if (dynamicAudioCache.has(key)) {
       const cached = dynamicAudioCache.get(key);
       return URL.createObjectURL(cached);
     }
+    const payload = { text: text.slice(0, 1200), voice: voiceId };
+    if (lang && lang !== 'en') payload.lang = lang;
     const resp = await fetch('/api/tts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + access },
-      body: JSON.stringify({ text: text.slice(0, 1200), voice: voiceId }),
+      body: JSON.stringify(payload),
       signal
     });
     if (!resp.ok) return null;
@@ -382,43 +448,54 @@
     }
     if (targetButton?.isConnected) {
       targetButton.setAttribute('aria-pressed', 'true');
-      targetButton.textContent = 'Stop explanation';
+      targetButton.textContent = st('stopExplanationBtn', null, 'Stop explanation');
     }
     const snippet = text.replace(/\s+/g, ' ').trim().slice(0, 68);
     if (reader) {
-      const modeLabel = reader.mode === 'explanation' ? 'Reading explanation' : `Reading passage ${idx + 1} of ${total}`;
+      const modeLabel =
+        reader.mode === 'explanation'
+          ? st('statusReadingExplanation', null, 'Reading explanation')
+          : st('statusReadingPassage', { idx: idx + 1, total }, `Reading passage ${idx + 1} of ${total}`);
+      const focusLabel = st('statusParagraphFocus', null, 'paragraph focus');
       reader.status.textContent =
-        `${modeLabel} · paragraph focus` + (snippet ? ` — “${snippet}${text.length > 68 ? '…”' : '”'}` : '');
-      reader.play.textContent = 'Restart screen';
+        `${modeLabel} · ${focusLabel}` + (snippet ? ` — “${snippet}${text.length > 68 ? '…”' : '”'}` : '');
+      reader.play.textContent = st('restartBtn', null, 'Restart screen');
       reader.pause.disabled = false;
       reader.resume.disabled = true;
       reader.stop.disabled = false;
       reader.bar?.setAttribute('data-read-state', 'playing');
       if (reader.badge) {
-        reader.badge.textContent = reader.mode === 'explanation' ? 'Explanation' : `Reading ${idx + 1}/${total}`;
+        reader.badge.textContent =
+          reader.mode === 'explanation'
+            ? st('badgeExplanation', null, 'Explanation')
+            : st('badgeReadingStep', { idx: idx + 1, total }, `Reading ${idx + 1}/${total}`);
       }
     }
   }
 
   function readList(list, opts = {}) {
     if (!reader) return;
+    const activeLang = supportLang();
     const selectedOption = reader.voices.find(v => v.value === reader.voice.value) || reader.voices[0];
     if (!selectedOption) {
-      reader.status.textContent = 'No English voice is available right now. The text and recorded narration remain available.';
+      reader.status.textContent =
+        activeLang === 'en'
+          ? 'No English voice is available right now. The text and recorded narration remain available.'
+          : st('voiceUnavailableNotice', null, 'No verified voice is available right now; the full translated text and transcripts remain readable.');
       return;
     }
     if (selectedOption.kind === 'browser' && !selectedOption.voice.localService && !reader.allow.checked) {
-      reader.status.textContent = 'Allow the selected browser voice service in settings before sending text to it.';
+      reader.status.textContent = st('allowServiceConsent', null, 'Allow the selected browser voice service in settings before sending text to it.');
       reader.settings.open = true;
       return;
     }
 
-    stopRead('Preparing reading…');
+    stopRead(st('statusPreparing', null, 'Preparing reading…'));
     stopExternalMedia();
 
     reader.items = splitIntoSpeakableChunks(list);
     if (!reader.items.length) {
-      reader.status.textContent = 'No eligible visible instructional text was found. Open a section or select a passage.';
+      reader.status.textContent = st('statusStoppedNoText', null, 'No eligible visible instructional text was found. Open a section or select a passage.');
       return;
     }
     reader.index = 0;
@@ -434,13 +511,13 @@
     const speakWithBrowser = (item, browserVoice) => {
       if (!reader || generation !== reader.generation || !reader.playing || reader.paused) return;
       if (!speech || !window.SpeechSynthesisUtterance) {
-        stopRead('Browser speech is not supported here.');
+        stopRead(st('statusSpeechUnsupported', null, 'Browser speech is not supported here.'));
         return;
       }
       releaseAudio();
       releaseSpeech();
       try { speech?.resume?.(); } catch (_) {}
-      const spoken = prepareSpeechText(item.text);
+      const spoken = prepareSpeechText(item.text, activeLang);
       const utterance = new SpeechSynthesisUtterance(spoken);
       activeUtterance = utterance;
       reader.utterance = utterance;
@@ -465,12 +542,12 @@
       utterance.onerror = () => {
         if (activeUtterance === utterance) activeUtterance = null;
         if (reader && generation === reader.generation && reader.playing) {
-          stopRead('Speech stopped or was unavailable. Try another voice or continue reading the text.');
+          stopRead(st('statusSpeechError', null, 'Speech stopped or was unavailable. Try another voice or continue reading the text.'));
         }
       };
       reader.watchdog = setTimeout(() => {
         if (reader && generation === reader.generation && reader.playing) {
-          stopRead('The browser did not start speech. Check voice availability or select CARANA Neural Voice.');
+          stopRead(st('statusSpeechTimeout', null, 'The browser did not start speech. Check voice availability or select CARANA Neural Voice.'));
         }
       }, 8000);
       speech.speak(utterance);
@@ -545,14 +622,14 @@
         return;
       }
       if (reader.index >= reader.items.length) {
-        stopRead('Reading finished. Listening does not change checkpoints.');
+        stopRead(st('statusFinished', null, 'Reading finished. Listening does not change checkpoints.'));
         return;
       }
       const item = reader.items[reader.index];
       reader.activeEngine = selectedOption.kind;
 
       if (selectedOption.kind === 'studio' || selectedOption.kind === 'local-tts') {
-        const clipUrl = selectedOption.kind === 'studio' ? studioClipUrl(item.text) : '';
+        const clipUrl = selectedOption.kind === 'studio' && activeLang === 'en' ? studioClipUrl(item.text) : '';
         if (clipUrl) {
           reader.activeMode = 'audio';
           const res = await playAudioUrl(item, clipUrl, false);
@@ -568,20 +645,21 @@
           }
           stopRead(
             res.reason === 'blocked'
-              ? 'Audio playback was blocked by the browser. Click Play or Read this explanation again.'
-              : 'That audio clip could not play cleanly right now. You can continue reading or retry.'
+              ? st('statusPlaybackBlocked', null, 'Audio playback was blocked by the browser. Click Play or Read this explanation again.')
+              : st('statusClipError', null, 'That audio clip could not play cleanly right now. You can continue reading or retry.')
           );
           return;
         }
-        // Dynamic/unlisted passage in Studio/Local mode: try live local /api/tts if unlocked, else explicit local fallback only for unlisted static text.
+        // Dynamic/unlisted passage in Studio/Local mode: try live local /api/tts if unlocked, else language-matched local fallback ONLY.
         if (access && localTtsInfo.available) {
           let blobUrl = null;
           try {
             reader.activeMode = 'audio';
             ttsRequest?.abort();
             ttsRequest = new AbortController();
-            const voiceId = selectedOption.ttsId || 'kokoro:af_heart';
-            blobUrl = await fetchLocalNeuralWav(item.text, voiceId, ttsRequest.signal);
+            const defaultVoiceId = activeLang === 'fr-FR' ? 'kokoro:ff_siwis' : activeLang === 'ar' ? 'apple:majed' : 'kokoro:af_heart';
+            const voiceId = selectedOption.ttsId || defaultVoiceId;
+            blobUrl = await fetchLocalNeuralWav(item.text, voiceId, ttsRequest.signal, activeLang);
           } catch (_) {
             blobUrl = null;
           }
@@ -612,23 +690,23 @@
             }
             stopRead(
               res.reason === 'blocked'
-                ? 'Audio playback was blocked by the browser. Click Listen again to play.'
-                : 'Audio playback stopped before finishing. You can read the text or retry.'
+                ? st('statusPlaybackBlocked', null, 'Audio playback was blocked by the browser. Click Listen again to play.')
+                : st('statusClipError', null, 'Audio playback stopped before finishing. You can read the text or retry.')
             );
             return;
           }
-          stopRead('Local neural speech service is unavailable or busy right now. Continue reading the text or retry.');
+          stopRead(st('statusLocalTtsUnavailable', null, 'Local neural speech service is unavailable or busy right now. Continue reading the text or retry.'));
           return;
         }
-        if (selectedOption.kind === 'studio' && reader.mode !== 'assistant') {
-          const localFallback = reader.voices.find(v => v.kind === 'browser' && v.voice.localService)?.voice;
+        if (selectedOption.kind === 'studio' && activeLang === 'en' && reader.mode !== 'assistant') {
+          const localFallback = reader.voices.find(v => v.kind === 'browser' && v.voice.localService && langVoicePrefix('en') === langVoicePrefix(v.voice.lang))?.voice;
           if (localFallback) {
             reader.activeMode = 'speech';
             speakWithBrowser(item, localFallback);
             return;
           }
         }
-        stopRead('Audio clip unavailable for that custom selection in this browser. Read the screen or use local studio.');
+        stopRead(st('statusClipUnavailable', null, 'Audio clip unavailable for that custom selection in this browser. Read the screen or use local studio.'));
         return;
       }
 
@@ -649,6 +727,10 @@
   }
 
   function dispose() {
+    if (unsubscribeI18n) {
+      try { unsubscribeI18n(); } catch (_) {}
+      unsubscribeI18n = null;
+    }
     stopRead();
     stopExternalMedia();
     request?.abort();
@@ -662,6 +744,7 @@
       panel.remove();
       panel = null;
     }
+    panelHandlers = null;
     document.body.classList.remove('carana-assistant-open');
     current?.events.abort();
     current?.bar.remove();
@@ -690,6 +773,7 @@
         '#vj-result, #vj-mini-feedback, #lab-response, #concept-feedback, #decision-feedback, #lab-feedback, #priority-result, #priority-compare, #risk-result, details.worked-example, .voice-transcript, details .transcript'
       )
     ];
+    const readLabel = st('readExplanationBtn', null, 'Read this explanation');
 
     candidates.forEach((el, idx) => {
       if (!el.dataset.readUid) el.dataset.readUid = 'exp-' + idx + '-' + (el.id || el.className.split(/\s+/)[0] || 'node');
@@ -708,12 +792,12 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'support-inline-read';
-        btn.dataset.defaultLabel = 'Read this explanation';
+        btn.dataset.defaultLabel = readLabel;
         btn.setAttribute('aria-pressed', 'false');
-        btn.innerHTML = '<span aria-hidden="true">🔊</span> <span>Read this explanation</span>';
+        btn.innerHTML = '<span aria-hidden="true">🔊</span> <span>' + esc(readLabel) + '</span>';
         btn.addEventListener('click', () => {
           if (reader?.playing && reader.mode === 'explanation' && reader.activeTarget === el) {
-            stopRead('Stopped explanation.');
+            stopRead(st('statusStoppedExplanation', null, 'Stopped explanation.'));
             return;
           }
           const text = extractBlockText(el, false);
@@ -729,8 +813,9 @@
       }
       const btn = bar.querySelector('button');
       if (btn && (!reader?.playing || reader.activeTarget !== el)) {
+        btn.dataset.defaultLabel = readLabel;
         btn.setAttribute('aria-pressed', 'false');
-        btn.innerHTML = '<span aria-hidden="true">🔊</span> <span>Read this explanation</span>';
+        btn.innerHTML = '<span aria-hidden="true">🔊</span> <span>' + esc(readLabel) + '</span>';
       }
     });
   }
@@ -742,14 +827,18 @@
 
     const target = detail?.target;
     if (reader.mode === 'explanation' && target && reader.activeTarget === target) {
-      stopRead(isActiveExplanationCard(target) ? 'Explanation updated. Press Read this explanation to listen.' : 'Explanation cleared.');
+      stopRead(
+        isActiveExplanationCard(target)
+          ? st('statusUpdatedExplanation', null, 'Explanation updated. Press Read this explanation to listen.')
+          : st('statusClearedExplanation', null, 'Explanation cleared.')
+      );
       return;
     }
 
     if (reader.mode === 'screen') {
       const curEl = reader.items[reader.index]?.el;
       if (target && curEl === target) {
-        stopRead('Screen content updated. Press Read screen to listen.');
+        stopRead(st('statusUpdatedScreen', null, 'Screen content updated. Press Read screen to listen.'));
         return;
       }
       const fresh = splitIntoSpeakableChunks(blocks(current.root, reader.includeQuestions));
@@ -761,6 +850,17 @@
         }
       }
     }
+  }
+
+  function hasVoiceForLang(lang = supportLang()) {
+    if (lang === 'en') {
+      if (manifestData?.clips && Object.keys(manifestData.clips).length > 0) return true;
+    }
+    if (localTtsInfo.available && Array.isArray(localTtsInfo.voices)) {
+      const hasLocal = localTtsInfo.voices.some(lv => (lv.lang || 'en') === lang);
+      if (hasLocal) return true;
+    }
+    return filterBrowserVoices(lang).length > 0;
   }
 
   function mount(meta) {
@@ -780,31 +880,31 @@
     const bar = document.createElement('section');
     bar.className = 'support-ui support-studio';
     bar.dataset.readState = 'idle';
-    bar.setAttribute('aria-label', 'Learning support');
+    bar.setAttribute('aria-label', st('barAriaLabel', null, 'Learning support'));
     bar.innerHTML =
       '<div class="support-entry">' +
-      '<button type="button" id="support-listen" aria-expanded="false" aria-controls="support-reader"><span class="support-icon" aria-hidden="true">🔊</span><span>Listen / Read screen</span></button>' +
-      '<button type="button" id="support-ask"><span class="support-icon" aria-hidden="true">?</span><span>Ask a question</span></button>' +
-      '<span class="support-context">Optional learning support · Studio neural voice & companion</span>' +
+      '<button type="button" id="support-listen" aria-expanded="false" aria-controls="support-reader"><span class="support-icon" aria-hidden="true">🔊</span><span>' + esc(st('listenBtn', null, 'Listen / Read screen')) + '</span></button>' +
+      '<button type="button" id="support-ask"><span class="support-icon" aria-hidden="true">?</span><span>' + esc(st('askBtn', null, 'Ask a question')) + '</span></button>' +
+      '<span class="support-context">' + esc(st('contextHint', null, 'Optional learning support · Studio neural voice & companion')) + '</span>' +
       '</div>' +
       '<div id="support-reader" class="support-reader" hidden>' +
-      '<div class="support-reader-head"><p class="support-mode">Read Screen · separate from Trainer Narration</p><span class="support-badge" id="read-state-badge">Ready</span></div>' +
+      '<div class="support-reader-head"><p class="support-mode">' + esc(st('readerModeTitle', null, 'Read Screen · separate from Trainer Narration')) + '</p><span class="support-badge" id="read-state-badge">' + esc(st('badgeReady', null, 'Ready')) + '</span></div>' +
       '<div class="support-controls" role="group" aria-label="Read Screen playback controls">' +
-      '<button type="button" id="read-play" class="support-primary">Read screen</button>' +
-      '<button type="button" id="read-pause" disabled>Pause</button>' +
-      '<button type="button" id="read-resume" disabled>Resume</button>' +
-      '<button type="button" id="read-stop" disabled>Stop</button>' +
-      '<label class="support-speed-label"><span>Speed</span><select id="read-speed" aria-label="Reading speed">' +
+      '<button type="button" id="read-play" class="support-primary">' + esc(st('playBtn', null, 'Read screen')) + '</button>' +
+      '<button type="button" id="read-pause" disabled>' + esc(st('pauseBtn', null, 'Pause')) + '</button>' +
+      '<button type="button" id="read-resume" disabled>' + esc(st('resumeBtn', null, 'Resume')) + '</button>' +
+      '<button type="button" id="read-stop" disabled>' + esc(st('stopBtn', null, 'Stop')) + '</button>' +
+      '<label class="support-speed-label"><span>' + esc(st('speedLabel', null, 'Speed')) + '</span><select id="read-speed" aria-label="' + esc(st('speedAria', null, 'Reading speed')) + '">' +
       RATES.map(n => '<option ' + (n === 1 ? 'selected' : '') + ' value="' + n + '">' + n + '×</option>').join('') +
       '</select></label></div>' +
-      '<details id="read-settings"><summary>Voice and reading options</summary><div class="support-settings-grid">' +
-      '<label><span>English voice</span><select id="read-voice"></select></label>' +
-      '<label id="read-service-label" class="support-check" hidden><input type="checkbox" id="read-service"><span>Allow this browser voice service; displayed text may leave this device</span></label>' +
+      '<details id="read-settings"><summary>' + esc(st('voiceSettingsSummary', null, 'Voice and reading options')) + '</summary><div class="support-settings-grid">' +
+      '<label><span id="read-voice-label">' + esc(st('voiceLabel', null, 'English voice')) + '</span><select id="read-voice"></select></label>' +
+      '<label id="read-service-label" class="support-check" hidden><input type="checkbox" id="read-service"><span>' + esc(st('allowServiceLabel', null, 'Allow this browser voice service; displayed text may leave this device')) + '</span></label>' +
       '<p id="read-voice-note" class="support-note"></p>' +
-      '<label id="read-question-label" class="support-check" hidden><input type="checkbox" id="read-questions"><span>Include visible questions and answer choices</span></label>' +
-      '<div class="support-selection-row"><button type="button" id="read-selection">Read selected passage</button><span>Select a paragraph or section, then choose this action. Private draft text is read only when deliberately selected.</span></div>' +
+      '<label id="read-question-label" class="support-check" hidden><input type="checkbox" id="read-questions"><span>' + esc(st('readQuestionsLabel', null, 'Include visible questions and answer choices')) + '</span></label>' +
+      '<div class="support-selection-row"><button type="button" id="read-selection">' + esc(st('readSelectionBtn', null, 'Read selected passage')) + '</button><span id="read-selection-hint">' + esc(st('selectionHint', null, 'Select a paragraph or section, then choose this action. Private draft text is read only when deliberately selected.')) + '</span></div>' +
       '</div></details>' +
-      '<p id="read-status" class="support-status" role="status" aria-live="polite">Ready when you choose to listen. Includes visible screen text and revealed diagram explanations.</p>' +
+      '<p id="read-status" class="support-status" role="status" aria-live="polite">' + esc(st('statusReady', null, 'Ready when you choose to listen. Includes visible screen text and revealed diagram explanations.')) + '</p>' +
       '</div>';
 
     const title = heading.closest('.content-title') || (heading.nextElementSibling?.matches('p.lead') ? heading.nextElementSibling : heading);
@@ -838,10 +938,11 @@
 
     function refreshVoices() {
       if (!reader) return;
+      const activeLang = supportLang();
       const previous = reader.voice.value;
       const list = [];
 
-      if (manifestData?.clips && Object.keys(manifestData.clips).length > 0) {
+      if (activeLang === 'en' && manifestData?.clips && Object.keys(manifestData.clips).length > 0) {
         list.push({
           value: '0:studio',
           kind: 'studio',
@@ -849,19 +950,21 @@
         });
       }
       if (localTtsInfo.available && Array.isArray(localTtsInfo.voices)) {
-        localTtsInfo.voices.forEach((lv, i) => {
-          list.push({
-            value: '9:' + i + ':' + lv.id,
-            kind: 'local-tts',
-            ttsId: lv.id,
-            label: lv.label + ' · live Mac service'
+        localTtsInfo.voices
+          .filter(lv => (lv.lang || 'en') === activeLang)
+          .forEach((lv, i) => {
+            list.push({
+              value: '9:' + activeLang + ':' + i + ':' + lv.id,
+              kind: 'local-tts',
+              ttsId: lv.id,
+              label: lv.label + ' · live Mac service'
+            });
           });
-        });
       }
-      const bVoices = filterBrowserVoices();
+      const bVoices = filterBrowserVoices(activeLang);
       bVoices.forEach((v, idx) => {
         list.push({
-          value: (list.length ? '1:' : '') + String(idx),
+          value: (list.length ? '1:' : '') + activeLang + ':' + String(idx),
           kind: 'browser',
           voice: v,
           label: v.name + ' · ' + v.lang + (v.localService ? ' · device voice' : ' · browser service')
@@ -871,7 +974,7 @@
       reader.voices = list;
       reader.voice.innerHTML = list.length
         ? list.map(opt => '<option value="' + esc(opt.value) + '">' + esc(opt.label) + '</option>').join('')
-        : '<option value="">No English voice reported</option>';
+        : '<option value="">' + esc(activeLang === 'en' ? 'No English voice reported' : st('noVoiceOption', null, 'No voice available for this language')) + '</option>';
       if (previous && list.some(opt => opt.value === previous)) {
         reader.voice.value = previous;
       }
@@ -882,17 +985,61 @@
 
       if (!chosen) {
         q('read-voice-note').textContent = !speech
-          ? 'Read Screen is not supported in this browser environment. Existing narration and text remain available.'
-          : 'No English voice is currently reported by this browser. Device voice availability varies.';
+          ? (activeLang === 'en'
+            ? 'Read Screen is not supported in this browser environment. Existing narration and text remain available.'
+            : st('noteBrowserUnsupported', null, 'Read Screen is not supported in this browser environment. Translated text and transcripts remain available.'))
+          : (activeLang === 'en'
+            ? 'No English voice is currently reported by this browser. Device voice availability varies.'
+            : st('voiceUnavailableNotice', null, 'No verified voice is reported by this browser for this language; full translated text remains available.'));
       } else if (chosen.kind === 'studio') {
         q('read-voice-note').textContent =
           'Natural studio narration (Kokoro-82M, Apache-2.0) pre-rendered for instructional blocks and dynamic diagrams, with speed control and device-voice fallback for custom selections.';
       } else if (chosen.kind === 'local-tts') {
-        q('read-voice-note').textContent = 'Synthesizing live through your authenticated local Mac neural speech service (loopback only).';
+        q('read-voice-note').textContent = activeLang === 'en'
+          ? 'Synthesizing live through your authenticated local Mac neural speech service (loopback only).'
+          : st('noteLocalTts', { label: chosen.label }, 'Synthesizing live through your authenticated local Mac speech service (loopback only). Human pronunciation approval pending.');
       } else {
-        q('read-voice-note').textContent =
-          'Using browser/device voice fallback (robotic Eloquence & novelty voices excluded). Quality depends on voices installed in your OS settings.';
+        q('read-voice-note').textContent = activeLang === 'en'
+          ? 'Using browser/device voice fallback (robotic Eloquence & novelty voices excluded). Quality depends on voices installed in your OS settings.'
+          : st('noteBrowserVoice', { lang: chosen.voice.lang }, 'Using browser/device voice fallback. Robotic Eloquence & novelty voices excluded; quality depends on OS settings.');
       }
+    }
+
+    function applySupportBarLocale() {
+      if (!current?.bar?.isConnected || !reader) return;
+      const lang = supportLang();
+      bar.setAttribute('aria-label', st('barAriaLabel', null, 'Learning support'));
+      q('support-listen').querySelector('span:last-child').textContent = st('listenBtn', null, 'Listen / Read screen');
+      q('support-ask').querySelector('span:last-child').textContent = st('askBtn', null, 'Ask a question');
+      const ctxHint = bar.querySelector('.support-context');
+      if (ctxHint) ctxHint.textContent = st('contextHint', null, 'Optional learning support · Studio neural voice & companion');
+      const modeEl = bar.querySelector('.support-mode');
+      if (modeEl) modeEl.textContent = st('readerModeTitle', null, 'Read Screen · separate from Trainer Narration');
+      if (!reader.playing && !reader.paused) {
+        reader.badge.textContent = st('badgeReady', null, 'Ready');
+        reader.play.textContent = st('playBtn', null, 'Read screen');
+        reader.status.textContent = st('statusReady', null, 'Ready when you choose to listen. Includes visible screen text and revealed diagram explanations.');
+      }
+      reader.pause.textContent = st('pauseBtn', null, 'Pause');
+      reader.resume.textContent = st('resumeBtn', null, 'Resume');
+      reader.stop.textContent = st('stopBtn', null, 'Stop');
+      const spdSpan = bar.querySelector('.support-speed-label > span');
+      if (spdSpan) spdSpan.textContent = st('speedLabel', null, 'Speed');
+      reader.speed.setAttribute('aria-label', st('speedAria', null, 'Reading speed'));
+      const sum = q('read-settings').querySelector('summary');
+      if (sum) sum.textContent = st('voiceSettingsSummary', null, 'Voice and reading options');
+      const vLabel = q('read-voice-label');
+      if (vLabel) vLabel.textContent = st('voiceLabel', null, lang === 'en' ? 'English voice' : 'Voice');
+      const sLabel = q('read-service-label')?.querySelector('span');
+      if (sLabel) sLabel.textContent = st('allowServiceLabel', null, 'Allow this browser voice service; displayed text may leave this device');
+      const qLabel = q('read-question-label')?.querySelector('span');
+      if (qLabel) qLabel.textContent = st('readQuestionsLabel', null, 'Include visible questions and answer choices');
+      const selBtn = q('read-selection');
+      if (selBtn) selBtn.textContent = st('readSelectionBtn', null, 'Read selected passage');
+      const selHint = q('read-selection-hint');
+      if (selHint) selHint.textContent = st('selectionHint', null, 'Select a paragraph or section, then choose this action. Private draft text is read only when deliberately selected.');
+      refreshVoices();
+      syncInlineReadButtons();
     }
 
     refreshVoices();
@@ -900,6 +1047,28 @@
       if (reader && current?.root === root) refreshVoices();
     });
     speech?.addEventListener?.('voiceschanged', refreshVoices, sig);
+
+    const i18n = supportI18n();
+    if (i18n && typeof i18n.onChange === 'function') {
+      if (i18n.getLang() !== 'en' && typeof i18n.ready === 'function') {
+        i18n.ready(['ui']).then(() => {
+          if (current?.root === root) {
+            applySupportBarLocale();
+            panelHandlers?.refreshLocale?.();
+          }
+        });
+      }
+      unsubscribeI18n = i18n.onChange(async () => {
+        if (i18n.getLang() !== 'en' && typeof i18n.ready === 'function') {
+          await i18n.ready(['ui']);
+        }
+        if (current?.root !== root) return;
+        stopRead(st('stoppedOnSwitch', null, 'Playback stopped when switching language.'));
+        stopExternalMedia();
+        applySupportBarLocale();
+        panelHandlers?.refreshLocale?.();
+      });
+    }
 
     q('read-question-label').hidden = meta.mode !== 'checkpoint';
     q('support-listen').onclick = showReader;
@@ -919,8 +1088,8 @@
       }
       reader.paused = true;
       reader.bar?.setAttribute('data-read-state', 'paused');
-      if (reader.badge) reader.badge.textContent = 'Paused';
-      reader.status.textContent = 'Paused · resume or restart this passage';
+      if (reader.badge) reader.badge.textContent = st('badgePaused', null, 'Paused');
+      reader.status.textContent = st('statusPaused', null, 'Paused · resume or restart this passage');
       reader.pause.disabled = true;
       reader.resume.disabled = false;
     };
@@ -929,10 +1098,10 @@
       if (!reader?.playing || !reader.paused) return;
       reader.paused = false;
       reader.bar?.setAttribute('data-read-state', 'playing');
-      if (reader.badge) reader.badge.textContent = reader.mode === 'explanation' ? 'Explanation' : 'Reading';
+      if (reader.badge) reader.badge.textContent = reader.mode === 'explanation' ? st('badgeExplanation', null, 'Explanation') : st('badgeReading', null, 'Reading');
       reader.pause.disabled = false;
       reader.resume.disabled = true;
-      reader.status.textContent = 'Resuming passage ' + (reader.index + 1) + ' · paragraph focus';
+      reader.status.textContent = st('statusResuming', { idx: reader.index + 1 }, 'Resuming passage ' + (reader.index + 1) + ' · paragraph focus');
       if (reader.pendingAdvance) {
         reader.pendingAdvance = false;
         reader.index++;
@@ -952,13 +1121,13 @@
       if (reader.paused) {
         if (reader.activeMode === 'audio' && activeAudio) {
           activeAudio.playbackRate = +reader.speed.value;
-          reader.status.textContent = 'Paused · new speed applies when resumed';
+          reader.status.textContent = st('statusPausedSpeedAudio', null, 'Paused · new speed applies when resumed');
         } else {
-          reader.status.textContent = 'Paused · new speed applies to the next passage; Resume continues this passage';
+          reader.status.textContent = st('statusPausedSpeedBrowser', null, 'Paused · new speed applies to the next passage; Resume continues this passage');
         }
       } else if (reader.activeMode === 'audio' && activeAudio) {
         activeAudio.playbackRate = +reader.speed.value;
-        reader.status.textContent = `Speed set to ${reader.speed.value}× · passage ${reader.index + 1}`;
+        reader.status.textContent = st('statusSpeedSet', { speed: reader.speed.value, idx: reader.index + 1 }, `Speed set to ${reader.speed.value}× · passage ${reader.index + 1}`);
       } else {
         readList(reader.items.slice(reader.index), { mode: reader.mode, target: reader.activeTarget, button: reader.activeButton });
       }
@@ -967,13 +1136,13 @@
     q('read-voice').onchange = () => {
       reader.allow.checked = false;
       refreshVoices();
-      stopRead('Voice changed. Restart reading when ready.');
+      stopRead(st('statusStoppedVoiceChange', null, 'Voice changed. Restart reading when ready.'));
     };
 
     q('read-selection').onclick = () => {
       selectionSnapshot();
       if (!selected?.text) {
-        reader.status.textContent = 'First select a passage within this lesson.';
+        reader.status.textContent = st('selectPassageFirst', null, 'First select a passage within this lesson.');
         return;
       }
       readList([{ el: selected.el, text: selected.text }], { mode: 'selection' });
@@ -1050,24 +1219,26 @@
   function formatAssistantBody(container, text) {
     container.innerHTML = '';
     const sections = String(text || '').split(/\n{2,}/);
+    const exRe = /^(?:Invented teaching example|Exemple p[ée]dagogique (?:invent[ée]|illustratif)|مثال تعليمي (?:مقترح|افتراضي))\s*:\s*/i;
+    const limRe = /^(?:Evidence limits|Limites des (?:sources|preuves)|حدود الأدلة)\s*:\s*/i;
     for (const part of sections) {
       const trimmed = part.trim();
       if (!trimmed) continue;
-      if (/^Invented teaching example:/i.test(trimmed)) {
+      if (exRe.test(trimmed)) {
         const box = document.createElement('div');
         box.className = 'assistant-callout assistant-callout-example';
         const h = document.createElement('strong');
-        h.textContent = 'Invented teaching example';
+        h.textContent = st('calloutExample', null, 'Invented teaching example');
         box.append(h);
-        appendRichParagraphs(box, trimmed.replace(/^Invented teaching example:\s*/i, ''));
+        appendRichParagraphs(box, trimmed.replace(exRe, ''));
         container.append(box);
-      } else if (/^Evidence limits:/i.test(trimmed)) {
+      } else if (limRe.test(trimmed)) {
         const box = document.createElement('div');
         box.className = 'assistant-callout assistant-callout-limits';
         const h = document.createElement('strong');
-        h.textContent = 'Evidence limits';
+        h.textContent = st('calloutLimits', null, 'Evidence limits');
         box.append(h);
-        appendRichParagraphs(box, trimmed.replace(/^Evidence limits:\s*/i, ''));
+        appendRichParagraphs(box, trimmed.replace(limRe, ''));
         container.append(box);
       } else {
         appendRichParagraphs(container, trimmed);
@@ -1082,13 +1253,15 @@
     const details = document.createElement('details');
     details.className = 'assistant-sources';
     const summary = document.createElement('summary');
-    summary.textContent = 'Review source references (' + sources.length + ')';
+    summary.textContent = st('sourcesSummary', { count: sources.length }, 'Review source references (' + sources.length + ')');
     details.append(summary);
     const list = document.createElement('div');
     list.className = 'assistant-sources-list';
+    const pagesWord = st('pagesLabel', null, 'page(s)');
     for (const s of sources) {
       const row = document.createElement('p');
-      row.textContent = `${s.title} — ${s.source.label} · page(s) ${s.source.pages} · ${s.source.kind}`;
+      row.setAttribute('dir', 'ltr');
+      row.textContent = `${s.title} — ${s.source.label} · ${pagesWord} ${s.source.pages} · ${s.source.kind}`;
       list.append(row);
     }
     details.append(list);
@@ -1097,7 +1270,7 @@
 
   async function openAssistant() {
     if (!current) return;
-    stopRead('Read Screen stopped while you ask a question. Restart it when ready.');
+    stopRead(st('statusStopped', null, 'Read Screen stopped while you ask a question. Restart it when ready.'));
     stopExternalMedia();
     if (panel) {
       panel.showModal();
@@ -1112,62 +1285,74 @@
     panel = document.createElement('dialog');
     panel.className = 'support-ui carana-assistant';
     panel.setAttribute('aria-labelledby', 'assistant-title');
+    panel.setAttribute('lang', supportLang());
+    panel.setAttribute('dir', supportIsRTL() ? 'rtl' : 'ltr');
     panel.innerHTML =
       '<header class="assistant-brand-bar">' +
       '  <div class="assistant-brand-copy">' +
-      '    <div class="assistant-eyebrow-row"><span class="assistant-eyebrow">CARANA LEARNING COMPANION</span><span id="assistant-mode-pill" class="assistant-mode-pill">Checking…</span></div>' +
-      '    <h2 id="assistant-title">Interactive Study Guide</h2>' +
+      '    <div class="assistant-eyebrow-row"><span class="assistant-eyebrow">' + esc(st('eyebrow', null, 'CARANA LEARNING COMPANION')) + '</span><span id="assistant-mode-pill" class="assistant-mode-pill">' + esc(st('pillChecking', null, 'Checking…')) + '</span></div>' +
+      '    <h2 id="assistant-title">' + esc(st('assistantTitle', null, 'Interactive Study Guide')) + '</h2>' +
       '  </div>' +
       '  <div class="assistant-header-actions">' +
-      '    <button type="button" id="assistant-clear" title="Clear current thread">Clear</button>' +
-      '    <button type="button" id="assistant-expand" aria-pressed="false">Expand</button>' +
-      '    <button type="button" id="assistant-close" aria-label="Close learning assistant">Return to lesson</button>' +
+      '    <button type="button" id="assistant-clear" title="' + esc(st('clearTitle', null, 'Clear current thread')) + '">' + esc(st('assistantClear', null, 'Clear')) + '</button>' +
+      '    <button type="button" id="assistant-expand" aria-pressed="false">' + esc(st('assistantExpand', null, 'Expand')) + '</button>' +
+      '    <button type="button" id="assistant-close" aria-label="' + esc(st('closeAria', null, 'Close learning assistant')) + '">' + esc(st('assistantClose', null, 'Return to lesson')) + '</button>' +
       '  </div>' +
       '</header>' +
       '<div class="assistant-subhead">' +
       '  <p id="assistant-context" class="assistant-context"></p>' +
       '  <div class="assistant-status-row">' +
-      '    <p id="assistant-availability" class="support-status assistant-status-pill" role="status">Checking local companion status…</p>' +
-      '    <button id="assistant-retry-status" type="button" class="assistant-mini-btn" hidden>Retry</button>' +
-      '    <button id="assistant-signout" type="button" class="assistant-mini-btn" hidden>Sign out</button>' +
+      '    <p id="assistant-availability" class="support-status assistant-status-pill" role="status">' + esc(st('statusChecking', null, 'Checking local companion status…')) + '</p>' +
+      '    <button id="assistant-retry-status" type="button" class="assistant-mini-btn" hidden>' + esc(st('retryBtn', null, 'Retry')) + '</button>' +
+      '    <button id="assistant-signout" type="button" class="assistant-mini-btn" hidden>' + esc(st('assistantSignOut', null, 'Sign out')) + '</button>' +
       '  </div>' +
       '  <div id="assistant-access" class="assistant-access-card" hidden>' +
-      '    <label for="assistant-code">Invitation access code <input id="assistant-code" type="password" autocomplete="off" placeholder="Enter your owner or reviewer access code"></label>' +
-      '    <button id="assistant-connect" type="button" class="support-primary">Connect</button>' +
+      '    <label for="assistant-code"><span id="assistant-code-label">' + esc(st('accessLabel', null, 'Invitation access code')) + '</span> <input id="assistant-code" type="password" autocomplete="off" dir="ltr" placeholder="' + esc(st('assistantAccessPlaceholder', null, 'Enter your owner or reviewer access code')) + '"></label>' +
+      '    <button id="assistant-connect" type="button" class="support-primary">' + esc(st('assistantAccessBtn', null, 'Connect')) + '</button>' +
       '  </div>' +
-      '  <p class="assistant-notice"><strong>Experimental AI · Human Review Pending</strong> — Independent controlled-pilot study aid, not an official UN instrument. Always verify answers against cited curriculum sources; do not enter personal or operational data.</p>' +
+      '  <p id="assistant-notice" class="assistant-notice">' + st('experimentalNotice', null, '<strong>Experimental AI · Human Review Pending</strong> — Independent controlled-pilot study aid, not an official UN instrument. Always verify answers against cited curriculum sources; do not enter personal or operational data.') + '</p>' +
       '</div>' +
-      '<div class="assistant-prompts" role="group" aria-label="Suggested study prompts">' +
-      '  <button type="button" data-prompt="Explain this screen more simply.">Explain this screen</button>' +
-      '  <button type="button" data-prompt="Give a clearly invented professional example of this concept.">Practical example</button>' +
-      '  <button type="button" data-prompt="What should I remember from this screen?">What to remember</button>' +
-      '  <button type="button" data-prompt="Compare the main concepts shown on this screen.">Compare concepts</button>' +
-      '  <button type="button" data-prompt="Help me check my reasoning about this screen. Ask me for my reasoning before evaluating it.">Check my reasoning</button>' +
-      '  <button type="button" id="assistant-selection" hidden>Ask about selected passage</button>' +
+      '<div class="assistant-prompts" role="group" aria-label="' + esc(st('promptsGroupAria', null, 'Suggested study prompts')) + '">' +
+      '  <button type="button" data-prompt-key="explain" data-prompt="' + esc(st('promptExplainText', null, 'Explain this screen more simply.')) + '">' + esc(st('promptExplainBtn', null, 'Explain this screen')) + '</button>' +
+      '  <button type="button" data-prompt-key="example" data-prompt="' + esc(st('promptExampleText', null, 'Give a clearly invented professional example of this concept.')) + '">' + esc(st('promptExampleBtn', null, 'Practical example')) + '</button>' +
+      '  <button type="button" data-prompt-key="remember" data-prompt="' + esc(st('promptRememberText', null, 'What should I remember from this screen?')) + '">' + esc(st('promptRememberBtn', null, 'What to remember')) + '</button>' +
+      '  <button type="button" data-prompt-key="compare" data-prompt="' + esc(st('promptCompareText', null, 'Compare the main concepts shown on this screen.')) + '">' + esc(st('promptCompareBtn', null, 'Compare concepts')) + '</button>' +
+      '  <button type="button" data-prompt-key="reason" data-prompt="' + esc(st('assistantPromptReason', null, 'Help me check my reasoning about this screen. Ask me for my reasoning before evaluating it.')) + '">' + esc(st('promptReasonBtn', null, 'Check my reasoning')) + '</button>' +
+      '  <button type="button" id="assistant-selection" hidden>' + esc(st('assistantSelectionBtn', null, 'Ask about selected passage')) + '</button>' +
       '</div>' +
-      '<div id="assistant-messages" class="assistant-messages" aria-label="Conversation">' +
+      '<div id="assistant-messages" class="assistant-messages" aria-label="' + esc(st('conversationAria', null, 'Conversation')) + '">' +
       '  <div class="assistant-welcome-card">' +
-      '    <strong>Focused on your current lesson</strong>' +
-      '    <p>Ask for simpler wording, an illustrative policing example, or concept comparisons. Every reply checks authorized CBD curriculum passages and surfaces sources for verification.</p>' +
+      '    <strong>' + esc(st('assistantWelcomeTitle', null, 'Focused on your current lesson')) + '</strong>' +
+      '    <p>' + esc(st('assistantWelcomeBody', null, 'Ask for simpler wording, an illustrative policing example, or concept comparisons. Every reply checks authorized CBD curriculum passages and surfaces sources for verification.')) + '</p>' +
       '  </div>' +
       '</div>' +
       '<form id="assistant-form" class="assistant-composer">' +
-      '  <label for="assistant-question" class="sr-only">Your question</label>' +
-      '  <textarea id="assistant-question" rows="2" maxlength="1200" placeholder="Ask about this screen or concept…"></textarea>' +
+      '  <label for="assistant-question" class="sr-only">' + esc(st('assistantYou', null, 'Your question')) + '</label>' +
+      '  <textarea id="assistant-question" rows="2" maxlength="1200" dir="auto" placeholder="' + esc(st('assistantPlaceholder', null, 'Ask about this screen or concept…')) + '"></textarea>' +
       '  <div class="assistant-send">' +
-      '    <span>Enter sends · Shift+Enter new line</span>' +
+      '    <span id="assistant-composer-hint">' + esc(st('composerHint', null, 'Enter sends · Shift+Enter new line')) + '</span>' +
       '    <div class="assistant-send-buttons">' +
-      '      <button type="button" id="assistant-cancel" hidden>Cancel</button>' +
-      '      <button type="submit" id="assistant-send" disabled>Send</button>' +
+      '      <button type="button" id="assistant-cancel" hidden>' + esc(st('cancelBtn', null, 'Cancel')) + '</button>' +
+      '      <button type="submit" id="assistant-send" disabled>' + esc(st('assistantAskSubmit', null, 'Send')) + '</button>' +
       '    </div>' +
       '  </div>' +
       '  <p id="assistant-reply-status" role="status" class="support-status"></p>' +
       '</form>';
 
-    panel.querySelector('#assistant-context').textContent =
-      'CBD · Lesson ' + current.lessonNumber + ' · ' + current.lessonTitle + ' / ' + current.section + ' / ' + current.screenTitle +
-      (focusTitle ? ' · Focus: ' + focusTitle : '') +
-      (current.mode === 'checkpoint' ? ' · checkpoint study guidance' : '');
+    const renderContextLine = () => {
+      const ctxEl = panel?.querySelector('#assistant-context');
+      if (!ctxEl || !current) return;
+      ctxEl.textContent =
+        st('contextLine', {
+          num: current.lessonNumber,
+          lessonTitle: current.lessonTitle,
+          section: current.section,
+          screenTitle: current.screenTitle
+        }, 'CBD · Lesson ' + current.lessonNumber + ' · ' + current.lessonTitle + ' / ' + current.section + ' / ' + current.screenTitle) +
+        (focusTitle ? ' · ' + st('contextFocus', { title: focusTitle }, 'Focus: ' + focusTitle) : '') +
+        (current.mode === 'checkpoint' ? ' · ' + st('contextCheckpoint', null, 'checkpoint study guidance') : '');
+    };
+    renderContextLine();
 
     document.body.append(panel);
     document.body.classList.add('carana-assistant-open');
@@ -1177,11 +1362,12 @@
       if (panel !== localPanel) return;
       request?.abort();
       request = null;
-      if (reader?.mode === 'assistant' || ttsRequest) stopRead('Stopped assistant audio when returning to lesson.');
+      if (reader?.mode === 'assistant' || ttsRequest) stopRead(st('statusStoppedClosing', null, 'Stopped assistant audio when returning to lesson.'));
       document.body.classList.remove('carana-assistant-open');
       if (panel === localPanel) {
         panel.remove();
         panel = null;
+        panelHandlers = null;
       }
       if (trigger?.isConnected) trigger.focus();
     });
@@ -1193,16 +1379,16 @@
     panel.querySelector('#assistant-expand').onclick = e => {
       const expanded = localPanel.classList.toggle('is-expanded');
       e.currentTarget.setAttribute('aria-pressed', String(expanded));
-      e.currentTarget.textContent = expanded ? 'Compact' : 'Expand';
+      e.currentTarget.textContent = expanded ? st('assistantCompact', null, 'Compact') : st('assistantExpand', null, 'Expand');
     };
     panel.querySelector('#assistant-clear').onclick = () => {
-      if (reader?.mode === 'assistant' || ttsRequest) stopRead('Stopped assistant playback.');
+      if (reader?.mode === 'assistant' || ttsRequest) stopRead(st('stopAssistantPlayback', null, 'Stopped assistant playback.'));
       conversation = [];
       const wrap = localPanel.querySelector('#assistant-messages');
       wrap.querySelectorAll('.assistant-message').forEach(m => m.remove());
       const welcome = wrap.querySelector('.assistant-welcome-card');
       if (welcome) welcome.hidden = false;
-      localPanel.querySelector('#assistant-reply-status').textContent = 'Conversation cleared.';
+      localPanel.querySelector('#assistant-reply-status').textContent = st('assistantCleared', null, 'Conversation cleared.');
     };
 
     panel.showModal();
@@ -1212,7 +1398,7 @@
     const selectionButton = panel.querySelector('#assistant-selection');
     selectionButton.hidden = !selected?.text || selected.private;
     selectionButton.onclick = () => {
-      input.value = 'Explain this selected teaching passage: ' + selected.text.slice(0, 900);
+      input.value = st('selectionPrefix', null, 'Explain this selected teaching passage: ') + selected.text.slice(0, 900);
       input.focus();
     };
 
@@ -1220,10 +1406,10 @@
       const readBtn = document.createElement('button');
       readBtn.type = 'button';
       readBtn.className = 'assistant-read-reply';
-      readBtn.textContent = 'Listen';
+      readBtn.textContent = st('listenReplyBtn', null, 'Listen');
       readBtn.onclick = () => {
         if (reader?.playing && reader.mode === 'assistant' && reader.activeTarget === article) {
-          stopRead('Stopped assistant playback.');
+          stopRead(st('stopAssistantPlayback', null, 'Stopped assistant playback.'));
           return;
         }
         readList([{ el: article, text }], { mode: 'assistant', target: article });
@@ -1241,15 +1427,16 @@
       const head = document.createElement('div');
       head.className = 'assistant-msg-head';
       const label = document.createElement('strong');
-      label.textContent = role === 'user' ? 'Your question' : 'CARANA Companion';
+      label.textContent = role === 'user' ? st('assistantYou', null, 'Your question') : st('assistantBot', null, 'CARANA Companion');
       head.append(label);
 
-      if (role === 'assistant' && completed && text && (localTtsInfo.available || speech?.getVoices?.().length)) {
+      if (role === 'assistant' && completed && text && hasVoiceForLang(supportLang())) {
         head.append(createAssistantListenBtn(article, text));
       }
 
       const body = document.createElement('div');
       body.className = 'assistant-response';
+      body.setAttribute('dir', 'auto');
       if (role === 'assistant') formatAssistantBody(body, text);
       else body.textContent = text;
 
@@ -1275,22 +1462,46 @@
       const isSim = status.provider === 'simulated-test';
       const isHold = !status.qualification || status.qualification === 'not-qualified';
       modePill.textContent = isSim
-        ? 'Simulated Test'
+        ? st('pillSimulated', null, 'Simulated Test')
         : isHold
-          ? (status.remoteOwnerPreview ? 'Owner Preview · HOLD' : 'Experimental · HOLD')
-          : 'Experimental AI · Review Pending';
+          ? (status.remoteOwnerPreview ? st('pillOwnerHold', null, 'Owner Preview · HOLD') : st('pillHold', null, 'Experimental · HOLD'))
+          : st('pillExperimental', null, 'Experimental AI · Review Pending');
       modePill.dataset.state = isSim ? 'simulated' : 'connected';
       availEl.dataset.state = isSim ? 'simulated' : 'connected';
-      const prefix = accessUser ? `${accessUser.displayName} (${accessUser.role}) · ` : status.remoteOwnerPreview ? 'Invitation only · ' : '';
-      const queueNote = status.busy ? ` · busy (${status.queueDepth || 0} queued)` : '';
+      const prefix = accessUser
+        ? `${accessUser.displayName} (${accessUser.role}) · `
+        : status.remoteOwnerPreview
+          ? st('bannerInvite', null, 'Invitation only · ')
+          : '';
+      const queueNote = status.busy ? st('bannerQueued', { count: status.queueDepth || 0 }, ` · busy (${status.queueDepth || 0} queued)`) : '';
       availEl.textContent = isSim
-        ? 'Simulated test provider · not AI: ' + status.model
+        ? st('bannerSim', { model: status.model }, 'Simulated test provider · not AI: ' + status.model)
         : prefix +
           (isHold
-            ? 'Experimental local model · NOT QUALIFIED for teaching: '
-            : 'Experimental AI (human review pending): ') +
+            ? st('bannerNotQualified', null, 'Experimental local model · NOT QUALIFIED for teaching: ')
+            : st('bannerReviewPending', null, 'Experimental AI (human review pending): ')) +
           status.model +
           queueNote;
+    }
+
+    function renderDisconnectedBanner(status) {
+      if (status) {
+        modePill.textContent = status.pilotDisabled ? st('pillPaused', null, 'Pilot Paused') : st('assistantModeOffline', null, 'Offline');
+        modePill.dataset.state = 'offline';
+        availEl.dataset.state = 'offline';
+        availEl.textContent = status.pilotDisabled
+          ? st('bannerPaused', null, 'The invited pilot is currently paused by the administrator. Course navigation continues offline.')
+          : st('bannerOffline', null, 'Local model is offline or starting up. The course remains available.');
+      } else {
+        modePill.textContent = st('assistantModePreview', null, 'Public Preview');
+        modePill.dataset.state = 'offline';
+        availEl.dataset.state = 'offline';
+        availEl.textContent = st(
+          'bannerPreview',
+          null,
+          'Not connected in this preview. You can continue the lesson and use Read Screen. Live AI is available only in authorized pilot environments.'
+        );
+      }
     }
 
     async function refreshStatus() {
@@ -1309,12 +1520,7 @@
         if (status.connected) {
           renderConnectedBanner(status);
         } else {
-          modePill.textContent = status.pilotDisabled ? 'Pilot Paused' : 'Offline';
-          modePill.dataset.state = 'offline';
-          availEl.dataset.state = 'offline';
-          availEl.textContent = status.pilotDisabled
-            ? 'The invited pilot is currently paused by the administrator. Course navigation continues offline.'
-            : 'Local model is offline or starting up. The course remains available.';
+          renderDisconnectedBanner(status);
           retryStatusBtn.hidden = false;
         }
         accessBox.hidden = !status.requiresAccess || (!!access && available);
@@ -1324,11 +1530,7 @@
         if (panel === localPanel) {
           statusMeta = null;
           available = false;
-          modePill.textContent = 'Public Preview';
-          modePill.dataset.state = 'offline';
-          availEl.dataset.state = 'offline';
-          availEl.textContent =
-            'Not connected in this preview. You can continue the lesson and use Read Screen. Live AI is available only in authorized pilot environments.';
+          renderDisconnectedBanner(null);
           retryStatusBtn.hidden = false;
           accessBox.hidden = true;
           signoutBtn.hidden = true;
@@ -1337,17 +1539,94 @@
       }
     }
 
+    panelHandlers = {
+      refreshLocale() {
+        if (!panel || panel !== localPanel) return;
+        panel.setAttribute('lang', supportLang());
+        panel.setAttribute('dir', supportIsRTL() ? 'rtl' : 'ltr');
+        panel.querySelector('.assistant-eyebrow').textContent = st('eyebrow', null, 'CARANA LEARNING COMPANION');
+        panel.querySelector('#assistant-title').textContent = st('assistantTitle', null, 'Interactive Study Guide');
+        const clr = panel.querySelector('#assistant-clear');
+        clr.textContent = st('assistantClear', null, 'Clear');
+        clr.title = st('clearTitle', null, 'Clear current thread');
+        const expBtn = panel.querySelector('#assistant-expand');
+        const expanded = localPanel.classList.contains('is-expanded');
+        expBtn.textContent = expanded ? st('assistantCompact', null, 'Compact') : st('assistantExpand', null, 'Expand');
+        const clsBtn = panel.querySelector('#assistant-close');
+        clsBtn.textContent = st('assistantClose', null, 'Return to lesson');
+        clsBtn.setAttribute('aria-label', st('closeAria', null, 'Close learning assistant'));
+        renderContextLine();
+        retryStatusBtn.textContent = st('retryBtn', null, 'Retry');
+        signoutBtn.textContent = st('assistantSignOut', null, 'Sign out');
+        const codeLbl = panel.querySelector('#assistant-code-label');
+        if (codeLbl) codeLbl.textContent = st('accessLabel', null, 'Invitation access code');
+        const codeInp = panel.querySelector('#assistant-code');
+        if (codeInp) codeInp.placeholder = st('assistantAccessPlaceholder', null, 'Enter your owner or reviewer access code');
+        const connBtn = panel.querySelector('#assistant-connect');
+        if (connBtn) connBtn.textContent = st('assistantAccessBtn', null, 'Connect');
+        const noticeEl = panel.querySelector('#assistant-notice');
+        if (noticeEl) noticeEl.innerHTML = st('experimentalNotice', null, '<strong>Experimental AI · Human Review Pending</strong> — Independent controlled-pilot study aid, not an official UN instrument. Always verify answers against cited curriculum sources; do not enter personal or operational data.');
+        const promptGroup = panel.querySelector('.assistant-prompts');
+        if (promptGroup) promptGroup.setAttribute('aria-label', st('promptsGroupAria', null, 'Suggested study prompts'));
+        const pMap = {
+          explain: ['promptExplainBtn', 'promptExplainText', 'Explain this screen', 'Explain this screen more simply.'],
+          example: ['promptExampleBtn', 'promptExampleText', 'Practical example', 'Give a clearly invented professional example of this concept.'],
+          remember: ['promptRememberBtn', 'promptRememberText', 'What to remember', 'What should I remember from this screen?'],
+          compare: ['promptCompareBtn', 'promptCompareText', 'Compare concepts', 'Compare the main concepts shown on this screen.'],
+          reason: ['promptReasonBtn', 'assistantPromptReason', 'Check my reasoning', 'Help me check my reasoning about this screen. Ask me for my reasoning before evaluating it.']
+        };
+        panel.querySelectorAll('[data-prompt-key]').forEach(btn => {
+          const cfg = pMap[btn.dataset.promptKey];
+          if (!cfg) return;
+          btn.textContent = st(cfg[0], null, cfg[2]);
+          btn.dataset.prompt = st(cfg[1], null, cfg[3]);
+        });
+        selectionButton.textContent = st('assistantSelectionBtn', null, 'Ask about selected passage');
+        const msgWrap = panel.querySelector('#assistant-messages');
+        msgWrap?.setAttribute('aria-label', st('conversationAria', null, 'Conversation'));
+        const wStrong = panel.querySelector('.assistant-welcome-card strong');
+        const wP = panel.querySelector('.assistant-welcome-card p');
+        if (wStrong) wStrong.textContent = st('assistantWelcomeTitle', null, 'Focused on your current lesson');
+        if (wP) wP.textContent = st('assistantWelcomeBody', null, 'Ask for simpler wording, an illustrative policing example, or concept comparisons. Every reply checks authorized CBD curriculum passages and surfaces sources for verification.');
+        const qLbl = panel.querySelector('label[for="assistant-question"]');
+        if (qLbl) qLbl.textContent = st('assistantYou', null, 'Your question');
+        input.placeholder = st('assistantPlaceholder', null, 'Ask about this screen or concept…');
+        const cHint = panel.querySelector('#assistant-composer-hint');
+        if (cHint) cHint.textContent = st('composerHint', null, 'Enter sends · Shift+Enter new line');
+        const cBtn = panel.querySelector('#assistant-cancel');
+        if (cBtn) cBtn.textContent = st('cancelBtn', null, 'Cancel');
+        sendBtn.textContent = st('assistantAskSubmit', null, 'Send');
+        if (statusMeta?.connected) renderConnectedBanner(statusMeta);
+        else renderDisconnectedBanner(statusMeta);
+        panel.querySelectorAll('.assistant-message').forEach(art => {
+          const isUser = art.classList.contains('user');
+          const lbl = art.querySelector('.assistant-msg-head strong');
+          if (lbl) lbl.textContent = isUser ? st('assistantYou', null, 'Your question') : st('assistantBot', null, 'CARANA Companion');
+          const rBtn = art.querySelector('.assistant-read-reply');
+          if (rBtn) {
+            rBtn.hidden = !hasVoiceForLang(supportLang());
+            rBtn.textContent = st('listenReplyBtn', null, 'Listen');
+          }
+          const srcSum = art.querySelector('.assistant-sources summary');
+          if (srcSum) {
+            const count = art.querySelectorAll('.assistant-sources-list p').length;
+            srcSum.textContent = st('sourcesSummary', { count }, 'Review source references (' + count + ')');
+          }
+        });
+      }
+    };
+
     await refreshStatus();
     retryStatusBtn.onclick = refreshStatus;
     signoutBtn.onclick = () => {
-      if (reader?.mode === 'assistant' || ttsRequest) stopRead('Stopped assistant playback.');
+      if (reader?.mode === 'assistant' || ttsRequest) stopRead(st('stopAssistantPlayback', null, 'Stopped assistant playback.'));
       access = '';
       accessUser = null;
       sendBtn.disabled = true;
       signoutBtn.hidden = true;
       accessBox.hidden = !available;
       if (statusMeta?.connected) renderConnectedBanner(statusMeta);
-      localPanel.querySelector('#assistant-reply-status').textContent = 'Signed out. Enter an access code to reconnect.';
+      localPanel.querySelector('#assistant-reply-status').textContent = st('authSignedOut', null, 'Signed out. Enter an access code to reconnect.');
       localPanel.querySelector('#assistant-code')?.focus();
     };
 
@@ -1359,14 +1638,14 @@
       const candidate = codeInput.value.trim();
       if (!candidate || !available) {
         panel.querySelector('#assistant-reply-status').textContent = available
-          ? 'Enter your invitation or pilot access code first.'
-          : 'Wait until the AI service shows connected before signing in.';
+          ? st('authEnterCodeFirst', null, 'Enter your invitation or pilot access code first.')
+          : st('authWaitConnected', null, 'Wait until the AI service shows connected before signing in.');
         return;
       }
       if (statusMeta?.authEndpoint) {
         connectBtn.disabled = true;
         codeInput.disabled = true;
-        panel.querySelector('#assistant-reply-status').textContent = 'Verifying access code with server…';
+        panel.querySelector('#assistant-reply-status').textContent = st('authVerifying', null, 'Verifying access code with server…');
         try {
           const authRes = await fetch('/api/tutor/auth', {
             method: 'POST',
@@ -1380,7 +1659,7 @@
             accessUser = null;
             codeInput.value = '';
             sendBtn.disabled = true;
-            panel.querySelector('#assistant-reply-status').textContent = data.message || 'Access code was not accepted.';
+            panel.querySelector('#assistant-reply-status').textContent = data.message || st('authRejected', null, 'Access code was not accepted.');
             codeInput.disabled = false;
             connectBtn.disabled = false;
             codeInput.focus();
@@ -1393,10 +1672,10 @@
           signoutBtn.hidden = false;
           sendBtn.disabled = !available || !access;
           renderConnectedBanner(statusMeta);
-          panel.querySelector('#assistant-reply-status').textContent = 'Signed in as ' + data.displayName + '.';
+          panel.querySelector('#assistant-reply-status').textContent = st('authSignedIn', { name: data.displayName }, 'Signed in as ' + data.displayName + '.');
           input.focus();
         } catch (_) {
-          panel.querySelector('#assistant-reply-status').textContent = 'Could not reach the authentication server. Retry shortly.';
+          panel.querySelector('#assistant-reply-status').textContent = st('authServerUnreachable', null, 'Could not reach the authentication server. Retry shortly.');
         } finally {
           connectBtn.disabled = false;
           codeInput.disabled = false;
@@ -1408,7 +1687,7 @@
         sendBtn.disabled = !available || !access;
         accessBox.hidden = true;
         signoutBtn.hidden = false;
-        panel.querySelector('#assistant-reply-status').textContent = 'Access code ready.';
+        panel.querySelector('#assistant-reply-status').textContent = st('authCodeReady', null, 'Access code ready.');
         input.focus();
       }
     };
@@ -1425,7 +1704,7 @@
       if (!available || !access || request) return;
       const question = input.value.trim();
       if (!question) return;
-      if (reader?.mode === 'assistant' || ttsRequest) stopRead('Stopped previous assistant playback.');
+      if (reader?.mode === 'assistant' || ttsRequest) stopRead(st('stopAssistantPlayback', null, 'Stopped previous assistant playback.'));
       input.value = '';
       const priorTurns = conversation
         .slice(-4)
@@ -1440,7 +1719,7 @@
       request = activeRequest;
       sendBtn.disabled = true;
       panel.querySelector('#assistant-cancel').hidden = false;
-      status.textContent = 'Finding relevant course material…';
+      status.textContent = st('assistantLoadingSearch', null, 'Finding relevant course material…');
 
       let text = '';
       let sources = [];
@@ -1451,9 +1730,12 @@
         appendSourcesDetails(article, sources);
       };
       try {
+        const activeLang = supportLang();
+        const reqContext = { lessonId: current.lessonId, screenId: current.screenId, mode: current.mode };
+        if (activeLang && activeLang !== 'en') reqContext.lang = activeLang;
         const bodyPayload = {
           question,
-          context: { lessonId: current.lessonId, screenId: current.screenId, mode: current.mode }
+          context: reqContext
         };
         if (priorTurns.length) bodyPayload.history = priorTurns;
         const response = await fetch('/api/tutor', {
@@ -1471,7 +1753,7 @@
             signoutBtn.hidden = true;
           }
           if (response.status === 503) retryStatusBtn.hidden = false;
-          throw Error(error.message || 'The local service could not complete this question.');
+          throw Error(error.message || st('assistantError', null, 'The local service could not complete this question.'));
         }
 
         let buffer = '';
@@ -1486,12 +1768,16 @@
             const row = JSON.parse(line);
             if (row.type === 'queued') {
               status.dataset.queue = 'true';
-              status.textContent =
-                'Queued (position ' + row.position + (row.queueLength > 1 ? ' of ' + row.queueLength : '') + ') · waiting for current question to finish…';
+              const totalPart = row.queueLength > 1 ? st('assistantLoadingQueueOf', { total: row.queueLength }, ' of ' + row.queueLength) : '';
+              status.textContent = st(
+                'assistantLoadingQueuePosition',
+                { pos: row.position, totalPart },
+                'Queued (position ' + row.position + totalPart + ') · waiting for current question to finish…'
+              );
             }
             if (row.type === 'started') {
               delete status.dataset.queue;
-              status.textContent = 'Your turn — preparing grounded explanation…';
+              status.textContent = st('assistantLoadingQueue', null, 'Your turn — preparing grounded explanation…');
             }
             if (row.type === 'stage') {
               delete status.dataset.queue;
@@ -1504,7 +1790,7 @@
               if (row.sources) setSources(row.sources);
               const wrap = panel.querySelector('#assistant-messages');
               wrap.scrollTop = wrap.scrollHeight;
-              status.textContent = 'Showing answer · checking teaching example and sources…';
+              status.textContent = st('statusShowingAnswer', null, 'Showing answer · checking teaching example and sources…');
             }
             if (row.type === 'content') {
               delete status.dataset.queue;
@@ -1512,24 +1798,24 @@
               formatAssistantBody(reply, text);
               const wrap = panel.querySelector('#assistant-messages');
               wrap.scrollTop = wrap.scrollHeight;
-              status.textContent = 'Showing source-checked guidance…';
+              status.textContent = st('statusShowingGuidance', null, 'Showing source-checked guidance…');
             }
             if (row.type === 'done') {
               setSources(row.sources || sources);
               status.textContent =
                 row.provider === 'simulated-test'
-                  ? 'Simulated test response · interface verification only'
+                  ? st('statusDoneSim', null, 'Simulated test response · interface verification only')
                   : row.kind === 'ai'
-                    ? 'Reply ready · real local model · review its sources'
-                    : 'Source-based study guidance · no model answer key';
+                    ? st('statusDoneAi', null, 'Reply ready · real local model · review its sources')
+                    : st('statusDonePolicy', null, 'Source-based study guidance · no model answer key');
             }
             if (row.type === 'error') throw Error(row.message);
           }
         }
-        if (!text) throw Error('No model reply was received.');
+        if (!text) throw Error(st('statusNoReply', null, 'No model reply was received.'));
         if (!article.querySelector('.assistant-sources')) setSources(sources);
         const msgHead = article.querySelector('.assistant-msg-head');
-        if (msgHead && !msgHead.querySelector('.assistant-read-reply') && (localTtsInfo.available || speech?.getVoices?.().length)) {
+        if (msgHead && !msgHead.querySelector('.assistant-read-reply') && hasVoiceForLang(supportLang())) {
           msgHead.append(createAssistantListenBtn(article, text));
         }
         conversation.push({ role: 'assistant', text, sources });
@@ -1538,9 +1824,9 @@
         if (panel !== localPanel) return;
         status.textContent =
           e.name === 'AbortError'
-            ? 'Reply cancelled. Your place in the lesson is unchanged.'
+            ? st('statusCancelled', null, 'Reply cancelled. Your place in the lesson is unchanged.')
             : e.message;
-        if (!text) reply.textContent = e.name === 'AbortError' ? 'Cancelled.' : 'No AI response was supplied.';
+        if (!text) reply.textContent = e.name === 'AbortError' ? st('replyCancelledShort', null, 'Cancelled.') : st('replyEmptyShort', null, 'No AI response was supplied.');
       } finally {
         if (request === activeRequest) request = null;
         if (panel === localPanel) {
@@ -1570,7 +1856,7 @@
     'play',
     e => {
       if (e.target instanceof HTMLMediaElement && e.target !== activeAudio) {
-        stopRead('Trainer Narration is playing. Read Screen has stopped.');
+        stopRead(st('statusStoppedOtherMedia', null, 'Trainer Narration is playing. Read Screen has stopped.'));
       }
     },
     true
@@ -1594,7 +1880,7 @@
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-      stopRead('Reading stopped while this page is in the background.');
+      stopRead(st('statusStoppedHidden', null, 'Reading stopped while this page is in the background.'));
       stopExternalMedia();
     }
   });

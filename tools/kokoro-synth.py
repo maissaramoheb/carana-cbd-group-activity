@@ -37,8 +37,19 @@ def to_mp3(wav_path: str, mp3_path: str, bitrate: str = "24k") -> None:
     )
 
 
+def _infer_lang(voice: str, explicit_lang: str | None = None) -> str:
+    if explicit_lang in ("en-us", "en-gb", "fr-fr"):
+        return explicit_lang
+    v = (voice or "").lower()
+    if v.startswith("ff_") or v.startswith("fm_"):
+        return "fr-fr"
+    if v.startswith("bf_") or v.startswith("bm_"):
+        return "en-gb"
+    return "en-us"
+
+
 def _synth_worker(task: tuple) -> int:
-    model_path, voices_path, voice, speed, out_dir, bitrate, entries = task
+    model_path, voices_path, voice, lang, speed, out_dir, bitrate, entries = task
     kokoro = Kokoro(model_path, voices_path)
     done = 0
     with tempfile.TemporaryDirectory() as tmp:
@@ -50,7 +61,8 @@ def _synth_worker(task: tuple) -> int:
                 done += 1
                 continue
             v = entry.get("voice") or voice
-            samples, sr = kokoro.create(entry["spoken"], voice=v, speed=speed, lang="en-us")
+            entry_lang = _infer_lang(v, entry.get("lang") or lang)
+            samples, sr = kokoro.create(entry["spoken"], voice=v, speed=speed, lang=entry_lang)
             sf.write(wav_path, samples, sr)
             to_mp3(wav_path, mp3_path, bitrate)
             done += 1
@@ -62,6 +74,7 @@ def main() -> None:
     parser.add_argument("--model", required=True, help="Path to kokoro-v1.0.int8.onnx")
     parser.add_argument("--voices", required=True, help="Path to voices-v1.0.bin")
     parser.add_argument("--voice", default="af_heart", help="Kokoro voice ID")
+    parser.add_argument("--lang", default=None, help="Kokoro language code (en-us, en-gb, fr-fr)")
     parser.add_argument("--speed", type=float, default=1.0, help="Synthesis speed factor")
     parser.add_argument("--text", help="Single text string to synthesize")
     parser.add_argument("--out", help="Output .wav or .mp3 path for single synthesis")
@@ -84,8 +97,9 @@ def main() -> None:
                 out_path = req["out"]
                 text = req["text"]
                 voice = req.get("voice") or args.voice
+                req_lang = _infer_lang(voice, req.get("lang") or args.lang)
                 speed = float(req.get("speed") or args.speed)
-                samples, sr = kokoro.create(text, voice=voice, speed=speed, lang="en-us")
+                samples, sr = kokoro.create(text, voice=voice, speed=speed, lang=req_lang)
                 os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
                 sf.write(out_path, samples, sr)
                 print(json.dumps({"ok": True, "out": out_path}), flush=True)
@@ -106,7 +120,7 @@ def main() -> None:
 
         workers = max(1, min(args.workers, len(entries)))
         shards = [entries[i::workers] for i in range(workers)]
-        tasks = [(args.model, args.voices, args.voice, args.speed, args.out_dir, args.bitrate, s) for s in shards if s]
+        tasks = [(args.model, args.voices, args.voice, args.lang, args.speed, args.out_dir, args.bitrate, s) for s in shards if s]
         total_done = 0
         with ProcessPoolExecutor(max_workers=workers) as pool:
             for count in pool.map(_synth_worker, tasks):
@@ -123,7 +137,8 @@ def main() -> None:
         raise SystemExit("Provide either --batch or both --text and --out")
 
     kokoro = Kokoro(args.model, args.voices)
-    samples, sr = kokoro.create(args.text, voice=args.voice, speed=args.speed, lang="en-us")
+    single_lang = _infer_lang(args.voice, args.lang)
+    samples, sr = kokoro.create(args.text, voice=args.voice, speed=args.speed, lang=single_lang)
     if args.out.endswith(".mp3"):
         with tempfile.TemporaryDirectory() as tmp:
             wav_path = os.path.join(tmp, "tmp.wav")

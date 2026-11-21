@@ -1,0 +1,1158 @@
+{
+  "previewUrl": "https://carana-cbd-elearning-rq45l3gtm-delta4ce20-5830s-projects.vercel.app",
+  "sourceCommit": "31e0c32752a47e35dacc985bf5b41502d5ee290d",
+  "rows": [
+    {
+      "type": "unauthenticated-protection",
+      "status": 302,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "type": "review-page-and-10-media-assets",
+      "media": [
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-norm-smart.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-norm-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-raw-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-macos-thomas-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/ar-macos-majed-l1.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/ar-macos-majed-l2.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/en-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/fr-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/ar-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/ar-mobile-module3.png",
+          "status": 200
+        }
+      ],
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "type": "genuine-deployed-AI-UI",
+      "lang": "en",
+      "status": 200,
+      "provider": "genuine-local-ollama",
+      "model": "carana-gemma4-text",
+      "sources": [
+        {
+          "id": "cbd-1:01-01",
+          "title": "The decision before the decision",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "1, 4–5",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              },
+              {
+                "file": "course/lesson1-illustrations.js",
+                "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cbd-1:04-01",
+          "title": "What actually happens inside the institution?",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "11, 20",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              },
+              {
+                "file": "course/lesson1-illustrations.js",
+                "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cbd-1:05-01",
+          "title": "Five areas of institutional capacity",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "14–15",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              },
+              {
+                "file": "course/lesson1-illustrations.js",
+                "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+              }
+            ]
+          }
+        }
+      ],
+      "text": "Situational analysis must precede training because a request for training is merely a reported concern, not a verified diagnosis. A visible performance problem does not establish its underlying cause; for example, weaknesses may stem from supervision, equipment, or procedures rather than individual skills. By conducting analysis first, advisers can investigate three levels of capacity: the enabling environment (legal and political context), the institution or unit (systems and logistics), and the practitioner (individual competencies). This diagnostic path allows for verifying evidence to ensure the selected response, such as training or structural changes, genuinely addresses the identified capacity gap within the five areas of police services, enabling services, policy formulation, accountability, and stakeholder engagement.\n\nINVENTED TEACHING EXAMPLE\n\nAn adviser in a mission is asked to provide a rapid course on forensic collection. Instead of immediately organizing trainers and materials, the adviser first investigates if the lack of forensic evidence is actually due to a lack of laboratory equipment or poor chain-of-custody procedures within the unit's organizational systems.",
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "type": "genuine-deployed-AI-UI",
+      "lang": "fr-FR",
+      "status": 200,
+      "provider": "genuine-local-ollama",
+      "model": "carana-gemma4-text",
+      "sources": [
+        {
+          "id": "cbd-1:01-01",
+          "title": "The decision before the decision",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "1, 4–5",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              },
+              {
+                "file": "course/lesson1-illustrations.js",
+                "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+              }
+            ]
+          }
+        },
+        {
+          "id": "plan-cbd-1:p5",
+          "title": "Conflict analysis and baseline",
+          "source": {
+            "kind": "official-plan-teaching-excerpt-paraphrase",
+            "label": "UNPOL CBD Job-Specific Training Lesson 1; 2021 curriculum / July2023 supplied file",
+            "pages": "5",
+            "file": "JSTC_CBD_L01_LP_Situational Analysis_072023.pdf",
+            "sha256": "fea0c4ac6fe8adac2801ccac6acf8abb97d0cc29578c0691f7fecf7882371c13",
+            "note": "Selected teaching prose paraphrased after page inspection; no facilitator solutions or exercise keys."
+          }
+        },
+        {
+          "id": "cbd-1:01-02",
+          "title": "Three lenses, one coherent diagnosis",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "1–2, 5, 9, 11",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              },
+              {
+                "file": "course/lesson1-illustrations.js",
+                "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+              }
+            ]
+          }
+        }
+      ],
+      "text": "L'analyse de la situation est l'étape initiale indispensable de tout processus de renforcement des capacités (CBD) car elle permet d'établir une situation de référence (baseline) pour évaluer les progrès futurs. Une demande de formation ne constitue pas un diagnostic ; un problème de performance visible peut avoir des causes autres que le manque de compétences, telles que la supervision, les procédures ou l'équipement. L'analyse doit suivre une séquence logique : d'abord examiner le contexte (conflit), puis les réponses existantes, et enfin la réalité de la partie adverse (CBD). Ce processus transforme une simple requête (intrant) en une intervention ciblée (activité) visant à résoudre un problème vérifié (produit) pour atteindre l'objectif stratégique (but).\n\nExemple pédagogique fictif : À Galasi, un homologue demande une formation en techniques d'enquête (requête). Au lieu de répondre immédiatement, l'expert analyse si le problème vient d'un manque de compétences (besoin de formation) ou de l'absence de dossiers de procédure (besoin de réforme structurelle). Si l'analyse révèle que les dossiers ne sont pas révisés par les superviseurs, une formation ne serait pas la réponse appropriée.",
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "chromium-desktop",
+      "type": "genuine-deployed-AI-UI",
+      "lang": "ar",
+      "status": 200,
+      "provider": "genuine-local-ollama",
+      "model": "carana-gemma4-text",
+      "sources": [
+        {
+          "id": "cbd-1:01-01",
+          "title": "The decision before the decision",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "1, 4–5",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              },
+              {
+                "file": "course/lesson1-illustrations.js",
+                "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cbd-1:04-01",
+          "title": "What actually happens inside the institution?",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "11, 20",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              },
+              {
+                "file": "course/lesson1-illustrations.js",
+                "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cbd-1:05-01",
+          "title": "Five areas of institutional capacity",
+          "source": {
+            "kind": "approved-digital-adaptation",
+            "label": "UNPOL Job-Specific Training on Capacity-Building and Development, Lesson 1 (2021; PDF dated 07/2023)",
+            "pages": "14–15",
+            "file": "course/lesson1-data.js",
+            "sha256": "9262ad32af940ae72708f7bb280418f08bbecce83980285628743b2514b75042",
+            "digitalFiles": [
+              {
+                "file": "course/visual-journey.js",
+                "sha256": "b6096911d16853c758c4561fa4425cfe152def698c164fe423b0f40b7d2d78ec"
+              },
+              {
+                "file": "course/lesson1-experience.js",
+                "sha256": "d7cad01df1f4702bb4129200d567d99affa7257bc3cd5fcf5ab6dc406d2326df"
+              },
+              {
+                "file": "course/lesson1-illustrations.js",
+                "sha256": "72dc03ef2c592a5c10daa808f047641dedcbd4309529ebd844940537a72048de"
+              }
+            ]
+          }
+        }
+      ],
+      "text": "يجب إجراء تحليل الوضع الراهن قبل اختيار التدريب لأن الطلبات المقدمة ليست تشخيصاً، فالمشكلة الظاهرة في الأداء قد لا تعود لنقص المهارات. يهدف التحليل إلى فحص الأسباب الكامنة عبر مسار قرار تشخيصي يبدأ من الملاحظة، ثم فحص الأدلة والسياق، وصولاً إلى التحقق من المشكلة واختيار استجابة بناء니다 على القدرات المحلية. يتطلب ذلك فحص ثلاثة مستويات: البيئة الممكنة (الأطر القانونية والسياسية)، والمؤسسة (الأنظمة والعمليات)، والممارس (الكفاءات الفردية). يساعد هذا في تحديد ما إذا كانت المشكلة تكمن في الخدمات الشرطية، أو الخدمات الممكنة، أو السياسات، أو آليات المساءلة، أو مشاركة أصحاب المصلحة، مما يضمن أن التدريب هو التدخل المناسب وليس مجرد استجابة لطلب غير مدروس.\n\nمثال تعليمي افتراضي\n\nعند طلب دورة في مهارات التحقيق، قد يكون السبب هو نقص المهارات (مستوى الممارس)، ولكن التحليل قد يكشف أن المشكلة تكمن في عدم مراجعة ملفات القضايا (مستوى المؤسسة) أو نقص المعدات اللازمة (الخدمات الممكنة)، مما يجعل التدريب وحده غير كافٍ.",
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "type": "review-page-and-10-media-assets",
+      "media": [
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-norm-smart.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-norm-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-raw-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-macos-thomas-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/ar-macos-majed-l1.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/ar-macos-majed-l2.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/en-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/fr-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/ar-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/ar-mobile-module3.png",
+          "status": 200
+        }
+      ],
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "en",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-desktop",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "type": "review-page-and-10-media-assets",
+      "media": [
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-norm-smart.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-norm-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-kokoro-raw-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/fr-macos-thomas-unpol.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/ar-macos-majed-l1.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/audio-samples/ar-macos-majed-l2.mp3",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/en-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/fr-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/ar-lesson1.png",
+          "status": 200
+        },
+        {
+          "path": "/platform/review/run08/screenshots/ar-mobile-module3.png",
+          "status": 200
+        }
+      ],
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "en",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "fr-FR",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 1,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 2,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 3,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 4,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 5,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "lesson",
+      "number": 6,
+      "pass": true
+    },
+    {
+      "profile": "webkit-mobile",
+      "lang": "ar",
+      "type": "workbench",
+      "number": 6,
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "status": "PASS"
+}

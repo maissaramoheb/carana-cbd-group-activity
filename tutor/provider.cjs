@@ -16,6 +16,47 @@ const COMPACT_SYSTEM_PROMPT =
   '5. Put any invented policing or peacekeeping example ONLY in example (never schools, hospitals, or unrelated domains), or "" when not needed.\n' +
   '6. Leave uncertainty "" unless the learner asked for an unverified citation, resolution, URL, rule, or detail absent from the passages (note any omitted unverified reference only in uncertainty, while explaining the supported curriculum topic first in answer).';
 
+const MULTILINGUAL_SYSTEM_ADDENDUM = {
+  'fr-FR':
+    '\nLANGUAGE RULE: Write answer, example, and uncertainty in clear, professional French (fr-FR) using accurate UNPOL/CBD terminology (analyse situationnelle, écart de capacités, intrant/activité/produit/réalisation, indicateur, moyen de vérification, hypothèse, risque, appropriation locale, transition), UNLESS the learner explicitly asks for another language. Ground every claim strictly in the English authorizedTeachingPassages without fabricating translated source quotes, URLs, UNSCR numbers, or page numbers; keep sourceIds strictly from allowedSourceIds.',
+  ar:
+    '\nLANGUAGE RULE: Write answer, example, and uncertainty in clear, natural Modern Standard Arabic (العربية الفصحى) using accurate UNPOL/CBD terminology (تحليل الوضع، فجوة القدرات، المدخلات/الأنشطة/المخرجات/النتائج، المؤشرات، وسائل التحقق، الافتراضات، المخاطر، الملكية المحلية، الانتقال والتسليم), UNLESS the learner explicitly asks for another language. Ground every claim strictly in the English authorizedTeachingPassages without fabricating translated source quotes, URLs, UNSCR numbers, or page numbers; keep Latin technical acronyms like UNPOL/PESTEL-S/SMART intact when needed and keep sourceIds strictly from allowedSourceIds.'
+};
+
+const STAGE_LABELS = {
+  en: {
+    preparing: 'Preparing the explanation.',
+    generating: 'Generating a grounded response.',
+    checking: 'Checking source references.',
+    repairing: 'Refining source references.'
+  },
+  'fr-FR': {
+    preparing: 'Préparation de l’explication.',
+    generating: 'Génération d’une réponse ancrée dans les sources.',
+    checking: 'Vérification des références documentaires.',
+    repairing: 'Ajustement des références documentaires.'
+  },
+  ar: {
+    preparing: 'جارٍ تجهيز الشرح.',
+    generating: 'جارٍ صياغة إجابة مستندة إلى المنهج.',
+    checking: 'جارٍ فحص الإشارات المصدرية.',
+    repairing: 'جارٍ تدقيق الإشارات المصدرية.'
+  }
+};
+
+function normalizeLang(v) {
+  if (v === 'fr-FR' || v === 'ar' || v === 'en') return v;
+  return 'en';
+}
+
+function normalizeValidationDigits(s) {
+  return String(s || '')
+    .replace(/[\u0660-\u0669]/g, ch => String(ch.charCodeAt(0) - 0x0660))
+    .replace(/[\u06F0-\u06F9]/g, ch => String(ch.charCodeAt(0) - 0x06F0))
+    .replace(/\u066b/g, '.')
+    .replace(/\u066a/g, '%');
+}
+
 function lessonNumbersInPassages(passages) {
   const nums = new Set();
   for (const p of passages || []) {
@@ -50,16 +91,19 @@ function validateEvidence(value, passages, question = '') {
   const evidence = passages.map(p => p.text).join(' ');
   const lowerEvidence = evidence.toLowerCase();
   const lessonNums = lessonNumbersInPassages(passages);
+  const normQuestion = normalizeValidationDigits(question);
 
-  let numericProse = value.answer;
-  for (const id of value.answer.match(/\b(?:cbd-\d+:\d{2,3}-\d{2,3}|plan-cbd-\d+:p\d+)\b/gi) || []) {
+  let numericProse = normalizeValidationDigits(value.answer);
+  for (const id of numericProse.match(/\b(?:cbd-\d+:\d{2,3}-\d{2,3}|plan-cbd-\d+:p\d+)\b/gi) || []) {
     if (!ids.has(id.toLowerCase())) throw Error('Model inserted an unverified source identifier');
     numericProse = numericProse.replaceAll(id, '');
   }
   // Strip pure markdown ordered-list prefixes at line start (e.g. "1. First point\n2. Second point")
   numericProse = numericProse.replace(/^\s*\d+[.)]\s+/gm, ' ');
-  // Strip "Lesson N" / "Module N" only when verified against retrieved passage metadata/labels
-  numericProse = numericProse.replace(/\b(?:Lesson|Module)\s+(\d+)\b/gi, (full, n) => (lessonNums.has(n) ? '' : full));
+  // Strip "Lesson N" / "Module N" / FR "Leçon N" / AR "الدرس N" / "الوحدة N" only when verified against retrieved passage metadata/labels
+  numericProse = numericProse
+    .replace(/\b(?:Lesson|Module|Le[çc]on)\s+(\d+)\b/gi, (full, n) => (lessonNums.has(n) ? '' : full))
+    .replace(/(?:الدرس|الوحدة)\s+(\d+)/g, (full, n) => (lessonNums.has(n) ? '' : full));
 
   const reNum = /\b\d+(?:[.,:]\d+)*%?/g;
   let m;
@@ -68,27 +112,29 @@ function validateEvidence(value, passages, question = '') {
     if (evidence.includes(number)) continue;
     const word = WORD_NUMERALS.get(number);
     if (word && new RegExp('\\b' + word + '\\b', 'i').test(evidence)) continue;
-    const after = numericProse.slice(m.index + number.length, m.index + number.length + 28);
+    const after = numericProse.slice(m.index + number.length, m.index + number.length + 34);
+    const listCountUnit = '(?:bullet|bullets|point|points|step|steps|item|items|line|lines|sentence|sentences|takeaway|takeaways|cs|[ée]tape|[ée]tapes|[ée]l[ée]ment|[ée]l[ée]ments|principe|principes|نقطة|نقاط|خطوة|خطوات|بند|بنود|مبدأ|مبادئ)';
     if (
       /^(?:[1-9]|10)$/.test(number) &&
-      /^\s+(?:concise\s+|short\s+|brief\s+|key\s+|main\s+)?(?:bullet|bullets|point|points|step|steps|item|items|line|lines|sentence|sentences|takeaway|takeaways|cs)\b/i.test(after) &&
-      new RegExp('(?:^|\\s)' + number + '\\s+(?:[a-z]+\\s+){0,2}(?:bullet|bullets|point|points|step|steps|item|items|line|lines|sentence|sentences|takeaway|takeaways|cs)\\b', 'i').test(String(question || ''))
+      new RegExp('^\\s+(?:concise\\s+|short\\s+|brief\\s+|key\\s+|main\\s+|cl[ée]s?\\s+|principaux\\s+)?' + listCountUnit + '(?:\\b|$)', 'i').test(after) &&
+      new RegExp('(?:^|\\s)' + number + '\\s+(?:[a-z\\u00c0-\\u024f\\u0600-\\u06ff]+\\s+){0,2}' + listCountUnit + '(?:\\b|\\s|$)', 'i').test(normQuestion)
     ) {
       continue;
     }
     throw Error('Model inserted an unsupported numeric claim');
   }
 
-  if (/\b(?:page|pp?\.)\s*\d|https?:\/\/|\[\s*\d+\s*\]/i.test(value.answer + ' ' + value.example)) {
+  const combinedRaw = value.answer + ' ' + value.example;
+  if (/(?:\b(?:page|pp?\.)\s*\d|https?:\/\/|\[\s*\d+\s*\]|(?:صفحة|ص\.?)\s*[\d\u0660-\u0669])/i.test(combinedRaw)) {
     throw Error('Model inserted an unverified reference in its explanation');
   }
 
-  const combined = (value.answer + ' ' + value.example).toLowerCase();
+  const combined = combinedRaw.toLowerCase();
   // Evidence-to-claim guard: prevent fabricating what a procurement register establishes or recommending procurement/workshop counts as verification of routine use.
   if (
-    /procurement\s+register/.test(combined) &&
-    /(?:procurement\s+register[^.!?]{0,70}(?:records?|lists?|tracks?|captures?|shows?|documents?)\s+[^.!?]{0,40}(?:workshop|attendance|deliver|session|participation)|(?:verif|measur|evidenc)[^.!?]{0,60}(?:review\s+routine|routine\s+use)[^.!?]{0,60}procurement\s+register)/.test(combined) &&
-    !/(?:cannot|does\s+not|do\s+not|not\s+address|not\s+verify|not\s+show|mismatch|flawed|fails?)/.test(combined.match(/procurement\s+register[^.!?]{0,90}/)?.[0] || '')
+    /(?:procurement\s+register|registre\s+d[' ]?achats?|registre\s+des\s+achats|سجل\s+المشتريات)/.test(combined) &&
+    /(?:(?:procurement\s+register|registre\s+(?:des?\s+)?achats?)[^.!?]{0,75}(?:records?|lists?|tracks?|captures?|shows?|documents?|enregistre|recense|montre)\s+[^.!?]{0,45}(?:workshop|attendance|deliver|session|participation|atelier|pr[ée]sence|formation)|(?:verif|measur|evidenc|v[ée]rifi|mesur)[^.!?]{0,60}(?:review\s+routine|routine\s+use|pratique\s+quotidienne)[^.!?]{0,60}(?:procurement\s+register|registre\s+(?:des?\s+)?achats?)|سجل\s+المشتريات[^.!?؟]{0,70}(?:يسجل|يوثق|يحصي|يتتبع)[^.!?؟]{0,40}(?:ورش|حضور|التدريب))/.test(combined) &&
+    !/(?:cannot|does\s+not|do\s+not|not\s+address|not\s+verify|not\s+show|mismatch|flawed|fails?|ne\s+prouve\s+pas|ne\s+v[ée]rifie\s+pas|ne\s+montre\s+pas|inad[ée]quat|لا\s+يثبت|لا\s+يقيس|لا\s+يتحقق|لا\s+يرصد|مضلل|غير\s+كاف)/.test(combined.match(/(?:procurement\s+register|registre\s+(?:des?\s+)?achats?|سجل\s+المشتريات)[^.!?؟]{0,110}/)?.[0] || '')
   ) {
     throw Error('Model made an unsupported claim about what a procurement register establishes');
   }
@@ -103,8 +149,8 @@ function validateEvidence(value, passages, question = '') {
     throw Error('Model overstated AI explanation as official UN doctrine');
   }
   if (
-    /\b(?:school|students?|classrooms?|reading\s+clubs?|teachers?|hospital\s+patients?|bakery|restaurant\s+menu)\b/i.test(value.example) &&
-    !/\b(?:police|policing|officer|investigat|station|patrol|counterpart|unpol|unit|case|supervis|review)\b/i.test(value.example)
+    /(?:\b(?:school|students?|classrooms?|reading\s+clubs?|teachers?|hospital\s+patients?|bakery|restaurant\s+menu|[ée]cole|[ée]l[èe]ves|salle\s+de\s+classe|h[ôo]pital|boulangerie|restaurant)\b|مدرسة|الطلاب|فصل\s+دراسي|مستشفى|مرضى|مخبز|مطعم)/i.test(value.example) &&
+    !/(?:\b(?:police|policing|officer|officers|investigat|station|patrol|counterpart|unpol|unit|case|supervis|review|policier|policiers|commissariat|patrouille|enqu[êe]t|homologue|brigade|supervision)\b|شرطة|شرطي|ضابط|ضباط|دورية|مركز\s+الشرطة|تحقيق|نظير|إشراف|بلاغ)/i.test(value.example)
   ) {
     throw Error('Model example violated the policing domain and results-chain coherence requirement');
   }
@@ -247,6 +293,8 @@ async function generate({
     additionalProperties: false
   };
 
+  const targetLang = normalizeLang(context?.lang);
+  const stageLabels = STAGE_LABELS[targetLang] || STAGE_LABELS.en;
   const passageBudgets = [1900, 1100, 800];
   const userPayload = {
     currentContext: context
@@ -269,11 +317,15 @@ async function generate({
       text: String(p.text || '').slice(0, passageBudgets[idx] || 800)
     }))
   };
+  if (targetLang !== 'en') {
+    userPayload.responseLanguage = targetLang;
+  }
   const cleanHistory = normalizeHistory(history);
   if (cleanHistory.length) userPayload.recentConversation = cleanHistory;
 
+  const systemPrompt = COMPACT_SYSTEM_PROMPT + (MULTILINGUAL_SYSTEM_ADDENDUM[targetLang] || '');
   const baseMessages = [
-    { role: 'system', content: COMPACT_SYSTEM_PROMPT },
+    { role: 'system', content: systemPrompt },
     { role: 'user', content: JSON.stringify(userPayload) }
   ];
 
@@ -291,13 +343,13 @@ async function generate({
       reasoning,
       signal,
       onConnect: () => {
-        onStage('preparing', 'Preparing the explanation.');
+        onStage('preparing', stageLabels.preparing);
       },
       onProgress,
       onRawText: full => {
         if (!stageGeneratingSent) {
           stageGeneratingSent = true;
-          onStage('generating', 'Generating a grounded response.');
+          onStage('generating', stageLabels.generating);
         }
         if (allowSegmentStream && !answerSegmentEmitted) {
           const seg = extractCompletedAnswerSegment(full);
@@ -323,14 +375,14 @@ async function generate({
   };
 
   let attempt = await runAttempt(baseMessages, true);
-  onStage('checking', 'Checking source references.');
+  onStage('checking', stageLabels.checking);
   onCandidate(attempt.value);
 
   try {
     validateEvidence(attempt.value, passages, question);
   } catch (err) {
     if (maxRepairs <= 0 || signal?.aborted) throw err;
-    onStage('repairing', 'Refining source references.');
+    onStage('repairing', stageLabels.repairing);
     if (answerSegmentEmitted) {
       // Answer was already strictly validated & streamed cleanly; only the example/uncertainty failed validation.
       const fixed = {

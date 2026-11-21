@@ -27,9 +27,31 @@ const TERM_REPLACEMENTS = [
   [/\bQ([1-6])\b/g, 'Question $1']
 ];
 
-function normalizeForSpeech(raw) {
+const TERM_REPLACEMENTS_FR = [
+  [/\bCARANA\b/g, 'Carana'],
+  [/\bPESTEL-S\b/gi, 'PESTEL S'],
+  [/\bUNPOL\b/g, 'U N P O L'],
+  [/\bUNSCR\b/g, 'U N S C R'],
+  [/\bCBD\b/g, 'C B D'],
+  [/\bMMA\b/g, 'M M A'],
+  [/\bCPOC\b/g, 'C P O C'],
+  [/\bSGBV\b/g, 'S G B V'],
+  [/\bOHCHR\b/g, 'O H C H R'],
+  [/\bDPO\b/g, 'D P O'],
+  [/\bKPIs?\b/g, 'K P I'],
+  [/\bCOP\b/g, 'C O P'],
+  [/5\s*[×x]\s*6\b/gi, '5 par 6']
+];
+
+const TERM_REPLACEMENTS_AR = [
+  [/\bPESTEL-S\b/gi, 'PESTEL S'],
+  [/5\s*[×x]\s*6\b/gi, '5 في 6']
+];
+
+function normalizeForSpeech(raw, lang = 'en') {
   let out = String(raw || '').replace(/\s+/g, ' ').trim().slice(0, MAX_TEXT);
-  for (const [pattern, replacement] of TERM_REPLACEMENTS) {
+  const rules = lang === 'fr-FR' ? TERM_REPLACEMENTS_FR : lang === 'ar' ? TERM_REPLACEMENTS_AR : TERM_REPLACEMENTS;
+  for (const [pattern, replacement] of rules) {
     out = out.replace(pattern, replacement);
   }
   return out;
@@ -66,12 +88,19 @@ function ensureSwiftHelper() {
     '}',
     'let args = CommandLine.arguments',
     'guard args.count >= 3 else { exit(2) }',
-    'let outPath = args[1], text = args[2]',
+    'let outPath = args[1], text = args[2], voiceKey = args.count >= 4 ? args[3] : "apple:nora"',
     'let synth = AVSpeechSynthesizer()',
     'let del = Del()',
     'synth.delegate = del',
     'let utt = AVSpeechUtterance(string: text)',
-    'utt.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.gryphon-neural_Nora_en-US_premium") ?? AVSpeechSynthesisVoice(language: "en-US")',
+    'if voiceKey == "apple:thomas" {',
+    '  utt.voice = AVSpeechSynthesisVoice(identifier: "com.apple.voice.compact.fr-FR.Thomas") ?? AVSpeechSynthesisVoice(language: "fr-FR")',
+    '} else if voiceKey == "apple:majed" {',
+    '  utt.voice = AVSpeechSynthesisVoice(identifier: "com.apple.voice.compact.ar-001.Maged") ?? AVSpeechSynthesisVoice(language: "ar-001")',
+    '} else {',
+    '  utt.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.gryphon-neural_Nora_en-US_premium") ?? AVSpeechSynthesisVoice(language: "en-US")',
+    '}',
+    'guard utt.voice != nil else { exit(4) }',
     'let outUrl = URL(fileURLWithPath: outPath)',
     'var file: AVAudioFile?',
     'var frames: AVAudioFrameCount = 0',
@@ -93,7 +122,7 @@ function ensureSwiftHelper() {
   return { dir, src };
 }
 
-function synthesizeAppleNeural(text, signal) {
+function synthesizeAppleNeural(text, voiceKey = 'apple:nora', signal) {
   return new Promise((resolve, reject) => {
     if (process.platform !== 'darwin') {
       reject(new Error('Apple Neural TTS requires macOS.'));
@@ -106,7 +135,8 @@ function synthesizeAppleNeural(text, signal) {
     const cleanup = () => {
       for (const f of [caf, wav]) { try { fs.unlinkSync(f); } catch (_) {} }
     };
-    const proc = execFile('swift', [src, caf, text], { timeout: 20000, signal }, err => {
+    const safeAppleKey = /^(apple:nora|apple:thomas|apple:majed)$/.test(voiceKey) ? voiceKey : 'apple:nora';
+    const proc = execFile('swift', [src, caf, text, safeAppleKey], { timeout: 20000, signal }, err => {
       if (err) {
         cleanup();
         reject(err);
@@ -121,7 +151,8 @@ function synthesizeAppleNeural(text, signal) {
         try {
           const buf = fs.readFileSync(wav);
           cleanup();
-          resolve({ contentType: 'audio/wav', engine: 'apple-neural-nora', buffer: buf });
+          const engineTag = safeAppleKey === 'apple:thomas' ? 'apple-compact-thomas-fr' : safeAppleKey === 'apple:majed' ? 'apple-compact-majed-ar' : 'apple-neural-nora';
+          resolve({ contentType: 'audio/wav', engine: engineTag, buffer: buf });
         } catch (readErr) {
           cleanup();
           reject(readErr);
@@ -226,7 +257,8 @@ function createKokoroDaemon(cfg) {
 
   async function synthesize(text, voice, signal) {
     if (signal?.aborted) throw new Error('Speech request aborted.');
-    const safeVoice = /^(af_heart|af_bella|bf_emma|am_michael|bm_george)$/.test(voice) ? voice : 'af_heart';
+    const safeVoice = /^(af_heart|af_bella|bf_emma|bf_alice|am_michael|bm_george|ff_siwis)$/.test(voice) ? voice : 'af_heart';
+    const kLang = safeVoice.startsWith('ff_') ? 'fr-fr' : safeVoice.startsWith('b') ? 'en-gb' : 'en-us';
     const job = busyChain.then(async () => {
       if (signal?.aborted) throw new Error('Speech request aborted.');
       const { child } = await ensureWorker();
@@ -273,7 +305,7 @@ function createKokoroDaemon(cfg) {
           if (signal) signal.addEventListener('abort', onAbort, { once: true });
           child.stdout.on('data', onData);
           child.once('close', onClose);
-          child.stdin.write(JSON.stringify({ text, voice: safeVoice, out }) + '\n');
+          child.stdin.write(JSON.stringify({ text, voice: safeVoice, lang: kLang, out }) + '\n');
         });
         touchIdle();
         const buffer = fs.readFileSync(out);
@@ -299,33 +331,59 @@ function createLocalTts() {
   function status() {
     const voices = [
       ...(kokoroCfg ? [
-        { id: 'kokoro:af_heart', label: 'Kokoro Neural · Heart (US)', license: 'Apache-2.0', local: true },
-        { id: 'kokoro:bf_emma', label: 'Kokoro Neural · Emma (UK)', license: 'Apache-2.0', local: true },
-        { id: 'kokoro:am_michael', label: 'Kokoro Neural · Michael (US)', license: 'Apache-2.0', local: true }
+        { id: 'kokoro:af_heart', lang: 'en', label: 'Kokoro Neural · Heart (US)', license: 'Apache-2.0', local: true },
+        { id: 'kokoro:bf_emma', lang: 'en', label: 'Kokoro Neural · Emma (UK)', license: 'Apache-2.0', local: true },
+        { id: 'kokoro:am_michael', lang: 'en', label: 'Kokoro Neural · Michael (US)', license: 'Apache-2.0', local: true },
+        { id: 'kokoro:ff_siwis', lang: 'fr-FR', label: 'Kokoro Neural · Siwis (FR · pending review)', license: 'Apache-2.0', local: true, pendingApproval: true }
       ] : []),
       ...(process.platform === 'darwin' ? [
-        { id: 'apple:nora', label: 'macOS Native Neural · Voice 4 (Nora)', license: 'macOS System', local: true }
+        { id: 'apple:nora', lang: 'en', label: 'macOS Native Neural · Voice 4 (Nora)', license: 'macOS System', local: true },
+        { id: 'apple:thomas', lang: 'fr-FR', label: 'macOS System · Thomas (fr-FR · compact)', license: 'macOS System', local: true, pendingApproval: true },
+        { id: 'apple:majed', lang: 'ar', label: 'macOS System · Majed (ar-001 · compact)', license: 'macOS System', local: true, pendingApproval: true }
       ] : [])
     ];
     return { available: voices.length > 0, voices };
   }
 
-  async function synthesize({ text, voice = 'kokoro:af_heart', signal }) {
-    const clean = normalizeForSpeech(text);
+  async function synthesize({ text, voice, lang = 'en', signal }) {
+    const safeLang = lang === 'fr-FR' || lang === 'ar' ? lang : 'en';
+    const defaultVoice =
+      safeLang === 'fr-FR'
+        ? (kokoroDaemon ? 'kokoro:ff_siwis' : 'apple:thomas')
+        : safeLang === 'ar'
+          ? 'apple:majed'
+          : 'kokoro:af_heart';
+    const requestedVoice = voice || defaultVoice;
+    const clean = normalizeForSpeech(text, safeLang);
     if (!clean) throw new Error('Text is empty.');
-    const key = voice + '|' + clean;
+
+    // Strict language isolation: never synthesize an English voice when FR or AR is requested.
+    let targetVoice = requestedVoice;
+    if (safeLang === 'ar') {
+      targetVoice = 'apple:majed';
+    } else if (safeLang === 'fr-FR') {
+      if (targetVoice !== 'kokoro:ff_siwis' && targetVoice !== 'apple:thomas') {
+        targetVoice = kokoroDaemon ? 'kokoro:ff_siwis' : 'apple:thomas';
+      }
+    } else if (targetVoice === 'kokoro:ff_siwis' || targetVoice === 'apple:thomas' || targetVoice === 'apple:majed') {
+      targetVoice = 'kokoro:af_heart';
+    }
+
+    const key = safeLang + '|' + targetVoice + '|' + clean;
     if (cache.has(key)) return cache.get(key);
 
     let result;
-    if (voice === 'apple:nora' || !kokoroDaemon) {
-      result = await synthesizeAppleNeural(clean, signal);
+    if (targetVoice.startsWith('apple:') || !kokoroDaemon) {
+      const appleVoice = safeLang === 'ar' ? 'apple:majed' : safeLang === 'fr-FR' ? 'apple:thomas' : 'apple:nora';
+      result = await synthesizeAppleNeural(clean, appleVoice, signal);
     } else {
-      const kVoice = voice.startsWith('kokoro:') ? voice.slice(7) : 'af_heart';
+      const kVoice = targetVoice.startsWith('kokoro:') ? targetVoice.slice(7) : (safeLang === 'fr-FR' ? 'ff_siwis' : 'af_heart');
       try {
         result = await kokoroDaemon.synthesize(clean, kVoice, signal);
       } catch (kokoroErr) {
         if (signal?.aborted || process.platform !== 'darwin') throw kokoroErr;
-        result = await synthesizeAppleNeural(clean, signal);
+        const appleFallback = safeLang === 'fr-FR' ? 'apple:thomas' : 'apple:nora';
+        result = await synthesizeAppleNeural(clean, appleFallback, signal);
       }
     }
 
