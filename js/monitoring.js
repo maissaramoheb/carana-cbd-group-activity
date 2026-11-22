@@ -47,7 +47,7 @@
   }
   function canonicalUrl() {
     const current = route();
-    return current ? 'https://e-learning.maissara.tech' + current.path : null;
+    return current ? w.location.origin + current.path : null;
   }
   function inject(src, id) {
     if (d.getElementById(id)) return d.getElementById(id);
@@ -83,7 +83,7 @@
     w.si = w.si || function () { (w.siq = w.siq || []).push(arguments); };
     w.si('beforeSend', value => {
       const known = /^\/cbd\/(home|catalog|notebook|lessons\/cbd-[1-6]|workbenches(?:\/(?:[1-6]|group))?)$/;
-      const url = known.test(value.route) ? 'https://e-learning.maissara.tech' + value.route : canonicalUrl();
+      const url = known.test(value.route) ? w.location.origin + value.route : canonicalUrl();
       return url ? { ...value, url } : null;
     });
     speedScript = inject('/_vercel/speed-insights/script.js', 'carana-speed-insights');

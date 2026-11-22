@@ -35,6 +35,6 @@ test('only finite names and two approved metadata properties can be sent; duplic
 });
 test('both aliases share fixed reporting routes without cookie, fingerprint or learner-storage access',()=>{
  for(const origin of ['https://e-learning.maissara.tech','https://cbd.maissara.tech']){
-  const h=harness(origin+'/module2.html?name=PRIVATE',{webAnalytics:false,speedInsights:true});assert.equal(h.window.siq[0][1]({url:origin+'/module2.html?name=PRIVATE'}).url,'https://e-learning.maissara.tech/cbd/workbenches/2');
+  const h=harness(origin+'/module2.html?name=PRIVATE',{webAnalytics:false,speedInsights:true});assert.equal(h.window.siq[0][1]({url:origin+'/module2.html?name=PRIVATE'}).url,origin+'/cbd/workbenches/2');
  }
 });
