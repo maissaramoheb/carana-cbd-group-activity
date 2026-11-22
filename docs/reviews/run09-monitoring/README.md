@@ -2,6 +2,12 @@
 
 Scope: native monitoring and Node.js consistency only. Baseline is Run 09 commit `d4c79aff8c4c53d9e5700eb2f7c7575ef5b1046e`, production deployment `dpl_eNTkZK9uYxMcMvVMpVBnCNvNRT1p`. No design, instructional, narration or storage changes are authorized here. Only this chat was active in CARANA at the initial app inventory; the checkout was clean.
 
+## Native Agent Installation check
+
+The authenticated project API has no Git repository link, the project overview offers **Connect Git**, and the Speed Insights installer explicitly reports **Missing GitHub Connection**. The GitHub commit metadata attached by the CLI is not a project Git integration. Therefore native installation is currently unavailable for this project.
+
+[Vercel Agent Installation](https://vercel.com/docs/agent/installation) is free and can generate an integration pull request for a GitHub-connected project; underlying analytics usage can still be billable. No repository connection, installer dispatch, Agent subscription, promotional credit, auto-reload, competing PR or automatic deployment was created. The existing isolated branch remains the sole integration change. Connecting Git solely to duplicate this small integration would add release coordination risk without changing the cost restrictions.
+
 ## Zero-additional-cost policy
 
 The owner explicitly declined new fees, paid add-ons and usage overages. Account inspection confirms an active Pro subscription, a zero included-event threshold for `webAnalyticsEvent`, and zero subscribed quantity for the paid `analytics` add-on. Existing analytics controls allow a $500 ceiling, not a zero-cost guarantee; they were not changed.
