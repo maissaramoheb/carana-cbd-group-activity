@@ -311,10 +311,34 @@
     const started=!!progress.startedAt;
     const completed=progress.completed.length;
     const tr = (key, vars, fb) => isEn ? fb : i18n.t(key, vars, fb);
-    const stageButtons=phases.map((phase,i)=>
-      '<button class="cycle-stage stage-'+phase.num+'" type="button" data-cycle-phase="'+i+'" aria-pressed="false">'+
-      '<span class="cycle-stage-number">'+phase.num+'</span><span class="cycle-stage-copy"><strong>'+phase.lines+'</strong><small>'+(i===0?clean(tr('course.orbitStageBadgeLive',null,'SELF-PACED LESSON LIVE')):clean(tr('course.orbitStageBadgeReview',null,'REVIEW + PRACTICE')))+'</small></span></button>'
+    const langParam = isEn ? '' : ('&amp;lang=' + encodeURIComponent(i18n.getLang()));
+    const rawLangParam = isEn ? '' : ('&lang=' + encodeURIComponent(i18n.getLang()));
+    const stageHref = i => i === 0 ? '#lesson-1' : ('../platform/?course=cbd&lesson=cbd-' + (i + 1) + rawLangParam);
+    const launchIcon = '<span class="cycle-stage-launch" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5L9.5 2.5M4 2.5H9.5V8"/></svg></span>';
+    const stageLinks = phases.map((phase, i) =>
+      '<a class="cycle-stage stage-' + phase.num + '" data-cycle-phase="' + i + '" href="' + (i === 0 ? '#lesson-1' : ('../platform/?course=cbd&amp;lesson=cbd-' + (i + 1) + langParam)) + '">' +
+      '<span class="cycle-stage-number">' + phase.num + '</span><span class="cycle-stage-copy"><strong>' + phase.lines + '</strong><small>' + (i === 0 ? clean(tr('course.orbitStageBadgeLive', null, 'SELF-PACED LESSON LIVE')) : clean(tr('course.orbitStageBadgeReview', null, 'REVIEW + PRACTICE'))) + '</small></span>' + launchIcon + '</a>'
     ).join('');
+    const orbitCx = 280, orbitCy = 242, pt = (r, deg) => {
+      const rad = deg * Math.PI / 180;
+      return [+(orbitCx + r * Math.cos(rad)).toFixed(1), +(orbitCy + r * Math.sin(rad)).toFixed(1)];
+    };
+    const phaseAngles = [-90, -27.2, 27.9, 90, 152.1, -152.8];
+    const orbitConnectors = phaseAngles.map((deg, i) => {
+      const [x1, y1] = pt(104, deg), [nx, ny] = pt(149, deg), [x2, y2] = pt(172, deg);
+      const [sx, sy] = pt(149, deg - 16), [ex, ey] = pt(149, deg + 16);
+      return '<g class="orbit-connector" data-orbit-phase="' + i + '">' +
+        '<path class="orbit-arc-glow" d="M ' + sx + ' ' + sy + ' A 149 149 0 0 1 ' + ex + ' ' + ey + '"/>' +
+        '<line class="orbit-spoke-base" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"/>' +
+        '<line class="orbit-spoke-beam" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"/>' +
+        '<circle class="orbit-node-socket" cx="' + nx + '" cy="' + ny + '" r="7.5"/>' +
+        '<circle class="orbit-node-core" cx="' + nx + '" cy="' + ny + '" r="3.4"/>' +
+        '</g>';
+    }).join('');
+    const orbitChevrons = [-58.6, 0.35, 58.95, 121.05, 180, -121.4].map(deg => {
+      const [cx, cy] = pt(149, deg);
+      return '<path class="orbit-flow-chevron" d="M -3.2 -4.5 L 2.2 0 L -3.2 4.5" transform="translate(' + cx + ' ' + cy + ') rotate(' + (deg + 90) + ')"/>';
+    }).join('');
     const phaseCards=phases.map((phase,i)=>
       '<article class="curriculum-phase-card curriculum-phase-'+phase.num+'"><div class="curriculum-card-header">'+
       '<span class="curriculum-card-number">'+phase.num+'</span><span class="curriculum-availability '+(i===0?'ready':'review')+'">'+(i===0?clean(tr('course.cardBadgeLive',null,'SELF-PACED LESSON READY')):clean(tr('course.cardBadgeReview',null,'REVIEW LESSON READY')))+'</span></div>'+
@@ -349,18 +373,22 @@
       '<div class="hero-art premium-visual curriculum-visual" role="group" aria-label="Interactive diagram of the six phases of the CBD cycle">'+
 
       '<div class="cycle-orbit"><div class="cycle-grid" aria-hidden="true"></div>'+
-      '<svg class="cycle-orbit-svg" viewBox="0 0 560 450" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">'+
-      '<circle cx="280" cy="225" r="148" fill="none" stroke="rgba(123,209,225,.26)" stroke-width="1.2"/>'+
-      '<circle cx="280" cy="225" r="117" fill="none" stroke="rgba(123,209,225,.10)" stroke-width="1"/>'+
-      '<circle cx="280" cy="225" r="183" fill="none" stroke="rgba(123,209,225,.11)" stroke-width="1" stroke-dasharray="3 9"/>'+
-      '<path d="M 368 106 L 377 109 L 373 119" fill="none" stroke="#8fe1d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-      '<path d="M 425 248 L 421 258 L 411 252" fill="none" stroke="#8fe1d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-      '<path d="M 193 343 L 184 340 L 189 331" fill="none" stroke="#8fe1d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+      '<svg class="cycle-orbit-svg" viewBox="0 0 560 484" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">'+
+      '<circle class="orbit-atmosphere-band" cx="280" cy="242" r="200"/>'+
+      '<circle class="orbit-outer-ring" cx="280" cy="242" r="181"/>'+
+      '<circle class="orbit-recessed-well" cx="280" cy="242" r="115"/>'+
+      '<circle class="orbit-recessed-trough" cx="280" cy="242" r="124"/>'+
+      '<circle class="orbit-recessed-ticks" cx="280" cy="242" r="122"/>'+
+      '<circle class="orbit-recessed-lip" cx="280" cy="242" r="129"/>'+
+      '<circle class="orbit-pathway-shadow" cx="280" cy="246" r="149"/>'+
+      '<circle class="orbit-pathway-base" cx="280" cy="242" r="149"/>'+
+      '<circle class="orbit-pathway-highlight" cx="280" cy="242" r="149"/>'+
+      orbitConnectors+orbitChevrons+
       '</svg>'+
-      '<div class="cycle-core"><div class="cycle-core-title">'+clean(tr('course.orbitCenterTitle',null,'CBD'))+'</div><span class="cycle-core-full">'+tr('course.orbitCenterSub',null,'CAPACITY BUILDING<br>& DEVELOPMENT')+'</span></div>'+
-      stageButtons+
+      '<div class="cycle-core"><span class="cycle-core-dial" aria-hidden="true"></span><div class="cycle-core-title">'+clean(tr('course.orbitCenterTitle',null,'CBD'))+'</div><span class="cycle-core-full">'+tr('course.orbitCenterSub',null,'CAPACITY BUILDING<br>& DEVELOPMENT')+'</span></div>'+
+      stageLinks+
       '</div>'+
-      '<div class="cycle-detail" role="status" aria-live="polite"><div class="cycle-detail-copy"><span id="cycle-caption-phase">'+clean(tr('course.orbitDefaultEyebrow',null,'THE FULL CURRICULUM'))+'</span><strong id="cycle-caption-title">'+clean(tr('course.orbitDefaultTitle',null,'Six phases. One connected journey.'))+'</strong><p id="cycle-caption-copy">'+clean(tr('course.orbitDefaultCopy',null,'Select any phase to explore its purpose and available practical activity.'))+'</p></div><a id="cycle-caption-action" href="#course-map" class="cycle-detail-action">'+clean(tr('course.orbitDefaultAction',null,'Explore all phases'))+' <span aria-hidden="true">↗</span></a></div>'+
+      '<div class="cycle-detail"><div class="cycle-detail-copy"><span id="cycle-caption-phase">'+clean(tr('course.orbitDefaultEyebrow',null,'THE FULL CURRICULUM'))+'</span><strong id="cycle-caption-title">'+clean(tr('course.orbitDefaultTitle',null,'Six phases. One connected journey.'))+'</strong><p id="cycle-caption-copy">'+clean(tr('course.orbitDefaultCopy',null,'Select any phase to explore its purpose and available practical activity.'))+'</p></div><a id="cycle-caption-action" href="#course-map" class="cycle-detail-action">'+clean(tr('course.orbitDefaultAction',null,'Explore all phases'))+' <span aria-hidden="true">↗</span></a></div>'+
       '</div></section></div><main>'+
       '<section class="highlights shell curriculum-highlights" aria-label="CBD course and activity availability"><div class="highlight-title"><span class="highlight-kicker">'+clean(tr('course.deskKicker',null,'YOUR CBD LEARNING DESK'))+'</span><strong>'+(started?clean(tr('course.deskTitleStarted',null,'Continue your learning journey.')):clean(tr('course.deskTitleFresh',null,'Explore the complete curriculum.')))+'</strong><span>'+(started?clean(tr('course.deskSubStarted',{done:completed},'Lesson 1: '+completed+' of 6 checkpoints passed')):clean(tr('course.deskSubFresh',null,'Six phases, each connected to practical application')))+'</span></div>'+
       '<div class="highlight-stat"><strong>06</strong><small>'+clean(tr('course.statPhases',null,'CURRICULUM PHASES'))+'</small></div>'+
@@ -387,21 +415,69 @@
     window.CARANA_PLATFORM?.mountHome($('home-backup-controls'));
     $('home-export-l1').addEventListener('click',()=>exportProgress());
     $('home-restore-l1').addEventListener('click',()=>openL1RestoreDialog($('l1-restore-preview'),$('home-import-l1-file')));
-    document.querySelectorAll('[data-cycle-phase]').forEach(button=>button.addEventListener('click',()=>{
-      const i=Number(button.dataset.cyclePhase), phase=phases[i], action=$('cycle-caption-action');
-      document.querySelectorAll('[data-cycle-phase]').forEach(node=>node.setAttribute('aria-pressed',String(node===button)));
-      $('cycle-caption-phase').textContent=isEn?('PHASE '+phase.num+' / '+phase.lens):i18n.t('course.orbitPhasePrefix',{num:phase.num,lens:phase.lens},'');
-      $('cycle-caption-title').textContent=phase.name;
-      $('cycle-caption-copy').textContent=phase.summary;
-      action.removeAttribute('target');action.removeAttribute('rel');
-      if(i===0){
-        action.setAttribute('href','#lesson-1');
-        action.innerHTML=clean(isEn?'Enter lesson 01':(c.orbitEnterL1||'Enter lesson 01'))+' <span aria-hidden="true">↗</span>';
-      }else{
-        action.setAttribute('href','../platform/?course=cbd&lesson=cbd-'+(i+1));
-        action.innerHTML=clean(isEn?('Open phase '+phase.num+' review lesson'):i18n.t('course.orbitOpenPhase',{num:phase.num},''))+' <span aria-hidden="true">↗</span>';
+    const visualBox = document.querySelector('.curriculum-visual');
+    const orbitBox = document.querySelector('.cycle-orbit');
+    const cycleLinks = Array.from(document.querySelectorAll('[data-cycle-phase]'));
+    const defaultMeta = {
+      eyebrow: tr('course.orbitDefaultEyebrow', null, 'THE FULL CURRICULUM'),
+      title: tr('course.orbitDefaultTitle', null, 'Six phases. One connected journey.'),
+      copy: tr('course.orbitDefaultCopy', null, 'Select any phase to explore its purpose and available practical activity.'),
+      action: tr('course.orbitDefaultAction', null, 'Explore all phases')
+    };
+    function previewPhase(indexOrNull) {
+      const phaseEl = $('cycle-caption-phase'), titleEl = $('cycle-caption-title'), copyEl = $('cycle-caption-copy'), action = $('cycle-caption-action');
+      if (!phaseEl || !titleEl || !copyEl || !action) return;
+      if (orbitBox) orbitBox.dataset.activePhase = indexOrNull === null ? '' : String(indexOrNull);
+      cycleLinks.forEach((node, idx) => {
+        if (idx === indexOrNull) node.setAttribute('data-active', 'true');
+        else node.removeAttribute('data-active');
+      });
+      if (indexOrNull === null || !phases[indexOrNull]) {
+        phaseEl.textContent = defaultMeta.eyebrow;
+        titleEl.textContent = defaultMeta.title;
+        copyEl.textContent = defaultMeta.copy;
+        action.setAttribute('href', '#course-map');
+        action.innerHTML = clean(defaultMeta.action) + ' <span aria-hidden="true">↗</span>';
+        return;
       }
-    }));
+      const phase = phases[indexOrNull];
+      phaseEl.textContent = isEn ? ('PHASE ' + phase.num + ' / ' + phase.lens) : i18n.t('course.orbitPhasePrefix', { num: phase.num, lens: phase.lens }, '');
+      titleEl.textContent = phase.name;
+      copyEl.textContent = phase.summary;
+      action.removeAttribute('target'); action.removeAttribute('rel');
+      action.setAttribute('href', stageHref(indexOrNull));
+      action.innerHTML = (indexOrNull === 0
+        ? clean(isEn ? 'Enter lesson 01' : (c.orbitEnterL1 || 'Enter lesson 01'))
+        : clean(isEn ? ('Open phase ' + phase.num + ' review lesson') : i18n.t('course.orbitOpenPhase', { num: phase.num }, ''))) + ' <span aria-hidden="true">↗</span>';
+    }
+    cycleLinks.forEach(link => {
+      const i = Number(link.dataset.cyclePhase);
+      link.addEventListener('pointerenter', e => { if (e.pointerType !== 'touch') previewPhase(i); });
+      link.addEventListener('focus', () => previewPhase(i));
+      if (i === 0) {
+        link.addEventListener('click', e => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+          if (mode !== 'lesson') { e.preventDefault(); resume(); }
+        });
+      }
+    });
+    orbitBox?.addEventListener('mouseleave', () => {
+      if (!orbitBox.isConnected) return;
+      const focused = document.activeElement?.closest?.('[data-cycle-phase]');
+      previewPhase(focused && orbitBox.contains(focused) ? Number(focused.dataset.cyclePhase) : null);
+    });
+    visualBox?.addEventListener('focusout', () => {
+      requestAnimationFrame(() => {
+        if (!visualBox.isConnected) return;
+        const active = document.activeElement;
+        const focusedStage = active?.closest?.('[data-cycle-phase]');
+        if (focusedStage && orbitBox?.contains(focusedStage)) {
+          previewPhase(Number(focusedStage.dataset.cyclePhase));
+        } else if (!active || !visualBox.contains(active)) {
+          previewPhase(null);
+        }
+      });
+    });
   }
   function renderActivities() {
     const { isEn, c } = getCourseStrings();

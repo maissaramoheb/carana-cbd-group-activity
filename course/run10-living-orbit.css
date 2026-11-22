@@ -1,0 +1,616 @@
+/* Run 10 — The Living CBD Orbit
+ * Scoped spatial-depth refinement and direct-navigation affordances for the six-phase CBD Cycle.
+ * Preserves existing navy/teal/mint identity, branding, typography, layout, and learning content.
+ */
+
+.curriculum-visual {
+  --orbit-navy-deep: #07192c;
+  --orbit-navy-surface: #0b243d;
+  --orbit-navy-top: #154467;
+  --orbit-teal-edge: rgba(132, 214, 229, 0.34);
+  --orbit-teal-bright: rgba(168, 240, 236, 0.78);
+  --orbit-mint: #b8f3c8;
+  --orbit-mint-focus: #c7ffd0;
+  --orbit-cyan-soft: #9ec4d6;
+  --orbit-shadow-tight: rgba(2, 11, 22, 0.56);
+  --orbit-shadow-deep: rgba(2, 11, 22, 0.44);
+  --hub-angle: -90deg;
+}
+
+.curriculum-visual .cycle-orbit {
+  width: min(560px, 100%);
+  height: 484px;
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+
+/* Soft recessed floor shadow beneath the orbital instrument */
+.curriculum-visual .cycle-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 14% 8%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse, rgba(2, 11, 22, 0.55) 0%, rgba(5, 22, 38, 0.24) 48%, transparent 72%);
+  transform: translateY(42px);
+  z-index: -1;
+}
+
+.curriculum-visual .cycle-grid {
+  inset: 12px 6px 8px;
+  opacity: 0.42;
+}
+
+/* Three-tier orbital SVG geometry */
+.curriculum-visual .cycle-orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 14px rgba(2, 12, 24, 0.36));
+}
+
+.orbit-atmosphere-band {
+  fill: none;
+  stroke: rgba(78, 174, 196, 0.08);
+  stroke-width: 26;
+}
+
+.orbit-outer-ring {
+  fill: none;
+  stroke: rgba(132, 214, 229, 0.16);
+  stroke-width: 1;
+  stroke-dasharray: 2 8;
+}
+
+.orbit-recessed-well {
+  fill: rgba(4, 15, 28, 0.56);
+  stroke: rgba(126, 206, 222, 0.16);
+  stroke-width: 1.2;
+}
+
+.orbit-recessed-trough {
+  fill: none;
+  stroke: rgba(3, 12, 23, 0.62);
+  stroke-width: 11;
+}
+
+.orbit-recessed-ticks {
+  fill: none;
+  stroke: rgba(145, 224, 232, 0.22);
+  stroke-width: 4.5;
+  stroke-dasharray: 1.2 11.57;
+}
+
+.orbit-recessed-lip {
+  fill: none;
+  stroke: rgba(154, 230, 236, 0.22);
+  stroke-width: 1;
+}
+
+.orbit-pathway-shadow {
+  fill: none;
+  stroke: rgba(2, 10, 20, 0.58);
+  stroke-width: 7;
+}
+
+.orbit-pathway-base {
+  fill: none;
+  stroke: rgba(31, 90, 118, 0.52);
+  stroke-width: 6;
+}
+
+.orbit-pathway-highlight {
+  fill: none;
+  stroke: rgba(142, 226, 232, 0.36);
+  stroke-width: 1.4;
+}
+
+.orbit-flow-chevron {
+  fill: none;
+  stroke: rgba(143, 228, 218, 0.68);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.orbit-connector {
+  opacity: 0.58;
+}
+
+.orbit-arc-glow {
+  fill: none;
+  stroke: rgba(176, 246, 222, 0);
+  stroke-width: 5.5;
+  stroke-linecap: round;
+}
+
+.orbit-spoke-base {
+  stroke: rgba(8, 30, 49, 0.72);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.orbit-spoke-beam {
+  stroke: rgba(135, 219, 230, 0.38);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.orbit-node-socket {
+  fill: #0b243d;
+  stroke: rgba(133, 216, 228, 0.48);
+  stroke-width: 1.6;
+}
+
+.orbit-node-core {
+  fill: #7ed1dc;
+}
+
+/* Central CBD Hub — layered engineered learning instrument */
+.curriculum-visual .cycle-core {
+  width: 202px;
+  height: 202px;
+  border-radius: 50%;
+  padding: 20px;
+  isolation: isolate;
+  border: 1.5px solid rgba(154, 232, 236, 0.56);
+  background:
+    radial-gradient(circle at 34% 24%, rgba(164, 240, 238, 0.24), transparent 46%),
+    radial-gradient(circle at 68% 78%, rgba(4, 15, 28, 0.52), transparent 55%),
+    linear-gradient(155deg, #1f6484 0%, #124466 56%, #092640 100%);
+  box-shadow:
+    0 0 0 1px rgba(178, 244, 236, 0.22),
+    0 0 0 8px rgba(12, 43, 68, 0.76),
+    0 0 0 9.5px rgba(124, 206, 222, 0.26),
+    0 4px 0 rgba(5, 20, 35, 0.78),
+    0 22px 34px rgba(2, 11, 22, 0.56),
+    inset 0 2px 3px rgba(235, 255, 255, 0.34),
+    inset 0 -8px 14px rgba(2, 12, 24, 0.54);
+  transform: translate(-50%, -50%);
+}
+
+/* Outer machined inner rim & calibrated dial surface */
+.curriculum-visual .cycle-core::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(176, 238, 240, 0.28);
+  box-shadow: inset 0 1px 2px rgba(235, 255, 255, 0.16), inset 0 -2px 4px rgba(2, 12, 24, 0.35);
+  pointer-events: none;
+}
+
+.curriculum-visual .cycle-core::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px dashed rgba(171, 231, 229, 0.26);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.curriculum-visual .cycle-core-dial {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: conic-gradient(
+    from calc(var(--hub-angle, 0deg) - 42deg),
+    transparent 0deg,
+    rgba(183, 245, 220, 0.08) 18deg,
+    rgba(183, 245, 220, 0.34) 42deg,
+    rgba(183, 245, 220, 0.08) 66deg,
+    transparent 84deg 360deg
+  );
+  mask: radial-gradient(circle, transparent 60%, #000 63%, #000 71%, transparent 74%);
+  z-index: 0;
+}
+
+.curriculum-visual .cycle-core-title,
+.curriculum-visual .cycle-core-full {
+  position: relative;
+  z-index: 1;
+}
+
+.curriculum-visual .cycle-core-title {
+  text-shadow: 0 2px 14px rgba(4, 18, 32, 0.55), 0 0 24px rgba(159, 245, 228, 0.2);
+}
+
+/* Floating direct-navigation phase cards */
+.curriculum-visual a.cycle-stage {
+  text-decoration: none;
+  width: 180px;
+  min-height: 76px;
+  padding: 12px 13px;
+  gap: 10px;
+  border-radius: 13px;
+  border: 1px solid rgba(132, 214, 229, 0.34);
+  border-top-color: rgba(176, 239, 242, 0.48);
+  background: linear-gradient(156deg, rgba(20, 56, 84, 0.97) 0%, rgba(11, 34, 56, 0.98) 65%, rgba(8, 25, 43, 0.99) 100%);
+  box-shadow:
+    0 4px 0 rgba(5, 19, 34, 0.78),
+    0 15px 26px rgba(2, 11, 22, 0.46),
+    0 3px 6px rgba(2, 11, 22, 0.32),
+    inset 0 1px 0 rgba(226, 255, 252, 0.24),
+    inset 0 -3px 0 rgba(3, 14, 26, 0.45);
+  transform: translate(-50%, -50%);
+}
+
+/* Adjusted orbital positions on desktop/tablet: clear top margin for FR/AR wrapping + symmetrical balance */
+@media (min-width: 651px) {
+  .curriculum-visual a.cycle-stage.stage-01 { left: 50%; top: 12.6%; }
+  .curriculum-visual a.cycle-stage.stage-02 { left: 81.4%; top: 31.6%; }
+  .curriculum-visual a.cycle-stage.stage-03 { left: 81.4%; top: 68.4%; }
+  .curriculum-visual a.cycle-stage.stage-04 { left: 50%; top: 87.4%; }
+  .curriculum-visual a.cycle-stage.stage-05 { left: 18.6%; top: 68.4%; }
+  .curriculum-visual a.cycle-stage.stage-06 { left: 18.6%; top: 31.6%; }
+}
+
+.curriculum-visual a.cycle-stage.stage-01 {
+  border-top-color: rgba(184, 243, 200, 0.62);
+}
+
+.curriculum-visual .cycle-stage-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: 1px solid rgba(145, 224, 232, 0.34);
+  background: linear-gradient(180deg, rgba(16, 48, 72, 0.95), rgba(9, 30, 49, 0.98));
+  box-shadow:
+    inset 0 1px 2px rgba(2, 11, 22, 0.65),
+    inset 0 -1px 0 rgba(190, 246, 244, 0.16),
+    0 2px 5px rgba(2, 11, 22, 0.28);
+}
+
+.curriculum-visual .cycle-stage-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-inline-end: 14px;
+  gap: 4px;
+}
+
+.curriculum-visual .cycle-stage-copy strong {
+  font-size: 12px;
+  line-height: 1.28;
+  color: #effbfb;
+}
+
+.curriculum-visual .cycle-stage-copy small {
+  font-size: 8px;
+  line-height: 1.3;
+  letter-spacing: 0.045em;
+  white-space: normal;
+  color: var(--orbit-cyan-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.curriculum-visual a.cycle-stage.stage-01 .cycle-stage-copy small {
+  color: var(--orbit-mint);
+}
+
+.curriculum-visual a.cycle-stage.stage-01 .cycle-stage-copy small::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #84f2b8;
+  box-shadow: 0 0 0 2px rgba(132, 242, 184, 0.22);
+  flex-shrink: 0;
+}
+
+.curriculum-visual .cycle-stage-launch {
+  position: absolute;
+  inset-block-start: 10px;
+  inset-inline-end: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: rgba(176, 236, 234, 0.78);
+  pointer-events: none;
+}
+
+.curriculum-visual .cycle-stage-launch svg {
+  display: block;
+  width: 11px;
+  height: 11px;
+}
+
+[dir="rtl"] .curriculum-visual .cycle-stage-launch svg {
+  transform: scaleX(-1);
+}
+
+/* Hover, keyboard focus, and press states */
+.curriculum-visual .cycle-orbit:not([data-active-phase]) a.cycle-stage:hover,
+.curriculum-visual .cycle-orbit[data-active-phase=""] a.cycle-stage:hover,
+.curriculum-visual a.cycle-stage:focus-visible,
+.curriculum-visual a.cycle-stage[data-active="true"] {
+  background: linear-gradient(148deg, #21637f 0%, #154968 62%, #0e3551 100%);
+  border-color: var(--orbit-mint-focus);
+  box-shadow:
+    0 6px 0 rgba(5, 22, 38, 0.84),
+    0 22px 34px rgba(2, 11, 22, 0.58),
+    0 0 0 2px rgba(184, 243, 200, 0.24),
+    inset 0 1px 0 rgba(235, 255, 252, 0.34),
+    inset 0 -3px 0 rgba(2, 14, 26, 0.36);
+}
+
+.curriculum-visual a.cycle-stage:focus-visible .cycle-stage-copy small,
+.curriculum-visual a.cycle-stage[data-active="true"] .cycle-stage-copy small {
+  color: #e4faf7;
+}
+
+.curriculum-visual a.cycle-stage:focus-visible .cycle-stage-number,
+.curriculum-visual a.cycle-stage[data-active="true"] .cycle-stage-number {
+  border-color: rgba(199, 255, 208, 0.65);
+  color: #e8fff6;
+}
+
+.curriculum-visual a.cycle-stage:focus-visible .cycle-stage-launch,
+.curriculum-visual a.cycle-stage[data-active="true"] .cycle-stage-launch {
+  color: var(--orbit-mint-focus);
+}
+
+.curriculum-visual a.cycle-stage:focus-visible {
+  outline: 3px solid var(--orbit-mint-focus);
+  outline-offset: 3px;
+}
+
+/* Illuminate corresponding orbital connector & hub highlight when hovered or focused */
+.curriculum-visual .cycle-orbit:is(
+  [data-active-phase="0"],
+  [data-active-phase="1"],
+  [data-active-phase="2"],
+  [data-active-phase="3"],
+  [data-active-phase="4"],
+  [data-active-phase="5"]
+) .cycle-core-dial {
+  opacity: 1;
+}
+
+.curriculum-visual .cycle-orbit[data-active-phase="0"] { --hub-angle: 0deg; }
+.curriculum-visual .cycle-orbit[data-active-phase="1"] { --hub-angle: 62.8deg; }
+.curriculum-visual .cycle-orbit[data-active-phase="2"] { --hub-angle: 117.9deg; }
+.curriculum-visual .cycle-orbit[data-active-phase="3"] { --hub-angle: 180deg; }
+.curriculum-visual .cycle-orbit[data-active-phase="4"] { --hub-angle: 242.1deg; }
+.curriculum-visual .cycle-orbit[data-active-phase="5"] { --hub-angle: 297.2deg; }
+
+.curriculum-visual .cycle-orbit[data-active-phase="0"] .orbit-connector[data-orbit-phase="0"],
+.curriculum-visual .cycle-orbit[data-active-phase="1"] .orbit-connector[data-orbit-phase="1"],
+.curriculum-visual .cycle-orbit[data-active-phase="2"] .orbit-connector[data-orbit-phase="2"],
+.curriculum-visual .cycle-orbit[data-active-phase="3"] .orbit-connector[data-orbit-phase="3"],
+.curriculum-visual .cycle-orbit[data-active-phase="4"] .orbit-connector[data-orbit-phase="4"],
+.curriculum-visual .cycle-orbit[data-active-phase="5"] .orbit-connector[data-orbit-phase="5"] {
+  opacity: 1;
+}
+
+.curriculum-visual .cycle-orbit[data-active-phase="0"] .orbit-connector[data-orbit-phase="0"] .orbit-arc-glow,
+.curriculum-visual .cycle-orbit[data-active-phase="1"] .orbit-connector[data-orbit-phase="1"] .orbit-arc-glow,
+.curriculum-visual .cycle-orbit[data-active-phase="2"] .orbit-connector[data-orbit-phase="2"] .orbit-arc-glow,
+.curriculum-visual .cycle-orbit[data-active-phase="3"] .orbit-connector[data-orbit-phase="3"] .orbit-arc-glow,
+.curriculum-visual .cycle-orbit[data-active-phase="4"] .orbit-connector[data-orbit-phase="4"] .orbit-arc-glow,
+.curriculum-visual .cycle-orbit[data-active-phase="5"] .orbit-connector[data-orbit-phase="5"] .orbit-arc-glow {
+  stroke: rgba(180, 246, 224, 0.72);
+}
+
+.curriculum-visual .cycle-orbit[data-active-phase="0"] .orbit-connector[data-orbit-phase="0"] .orbit-spoke-beam,
+.curriculum-visual .cycle-orbit[data-active-phase="1"] .orbit-connector[data-orbit-phase="1"] .orbit-spoke-beam,
+.curriculum-visual .cycle-orbit[data-active-phase="2"] .orbit-connector[data-orbit-phase="2"] .orbit-spoke-beam,
+.curriculum-visual .cycle-orbit[data-active-phase="3"] .orbit-connector[data-orbit-phase="3"] .orbit-spoke-beam,
+.curriculum-visual .cycle-orbit[data-active-phase="4"] .orbit-connector[data-orbit-phase="4"] .orbit-spoke-beam,
+.curriculum-visual .cycle-orbit[data-active-phase="5"] .orbit-connector[data-orbit-phase="5"] .orbit-spoke-beam {
+  stroke: #b9f7dc;
+  stroke-width: 2.2;
+}
+
+.curriculum-visual .cycle-orbit[data-active-phase="0"] .orbit-connector[data-orbit-phase="0"] .orbit-node-socket,
+.curriculum-visual .cycle-orbit[data-active-phase="1"] .orbit-connector[data-orbit-phase="1"] .orbit-node-socket,
+.curriculum-visual .cycle-orbit[data-active-phase="2"] .orbit-connector[data-orbit-phase="2"] .orbit-node-socket,
+.curriculum-visual .cycle-orbit[data-active-phase="3"] .orbit-connector[data-orbit-phase="3"] .orbit-node-socket,
+.curriculum-visual .cycle-orbit[data-active-phase="4"] .orbit-connector[data-orbit-phase="4"] .orbit-node-socket,
+.curriculum-visual .cycle-orbit[data-active-phase="5"] .orbit-connector[data-orbit-phase="5"] .orbit-node-socket {
+  stroke: #c7ffd0;
+  stroke-width: 2;
+}
+
+.curriculum-visual .cycle-orbit[data-active-phase="0"] .orbit-connector[data-orbit-phase="0"] .orbit-node-core,
+.curriculum-visual .cycle-orbit[data-active-phase="1"] .orbit-connector[data-orbit-phase="1"] .orbit-node-core,
+.curriculum-visual .cycle-orbit[data-active-phase="2"] .orbit-connector[data-orbit-phase="2"] .orbit-node-core,
+.curriculum-visual .cycle-orbit[data-active-phase="3"] .orbit-connector[data-orbit-phase="3"] .orbit-node-core,
+.curriculum-visual .cycle-orbit[data-active-phase="4"] .orbit-connector[data-orbit-phase="4"] .orbit-node-core,
+.curriculum-visual .cycle-orbit[data-active-phase="5"] .orbit-connector[data-orbit-phase="5"] .orbit-node-core {
+  fill: #c7ffd0;
+}
+
+/* Supporting information panel */
+.curriculum-visual .cycle-detail {
+  border: 1px solid rgba(154, 232, 236, 0.28);
+  border-top-color: rgba(180, 244, 240, 0.42);
+  background: linear-gradient(135deg, rgba(19, 55, 79, 0.82), rgba(10, 32, 52, 0.9));
+  box-shadow: 0 18px 30px rgba(2, 11, 22, 0.34), inset 0 1px 0 rgba(226, 255, 252, 0.14);
+}
+
+/* Spatial CSS 3D depth on capable devices when reduced motion is not requested */
+@supports (transform-style: preserve-3d) {
+  @media (min-width: 651px) {
+    .curriculum-visual .cycle-orbit {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    .curriculum-visual .cycle-orbit::before {
+      transform: translateY(64px) rotateX(64deg) translateZ(-26px);
+    }
+
+    .curriculum-visual .cycle-orbit-svg {
+      transform: translateZ(6px);
+    }
+
+    .curriculum-visual .cycle-core {
+      transform: translate(-50%, -50%) translateZ(26px);
+    }
+
+    .curriculum-visual a.cycle-stage {
+      transform: translate(-50%, -50%) translateZ(38px);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .curriculum-visual .orbit-connector,
+  .curriculum-visual .orbit-arc-glow,
+  .curriculum-visual .orbit-spoke-beam,
+  .curriculum-visual .cycle-core-dial {
+    transition: opacity 200ms ease-out, stroke 200ms ease-out, stroke-width 200ms ease-out;
+  }
+
+  .curriculum-visual a.cycle-stage {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out, background 180ms ease-out, border-color 180ms ease-out;
+  }
+
+  .curriculum-visual .cycle-stage-launch {
+    transition: transform 180ms ease-out, color 180ms ease-out;
+  }
+
+  .curriculum-visual a.cycle-stage:focus-visible .cycle-stage-launch,
+  .curriculum-visual a.cycle-stage[data-active="true"] .cycle-stage-launch {
+    transform: translate(2px, -2px);
+  }
+
+  [dir="rtl"] .curriculum-visual a.cycle-stage:focus-visible .cycle-stage-launch,
+  [dir="rtl"] .curriculum-visual a.cycle-stage[data-active="true"] .cycle-stage-launch {
+    transform: translate(-2px, -2px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 651px) {
+  .curriculum-visual a.cycle-stage:focus-visible,
+  .curriculum-visual a.cycle-stage[data-active="true"] {
+    transform: translate(-50%, -53%) translateZ(52px);
+  }
+
+  .curriculum-visual a.cycle-stage:active {
+    transform: translate(-50%, -49%) translateZ(42px);
+  }
+}
+
+/* Reduced motion: preserve all placement and state illumination without spatial movement */
+@media (prefers-reduced-motion: reduce) {
+  .curriculum-visual .orbit-connector,
+  .curriculum-visual .orbit-arc-glow,
+  .curriculum-visual .orbit-spoke-beam,
+  .curriculum-visual .cycle-core-dial,
+  .curriculum-visual a.cycle-stage,
+  .curriculum-visual .cycle-stage-launch {
+    transition: none;
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 651px) {
+  .curriculum-visual a.cycle-stage,
+  .curriculum-visual a.cycle-stage:hover,
+  .curriculum-visual a.cycle-stage:focus-visible,
+  .curriculum-visual a.cycle-stage:active,
+  .curriculum-visual a.cycle-stage[data-active="true"] {
+    transform: translate(-50%, -50%);
+  }
+
+  .curriculum-visual .cycle-core {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Touch & mobile adaptation: clean 2-col (1-col <= 360px) direct-tap cards, >= 44px hit targets */
+@media (max-width: 650px) {
+  .curriculum-visual .cycle-orbit {
+    height: auto;
+    width: 100%;
+    perspective: none;
+    transform-style: flat;
+  }
+
+  .curriculum-visual .cycle-orbit::before,
+  .curriculum-visual .cycle-grid,
+  .curriculum-visual .cycle-orbit-svg,
+  .curriculum-visual .cycle-core {
+    display: none;
+  }
+
+  .curriculum-visual a.cycle-stage,
+  .curriculum-visual a.cycle-stage:hover,
+  .curriculum-visual a.cycle-stage:focus-visible,
+  .curriculum-visual a.cycle-stage:active {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    min-height: 80px;
+    padding: 11px 10px;
+    gap: 8px;
+    transform: none;
+  }
+
+  .curriculum-visual .cycle-stage-number {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+
+  .curriculum-visual .cycle-stage-copy {
+    margin-inline-end: 14px;
+  }
+
+  .curriculum-visual .cycle-stage-copy strong {
+    font-size: 11.5px;
+    line-height: 1.28;
+  }
+
+  .curriculum-visual .cycle-stage-copy small {
+    font-size: 7.5px;
+  }
+
+  .curriculum-visual .cycle-stage-launch {
+    inset-block-start: 8px;
+    inset-inline-end: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .curriculum-visual .cycle-orbit {
+    grid-template-columns: 1fr;
+  }
+
+  .curriculum-visual a.cycle-stage {
+    min-height: 68px;
+  }
+}
+
+/* RTL adjustments */
+[dir="rtl"] .curriculum-visual a.cycle-stage {
+  text-align: start;
+}
+
+/* High contrast / Forced Colors fallback */
+@media (forced-colors: active) {
+  .curriculum-visual .cycle-core,
+  .curriculum-visual a.cycle-stage,
+  .curriculum-visual .cycle-detail {
+    border: 2px solid ButtonText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .curriculum-visual a.cycle-stage:focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 3px;
+  }
+}

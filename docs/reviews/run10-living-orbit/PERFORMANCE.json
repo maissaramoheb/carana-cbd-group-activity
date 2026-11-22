@@ -1,0 +1,130 @@
+{
+  "method": "5 alternating fresh-context headless Chromium runs per version on 127.0.0.1 /course/?lang=en#home (Google Fonts blocked for local stability; diagnostic comparison)",
+  "baselineCommit": "e956a9750e0e69d8d505e613f57353417d29c1af",
+  "assets": {
+    "run10LivingOrbitCssBytes": 18724,
+    "run10LivingOrbitCssGzipBytes": 4046,
+    "courseAppJsDeltaBytes": 4363,
+    "externalDependenciesAdded": 0,
+    "webglUsed": false,
+    "continuousAnimations": false
+  },
+  "medians": {
+    "Run09": {
+      "domContentLoadedMs": 19.9,
+      "loadMs": 21.7,
+      "fcpMs": 52,
+      "orbitElementCount": 47,
+      "svgNodeCount": 6
+    },
+    "Run10": {
+      "domContentLoadedMs": 19.6,
+      "loadMs": 21.7,
+      "fcpMs": 56,
+      "orbitElementCount": 111,
+      "svgNodeCount": 57
+    }
+  },
+  "rows": [
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 0,
+      "domContentLoadedMs": 35.7,
+      "loadMs": 37.5,
+      "fcpMs": 72,
+      "orbitElementCount": 47,
+      "svgNodeCount": 6
+    },
+    {
+      "name": "Run10",
+      "view": "home",
+      "run": 0,
+      "domContentLoadedMs": 26.5,
+      "loadMs": 28.7,
+      "fcpMs": 64,
+      "orbitElementCount": 111,
+      "svgNodeCount": 57
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 1,
+      "domContentLoadedMs": 19.9,
+      "loadMs": 21.7,
+      "fcpMs": 52,
+      "orbitElementCount": 47,
+      "svgNodeCount": 6
+    },
+    {
+      "name": "Run10",
+      "view": "home",
+      "run": 1,
+      "domContentLoadedMs": 19.6,
+      "loadMs": 21.7,
+      "fcpMs": 56,
+      "orbitElementCount": 111,
+      "svgNodeCount": 57
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 2,
+      "domContentLoadedMs": 19.6,
+      "loadMs": 21.6,
+      "fcpMs": 56,
+      "orbitElementCount": 47,
+      "svgNodeCount": 6
+    },
+    {
+      "name": "Run10",
+      "view": "home",
+      "run": 2,
+      "domContentLoadedMs": 19.8,
+      "loadMs": 21.8,
+      "fcpMs": 56,
+      "orbitElementCount": 111,
+      "svgNodeCount": 57
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 3,
+      "domContentLoadedMs": 18.9,
+      "loadMs": 20.8,
+      "fcpMs": 52,
+      "orbitElementCount": 47,
+      "svgNodeCount": 6
+    },
+    {
+      "name": "Run10",
+      "view": "home",
+      "run": 3,
+      "domContentLoadedMs": 19.6,
+      "loadMs": 21.7,
+      "fcpMs": 56,
+      "orbitElementCount": 111,
+      "svgNodeCount": 57
+    },
+    {
+      "name": "Run09",
+      "view": "home",
+      "run": 4,
+      "domContentLoadedMs": 21,
+      "loadMs": 22.8,
+      "fcpMs": 52,
+      "orbitElementCount": 47,
+      "svgNodeCount": 6
+    },
+    {
+      "name": "Run10",
+      "view": "home",
+      "run": 4,
+      "domContentLoadedMs": 18.7,
+      "loadMs": 20.7,
+      "fcpMs": 56,
+      "orbitElementCount": 111,
+      "svgNodeCount": 57
+    }
+  ]
+}
