@@ -60,6 +60,16 @@ await fs.writeFile(path.join(dist, 'course/lesson1-audio-manifest.js'),
   `/* Generated from verified local recordings. */\nwindow.CARANA_LESSON1_AUDIO_MANIFEST = ${JSON.stringify(manifest, null, 2)};\nwindow.CARANA_LESSON1_AUDIO_AI_MODE = true;\n`);
 console.log('Course built with 18 verified local recordings; no generation or network required.');
 
+// Monitoring is an output-only addition; original single-file activities stay intact.
+const monitoredPages = ['course/index.html', 'platform/index.html', 'platform/notebook.html',
+  'CARANA_CBD_Group_Activity.html', ...Array.from({ length: 6 }, (_, i) => `module${i + 1}.html`)];
+for (const page of monitoredPages) {
+  const file = path.join(dist, page);
+  const html = await fs.readFile(file, 'utf8');
+  const scripts = '<script src="/js/monitoring-config.js" defer></script><script src="/js/monitoring.js" defer></script>';
+  await fs.writeFile(file, html.replace('</head>', scripts + '</head>'));
+}
+
 // Closed allowlist for the protected owner review; never publish the docs tree.
 const reviewRoot = 'platform/review/run08';
 for (const name of ['TRILINGUAL_REVIEW_MATRIX.json', 'TERMINOLOGY_GLOSSARY.json']) {

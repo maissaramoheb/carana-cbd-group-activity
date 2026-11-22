@@ -842,8 +842,13 @@
       }
       checked = true;
       if (section.quiz.every((q, i) => answers[i] === q.answer)) {
+        const newlyPassed = !state.completed.includes(selected);
         state.completed = [...new Set([...state.completed, selected])].sort((a, b) => a - b);
         save();
+        if (newlyPassed) {
+          window.CARANA_MONITORING?.event('checkpoint_completed', lesson.id + ':checkpoint-' + (selected + 1));
+          if (state.completed.length === lesson.sections.length) window.CARANA_MONITORING?.event('lesson_completed', lesson.id);
+        }
       }
       render();
       focus();

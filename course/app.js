@@ -169,7 +169,9 @@
       status.className = 'inline-feedback warning';
       return;
     }
+    const newlyComplete = !progress.lessonComplete;
     progress.lessonComplete=true; progress.lastKind='complete'; save();
+    if (newlyComplete) window.CARANA_MONITORING?.event('lesson_completed', 'cbd-1');
     position.kind='complete'; render(); focusHeading();
   }
   function exportProgress(filename = 'carana-cbd-lesson1-progress.json', data = progress) {
@@ -542,7 +544,9 @@
       missed=sec.quiz.map((q,i)=>answers[i]===q.answer?-1:i).filter(x=>x!==-1);
       checked=true;
       if(!missed.length){
+        const newlyPassed = !progress.completed.includes(s);
         progress.completed=[...new Set([...progress.completed,s])].sort((a,b)=>a-b);
+        if (newlyPassed) window.CARANA_MONITORING?.event('checkpoint_completed', 'cbd-1:checkpoint-' + (s + 1));
         progress.lastKind='quiz';save();render();focusHeading();window.scrollTo({top:0,behavior:'instant'});
       }else{
         render();

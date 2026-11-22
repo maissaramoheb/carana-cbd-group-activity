@@ -110,6 +110,7 @@ function createRemoteProxy(env = process.env, fetchImpl = globalThis.fetch) {
 
     const reqUrl = new URL(req.url || '/', 'https://carana.invalid');
     const pathname = reqUrl.pathname;
+    if (pathname === '/api/health') res.setHeader('X-CARANA-Node-Major', process.versions.node.split('.')[0]);
     if (!ALLOWED_ROUTES.has(pathname)) {
       return sendJson(res, 404, { message: 'Not found.' });
     }
