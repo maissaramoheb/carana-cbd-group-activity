@@ -88,7 +88,25 @@
       }
       return save();
     }
-    return { get, update, exportFor, importFor, get failed() { return failure; } };
+    function resetFor(ids) {
+      sync();
+      const targetIds = Array.isArray(ids) ? ids : [];
+      for (const k of Object.keys(state.records)) {
+        if (targetIds.includes(k.split('/')[0])) delete state.records[k];
+      }
+      if (!Object.keys(state.records).length) {
+        try {
+          storage?.removeItem?.(KEY);
+          failure = false;
+          return true;
+        } catch (_) {
+          failure = true;
+          return false;
+        }
+      }
+      return save();
+    }
+    return { get, update, exportFor, importFor, resetFor, get failed() { return failure; } };
   }
   let storage;
   try { storage = host?.localStorage; } catch (_) { /* Denied browser storage is handled visibly on writes. */ }
@@ -117,8 +135,8 @@
       });
       if (count) { count.textContent = et('countExplored', { done: state.seen.length, total: all.length }, 'Explanations ' + state.seen.length + ' of ' + all.length + ' explored'); count.setAttribute('aria-live', 'polite'); }
       if (fill) fill.style.width = (100 * state.seen.length / all.length) + '%';
-      storageNote.textContent = store.failed ? et('storageFailed', null, 'Exploration history could not save on this device. Export a backup before closing. Checkpoint progress is recorded separately.') : '';
-      practiceNote.textContent = state.practice ? et('practiceAttempted', null, 'Practice attempted · separate from checkpoint achievement') : '';
+      storageNote.textContent = store.failed ? et('storageFailed', null, 'Exploration history could not save on this device. Export a backup before closing. Quiz progress is recorded separately.') : '';
+      practiceNote.textContent = state.practice ? et('practiceAttempted', null, 'Practice attempted · separate from quiz achievement') : '';
       if (feedback) feedback.dataset.feedback = 'explanation';
     }
     function select(i, save = true) {
@@ -159,7 +177,7 @@
     if (!container) return;
     const d=descriptor(lessonId,screenId,items), note=container.ownerDocument.createElement('p');
     note.className='practice-history';note.setAttribute('role','status');container.append(note);
-    const paint=()=>{note.textContent=store.get(d).practice?et('practiceAttempted', null, 'Practice attempted · separate from checkpoint achievement'):'';};
+    const paint=()=>{note.textContent=store.get(d).practice?et('practiceAttempted', null, 'Practice attempted · separate from quiz achievement'):'';};
     [...buttons].forEach(button=>button.addEventListener('click',()=>{store.update(d,{practice:true});paint();if(store.failed)note.textContent+=et('practiceFailed', null, ' · History could not save; export before closing.');}));paint();
   }
   return { KEY, MAX_BYTES, descriptor, validate, createStore, store, bind, trackPractice };

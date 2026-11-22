@@ -338,7 +338,7 @@ window.CARANA_LESSON1 = {
             "Build a structured picture using the areas–dimensions matrix, SWOT and an as-is baseline.",
             "Use the findings to identify credible entry points for the next CBD phase."
           ],
-          takeaway: "Pass the final checkpoint to continue to the guided practice step.",
+          takeaway: "Pass the final quiz to continue to the guided practice step.",
           visualTitle: "Carry your learning into practice",
           visual: ["Context","Actors","Institution","SWOT + baseline","Exercise"],
           sourcePage: "18–21; participant exercise (Annex A), blank tools (Annex E)"

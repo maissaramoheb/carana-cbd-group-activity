@@ -184,12 +184,12 @@ test('E03: Lesson 1 backup validation rejects platform files and merges Lesson 1
 
 test('E04 & E07: catalog status labels and printable study summary escape HTML and support Arabic/RTL safely', () => {
   const l1 = core.readLesson1Summary({ version: 1, startedAt: '2026-11-18T08:00:00Z', completed: [0, 1], visited: ['0:0'], lastSection: 2, lastScreen: 0 }, { module1: { confirmed: false } });
-  assert.match(l1.statusText, /2 \/ 6 checkpoints/);
+  assert.match(l1.statusText, /2 \/ 6 quizzes/);
   assert.equal(l1.actionText, 'Resume Lesson 1');
 
   const cbd2Cat = catalogLessons.find(l => l.id === 'cbd-2');
   assert.equal(core.describeCatalogLesson(cbd2Cat, undefined).actionText, 'Explore lesson');
-  assert.match(core.describeCatalogLesson(cbd2Cat, { contentVersion: cbd2Cat.version, completed: [0], section: 1, screen: 0, drafts: {} }).statusText, /1 \/ 3 checkpoints/);
+  assert.match(core.describeCatalogLesson(cbd2Cat, { contentVersion: cbd2Cat.version, completed: [0], section: 1, screen: 0, drafts: {} }).statusText, /1 \/ 3 quizzes/);
   assert.equal(core.describeCatalogLesson(cbd2Cat, { contentVersion: cbd2Cat.version, completed: [0, 1, 2], section: 2, screen: 2, drafts: {} }).actionText, 'Review completed lesson');
   assert.equal(core.describeCatalogLesson(cbd2Cat, { contentVersion: 'old-v1', completed: [0], drafts: { '02-04': { 0: 'text' } } }).actionText, 'Review updated lesson');
 

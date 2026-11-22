@@ -20,3 +20,32 @@ header{display:flex;align-items:center;justify-content:space-between;gap:25px;pa
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 @media print{header,footer,button,nav,.rail,.study-modal-bar{display:none!important}body.modal-open main{display:none!important}.study-modal{position:static;background:#fff;padding:0;overflow:visible}.study-modal-dialog{box-shadow:none;border:0;max-height:none}.study-modal-body{overflow:visible;padding:0}main{max-width:none;padding:0}.cards{display:block}.card{break-inside:avoid;margin:15px 0}}
 .screen .status{overflow-wrap:anywhere}#scene{max-width:100%;min-height:44px}
+.cbd-reset-zone{margin-top:20px;padding:16px 18px;border:1px solid #e7c5c5;border-inline-start:4px solid #9b1c1c;background:#fff9f9;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.cbd-reset-zone-copy{flex:1 1 340px;min-width:0}
+.cbd-reset-zone-copy strong{display:block;font-size:14px;color:var(--navy);margin-bottom:4px}
+.cbd-reset-zone-copy p{margin:0;font-size:13px;line-height:1.65;color:var(--muted)}
+button.cbd-reset-trigger{border:1.5px solid #9b1c1c;color:#9b1c1c;background:#fff;font-weight:750;flex-shrink:0}
+button.cbd-reset-trigger:hover{background:#9b1c1c;color:#fff}
+dialog.cbd-reset-dialog{padding:0;border:1px solid var(--border);border-radius:14px;max-width:600px;width:calc(100vw - 32px);max-height:90dvh;background:#fff;color:var(--navy);box-shadow:0 26px 70px rgba(10,30,48,.34)}
+dialog.cbd-reset-dialog[open]{display:flex;flex-direction:column}
+dialog.cbd-reset-dialog:modal{overscroll-behavior:contain}
+dialog.cbd-reset-dialog::backdrop{background:rgba(16,36,59,.62);overflow:hidden;overscroll-behavior:contain}
+.cbd-reset-dialog-head{padding:18px 22px 14px;border-bottom:1px solid var(--border);background:var(--paper);border-radius:14px 14px 0 0}
+.cbd-reset-eyebrow{display:block;font-size:11px;font-weight:750;letter-spacing:.11em;text-transform:uppercase;color:#9b1c1c;margin-bottom:4px}
+.cbd-reset-dialog-head h2{margin:0;font-size:24px;color:var(--navy)}
+.cbd-reset-dialog-body{padding:18px 22px;overflow:auto;display:grid;gap:14px;font-size:14px;line-height:1.65;color:var(--navy)}
+.cbd-reset-lead{margin:0;font-weight:600}
+.cbd-reset-scope-block,.cbd-reset-keep-block,.cbd-reset-backup-block{border:1px solid var(--border);border-radius:10px;padding:12px 14px;background:#fafdfe}
+.cbd-reset-backup-block{border-color:#9ec6d3;background:#f4f9fb}
+.cbd-reset-scope-block strong,.cbd-reset-keep-block strong,.cbd-reset-backup-block strong{display:block;font-size:13px;margin-bottom:6px}
+.cbd-reset-scope-block ul{margin:0;padding-inline-start:20px;display:grid;gap:4px}
+.cbd-reset-keep-block p,.cbd-reset-backup-block p{margin:0;color:var(--muted)}
+.cbd-reset-export-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.cbd-reset-feedback{margin:8px 0 0;font-size:13px;font-weight:700;color:var(--teal)}
+.cbd-reset-error{background:#fff1f1;border:1px solid #d98282;border-inline-start:4px solid #9b1c1c;border-radius:8px;padding:10px 12px;color:#7f1d1d;font-weight:600;font-size:13px}
+.cbd-reset-dialog-foot{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;padding:14px 22px;border-top:1px solid var(--border);background:var(--paper);border-radius:0 0 14px 14px}
+button.cbd-reset-confirm-btn{background:#9b1c1c;border-color:#9b1c1c;color:#fff;font-weight:750}
+button.cbd-reset-confirm-btn:hover{background:#7f1d1d;border-color:#7f1d1d}
+.cbd-reset-banner{margin:16px 0 0;padding:14px 18px;background:#e5f4ed;border:1px solid #8ec9b0;border-inline-start:4px solid #277557;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.cbd-reset-banner-text{margin:0;font-size:14px;font-weight:600;color:var(--navy);flex:1 1 280px}
+@media(max-width:650px){.cbd-reset-zone,.cbd-reset-banner{flex-direction:column;align-items:stretch}.cbd-reset-trigger,.cbd-reset-dialog-foot button,.cbd-reset-export-row button,.cbd-reset-banner-dismiss{width:100%}}

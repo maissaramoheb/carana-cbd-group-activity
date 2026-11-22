@@ -54,6 +54,7 @@
   let saveFailed = false;
   let checked = false;
   let missed = [];
+  let showResetBanner = false;
   const $ = id => document.getElementById(id);
   const pathMedia=window.matchMedia?.('(min-width:901px)');
   pathMedia?.addEventListener?.('change',e=>{const menu=document.querySelector('.l1-path-menu');if(menu)menu.open=e.matches;});
@@ -122,6 +123,7 @@
   function goHome() { mode = 'home'; document.body.classList.remove('is-learning'); if(window.location && window.location.hash !== '#home')window.location.hash='#home'; render(); focusHeading(); window.scrollTo({top:0,behavior:'instant'}); }
   function resume() {
     mode = 'lesson';
+    showResetBanner = false;
     if(window.location && window.location.hash !== '#lesson-1')window.location.hash='#lesson-1';
     document.body.classList.add('is-learning');
     if (isAllCleared() && progress.activityOpened) {
@@ -136,6 +138,7 @@
   function navigate(s,n,kind) {
     if (!canOpen(s)) return;
     mode = 'lesson';
+    showResetBanner = false;
     document.body.classList.add('is-learning');
     position = {section:s,screen:n,kind:kind||'screen'};
     if (position.kind==='screen') markVisited(s,n);
@@ -254,10 +257,10 @@
       previewEl.className='l1-restore-preview';
       const diagCount = plan.exploration ? Object.keys(plan.exploration.records).filter(k=>k.startsWith('cbd-1/')).length : 0;
       const diagNote = plan.exploration ? (isEn
-        ? ('<p class="fine-print">Includes explanatory history for '+diagCount+' saved diagram revision(s), separate from checkpoint achievement.</p>')
+        ? ('<p class="fine-print">Includes explanatory history for '+diagCount+' saved diagram revision(s), separate from quiz achievement.</p>')
         : ('<p class="fine-print">'+clean(i18n.t('course.restoreDiagCount',{count:diagCount},''))+'</p>')) : '';
       const summaryLine = isEn
-        ? ('<p>File contains <strong>'+inc.completed.length+' / 6</strong> checkpoints, '+inc.visited.length+' visited screen(s)'+(inc.lessonComplete?', and confirmed practical completion.':'.')+' Current browser has <strong>'+progress.completed.length+' / 6</strong> checkpoints.</p>')
+        ? ('<p>File contains <strong>'+inc.completed.length+' / 6</strong> quizzes, '+inc.visited.length+' visited screen(s)'+(inc.lessonComplete?', and confirmed practical completion.':'.')+' Current browser has <strong>'+progress.completed.length+' / 6</strong> quizzes.</p>')
         : ('<p>'+i18n.t('course.restoreSummaryHtml',{completed:inc.completed.length,visited:inc.visited.length,doneSuffix:inc.lessonComplete?(c.restoreDoneSuffix||''):'',localCompleted:progress.completed.length},'')+'</p>');
       const preBackup = (progress.completed.length||progress.visited.length)
         ? ('<p class="fine-print">'+clean(isEn?'An automatic pre-restore backup JSON will download before applying changes.':(c.restorePreBackupNote||''))+'</p>') : '';
@@ -284,7 +287,7 @@
   ];
   const activityQuickLink = '../CARANA_CBD_Group_Activity.html';
   function openActivities() {
-    mode='activities'; if(window.location && window.location.hash !== '#activities')window.location.hash='#activities'; document.body.classList.remove('is-learning');
+    mode='activities'; showResetBanner = false; if(window.location && window.location.hash !== '#activities')window.location.hash='#activities'; document.body.classList.remove('is-learning');
     render();focusHeading();window.scrollTo({top:0,behavior:'instant'});
   }
   /* Canonical CBD six-phase storyline for the home and curriculum pathway.
@@ -378,7 +381,7 @@
     const routeSteps = isEn ? ['UNDERSTAND','PRIORITISE','PLAN','DELIVER','LEARN','SUSTAIN'] : (i18n.rawList('course.routeSteps',['UNDERSTAND','PRIORITISE','PLAN','DELIVER','LEARN','SUSTAIN']));
     const methodCards = isEn ? [
        ['01','UNDERSTAND','Work through short, structured learning screens aligned with the corresponding CBD lesson plan.'],
-       ['02','TEST YOUR JUDGEMENT','Answer formative checkpoints, review feedback, and demonstrate understanding before progressing.'],
+       ['02','TEST YOUR JUDGEMENT','Answer formative quizzes, review feedback, and demonstrate understanding before progressing.'],
        ['03','APPLY','Open the original CARANA exercise and transfer your knowledge to a practical scenario.']
     ] : (i18n.rawList('course.methodCards',[]));
     $('root').innerHTML=
@@ -387,6 +390,7 @@
       '<a class="brand brand-button" id="brand-home" href="#home"><span class="brand-symbol" aria-hidden="true"><span class="brand-mark">C</span></span><span><strong>'+clean(tr('common.brand',null,'CARANA'))+'</strong><small>'+clean(tr('course.brandSub',null,'CAPACITY BUILDING · LEARNING STUDIO'))+'</small></span></a>'+
       '<nav class="premium-navigation" aria-label="Main navigation"><a href="#course-map">'+clean(tr('course.navCycle',null,'The CBD cycle'))+'</a><button id="header-activities">'+clean(tr('course.navActivities',null,'Activities'))+' <span class="nav-count">07</span></button><a href="#about">'+clean(tr('course.navHowItWorks',null,'How it works'))+'</a></nav>'+
       '<div class="header-utility"><span class="utility-dot"></span> '+clean(tr('course.utilityPill',null,'SELF-PACED · PRACTICE-DRIVEN'))+'</div><span id="home-lang-slot"></span></header>'+
+      '<div id="home-reset-banner-slot" class="shell"></div>'+
       '<section class="hero shell premium-hero curriculum-hero"><div class="hero-copy">'+
 
       '<h1>'+tr('course.heroHeadingHtml',null,'Build capability.<br><em>Strengthen institutions.</em>')+'</h1>'+
@@ -415,10 +419,10 @@
       '</div>'+
       '<div class="cycle-detail">' + renderDetailLayer(getDetailState(null), true) + detailSizers + '</div>'+
       '</div></section></div><main>'+
-      '<section class="highlights shell curriculum-highlights" aria-label="CBD course and activity availability"><div class="highlight-title"><span class="highlight-kicker">'+clean(tr('course.deskKicker',null,'YOUR CBD LEARNING DESK'))+'</span><strong>'+(started?clean(tr('course.deskTitleStarted',null,'Continue your learning journey.')):clean(tr('course.deskTitleFresh',null,'Explore the complete curriculum.')))+'</strong><span>'+(started?clean(tr('course.deskSubStarted',{done:completed},'Lesson 1: '+completed+' of 6 checkpoints passed')):clean(tr('course.deskSubFresh',null,'Six phases, each connected to practical application')))+'</span></div>'+
+      '<section class="highlights shell curriculum-highlights" aria-label="CBD course and activity availability"><div class="highlight-title"><span class="highlight-kicker">'+clean(tr('course.deskKicker',null,'YOUR CBD LEARNING DESK'))+'</span><strong>'+(started?clean(tr('course.deskTitleStarted',null,'Continue your learning journey.')):clean(tr('course.deskTitleFresh',null,'Explore the complete curriculum.')))+'</strong><span>'+(started?clean(tr('course.deskSubStarted',{done:completed},'Lesson 1: '+completed+' of 6 quizzes passed')):clean(tr('course.deskSubFresh',null,'Six phases, each connected to practical application')))+'</span></div>'+
       '<div class="highlight-stat"><strong>06</strong><small>'+clean(tr('course.statPhases',null,'CURRICULUM PHASES'))+'</small></div>'+
       '<div class="highlight-stat"><strong>01<span>+05</span></strong><small>'+clean(tr('course.statLessons',null,'LIVE + REVIEW LESSONS'))+'</small></div>'+
-      '<div class="highlight-stat curriculum-checkpoints"><strong>'+completed+'<span>/06</span></strong><small>'+clean(tr('course.statCheckpoints',null,'LESSON 01 CHECKPOINTS'))+'</small></div>'+
+      '<div class="highlight-stat curriculum-checkpoints"><strong>'+completed+'<span>/06</span></strong><small>'+clean(tr('course.statCheckpoints',null,'LESSON 01 QUIZZES'))+'</small></div>'+
       '<div class="highlight-action"><button id="strip-activities"><span class="strip-icon">↗</span><span><strong>'+clean(tr('course.stripLibTitle',null,'Practical library'))+'</strong><small>'+clean(tr('course.stripLibSub',null,'7 activities · Available now'))+'</small></span><span aria-hidden="true">→</span></button></div></section>'+
       '<section id="course-map" class="lesson-section shell curriculum-lessons"><div class="section-heading"><div><div class="section-eyebrow">'+clean(tr('course.mapEyebrow',null,'01 / THE COMPLETE CBD CURRICULUM'))+'</div>'+
       '<h2>'+tr('course.mapHeadingHtml',null,'Six phases. <em>One mission: lasting capacity.</em>')+'</h2>'+
@@ -438,6 +442,14 @@
     const bindings=[['start-course',resume],['lesson-one',resume],['header-activities',openActivities],['strip-activities',openActivities],['teaser-activities',openActivities]];
     bindings.forEach(([id,fn])=>$(id).addEventListener('click',fn));
     window.CARANA_PLATFORM?.mountHome($('home-backup-controls'));
+    if (showResetBanner && window.CARANA_COURSE_RESET) {
+      const slot = $('home-reset-banner-slot');
+      const banner = window.CARANA_COURSE_RESET.renderStatusBanner(slot, window.CARANA_COURSE_RESET.getSuccessMessage());
+      const dismissBtn = banner?.querySelector('#cbd-reset-banner-dismiss');
+      if (dismissBtn) {
+        dismissBtn.addEventListener('click', () => { showResetBanner = false; }, true);
+      }
+    }
     $('home-export-l1').addEventListener('click',()=>exportProgress());
     $('home-restore-l1').addEventListener('click',()=>openL1RestoreDialog($('l1-restore-preview'),$('home-import-l1-file')));
     const visualBox = document.querySelector('.curriculum-visual');
@@ -501,7 +513,7 @@
     };
     $('root').innerHTML='<div class="activities-page"><header class="activities-header shell"><a class="brand brand-button" id="activities-brand" href="#home"><span class="brand-symbol" aria-hidden="true"><span class="brand-mark">C</span></span><span><strong>CARANA</strong><small>'+clean(tr('brandSub',c.brandSub||'CAPACITY BUILDING · LEARNING STUDIO'))+'</small></span></a><nav class="activity-header-nav" aria-label="Activities navigation"><a class="nav-platform-link" id="activities-home" href="#home">'+clean(tr('navHome','Course home'))+'</a><button id="activities-lesson">'+clean(tr('navLesson','Go to Lesson 01'))+'</button><span id="activities-lang-slot"></span></nav></header>'+
       '<main><section class="activities-hero"><div class="shell"><div class="activities-overline"><span class="mini-square"></span> '+clean(tr('overline','CARANA FIELD LEARNING / PRACTICAL WORKBENCHES'))+'</div><div class="activities-hero-main"><div><h1>'+(isEn?'Practice is where<br><em>analysis becomes action.</em>':(hub.headingHtml||''))+'</h1><p>'+clean(tr('lead','Use the original CARANA interactive activities independently. All six workbenches are available without completing the course first.'))+'</p><div class="hub-actions"><button class="btn primary" id="hub-resume">'+clean(tr('btnResume','Continue Lesson 01 ↗'))+'</button><a class="btn secondary" id="hub-home" href="#home">'+clean(tr('btnHome','Back to CBD home'))+'</a></div></div><div class="hub-summary"><span>'+clean(tr('libLabel','THE PRACTICE LIBRARY'))+'</span><strong>06 <small>'+clean(tr('libModules','MODULES'))+'</small></strong><div class="hub-summary-line"></div><strong>01 <small>'+clean(tr('libGroupEx','GROUP EXERCISE'))+'</small></strong><p>'+clean(tr('libNote','Direct access · No login · Original workbenches preserved'))+'</p></div></div></div></section>'+
-      '<section class="hub-body shell"><div class="hub-heading"><div><span class="section-eyebrow">'+clean(tr('bodyEyebrow','01 / INTERACTIVE CBD ACTIVITIES'))+'</span><h2>'+clean(tr('bodyHeading','Choose a workbench'))+'</h2><p>'+clean(tr('bodySub','Each activity opens directly in a separate tab. Progress here does not bypass or mark completion of course checkpoints.'))+'</p></div><span class="hub-count">'+clean(isEn?'06 AVAILABLE':i18n.t('course.activitiesHub.availableTag',{count:'06'},'06 AVAILABLE'))+'</span></div><div class="activities-grid">'+ACTIVITIES.map(openLink).join('')+'</div>'+
+      '<section class="hub-body shell"><div class="hub-heading"><div><span class="section-eyebrow">'+clean(tr('bodyEyebrow','01 / INTERACTIVE CBD ACTIVITIES'))+'</span><h2>'+clean(tr('bodyHeading','Choose a workbench'))+'</h2><p>'+clean(tr('bodySub','Each activity opens directly in a separate tab. Progress here does not bypass or mark completion of course quizzes.'))+'</p></div><span class="hub-count">'+clean(isEn?'06 AVAILABLE':i18n.t('course.activitiesHub.availableTag',{count:'06'},'06 AVAILABLE'))+'</span></div><div class="activities-grid">'+ACTIVITIES.map(openLink).join('')+'</div>'+
       '<section class="quick-exercise-panel"><div class="quick-exercise-icon"><span>60</span><small>MIN</small></div><div class="quick-exercise-copy"><span class="activity-card-tag">'+clean(tr('quickTag','FACILITATED LEARNING / SHORT FORMAT'))+'</span><h3>'+clean(tr('quickTitle','CARANA 60-minute Group Exercise'))+'</h3><p>'+clean(tr('quickDesc','The preserved short-format activity for facilitated syndicate discussions, rapid diagnosis, and a condensed CBD assessment.'))+'</p></div><a class="btn primary" target="_blank" rel="noopener noreferrer" href="'+activityQuickLink+'">'+clean(tr('quickBtn','Open quick exercise'))+' <span aria-hidden="true">↗</span></a></section>'+
       '<div class="hub-notice"><strong>'+clean(tr('noticeTitle','Preservation and completion'))+'</strong><p>'+clean(tr('noticeBody','These are links to the unmodified original activity implementations included in the course deployment. All activities are accessible here for practice. To receive Lesson 1 local completion status, pass its six assessments and complete the workbench confirmation step in the guided learning pathway. No formal certificate is issued.'))+'</p></div></section></main>'+
       '<footer class="footer shell"><span>'+clean(tr('footerLeft','CARANA CBD E-Learning · Activities Hub'))+'</span><span>'+clean(tr('footerRight','Independent instructional adaptation · No UN endorsement implied.'))+'</span></footer></div>';
@@ -511,13 +523,13 @@
   function railHTML() {
     const { isEn, c } = getCourseStrings();
     const curPrefix = isEn ? 'Current · ' : ((c.railCurrent || 'Current') + ' · ');
-    const doneTxt = isEn ? 'Checkpoint passed' : (c.railDone || 'Checkpoint passed');
+    const doneTxt = isEn ? 'Quiz passed' : (c.railDone || 'Quiz passed');
     const lockedTxt = isEn ? 'Not yet available' : (c.railLocked || 'Not yet available');
     const availTxt = isEn ? 'Available to study' : (c.railDone ? '' : 'Available to study');
     return lesson.sections.map((sec,i)=>{
       const locked=!canOpen(i), done=isCleared(i), active=position.section===i;
       const stateLabel = isEn
-        ? ((active?'Current · ':'')+(done?'Checkpoint passed':locked?'Not yet available':'Available to study'))
+        ? ((active?'Current · ':'')+(done?'Quiz passed':locked?'Not yet available':'Available to study'))
         : ((active?curPrefix:'')+(done?doneTxt:locked?lockedTxt:(c.railCurrent?i18n.t('common.yes',null,'✓'):'Disponible')));
       return '<button class="rail-item ' + (active?'active ':'')+(done?'done ':'') + '" data-section="'+i+'" '+(locked?'disabled':'')+' aria-current="'+(active?'step':'false')+'"><span class="rail-number">'+(done?'✓':String(i+1).padStart(2,'0'))+'</span><span class="rail-label">'+clean(sec.title)+'<small class="section-state">'+clean(stateLabel)+'</small></span>'+(locked?'<span class="lock-icon" aria-label="'+clean(isEn?'Locked':(c.railLocked||'Locked'))+'">⌁</span>':'')+'</button>';
     }).join('');
@@ -532,7 +544,7 @@
     const arrowBack = isEn || !i18n.isRTL() ? '←' : '→';
     $('root').innerHTML =
       '<div class="course-shell"><header class="course-header"><a class="back-home" id="back-home" href="#home"><span aria-hidden="true">'+arrowBack+'</span> '+clean(tr('nav.courseHome',null,'COURSE HOME'))+'</a><div class="header-title">'+tr('course.headerTitle',null,'CARANA <span>/</span> CBD E-LEARNING <span>/</span> LESSON 01')+'</div><div class="header-right"><span id="lesson-lang-slot"></span><button class="header-activities-link" id="course-activities">▦ '+clean(tr('course.activitiesBtn',null,'Activities'))+' <span class="nav-count">07</span></button><span id="save-status" role="status">Progress is stored on this device</span><button class="export-mini" id="export-mini">'+clean(tr('course.exportMini',null,'Export progress ↗'))+'</button><button class="export-mini" id="import-mini">'+clean(tr('course.importMini',null,'Restore'))+'</button><input type="file" id="import-l1-file" accept=".json,application/json" hidden></div></header>' +
-      '<div class="workspace"><aside class="side-rail"><div class="rail-overline">'+clean(tr('course.railOverline',null,'LESSON 01'))+'</div><h2>'+(isEn?'Situational<br>Analysis':clean(tr('course.railTitle',null,'Situational Analysis')))+'</h2><p>'+clean(tr('course.railDesc',null,'Learn to diagnose before designing change.'))+'</p><div class="rail-divider"></div><div class="rail-overline">'+clean(tr('course.railPathOverline',null,'LEARNING PATH'))+'</div><details class="l1-path-menu" open><summary>'+clean(isEn?('Lesson sections · current section '+(position.section+1)+' of 6'):i18n.t('course.railSummary',{current:position.section+1},''))+'</summary><nav aria-label="'+clean(tr('course.railSectionsAria',null,'Course sections'))+'">'+railHTML()+'</nav></details><div class="rail-divider"></div><div class="rail-progress"><div class="rail-progress-row"><span>'+clean(tr('course.railCheckpointsLabel',null,'Knowledge checkpoints'))+'</span><strong>'+finished+' / 6</strong></div><div class="progress-track"><i style="width:'+value+'%"></i></div></div><div class="rail-note">'+clean(tr('course.railNoteText',null,'Correct responses are required at each checkpoint before moving forward.'))+'</div><button class="rail-activity-cta" id="rail-activity-cta"><span class="rail-cta-icon">↗</span><span><strong>'+clean(tr('course.railLibTitle',null,'Practice library'))+'</strong><small>'+clean(tr('course.railLibSub',null,'All 7 activities · Quick access'))+'</small></span></button></aside>' +
+      '<div class="workspace"><aside class="side-rail"><div class="rail-overline">'+clean(tr('course.railOverline',null,'LESSON 01'))+'</div><h2>'+(isEn?'Situational<br>Analysis':clean(tr('course.railTitle',null,'Situational Analysis')))+'</h2><p>'+clean(tr('course.railDesc',null,'Learn to diagnose before designing change.'))+'</p><div class="rail-divider"></div><div class="rail-overline">'+clean(tr('course.railPathOverline',null,'LEARNING PATH'))+'</div><details class="l1-path-menu" open><summary>'+clean(isEn?('Lesson sections · current section '+(position.section+1)+' of 6'):i18n.t('course.railSummary',{current:position.section+1},''))+'</summary><nav aria-label="'+clean(tr('course.railSectionsAria',null,'Course sections'))+'">'+railHTML()+'</nav></details><div class="rail-divider"></div><div class="rail-progress"><div class="rail-progress-row"><span>'+clean(tr('course.railCheckpointsLabel',null,'Quizzes'))+'</span><strong>'+finished+' / 6</strong></div><div class="progress-track"><i style="width:'+value+'%"></i></div></div><div class="rail-note">'+clean(tr('course.railNoteText',null,'Correct responses are required at each quiz before moving forward.'))+'</div><button class="rail-activity-cta" id="rail-activity-cta"><span class="rail-cta-icon">↗</span><span><strong>'+clean(tr('course.railLibTitle',null,'Practice library'))+'</strong><small>'+clean(tr('course.railLibSub',null,'All 7 activities · Quick access'))+'</small></span></button></aside>' +
       '<main class="learning-content" id="learning-main"><div class="learning-frame"><div id="l1-restore-preview" class="l1-restore-preview" hidden></div><div class="content-overline">'+clean(heading)+'</div>'+content+'</div></main>' +
       '<aside class="context-panel" tabindex="0"><span class="context-overline">'+clean(tr('course.contextWhyTitle',null,'WHY THIS MATTERS'))+'</span><h3>'+clean(tr('course.contextWhyHeading',null,'Evidence before action.'))+'</h3><p>'+clean(tr('course.contextWhyBody',null,'Effective capacity-building begins with a shared understanding of the context, existing assistance, and counterpart reality.'))+'</p><div class="context-divider"></div><span class="context-overline">'+clean(tr('course.contextOutcomesTitle',null,'LEARNING OUTCOMES'))+'</span><ul>'+lesson.objectives.slice(0,4).map(t=>'<li>'+clean(t)+'</li>').join('')+'</ul><div class="context-divider"></div><span class="context-overline">'+clean(tr('course.contextSourceTitle',null,'SOURCE'))+'</span><p class="source-small">'+clean(tr('course.contextSourceBody',null,'UNPOL CBD Job-Specific Training · Lesson 1, 2021 / July 2023 file.'))+'</p></aside></div></div>';
     if (i18n) i18n.mountSwitcher('#lesson-lang-slot', { variant: 'light' });
@@ -569,7 +581,7 @@
     const footSrc = isEn ? ('Based on lesson plan pages '+item.sourcePage) : i18n.t('course.pointsFootSource',{pages:item.sourcePage},'');
     const footNote = isEn ? 'Original instructional adaptation' : (c.pointsFootNote || 'Original instructional adaptation');
     const backLbl = isEn ? '← Back' : (c.btnBack || '← Back');
-    const nextLbl = screen===2&&!isCleared(section) ? tr('course.btnToCheckpoint',null,'Knowledge checkpoint →') : screen===2&&section===5 ? tr('course.btnToPractice',null,'Open practice →') : tr('course.btnContinue',null,'Continue →');
+    const nextLbl = screen===2&&!isCleared(section) ? tr('course.btnToCheckpoint',null,'Quiz →') : screen===2&&section===5 ? tr('course.btnToPractice',null,'Open practice →') : tr('course.btnContinue',null,'Continue →');
     const content='<div class="learning-head"><span class="micro-label">'+secHead+'</span><span class="screen-count">'+String(absolute).padStart(2,'0')+' / 18</span></div><div class="section-rule"></div>' +
       '<div class="content-title"><span class="small-tag">'+clean(item.kicker)+'</span><h1>'+clean(item.title)+'</h1><p class="lead">'+clean(item.lead)+'</p></div>'+trainerNarration+visualSequence +
       '<div class="learning-points">'+item.points.map((p,i)=>'<div class="point"><span class="point-dot"></span><p>'+clean(p)+'</p></div>').join('')+'</div>' +fieldPractice+
@@ -603,14 +615,14 @@
     if(passed){
       const revBtn = isEn ? 'Review this section' : (c.quizRevisit || 'Review this section');
       const contBtn = s===SECTION_COUNT-1 ? tr('course.quizOpenPractice',null,'Open practical activity →') : tr('course.quizContinueNext',null,'Continue to next section →');
-      layout('<div class="quiz-success"><div class="success-icon">✓</div><span class="micro-label">'+clean(tr('course.quizClearedBadge',null,'CHECKPOINT CLEARED'))+'</span><h1>'+clean(tr('course.quizPassedHeading',null,'Checkpoint passed.'))+'</h1><p>'+clean(isEn?('You passed all six questions in '+sec.title+'. You can now advance.'):i18n.t('course.quizPassedDesc',{title:sec.title},''))+'</p>'+(s===SECTION_COUNT-1?'<div class="completion-activity-banner"><span>'+clean(tr('course.quizFinalBannerKicker',null,'LESSON 01 / PRACTICAL APPLICATION'))+'</span><strong>'+clean(tr('course.quizFinalBannerTitle',null,'Put your analysis into practice.'))+'</strong><p>'+clean(tr('course.quizFinalBannerBody',null,'The original CARANA situational-analysis exercise is ready. Launch it directly in a full window or open it inside the learning studio.'))+'</p><a class="btn primary" href="../module1.html" target="_blank" rel="noopener noreferrer">'+clean(tr('course.quizFinalBannerLaunch',null,'Launch Lesson 1 Activity ↗'))+'</a></div>':'')+'<div class="bottom-actions center"><button class="btn outline" id="revisit">'+clean(revBtn)+'</button><button class="btn primary" id="continue-after-quiz">'+clean(contBtn)+'</button></div></div>',sec.title);
+      layout('<div class="quiz-success"><div class="success-icon">✓</div><span class="micro-label">'+clean(tr('course.quizClearedBadge',null,'QUIZ CLEARED'))+'</span><h1>'+clean(tr('course.quizPassedHeading',null,'Quiz passed.'))+'</h1><p>'+clean(isEn?('You passed all six questions in '+sec.title+'. You can now advance.'):i18n.t('course.quizPassedDesc',{title:sec.title},''))+'</p>'+(s===SECTION_COUNT-1?'<div class="completion-activity-banner"><span>'+clean(tr('course.quizFinalBannerKicker',null,'LESSON 01 / PRACTICAL APPLICATION'))+'</span><strong>'+clean(tr('course.quizFinalBannerTitle',null,'Put your analysis into practice.'))+'</strong><p>'+clean(tr('course.quizFinalBannerBody',null,'The original CARANA situational-analysis exercise is ready. Launch it directly in a full window or open it inside the learning studio.'))+'</p><a class="btn primary" href="../module1.html" target="_blank" rel="noopener noreferrer">'+clean(tr('course.quizFinalBannerLaunch',null,'Launch Lesson 1 Activity ↗'))+'</a></div>':'')+'<div class="bottom-actions center"><button class="btn outline" id="revisit">'+clean(revBtn)+'</button><button class="btn primary" id="continue-after-quiz">'+clean(contBtn)+'</button></div></div>',sec.title);
       $('revisit').addEventListener('click',()=>navigate(s,0));
       $('continue-after-quiz').addEventListener('click',()=>s===SECTION_COUNT-1?openActivity():navigate(s+1,0));
       return;
     }
-    const qPrefix = isEn ? ('POINT DE CONTRÔLE'.replace('POINT DE CONTRÔLE','KNOWLEDGE CHECKPOINT')+' '+String(s+1).padStart(2,'0')+' / 06') : i18n.t('course.quizHeaderPrefix',{num:String(s+1).padStart(2,'0')},'');
+    const qPrefix = isEn ? ('QUIZ '+String(s+1).padStart(2,'0')+' / 06') : i18n.t('course.quizHeaderPrefix',{num:String(s+1).padStart(2,'0')},'');
     let html='<div class="learning-head"><span class="micro-label">'+clean(qPrefix)+'</span><span class="screen-count">'+clean(tr('course.quizHeaderCount',null,'6 QUESTIONS'))+'</span></div><div class="section-rule"></div>' +
-      '<div class="content-title"><span class="small-tag">'+clean(tr('course.quizSmallTag',null,'Demonstrate understanding'))+'</span><h1>'+clean(isEn?('Checkpoint: '+sec.title):i18n.t('course.quizHeadingPrefix',{title:sec.title},''))+'</h1><p class="lead">'+clean(tr('course.quizSubRule',null,'Answer all six questions correctly to unlock the next section. Review the previous screens whenever needed.'))+'</p></div><div class="quiz-rule"><span>'+clean(tr('course.quizPassReqLabel',null,'PASS REQUIREMENT'))+'</span><strong>'+clean(tr('course.quizPassReqVal',null,'6 out of 6 correct'))+'</strong></div><form id="quiz-form" novalidate>';
+      '<div class="content-title"><span class="small-tag">'+clean(tr('course.quizSmallTag',null,'Demonstrate understanding'))+'</span><h1>'+clean(isEn?('Quiz: '+sec.title):i18n.t('course.quizHeadingPrefix',{title:sec.title},''))+'</h1><p class="lead">'+clean(tr('course.quizSubRule',null,'Answer all six questions correctly to unlock the next section. Review the previous screens whenever needed.'))+'</p></div><div class="quiz-rule"><span>'+clean(tr('course.quizPassReqLabel',null,'PASS REQUIREMENT'))+'</span><strong>'+clean(tr('course.quizPassReqVal',null,'6 out of 6 correct'))+'</strong></div><form id="quiz-form" novalidate>';
     sec.quiz.forEach((q,i)=>{
       const wrong=checked&&missed.includes(i);
       const chosenNote=wrong&&Array.isArray(q.optionFeedback)&&Number.isInteger(answers[i])?q.optionFeedback[answers[i]]:'';
@@ -648,7 +660,7 @@
     if(!isAllCleared()){navigate(0,0);return;}
     const { isEn, c } = getCourseStrings();
     const tr = (key, fb) => isEn ? fb : (c[key] || fb);
-    const content='<div class="activity-header"><div class="activity-breadcrumb"><span>'+clean(tr('activityBreadcrumbLeft','LESSON 01'))+'</span><span>→</span><span>'+clean(tr('activityBreadcrumbRight','PRACTICAL APPLICATION'))+'</span></div><span class="small-tag">'+clean(tr('activitySmallTag','UNLOCKED · ORIGINAL INTERACTIVE ACTIVITY'))+'</span><h1>'+(isEn?'Put the evidence<br><em>to work.</em>':tr('activityHeadingHtml',''))+'</h1><p class="lead">'+clean(tr('activityLead','You have completed all six knowledge checkpoints. Now apply the analytical sequence in the original CARANA Situational Analysis workbench.'))+'</p>'+
+    const content='<div class="activity-header"><div class="activity-breadcrumb"><span>'+clean(tr('activityBreadcrumbLeft','LESSON 01'))+'</span><span>→</span><span>'+clean(tr('activityBreadcrumbRight','PRACTICAL APPLICATION'))+'</span></div><span class="small-tag">'+clean(tr('activitySmallTag','UNLOCKED · ORIGINAL INTERACTIVE ACTIVITY'))+'</span><h1>'+(isEn?'Put the evidence<br><em>to work.</em>':tr('activityHeadingHtml',''))+'</h1><p class="lead">'+clean(tr('activityLead','You have completed all six quizzes. Now apply the analytical sequence in the original CARANA Situational Analysis workbench.'))+'</p>'+
       '<div class="activity-launch-hero"><div><span class="launch-eyebrow">'+clean(tr('activityLaunchEyebrow','01 / SITUATIONAL ANALYSIS ACTIVITY'))+'</span><strong>'+clean(tr('activityLaunchTitle','CARANA CBD Learning Lab'))+'</strong><p>'+clean(tr('activityLaunchSteps','PESTEL-S · Stakeholders · 5×6 CBD matrix · SWOT · Baseline'))+'</p><div class="launch-links"><a href="../module1.html" target="_blank" rel="noopener noreferrer" class="btn primary xl">'+clean(tr('activityLaunchBtn','Launch full activity ↗'))+'</a><button class="btn outline" id="open-other-activities">'+clean(tr('activityAllBtn','All activities →'))+'</button></div></div><div class="launch-symbol" aria-hidden="true">01<span>WORKBENCH</span></div></div>'+
       '<div class="activity-note"><strong>'+clean(tr('activityUnchangedTitle','Your exercise stays unchanged'))+'</strong><p>'+clean(tr('activityUnchangedBody','These controls open the original Module 1 workbench from the source application. The activity, its data format, and its original exercises remain intact. For the best working experience, launch it in a full browser tab.'))+'</p></div>'+
       '<div class="activity-frame-head"><div><span>'+clean(tr('activityFrameOverline','IN-PAGE WORKBENCH'))+'</span><p>'+clean(tr('activityFrameDesc','An embedded option for learners who prefer to stay inside the course.'))+'</p></div><button id="toggle-workbench" class="btn outline small" aria-expanded="false" aria-controls="embedded-workbench">'+clean(tr('activityFrameShow','Show embedded activity ↓'))+'</button></div>'+
@@ -676,7 +688,7 @@
     if(!progress.lessonComplete){openActivity();return;}
     const { isEn, c } = getCourseStrings();
     const tr = (key, fb) => isEn ? fb : (c[key] || fb);
-    const content='<div class="quiz-success complete"><div class="success-icon">✓</div><span class="micro-label">'+clean(tr('completeKicker','LESSON 01 · LEARNER COMPLETION'))+'</span><h1>'+clean(tr('completeHeading','Situational Analysis completed.'))+'</h1><p>'+clean(tr('completeBody','Six knowledge checkpoints completed, and the original Module 1 workbench has recorded your self-confirmation. Your learning progress is stored in this browser.'))+'</p><div class="completion-stats"><div><strong>18</strong><span>'+clean(tr('completeStatScreens','Instructional screens'))+'</span></div><div><strong>36 / 36</strong><span>'+clean(tr('completeStatQuiz','Knowledge-check answers'))+'</span></div><div><strong>01</strong><span>'+clean(tr('completeStatWb','Workbench self-confirmed'))+'</span></div></div>'+
+    const content='<div class="quiz-success complete"><div class="success-icon">✓</div><span class="micro-label">'+clean(tr('completeKicker','LESSON 01 · LEARNER COMPLETION'))+'</span><h1>'+clean(tr('completeHeading','Situational Analysis completed.'))+'</h1><p>'+clean(tr('completeBody','Six quizzes completed, and the original Module 1 workbench has recorded your self-confirmation. Your learning progress is stored in this browser.'))+'</p><div class="completion-stats"><div><strong>18</strong><span>'+clean(tr('completeStatScreens','Instructional screens'))+'</span></div><div><strong>36 / 36</strong><span>'+clean(tr('completeStatQuiz','Quiz answers'))+'</span></div><div><strong>01</strong><span>'+clean(tr('completeStatWb','Workbench self-confirmed'))+'</span></div></div>'+
       '<div class="completion-activity-banner"><span>'+clean(tr('completeAnytimeTag','PRACTICE ANYTIME'))+'</span><strong>'+clean(tr('completeAnytimeTitle','Return to your practical work.'))+'</strong><p>'+clean(tr('completeAnytimeBody','Review the original Situational Analysis workbench, or explore the other five CBD workbenches in the activity library.'))+'</p><div class="completion-links"><a class="btn primary" href="../module1.html" target="_blank" rel="noopener noreferrer">'+clean(tr('completeReopen','Reopen Lesson 1 Activity ↗'))+'</a><button class="btn outline" id="complete-activities">'+clean(tr('completeAllBtn','All activities →'))+'</button></div></div>'+
       '<p class="fine-print">'+clean(tr('completeDisclaimer','This is a local learner record, not a UN qualification or externally verified certificate. The workbench confirmation is participant-generated.'))+'</p><div class="bottom-actions center"><button class="btn outline" id="review-again">'+clean(tr('completeReviewLesson','Review lesson'))+'</button><button class="btn primary" id="export-completion">'+clean(tr('completeExport','Export progress record ↗'))+'</button></div></div>';
     layout(content,lesson.title);
@@ -707,6 +719,35 @@
     if(window.location.hash === '#activities' && mode !== 'activities')openActivities();
     else if(window.location.hash === '#home' && mode !== 'home')goHome();
     else if(window.location.hash === '#lesson-1' && mode !== 'lesson')resume();
+  });
+  function resetAllCourseState() {
+    progress = initial();
+    attempts.clear();
+    answers = {};
+    checked = false;
+    missed = [];
+    saveFailed = false;
+    position = { section: 0, screen: 0, kind: 'screen' };
+    showResetBanner = true;
+    mode = 'home';
+    document.body.classList.remove('is-learning');
+    window.CARANA_SUPPORT?.dispose();
+    $('trainer-audio')?.pause();
+    if (window.location && window.location.hash !== '#home') window.location.hash = '#home';
+    window.CARANA_PLATFORM?.resetLocalState?.();
+    render();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    const banner = $('course-reset-banner');
+    if (banner) {
+      banner.tabIndex = -1;
+      banner.focus({ preventScroll: true });
+    } else {
+      focusHeading();
+    }
+  }
+  window.CARANA_COURSE_RESET?.registerHooks({
+    exportLesson1: () => exportProgress(),
+    onReset: resetAllCourseState
   });
   if (i18n) {
     i18n.onChange(async newLang => {

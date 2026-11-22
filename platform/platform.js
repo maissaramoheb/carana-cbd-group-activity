@@ -293,7 +293,7 @@
       const compatLabel = item.compatibility === 'exact-match'
         ? tp('compatExact', { v: item.importedVersion }, 'Version matches (' + item.importedVersion + ')')
         : item.compatibility === 'version-mismatch'
-          ? tp('compatUpdated', { old: item.importedVersion, cur: item.currentCatalogVersion }, 'Updated from ' + item.importedVersion + ' → ' + item.currentCatalogVersion + ' (checkpoints reset for review; drafts archived)')
+          ? tp('compatUpdated', { old: item.importedVersion, cur: item.currentCatalogVersion }, 'Updated from ' + item.importedVersion + ' → ' + item.currentCatalogVersion + ' (quizzes reset for review; drafts archived)')
           : tp('compatUnknown', { v: item.importedVersion }, 'Unrecognized catalog ID (' + item.importedVersion + ')');
       const conflictNote = item.conflictFields > 0
         ? tp('conflictFieldsNote', { count: item.conflictFields }, item.conflictFields + ' differing draft field(s) will be archived without overwriting your active text in Merge mode.')
@@ -308,7 +308,7 @@
           drafts: item.importedDraftScreens,
           arch: item.archivedRevisions
         }, 'File: ' + item.importedCheckpoints + totalPart +
-        ' checkpoints, ' + item.importedDraftScreens + ' draft screen(s), ' + item.archivedRevisions + ' prior revision(s).')) + ' ' +
+        ' quizzes, ' + item.importedDraftScreens + ' draft screen(s), ' + item.archivedRevisions + ' prior revision(s).')) + ' ' +
         esc(conflictNote) + '</span></li>';
     }).join('');
 
@@ -316,7 +316,7 @@
     container.className = 'restore-preview';
     container.innerHTML =
       '<strong>' + esc(tp('dryRunPreview', { file: fileName }, 'Dry-run restore preview · ' + fileName)) + '</strong>' +
-      (plan.exploration ? '<p class="status">' + esc(tp('explorationHistoryNote', { count: Object.keys(plan.exploration.records).filter(k => expandedIds.includes(k.split('/')[0])).length }, 'Includes explanatory history for ' + Object.keys(plan.exploration.records).filter(k => expandedIds.includes(k.split('/')[0])).length + ' saved diagram revision(s). This is separate from checkpoint achievement.')) + '</p>' : '') +
+      (plan.exploration ? '<p class="status">' + esc(tp('explorationHistoryNote', { count: Object.keys(plan.exploration.records).filter(k => expandedIds.includes(k.split('/')[0])).length }, 'Includes explanatory history for ' + Object.keys(plan.exploration.records).filter(k => expandedIds.includes(k.split('/')[0])).length + ' saved diagram revision(s). This is separate from quiz achievement.')) + '</p>' : '') +
       (plan.exportedAt ? '<p class="status">' + esc(tp('exportedAtPrefix', { date: plan.exportedAt }, 'Exported: ' + plan.exportedAt)) + '</p>' : '') +
       (plan.items.length ? '<ul class="restore-list">' + rowsHtml + '</ul>' : '<p>' + esc(tp('backupZeroLessons', null, 'This backup contains 0 recorded lessons.')) + '</p>') +
       (hasLocal ? '<p class="status">' + esc(tp('restoreSafetyNotice', null, 'Safety notice: an automatic pre-restore backup of your current browser progress will download before applying.')) + '</p>' : '') +
@@ -411,7 +411,7 @@
     const l1Summary = progressCore.readLesson1Summary(readJsonKey(L1_KEY), readJsonKey(LAB_KEY));
 
     const lessonsMarkup = available
-      ? '<p>' + esc(tp('catalogLessonsIntro', null, 'Each lesson can be explored independently. Checkpoints guide study within a lesson; screen completion is not demonstrated workplace competence. Lesson 1 retains its own saved progress.')) + '</p>' +
+      ? '<p>' + esc(tp('catalogLessonsIntro', null, 'Each lesson can be explored independently. Quizzes guide study within a lesson; screen completion is not demonstrated workplace competence. Lesson 1 retains its own saved progress.')) + '</p>' +
         '<div class="lesson-list">' + locCourse.lessons.map(l => {
           if (l.href) {
             return '<article class="panel lesson-row"><span class="number">' + l.number + '</span><div><h2>' + esc(l.title) + '</h2>' +
@@ -434,12 +434,13 @@
         '</div>' +
         (bannerMessage ? '<p id="backup-status" class="feedback self-review" role="status">' + esc(bannerMessage) + '</p>' : '<p id="backup-status" class="status" role="status"></p>') +
         '<div id="restore-preview" class="restore-preview" hidden></div>' +
+        '<div id="reset-course-slot"></div>' +
         '</section>' +
         (locCourse.id === 'cbd'
           ? '<section class="panel backup-panel" aria-labelledby="e08-proto-heading">' +
             '<span class="eyebrow">' + esc(tp('protoBannerTitle', null, 'Separate Prototype Candidate · E08', 'notebook')) + '</span>' +
             '<h2 id="e08-proto-heading">' + esc(tp('notebookPromoHeading', null, 'Connected Evidence-to-Decision Notebook')) + '</h2>' +
-            '<p class="status">' + esc(tp('notebookPromoDesc', null, 'Isolated prototype: carry verified observations and explicit assumptions across Lessons 1–6 under dedicated local storage (carana_notebook_v1) without changing course checkpoints or practical workbenches.')) + '</p>' +
+            '<p class="status">' + esc(tp('notebookPromoDesc', null, 'Isolated prototype: carry verified observations and explicit assumptions across Lessons 1–6 under dedicated local storage (carana_notebook_v1) without changing course quizzes or practical workbenches.')) + '</p>' +
             '<p><a class="action" id="open-e08-notebook" href="./notebook.html">' + esc(tp('notebookPromoAction', null, 'Open Connected Notebook prototype →')) + '</a></p>' +
             '</section>'
           : '')
@@ -454,6 +455,13 @@
 
     if (available) {
       wireBackupControls(root, msg => catalogHTML(msg));
+      window.CARANA_COURSE_RESET?.mountControl(root.querySelector('#reset-course-slot'), {
+        onAfterReset: () => {
+          resetLocalState();
+          catalogHTML(window.CARANA_COURSE_RESET.getSuccessMessage());
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      });
     }
   }
 
@@ -473,9 +481,9 @@
       '<p>' + esc(lesson.title) + '</p>' +
       '<nav aria-label="' + esc(tp('lessonNavAria', null, 'Lesson sections')) + '">' + lesson.sections.map((s, i) =>
         '<button type="button" data-section="' + i + '" ' + (i > state.completed.length ? 'disabled' : '') + ' ' + (i === selected ? 'aria-current="step"' : '') + '>' +
-        esc((state.completed.includes(i) ? '✓ ' : '') + s.title) + '<small class="section-state">' + esc((i === selected ? tp('railCurrent', null, 'Current') + ' · ' : '') + (state.completed.includes(i) ? tp('railPassed', null, 'Checkpoint passed') : i > state.completed.length ? tp('railLocked', null, 'Not yet available') : tp('railAvailable', null, 'Available to study'))) + '</small></button>'
+        esc((state.completed.includes(i) ? '✓ ' : '') + s.title) + '<small class="section-state">' + esc((i === selected ? tp('railCurrent', null, 'Current') + ' · ' : '') + (state.completed.includes(i) ? tp('railPassed', null, 'Quiz passed') : i > state.completed.length ? tp('railLocked', null, 'Not yet available') : tp('railAvailable', null, 'Available to study'))) + '</small></button>'
       ).join('') + '</nav>' +
-      '<p class="status">' + esc(tp('railCheckpointsPassed', { done: state.completed.length, total: lesson.sections.length }, state.completed.length + ' / ' + lesson.sections.length + ' checkpoints passed')) + '</p>' +
+      '<p class="status">' + esc(tp('railCheckpointsPassed', { done: state.completed.length, total: lesson.sections.length }, state.completed.length + ' / ' + lesson.sections.length + ' quizzes passed')) + '</p>' +
       '<div class="rail-backup">' +
       '<button type="button" id="export-progress">' + esc(tp('exportBtn', null, 'Export progress')) + '</button>' +
       '<button type="button" id="import-progress">' + esc(tp('importBtn', null, 'Restore progress')) + '</button>' +
@@ -538,8 +546,8 @@
         oldVer: last.contentVersion,
         oldDone: last.completed.length,
         draftText
-      }, '<strong>Lesson updated to ' + lesson.version + '.</strong> Earlier checkpoint records from ' + last.contentVersion +
-      ' (' + last.completed.length + ' passed section(s))' + draftText + ' Review the updated material to record new checkpoints.')) + '</p>' +
+      }, '<strong>Lesson updated to ' + lesson.version + '.</strong> Earlier quiz records from ' + last.contentVersion +
+      ' (' + last.completed.length + ' passed section(s))' + draftText + ' Review the updated material to record new quizzes.')) + '</p>' +
       '<button type="button" id="ack-revision" class="small-btn">' + esc(tp('revisionAckBtn', null, 'Acknowledge notice')) + '</button>' +
       '</div>';
   }
@@ -682,7 +690,7 @@
       '<p class="lead">' + esc(screen.lead) + '</p>' +
       orderedBody +
       '<div class="actions"><button type="button" id="back" ' + (selected === 0 && index === 0 ? 'disabled' : '') + '>' + esc(tp('backBtn', null, '← Back')) + '</button><button type="button" id="next" class="primary">' +
-      esc(index === section.screens.length - 1 ? tp('checkpointBtn', null, 'Knowledge checkpoint →') : tp('nextBtn', null, 'Continue →')) + '</button></div>',
+      esc(index === section.screens.length - 1 ? tp('checkpointBtn', null, 'Quiz →') : tp('nextBtn', null, 'Continue →')) + '</button></div>',
       statusMessage,
       'data-rhythm="' + esc(rhythm) + '"'
     );
@@ -703,11 +711,11 @@
         state.drafts[screen.id] = draft;
         save();
         const draftStatus=root.querySelector('#draft-save-status');
-        if(draftStatus)draftStatus.textContent=storageFailed?tp('draftSaveFailed', null, 'Draft remains in this page; saving failed. Export before closing.'):tp('draftSavedStatus', null, 'Practice draft saved on this device · separate from checkpoints');
+        if(draftStatus)draftStatus.textContent=storageFailed?tp('draftSaveFailed', null, 'Draft remains in this page; saving failed. Export before closing.'):tp('draftSavedStatus', null, 'Practice draft saved on this device · separate from quizzes');
       }, document, { archivedDrafts });
     }
 
-    if(screen.lab){const note=document.createElement('p');note.id='draft-save-status';note.className='practice-history';note.setAttribute('role','status');note.textContent=state.drafts?.[screen.id]?tp('draftSavedAvail', null, 'Saved practice draft available · separate from checkpoints'):'';root.querySelector('.applied-lab')?.append(note);}
+    if(screen.lab){const note=document.createElement('p');note.id='draft-save-status';note.className='practice-history';note.setAttribute('role','status');note.textContent=state.drafts?.[screen.id]?tp('draftSavedAvail', null, 'Saved practice draft available · separate from quizzes'):'';root.querySelector('.applied-lab')?.append(note);}
 
     if (handoff && handoff.shouldShowOnScreen(lesson.number, screen.id)) {
       handoff.mountHandoffSection({
@@ -780,10 +788,10 @@
         : '';
       layout(
         banner +
-        '<span class="eyebrow">' + esc(tp('cpPassedEyebrow', null, 'Checkpoint passed')) + '</span><h1>' + esc(last ? tp('cpPassedLastHeading', null, 'Carry your work into practice.') : tp('cpPassedHeading', null, 'Understanding checked.')) + '</h1>' +
+        '<span class="eyebrow">' + esc(tp('cpPassedEyebrow', null, 'Quiz passed')) + '</span><h1>' + esc(last ? tp('cpPassedLastHeading', null, 'Carry your work into practice.') : tp('cpPassedHeading', null, 'Understanding checked.')) + '</h1>' +
         '<p>' + esc(tp('cpPassedDesc', { count: section.quiz.length }, 'You corrected all ' + section.quiz.length + ' questions. This records guided study, not professional certification.')) + '</p>' +
         (last
-          ? '<p>' + esc(tp('cpLastPracticeNote', null, 'Apply your own analysis in the original practical activity, and ask a peer or facilitator to challenge your reasoning. The digital checkpoint does not assess your workbench output.')) + '</p>' +
+          ? '<p>' + esc(tp('cpLastPracticeNote', null, 'Apply your own analysis in the original practical activity, and ask a peer or facilitator to challenge your reasoning. The digital quiz does not assess your workbench output.')) + '</p>' +
             '<a class="action primary" href="' + esc(lesson.activity) + '" target="_blank" rel="noopener noreferrer">' + esc(tp('cpOpenOrigBtn', { num: lesson.number }, 'Open original Lesson ' + lesson.number + ' activity ↗')) + '</a>' +
             '<p class="status">' + esc(tp('cpArtworkNote', null, 'Cinematic artwork is specified for this lesson; new images and narration are pending authorised production and review.')) + '</p>'
           : '') +
@@ -817,7 +825,7 @@
 
     layout(
       banner +
-      '<span class="eyebrow">' + esc(tp('cpFormativeEyebrow', null, 'Formative knowledge checkpoint')) + '</span><h1>' + esc(section.title) + '</h1>' +
+      '<span class="eyebrow">' + esc(tp('cpFormativeEyebrow', null, 'Formative quiz')) + '</span><h1>' + esc(section.title) + '</h1>' +
       '<p>' + esc(tp('cpRuleDesc', { count: section.quiz.length }, 'Correct all ' + section.quiz.length + ' questions to continue. Retry without penalty. This is the adaptation’s study rule, not an official UN qualification standard.')) + '</p>' +
       '<form id="quiz">' + section.quiz.map((q, i) =>
         '<fieldset><legend>' + esc(q.prompt) + '</legend>' +
@@ -937,7 +945,8 @@
       '<div class="backup-actions"><button class="btn outline small" id="home-export-l1">' + esc(tp('homeExportL1', null, 'Export Lesson 1 (JSON)')) + '</button>' +
       '<button class="btn outline small" id="home-restore-l1">' + esc(tp('homeRestoreL1', null, 'Restore Lesson 1 backup (JSON)')) + '</button>' +
       '<input type="file" id="home-import-l1-file" accept=".json,application/json" hidden></div>' +
-      '<div id="l1-restore-preview" class="l1-restore-preview" hidden></div>';
+      '<div id="l1-restore-preview" class="l1-restore-preview" hidden></div>' +
+      '<div id="reset-course-slot"></div>';
     wireBackupControls(container, message => {
       // Preserve Lesson 1 listeners when refreshing expanded progress.
       const curCourse = getLocalizedCourse('cbd') || course;
@@ -950,10 +959,32 @@
       }
       document.getElementById('backup-status').textContent = message;
     });
+    window.CARANA_COURSE_RESET?.mountControl(container.querySelector('#reset-course-slot'));
   }
+
+  function resetLocalState() {
+    store = load();
+    attempts.clear();
+    answers = {};
+    checked = false;
+    selected = 0;
+    index = 0;
+    quiz = false;
+    storageFailed = false;
+    if (rawLesson) {
+      lesson = localizeLesson(rawLesson);
+      state = progressCore.safeProgress(rawLesson, store.lessons[rawLesson.id]);
+    }
+  }
+
+  window.CARANA_COURSE_RESET?.registerHooks({
+    exportLessons2to6: () => exportProgress(),
+    resetPlatformState: resetLocalState
+  });
 
   window.CARANA_PLATFORM = {
     mountHome,
+    resetLocalState,
     get lesson() { return lesson; },
     get ready() { return ready; }
   };

@@ -43,8 +43,8 @@ function localizedReviewScreen(context, lang) {
 
 const GW_MESSAGES = {
   en: {
-    studyGuideIntro: 'I can help you review the underlying concepts, but I will not select checkpoint options or reveal facilitator solutions.\n\nReview: ',
-    studyGuideOutro: '\n\nUse the source references and your own reasoning before returning to the checkpoint.',
+    studyGuideIntro: 'I can help you review the underlying concepts, but I will not select quiz options or reveal facilitator solutions.\n\nReview: ',
+    studyGuideOutro: '\n\nUse the source references and your own reasoning before returning to the quiz.',
     sourceCheckDecline: (title, num) =>
       'I could not retrieve enough authorized evidence for that wording on "' +
       title +
@@ -65,8 +65,8 @@ const GW_MESSAGES = {
     queueTimeout: 'Queue wait timed out before the local model became free. Please try again.'
   },
   'fr-FR': {
-    studyGuideIntro: 'Je peux vous aider à revoir les concepts sous-jacents, mais je ne sélectionne pas d’options de point de contrôle ni ne révèle de corrigé ou solution de facilitateur.\n\nÀ revoir : ',
-    studyGuideOutro: '\n\nAppuyez-vous sur les références sources et votre propre raisonnement avant de revenir au point de contrôle.',
+    studyGuideIntro: 'Je peux vous aider à revoir les concepts sous-jacents, mais je ne sélectionne pas d’options de quiz ni ne révèle de corrigé ou solution de facilitateur.\n\nÀ revoir : ',
+    studyGuideOutro: '\n\nAppuyez-vous sur les références sources et votre propre raisonnement avant de revenir au quiz.',
     sourceCheckDecline: (title, num) =>
       'Je n’ai pas pu retrouver suffisamment de preuves autorisées pour cette formulation sur « ' +
       title +
@@ -87,8 +87,8 @@ const GW_MESSAGES = {
     queueTimeout: 'L’attente en file a expiré avant que le modèle local ne se libère. Veuillez réessayer.'
   },
   ar: {
-    studyGuideIntro: 'يمكنني مساعدتك في مراجعة المفاهيم الأساسية، لكنني لن أختار إجابات نقاط التحقق ولن أكشف مفاتيح الحلول أو إجابات الميسّرين.\n\nموضوع المراجعة: ',
-    studyGuideOutro: '\n\nاستعن بالمراجع الموثقة ومنطقك التحليلي قبل العودة إلى نقطة التحقق.',
+    studyGuideIntro: 'يمكنني مساعدتك في مراجعة المفاهيم الأساسية، لكنني لن أختار إجابات الاختبار ولن أكشف مفاتيح الحلول أو إجابات الميسّرين.\n\nموضوع المراجعة: ',
+    studyGuideOutro: '\n\nاستعن بالمراجع الموثقة ومنطقك التحليلي قبل العودة إلى الاختبار.',
     sourceCheckDecline: (title, num) =>
       'تعذر استرجاع أدلة كافية من المنهج المعتمد لهذه الصياغة ضمن «' +
       title +

@@ -105,7 +105,7 @@ async function journey(browser, settings, name) {
     for (const [i,q] of lesson[s].quiz.entries()) await select(i,q.answer);
     await page.locator('#check-quiz').click();
     await page.reload();
-    assert.match(await page.locator('h1').textContent(),/Checkpoint passed/);
+    assert.match(await page.locator('h1').textContent(),/Quiz passed/);
     await page.locator('#continue-after-quiz').click();
   }
   assert.equal(cinematic,3);

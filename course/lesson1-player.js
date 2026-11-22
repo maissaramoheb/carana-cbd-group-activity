@@ -92,7 +92,7 @@
     const isEn=!i18n||i18n.getLang()==='en';
     const eyebrow=isEn?'FIELD JUDGEMENT / FORMATIVE PRACTICE':i18n.t('course.decisionEyebrow',null,'FIELD JUDGEMENT');
     const groupAria=isEn?'Choose your response':i18n.t('course.decisionAria',null,'Choose your response');
-    const footnote=isEn?'Practice only · Your choice does not alter the six-question knowledge checkpoint.':i18n.t('course.decisionFootnote',null,'Practice only');
+    const footnote=isEn?'Practice only · Your choice does not alter the six-question quiz.':i18n.t('course.decisionFootnote',null,'Practice only');
     return '<section class="learner-decision" aria-labelledby="decision-heading"><div class="decision-heading"><span class="decision-eyebrow">'+esc(eyebrow)+'</span><h2 id="decision-heading">'+esc(activity.label)+'</h2><p>'+esc(activity.prompt)+'</p></div>'+
       '<div class="decision-options" role="group" aria-label="'+esc(groupAria)+'">'+activity.options.map((opt,i)=>
       '<button type="button" class="decision-option" data-decision="'+i+'" aria-pressed="false"><span class="decision-option-index">'+String.fromCharCode(65+i)+'</span><span>'+esc(opt.label)+'</span></button>').join('')+'</div>'+

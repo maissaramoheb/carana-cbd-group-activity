@@ -115,7 +115,7 @@ async function edgeCases(browser){
  page=await pageFor(browser,{width:768,height:1024});
  await page.addInitScript(()=>localStorage.setItem('carana_learning_v1',JSON.stringify({version:1,lessons:{'cbd-2':{contentVersion:'2026.11-run01',completed:[0,1,2],section:2,screen:1,drafts:{'02-04':{0:'Archived prior SMART objective'}}}}})));
  await page.goto(base+'/platform/?course=cbd&lesson=cbd-2');await ready(page);
- assert.match(await page.locator('.version-note').innerText(),/Earlier checkpoint records/);
+ assert.match(await page.locator('.version-note').innerText(),/Earlier quiz records/);
  assert.match(await page.locator('.rail .status').first().innerText(),/0 \/ 3/);
  await page.locator('#ack-revision').click();assert.equal(await page.locator('.version-note').count(),0);
  await advance(page,'#next');

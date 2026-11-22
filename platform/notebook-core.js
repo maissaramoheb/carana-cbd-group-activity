@@ -302,11 +302,11 @@
 
     if (phaseId === 'phase1') {
       if (!isPlainObject(lesson1Store) || !Array.isArray(lesson1Store.completed)) {
-        return { available: false, summary: nt('pullSummaryEmpty', { num: 1 }, 'No Lesson 1 checkpoint state detected yet in this browser.'), observedDraft: '', assumptionDraft: '', sourceHint: '' };
+        return { available: false, summary: nt('pullSummaryEmpty', { num: 1 }, 'No Lesson 1 quiz state detected yet in this browser.'), observedDraft: '', assumptionDraft: '', sourceHint: '' };
       }
       return {
         available: true,
-        summary: nt('pullSummaryAvailable', { count: lesson1Store.completed.length }, 'Lesson 1 progress detected (' + lesson1Store.completed.length + ' / 6 checkpoints cleared). Summarise your verified Lesson 1 findings here (notebook keeps its own text without altering carana_cbd_course_v1).'),
+        summary: nt('pullSummaryAvailable', { count: lesson1Store.completed.length }, 'Lesson 1 progress detected (' + lesson1Store.completed.length + ' / 6 quizzes cleared). Summarise your verified Lesson 1 findings here (notebook keeps its own text without altering carana_cbd_course_v1).'),
         observedDraft: 'Lesson 1 (' + lesson1Store.completed.length + ' / 6)',
         assumptionDraft: '',
         sourceHint: 'Lesson 1 (carana_cbd_course_v1)'

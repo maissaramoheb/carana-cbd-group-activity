@@ -189,7 +189,7 @@
       activityOpened: false,
       lessonComplete: false,
       labConfirmed: !!(rawLab && rawLab.module1 && rawLab.module1.confirmed === true),
-      statusText: pt('l1DefaultStatus', null, 'Implemented · institutional validation pending · 0 / 6 checkpoints passed'),
+      statusText: pt('l1DefaultStatus', null, 'Implemented · institutional validation pending · 0 / 6 quizzes passed'),
       actionText: pt('l1DefaultAction', null, 'Open Lesson 1')
     };
     if (!isPlainObject(rawL1) || rawL1.version !== 1 || !Array.isArray(rawL1.completed)) {
@@ -214,7 +214,7 @@
       return {
         started: true, completedCount, totalCheckpoints: 6, lastSection, lastScreen, lastKind,
         activityOpened, lessonComplete, labConfirmed,
-        statusText: pt('l1CompleteStatus', null, 'Guided study complete · 6 / 6 checkpoints + workbench self-confirmed'),
+        statusText: pt('l1CompleteStatus', null, 'Guided study complete · 6 / 6 quizzes + workbench self-confirmed'),
         actionText: pt('l1CompleteAction', null, 'Review Lesson 1')
       };
     }
@@ -222,7 +222,7 @@
       return {
         started: true, completedCount, totalCheckpoints: 6, lastSection, lastScreen, lastKind,
         activityOpened, lessonComplete, labConfirmed,
-        statusText: pt('l1PendingStatus', null, '6 / 6 checkpoints passed · Module 1 confirmation pending'),
+        statusText: pt('l1PendingStatus', null, '6 / 6 quizzes passed · Module 1 confirmation pending'),
         actionText: pt('l1PendingAction', null, 'Continue to practice')
       };
     }
@@ -230,7 +230,7 @@
       return {
         started: true, completedCount, totalCheckpoints: 6, lastSection, lastScreen, lastKind,
         activityOpened, lessonComplete, labConfirmed,
-        statusText: pt('l1ProgressStatus', { sec: lastSection + 1, done: completedCount }, 'In progress (Section ' + (lastSection + 1) + ') · ' + completedCount + ' / 6 checkpoints passed'),
+        statusText: pt('l1ProgressStatus', { sec: lastSection + 1, done: completedCount }, 'In progress (Section ' + (lastSection + 1) + ') · ' + completedCount + ' / 6 quizzes passed'),
         actionText: pt('l1ProgressAction', null, 'Resume Lesson 1')
       };
     }
@@ -255,7 +255,7 @@
       const oldDrafts = countDraftScreens(lessonRecord.drafts) + archivedDraftScreens;
       return {
         state: 'migrated',
-        statusText: pt('descMigratedStatus', { checks: oldChecks, drafts: oldDrafts, base: baseNote }, 'Updated content ready · ' + oldChecks + ' prior checkpoint(s) & ' + oldDrafts + ' draft screen(s) will be archived on open · ' + baseNote),
+        statusText: pt('descMigratedStatus', { checks: oldChecks, drafts: oldDrafts, base: baseNote }, 'Updated content ready · ' + oldChecks + ' prior quiz(zes) & ' + oldDrafts + ' draft screen(s) will be archived on open · ' + baseNote),
         actionText: pt('descMigratedAction', null, 'Review updated lesson')
       };
     }
@@ -275,7 +275,7 @@
     if (total !== null && passed >= total) {
       return {
         state: 'completed',
-        statusText: pt('descCompletedStatus', { passed, denom, draftNote, base: baseNote }, 'Guided study complete · ' + passed + denom + ' checkpoints passed' + draftNote + ' · ' + baseNote),
+        statusText: pt('descCompletedStatus', { passed, denom, draftNote, base: baseNote }, 'Guided study complete · ' + passed + denom + ' quizzes passed' + draftNote + ' · ' + baseNote),
         actionText: pt('descCompletedAction', null, 'Review completed lesson')
       };
     }
@@ -283,14 +283,14 @@
     if (passed > 0 || secIdx > 0 || (lessonRecord.screen || 0) > 0 || lessonRecord.view === 'quiz' || activeDrafts > 0) {
       return {
         state: 'in-progress',
-        statusText: pt('descResumeStatus', { sec: secTitle, passed, denom, draftNote }, 'Resume: ' + secTitle + ' · ' + passed + denom + ' checkpoints passed' + draftNote),
+        statusText: pt('descResumeStatus', { sec: secTitle, passed, denom, draftNote }, 'Resume: ' + secTitle + ' · ' + passed + denom + ' quizzes passed' + draftNote),
         actionText: pt('descResumeAction', null, 'Resume lesson')
       };
     }
 
     return {
       state: 'reading',
-      statusText: pt('descResumeStatus', { sec: secTitle, passed: 0, denom, draftNote: '' }, 'Started (' + secTitle + ' · Screen 1) · 0' + denom + ' checkpoints passed') + ' · ' + baseNote,
+      statusText: pt('descResumeStatus', { sec: secTitle, passed: 0, denom, draftNote: '' }, 'Started (' + secTitle + ' · Screen 1) · 0' + denom + ' quizzes passed') + ' · ' + baseNote,
       actionText: pt('descResumeAction', null, 'Resume lesson')
     };
   }
@@ -715,7 +715,7 @@
         : 0;
       const versionNote = rec && rec.contentVersion !== lesson.version
         ? pt('studyVersionMismatch', { oldVer: rec.contentVersion, curVer: lesson.version }, 'Stored record is from earlier version ' + rec.contentVersion + ' (not yet updated to ' + lesson.version + ').')
-        : pt('studyCheckpointsLine', { passed, total: sectionCount, ver: lesson.version }, passed + ' / ' + sectionCount + ' checkpoints passed (' + lesson.version + ').');
+        : pt('studyCheckpointsLine', { passed, total: sectionCount, ver: lesson.version }, passed + ' / ' + sectionCount + ' quizzes passed (' + lesson.version + ').');
 
       const toolBlocks = [];
       for (const sec of lesson.sections) {

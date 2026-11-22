@@ -488,7 +488,7 @@
         feedback.hidden = false;
         feedback.textContent = unanswered
           ? lt('itemsNeedChoice', { count: unanswered }, unanswered + ' item(s) still need a choice.')
-          : lt('classifyScoreSummary', { correct, total: x.items.length }, correct + ' of ' + x.items.length + ' classifications fit the teaching example. Explain the evidence for your choices; this does not alter checkpoint scores.');
+          : lt('classifyScoreSummary', { correct, total: x.items.length }, correct + ' of ' + x.items.length + ' classifications fit the teaching example. Explain the evidence for your choices; this does not alter quiz scores.');
       };
       renderArchivedDrafts(x, saved, opts?.archivedDrafts, doc, patch => {
         const clean = validDraft(x, patch);

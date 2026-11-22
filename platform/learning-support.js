@@ -622,7 +622,7 @@
         return;
       }
       if (reader.index >= reader.items.length) {
-        stopRead(st('statusFinished', null, 'Reading finished. Listening does not change checkpoints.'));
+        stopRead(st('statusFinished', null, 'Reading finished. Listening does not change quizzes.'));
         return;
       }
       const item = reader.items[reader.index];
@@ -1350,7 +1350,7 @@
           screenTitle: current.screenTitle
         }, 'CBD · Lesson ' + current.lessonNumber + ' · ' + current.lessonTitle + ' / ' + current.section + ' / ' + current.screenTitle) +
         (focusTitle ? ' · ' + st('contextFocus', { title: focusTitle }, 'Focus: ' + focusTitle) : '') +
-        (current.mode === 'checkpoint' ? ' · ' + st('contextCheckpoint', null, 'checkpoint study guidance') : '');
+        (current.mode === 'checkpoint' ? ' · ' + st('contextCheckpoint', null, 'quiz study guidance') : '');
     };
     renderContextLine();
 
