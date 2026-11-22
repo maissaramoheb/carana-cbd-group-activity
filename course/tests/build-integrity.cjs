@@ -17,6 +17,11 @@ test('release build publishes exactly the locked media and refuses drift or abse
     fs.mkdirSync(path.dirname(path.join(tmp,name)), {recursive:true});
     fs.cpSync(path.join(project,name),path.join(tmp,name),{recursive:true});
   }
+  // Supply only the two installed SDK assets needed by the isolated build.
+  for (const name of ['node_modules/@vercel/speed-insights/dist/index.mjs', 'node_modules/@vercel/speed-insights/LICENSE']) {
+    fs.mkdirSync(path.dirname(path.join(tmp,name)), {recursive:true});
+    fs.copyFileSync(path.join(project,name),path.join(tmp,name));
+  }
   fs.writeFileSync(path.join(tmp, 'private-placeholder.txt'), 'not a public asset');
   const run = () => spawnSync(process.execPath, ['tools/build-course.mjs'], {cwd:tmp, encoding:'utf8'});
   const first = run();
@@ -33,6 +38,8 @@ test('release build publishes exactly the locked media and refuses drift or abse
   }
   assert(!fs.existsSync(path.join(dist,'private-placeholder.txt')));
   assert(!fs.existsSync(path.join(dist,'docs')));
+  assert(!fs.existsSync(path.join(dist,'node_modules')));
+  assert.deepEqual(fs.readFileSync(path.join(dist,'js/vendor/vercel-speed-insights.js')),fs.readFileSync(path.join(project,'node_modules/@vercel/speed-insights/dist/index.mjs')));
   assert.deepEqual(fs.readFileSync(path.join(dist,'platform/review/run08/TRILINGUAL_REVIEW_MATRIX.json')),fs.readFileSync(path.join(project,'docs/reviews/run08-trilingual/TRILINGUAL_REVIEW_MATRIX.json')));
   assert(fs.existsSync(path.join(dist,'platform/review/run08/audio-samples/ar-macos-majed-l1.mp3')));
   assert(!fs.existsSync(path.join(dist,'course/tests')));
