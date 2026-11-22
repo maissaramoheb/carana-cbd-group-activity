@@ -23,6 +23,8 @@ test('SDK and logical pageviews are initialized once; hash changes are handled w
  const pages=()=>h.window.vaq.filter(x=>x[0]==='pageview');assert.equal(pages().length,1);h.listeners.hashchange();assert.equal(pages().length,1);
  h.window.location.hash='#lesson-1';h.listeners.hashchange();assert.equal(pages().length,2);h.listeners['carana:lang-change']();assert.equal(pages().length,2);
  h.window.location.hash='#activities';h.listeners.hashchange();assert.equal(pages().length,3);
+ assert.equal(h.scripts[1].dataset.route,'/cbd/home');
+ assert.equal(h.window.siq[0][1]({route:'/cbd/home',url:'https://cbd.maissara.tech/?private=value'}).url,'https://e-learning.maissara.tech/cbd/home');
 });
 test('only finite names and two approved metadata properties can be sent; duplicate completion is suppressed',()=>{
  const h=harness('https://cbd.maissara.tech/platform/?lesson=cbd-3&name=PRIVATE',{webAnalytics:true});const api=h.window.CARANA_MONITORING;

@@ -61,7 +61,10 @@
     if (!current || current.path === previousPath) return;
     previousPath = current.path;
     if (analytics) w.va('pageview', { route: current.path, path: current.path });
-    if (speedScript) { speedScript.dataset.route = current.path; speedScript.dataset.path = current.path; }
+    // Free-tier checks use document navigations; keep their entry route stable.
+    if (speedScript && !speedScript.dataset.route) {
+      speedScript.dataset.route = current.path; speedScript.dataset.path = current.path;
+    }
     if (current.lesson) event('lesson_started', current.lesson);
     if (current.workbench) event('workbench_opened', current.workbench);
   }
@@ -79,7 +82,8 @@
   if (speed) {
     w.si = w.si || function () { (w.siq = w.siq || []).push(arguments); };
     w.si('beforeSend', value => {
-      const url = canonicalUrl();
+      const known = /^\/cbd\/(home|catalog|notebook|lessons\/cbd-[1-6]|workbenches(?:\/(?:[1-6]|group))?)$/;
+      const url = known.test(value.route) ? 'https://e-learning.maissara.tech' + value.route : canonicalUrl();
       return url ? { ...value, url } : null;
     });
     speedScript = inject('/_vercel/speed-insights/script.js', 'carana-speed-insights');
