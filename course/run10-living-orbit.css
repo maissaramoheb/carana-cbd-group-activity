@@ -430,12 +430,39 @@
   fill: #c7ffd0;
 }
 
-/* Supporting information panel */
+/* Supporting information panel: CSS grid intrinsic sizer stack eliminates height shifts on hover/focus */
 .curriculum-visual .cycle-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
   border: 1px solid rgba(154, 232, 236, 0.28);
   border-top-color: rgba(180, 244, 240, 0.42);
   background: linear-gradient(135deg, rgba(19, 55, 79, 0.82), rgba(10, 32, 52, 0.9));
   box-shadow: 0 18px 30px rgba(2, 11, 22, 0.34), inset 0 1px 0 rgba(226, 255, 252, 0.14);
+}
+
+.curriculum-visual .cycle-detail-layer {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+}
+
+.curriculum-visual .cycle-detail-live {
+  align-self: stretch;
+}
+
+.curriculum-visual .cycle-detail-live .cycle-detail-copy {
+  align-self: start;
+}
+
+.curriculum-visual .cycle-detail-sizer {
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Spatial CSS 3D depth on capable devices when reduced motion is not requested */
@@ -548,7 +575,8 @@
   .curriculum-visual a.cycle-stage,
   .curriculum-visual a.cycle-stage:hover,
   .curriculum-visual a.cycle-stage:focus-visible,
-  .curriculum-visual a.cycle-stage:active {
+  .curriculum-visual a.cycle-stage:active,
+  .curriculum-visual a.cycle-stage[data-active="true"] {
     position: relative;
     top: auto;
     left: auto;
@@ -582,6 +610,23 @@
     inset-block-start: 8px;
     inset-inline-end: 8px;
   }
+
+  .curriculum-visual .cycle-detail {
+    padding: 18px;
+    margin-top: 11px;
+    align-items: start;
+  }
+
+  .curriculum-visual .cycle-detail-layer {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .curriculum-visual .cycle-detail-live {
+    justify-content: space-between;
+  }
 }
 
 @media (max-width: 360px) {
@@ -589,7 +634,11 @@
     grid-template-columns: 1fr;
   }
 
-  .curriculum-visual a.cycle-stage {
+  .curriculum-visual a.cycle-stage,
+  .curriculum-visual a.cycle-stage:hover,
+  .curriculum-visual a.cycle-stage:focus-visible,
+  .curriculum-visual a.cycle-stage:active,
+  .curriculum-visual a.cycle-stage[data-active="true"] {
     min-height: 68px;
   }
 }

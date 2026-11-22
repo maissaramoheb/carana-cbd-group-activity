@@ -314,6 +314,31 @@
     const langParam = isEn ? '' : ('&amp;lang=' + encodeURIComponent(i18n.getLang()));
     const rawLangParam = isEn ? '' : ('&lang=' + encodeURIComponent(i18n.getLang()));
     const stageHref = i => i === 0 ? '#lesson-1' : ('../platform/?course=cbd&lesson=cbd-' + (i + 1) + rawLangParam);
+    const defaultMeta = {
+      eyebrow: tr('course.orbitDefaultEyebrow', null, 'THE FULL CURRICULUM'),
+      title: tr('course.orbitDefaultTitle', null, 'Six phases. One connected journey.'),
+      copy: tr('course.orbitDefaultCopy', null, 'Select any phase to explore its purpose and available practical activity.'),
+      action: tr('course.orbitDefaultAction', null, 'Explore all phases')
+    };
+    const getDetailState = indexOrNull => {
+      if (indexOrNull === null || !phases[indexOrNull]) {
+        return { eyebrow: defaultMeta.eyebrow, title: defaultMeta.title, copy: defaultMeta.copy, action: defaultMeta.action, href: '#course-map' };
+      }
+      const phase = phases[indexOrNull];
+      return {
+        eyebrow: isEn ? ('PHASE ' + phase.num + ' / ' + phase.lens) : i18n.t('course.orbitPhasePrefix', { num: phase.num, lens: phase.lens }, ''),
+        title: phase.name,
+        copy: phase.summary,
+        action: indexOrNull === 0
+          ? (isEn ? 'Enter lesson 01' : (c.orbitEnterL1 || 'Enter lesson 01'))
+          : (isEn ? ('Open phase ' + phase.num + ' review lesson') : i18n.t('course.orbitOpenPhase', { num: phase.num }, '')),
+        href: stageHref(indexOrNull)
+      };
+    };
+    const renderDetailLayer = (state, isLive) => isLive
+      ? '<div class="cycle-detail-layer cycle-detail-live"><div class="cycle-detail-copy"><span id="cycle-caption-phase">' + clean(state.eyebrow) + '</span><strong id="cycle-caption-title">' + clean(state.title) + '</strong><p id="cycle-caption-copy">' + clean(state.copy) + '</p></div><a id="cycle-caption-action" href="' + clean(state.href) + '" class="cycle-detail-action">' + clean(state.action) + ' <span aria-hidden="true">↗</span></a></div>'
+      : '<div class="cycle-detail-layer cycle-detail-sizer" aria-hidden="true" inert><div class="cycle-detail-copy"><span>' + clean(state.eyebrow) + '</span><strong>' + clean(state.title) + '</strong><p>' + clean(state.copy) + '</p></div><span class="cycle-detail-action">' + clean(state.action) + ' <span aria-hidden="true">↗</span></span></div>';
+    const detailSizers = [null, 0, 1, 2, 3, 4, 5].map(idx => renderDetailLayer(getDetailState(idx), false)).join('');
     const launchIcon = '<span class="cycle-stage-launch" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5L9.5 2.5M4 2.5H9.5V8"/></svg></span>';
     const stageLinks = phases.map((phase, i) =>
       '<a class="cycle-stage stage-' + phase.num + '" data-cycle-phase="' + i + '" href="' + (i === 0 ? '#lesson-1' : ('../platform/?course=cbd&amp;lesson=cbd-' + (i + 1) + langParam)) + '">' +
@@ -388,7 +413,7 @@
       '<div class="cycle-core"><span class="cycle-core-dial" aria-hidden="true"></span><div class="cycle-core-title">'+clean(tr('course.orbitCenterTitle',null,'CBD'))+'</div><span class="cycle-core-full">'+tr('course.orbitCenterSub',null,'CAPACITY BUILDING<br>& DEVELOPMENT')+'</span></div>'+
       stageLinks+
       '</div>'+
-      '<div class="cycle-detail"><div class="cycle-detail-copy"><span id="cycle-caption-phase">'+clean(tr('course.orbitDefaultEyebrow',null,'THE FULL CURRICULUM'))+'</span><strong id="cycle-caption-title">'+clean(tr('course.orbitDefaultTitle',null,'Six phases. One connected journey.'))+'</strong><p id="cycle-caption-copy">'+clean(tr('course.orbitDefaultCopy',null,'Select any phase to explore its purpose and available practical activity.'))+'</p></div><a id="cycle-caption-action" href="#course-map" class="cycle-detail-action">'+clean(tr('course.orbitDefaultAction',null,'Explore all phases'))+' <span aria-hidden="true">↗</span></a></div>'+
+      '<div class="cycle-detail">' + renderDetailLayer(getDetailState(null), true) + detailSizers + '</div>'+
       '</div></section></div><main>'+
       '<section class="highlights shell curriculum-highlights" aria-label="CBD course and activity availability"><div class="highlight-title"><span class="highlight-kicker">'+clean(tr('course.deskKicker',null,'YOUR CBD LEARNING DESK'))+'</span><strong>'+(started?clean(tr('course.deskTitleStarted',null,'Continue your learning journey.')):clean(tr('course.deskTitleFresh',null,'Explore the complete curriculum.')))+'</strong><span>'+(started?clean(tr('course.deskSubStarted',{done:completed},'Lesson 1: '+completed+' of 6 checkpoints passed')):clean(tr('course.deskSubFresh',null,'Six phases, each connected to practical application')))+'</span></div>'+
       '<div class="highlight-stat"><strong>06</strong><small>'+clean(tr('course.statPhases',null,'CURRICULUM PHASES'))+'</small></div>'+
@@ -418,37 +443,23 @@
     const visualBox = document.querySelector('.curriculum-visual');
     const orbitBox = document.querySelector('.cycle-orbit');
     const cycleLinks = Array.from(document.querySelectorAll('[data-cycle-phase]'));
-    const defaultMeta = {
-      eyebrow: tr('course.orbitDefaultEyebrow', null, 'THE FULL CURRICULUM'),
-      title: tr('course.orbitDefaultTitle', null, 'Six phases. One connected journey.'),
-      copy: tr('course.orbitDefaultCopy', null, 'Select any phase to explore its purpose and available practical activity.'),
-      action: tr('course.orbitDefaultAction', null, 'Explore all phases')
-    };
     function previewPhase(indexOrNull) {
       const phaseEl = $('cycle-caption-phase'), titleEl = $('cycle-caption-title'), copyEl = $('cycle-caption-copy'), action = $('cycle-caption-action');
       if (!phaseEl || !titleEl || !copyEl || !action) return;
-      if (orbitBox) orbitBox.dataset.activePhase = indexOrNull === null ? '' : String(indexOrNull);
+      const isPhase = indexOrNull !== null && !!phases[indexOrNull];
+      if (orbitBox) orbitBox.dataset.activePhase = isPhase ? String(indexOrNull) : '';
       cycleLinks.forEach((node, idx) => {
-        if (idx === indexOrNull) node.setAttribute('data-active', 'true');
+        if (isPhase && idx === indexOrNull) node.setAttribute('data-active', 'true');
         else node.removeAttribute('data-active');
       });
-      if (indexOrNull === null || !phases[indexOrNull]) {
-        phaseEl.textContent = defaultMeta.eyebrow;
-        titleEl.textContent = defaultMeta.title;
-        copyEl.textContent = defaultMeta.copy;
-        action.setAttribute('href', '#course-map');
-        action.innerHTML = clean(defaultMeta.action) + ' <span aria-hidden="true">↗</span>';
-        return;
-      }
-      const phase = phases[indexOrNull];
-      phaseEl.textContent = isEn ? ('PHASE ' + phase.num + ' / ' + phase.lens) : i18n.t('course.orbitPhasePrefix', { num: phase.num, lens: phase.lens }, '');
-      titleEl.textContent = phase.name;
-      copyEl.textContent = phase.summary;
-      action.removeAttribute('target'); action.removeAttribute('rel');
-      action.setAttribute('href', stageHref(indexOrNull));
-      action.innerHTML = (indexOrNull === 0
-        ? clean(isEn ? 'Enter lesson 01' : (c.orbitEnterL1 || 'Enter lesson 01'))
-        : clean(isEn ? ('Open phase ' + phase.num + ' review lesson') : i18n.t('course.orbitOpenPhase', { num: phase.num }, ''))) + ' <span aria-hidden="true">↗</span>';
+      const detail = getDetailState(isPhase ? indexOrNull : null);
+      phaseEl.textContent = detail.eyebrow;
+      titleEl.textContent = detail.title;
+      copyEl.textContent = detail.copy;
+      action.removeAttribute('target');
+      action.removeAttribute('rel');
+      action.setAttribute('href', detail.href);
+      action.innerHTML = clean(detail.action) + ' <span aria-hidden="true">↗</span>';
     }
     cycleLinks.forEach(link => {
       const i = Number(link.dataset.cyclePhase);

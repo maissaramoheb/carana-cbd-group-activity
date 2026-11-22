@@ -169,8 +169,32 @@ const errors = [];
           await checkCardGeometry(page, isMobile, `${profile} ${lang}`);
 
           const expected = lang === 'en' ? english : require('../../locales/' + lang + '/ui.json').course.phasesMeta.map(x => x.name);
+          const snapGeom = () => page.evaluate(() => {
+            const g = s => { const el = document.querySelector(s); return el ? el.getBoundingClientRect() : null; };
+            return {
+              docH: document.documentElement.scrollHeight,
+              scrollY: window.scrollY,
+              detailH: g('.cycle-detail')?.height || 0,
+              heroY: g('.curriculum-hero .hero-copy')?.top || 0,
+              orbitY: g('.cycle-orbit')?.top || 0,
+              deskY: g('.curriculum-highlights')?.top || 0,
+              capPhaseY: g('#cycle-caption-phase')?.top || 0,
+              capTitleY: g('#cycle-caption-title')?.top || 0
+            };
+          });
+          const assertStableGeom = (cur, baseG, ctxLabel) => {
+            for (const k of ['docH', 'scrollY', 'detailH', 'heroY', 'orbitY', 'deskY', 'capPhaseY', 'capTitleY']) {
+              assert(Math.abs(cur[k] - baseG[k]) <= 0.5, `${ctxLabel} shifted ${k}: ${baseG[k]} -> ${cur[k]}`);
+            }
+          };
 
-          // Check semantic hrefs, hover/focus supporting panel, and reduced-motion behavior
+          // Scroll once on compact viewports so focus/pointer tests measure actual layout stability cleanly
+          if (width <= 1080) {
+            await page.evaluate(() => window.scrollTo(0, Math.max(0, Math.round(document.querySelector('.cycle-orbit').getBoundingClientRect().top + window.scrollY - 60))));
+          }
+          const baseGeom = await snapGeom();
+
+          // Check semantic hrefs, hover/focus supporting panel, reduced-motion, and zero layout shift
           for (let i = 0; i < 6; i++) {
             const link = page.locator('a.cycle-stage[data-cycle-phase="' + i + '"]');
             const href = await link.getAttribute('href');
@@ -178,12 +202,13 @@ const errors = [];
             if (i > 0 && lang !== 'en') assert(href.includes('lang=' + encodeURIComponent(lang)), 'Missing lang param in href: ' + href);
 
             const beforeTransform = await link.evaluate(el => getComputedStyle(el).transform);
-            await link.focus();
+            await link.evaluate(el => el.focus({ preventScroll: true }));
             assert.equal(await page.locator('.cycle-orbit').getAttribute('data-active-phase'), String(i));
             assert.equal(await page.locator('a.cycle-stage[data-active="true"]').count(), 1);
             assert.equal(await page.locator('#cycle-caption-title').innerText(), expected[i]);
             const capHref = await page.locator('#cycle-caption-action').getAttribute('href');
             assert(capHref && capHref.includes(i === 0 ? '#lesson-1' : ('lesson=cbd-' + (i + 1))));
+            assertStableGeom(await snapGeom(), baseGeom, `${profile} ${lang} focus phase ${i}`);
 
             const outline = await link.evaluate(el => parseFloat(getComputedStyle(el).outlineWidth) || 0);
             assert(outline >= 2, `Missing visible focus outline on ${profile} ${lang} phase ${i}`);
@@ -209,16 +234,29 @@ const errors = [];
             await auditAxe(page, `${profile} ${lang}`, rows);
           }
 
-          // Verify desktop hover resets on mouseleave (when not focused)
+          // Verify hover over all 6 cards + mouseleave produces zero page movement
           if (!isMobile) {
-            await page.locator('h1').focus().catch(() => {});
             await page.evaluate(() => document.activeElement?.blur?.());
-            await page.locator('a.cycle-stage[data-cycle-phase="1"]').hover();
-            assert.equal(await page.locator('#cycle-caption-title').innerText(), expected[1]);
-            assert.equal(await page.locator('.cycle-orbit').getAttribute('data-active-phase'), '1');
             await page.mouse.move(10, 10);
             await page.waitForFunction(() => document.querySelector('.cycle-orbit')?.getAttribute('data-active-phase') === '');
+            const hoverBase = await snapGeom();
+            for (let i = 0; i < 6; i++) {
+              const link = page.locator('a.cycle-stage[data-cycle-phase="' + i + '"]');
+              const box = await link.boundingBox();
+              if (box && box.y >= 0 && box.y + box.height <= 900) {
+                await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+              } else {
+                await link.dispatchEvent('pointerenter', { pointerType: 'mouse' });
+              }
+              assert.equal(await page.locator('#cycle-caption-title').innerText(), expected[i]);
+              assert.equal(await page.locator('.cycle-orbit').getAttribute('data-active-phase'), String(i));
+              assertStableGeom(await snapGeom(), hoverBase, `${profile} ${lang} hover phase ${i}`);
+            }
+            await page.mouse.move(10, 10);
+            await page.waitForFunction(() => document.querySelector('.cycle-orbit')?.getAttribute('data-active-phase') === '');
+            assertStableGeom(await snapGeom(), hoverBase, `${profile} ${lang} mouseleave`);
           }
+          await page.evaluate(() => window.scrollTo(0, 0));
         }
 
         // Direct navigation verification for ALL 6 stations on desktop & mobile (1-click / 1-tap!)
