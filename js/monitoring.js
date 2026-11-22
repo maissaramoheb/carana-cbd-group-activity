@@ -1,4 +1,5 @@
 /* Native Vercel scripts; finite educational metadata only. No learner storage. */
+import { injectSpeedInsights } from './vendor/vercel-speed-insights.js';
 (function (w, d) {
   'use strict';
   if (w.CARANA_MONITORING) return;
@@ -80,15 +81,18 @@
     script.dataset.disableAutoTrack = '1';
   }
   if (speed) {
-    w.si = w.si || function () { (w.siq = w.siq || []).push(arguments); };
-    w.si('beforeSend', value => {
-      const known = /^\/cbd\/(home|catalog|notebook|lessons\/cbd-[1-6]|workbenches(?:\/(?:[1-6]|group))?)$/;
-      const url = known.test(value.route) ? w.location.origin + value.route : canonicalUrl();
-      return url ? { ...value, url } : null;
+    injectSpeedInsights({
+      sampleRate: 0.1,
+      softNavs: false,
+      route: route().path,
+      beforeSend(value) {
+        const known = /^\/cbd\/(home|catalog|notebook|lessons\/cbd-[1-6]|workbenches(?:\/(?:[1-6]|group))?)$/;
+        const url = known.test(value.route) ? w.location.origin + value.route : canonicalUrl();
+        return url ? { ...value, url } : null;
+      }
     });
-    speedScript = inject('/_vercel/speed-insights/script.js', 'carana-speed-insights');
-    speedScript.dataset.sampleRate = '0.1';
-    speedScript.dataset.softNavs = 'false';
+    speedScript = d.head.querySelector('script[src*="/_vercel/speed-insights/script.js"]');
+    if (speedScript) speedScript.id = 'carana-speed-insights';
   }
   changed();
   w.addEventListener('hashchange', changed);

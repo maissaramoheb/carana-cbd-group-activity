@@ -63,10 +63,13 @@ console.log('Course built with 18 verified local recordings; no generation or ne
 // Monitoring is an output-only addition; original single-file activities stay intact.
 const monitoredPages = ['course/index.html', 'platform/index.html', 'platform/notebook.html',
   'CARANA_CBD_Group_Activity.html', ...Array.from({ length: 6 }, (_, i) => `module${i + 1}.html`)];
+await fs.mkdir(path.join(dist, 'js/vendor'), { recursive: true });
+await fs.copyFile(path.join(root, 'node_modules/@vercel/speed-insights/dist/index.mjs'), path.join(dist, 'js/vendor/vercel-speed-insights.js'));
+await fs.copyFile(path.join(root, 'node_modules/@vercel/speed-insights/LICENSE'), path.join(dist, 'js/vendor/vercel-speed-insights.LICENSE'));
 for (const page of monitoredPages) {
   const file = path.join(dist, page);
   const html = await fs.readFile(file, 'utf8');
-  const scripts = '<script src="/js/monitoring-config.js" defer></script><script src="/js/monitoring.js" defer></script>';
+  const scripts = '<script src="/js/monitoring-config.js" defer></script><script src="/js/monitoring.js" type="module"></script>';
   await fs.writeFile(file, html.replace('</head>', scripts + '</head>'));
 }
 

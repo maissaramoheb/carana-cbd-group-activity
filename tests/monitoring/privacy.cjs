@@ -1,18 +1,19 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
-const code=fs.readFileSync('js/monitoring.js','utf8');
+const code=fs.readFileSync('js/monitoring.js','utf8').replace(/^import .*;$/m,'');
+const sdk=fs.readFileSync('node_modules/@vercel/speed-insights/dist/index.mjs','utf8').replace(/export \{[\s\S]*?\};/,'');
 test('shipped configuration prohibits metered Web Analytics collection',()=>{
  const context={window:{}};vm.runInNewContext(fs.readFileSync('js/monitoring-config.js','utf8'),context);
  assert.equal(context.window.CARANA_MONITORING_CONFIG.webAnalytics,false);
  assert(Object.isFrozen(context.window.CARANA_MONITORING_CONFIG));
 });
 function harness(url='https://e-learning.maissara.tech/course/?code=PRIVATE#home',config={webAnalytics:false,speedInsights:true}){
- const scripts=[],listeners={},clicks={},document={documentElement:{lang:'en'},head:{appendChild:s=>scripts.push(s)},getElementById:id=>scripts.find(s=>s.id===id),createElement:()=>({dataset:{}}),addEventListener:(n,f)=>clicks[n]=f};
+ const scripts=[],listeners={},clicks={},document={documentElement:{lang:'en'},head:{appendChild:s=>scripts.push(s),querySelector:selector=>scripts.find(s=>selector.includes(s.src))},getElementById:id=>scripts.find(s=>s.id===id),createElement:()=>({dataset:{}}),addEventListener:(n,f)=>clicks[n]=f};
  const window={location:new URL(url),CARANA_MONITORING_CONFIG:config,addEventListener:(n,f)=>listeners[n]=f};
- const context=vm.createContext({window,document,URL});vm.runInContext(code,context);return{window,scripts,listeners,context};
+ const context=vm.createContext({window,document,URL});vm.runInContext(sdk,context);vm.runInContext(code,context);return{window,scripts,listeners,context};
 }
 test('zero-cost configuration never initializes Web Analytics or queues educational events',()=>{
- const h=harness();assert.equal(h.window.va,undefined);assert.deepEqual(h.scripts.map(s=>s.id),['carana-speed-insights']);assert.equal(h.window.CARANA_MONITORING.event('lesson_started','cbd-1'),false);assert.equal(h.window.vaq,undefined);assert.equal(h.scripts[0].dataset.sampleRate,'0.1');
+ const h=harness();assert.equal(h.window.va,undefined);assert.deepEqual(h.scripts.map(s=>s.id),['carana-speed-insights']);assert.equal(h.window.CARANA_MONITORING.event('lesson_started','cbd-1'),false);assert.equal(h.window.vaq,undefined);assert.equal(h.scripts[0].dataset.sampleRate,'0.1');assert.equal(h.scripts[0].dataset.sdkn,'@vercel/speed-insights');assert.equal(h.scripts[0].dataset.sdkv,'2.1.0');
  const hook=h.window.siq[0][1];assert.equal(hook({type:'vital',url:'https://cbd.maissara.tech/course/?access_code=PRIVATE#PRIVATE'}).url,'https://e-learning.maissara.tech/cbd/home');
 });
 test('offline, unrelated hosts and owner-only pages never collect',()=>{

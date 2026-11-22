@@ -20,5 +20,8 @@
     "ai:emergency-stop": "node tools/carana-service.cjs emergency-stop",
     "ai:unload": "node tools/carana-service.cjs unload",
     "ai:users": "node tools/pilot-users.cjs"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "2.1.0"
   }
 }
