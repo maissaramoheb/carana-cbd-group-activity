@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use or reference this educational software in academic work, policy analysis, or training design, please cite it using the metadata below."
+message: "Cite the original Learning Lab software using the metadata below. For the expanded E-Learning technical report, see docs/publication/CITATION.cff (DOI 10.5281/zenodo.24495425)."
 title: "CARANA CBD Learning Lab"
 abstract: "An offline-first, local-first interactive simulation laboratory supporting the six phases of United Nations Police (UNPOL) Capacity-Building and Development (CBD). Designed for peace operations personnel, police development advisers, and training institutions to translate peacekeeping intelligence into structured, evidence-based planning outputs."
 type: software

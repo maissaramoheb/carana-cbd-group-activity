@@ -1,0 +1,36 @@
+{
+  "title": "CARANA CBD E-Learning: Original Learning Architecture and Implementation Record",
+  "resource_type": "Publication / Report",
+  "creators": [
+    {
+      "name": "Selim, Maissara",
+      "orcid": "0009-0004-3009-5888"
+    }
+  ],
+  "version": "1.0",
+  "description": "A technical record of original instructional and software implementation contributions in an independently developed interactive police capacity-building learning environment, documenting reusable learning architecture, six connected practical workbenches, local-first learning state, multilingual presentation and optional source-grounded learning assistance. The record is documentation only, not a software archive or official UN publication. Curriculum and third-party rights remain with their respective rights holders; technical verification does not establish institutional approval or learning effectiveness.",
+  "keywords": [
+    "educational technology",
+    "instructional design",
+    "police capacity development",
+    "peace operations",
+    "interactive learning",
+    "learning architecture",
+    "local-first software",
+    "multilingual learning",
+    "AI-assisted learning"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/maissaramoheb/carana-cbd-group-activity/commit/643799ff4a675eac96f50154bb2792181c9a2b59",
+      "relation": "IsSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "publication_date": "2026-11-24",
+  "access_and_license": "Public record as shown in Zenodo. Owner reported configuring a custom All Rights Reserved statement; final published license display has not been independently checked. No software license changes.",
+  "historical_doi_reference": "10.5281/zenodo.23284920 (verify externally before linking or versioning)",
+  "doi": "10.5281/zenodo.24495425",
+  "note": "Published report record, as confirmed by the owner’s Zenodo screenshot and DOI import into ORCID. Preserve the historical root software citation and .zenodo.json. Independent external resolution and final license display have not been verified in this session.",
+  "concept_doi": "10.5281/zenodo.24495424"
+}

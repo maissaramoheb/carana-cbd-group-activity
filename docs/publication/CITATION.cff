@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Please cite this technical implementation record using the metadata below. The original Learning Lab retains its separate historical citation."
+title: "CARANA CBD E-Learning: Original Learning Architecture and Implementation Record"
+authors:
+  - family-names: "Selim"
+    given-names: "Maissara"
+    orcid: "https://orcid.org/0009-0004-3009-5888"
+version: "1.0"
+date-released: "2026-11-24"
+doi: "10.5281/zenodo.24495425"
+url: "https://doi.org/10.5281/zenodo.24495425"
+repository-code: "https://github.com/maissaramoheb/carana-cbd-group-activity"
+abstract: "A technical documentation record of an independently developed police capacity-building learning environment, distinguishing original software and instructional contributions from third-party curriculum materials. Published technical report; not an official UN publication or a new software release."
+keywords:
+  - "learning architecture"
+  - "instructional design"
+  - "peace operations"
+  - "educational technology"
+  - "police capacity development"
+preferred-citation:
+  type: report
+  title: "CARANA CBD E-Learning: Original Learning Architecture and Implementation Record"
+  authors:
+    - family-names: "Selim"
+      given-names: "Maissara"
+      orcid: "https://orcid.org/0009-0004-3009-5888"
+  doi: "10.5281/zenodo.24495425"
+  url: "https://doi.org/10.5281/zenodo.24495425"
+  year: 2026
+  date-published: "2026-11-24"

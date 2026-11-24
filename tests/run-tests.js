@@ -1157,7 +1157,8 @@ runTest('Branding: Consistent Author Attribution across Portal Hub, Modules 1–
 
   htmlFiles.forEach(file => {
     const content = fs.readFileSync(path.join(ROOT_DIR, file), 'utf8');
-    assert(content.includes(authorString), `${file} must contain author attribution "${authorString}"`);
+    const expectedAuthor = file === 'index.html' ? 'Prepared by Maissara Selim' : authorString;
+    assert(content.includes(expectedAuthor), `${file} must contain author attribution "${expectedAuthor}"`);
   });
 
   // Verify dossier in module6.js also contains author attribution
