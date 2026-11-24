@@ -3,10 +3,11 @@
 **Author:** Maissara Selim  
 **ORCID:** https://orcid.org/0009-0004-3009-5888  
 **Record date:** 2026-11-24  
+**DOI:** https://doi.org/10.5281/zenodo.24495425 (reserved for this record; activated upon Zenodo publication)  
 **Record version:** 1.0 (technical documentation record; not a new software release)  
 **Status:** Independent instructional and software development; not an official United Nations publication, approval, certification or endorsement.
 
-Copyright © 2026 Maissara Selim in the author's original expression and contributions, subject to applicable employment obligations, third-party rights, and agreements. This statement does not claim ownership of United Nations curricula, scenarios, marks, pre-existing frameworks or institutional concepts, nor supersede existing permissions.
+Copyright © 2026 Maissara Selim. All rights reserved in the author's original contributions, subject to applicable employment obligations, third-party rights, and agreements. Reading, referencing and academic citation are permitted. Reproduction, adaptation and redistribution require appropriate authorization, except as permitted by applicable law or existing permissions. This statement does not claim ownership of United Nations curricula, scenarios, marks, pre-existing frameworks or institutional concepts, nor supersede existing permissions.
 
 ## Abstract
 
@@ -45,8 +46,8 @@ This record is intentionally a description of the author's original technical an
 
 No new blanket software license, copyright assignment, unrestricted redistribution permission or institutional handover is granted by this record. Before archival publication, verify the author's applicable rights and employment obligations, select an appropriate document license, and confirm that the selected archival files contain only authorized material. Preserve historical citation metadata and existing permissions.
 
-## Citation (before archival registration)
+## Recommended citation
 
-Selim, M. (2026). *CARANA CBD E-Learning: Original Learning Architecture and Implementation Record* (Version 1.0) [Technical report]. GitHub. https://github.com/maissaramoheb/carana-cbd-group-activity/blob/publication/elearning-attribution-2026-11/docs/publication/IMPLEMENTATION_RECORD.md
+Selim, M. (2026). *CARANA CBD E-Learning: Original Learning Architecture and Implementation Record* (Version 1.0) [Technical report]. Zenodo. https://doi.org/10.5281/zenodo.24495425
 
-A DOI may be added only after actual repository registration and verification. No DOI is claimed for this new record at this stage.
+This identifier was reserved for this record before deposit. DOI registration and public resolution take effect upon publication in Zenodo. This report is a documentation record, not a new release of the complete software package.
