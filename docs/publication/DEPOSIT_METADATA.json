@@ -27,9 +27,10 @@
       "scheme": "url"
     }
   ],
-  "publication_date": "SET TO ACTUAL DATE OF DEPOSIT",
-  "access_and_license": "Owner and rights-authority review required. Select the document license only after verifying rights; deposit only IMPLEMENTATION_RECORD.md, not a GitHub archive.",
+  "publication_date": "2026-11-24",
+  "access_and_license": "Public record as shown in Zenodo. Owner reported configuring a custom All Rights Reserved statement; final published license display has not been independently checked. No software license changes.",
   "historical_doi_reference": "10.5281/zenodo.23284920 (verify externally before linking or versioning)",
-  "doi": "NOT REGISTERED",
-  "note": "Manual deposit preparation only; not a Zenodo API request body. Do not replace root CITATION.cff or .zenodo.json until a deliberate versioning decision is made."
+  "doi": "10.5281/zenodo.24495425",
+  "note": "Published report record, as confirmed by the owner’s Zenodo screenshot and DOI import into ORCID. Preserve the historical root software citation and .zenodo.json. Independent external resolution and final license display have not been verified in this session.",
+  "concept_doi": "10.5281/zenodo.24495424"
 }
