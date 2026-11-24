@@ -6,9 +6,11 @@ The **CARANA CBD Learning Lab** represents a dual-heritage instructional softwar
 
 ### 1.1 Original Software Engineering & Instructional Design
 - **Copyright © 2026 Maissara Selim**
-- **Attribution:** *Prepared by Lt. Col. Maissara Selim*
+- **Attribution:** *Prepared by Maissara Selim*
 - **Author ORCID:** [0009-0004-3009-5888](https://orcid.org/0009-0004-3009-5888)
-- The application architecture, user interface, client-side data pipeline, local-first multi-tab synchronization engine, mathematical scoring logic, 36-stage interactive tools, session reset system, and print formatting engine were conceived, designed, and developed by Lt. Col. Maissara Selim.
+- The application architecture, user interface, client-side data pipeline, local-first multi-tab synchronization engine, mathematical scoring logic, 36-stage interactive tools, session reset system, and print formatting engine were conceived, designed, and developed by Maissara Selim.
+
+- **Expanded E-Learning technical report:** [10.5281/zenodo.24495425](https://doi.org/10.5281/zenodo.24495425), published 2026-11-24; [all-version DOI](https://doi.org/10.5281/zenodo.24495424). This report records original contributions and does not change the software's existing distribution terms or license any UN-origin materials.
 
 ### 1.2 United Nations Training Materials & Doctrinal Heritage
 - The fictional **CARANA country scenario** (57 paragraphs), institutional background on Galasi City Police Station, and the **Job-Specific Training (JST) on Capacity-Building and Development (CBD, 2021/2023)** curriculum frameworks originate from the United Nations Department of Peace Operations (DPO), the United Nations Police Division, and the Integrated Training Service (ITS).
