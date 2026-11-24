@@ -8,9 +8,10 @@ authors:
     orcid: "https://orcid.org/0009-0004-3009-5888"
 version: "1.0"
 date-released: "2026-11-24"
-url: "https://github.com/maissaramoheb/carana-cbd-group-activity/blob/publication/elearning-attribution-2026-11/docs/publication/IMPLEMENTATION_RECORD.md"
+doi: "10.5281/zenodo.24495425"
+url: "https://doi.org/10.5281/zenodo.24495425"
 repository-code: "https://github.com/maissaramoheb/carana-cbd-group-activity"
-abstract: "A technical documentation record of an independently developed police capacity-building learning environment, distinguishing original software and instructional contributions from third-party curriculum materials. This record does not assert official UN approval or constitute a new software release."
+abstract: "A technical documentation record of an independently developed police capacity-building learning environment, distinguishing original software and instructional contributions from third-party curriculum materials. Published technical report; not an official UN publication or a new software release."
 keywords:
   - "learning architecture"
   - "instructional design"
