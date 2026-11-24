@@ -17,9 +17,17 @@ The **CARANA CBD Learning Lab** is an offline-capable, local-first instructional
 The software guides learning syndicates through the complete **Capacity-Building and Development (CBD) project cycle**, translating authentic mission intelligence into evidence-based problem statements, prioritised strategic objectives, logical frameworks, implementation monitoring logs, crisis adaptation strategies, and a formal transition handover instrument.
 
 ### Author Attribution
-**Prepared by Lt. Col. Maissara Selim**  
+**Designed and developed by Maissara Selim**  
 *Senior Police Planning & Training Specialist | UN Peacekeeping Operations Researcher*  
 ORCID: [0009-0004-3009-5888](https://orcid.org/0009-0004-3009-5888)
+
+### Publication and citation
+
+- **Original Learning Lab (software):** the historical repository citation remains [10.5281/zenodo.23284920](https://doi.org/10.5281/zenodo.23284920), v1.0.1 (2026-10-10).
+- **Expanded E-Learning (technical report):** Selim, M. (2026). *CARANA CBD E-Learning: Original Learning Architecture and Implementation Record* (Version v1) [Technical report]. Zenodo. [10.5281/zenodo.24495425](https://doi.org/10.5281/zenodo.24495425). Published 2026-11-24; [all versions](https://doi.org/10.5281/zenodo.24495424).
+- [Published implementation record source](https://github.com/maissaramoheb/carana-cbd-group-activity/blob/5702f9ebf8c150fcd9d455cf33829f5557fcb938/docs/publication/IMPLEMENTATION_RECORD.md) · [Live e-learning application](https://e-learning.maissara.tech/) · [ORCID](https://orcid.org/0009-0004-3009-5888).
+
+The new DOI identifies the report, not a new release of the entire software. The original software citation and existing use permissions remain unchanged. Original software and instructional-design contributions are attributed to Maissara Selim; UN-origin curricula and scenario materials remain subject to their respective rights. No official UN endorsement is implied.
 
 ---
 
